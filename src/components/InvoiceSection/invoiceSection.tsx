@@ -11,7 +11,8 @@ const InvoiceSection: FC = () => {
     <Box
       borderTop={5}
       sx={{
-        backgroundColor: palette.color.eggWhite,
+        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+        backgroundColor: palette.base.white,
         width: "100%",
         padding: 5,
       }}
