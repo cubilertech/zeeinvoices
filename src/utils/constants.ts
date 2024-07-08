@@ -4,4 +4,9 @@ export const icons = {
   twitter: "/Images/logos/twitter.svg",
   instagarm: "/Images/logos/instagram.svg",
   facebook: "/Images/logos/facebook.svg",
+  uploadLogo: "Images/icons/upload-logo.svg",
+  arrowDown: "Images/icons/arrow-down.svg",
+  sendSqaure: "Images/icons/send-sqaure.svg",
+  printIcon: "Images/icons/printer-icon.svg",
+
 };

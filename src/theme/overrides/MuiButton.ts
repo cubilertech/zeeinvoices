@@ -1,5 +1,6 @@
 import { Theme } from "@mui/material/styles";
 import { palette } from "../palette";
+import { Margin, Padding } from "@mui/icons-material";
 
 export const MuiButton = () => {
   return {
@@ -42,7 +43,10 @@ export const MuiButton = () => {
             color: palette.primary.main,
           },
         },
-        text: {},
+        text: {
+          padding:0,
+          margin:0,
+        },
       },
     },
   };

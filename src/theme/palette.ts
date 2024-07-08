@@ -101,6 +101,15 @@ const base = {
   transparent: "#FFFFFF 0%",
 };
 
+const borderColor = {
+  borderColor: "#D6DAE1",
+};
+
+const textGreyColor = {
+  textGreyColor: "#697483",
+};
+
+
 export const palette = {
   mode: "dark" as PaletteMode,
   primary: {
@@ -112,6 +121,8 @@ export const palette = {
     // ...brand,
   },
   base: base,
+  borderColor,
+  textGreyColor,
   error: {
     main: "#F04438",
     // ...error,
@@ -134,6 +145,7 @@ export const palette = {
     gray: {
       ...gray,
     },
+
     ...color,
   },
 };
