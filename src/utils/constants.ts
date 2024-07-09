@@ -8,5 +8,6 @@ export const icons = {
   arrowDown: "Images/icons/arrow-down.svg",
   sendSqaure: "Images/icons/send-sqaure.svg",
   printIcon: "Images/icons/printer-icon.svg",
-
+  addCircle: "Images/icons/add-circle.svg",
+  addCircleOutlined: "Images/icons/add-circle-outlined.svg",
 };

@@ -5,7 +5,7 @@ import { Box, Container, Stack } from "@mui/material";
 
 const CreateInvoice = () => {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{overflowY:"auto", height:"100%"}}>
       <Box sx={{ py: 4 }}>
         <InvoiceHeader invoiceName="001" />
       </Box>

@@ -67,6 +67,7 @@ const gray = {
   150: "rgba(255, 255, 255, 0.37)",
   100: "#90919b",
   50: "#8f8f94",
+  10: "#E0E0E0",
 };
 
 const opacity = {
@@ -109,6 +110,14 @@ const textGreyColor = {
   textGreyColor: "#697483",
 };
 
+const dashedBorderColor = {
+  borderColor: "#C8C8C8",
+};
+
+const itemsHeadColor = {
+  itemsHeadColor: "#333333",
+};
+
 
 export const palette = {
   mode: "dark" as PaletteMode,
@@ -123,6 +132,8 @@ export const palette = {
   base: base,
   borderColor,
   textGreyColor,
+  dashedBorderColor,
+  itemsHeadColor,
   error: {
     main: "#F04438",
     // ...error,

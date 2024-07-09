@@ -45,7 +45,7 @@ const InvoiceType: FC<InvoiceType> = ({ type }) => {
             width: 240,
             height: 36,
             // backgroundColor:"black",
-            borderColor: "black !important",
+            borderColor: `${palette.borderColor.borderColor}  !important`,
             border:1,
             borderRadius: 2,
             paddingRight:2,

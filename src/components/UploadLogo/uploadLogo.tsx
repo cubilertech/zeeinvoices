@@ -10,7 +10,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   return (
     <Box
       borderRadius={1}
-      sx={{ border: "1px dashed", padding: 1, width: 200, height: 56, cursor:"pointer", borderColor:palette.borderColor.borderColor}}
+      sx={{ border: "1px dashed", padding: 1, width: 200, height: 56, cursor:"pointer", borderColor:palette.dashedBorderColor.borderColor}}
     >
       <Stack direction={"row"} spacing={1}>
         <Icon icon="uploadLogo" height={31} width={34} />
