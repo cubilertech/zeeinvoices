@@ -18,7 +18,7 @@ import { icons } from "@/utils/constants";
 import { InvoiceDatePicker } from "../InvoiceDatePicker";
 
 interface DetailSelecter {
-  title: string;
+  title?: string;
   detailsOf: string;
   addDetailsOf: string;
 }
@@ -36,9 +36,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
         // border:`1px solid ${palette.borderColor.borderColor}`,
       }}
     >
-      <Typography variant="body1" color={palette.color.gray[100]}>
-        {title}
-      </Typography>
+      {title && (
+        <Typography variant="body1" color={palette.color.gray[100]}>
+          {title}
+        </Typography>
+      )}
       <Box
         borderRadius={1}
         sx={{
@@ -47,7 +49,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           marginTop: 1.5,
           padding: 2,
           borderRadius: 2,
-          cursor:"pointer",
+          cursor: "pointer",
           border: `1px solid ${palette.borderColor.borderColor}`,
         }}
       >
@@ -58,7 +60,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           direction={"column"}
           spacing={1.5}
           sx={{
-            height:"90%",
+            height: "90%",
             justifyContent: "center",
             alignItems: "center",
             display: "flex",

@@ -7,7 +7,7 @@ interface InvoiceHeaderProps {
 }
 const InvoiceHeader: FC<InvoiceHeaderProps> = ({ invoiceName }) => {
   return (
-    <Stack direction={"row"} justifyContent={"space-between"}>
+    <Stack direction={"row"} justifyContent={"space-between"} sx={{marginTop:"5%"}}>
       <Typography variant="display-xs-medium">
         Invoice: {invoiceName}
       </Typography>

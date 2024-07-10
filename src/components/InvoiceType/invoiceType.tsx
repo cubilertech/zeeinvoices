@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Box,
   Button,
@@ -25,11 +25,13 @@ import {
   ArrowDropDownRounded,
   LogoDev,
 } from "@mui/icons-material";
+import { platform } from "os";
 
 interface InvoiceType {
   type: string;
+  menuData?: string[];
 }
-const InvoiceType: FC<InvoiceType> = ({ type }) => {
+const InvoiceType: FC<InvoiceType> = ({ type, menuData }) => {
   return (
     <Box borderRadius={1} sx={{ width: 240, height: 60 }}>
       <Stack direction={"column"} spacing={0.5}>
@@ -40,21 +42,59 @@ const InvoiceType: FC<InvoiceType> = ({ type }) => {
           labelId="demo-simple-select-label"
           id="type-select"
           value="Select"
-          label="Age"
+          // label="Age"
+          displayEmpty
+          placeholder="Select"
+          MenuProps={{
+            PaperProps: {
+              sx: {
+                bgcolor: palette.base.white, // Change dropdown background color
+              },
+            },
+          }}
+          renderValue={(selected) => {
+            if (!selected) {
+              return <span style={{ color: 'grey' }}>Select</span>; // Placeholder text styling
+            }
+            return selected;
+          }}
           sx={{
             width: 240,
             height: 36,
             // backgroundColor:"black",
             borderColor: `${palette.borderColor.borderColor}  !important`,
-            border:1,
+            border: 1,
             borderRadius: 2,
-            paddingRight:2,
+            paddingRight: 2,
             marginTop: 0,
+            backgroundColor: palette.base.white,
           }}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {menuData &&
+            menuData?.map((item) => (
+              <MenuItem
+                sx={{
+                  color: palette.base.black,
+                  backgroundColor: palette.base.white,
+                  "&.Mui-selected": {
+                    bgcolor: "lightgreen", // Change background color of selected item
+                    color: "darkblue", // Change text color of selected item
+                    "&:hover": {
+                      bgcolor: "lightgreen", // Keep background color on hover for selected item
+                    },
+                  },
+                  "&:hover": {
+                    bgcolor: "lightgrey", // Change background color on hover
+                  },
+                }}
+                value={10}
+              >
+                {item}
+              </MenuItem>
+            ))}
+          {/* <MenuItem value={10}>type1</MenuItem> */}
+          {/* <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem> */}
         </Select>
         {/* <Box
           borderRadius={2}

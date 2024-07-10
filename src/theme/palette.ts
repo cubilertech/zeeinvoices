@@ -118,6 +118,9 @@ const itemsHeadColor = {
   itemsHeadColor: "#333333",
 };
 
+const addItemsColor = {
+  itemsHeadColor: "#E0E0E0",
+};
 
 export const palette = {
   mode: "dark" as PaletteMode,

@@ -5,8 +5,15 @@ import { palette } from "@/theme/palette";
 const Header = () => {
   return (
     <AppBar
-      position="static"
-      sx={{ background: palette.base.white, py: "24px", boxShadow: "none" }}
+      position="fixed"
+      sx={{
+        top: 0,
+        left: 0,
+        background: palette.base.white,
+        py: "7px",
+        boxShadow: "none",
+        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+      }}
     >
       <Container
         maxWidth="lg"

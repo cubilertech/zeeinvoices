@@ -13,11 +13,17 @@ interface InvoiceDatePicker {
 }
 const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
   return (
-    <Stack direction={"row"} spacing={1} sx={{ width: 205, height: 40,
-        justifyContent:"center",
-        alignItems:"center",
-        display:"flex",
-     }}>
+    <Stack
+      direction={"row"}
+      spacing={1}
+      sx={{
+        width: 205,
+        height: 25,
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex",
+      }}
+    >
       <Typography
         variant="body1"
         color={"black"}
@@ -40,18 +46,20 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               },
               "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
                 {
-                  border: `1px solid ${palette.color.gray[500]}`,
+                  border: `1px solid ${palette.color.gray[100]}`,
                 },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
                 { border: `1px solid ${palette.color.gray[500]}` },
               "& .MuiOutlinedInput-input": {
-                padding: "7px !important",
+                padding: "3px !important",
                 color: palette.base.black,
                 fontSize: 12,
               },
+              "& .MuiInputBase-input": {
+                height: "20px !important",
+              },
               padding: "0px !important",
               width: "100%",
-              height: "100%",
             }}
           />
         </LocalizationProvider>

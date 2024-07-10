@@ -5,7 +5,7 @@ import { FC } from "react";
 
 const Footer: FC = () => {
   return (
-    <Box sx={{ position: "fixed", bottom: 0, left: 0, width: "100%" }}>
+    <Box sx={{ width: "100%" }}>
       {/* black footer */}
       <Box
         sx={{

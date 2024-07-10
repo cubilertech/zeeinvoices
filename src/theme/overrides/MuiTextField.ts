@@ -1,6 +1,7 @@
 import { Theme } from "@mui/material/styles";
 import { palette } from "../palette";
 import { Height } from "@mui/icons-material";
+import { colors } from "@mui/material";
 
 export const MuiTextField = () => {
   return {
@@ -8,37 +9,57 @@ export const MuiTextField = () => {
       styleOverrides: {
         root: {
           "&.MuiTextField-sizeSmall": {
-            height: "30px",
+            height: "24px",
+            border: `1px solid ${palette.borderColor.borderColor}`,
+            borderRadius: 1,
           },
-          "&.MuiTextField-sizeMedium": {
-            fontSize: "14px",
-            fontWeight: 400,
-            padding: "10px 20px",
+
+          "& .MuiInputBase-input": {
+            // Notice the space before .MuiInputBase-input
+            height: "32px",
+            // background: "red",
+            padding: "0px 10px",
+            width: "100%",
+            borderRadius: 1,
+            color: palette.base.black,
+            "&::placeholder": {
+              color: palette.color.gray[500], // Change this to your desired placeholder color
+            },
+            "&:-webkit-autofill": {
+              // change input field color on auto fill
+              WebkitBoxShadow: `0 0 0 100px ${palette.base.white} inset`,
+              WebkitTextFillColor: palette.base.black,
+            },
           },
-          "&.MuiTextField-sizeLarge": {
-            height: "45px",
+          // height: "32px",
+          borderRadius: 1,
+          background: palette.base.white,
+          // border: `1px solid ${palette.borderColor.borderColor}`,
+          // padding: " 10px 0px",
+          // textTransform: "none" as const,
+          // zIndex: 4,
+          // border: "none",
+          // boxShadow: "none",
+          // borderRadius: "8px",
+          "&:-webkit-autofill": {
+            WebkitBoxShadow: "0 0 0 100px #307ECC inset",
+            WebkitTextFillColor: "ffffff",
           },
-          textTransform: "none" as const,
-          zIndex: 4,
-          border: "none",
-          boxShadow: "none",
-          borderRadius: "8px",
         },
         contained: {
-          background: palette.primary.main,
-          color: palette.base.white,
-          "&:hover": {
-            color: palette.base.white,
-          },
+          // background: palette.primary.main,
+          // color: palette.base.white,
+          // "&:hover": {
+          //   color: palette.base.white,
+          // },
         },
         outlined: {
-          border: "1px solid",
-          borderColor: palette.primary.main,
-          color: palette.primary.main,
-          
-          "&:hover": {
-            color: palette.primary.main,
-          },
+          border: `1px solid ${palette.borderColor.borderColor}`,
+          color: palette.color.gray[700],
+
+          // "&:hover": {
+          //   color: palette.primary.main,
+          // },
         },
         text: {
           padding: 0,
