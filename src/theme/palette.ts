@@ -119,8 +119,14 @@ const itemsHeadColor = {
 };
 
 const addItemsColor = {
-  itemsHeadColor: "#E0E0E0",
+  addItemsColor: "#E0E0E0",
 };
+
+const switchTrackColor = {
+  switchTrackColor: "#34C759",
+};
+
+
 
 export const palette = {
   mode: "dark" as PaletteMode,
@@ -137,6 +143,7 @@ export const palette = {
   textGreyColor,
   dashedBorderColor,
   itemsHeadColor,
+  switchTrackColor,
   error: {
     main: "#F04438",
     // ...error,

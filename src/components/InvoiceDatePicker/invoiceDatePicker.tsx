@@ -39,17 +39,20 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileDatePicker
-            defaultValue={dayjs("2022-23-Sep")}
+            defaultValue={dayjs("2024-01-Jul")}
             sx={{
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                border: `1px solid ${palette.borderColor.borderColor}`,
+                // border: `1px solid ${palette.borderColor.borderColor}`,
               },
               "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
                 {
-                  border: `1px solid ${palette.color.gray[100]}`,
+                  // border: `1px solid ${palette.color.gray[100]}`,
                 },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                { border: `1px solid ${palette.color.gray[500]}` },
+                {
+                  border: `1px solid ${palette.color.gray[500]}`,
+                  borderRadius:1,
+                },
               "& .MuiOutlinedInput-input": {
                 padding: "3px !important",
                 color: palette.base.black,

@@ -27,13 +27,14 @@ import {
 } from "@mui/icons-material";
 import { platform } from "os";
 
-interface InvoiceType {
-  type: string;
+interface SelectInput {
+  width?: string | number;
+  type?: string;
   menuData?: string[];
 }
-const InvoiceType: FC<InvoiceType> = ({ type, menuData }) => {
+const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
   return (
-    <Box borderRadius={1} sx={{ width: 240, height: 60 }}>
+    <Box borderRadius={1} sx={{ height: 60 }}>
       <Stack direction={"column"} spacing={0.5}>
         <Typography variant="body1">{type}</Typography>
         {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
@@ -54,12 +55,12 @@ const InvoiceType: FC<InvoiceType> = ({ type, menuData }) => {
           }}
           renderValue={(selected) => {
             if (!selected) {
-              return <span style={{ color: 'grey' }}>Select</span>; // Placeholder text styling
+              return <span style={{ color: "grey" }}>Select</span>; // Placeholder text styling
             }
             return selected;
           }}
           sx={{
-            width: 240,
+            width: { width },
             height: 36,
             // backgroundColor:"black",
             borderColor: `${palette.borderColor.borderColor}  !important`,
@@ -128,4 +129,4 @@ const InvoiceType: FC<InvoiceType> = ({ type, menuData }) => {
   );
 };
 
-export default InvoiceType;
+export default SelectInput;

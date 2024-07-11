@@ -10,7 +10,7 @@ const Footer: FC = () => {
       <Box
         sx={{
           background: palette.color.gray[700],
-          py: "24px",
+          py: "10px",
         }}
       >
         <Container
@@ -30,7 +30,7 @@ const Footer: FC = () => {
         </Container>
       </Box>
       {/* white footer */}
-      <Box sx={{ background: palette.base.white, py: "24px" }}>
+      <Box sx={{ background: palette.base.white, py: "15px" }}>
         <Container
           maxWidth="lg"
           sx={{

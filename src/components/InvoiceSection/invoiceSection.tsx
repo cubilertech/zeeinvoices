@@ -1,7 +1,14 @@
-import { Box, IconButton, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { FC } from "react";
 import { UploadLogo } from "../UploadLogo";
-import { InvoiceType } from "../InvoiceType";
+import { SelectInput } from "../SelectInput";
 import { Rowdies } from "next/font/google";
 import { palette } from "@/theme/palette";
 import { Icon } from "../Icon";
@@ -19,6 +26,7 @@ const InvoiceSection: FC = () => {
         backgroundColor: palette.base.white,
         width: "100%",
         padding: 4,
+        marginBottom:3,
       }}
     >
       {/* First section, add logo, invoice type, print */}
@@ -26,7 +34,8 @@ const InvoiceSection: FC = () => {
       <Stack direction={"row"} justifyContent={"space-between"}>
         <Stack direction={"row"} spacing={3}>
           <UploadLogo logoDesc="Add your bussiness logo" />
-          <InvoiceType
+          <SelectInput
+            width={240}
             type="Invoice type"
             menuData={["Type 1", "Type 2", "Type 3"]}
           />
@@ -44,25 +53,34 @@ const InvoiceSection: FC = () => {
       </Stack>
       {/* Second section Detail selecters */}
       <Stack
-        direction={"row"}
+        // direction={"row"}
+        direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }}
         justifyContent={"space-between"}
+        gap={5}
         sx={{ marginTop: 2 }}
+        
       >
-        <DetailSelecter
-          title="From"
-          detailsOf="Sender details"
-          addDetailsOf="Add sender details"
-        />
-        <DetailSelecter
-          title="To"
-          detailsOf="Recipient details"
-          addDetailsOf="Add sender recipient"
-        />
+        <DetailSelecter title="From" detailsOf="Sender" />
+        <DetailSelecter title="To" detailsOf="Recipient" />
       </Stack>
       {/* Third section, Date pickers */}
-      <Stack direction={"row"} spacing={32} sx={{ marginTop: 5 }}>
-        <InvoiceDatePicker title="Invoice Date" />
-        <InvoiceDatePicker title="Due Date" />
+      <Stack direction={"row"} spacing={1} sx={{ marginTop: 5 }}>
+        <Grid container spacing={0}>
+          <Grid
+            sx={{ padding: "0px", paddingTop: "8px !important" }}
+            item
+            xs={6.5}
+          >
+            <InvoiceDatePicker title="Invoice Date" />
+          </Grid>
+          <Grid
+            sx={{ padding: "8px", paddingTop: "8px !important" }}
+            item
+            xs={5.5}
+          >
+            <InvoiceDatePicker title="Due Date" />
+          </Grid>
+        </Grid>
       </Stack>
       {/* Fourth section, add items table */}
       <InvoiceItemsTable />

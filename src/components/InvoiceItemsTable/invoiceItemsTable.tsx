@@ -56,7 +56,7 @@ const InvoiceItemsTable: FC = () => {
           <TextField
             // size="small"
             sx={{
-              border: `1px solid ${palette.borderColor.borderColor}`,
+              // border: `1px solid ${palette.borderColor.borderColor}`,
               borderRadius: 1,
               color: palette.color.gray[700],
               width: "100%",
@@ -71,7 +71,7 @@ const InvoiceItemsTable: FC = () => {
           <TextField
             // size="small"
             sx={{
-              border: `1px solid ${palette.borderColor.borderColor}`,
+              // border: `1px solid ${palette.borderColor.borderColor}`,
               borderRadius: 1,
               color: palette.color.gray[700],
             }}
@@ -84,7 +84,7 @@ const InvoiceItemsTable: FC = () => {
         <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
           <TextField
             sx={{
-              border: `1px solid ${palette.borderColor.borderColor}`,
+              // border: `1px solid ${palette.borderColor.borderColor}`,
               borderRadius: 1,
               color: palette.color.gray[700],
             }}
@@ -97,7 +97,7 @@ const InvoiceItemsTable: FC = () => {
         <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
           <TextField
             sx={{
-              border: `1px solid ${palette.borderColor.borderColor}`,
+              // border: `1px solid ${palette.borderColor.borderColor}`,
               borderRadius: 1,
               color: palette.color.gray[700],
             }}
@@ -118,12 +118,13 @@ const InvoiceItemsTable: FC = () => {
           xs={10}
         >
           <TextField
+          size="medium"
             sx={{
-              border: `1px solid ${palette.borderColor.borderColor}`,
-              borderRadius: 1,
-              color: palette.color.gray[700],
+              // border: `1px solid ${palette.borderColor.borderColor}`,
+              // borderRadius: 1,
+              // color: palette.color.gray[700],
               width: "100%",
-              height: "32px !important",
+              // height: "32px !important",
             }}
             id="outlined-basic"
             placeholder="Description"
