@@ -23,14 +23,14 @@ const TextField: FC<TextField> = ({ lable, size = "medium", sx }) => {
       <MuiTextField
         size="small"
         sx={
-          size == "large"
+          size === "large"
             ? {
                 "& .MuiInputBase-input": {
                   height: "48px",
                 },
                 ...sx,
               }
-            : size == "medium"
+            : size === "medium"
             ? {
                 "& .MuiInputBase-input": {
                   height: "32px",
@@ -38,7 +38,7 @@ const TextField: FC<TextField> = ({ lable, size = "medium", sx }) => {
                 },
                 ...sx,
               }
-            : size == "small"
+            : size === "small"
             ? {
                 ...sx,
               }

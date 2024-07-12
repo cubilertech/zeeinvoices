@@ -1,7 +1,4 @@
-import { Theme } from "@mui/material/styles";
 import { palette } from "../palette";
-import { BorderColor, Height } from "@mui/icons-material";
-import { colors } from "@mui/material";
 
 export const MuiTextField = () => {
   return {
@@ -10,7 +7,7 @@ export const MuiTextField = () => {
         root: {
           "&.MuiTextField-sizeSmall": {
             height: "42px",
-            border: `1px solid ${palette.borderColor.borderColor}`,
+            border: `1px solid ${palette.base.borderColor}`,
             borderRadius: 1,
           },
 
@@ -20,11 +17,11 @@ export const MuiTextField = () => {
             padding: "0px 10px",
             width: "100%",
             borderRadius: 7,
-            border: `1px solid ${palette.borderColor.borderColor}`,
+            border: `1px solid ${palette.base.borderColor}`,
             color: palette.base.black,
             "&:hover": {
               borderRadius: 7,
-              border: `1px solid ${palette.borderColor.borderColor}`,
+              border: `1px solid ${palette.base.borderColor}`,
             },
             "&::placeholder": {
               color: palette.color.gray[500], // Change this to your desired placeholder color
@@ -43,19 +40,12 @@ export const MuiTextField = () => {
           },
         },
         contained: {
-          // background: palette.primary.main,
-          // color: palette.base.white,
-          // "&:hover": {
-          //   color: palette.base.white,
-          // },
+          
         },
         outlined: {
-          border: `1px solid ${palette.borderColor.borderColor}`,
+          border: `1px solid ${palette.base.borderColor}`,
           color: palette.color.gray[700],
 
-          // "&:hover": {
-          //   color: palette.primary.main,
-          // },
         },
         text: {
           padding: 0,

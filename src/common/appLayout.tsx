@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 
 const AppLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <Box sx={{ background: palette.color.lightWhite, height: "100vh" }}>
+    <Box sx={{ background: palette.color.lightWhite, height: "100%" }}>
       <Header />
       {children}
       <Footer />

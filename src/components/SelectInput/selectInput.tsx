@@ -1,31 +1,8 @@
 "use client";
-import {
-  Box,
-  Button,
-  grid2Classes,
-  InputLabel,
-  Link,
-  MenuItem,
-  Select,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { FC } from "react";
+import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
+import { FC, useEffect, useState } from "react";
 import { Icon } from "../Icon";
-import { grey } from "@mui/material/colors";
 import { palette } from "@/theme/palette";
-import { icons } from "@/utils/constants";
-import {
-  ArrowDownward,
-  ArrowDownwardOutlined,
-  ArrowDownwardRounded,
-  ArrowDropDown,
-  ArrowDropDownCircleRounded,
-  ArrowDropDownOutlined,
-  ArrowDropDownRounded,
-  LogoDev,
-} from "@mui/icons-material";
-import { platform } from "os";
 
 interface SelectInput {
   width?: string | number;
@@ -33,17 +10,16 @@ interface SelectInput {
   menuData?: string[];
 }
 const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
+  const [selected, setSelected] = useState<null | string>(null);
   return (
     <Box borderRadius={1} sx={{ height: 60 }}>
       <Stack direction={"column"} spacing={0.5}>
         <Typography variant="body1">{type}</Typography>
-        {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
         <Select
-          IconComponent={() => <Icon icon="arrowDown" />}
+          IconComponent={() => <Icon icon="arrowDownIcon" />}
           labelId="demo-simple-select-label"
           id="type-select"
-          value="Select"
-          // label="Age"
+          value={selected}
           displayEmpty
           placeholder="Select"
           MenuProps={{
@@ -57,13 +33,13 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
             if (!selected) {
               return <span style={{ color: "grey" }}>Select</span>; // Placeholder text styling
             }
-            return selected;
+            return <span style={{ color: "black" }}>{selected}</span>;
           }}
           sx={{
             width: { width },
             height: 36,
             // backgroundColor:"black",
-            borderColor: `${palette.borderColor.borderColor}  !important`,
+            borderColor: `${palette.base.borderColor}  !important`,
             border: 1,
             borderRadius: 2,
             paddingRight: 2,
@@ -74,6 +50,7 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           {menuData &&
             menuData?.map((item) => (
               <MenuItem
+                onClick={() => setSelected(item)}
                 sx={{
                   color: palette.base.black,
                   backgroundColor: palette.base.white,
@@ -93,37 +70,7 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
                 {item}
               </MenuItem>
             ))}
-          {/* <MenuItem value={10}>type1</MenuItem> */}
-          {/* <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem> */}
         </Select>
-        {/* <Box
-          borderRadius={2}
-          sx={{
-            border: "1px solid",
-            padding: 0.7,
-            width: 240,
-            height: 36,
-            cursor: "pointer",
-            paddingRight: 2,
-            paddingLeft: 2,
-            borderColor: palette.borderColor.borderColor,
-          }}
-        >
-          <Stack direction={"row"} justifyContent={"space-between"}>
-            <Typography
-              variant="text-md-regular"
-              sx={{ width: 184, 
-                height: 24,
-                alignItems: "center",
-                color:palette.textGreyColor.textGreyColor
-               }}
-            >
-              Select
-            </Typography>
-            <Icon icon="arrowDown" height={16} width={16} />
-          </Stack>
-        </Box> */}
       </Stack>
     </Box>
   );

@@ -100,33 +100,28 @@ const base = {
   white: "#FFFFFF",
   black: "#000000",
   transparent: "#FFFFFF 0%",
-};
 
-const borderColor = {
   borderColor: "#D6DAE1",
-};
-
-const textGreyColor = {
   textGreyColor: "#697483",
-};
-
-const dashedBorderColor = {
-  borderColor: "#C8C8C8",
-};
-
-const itemsHeadColor = {
+  dashedBorderColor: "#C8C8C8",
   itemsHeadColor: "#333333",
-};
-
-const addItemsColor = {
   addItemsColor: "#E0E0E0",
-};
-
-const switchTrackColor = {
   switchTrackColor: "#34C759",
 };
 
+const borderColor = {
+  simpleBorderColor: "#D6DAE1",
+  dashedBorderColor: "#C8C8C8",
+};
 
+const tableColor = {
+  tableHeadColor: "#333333",
+  addItemsColor: "#E0E0E0",
+};
+
+const textColor = {
+  textGreyColor: "#697483",
+};
 
 export const palette = {
   mode: "dark" as PaletteMode,
@@ -139,11 +134,6 @@ export const palette = {
     // ...brand,
   },
   base: base,
-  borderColor,
-  textGreyColor,
-  dashedBorderColor,
-  itemsHeadColor,
-  switchTrackColor,
   error: {
     main: "#F04438",
     // ...error,
@@ -161,6 +151,10 @@ export const palette = {
   },
   opacity: {
     // ...opacity,
+  },
+  boxShadows: {
+    100: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
+    200: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
   },
   color: {
     gray: {

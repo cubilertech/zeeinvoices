@@ -14,7 +14,7 @@ const InvoiceSummary: FC = () => {
         borderRadius: 1,
         width: "240px",
         height: "176px",
-        border: `1px solid ${palette.borderColor.borderColor}`,
+        border: `1px solid ${palette.base.borderColor}`,
       }}
     >
       {/* summary head */}
@@ -23,7 +23,7 @@ const InvoiceSummary: FC = () => {
           width: "239px",
           height: "30px",
           borderRadius: "3px 3px 0px 0px",
-          backgroundColor: palette.itemsHeadColor.itemsHeadColor,
+          backgroundColor: palette.base.itemsHeadColor,
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
@@ -41,7 +41,7 @@ const InvoiceSummary: FC = () => {
         justifyContent={"space-between"}
         sx={{ padding: "20px 10px 0px 10px" }}
       >
-        <Typography sx={{ color: palette.textGreyColor.textGreyColor }}>Subtotal</Typography>
+        <Typography sx={{ color: palette.base.textGreyColor }}>Subtotal</Typography>
         <Typography sx={{ color: palette.base.black }}>USD 100.00</Typography>
       </Stack>
       <hr style={{ margin: "10px" }}></hr>
@@ -50,7 +50,7 @@ const InvoiceSummary: FC = () => {
         justifyContent={"space-between"}
         sx={{ padding: "5px 10px 0px 10px" }}
       >
-        <Typography sx={{ color: palette.textGreyColor.textGreyColor }}>Tax</Typography>
+        <Typography sx={{ color: palette.base.textGreyColor }}>Tax</Typography>
         <Typography sx={{ color: palette.base.black }}>--</Typography>
       </Stack>
       <hr style={{ margin: "10px" }}></hr>
@@ -59,7 +59,7 @@ const InvoiceSummary: FC = () => {
         justifyContent={"space-between"}
         sx={{ padding: "5px 10px 0px 10px" }}
       >
-        <Typography sx={{ color: palette.textGreyColor.textGreyColor }}>Total</Typography>
+        <Typography sx={{ color: palette.base.textGreyColor }}>Total</Typography>
         <Typography sx={{ color: palette.base.black }}>USD 350.00</Typography>
       </Stack>
     </Stack>

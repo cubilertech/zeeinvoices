@@ -4,10 +4,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <>
-      <div>
-        <CreateInvoice />
-      </div>
-    </>
+    <div>
+      <CreateInvoice />
+    </div>
   );
 }

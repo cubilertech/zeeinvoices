@@ -1,15 +1,7 @@
-import {
-  Box,
-  Grid,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Grid, IconButton, Stack, TextField } from "@mui/material";
 import { FC } from "react";
 import { UploadLogo } from "../UploadLogo";
 import { SelectInput } from "../SelectInput";
-import { Rowdies } from "next/font/google";
 import { palette } from "@/theme/palette";
 import { Icon } from "../Icon";
 import { DetailSelecter } from "../DetailSelecter";
@@ -22,11 +14,11 @@ const InvoiceSection: FC = () => {
     <Box
       borderTop={5}
       sx={{
-        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+        boxShadow: palette.boxShadows[200],
         backgroundColor: palette.base.white,
         width: "100%",
         padding: 4,
-        marginBottom:3,
+        marginBottom: 3,
       }}
     >
       {/* First section, add logo, invoice type, print */}
@@ -43,22 +35,20 @@ const InvoiceSection: FC = () => {
         <Box sx={{ width: 92, height: 40 }}>
           <Stack direction={"row"} spacing={2}>
             <IconButton sx={{ padding: 1 }}>
-              <Icon icon="sendSqaure" width={20} height={20}></Icon>
+              <Icon icon="sendSqaureIcon" width={20} height={20} />
             </IconButton>
             <IconButton sx={{ padding: 1 }}>
-              <Icon icon="printIcon" width={20} height={20}></Icon>
+              <Icon icon="printIconIcon" width={20} height={20} />
             </IconButton>
           </Stack>
         </Box>
       </Stack>
       {/* Second section Detail selecters */}
       <Stack
-        // direction={"row"}
-        direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }}
+        direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
         justifyContent={"space-between"}
         gap={5}
         sx={{ marginTop: 2 }}
-        
       >
         <DetailSelecter title="From" detailsOf="Sender" />
         <DetailSelecter title="To" detailsOf="Recipient" />
@@ -95,23 +85,20 @@ const InvoiceSection: FC = () => {
           height: "33px",
           width: "100%",
           marginTop: "20px",
-          border: `1px dashed ${palette.borderColor.borderColor}`,
+          border: `1px dashed ${palette.base.borderColor}`,
           borderRadius: 1,
-          cursor: "pointer",
+          // cursor: "pointer",
           backgroundColor: palette.color.eggWhite,
           marginBottom: "10px",
         }}
       >
         <TextField
           sx={{
-            border: `1px solid ${palette.color.eggWhite}`,
-            borderRadius: 1,
-            // color: palette.color.gray[700],
             width: "100%",
-            // height: "27px !important",
             "& .MuiInputBase-input": {
-              height: "30px !important",
+              height: "29px !important",
               backgroundColor: palette.color.eggWhite,
+              border: `1px dashed ${palette.color.eggWhite}`,
             },
           }}
           id="outlined-basic"

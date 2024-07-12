@@ -26,7 +26,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   
   const handleFileUpload = (file: File) => {
     console.log("File uploaded:", file);
-    // Add your file upload logic here (e.g., uploading to a server)
+    // file upload logic here (e.g., uploading to a server)
   };
 
   return (
@@ -38,7 +38,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
         width: 200,
         height: 56,
         cursor: "pointer",
-        borderColor: palette.dashedBorderColor.borderColor,
+        borderColor: palette.base.dashedBorderColor,
       }}
       onClick={handleClick}
     >

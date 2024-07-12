@@ -1,14 +1,6 @@
 "use client";
 import { palette } from "@/theme/palette";
-import {
-  Box,
-  Container,
-  Grid,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { FC } from "react";
 import { Icon } from "../Icon";
 
@@ -19,7 +11,7 @@ const InvoiceItemsTable: FC = () => {
       <Grid
         container
         sx={{
-          backgroundColor: palette.itemsHeadColor.itemsHeadColor,
+          backgroundColor: palette.base.itemsHeadColor,
           borderRadius: 1,
           marginTop: 2,
         }}
@@ -108,7 +100,16 @@ const InvoiceItemsTable: FC = () => {
           />
         </Grid>
         <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
-          <Typography sx={{ color: palette.base.black, display:"flex", justifyContent:"flex-end", margin:"7px 7px 7px 7px" }}>$ 0.00</Typography>
+          <Typography
+            sx={{
+              color: palette.base.black,
+              display: "flex",
+              justifyContent: "flex-end",
+              margin: "7px 7px 7px 7px",
+            }}
+          >
+            $ 0.00
+          </Typography>
         </Grid>
 
         {/* // description section */}
@@ -118,13 +119,9 @@ const InvoiceItemsTable: FC = () => {
           xs={10}
         >
           <TextField
-          size="medium"
+            size="medium"
             sx={{
-              // border: `1px solid ${palette.borderColor.borderColor}`,
-              // borderRadius: 1,
-              // color: palette.color.gray[700],
               width: "100%",
-              // height: "32px !important",
             }}
             id="outlined-basic"
             placeholder="Description"
@@ -140,7 +137,7 @@ const InvoiceItemsTable: FC = () => {
           height: "40px",
           width: "100%",
           marginTop: "10px",
-          border: `2px dashed ${palette.borderColor.borderColor}`,
+          border: `2px dashed ${palette.base.borderColor}`,
           borderRadius: 1,
           cursor: "pointer",
           backgroundColor: palette.color.gray[10],
@@ -156,7 +153,7 @@ const InvoiceItemsTable: FC = () => {
           }}
         >
           <Box sx={{ padding: 1 }}>
-            <Icon icon="addCircleOutlined" width={20} height={20}></Icon>
+            <Icon icon="addCircleOutlinedIcon" width={20} height={20} />
           </Box>
           <Typography variant="caption" sx={{ color: palette.base.black }}>
             Add New Invoice Item

@@ -4,7 +4,6 @@ import { MobileDatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { title } from "process";
 import { FC } from "react";
 import { palette } from "@/theme/palette";
 

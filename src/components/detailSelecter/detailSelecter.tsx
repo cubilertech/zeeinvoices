@@ -1,9 +1,17 @@
 "use client";
-import { Box, Button, Modal, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Modal,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { FC } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface DetailSelecter {
   title?: string;
@@ -40,7 +48,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           padding: 2,
           borderRadius: 2,
           cursor: "pointer",
-          border: `1px solid ${palette.borderColor.borderColor}`,
+          border: `1px solid ${palette.base.borderColor}`,
         }}
         onClick={handleOpen}
       >
@@ -57,18 +65,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
             display: "flex",
           }}
         >
-          <Icon icon="addCircle" height={32} width={32}></Icon>
+          <Icon icon="addCircleIcon" height={32} width={32}></Icon>
           <Typography variant="caption" color={palette.color.gray[750]}>
             Add New {detailsOf}
           </Typography>
         </Stack>
       </Box>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose} disableAutoFocus>
         <Box
           sx={{
             position: "absolute" as "absolute",
@@ -84,20 +87,50 @@ const DetailSelecter: FC<DetailSelecter> = ({
             borderRadius: 2,
           }}
         >
-          <Typography variant="text-lg-semibold">
-            Add {detailsOf} Details
-          </Typography>
+          <Stack direction={"row"} justifyContent={"space-between"}>
+            <Typography variant="text-lg-semibold">
+              Add {detailsOf} Details
+            </Typography>
+            <IconButton>
+              <CloseIcon sx={{width:"20px", height:"20px", color:palette.color.gray[300]}} />
+            </IconButton>
+          </Stack>
+
           <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-            <TextField lable="Name" size="large"></TextField>
-            <TextField lable="Company Name" size="large"></TextField>
+            <TextField
+              lable="Name"
+              size="large"
+              sx={{ width: "240px" }}
+            ></TextField>
+            <TextField
+              lable="Company Name"
+              size="large"
+              sx={{ width: "240px" }}
+            ></TextField>
           </Stack>
           <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-            <TextField lable="Email" size="large"></TextField>
-            <TextField lable="Phone number" size="large"></TextField>
+            <TextField
+              lable="Email"
+              size="large"
+              sx={{ width: "240px" }}
+            ></TextField>
+            <TextField
+              lable="Phone number"
+              size="large"
+              sx={{ width: "240px" }}
+            ></TextField>
           </Stack>
           <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-            <TextField lable="City" size="large"></TextField>
-            <TextField lable="State" size="large"></TextField>
+            <TextField
+              lable="City"
+              size="large"
+              sx={{ width: "240px" }}
+            ></TextField>
+            <TextField
+              lable="State"
+              size="large"
+              sx={{ width: "240px" }}
+            ></TextField>
           </Stack>
           <Box sx={{ marginTop: "20px" }}>
             <TextField
@@ -112,7 +145,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
             spacing={2}
             sx={{ marginTop: "20px" }}
           >
-            <Button variant="outlined" sx={{ width: "243px", borderColor:palette.borderColor.borderColor }}>
+            <Button
+              variant="outlined"
+              sx={{ width: "243px", borderColor: palette.base.borderColor }}
+            >
               Cancel
             </Button>
             <Button variant="contained" sx={{ width: "243px" }}>

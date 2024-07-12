@@ -18,7 +18,10 @@ export const MuiSwitch = () => {
             transform: "translateX(22px)",
             color: "#fff",
             "& + .MuiSwitch-track": {
-              backgroundColor: palette.mode === "dark" ? palette.switchTrackColor.switchTrackColor : "#65C466",
+              backgroundColor:
+                palette.mode === "dark"
+                  ? palette.base.switchTrackColor
+                  : "#65C466",
               opacity: 1,
               border: 0,
             },
@@ -28,13 +31,15 @@ export const MuiSwitch = () => {
           },
           "&.Mui-focusVisible .MuiSwitch-thumb": {
             color: "#33cf4d",
-            border: "6px solid #fff",
+            border: `6px solid ${palette.base.white}`,
           },
           "&.Mui-disabled .MuiSwitch-thumb": {
-            color:
-              palette.mode === "light"
-                ? palette.color.gray[100]
-                : palette.color.gray[600],
+            // color:
+            //   palette.mode === "light"
+            //     ? palette.base.white
+            //     : palette.base.white,
+            color: palette.base.white,
+            opacity: `${1} !important`,
           },
           "&.Mui-disabled + .MuiSwitch-track": {
             opacity: palette.mode === "light" ? 0.7 : 0.3,
@@ -44,11 +49,18 @@ export const MuiSwitch = () => {
           boxSizing: "border-box",
           width: 16,
           height: 16,
+          "&.Mui-disabled": {
+            color: palette.base.white, // Ensure thumb color remains white when disabled
+            opacity: `${1} !important`,
+          },
         },
         track: {
           borderRadius: 13,
           width: 44,
-          backgroundColor: palette.mode === "light" ? "#E9E9EA" : palette.borderColor.borderColor,
+          backgroundColor:
+            palette.mode === "light"
+              ? "#E9E9EA"
+              : palette.base.borderColor,
           opacity: 1,
           transition: "background-color 500ms",
         },
