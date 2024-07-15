@@ -116,34 +116,44 @@ const DetailSelecter: FC<DetailSelecter> = ({
           <Typography variant="text-sm-medium" color={palette.color.gray[750]}>
             {title}
           </Typography>
-          <Stack spacing={1} sx={{ marginTop: 2 }}>
+          <Stack spacing={2} sx={{ marginTop: 2 }}>
             <Typography variant="text-xs-bold">
               {details.companyName}
             </Typography>
-            <Typography
-              variant="text-xs-regular"
-              color={palette.color.gray[720]}
-            >
-              {details.name}
-            </Typography>
-            <Typography
-              variant="text-xs-regular"
-              color={palette.color.gray[720]}
-            >
-              {details.address} {details.city}, {details.state}
-            </Typography>
-            <Typography
-              variant="text-xs-regular"
-              color={palette.color.gray[720]}
-            >
-              {details.email}
-            </Typography>
-            <Typography
-              variant="text-xs-regular"
-              color={palette.color.gray[720]}
-            >
-              {details.phoneNumber}
-            </Typography>
+            <Stack direction={"column"}>
+              <Typography
+                variant="text-xs-regular"
+                color={palette.color.gray[720]}
+              >
+                {details.name}
+              </Typography>
+              <Typography
+                variant="text-xs-regular"
+                color={palette.color.gray[720]}
+              >
+                {details.address}, {details.city}
+              </Typography>
+              <Typography
+                variant="text-xs-regular"
+                color={palette.color.gray[720]}
+              >
+                {details.state}
+              </Typography>
+            </Stack>
+            <Stack direction={"column"}>
+              <Typography
+                variant="text-xs-regular"
+                color={palette.color.gray[720]}
+              >
+                {details.email}
+              </Typography>
+              <Typography
+                variant="text-xs-regular"
+                color={palette.color.gray[720]}
+              >
+                {details.phoneNumber}
+              </Typography>
+            </Stack>
           </Stack>
         </Box>
       )}
@@ -214,7 +224,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
             <TextField
               label="Name"
-              size="large"
+              size="large" 
               name="name"
               value={details.name}
               onChange={handleInputChange}

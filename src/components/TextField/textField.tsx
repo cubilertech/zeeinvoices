@@ -1,7 +1,6 @@
 "use client";
 import { palette } from "@/theme/palette";
 import {
-  Box,
   Stack,
   Typography,
   TextField as MuiTextField,

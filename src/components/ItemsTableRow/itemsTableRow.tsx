@@ -31,8 +31,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           <TextField
             // size="small"
             sx={{
-              // border: `1px solid ${palette.borderColor.borderColor}`,
-              borderRadius: 1,
+              // border: `1px solid ${palette.base.borderColor}`,
+              // borderRadius: 7,
               color: palette.color.gray[700],
               width: "100%",
               height: "32px",

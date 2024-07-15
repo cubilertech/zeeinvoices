@@ -38,7 +38,8 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileDatePicker
-            defaultValue={dayjs("2024-01-Jul")}
+            defaultValue={dayjs()}
+            format="MMM Do, YYYY"
             sx={{
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 // border: `1px solid ${palette.borderColor.borderColor}`,
@@ -54,14 +55,15 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
                 },
               "& .MuiOutlinedInput-input": {
                 padding: "3px !important",
-                color: palette.base.black,
+                paddingLeft:"7px !important",
+                color: palette.color.gray[800],
                 fontSize: 12,
               },
               "& .MuiInputBase-input": {
                 height: "20px !important",
               },
               padding: "0px !important",
-              width: "100%",
+              width: "100% !important",
             }}
           />
         </LocalizationProvider>
