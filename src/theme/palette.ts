@@ -109,6 +109,7 @@ const base = {
   itemsHeadColor: "#333333",
   addItemsColor: "#E0E0E0",
   switchTrackColor: "#34C759",
+  blueButtonColor: "#2C359D",
 };
 
 const borderColor = {
