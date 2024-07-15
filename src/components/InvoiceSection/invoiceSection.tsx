@@ -4,10 +4,10 @@ import { UploadLogo } from "../UploadLogo";
 import { SelectInput } from "../SelectInput";
 import { palette } from "@/theme/palette";
 import { Icon } from "../Icon";
-import { DetailSelecter } from "../DetailSelecter";
 import { InvoiceDatePicker } from "../InvoiceDatePicker";
 import { InvoiceItemsTable } from "../InvoiceItemsTable";
 import { InvoiceSummary } from "../InvoiceSummary";
+import { DetailSelecter } from "../detailSelecter";
 
 const InvoiceSection: FC = () => {
   return (
