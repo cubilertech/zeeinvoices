@@ -1,10 +1,22 @@
 "use client";
 import { palette } from "@/theme/palette";
 import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Icon } from "../Icon";
+import { ItemsTableRow } from "../ItemsTableRow";
 
 const InvoiceItemsTable: FC = () => {
+  const [items, setItems] = useState([{ id: 1 }]); // Initialize with one item
+  const [itemsCount, setItemsCount]  = useState(2);
+  const handleAddItem = () => {
+    setItemsCount((pre) => pre + 1);
+    setItems([...items, { id: itemsCount }]); // Add new item with unique id
+  };
+
+  const handleRemoveItem = (id: number) => {
+    setItems(items.filter((item) => item.id !== id)); // Remove item by id
+  };
+
   return (
     <Stack direction={"column"}>
       {/* Table header */}
@@ -35,104 +47,22 @@ const InvoiceItemsTable: FC = () => {
       </Grid>
 
       {/* Input fields */}
-      <Grid
-        container
-        sx={{
-          backgroundColor: palette.base.white,
-          borderRadius: 1,
-          marginTop: 2,
-        }}
-        spacing={2}
-      >
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={4}>
-          <TextField
-            // size="small"
-            sx={{
-              // border: `1px solid ${palette.borderColor.borderColor}`,
-              borderRadius: 1,
-              color: palette.color.gray[700],
-              width: "100%",
-              height: "32px",
-            }}
-            id="outlined-basic"
-            placeholder="Name of your product or service"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
-          <TextField
-            // size="small"
-            sx={{
-              // border: `1px solid ${palette.borderColor.borderColor}`,
-              borderRadius: 1,
-              color: palette.color.gray[700],
-            }}
-            id="outlined-basic"
-            type="number"
-            placeholder="1"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
-          <TextField
-            sx={{
-              // border: `1px solid ${palette.borderColor.borderColor}`,
-              borderRadius: 1,
-              color: palette.color.gray[700],
-            }}
-            id="outlined-basic"
-            type="number"
-            placeholder="$ 0.0"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
-          <TextField
-            sx={{
-              // border: `1px solid ${palette.borderColor.borderColor}`,
-              borderRadius: 1,
-              color: palette.color.gray[700],
-            }}
-            id="outlined-basic"
-            type="number"
-            placeholder="% 0.0"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
-          <Typography
-            sx={{
-              color: palette.base.black,
-              display: "flex",
-              justifyContent: "flex-end",
-              margin: "7px 7px 7px 7px",
-            }}
-          >
-            $ 0.00
-          </Typography>
-        </Grid>
+      {/* <ItemsTableRow/> */}
 
-        {/* // description section */}
-        <Grid
-          sx={{ padding: "4px", paddingTop: "4px !important" }}
-          item
-          xs={10}
-        >
-          <TextField
-            size="medium"
-            sx={{
-              width: "100%",
-            }}
-            id="outlined-basic"
-            placeholder="Description"
-            variant="outlined"
-          />
-        </Grid>
-      </Grid>
+      {/* Render ItemsTableRow components */}
+      {items.map((item) => (
+        <ItemsTableRow
+          key={item.id}
+          id={item.id}
+          onRemove={handleRemoveItem}
+          showRemoveButton={items.length > 1} // Show remove button only if there's more than one item
+        />
+      ))}
 
       {/* add items button */}
 
       <Box
+        onClick={handleAddItem}
         sx={{
           height: "40px",
           width: "100%",

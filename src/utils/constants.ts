@@ -11,4 +11,5 @@ export const icons = {
   addCircleIcon: "Images/icons/add-circle.svg",
   addCircleOutlinedIcon: "Images/icons/add-circle-outlined.svg",
   tickIcon: "Images/icons/tick-icon.svg",
+  colorPickerPaletteIcon: "Images/icons/color-picker-palette-icon.svg",
 };

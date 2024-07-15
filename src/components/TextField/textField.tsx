@@ -7,21 +7,35 @@ import {
   TextField as MuiTextField,
   SxProps,
 } from "@mui/material";
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 
 interface TextField {
-  lable?: string;
+  label?: string;
   size?: "small" | "medium" | "large";
   sx?: SxProps;
+  name?: string;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
-const TextField: FC<TextField> = ({ lable, size = "medium", sx }) => {
+const TextField: FC<TextField> = ({
+  label,
+  name,
+  size = "medium",
+  sx,
+  onChange,
+  value,
+  ...props
+}) => {
   return (
     <Stack direction={"column"}>
       <Typography variant="text-sm-medium" sx={{ marginBottom: "5px" }}>
-        {lable}
+        {label}
       </Typography>
       <MuiTextField
         size="small"
+        name={name}
+        value={value}
+        onChange={onChange}
         sx={
           size === "large"
             ? {
@@ -47,7 +61,7 @@ const TextField: FC<TextField> = ({ lable, size = "medium", sx }) => {
               }
         }
         id="outlined-basic"
-        placeholder={lable}
+        placeholder={label}
         variant="outlined"
       />
     </Stack>

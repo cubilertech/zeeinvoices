@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
@@ -26,6 +26,32 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [detailsEntered, setDetailsEntered] = useState(false); // for modal details
+  const [details, setDetails] = useState({
+    name: "",
+    companyName: "",
+    email: "",
+    phoneNumber: "",
+    city: "",
+    state: "",
+    address: "",
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+    // console.log(`The name (handleInputChange) is ${details.name}`);
+  };
+
+  const handleAddDetails = () => {
+    setDetailsEntered(true);
+    setOpen(false);
+    // console.log(`The name (handleAddDetails) is ${details.name}`);
+  };
+
   return (
     <Box
       borderRadius={1}
@@ -39,7 +65,90 @@ const DetailSelecter: FC<DetailSelecter> = ({
           {title}
         </Typography>
       )}
-      <Box
+
+      {!detailsEntered ? (
+        <Box
+          borderRadius={1}
+          sx={{
+            width: 316,
+            height: 242,
+            marginTop: 1.5,
+            padding: 2,
+            borderRadius: 2,
+            cursor: "pointer",
+            border: `1px solid ${palette.base.borderColor}`,
+          }}
+          onClick={handleOpen}
+        >
+          <Typography variant="body1" color={palette.color.gray[750]}>
+            {detailsOf} Details
+          </Typography>
+          <Stack
+            direction={"column"}
+            spacing={1.5}
+            sx={{
+              height: "90%",
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+            }}
+          >
+            <Icon icon="addCircleIcon" height={32} width={32}></Icon>
+            <Typography variant="caption" color={palette.color.gray[750]}>
+              Add New {detailsOf}
+            </Typography>
+          </Stack>
+        </Box>
+      ) : (
+        <Box
+          borderRadius={1}
+          sx={{
+            width: 316,
+            height: 242,
+            marginTop: 1.5,
+            padding: 2,
+            borderRadius: 2,
+            cursor: "pointer",
+            border: `1px solid ${palette.base.borderColor}`,
+          }}
+          onClick={handleOpen}
+        >
+          <Typography variant="text-sm-medium" color={palette.color.gray[750]}>
+            {title}
+          </Typography>
+          <Stack spacing={1} sx={{ marginTop: 2 }}>
+            <Typography variant="text-xs-bold">
+              {details.companyName}
+            </Typography>
+            <Typography
+              variant="text-xs-regular"
+              color={palette.color.gray[720]}
+            >
+              {details.name}
+            </Typography>
+            <Typography
+              variant="text-xs-regular"
+              color={palette.color.gray[720]}
+            >
+              {details.address} {details.city}, {details.state}
+            </Typography>
+            <Typography
+              variant="text-xs-regular"
+              color={palette.color.gray[720]}
+            >
+              {details.email}
+            </Typography>
+            <Typography
+              variant="text-xs-regular"
+              color={palette.color.gray[720]}
+            >
+              {details.phoneNumber}
+            </Typography>
+          </Stack>
+        </Box>
+      )}
+
+      {/* <Box
         borderRadius={1}
         sx={{
           width: 316,
@@ -70,7 +179,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             Add New {detailsOf}
           </Typography>
         </Stack>
-      </Box>
+      </Box> */}
       <Modal open={open} onClose={handleClose} disableAutoFocus>
         <Box
           sx={{
@@ -91,51 +200,78 @@ const DetailSelecter: FC<DetailSelecter> = ({
             <Typography variant="text-lg-semibold">
               Add {detailsOf} Details
             </Typography>
-            <IconButton>
-              <CloseIcon sx={{width:"20px", height:"20px", color:palette.color.gray[300]}} />
+            <IconButton onClick={handleClose}>
+              <CloseIcon
+                sx={{
+                  width: "20px",
+                  height: "20px",
+                  color: palette.color.gray[300],
+                }}
+              />
             </IconButton>
           </Stack>
 
           <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
             <TextField
-              lable="Name"
+              label="Name"
               size="large"
+              name="name"
+              value={details.name}
+              onChange={handleInputChange}
               sx={{ width: "240px" }}
-            ></TextField>
+            />
             <TextField
-              lable="Company Name"
+              label="Company Name"
               size="large"
-              sx={{ width: "240px" }}
-            ></TextField>
-          </Stack>
-          <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-            <TextField
-              lable="Email"
-              size="large"
-              sx={{ width: "240px" }}
-            ></TextField>
-            <TextField
-              lable="Phone number"
-              size="large"
+              name="companyName"
+              onChange={handleInputChange}
+              value={details.companyName}
               sx={{ width: "240px" }}
             ></TextField>
           </Stack>
           <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
             <TextField
-              lable="City"
+              label="Email"
               size="large"
+              name="email"
+              onChange={handleInputChange}
+              value={details.email}
               sx={{ width: "240px" }}
             ></TextField>
             <TextField
-              lable="State"
+              label="Phone number"
               size="large"
+              name="phoneNumber"
+              onChange={handleInputChange}
+              value={details.phoneNumber}
+              sx={{ width: "240px" }}
+            ></TextField>
+          </Stack>
+          <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
+            <TextField
+              label="City"
+              size="large"
+              name="city"
+              onChange={handleInputChange}
+              value={details.city}
+              sx={{ width: "240px" }}
+            ></TextField>
+            <TextField
+              label="State"
+              size="large"
+              name="state"
+              onChange={handleInputChange}
+              value={details.state}
               sx={{ width: "240px" }}
             ></TextField>
           </Stack>
           <Box sx={{ marginTop: "20px" }}>
             <TextField
-              lable="Address"
+              label="Address"
               size="large"
+              name="address"
+              onChange={handleInputChange}
+              value={details.address}
               // sx={{ width: "100%" }}
             ></TextField>
           </Box>
@@ -146,12 +282,17 @@ const DetailSelecter: FC<DetailSelecter> = ({
             sx={{ marginTop: "20px" }}
           >
             <Button
+              onClick={handleClose}
               variant="outlined"
               sx={{ width: "243px", borderColor: palette.base.borderColor }}
             >
               Cancel
             </Button>
-            <Button variant="contained" sx={{ width: "243px" }}>
+            <Button
+              onClick={handleAddDetails}
+              variant="contained"
+              sx={{ width: "243px" }}
+            >
               Add
             </Button>
           </Stack>
