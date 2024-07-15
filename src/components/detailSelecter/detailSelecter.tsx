@@ -12,6 +12,8 @@ import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { getRecipientDetail, getSenderDetail, setRecipientDetail, setSenderDetail } from "../../redux/features/invoiceSlice";
 
 interface DetailSelecter {
   title?: string;
@@ -23,6 +25,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
   detailsOf,
   // addDetailsOf,
 }) => {
+  const dispatch = useDispatch();
+  const data= useSelector(getSenderDetail);
+  const data1= useSelector(getRecipientDetail);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -37,6 +42,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
     address: "",
   });
 
+  // {console.log(data,'redux')}
+  // {console.log(data1,'redux1')}
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setDetails((prevDetails) => ({
@@ -49,6 +56,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const handleAddDetails = () => {
     setDetailsEntered(true);
     setOpen(false);
+    detailsOf === "Sender" ? dispatch(setSenderDetail(details)) : dispatch(setRecipientDetail(details));
     // console.log(`The name (handleAddDetails) is ${details.name}`);
   };
 
@@ -148,38 +156,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
         </Box>
       )}
 
-      {/* <Box
-        borderRadius={1}
-        sx={{
-          width: 316,
-          height: 242,
-          marginTop: 1.5,
-          padding: 2,
-          borderRadius: 2,
-          cursor: "pointer",
-          border: `1px solid ${palette.base.borderColor}`,
-        }}
-        onClick={handleOpen}
-      >
-        <Typography variant="body1" color={palette.color.gray[750]}>
-          {detailsOf} Details
-        </Typography>
-        <Stack
-          direction={"column"}
-          spacing={1.5}
-          sx={{
-            height: "90%",
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <Icon icon="addCircleIcon" height={32} width={32}></Icon>
-          <Typography variant="caption" color={palette.color.gray[750]}>
-            Add New {detailsOf}
-          </Typography>
-        </Stack>
-      </Box> */}
+      {/* Model */}
       <Modal open={open} onClose={handleClose} disableAutoFocus>
         <Box
           sx={{

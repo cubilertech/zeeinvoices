@@ -91,7 +91,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               margin: "7px 7px 7px 7px",
             }}
           >
-            $ 0.00 ({id})
+            $ 0.00
           </Typography>
         </Grid>
 

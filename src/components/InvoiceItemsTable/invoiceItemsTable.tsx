@@ -50,12 +50,12 @@ const InvoiceItemsTable: FC = () => {
       {/* <ItemsTableRow/> */}
 
       {/* Render ItemsTableRow components */}
-      {items.map((item) => (
+      {items.map((item,index) => (
         <ItemsTableRow
           key={item.id}
           id={item.id}
           onRemove={handleRemoveItem}
-          showRemoveButton={items.length > 1} // Show remove button only if there's more than one item
+          showRemoveButton={items[index].id === 1 ? false : true} // Show remove button only if there's more than one item
         />
       ))}
 

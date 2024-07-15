@@ -11,6 +11,10 @@ interface SelectInput {
 }
 const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
   const [selected, setSelected] = useState<null | string>(null);
+  const handleSelectedItem = (item : string)=>{
+  setSelected(item)
+  }
+
   return (
     <Box borderRadius={1} sx={{ height: 60 }}>
       <Stack direction={"column"} spacing={0.5}>
@@ -50,7 +54,7 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           {menuData &&
             menuData?.map((item) => (
               <MenuItem
-                onClick={() => setSelected(item)}
+                onClick={()=>handleSelectedItem(item)}
                 sx={{
                   color: palette.base.black,
                   backgroundColor: palette.base.white,
