@@ -6,6 +6,7 @@ import { palette } from "@/theme/palette";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceLogo, setInvoiceLogo } from "@/redux/features/invoiceSlice";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 interface UploadLogoProps {
   logoDesc: string;
@@ -23,6 +24,10 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     }
   };
 
+  // const handleCancelLogoClick = () => {
+  //   setSelectedFile(null);
+  // };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -36,24 +41,8 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   // };
 
   return (
-    <Box
-      borderRadius={1}
-      sx={{
-        border: "1px dashed",
-        padding: 1,
-        width: 200,
-        height: 56,
-        cursor: "pointer",
-        borderColor: palette.base.dashedBorderColor,
-      }}
-      onClick={handleClick}
-    >
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: "none" }}
-        onChange={handleFileChange}
-      />
+    <>
+    
       {invoiceLogo ? (
         <Box
           sx={{ position: "relative", alignItems: "center", display: "flex" }}
@@ -61,53 +50,70 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
           <img
             src={URL.createObjectURL(invoiceLogo)}
             alt="Selected Logo"
-            style={{ width: "40px", height: "40px", objectFit: "contain" }}
+            style={{ width: "70px", height: "70px", objectFit: "contain" }}
           />
-          <Typography
-            sx={{ marginLeft: "10px" }}
-            variant="caption"
-            color={"gray"}
-          >
-            Logo
-          </Typography>
           <IconButton
             sx={{
               position: "absolute",
-              top: 0,
-              right: 0,
-              backgroundColor: "white",
-              padding: 0.5,
+              top: "-5px",
+              right: "55px",
+              backgroundColor: palette.base.transparent,
+              width: "5px !important",
+              height: "5px !important",
+              borderRadius: 3,
             }}
-            // onClick={handleClick}
+            // onClick={handleCancelLogoClick}
           >
-            <EditIcon
+            <CancelIcon
               sx={{
                 width: "20px",
                 height: "20px",
                 color: palette.color.gray[300],
+                ":hover": {
+                  color: palette.base.blueButtonColor,
+                },
               }}
             />
-            {/* <Icon icon="edit" width={20} height={20} /> */}
           </IconButton>
         </Box>
       ) : (
-        <Stack direction={"row"} spacing={1}>
-          <Icon icon="uploadLogo" height={31} width={34} />
-          <Stack direction={"column"} spacing={1}>
-            <Typography variant="caption" color={"gray"}>
-              {logoDesc}
-            </Typography>
-            <Typography
-              variant="caption"
-              color={"black"}
-              sx={{ textDecoration: "underline" }}
-            >
-              Select a file
-            </Typography>
+        <Box
+          borderRadius={1}
+          sx={{
+            border: "1px dashed",
+            padding: 1,
+            width: 200,
+            height: 56,
+            cursor: "pointer",
+            borderColor: palette.base.dashedBorderColor,
+          }}
+          onClick={handleClick}
+        >
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
+          <Stack direction={"row"} spacing={1}>
+            <Icon icon="uploadLogo" height={31} width={34} />
+            <Stack direction={"column"} spacing={1}>
+              <Typography variant="caption" color={"gray"}>
+                {logoDesc}
+              </Typography>
+              <Typography
+                variant="caption"
+                color={"black"}
+                sx={{ textDecoration: "underline" }}
+              >
+                Select a file
+              </Typography>
+            </Stack>
           </Stack>
-        </Stack>
+        </Box>
       )}
-    </Box>
+    
+    </>
   );
 };
 

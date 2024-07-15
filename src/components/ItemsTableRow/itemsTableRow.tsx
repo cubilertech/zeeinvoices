@@ -2,7 +2,7 @@
 import { palette } from "@/theme/palette";
 import { Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { FC } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface ItemsTableRowProps {
   id: number;
@@ -42,7 +42,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             variant="outlined"
           />
         </Grid>
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
+        <Grid
+          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          item
+          xs={1.8}
+        >
           <TextField
             // size="small"
             sx={{
@@ -56,7 +60,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             variant="outlined"
           />
         </Grid>
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
+        <Grid
+          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          item
+          xs={1.8}
+        >
           <TextField
             sx={{
               // border: `1px solid ${palette.borderColor.borderColor}`,
@@ -69,7 +77,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             variant="outlined"
           />
         </Grid>
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
+        <Grid
+          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          item
+          xs={1.8}
+        >
           <TextField
             sx={{
               // border: `1px solid ${palette.borderColor.borderColor}`,
@@ -82,7 +94,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             variant="outlined"
           />
         </Grid>
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={2}>
+        <Grid
+          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          item
+          xs={1.8}
+        >
           <Typography
             sx={{
               color: palette.base.black,
@@ -94,46 +110,30 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             $ 0.00
           </Typography>
         </Grid>
-
-        {/* // description section */}
-        <Grid
-          sx={{ padding: "4px", paddingTop: "4px !important" }}
-          item
-          xs={10}
-        >
-          <TextField
-            size="medium"
-            sx={{
-              width: "100%",
-            }}
-            id="outlined-basic"
-            placeholder="Description"
-            variant="outlined"
-          />
-        </Grid>
-        {/* Remove button */}
         {showRemoveButton && (
           <Grid
-            sx={{
-              padding: "4px",
-              paddingTop: "4px !important",
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
+            sx={{ padding: "4px", paddingTop: "4px !important" }}
             item
-            xs={2}
+            xs={0.8}
           >
             <IconButton
               onClick={() => onRemove(id)}
               aria-label="delete"
-              sx={{ width: "0px" }}
+              sx={{
+                alignItems:"center",
+                width: "5px !important",
+                height: "5px !important",
+                borderRadius: 3,
+              }}
             >
-              <DeleteIcon
+              <CloseIcon
                 sx={{
-                  color: palette.color.gray[100],
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  width: "20px",
+                  width: "15px",
+                  height: "15px",
+                  color: palette.color.gray[300],
+                  ":hover": {
+                    color: "#009E74",
+                  },
                 }}
               />
             </IconButton>
@@ -143,11 +143,5 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
     </Stack>
   );
 };
-
-// const TableRow: FC = () => {
-//   return(
-
-//   );
-// };
 
 export default ItemsTableRow;

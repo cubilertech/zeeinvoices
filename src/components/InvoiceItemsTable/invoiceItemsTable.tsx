@@ -32,16 +32,16 @@ const InvoiceItemsTable: FC = () => {
         <Grid sx={{ padding: "0px", paddingTop: "8px !important" }} item xs={4}>
           <Typography sx={{ color: palette.base.white }}>Items</Typography>
         </Grid>
-        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={2}>
+        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={1.8}>
           <Typography sx={{ color: palette.base.white }}>QTY/HRS</Typography>
         </Grid>
-        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={2}>
+        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={1.8}>
           <Typography sx={{ color: palette.base.white }}>Rate</Typography>
         </Grid>
-        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={2}>
+        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={2.2}>
           <Typography sx={{ color: palette.base.white }}>Tax</Typography>
         </Grid>
-        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={2}>
+        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={1.8}>
           <Typography sx={{ color: palette.base.white }}>Subtotal</Typography>
         </Grid>
       </Grid>
