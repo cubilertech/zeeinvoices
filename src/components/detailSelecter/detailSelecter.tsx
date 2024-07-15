@@ -13,7 +13,7 @@ import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipientDetail, getSenderDetail, setRecipientDetail, setSenderDetail } from "../../redux/features/invoiceSlice";
+import { ContactDetail, getRecipientDetail, getSenderDetail, setRecipientDetail, setSenderDetail } from "../../redux/features/invoiceSlice";
 
 interface DetailSelecter {
   title?: string;
@@ -26,17 +26,17 @@ const DetailSelecter: FC<DetailSelecter> = ({
   // addDetailsOf,
 }) => {
   const dispatch = useDispatch();
-  const data= useSelector(getSenderDetail);
-  const data1= useSelector(getRecipientDetail);
+  const senderData= useSelector(getSenderDetail);
+  const recipientData= useSelector(getRecipientDetail);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  
   const [detailsEntered, setDetailsEntered] = useState(false); // for modal details
-  const [details, setDetails] = useState({
+  const [details, setDetails] = useState<ContactDetail>({
     name: "",
     companyName: "",
     email: "",
-    phoneNumber: "",
+    phoneNumber: '',
     city: "",
     state: "",
     address: "",
@@ -51,6 +51,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
       [name]: value,
     }));
     // console.log(`The name (handleInputChange) is ${details.name}`);
+  };
+  //close model 
+  const handleModelClose = () => {
+    setDetails(detailsOf ===  "Sender" ? senderData : recipientData);
+    setOpen(false);
   };
 
   const handleAddDetails = () => {
@@ -126,26 +131,27 @@ const DetailSelecter: FC<DetailSelecter> = ({
           </Typography>
           <Stack spacing={2} sx={{ marginTop: 2 }}>
             <Typography variant="text-xs-bold">
-              {details.companyName}
+              {detailsOf === "Sender" ? senderData.companyName:recipientData.companyName}
             </Typography>
             <Stack direction={"column"}>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {details.name}
+                 {detailsOf === "Sender" ? senderData.name:recipientData.name}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {details.address}, {details.city}
+                {detailsOf === "Sender" ? senderData.address:recipientData.address}, {detailsOf === "Sender" ? senderData.city:recipientData.city}
+             
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {details.state}
+                 {detailsOf === "Sender" ? senderData.state:recipientData.state}
               </Typography>
             </Stack>
             <Stack direction={"column"}>
@@ -153,13 +159,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {details.email}
+                {detailsOf === "Sender" ? senderData.email:recipientData.email}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {details.phoneNumber}
+                   {detailsOf === "Sender" ? senderData.phoneNumber:recipientData.phoneNumber}
               </Typography>
             </Stack>
           </Stack>
@@ -167,7 +173,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
       )}
 
       {/* Model */}
-      <Modal open={open} onClose={handleClose} disableAutoFocus>
+      <Modal open={open} onClose={handleModelClose} disableAutoFocus>
         <Box
           sx={{
             position: "absolute" as "absolute",
@@ -187,7 +193,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             <Typography variant="text-lg-semibold">
               Add {detailsOf} Details
             </Typography>
-            <IconButton onClick={handleClose}>
+            <IconButton onClick={handleModelClose}>
               <CloseIcon
                 sx={{
                   width: "20px",
@@ -230,7 +236,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               size="large"
               name="phoneNumber"
               onChange={handleInputChange}
-              value={details.phoneNumber}
+              value={details.phoneNumber as string}
               sx={{ width: "240px" }}
             ></TextField>
           </Stack>
@@ -269,7 +275,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             sx={{ marginTop: "20px" }}
           >
             <Button
-              onClick={handleClose}
+              onClick={handleModelClose}
               variant="outlined"
               sx={{ width: "243px", borderColor: palette.base.borderColor }}
             >

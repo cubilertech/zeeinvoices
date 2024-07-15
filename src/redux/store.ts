@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import CountReducer from './features/counterSlice';
 import InvoiceReducer from './features/invoiceSlice';
+import InvoiceSettingReducer from './features/invoiceSetting';
 
 export const store = configureStore({
   reducer: {
     counter:CountReducer,
     invoice:InvoiceReducer,
+    invoiceSetting:InvoiceSettingReducer
   },
 })
 

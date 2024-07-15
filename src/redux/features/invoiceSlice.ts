@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { Dayjs } from "dayjs";
 
 export interface ContactDetail {
   name: string;
@@ -21,12 +22,12 @@ export interface InvoiceItem {
 }
 
 export interface InvoiceState {
-  logo: string | null;
+  logo: File | null;
   invoiceType: string;
   from: ContactDetail;
   to: ContactDetail;
-  invoiceDate: string;
-  dueDate: string;
+  invoiceDate: Dayjs | null;
+  dueDate: Dayjs | null;
   invoiceItem: InvoiceItem[];
 }
 
@@ -51,8 +52,8 @@ const initialValue: InvoiceState = {
     state: "",
     address: "",
   },
-  invoiceDate: "",
-  dueDate: "",
+  invoiceDate: null,
+  dueDate: null,
   invoiceItem: [
     {
       name: "",
@@ -69,7 +70,7 @@ export const invoiceSlice = createSlice({
   name: "invoice",
   initialState: initialValue,
   reducers: {
-    setInvoiceLogo: (state, action: PayloadAction<string | null>) => {
+    setInvoiceLogo: (state, action: PayloadAction<File | null>) => {
       state.logo = action.payload;
     },
     setInvoiceType: (state, action: PayloadAction<string>) => {
@@ -81,10 +82,10 @@ export const invoiceSlice = createSlice({
     setRecipientDetail: (state, action: PayloadAction<ContactDetail>) => {
       state.to = action.payload;
     },
-    setInvoiceDate: (state, action: PayloadAction<string>) => {
+    setInvoiceDate: (state, action: PayloadAction<Dayjs | null>) => {
       state.invoiceDate = action.payload;
     },
-    setDueDate: (state, action: PayloadAction<string>) => {
+    setDueDate: (state, action: PayloadAction<Dayjs | null>) => {
       state.dueDate = action.payload;
     },
     setInvoiceItem: (state, action: PayloadAction<InvoiceItem[]>) => {

@@ -3,14 +3,30 @@ import { Box, Stack, Typography } from "@mui/material";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import { FC } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { FC, useState } from "react";
 import { palette } from "@/theme/palette";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDueDate,
+  getInvoiceDate,
+  setDueDate,
+  setInvoiceDate,
+} from "@/redux/features/invoiceSlice";
 
 interface InvoiceDatePicker {
   title: string;
 }
 const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
+  const dispatch = useDispatch();
+  const invoiceDate = useSelector(getInvoiceDate);
+  const dueDate = useSelector(getDueDate);
+  const handleDateChange = (newDate: Dayjs | null) => {
+    title === "Invoice Date"
+      ? dispatch(setInvoiceDate(newDate))
+      : dispatch(setDueDate(newDate));
+  };
+
   return (
     <Stack
       direction={"row"}
@@ -39,6 +55,8 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileDatePicker
             defaultValue={dayjs()}
+            value={title === "Invoice Date" ? invoiceDate : dueDate}
+            onChange={handleDateChange}
             format="MMM Do, YYYY"
             sx={{
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
@@ -51,11 +69,11 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
                 {
                   border: `1px solid ${palette.color.gray[500]}`,
-                  borderRadius:1,
+                  borderRadius: 1,
                 },
               "& .MuiOutlinedInput-input": {
                 padding: "3px !important",
-                paddingLeft:"7px !important",
+                paddingLeft: "7px !important",
                 color: palette.color.gray[800],
                 fontSize: 12,
               },

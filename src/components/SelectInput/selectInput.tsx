@@ -3,6 +3,8 @@ import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
+import { useDispatch, useSelector } from "react-redux";
+import { getInvoiceType, setInvoiceType } from "@/redux/features/invoiceSlice";
 
 interface SelectInput {
   width?: string | number;
@@ -10,9 +12,12 @@ interface SelectInput {
   menuData?: string[];
 }
 const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
-  const [selected, setSelected] = useState<null | string>(null);
+  const dispatch= useDispatch();
+  const selectedType= useSelector(getInvoiceType);
+  // const [selected, setSelected] = useState<null | string>(null);
   const handleSelectedItem = (item : string)=>{
-  setSelected(item)
+  // setSelected(item)
+  dispatch(setInvoiceType(item))
   }
 
   return (
@@ -23,7 +28,7 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           IconComponent={() => <Icon icon="arrowDownIcon" />}
           labelId="demo-simple-select-label"
           id="type-select"
-          value={selected}
+          value={selectedType}
           displayEmpty
           placeholder="Select"
           MenuProps={{

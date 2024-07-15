@@ -4,15 +4,18 @@ import { FC, useRef, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import EditIcon from "@mui/icons-material/Edit";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getInvoiceLogo, setInvoiceLogo } from "@/redux/features/invoiceSlice";
 
 interface UploadLogoProps {
   logoDesc: string;
 }
 
 const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
+  const dispatch = useDispatch();
+  const invoiceLogo = useSelector(getInvoiceLogo);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleClick = () => {
     if (fileInputRef.current) {
@@ -23,15 +26,14 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
-      handleFileUpload(file); // Call the upload handler with the selected file
+      // setSelectedFile(file);
+      dispatch(setInvoiceLogo(file));
     }
   };
 
-  const handleFileUpload = (file: File) => {
-    console.log("File uploaded:", file);
-    // file upload logic here (e.g., uploading to a server)
-  };
+  // const handleFileUpload = (file: File) => {
+  //   console.log("File uploaded:", file);
+  // };
 
   return (
     <Box
@@ -52,19 +54,22 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
         style={{ display: "none" }}
         onChange={handleFileChange}
       />
-      {selectedFile ? (
-        <Box sx={{ position: "relative",
-          alignItems:'center',
-          display:'flex'
-         }}>
+      {invoiceLogo ? (
+        <Box
+          sx={{ position: "relative", alignItems: "center", display: "flex" }}
+        >
           <img
-            src={URL.createObjectURL(selectedFile)}
+            src={URL.createObjectURL(invoiceLogo)}
             alt="Selected Logo"
             style={{ width: "40px", height: "40px", objectFit: "contain" }}
           />
-          <Typography sx={{marginLeft:'10px'}} variant="caption" color={"gray"}>
-              Logo
-            </Typography>
+          <Typography
+            sx={{ marginLeft: "10px" }}
+            variant="caption"
+            color={"gray"}
+          >
+            Logo
+          </Typography>
           <IconButton
             sx={{
               position: "absolute",
@@ -76,12 +81,12 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             // onClick={handleClick}
           >
             <EditIcon
-                sx={{
-                  width: "20px",
-                  height: "20px",
-                  color: palette.color.gray[300],
-                }}
-              />
+              sx={{
+                width: "20px",
+                height: "20px",
+                color: palette.color.gray[300],
+              }}
+            />
             {/* <Icon icon="edit" width={20} height={20} /> */}
           </IconButton>
         </Box>
