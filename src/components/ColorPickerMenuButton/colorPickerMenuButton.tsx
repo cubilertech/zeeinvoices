@@ -1,11 +1,12 @@
 "use client";
 import { palette } from "@/theme/palette";
 import { Box, Stack, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import { Icon } from "../Icon";
 
 interface ColorPickerMenuButton {
-  onClick: () => void;
+  // onClick: () => void;
+  onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
 const ColorPickerMenuButton: FC<ColorPickerMenuButton> = ({onClick}) => {
   return (

@@ -47,16 +47,7 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
   ];
   const [colors, setColors] = useState(initialColors);
 
-  const [open, setOpen] = useState(false);   
   const [color, setColor] = useState("#2A2A2A");
-
-  const handleClickOpen = () => {    
-    setOpen(true);
-  };
-
-  const handleClose = () => {    
-    setOpen(false);
-  };
 
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
@@ -74,20 +65,20 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
 
   // Popover state handling
 
-  // const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-  //   null
-  // );
+  const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
 
-  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
+  const handleColorPickerClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    console.log("Color picker button clicked", event);
+    // logic to open the color picker
+    setAnchorEl(event.currentTarget);
+  };
 
-  // const open = Boolean(anchorEl);
-  // const id = open ? "simple-popover" : undefined;
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <Box
@@ -117,9 +108,9 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
           }}
         >
           <ColorPicker colors={colors} onSelectColor={handleSelectColor} />
-          <ColorPickerMenuButton onClick={handleClickOpen} />
+          <ColorPickerMenuButton onClick={handleColorPickerClick} />
 
-          {/* <Popover
+          <Popover
             id={id}
             open={open}
             anchorEl={anchorEl}
@@ -128,21 +119,35 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
               vertical: "bottom",
               horizontal: "left",
             }}
+            sx={{
+              "& .MuiPopover-paper": {
+                backgroundColor: palette.base.white,
+              },
+            }}
           >
-            <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-          </Popover> */}
+            <Typography sx={{ p: 2, color: palette.base.black }}>
+              Choose Color
+            </Typography>
+            <HexColorPicker
+              style={{
+                width: "315px",
+                padding: "20px",
+              }}
+              color={color}
+              onChange={handleColorChange}
+            />
+            <Button
+              sx={{ display: "flex", alignSelf: "center", alignItems:"center",
+                margin:"10px"
+               }}
+              onClick={handleClose}
+              color="primary"
+              variant="outlined"
+            >
+              Done
+            </Button>
+          </Popover>
 
-          <Dialog open={open} onClose={handleClose} sx={{color:palette.base.white}}>
-            <DialogTitle>Pick a Color</DialogTitle>
-            <DialogContent>
-              <HexColorPicker color={color} onChange={handleColorChange} />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="primary">
-                Done
-              </Button>
-            </DialogActions>
-          </Dialog>
         </Box>
         {/* Currency selection */}
         <Typography variant="body1" sx={{ paddingBottom: 2, paddingTop: 2 }}>
