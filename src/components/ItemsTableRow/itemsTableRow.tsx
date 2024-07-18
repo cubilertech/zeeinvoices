@@ -4,35 +4,37 @@ import { Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { ChangeEvent, FC, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { addInvoiceItem, setInvoiceItem } from "@/redux/features/invoiceSlice";
+import { addInvoiceItem, getInvoiceItem, setInvoiceItem } from "@/redux/features/invoiceSlice";
 import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
 
 interface ItemsTableRowProps {
   id: number;
   onRemove: (id: number) => void;
+  data:any,
   showRemoveButton: boolean;
 }
 
 const ItemsTableRow: FC<ItemsTableRowProps> = ({
   id,
   onRemove,
+  data,
   showRemoveButton,
 }) => {
-  const [data, setData] = useState({
-    id: id,
-    name: "",
-    quantity: null,
-    rate: null,
-    tax: null,
-    subTotal: 0,
-  });
+  // const [data, setData] = useState({
+  //   id: id,
+  //   name: "",
+  //   quantity: null,
+  //   rate: null,
+  //   tax: null,
+  //   subTotal: 0,
+  // });
 
   const dispatch = useDispatch();
   const selectedCurrency = useSelector(getCurrency);
   const selectedTax = useSelector(getTax);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+    // setData((prev) => ({ ...prev, [name]: value }));
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
   };
 
@@ -83,7 +85,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             type="number"
             placeholder="1"
             variant="outlined"
-            value={data.quantity}
+            value={data.quantity>0?data.quantity :''}
             onChange={handleChange}
           />
         </Grid>
@@ -103,7 +105,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             type="number"
             placeholder="$ 0.0"
             variant="outlined"
-            value={data.rate}
+            value={data.rate>0?data.rate:''}
             onChange={handleChange}
           />
         </Grid>
@@ -123,9 +125,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               id="outlined-basic"
               name="tax"
               type="number"
+              inputProps={{ max: 100 }}
               placeholder="% 0.0"
               variant="outlined"
-              value={data.tax}
+              value={data.tax?data.tax:''}
               onChange={handleChange}
             />
           ) : (
@@ -146,7 +149,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               margin: "7px 7px 7px 7px",
             }}
           >
-            {selectedCurrency === "$ USD" ? "$" : selectedCurrency} 0.00
+            {selectedCurrency === "$ USD" ? "$" : selectedCurrency} {(data.subTotal).toFixed(2)}
           </Typography>
         </Grid>
         {showRemoveButton && (

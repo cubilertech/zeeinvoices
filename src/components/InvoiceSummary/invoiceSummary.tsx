@@ -1,13 +1,25 @@
 "use client";
-import { getTax } from "@/redux/features/invoiceSetting";
+import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
+import { getInvoiceItem } from "@/redux/features/invoiceSlice";
 import { palette } from "@/theme/palette";
 import { selectedColor } from "@/utils/common";
 import { Box, Stack, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { calculateAmount } from "@/common/common"; 
 
 const InvoiceSummary: FC = () => {
   const selectedTax = useSelector(getTax);
+  const selectedCurrency = useSelector(getCurrency);
+  const getAllInvoiceItems= useSelector(getInvoiceItem);
+  //Calculate Amount
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    const totalAmount = calculateAmount(getAllInvoiceItems);
+    setTotal(totalAmount);
+  }, [getAllInvoiceItems]);
+  console.log(total,'total');
+
   return (
     <Stack
       direction={"column"}
@@ -43,7 +55,7 @@ const InvoiceSummary: FC = () => {
         sx={{ padding: "20px 10px 0px 10px" }}
       >
         <Typography sx={{ color: palette.base.textGreyColor }}>Subtotal</Typography>
-        <Typography sx={{ color: palette.base.black }}>USD 100.00</Typography>
+        <Typography sx={{ color: palette.base.black }}> {selectedCurrency === "$ USD" ? "USD" : selectedCurrency} {(total).toFixed(2)}</Typography>
       </Stack>
       <hr style={{ margin: "10px" }}></hr>
      
@@ -65,7 +77,7 @@ const InvoiceSummary: FC = () => {
         sx={{ padding: "5px 10px 15px 10px" }}
       >
         <Typography sx={{ color: palette.base.textGreyColor }}>Total</Typography>
-        <Typography sx={{ color: palette.base.black }}>USD 350.00</Typography>
+        <Typography sx={{ color: palette.base.black }}>{selectedCurrency === "$ USD" ? "USD" : selectedCurrency} 350.00</Typography>
       </Stack>
     </Stack>
   );
