@@ -10,31 +10,31 @@ export interface InvoiceSettingState {
 }
 
 const initialState: InvoiceSettingState = {
-  color: "",
-  currency: "",
-  dueDate: false,
-  tax: false,
-  detail: false,
+  color: "#2A2A2A",
+  currency: "$ USD",
+  dueDate: true,
+  tax: true,
+  detail: true,
 };
 
 const invoiceSetting = createSlice({
   name: "invoiceSetting",
   initialState,
   reducers: {
-    setColor: (state, action) => {
+    setInvoiceColor: (state, action) => {
       state.color = action.payload;
     },
     setCurrency: (state, action) => {
       state.currency = action.payload;
     },
-    setDueDate: (state, action) => {
-      state.dueDate = action.payload;
+    setDueDate: (state) => {
+      state.dueDate = !state.dueDate;
     },
-    setTax: (state, action) => {
-      state.tax = action.payload;
+    setTax: (state) => {
+      state.tax = !state.tax;
     },
-    setDetails: (state, action) => {
-      state.detail = action.payload;
+    setDetails: (state) => {
+      state.detail = !state.detail;
     },
   },
 });
@@ -45,7 +45,7 @@ export const getDueDate = (state: RootState) => state.invoiceSetting.dueDate;
 export const getTax = (state: RootState) => state.invoiceSetting.tax;
 export const getDetails = (state: RootState) => state.invoiceSetting.detail;
 
-export const { setColor, setCurrency, setDueDate, setTax, setDetails } =
+export const { setInvoiceColor, setCurrency, setDueDate, setTax, setDetails } =
   invoiceSetting.actions;
 
 export default invoiceSetting.reducer;

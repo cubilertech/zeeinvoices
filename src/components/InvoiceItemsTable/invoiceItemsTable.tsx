@@ -4,17 +4,37 @@ import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { Icon } from "../Icon";
 import { ItemsTableRow } from "../ItemsTableRow";
+import { selectedColor } from "@/utils/common";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addInvoiceItem,
+  getInvoiceItem,
+  removeInvoiceItem,
+} from "@/redux/features/invoiceSlice";
+import { getTax } from "@/redux/features/invoiceSetting";
 
 const InvoiceItemsTable: FC = () => {
-  const [items, setItems] = useState([{ id: 1 }]); // Initialize with one item
-  const [itemsCount, setItemsCount]  = useState(2);
+  const getAllInvoiceItems = useSelector(getInvoiceItem);
+  const dispatch = useDispatch();
+  const selectedTax = useSelector(getTax);
+  // const [items, setItems] = useState([{ id: 1 }]); // Initialize with one item
+  const [itemsCount, setItemsCount] = useState(1);
   const handleAddItem = () => {
     setItemsCount((pre) => pre + 1);
-    setItems([...items, { id: itemsCount }]); // Add new item with unique id
+    dispatch(
+      addInvoiceItem({
+        id: itemsCount + 1,
+        name: "",
+        quantity: null,
+        rate: null,
+        tax: null,
+        subTotal: 0,
+      })
+    );
   };
 
   const handleRemoveItem = (id: number) => {
-    setItems(items.filter((item) => item.id !== id)); // Remove item by id
+    dispatch(removeInvoiceItem(id));
   };
 
   return (
@@ -23,7 +43,8 @@ const InvoiceItemsTable: FC = () => {
       <Grid
         container
         sx={{
-          backgroundColor: palette.base.itemsHeadColor,
+          // backgroundColor: palette.base.itemsHeadColor,
+          backgroundColor: selectedColor,
           borderRadius: 1,
           marginTop: 2,
         }}
@@ -32,16 +53,35 @@ const InvoiceItemsTable: FC = () => {
         <Grid sx={{ padding: "0px", paddingTop: "8px !important" }} item xs={4}>
           <Typography sx={{ color: palette.base.white }}>Items</Typography>
         </Grid>
-        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={1.8}>
+        <Grid
+          sx={{ padding: "8px", paddingTop: "8px !important" }}
+          item
+          xs={1.8}
+        >
           <Typography sx={{ color: palette.base.white }}>QTY/HRS</Typography>
         </Grid>
-        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={1.8}>
+        <Grid
+          sx={{ padding: "8px", paddingTop: "8px !important" }}
+          item
+          xs={1.8}
+        >
           <Typography sx={{ color: palette.base.white }}>Rate</Typography>
         </Grid>
-        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={2.2}>
-          <Typography sx={{ color: palette.base.white }}>Tax</Typography>
-        </Grid>
-        <Grid sx={{ padding: "8px", paddingTop: "8px !important" }} item xs={1.8}>
+
+       
+          <Grid
+            sx={{ padding: "8px", paddingTop: "8px !important" }}
+            item
+            xs={2.2}
+          >
+           {selectedTax ? <Typography sx={{ color: palette.base.white }}>Tax</Typography> : ''} 
+          </Grid>
+
+        <Grid
+          sx={{ padding: "8px", paddingTop: "8px !important" }}
+          item
+          xs={1.8}
+        >
           <Typography sx={{ color: palette.base.white }}>Subtotal</Typography>
         </Grid>
       </Grid>
@@ -50,12 +90,12 @@ const InvoiceItemsTable: FC = () => {
       {/* <ItemsTableRow/> */}
 
       {/* Render ItemsTableRow components */}
-      {items.map((item,index) => (
+      {getAllInvoiceItems.map((item, index) => (
         <ItemsTableRow
           key={item.id}
           id={item.id}
           onRemove={handleRemoveItem}
-          showRemoveButton={items[index].id === 1 ? false : true} // Show remove button only if there's more than one item
+          showRemoveButton={getAllInvoiceItems[index].id === 1 ? false : true} // Show remove button only if there's more than one item
         />
       ))}
 
@@ -93,11 +133,5 @@ const InvoiceItemsTable: FC = () => {
     </Stack>
   );
 };
-
-// const TableRow: FC = () => {
-//   return(
-
-//   );
-// };
 
 export default InvoiceItemsTable;

@@ -5,6 +5,7 @@ import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceType, setInvoiceType } from "@/redux/features/invoiceSlice";
+import { getCurrency, setCurrency } from "@/redux/features/invoiceSetting";
 
 interface SelectInput {
   width?: string | number;
@@ -13,11 +14,13 @@ interface SelectInput {
 }
 const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
   const dispatch= useDispatch();
-  const selectedType= useSelector(getInvoiceType);
+  const selectedInvoiceType= useSelector(getInvoiceType);
+  const selectedCurrency= useSelector(getCurrency);
   // const [selected, setSelected] = useState<null | string>(null);
   const handleSelectedItem = (item : string)=>{
   // setSelected(item)
-  dispatch(setInvoiceType(item))
+  type === 'currency' ? dispatch(setCurrency(item)) : dispatch(setInvoiceType(item))
+  
   }
 
   return (
@@ -28,7 +31,7 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           IconComponent={() => <Icon icon="arrowDownIcon" />}
           labelId="demo-simple-select-label"
           id="type-select"
-          value={selectedType}
+          value={type === 'currency' ?selectedCurrency :selectedInvoiceType}
           displayEmpty
           placeholder="Select"
           MenuProps={{

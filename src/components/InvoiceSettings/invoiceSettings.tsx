@@ -17,12 +17,15 @@ import { SwitchInput } from "../SwitchInput";
 import { ColorPicker } from "../ColorPicker";
 import { ColorPickerMenuButton } from "../ColorPickerMenuButton";
 import { HexColorPicker } from "react-colorful";
+import { useDispatch } from "react-redux";
+import { setInvoiceColor } from "@/redux/features/invoiceSetting";
 
 interface InvoiceSettings {
   currencyMenuData?: string[];
 }
 
 const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
+  const dispatch = useDispatch();
   // const handleChange = (event: SelectChangeEvent) => {
   //   setAge(event.target.value);
   // };
@@ -46,14 +49,17 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
     { id: 16, color: "#B2E461", isSelected: false },
   ];
   const [colors, setColors] = useState(initialColors);
-
-  const [color, setColor] = useState("#2A2A2A");
+  const [color, setColor] = useState("");
+  const [pickColor, setPickColor] = useState("");
 
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
   };
 
   const handleSelectColor = (id: number | string) => {
+    setPickColor("");
+    const selectedColor = initialColors.filter((data) => data.id === id);
+    console.log(selectedColor[0].color);
     setColors((prevColors) =>
       prevColors.map((color) =>
         color.id === id
@@ -61,18 +67,27 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
           : { ...color, isSelected: false }
       )
     );
+    dispatch(setInvoiceColor(selectedColor[0].color));
   };
-
   // Popover state handling
-
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+  const handleColoredChanged = () => {
+    setPickColor(color);
+    if (color !== "") {
+      setColors((prevColors) =>
+        prevColors.map((color) => ({ ...color, isSelected: false }))
+      );
+    }
+    setAnchorEl(null);
+    dispatch(setInvoiceColor(color));
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleColorPickerClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    console.log("Color picker button clicked", event);
+    console.log("Color picker button clicked", event.currentTarget);
     // logic to open the color picker
     setAnchorEl(event.currentTarget);
   };
@@ -108,7 +123,10 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
           }}
         >
           <ColorPicker colors={colors} onSelectColor={handleSelectColor} />
-          <ColorPickerMenuButton onClick={handleColorPickerClick} />
+          <ColorPickerMenuButton
+            title={pickColor}
+            onClick={handleColorPickerClick}
+          />
 
           <Popover
             id={id}
@@ -137,17 +155,19 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
               onChange={handleColorChange}
             />
             <Button
-              sx={{ display: "flex", alignSelf: "center", alignItems:"center",
-                margin:"10px"
-               }}
-              onClick={handleClose}
+              sx={{
+                display: "flex",
+                alignSelf: "center",
+                alignItems: "center",
+                margin: "10px",
+              }}
+              onClick={handleColoredChanged}
               color="primary"
               variant="outlined"
             >
               Done
             </Button>
           </Popover>
-
         </Box>
         {/* Currency selection */}
         <Typography variant="body1" sx={{ paddingBottom: 2, paddingTop: 2 }}>
@@ -157,6 +177,7 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
         <Box sx={{ width: "100%", marginTop: 1 }}>
           <SelectInput
             width={"100%"}
+            type="currency"
             menuData={["$ USD", "RS", "ADE"]}
           ></SelectInput>
         </Box>
@@ -165,9 +186,9 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
         </Typography>
         <hr></hr>
         <Box sx={{ px: 2 }}>
-          <SwitchInput lable="Due date"></SwitchInput>
-          <SwitchInput lable="Tax"></SwitchInput>
-          <SwitchInput lable="Shipping details"></SwitchInput>
+          <SwitchInput type="due" lable="Due date"></SwitchInput>
+          <SwitchInput type="tax" lable="Tax"></SwitchInput>
+          <SwitchInput type="shipping" lable="Shipping details"></SwitchInput>
         </Box>
       </Stack>
     </Box>

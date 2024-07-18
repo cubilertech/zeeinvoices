@@ -1,5 +1,12 @@
 "use client";
-import { palette } from "@/theme/palette";
+import {
+  getDetails,
+  getDueDate,
+  getTax,
+  setDetails,
+  setDueDate,
+  setTax,
+} from "@/redux/features/invoiceSetting";
 import {
   Box,
   FormControlLabel,
@@ -9,10 +16,12 @@ import {
   SwitchProps,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useState, ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 interface SwitchInput {
   lable?: string;
+  type?: string;
 }
 
 // const IOSSwitch = styled((props: SwitchProps) => (
@@ -67,7 +76,34 @@ interface SwitchInput {
 //   },
 // }));
 
-const SwitchInput: FC<SwitchInput> = ({ lable }) => {
+const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
+  const dispatch = useDispatch();
+  const dueDate = useSelector(getDueDate);
+  const tax = useSelector(getTax);
+  const details = useSelector(getDetails);
+
+  const [checked, setChecked] = useState<boolean>(true);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+    if (type === "due") {
+      dispatch(setDueDate());
+    } else if (type === "tax") {
+      dispatch(setTax());
+    } else {
+      dispatch(setDetails());
+    }
+    
+  };
+  const checkedValue =()=>{
+    if (type === "due") {
+     return dueDate;
+    } else if (type === "tax") {
+   return   tax;
+    } else {
+    return  details;
+    }
+  } 
   return (
     <Box
       borderRadius={1}
@@ -78,12 +114,14 @@ const SwitchInput: FC<SwitchInput> = ({ lable }) => {
       }}
     >
       <Stack direction={"row"} justifyContent={"space-between"}>
-        <Typography variant="body1"
-        sx={{marginTop:1}}
-        >{lable}</Typography>
+        <Typography variant="body1" sx={{ marginTop: 1 }}>
+          {lable}
+        </Typography>
         <FormControlLabel
-        sx={{marginRight:-1}}
-          control={<Switch sx={{ m: 1 }} defaultChecked />}
+          sx={{ marginRight: -1 }}
+          control={
+            <Switch sx={{ m: 1 }} checked={checkedValue()} onChange={handleChange} />
+          }
           label=""
         />
       </Stack>

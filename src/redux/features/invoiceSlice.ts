@@ -13,11 +13,12 @@ export interface ContactDetail {
   address: string;
 }
 export interface InvoiceItem {
+  id: number;
   name: string;
-  qty: number;
-  rate: number;
-  tax: number;
-  description: string;
+  quantity: number | null;
+  rate: number | null;
+  tax: number | null;
+  // description: string;
   subTotal: number;
 }
 
@@ -29,6 +30,13 @@ export interface InvoiceState {
   invoiceDate: Dayjs | null;
   dueDate: Dayjs | null;
   invoiceItem: InvoiceItem[];
+  addtionalNotes: string;
+}
+type UpdatableKeys = 'name' | 'quantity' | 'rate' | 'tax' | 'subTotal';
+interface ActionPayload {
+  id: number;
+  type: UpdatableKeys;
+  value: any;
 }
 
 const initialValue: InvoiceState = {
@@ -56,14 +64,16 @@ const initialValue: InvoiceState = {
   dueDate: null,
   invoiceItem: [
     {
+      id: 1,
       name: "",
-      qty: 0,
-      rate: 0,
-      tax: 0,
-      description: "",
+      quantity: null,
+      rate: null,
+      tax: null,
+      // description: "",
       subTotal: 0,
     },
   ],
+  addtionalNotes: "",
 };
 
 export const invoiceSlice = createSlice({
@@ -88,8 +98,24 @@ export const invoiceSlice = createSlice({
     setDueDate: (state, action: PayloadAction<Dayjs | null>) => {
       state.dueDate = action.payload;
     },
-    setInvoiceItem: (state, action: PayloadAction<InvoiceItem[]>) => {
-      state.invoiceItem = action.payload;
+
+    addInvoiceItem: (state, action: PayloadAction<InvoiceItem>) => {
+      const item = action.payload;
+      state.invoiceItem = [...state.invoiceItem, item];
+    },
+    removeInvoiceItem: (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+      const filterData = state.invoiceItem.filter((item) => item.id !== id);
+      state.invoiceItem = filterData;
+    },
+    setInvoiceItem: (state, action: PayloadAction<any>) => {
+      const {id,type,value} = action.payload as ActionPayload;
+      const index = state.invoiceItem.findIndex((item)=> item.id === id );
+      state.invoiceItem[index][type]= value as never;
+      console.log(id,index);
+    },
+    setAddtionalNotes: (state, action: PayloadAction<string>) => {
+      state.addtionalNotes = action.payload;
     },
   },
 });
@@ -101,6 +127,8 @@ export const getRecipientDetail = (state: RootState) => state.invoice.to;
 export const getInvoiceDate = (state: RootState) => state.invoice.invoiceDate;
 export const getDueDate = (state: RootState) => state.invoice.dueDate;
 export const getInvoiceItem = (state: RootState) => state.invoice.invoiceItem;
+export const getAddtionalNotes = (state: RootState) =>
+  state.invoice.addtionalNotes;
 
 export const {
   setInvoiceLogo,
@@ -109,6 +137,9 @@ export const {
   setRecipientDetail,
   setInvoiceDate,
   setDueDate,
+  addInvoiceItem,
+  removeInvoiceItem,
   setInvoiceItem,
+  setAddtionalNotes,
 } = invoiceSlice.actions;
 export default invoiceSlice.reducer;

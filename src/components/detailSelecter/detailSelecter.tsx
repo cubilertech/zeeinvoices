@@ -2,6 +2,7 @@
 import {
   Box,
   Button,
+  FormControl,
   IconButton,
   Modal,
   Stack,
@@ -13,7 +14,25 @@ import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { ContactDetail, getRecipientDetail, getSenderDetail, setRecipientDetail, setSenderDetail } from "../../redux/features/invoiceSlice";
+import {
+  ContactDetail,
+  getRecipientDetail,
+  getSenderDetail,
+  setRecipientDetail,
+  setSenderDetail,
+} from "../../redux/features/invoiceSlice";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  companyName: Yup.string().required("Company Name is required"),
+  email: Yup.string().email("Invalid email address").required("Email is required"),
+  phoneNumber: Yup.string().required("Phone number is required"),
+  city: Yup.string().required("City is required"),
+  state: Yup.string().required("State is required"),
+  address: Yup.string().required("Address is required"),
+});
 
 interface DetailSelecter {
   title?: string;
@@ -26,43 +45,42 @@ const DetailSelecter: FC<DetailSelecter> = ({
   // addDetailsOf,
 }) => {
   const dispatch = useDispatch();
-  const senderData= useSelector(getSenderDetail);
-  const recipientData= useSelector(getRecipientDetail);
+  const senderData = useSelector(getSenderDetail);
+  const recipientData = useSelector(getRecipientDetail);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  
+
   const [detailsEntered, setDetailsEntered] = useState(false); // for modal details
-  const [details, setDetails] = useState<ContactDetail>({
+   const initialValues = {
     name: "",
     companyName: "",
     email: "",
-    phoneNumber: '',
+    phoneNumber: "",
     city: "",
     state: "",
     address: "",
+  };
+
+  const { values, handleBlur, handleChange, handleSubmit, errors } = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+      setDetailsEntered(true);
+      setOpen(false);
+      detailsOf === "Sender"
+      ? dispatch(setSenderDetail(values))
+      : dispatch(setRecipientDetail(values));
+    },
   });
 
-  // {console.log(data,'redux')}
-  // {console.log(data1,'redux1')}
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
-    // console.log(`The name (handleInputChange) is ${details.name}`);
-  };
-  //close model 
+  //close model
   const handleModelClose = () => {
-    setDetails(detailsOf ===  "Sender" ? senderData : recipientData);
+    detailsOf === "Sender"
+    ? dispatch(setSenderDetail(senderData))
+    : dispatch(setRecipientDetail(recipientData));
+    // setDetails(detailsOf === "Sender" ? senderData : recipientData);
     setOpen(false);
-  };
-
-  const handleAddDetails = () => {
-    setDetailsEntered(true);
-    setOpen(false);
-    detailsOf === "Sender" ? dispatch(setSenderDetail(details)) : dispatch(setRecipientDetail(details));
-    // console.log(`The name (handleAddDetails) is ${details.name}`);
   };
 
   return (
@@ -131,27 +149,34 @@ const DetailSelecter: FC<DetailSelecter> = ({
           </Typography>
           <Stack spacing={2} sx={{ marginTop: 2 }}>
             <Typography variant="text-xs-bold">
-              {detailsOf === "Sender" ? senderData.companyName:recipientData.companyName}
+              {detailsOf === "Sender"
+                ? senderData.companyName
+                : recipientData.companyName}
             </Typography>
             <Stack direction={"column"}>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                 {detailsOf === "Sender" ? senderData.name:recipientData.name}
+                {detailsOf === "Sender" ? senderData.name : recipientData.name}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {detailsOf === "Sender" ? senderData.address:recipientData.address}, {detailsOf === "Sender" ? senderData.city:recipientData.city}
-             
+                {detailsOf === "Sender"
+                  ? senderData.address
+                  : recipientData.address}
+                ,{" "}
+                {detailsOf === "Sender" ? senderData.city : recipientData.city}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                 {detailsOf === "Sender" ? senderData.state:recipientData.state}
+                {detailsOf === "Sender"
+                  ? senderData.state
+                  : recipientData.state}
               </Typography>
             </Stack>
             <Stack direction={"column"}>
@@ -159,13 +184,17 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {detailsOf === "Sender" ? senderData.email:recipientData.email}
+                {detailsOf === "Sender"
+                  ? senderData.email
+                  : recipientData.email}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                   {detailsOf === "Sender" ? senderData.phoneNumber:recipientData.phoneNumber}
+                {detailsOf === "Sender"
+                  ? senderData.phoneNumber
+                  : recipientData.phoneNumber}
               </Typography>
             </Stack>
           </Stack>
@@ -203,92 +232,118 @@ const DetailSelecter: FC<DetailSelecter> = ({
               />
             </IconButton>
           </Stack>
-
-          <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-            <TextField
-              label="Name"
-              size="large" 
-              name="name"
-              value={details.name}
-              onChange={handleInputChange}
-              sx={{ width: "240px" }}
-            />
-            <TextField
-              label="Company Name"
-              size="large"
-              name="companyName"
-              onChange={handleInputChange}
-              value={details.companyName}
-              sx={{ width: "240px" }}
-            ></TextField>
-          </Stack>
-          <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-            <TextField
-              label="Email"
-              size="large"
-              name="email"
-              onChange={handleInputChange}
-              value={details.email}
-              sx={{ width: "240px" }}
-            ></TextField>
-            <TextField
-              label="Phone number"
-              size="large"
-              name="phoneNumber"
-              onChange={handleInputChange}
-              value={details.phoneNumber as string}
-              sx={{ width: "240px" }}
-            ></TextField>
-          </Stack>
-          <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-            <TextField
-              label="City"
-              size="large"
-              name="city"
-              onChange={handleInputChange}
-              value={details.city}
-              sx={{ width: "240px" }}
-            ></TextField>
-            <TextField
-              label="State"
-              size="large"
-              name="state"
-              onChange={handleInputChange}
-              value={details.state}
-              sx={{ width: "240px" }}
-            ></TextField>
-          </Stack>
-          <Box sx={{ marginTop: "20px" }}>
-            <TextField
-              label="Address"
-              size="large"
-              name="address"
-              onChange={handleInputChange}
-              value={details.address}
-              // sx={{ width: "100%" }}
-            ></TextField>
-          </Box>
-          <Stack
-            direction={"row"}
-            justifyContent={"space-between"}
-            spacing={2}
-            sx={{ marginTop: "20px" }}
-          >
-            <Button
-              onClick={handleModelClose}
-              variant="outlined"
-              sx={{ width: "243px", borderColor: palette.base.borderColor }}
+          <form onSubmit={handleSubmit}>
+            <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
+              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur} >
+                <TextField
+                  label="Name"
+                  size="large"
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                 
+                  sx={{ width: "240px" }}
+                 
+                />
+                {errors.name && <Box sx={{color:'#D33131'}}>{errors.name}</Box>}
+              </FormControl>
+              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+                <TextField
+                  label="Company Name"
+                  size="large"
+                  name="companyName"
+                  onChange={handleChange}
+                  value={values.companyName}
+                  sx={{ width: "240px" }}
+                ></TextField>
+                 {errors.companyName && <Box sx={{color:'#D33131'}}>{errors.companyName}</Box>}
+                  </FormControl>
+             
+            </Stack>
+            <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
+              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+                <TextField
+                  label="Email"
+                  size="large"
+                  name="email"
+                  onChange={handleChange}
+                  value={values.email}
+                  sx={{ width: "240px" }}
+                ></TextField>
+                {errors.email && <Box sx={{color:'#D33131'}}>{errors.email}</Box>}
+              </FormControl>
+              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+                <TextField
+                  label="Phone number"
+                  size="large"
+                  name="phoneNumber"
+                  onChange={handleChange}
+                  value={values.phoneNumber as string}
+                  sx={{ width: "240px" }}
+                ></TextField>
+                {errors.phoneNumber && <Box sx={{color:'#D33131'}}>{errors.phoneNumber}</Box>}
+              </FormControl>
+            </Stack>
+            <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
+              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+                <TextField
+                  label="City"
+                  size="large"
+                  name="city"
+                  onChange={handleChange}
+                  value={values.city}
+                  sx={{ width: "240px" }}
+                ></TextField>
+                {errors.city && <Box sx={{color:'#D33131'}}>{errors.city}</Box>}
+              </FormControl>
+              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+                <TextField
+                  label="State"
+                  size="large"
+                  name="state"
+                  onChange={handleChange}
+                  value={values.state}
+                  sx={{ width: "240px" }}
+                ></TextField>
+                {errors.state && <Box sx={{color:'#D33131'}}>{errors.state}</Box>}
+              </FormControl>
+            </Stack>
+            <Box sx={{ marginTop: "20px" }}>
+              <FormControl fullWidth onBlur={handleBlur}>
+                <TextField
+                  label="Address"
+                  size="large"
+                  name="address"
+                  onChange={handleChange}
+                  value={values.address}
+                  // sx={{ width: "100%" }}
+                ></TextField>
+                {errors.address && <Box sx={{color:'#D33131'}}>{errors.address}</Box>}
+              </FormControl>
+            </Box>
+            <Stack
+              direction={"row"}
+              justifyContent={"space-between"}
+              spacing={2}
+              sx={{ marginTop: "20px" }}
             >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleAddDetails}
-              variant="contained"
-              sx={{ width: "243px" }}
-            >
-              Add
-            </Button>
-          </Stack>
+              <Button
+                onClick={handleModelClose}
+                variant="outlined"
+                sx={{ width: "243px", borderColor: palette.base.borderColor }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                // onClick={handleSubmit}
+                variant="contained"
+                sx={{ width: "243px" }}
+              >
+                Add
+              </Button>
+            </Stack>
+          </form>
         </Box>
       </Modal>
     </Box>

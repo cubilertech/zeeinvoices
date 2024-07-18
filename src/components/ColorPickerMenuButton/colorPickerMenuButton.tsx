@@ -6,9 +6,10 @@ import { Icon } from "../Icon";
 
 interface ColorPickerMenuButton {
   // onClick: () => void;
+  title:string;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
-const ColorPickerMenuButton: FC<ColorPickerMenuButton> = ({onClick}) => {
+const ColorPickerMenuButton: FC<ColorPickerMenuButton> = ({title,onClick}) => {
   return (
     <Stack
       direction={"row"}
@@ -29,7 +30,7 @@ const ColorPickerMenuButton: FC<ColorPickerMenuButton> = ({onClick}) => {
           <Icon icon="colorPickerPaletteIcon" width={24} height={24} />
         </Box>
         <Typography variant="body1" sx={{alignSelf:"center", color:palette.base.textGreyColor }}>
-          Custom Color
+       { title ? title : 'Custom Color'}
         </Typography>
       </Stack>
       <Box sx={{ margin: "15px" }}>

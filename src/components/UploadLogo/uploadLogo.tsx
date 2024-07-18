@@ -24,9 +24,9 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     }
   };
 
-  // const handleCancelLogoClick = () => {
-  //   setSelectedFile(null);
-  // };
+  const handleCancelLogoClick = () => {
+    dispatch(setInvoiceLogo(null));
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -62,7 +62,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
               height: "5px !important",
               borderRadius: 3,
             }}
-            // onClick={handleCancelLogoClick}
+            onClick={handleCancelLogoClick}
           >
             <CancelIcon
               sx={{

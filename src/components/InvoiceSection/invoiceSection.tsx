@@ -1,5 +1,6 @@
+'use client';
 import { Box, Grid, IconButton, Stack, TextField } from "@mui/material";
-import { FC } from "react";
+import { FC , ChangeEvent} from "react";
 import { UploadLogo } from "../UploadLogo";
 import { SelectInput } from "../SelectInput";
 import { palette } from "@/theme/palette";
@@ -8,17 +9,30 @@ import { InvoiceDatePicker } from "../InvoiceDatePicker";
 import { InvoiceItemsTable } from "../InvoiceItemsTable";
 import { InvoiceSummary } from "../InvoiceSummary";
 import { DetailSelecter } from "../detailSelecter";
+import { useDispatch, useSelector } from "react-redux";
+import { selectedColor } from "@/utils/common";
+import { getAddtionalNotes, setAddtionalNotes } from "@/redux/features/invoiceSlice";
+import { getDueDate } from "@/redux/features/invoiceSetting";
 
 const InvoiceSection: FC = () => {
+  const dispatch = useDispatch();
+  const additionalNotes = useSelector(getAddtionalNotes);
+  const isDueDate = useSelector(getDueDate);
+const handleChangeNotes = (event : ChangeEvent<HTMLInputElement>)=>{
+  const value = event.target.value;
+  dispatch(setAddtionalNotes(value));
+}
   return (
     <Box
-      borderTop={5}
+     
       sx={{
         boxShadow: palette.boxShadows[200],
         backgroundColor: palette.base.white,
         width: "100%",
         padding: 4,
         marginBottom: 3,
+        borderTop:'5px solid',
+        borderColor:selectedColor
       }}
     >
       {/* First section, add logo, invoice type, print */}
@@ -57,7 +71,7 @@ const InvoiceSection: FC = () => {
       <Stack direction={"row"} spacing={1} sx={{ marginTop: 5 }}>
         <Grid container spacing={0}>
           <Grid
-            sx={{ padding: "0px", paddingTop: "8px !important" }}
+            sx={{ padding: "8px", paddingTop: "8px !important" }}
             item
             xs={6.5}
           >
@@ -68,7 +82,7 @@ const InvoiceSection: FC = () => {
             item
             xs={5.5}
           >
-            <InvoiceDatePicker title="Due Date" />
+           {isDueDate ? <InvoiceDatePicker title="Due Date" /> :''}
           </Grid>
         </Grid>
       </Stack>
@@ -101,6 +115,8 @@ const InvoiceSection: FC = () => {
               border: `1px dashed ${palette.color.eggWhite}`,
             },
           }}
+          onChange={handleChangeNotes}
+          value={additionalNotes}
           id="outlined-basic"
           placeholder="Additional notes"
           variant="outlined"
