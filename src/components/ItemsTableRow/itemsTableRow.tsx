@@ -3,6 +3,7 @@ import { palette } from "@/theme/palette";
 import { Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { FC } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import "../../Styles/tableItemRow.css";
 
 interface ItemsTableRowProps {
   id: number;
@@ -16,7 +17,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   showRemoveButton,
 }) => {
   return (
-    <Stack direction={"column"}>
+    <Stack className="tableItemRow" direction={"column"}>
       {/* Input fields */}
       <Grid
         container
@@ -31,8 +32,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           <TextField
             // size="small"
             sx={{
-              // border: `1px solid ${palette.base.borderColor}`,
-              // borderRadius: 7,
               color: palette.color.gray[700],
               width: "100%",
               height: "32px",
@@ -112,18 +111,23 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         </Grid>
         {showRemoveButton && (
           <Grid
-            sx={{ padding: "4px", paddingTop: "4px !important" }}
+            sx={{
+              paddingTop: "4px !important",
+              paddingBottom: "6px !important",
+              alignSelf: "center",
+            }}
             item
             xs={0.8}
           >
             <IconButton
+              className="deleteIconButton"
               onClick={() => onRemove(id)}
               aria-label="delete"
               sx={{
-                alignItems:"center",
-                width: "5px !important",
-                height: "5px !important",
-                borderRadius: 3,
+                alignItems: "center",
+                width: "15px !important",
+                height: "15px !important",
+                borderRadius: 1,
               }}
             >
               <CloseIcon

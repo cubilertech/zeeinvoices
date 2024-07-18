@@ -11,7 +11,7 @@ const Header = () => {
         left: 0,
         background: palette.base.white,
         py: "7px",
-        boxShadow: "none",
+        // boxShadow: "none",
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
       }}
     >
