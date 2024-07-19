@@ -1,5 +1,4 @@
 "use client";
-import { palette } from "@/theme/palette";
 import {
   Stack,
   Typography,
@@ -40,6 +39,7 @@ const TextField: FC<TextField> = ({
             ? {
                 "& .MuiInputBase-input": {
                   height: "48px",
+                  borderRadius: "8px",
                 },
                 ...sx,
               }

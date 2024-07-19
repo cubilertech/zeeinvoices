@@ -1,4 +1,3 @@
-import { borderRadius } from "@atlaskit/theme";
 import { palette } from "../palette";
 
 export const MuiTextField = () => {
@@ -9,7 +8,13 @@ export const MuiTextField = () => {
           "&.MuiTextField-sizeSmall": {
             height: "42px",
             border: `1px solid ${palette.base.borderColor}`,
-            borderRadius: 1,
+            borderRadius: 7,
+          },
+
+          "&.MuiTextField-sizeLarge:hover": {
+            height: "42px",
+            border: `1px solid ${palette.base.borderColor}`,
+            borderRadius: "8px !important",
           },
 
           "&.MuiOutlinedInput-root": {
@@ -20,17 +25,17 @@ export const MuiTextField = () => {
           "& .MuiInputBase-input": {
             // Notice the space before .MuiInputBase-input
             height: "32px",
-            padding: "0px 10px",
+            padding: "0px 10px", 
             width: "100%",
-            borderRadius: 7,
+            borderRadius: 2,
             border: `1px solid ${palette.base.borderColor}`,
             color: palette.base.black,
             "&:hover": {
-              borderRadius: 7,
+              borderRadius: 2,
               border: `1px solid ${palette.color.gray[500]}`,
             },
             "&::placeholder": {
-              color: palette.color.gray[500], // Change this to your desired placeholder color
+              color: palette.color.gray[100], // Change this to your desired placeholder color
             },
             "&:-webkit-autofill": {
               // change input field color on auto fill

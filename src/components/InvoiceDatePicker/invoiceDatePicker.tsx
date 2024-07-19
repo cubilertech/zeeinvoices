@@ -32,6 +32,7 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
       direction={"row"}
       spacing={1}
       sx={{
+        // backgroundColor:'skyblue',
         width: 205,
         height: 25,
         justifyContent: "center",
@@ -48,8 +49,9 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
       </Typography>
       <Box
         sx={{
-          width: 134,
+          width: "134px !important",
           height: 24,
+          // backgroundColor: "skyblue",
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -68,20 +70,22 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
                 },
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
                 {
-                  border: `1px solid ${palette.color.gray[500]}`,
+                  // border: `1px solid ${palette.color.gray[500]}`,
                   borderRadius: 1,
+                  width: "144px !important",
                 },
               "& .MuiOutlinedInput-input": {
-                padding: "3px !important",
+                padding: "1px !important",
                 paddingLeft: "7px !important",
-                color: palette.color.gray[800],
+                // color: palette.color.gray[800],
                 fontSize: 12,
               },
               "& .MuiInputBase-input": {
                 height: "20px !important",
+                width: "134px !important",
               },
               padding: "0px !important",
-              width: "100% !important",
+              // width: "100% !important",
             }}
           />
         </LocalizationProvider>

@@ -12,7 +12,7 @@ const Color: FC<Color> = ({ color, isSelected, onClick }) => {
   return (
     <Box onClick={onClick}
       borderRadius={1}
-      sx={{ height: "32px", width: "32px", backgroundColor: color , borderRadius:"3px", position: 'relative' }}
+      sx={{cursor:"pointer", height: "32px", width: "32px", backgroundColor: color , borderRadius:"3px", position: 'relative' }}
     >
       {/* {isSelected && <Icon icon="tickIcon" width={20} height={20} />} */}
 

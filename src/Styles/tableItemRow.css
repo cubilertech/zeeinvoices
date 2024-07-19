@@ -1,0 +1,9 @@
+.tableItemRow:hover .deleteIconButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteIconButton{
+    display: none;
+}
