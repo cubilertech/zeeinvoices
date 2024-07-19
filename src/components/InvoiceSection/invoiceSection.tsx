@@ -1,6 +1,6 @@
-'use client';
+"use client";
 import { Box, Grid, IconButton, Stack, TextField } from "@mui/material";
-import { FC , ChangeEvent} from "react";
+import { FC, ChangeEvent } from "react";
 import { UploadLogo } from "../UploadLogo";
 import { SelectInput } from "../SelectInput";
 import { palette } from "@/theme/palette";
@@ -11,28 +11,32 @@ import { InvoiceSummary } from "../InvoiceSummary";
 import { DetailSelecter } from "../detailSelecter";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedColor } from "@/utils/common";
-import { getAddtionalNotes, setAddtionalNotes } from "@/redux/features/invoiceSlice";
+import {
+  getAddtionalNotes,
+  setAddtionalNotes,
+} from "@/redux/features/invoiceSlice";
 import { getDueDate } from "@/redux/features/invoiceSetting";
+import { useRouter } from "next/navigation";
 
 const InvoiceSection: FC = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
-const handleChangeNotes = (event : ChangeEvent<HTMLInputElement>)=>{
-  const value = event.target.value;
-  dispatch(setAddtionalNotes(value));
-}
+  const handleChangeNotes = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    dispatch(setAddtionalNotes(value));
+  };
   return (
     <Box
-     
       sx={{
         boxShadow: palette.boxShadows[200],
         backgroundColor: palette.base.white,
         width: "100%",
         padding: 4,
         marginBottom: 3,
-        borderTop:'5px solid',
-        borderColor:selectedColor
+        borderTop: "5px solid",
+        borderColor: selectedColor,
       }}
     >
       {/* First section, add logo, invoice type, print */}
@@ -48,7 +52,10 @@ const handleChangeNotes = (event : ChangeEvent<HTMLInputElement>)=>{
         </Stack>
         <Box sx={{ width: 92, height: 40 }}>
           <Stack direction={"row"} spacing={2}>
-            <IconButton sx={{ padding: 1 }}>
+            <IconButton
+              sx={{ padding: 1 }}
+              onClick={() => router.push("/PdfPreview")}
+            >
               <Icon icon="sendSqaureIcon" width={20} height={20} />
             </IconButton>
             <IconButton sx={{ padding: 1 }}>
@@ -82,7 +89,7 @@ const handleChangeNotes = (event : ChangeEvent<HTMLInputElement>)=>{
             item
             xs={5.5}
           >
-           {isDueDate ? <InvoiceDatePicker title="Due Date" /> :''}
+            {isDueDate ? <InvoiceDatePicker title="Due Date" /> : ""}
           </Grid>
         </Grid>
       </Stack>

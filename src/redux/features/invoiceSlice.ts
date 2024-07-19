@@ -24,12 +24,12 @@ export interface InvoiceItem {
 }
 
 export interface InvoiceState {
-  logo: File | null;
+  logo: string | null;
   invoiceType: string;
   from: ContactDetail;
   to: ContactDetail;
-  invoiceDate: Dayjs | null;
-  dueDate: Dayjs | null;
+  invoiceDate: string | null;
+  dueDate: string | null;
   invoiceItem: InvoiceItem[];
   addtionalNotes: string;
 }
@@ -41,7 +41,7 @@ interface ActionPayload {
 }
 
 const initialValue: InvoiceState = {
-  logo: null,
+  logo: '',
   invoiceType: "",
   from: {
     name: "",
@@ -61,8 +61,8 @@ const initialValue: InvoiceState = {
     state: "",
     address: "",
   },
-  invoiceDate: null,
-  dueDate: null,
+  invoiceDate: new Date().toISOString(),
+  dueDate: new Date().toISOString(),
   invoiceItem: [
     {
       id: 1,
@@ -82,7 +82,7 @@ export const invoiceSlice = createSlice({
   name: "invoice",
   initialState: initialValue,
   reducers: {
-    setInvoiceLogo: (state, action: PayloadAction<File | null>) => {
+    setInvoiceLogo: (state, action: PayloadAction<string | null>) => {
       state.logo = action.payload;
     },
     setInvoiceType: (state, action: PayloadAction<string>) => {
@@ -94,10 +94,10 @@ export const invoiceSlice = createSlice({
     setRecipientDetail: (state, action: PayloadAction<ContactDetail>) => {
       state.to = action.payload;
     },
-    setInvoiceDate: (state, action: PayloadAction<Dayjs | null>) => {
+    setInvoiceDate: (state, action: PayloadAction<string | null>) => {
       state.invoiceDate = action.payload;
     },
-    setDueDate: (state, action: PayloadAction<Dayjs | null>) => {
+    setDueDate: (state, action: PayloadAction<string | null>) => {
       state.dueDate = action.payload;
     },
 

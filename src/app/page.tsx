@@ -6,9 +6,9 @@ import ClientProvider from "@/components/ClientProvider";
 export default function Home() {
   return (
     <div>
-      <ClientProvider>
-        <CreateInvoice />
-      </ClientProvider>
+      {/* <ClientProvider> */}
+      <CreateInvoice />
+      {/* </ClientProvider> */}
     </div>
   );
 }

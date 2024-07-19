@@ -32,7 +32,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     const file = event.target.files?.[0];
     if (file) {
       // setSelectedFile(file);
-      dispatch(setInvoiceLogo(file));
+      dispatch(setInvoiceLogo(URL.createObjectURL(file)));
     }
   };
 
@@ -42,13 +42,12 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
 
   return (
     <>
-    
       {invoiceLogo ? (
         <Box
           sx={{ position: "relative", alignItems: "center", display: "flex" }}
         >
           <img
-            src={URL.createObjectURL(invoiceLogo)}
+            src={invoiceLogo}
             alt="Selected Logo"
             style={{ width: "70px", height: "70px", objectFit: "contain" }}
           />
@@ -112,7 +111,6 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
           </Stack>
         </Box>
       )}
-    
     </>
   );
 };

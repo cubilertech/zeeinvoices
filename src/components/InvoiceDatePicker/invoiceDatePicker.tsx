@@ -13,6 +13,7 @@ import {
   setDueDate,
   setInvoiceDate,
 } from "@/redux/features/invoiceSlice";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface InvoiceDatePicker {
   title: string;
@@ -21,10 +22,19 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
   const dispatch = useDispatch();
   const invoiceDate = useSelector(getInvoiceDate);
   const dueDate = useSelector(getDueDate);
+  // const [value, setValue] = useState<Dayjs | null>(
+  //   dayjs("2024-07-25T07:00:00.000Z")
+  // );
+  // console.log(value?.toISOString(), "valueDat");
+  console.log(new Date().toISOString(), "dd");
   const handleDateChange = (newDate: Dayjs | null) => {
-    title === "Invoice Date"
-      ? dispatch(setInvoiceDate(newDate))
-      : dispatch(setDueDate(newDate));
+    console.log(newDate, "newDte");
+    if (newDate) {
+      const date = newDate?.toISOString();
+      title === "Invoice Date"
+        ? dispatch(setInvoiceDate(date))
+        : dispatch(setDueDate(date));
+    }
   };
 
   return (
@@ -56,8 +66,10 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileDatePicker
-            defaultValue={dayjs()}
-            value={title === "Invoice Date" ? invoiceDate : dueDate}
+            // defaultValue={dayjs(new Date().toISOString())}
+            value={
+              title === "Invoice Date" ? dayjs(invoiceDate) : dayjs(dueDate)
+            }
             onChange={handleDateChange}
             format="MMM Do, YYYY"
             sx={{
@@ -88,6 +100,11 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               // width: "100% !important",
             }}
           />
+          {/* <DatePicker
+            label="Controlled picker"
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
+          /> */}
         </LocalizationProvider>
       </Box>
     </Stack>
