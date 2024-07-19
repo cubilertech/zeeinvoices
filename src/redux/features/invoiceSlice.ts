@@ -15,11 +15,12 @@ export interface ContactDetail {
 export interface InvoiceItem {
   id: number;
   name: string;
-  quantity: number | null;
-  rate: number | null;
-  tax: number | null;
+  quantity: number;
+  rate: number;
+  tax: number;
   // description: string;
   subTotal: number;
+  taxAmount:number;
 }
 
 export interface InvoiceState {
@@ -66,11 +67,12 @@ const initialValue: InvoiceState = {
     {
       id: 1,
       name: "",
-      quantity: null,
-      rate: null,
-      tax: null,
+      quantity: 0,
+      rate: 0,
+      tax: 0,
       // description: "",
       subTotal: 0,
+      taxAmount:0
     },
   ],
   addtionalNotes: "",
@@ -111,9 +113,20 @@ export const invoiceSlice = createSlice({
     setInvoiceItem: (state, action: PayloadAction<any>) => {
       const {id,type,value} = action.payload as ActionPayload;
       const index = state.invoiceItem.findIndex((item)=> item.id === id );
-      state.invoiceItem[index][type]= value as never;
-      console.log(id,index);
+      state.invoiceItem[index][type] = value as never;
+      if(type === 'quantity' || type === 'rate'){
+        const subtitle = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
+        state.invoiceItem[index].subTotal = subtitle;
+      }
+      if(type === 'tax'){
+        const total = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
+        const taxValue =state.invoiceItem[index].tax;
+        const tax = (total)*(taxValue/100);
+        state.invoiceItem[index].taxAmount = tax;
+        state.invoiceItem[index].subTotal= total+tax;
+      }
     },
+
     setAddtionalNotes: (state, action: PayloadAction<string>) => {
       state.addtionalNotes = action.payload;
     },

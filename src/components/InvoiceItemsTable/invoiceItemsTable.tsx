@@ -25,10 +25,11 @@ const InvoiceItemsTable: FC = () => {
       addInvoiceItem({
         id: itemsCount + 1,
         name: "",
-        quantity: null,
-        rate: null,
-        tax: null,
+        quantity: 0,
+        rate: 0,
+        tax: 0,
         subTotal: 0,
+        taxAmount:0
       })
     );
   };
@@ -94,6 +95,7 @@ const InvoiceItemsTable: FC = () => {
         <ItemsTableRow
           key={item.id}
           id={item.id}
+          data={item}
           onRemove={handleRemoveItem}
           showRemoveButton={getAllInvoiceItems[index].id === 1 ? false : true} // Show remove button only if there's more than one item
         />
