@@ -29,6 +29,7 @@ const InvoiceItemsTable: FC = () => {
         rate: 0,
         tax: 0,
         subTotal: 0,
+        taxAmount:0
       })
     );
   };

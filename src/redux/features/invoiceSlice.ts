@@ -20,6 +20,7 @@ export interface InvoiceItem {
   tax: number;
   // description: string;
   subTotal: number;
+  taxAmount:number;
 }
 
 export interface InvoiceState {
@@ -71,6 +72,7 @@ const initialValue: InvoiceState = {
       tax: 0,
       // description: "",
       subTotal: 0,
+      taxAmount:0
     },
   ],
   addtionalNotes: "",
@@ -120,6 +122,7 @@ export const invoiceSlice = createSlice({
         const total = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
         const taxValue =state.invoiceItem[index].tax;
         const tax = (total)*(taxValue/100);
+        state.invoiceItem[index].taxAmount = tax;
         state.invoiceItem[index].subTotal= total+tax;
       }
     },

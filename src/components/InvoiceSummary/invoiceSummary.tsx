@@ -6,19 +6,22 @@ import { selectedColor } from "@/utils/common";
 import { Box, Stack, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { calculateAmount } from "@/common/common"; 
+import { calculateAmount, calculateTax } from "@/common/common";
 
 const InvoiceSummary: FC = () => {
   const selectedTax = useSelector(getTax);
   const selectedCurrency = useSelector(getCurrency);
-  const getAllInvoiceItems= useSelector(getInvoiceItem);
+  const getAllInvoiceItems = useSelector(getInvoiceItem);
   //Calculate Amount
   const [total, setTotal] = useState(0);
+  const [taxAmount, setTaxAmount] = useState(0);
   useEffect(() => {
     const totalAmount = calculateAmount(getAllInvoiceItems);
+    const totalTax = calculateTax(getAllInvoiceItems);
     setTotal(totalAmount);
+    setTaxAmount(totalTax);
   }, [getAllInvoiceItems]);
-  console.log(total,'total');
+  console.log(total, "total", taxAmount);
 
   return (
     <Stack
@@ -54,30 +57,53 @@ const InvoiceSummary: FC = () => {
         justifyContent={"space-between"}
         sx={{ padding: "20px 10px 0px 10px" }}
       >
-        <Typography sx={{ color: palette.base.textGreyColor }}>Subtotal</Typography>
-        <Typography sx={{ color: palette.base.black }}> {selectedCurrency === "$ USD" ? "USD" : selectedCurrency} {(total).toFixed(2)}</Typography>
+        <Typography sx={{ color: palette.base.textGreyColor }}>
+          Subtotal
+        </Typography>
+        <Typography sx={{ color: palette.base.black }}>
+          {" "}
+          {selectedCurrency === "$ USD" ? "USD" : selectedCurrency}{" "}
+          {(total - taxAmount).toFixed(2)}
+        </Typography>
       </Stack>
       <hr style={{ margin: "10px" }}></hr>
-     
-     {selectedTax ? (<>
-      <Stack
-        direction={"row"}
-        justifyContent={"space-between"}
-        sx={{ padding: "5px 10px 0px 10px" }}
-      >
-        <Typography sx={{ color: palette.base.textGreyColor }}>Tax</Typography>
-        <Typography sx={{ color: palette.base.black }}>--</Typography>
-      </Stack>
-      <hr style={{ margin: "10px" }}></hr>
-     </>) : ''}
-   
+
+      {selectedTax ? (
+        <>
+          <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            sx={{ padding: "5px 10px 0px 10px" }}
+          >
+            <Typography sx={{ color: palette.base.textGreyColor }}>
+              Tax
+            </Typography>
+            <Typography sx={{ color: palette.base.black }}>
+              {taxAmount > 0
+                ? (selectedCurrency === "$ USD" ? "USD" : selectedCurrency) +
+                  " " +
+                  (taxAmount).toFixed(2)
+                : "--"}
+            </Typography>
+          </Stack>
+          <hr style={{ margin: "10px" }}></hr>
+        </>
+      ) : (
+        ""
+      )}
+
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
         sx={{ padding: "5px 10px 15px 10px" }}
       >
-        <Typography sx={{ color: palette.base.textGreyColor }}>Total</Typography>
-        <Typography sx={{ color: palette.base.black }}>{selectedCurrency === "$ USD" ? "USD" : selectedCurrency} 350.00</Typography>
+        <Typography sx={{ color: palette.base.textGreyColor }}>
+          Total
+        </Typography>
+        <Typography sx={{ color: palette.base.black }}>
+          {selectedCurrency === "$ USD" ? "USD" : selectedCurrency}{" "}
+          {(total).toFixed(2)}
+        </Typography>
       </Stack>
     </Stack>
   );

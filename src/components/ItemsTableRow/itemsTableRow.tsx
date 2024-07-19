@@ -117,18 +117,19 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         >
           {selectedTax ? (
             <TextField
+            InputProps={{
+              inputProps: { min: 0, max: 100 },
+            }}
               sx={{
                 // border: `1px solid ${palette.borderColor.borderColor}`,
                 borderRadius: 1,
                 color: palette.color.gray[700],
               }}
-              id="outlined-basic"
               name="tax"
               type="number"
-              inputProps={{ max: 100 }}
-              placeholder="% 0.0"
+               placeholder="% 0.0"
               variant="outlined"
-              value={data.tax?data.tax:''}
+              value={data.tax>0?data.tax:''}
               onChange={handleChange}
             />
           ) : (
