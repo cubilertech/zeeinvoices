@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
     backgroundColor: "#fff",
-    padding: "10px 60px",
+    padding: "10px 30px",
     gap: 5,
   },
   section_top: {
@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
     gap: 5,
     alignItems: "baseline",
   },
-  top_view_2_title: {
-    fontSize: 12,
-    fontWeight: 900,
-  },
+  // top_view_2_title: {
+  //   fontSize: 12,
+  //   fontWeight: 900,
+  // },
   top_view_2_value: {
     fontSize: 12,
   },
@@ -54,15 +54,15 @@ const styles = StyleSheet.create({
     width: 100,
     height: 15,
   },
-  logo2: {
-    width: 125,
-    height: 150,
-  },
-  title: {
-    color: "#000",
-    fontSize: "20px",
-    fontWeight: "bold",
-  },
+  // logo2: {
+  //   width: 125,
+  //   height: 150,
+  // },
+  // title: {
+  //   color: "#000",
+  //   fontSize: "20px",
+  //   fontWeight: "bold",
+  // },
 });
 
 // Create Document Component
@@ -97,13 +97,13 @@ const PdfView = () => {
             </View>
             <View style={styles.top_view_2}>
               <View style={styles.top_view_2_container}>
-                <Text style={{ fontWeight: "extrabold", fontSize: "14px" }}>
+                <Text style={{ fontWeight: "extrabold", fontSize: "10px" }}>
                   Invoice No:
                 </Text>
-                <Text style={styles.top_view_2_value}> {"  "} 001</Text>
+                <Text style={styles.top_view_2_value}> {"  "}001</Text>
               </View>
               <View style={styles.top_view_2_container}>
-                <Text style={{ fontWeight: "extrabold", fontSize: "14px" }}>
+                <Text style={{ fontWeight: "extrabold", fontSize: "10px" }}>
                   Invoice Type:
                 </Text>
                 <Text style={styles.top_view_2_value}> Bill</Text>
@@ -303,17 +303,17 @@ const PdfView = () => {
               marginLeft: "10px",
               marginRight: "10px",
               backgroundColor: bgColor,
-              borderRadius: "4px",
+              borderRadius: "2px",
               display: "flex",
               flexDirection: "row",
               padding: "5px 10px",
               alignItems: "center",
-              gap: 30,
+              gap: 40,
             }}
           >
             <Text
               style={{
-                width: "220px",
+                width: "250px",
                 fontSize: "10px",
                 fontWeight: "bold",
                 color: "white",
@@ -345,27 +345,25 @@ const PdfView = () => {
           {/* item row */}
           <View
             style={{
-              //   width: "240px",
-              marginLeft: "5px",
+              marginLeft: "7px",
+              marginRight: "10px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
               borderBottom: "1px solid #E0E0E0",
-              padding: "7px 10px",
+              padding: "5px 10px",
               gap: 3,
             }}
           >
             <View
               style={{
-                borderRadius: "0.5px",
                 display: "flex",
                 flexDirection: "row",
-                // padding: "5px 10px",
                 alignItems: "center",
-                gap: 34,
+                gap: 46,
               }}
             >
-              <Text style={{ width: "240px", fontSize: "12px" }}>
+              <Text style={{ width: "265px", fontSize: "12px" }}>
                 Item name
               </Text>
               <Text
@@ -376,7 +374,7 @@ const PdfView = () => {
               <Text
                 style={{ width: "40px", fontSize: "10px", fontWeight: "bold" }}
               >
-                $412.0
+                $4.0
               </Text>
               <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
                 $224.0
@@ -389,27 +387,25 @@ const PdfView = () => {
 
           <View
             style={{
-              //   width: "240px",
-              marginLeft: "5px",
+              marginLeft: "7px",
+              marginRight: "10px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
               borderBottom: "1px solid #E0E0E0",
-              padding: "7px 10px",
+              padding: "5px 10px",
               gap: 3,
             }}
           >
             <View
               style={{
-                borderRadius: "0.5px",
                 display: "flex",
                 flexDirection: "row",
-                // padding: "5px 10px",
                 alignItems: "center",
-                gap: 34,
+                gap: 46,
               }}
             >
-              <Text style={{ width: "240px", fontSize: "12px" }}>
+              <Text style={{ width: "265px", fontSize: "12px" }}>
                 Item name
               </Text>
               <Text
@@ -420,7 +416,7 @@ const PdfView = () => {
               <Text
                 style={{ width: "40px", fontSize: "10px", fontWeight: "bold" }}
               >
-                $412.0
+                $4.0
               </Text>
               <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
                 $224.0
@@ -430,6 +426,7 @@ const PdfView = () => {
               Description Description Description Description Description
             </Text>
           </View>
+          
 
           <Text
             style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
@@ -443,16 +440,16 @@ const PdfView = () => {
             style={{
               // backgroundColor:'blue',
               marginTop: "70px",
-              padding: "5px 10px",
+              padding: "1px 10px",
               display: "flex",
               flexDirection: "row",
-              gap: 30,
+              gap: 10,
             }}
           >
             {/* terms */}
             <View
               style={{
-                width: "239px",
+                width: "270px",
                 flexGrow: 1,
                 borderRadius: "4px",
                 padding: "5px 10px",
@@ -471,14 +468,14 @@ const PdfView = () => {
               >
                 <Text style={{ fontSize: "12px" }}>Terms</Text>
                 <Text style={{ fontSize: "10px", color: "#444444" }}>
-                  Terms description description description description
+                  Terms description description description description description description description
                 </Text>
               </View>
             </View>
             {/* summary */}
             <View
               style={{
-                width: "239px",
+                width: "240px",
                 border: "1px solid #E0E0E0",
                 flexGrow: 1,
                 borderRadius: "3px",
@@ -504,7 +501,7 @@ const PdfView = () => {
                 <Text
                   style={{
                     fontSize: "14px",
-                    marginLeft: "50px",
+                    marginLeft: "65px",
                     color: "white",
                   }}
                 >
@@ -579,17 +576,14 @@ const PdfView = () => {
           {/* secion 6 : footer */}
           <View
             style={{
-              // backgroundColor:"yellow",
-              //   display: "flex",
-              //   flexDirection: "row",
-              //   alignItems: "center",
-              //   alignContent: "center",
-              marginTop: "100px",
-              //   marginLeft: "10px",
-              //   marginRight: "10px",
-              //   marginBottom: "10px",
+              marginLeft: "45px",
+              marginRight: "45px",
+              // marginBottom: "1px",
+              left: 0,
+              right: 0,
               padding: "10px",
               borderTop: "1px solid #E0E0E0",
+              position: "absolute",
               bottom: "0px !important",
             }}
             fixed
