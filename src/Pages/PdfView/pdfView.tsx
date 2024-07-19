@@ -8,9 +8,14 @@ import {
   StyleSheet,
   Image,
   PDFViewer,
+  Font,
 } from "@react-pdf/renderer";
+// import OpenSans from '../../../public/Fonts/OpenSans-font.ttf';
 // import { logoImg } from "../../../public/Images/logos/zee-logo.png";
-
+// Font.register({
+//   family: 'OpenSans',
+//   src: "../../../public/Fonts/OpenSans-font.ttf",
+// });
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
@@ -126,7 +131,7 @@ const PdfView = () => {
                 border: "1px solid #eee",
                 flexGrow: 1,
                 borderRadius: "4px",
-                padding: "10px 10px",
+                padding: "12px 14px",
                 display: "flex",
                 flexDirection: "column",
                 gap: 10,
@@ -157,6 +162,7 @@ const PdfView = () => {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
+                  gap: 4,
                 }}
               >
                 <Text style={{ fontSize: "12px", color: "#444444" }}>
@@ -174,6 +180,7 @@ const PdfView = () => {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
+                  gap: 4,
                 }}
               >
                 <Text style={{ fontSize: "12px", color: "#444444" }}>
@@ -191,7 +198,7 @@ const PdfView = () => {
                 border: "1px solid #eee",
                 flexGrow: 1,
                 borderRadius: "4px",
-                padding: "10px 10px",
+                padding: "12px 14px",
                 display: "flex",
                 flexDirection: "column",
                 gap: 10,
@@ -222,6 +229,7 @@ const PdfView = () => {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
+                  gap: 4,
                 }}
               >
                 <Text style={{ fontSize: "12px", color: "#444444" }}>
@@ -239,6 +247,7 @@ const PdfView = () => {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
+                  gap: 4,
                 }}
               >
                 <Text style={{ fontSize: "12px", color: "#444444" }}>
@@ -270,7 +279,7 @@ const PdfView = () => {
               }}
             >
               <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                Invoice Date:{" "}
+                Invoice Date:{"  "}
               </Text>
               <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
                 12-Sep-24
@@ -287,7 +296,7 @@ const PdfView = () => {
                 }}
               >
                 <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                  Due Date:{" "}
+                  Due Date:{"      "}
                 </Text>
                 <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
                   12-Sep-24
@@ -364,7 +373,7 @@ const PdfView = () => {
               }}
             >
               <Text style={{ width: "265px", fontSize: "12px" }}>
-                Item name
+                Web and App Design
               </Text>
               <Text
                 style={{ width: "20px", fontSize: "10px", fontWeight: "bold" }}
@@ -381,7 +390,7 @@ const PdfView = () => {
               </Text>
             </View>
             <Text style={{ fontSize: "10px", color: "#444444" }}>
-              Description Description Description Description Description
+              Lorem ipsum dolor sit amet, con adipiscing elit.
             </Text>
           </View>
 
@@ -406,7 +415,7 @@ const PdfView = () => {
               }}
             >
               <Text style={{ width: "265px", fontSize: "12px" }}>
-                Item name
+                Web and App Design
               </Text>
               <Text
                 style={{ width: "20px", fontSize: "10px", fontWeight: "bold" }}
@@ -422,17 +431,146 @@ const PdfView = () => {
                 $224.0
               </Text>
             </View>
+
             <Text style={{ fontSize: "10px", color: "#444444" }}>
-              Description Description Description Description Description
+              Lorem ipsum dolor sit amet, con adipiscing elit.
             </Text>
           </View>
-          
+
+          <View
+            style={{
+              marginLeft: "7px",
+              marginRight: "10px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              borderBottom: "1px solid #E0E0E0",
+              padding: "5px 10px",
+              gap: 3,
+            }}
+          >
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 46,
+              }}
+            >
+              <Text style={{ width: "265px", fontSize: "12px" }}>
+                Web and App Design
+              </Text>
+              <Text
+                style={{ width: "20px", fontSize: "10px", fontWeight: "bold" }}
+              >
+                10
+              </Text>
+              <Text
+                style={{ width: "40px", fontSize: "10px", fontWeight: "bold" }}
+              >
+                $4.0
+              </Text>
+              <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
+                $224.0
+              </Text>
+            </View>
+
+            <Text style={{ fontSize: "10px", color: "#444444" }}>
+              Lorem ipsum dolor sit amet, con adipiscing elit.
+            </Text>
+          </View>
+
+          <View
+            style={{
+              marginLeft: "7px",
+              marginRight: "10px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              borderBottom: "1px solid #E0E0E0",
+              padding: "5px 10px",
+              gap: 3,
+            }}
+          >
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 46,
+              }}
+            >
+              <Text style={{ width: "265px", fontSize: "12px" }}>
+                Web and App Design
+              </Text>
+              <Text
+                style={{ width: "20px", fontSize: "10px", fontWeight: "bold" }}
+              >
+                10
+              </Text>
+              <Text
+                style={{ width: "40px", fontSize: "10px", fontWeight: "bold" }}
+              >
+                $4.0
+              </Text>
+              <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
+                $224.0
+              </Text>
+            </View>
+
+            <Text style={{ fontSize: "10px", color: "#444444" }}>
+              Lorem ipsum dolor sit amet, con adipiscing elit.
+            </Text>
+          </View>
+
+          <View
+            style={{
+              marginLeft: "7px",
+              marginRight: "10px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              borderBottom: "1px solid #E0E0E0",
+              padding: "5px 10px",
+              gap: 3,
+            }}
+          >
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 46,
+              }}
+            >
+              <Text style={{ width: "265px", fontSize: "12px" }}>
+                Web and App Design
+              </Text>
+              <Text
+                style={{ width: "20px", fontSize: "10px", fontWeight: "bold" }}
+              >
+                10
+              </Text>
+              <Text
+                style={{ width: "40px", fontSize: "10px", fontWeight: "bold" }}
+              >
+                $4.0
+              </Text>
+              <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
+                $224.0
+              </Text>
+            </View>
+
+            <Text style={{ fontSize: "10px", color: "#444444" }}>
+              Lorem ipsum dolor sit amet, con adipiscing elit.
+            </Text>
+          </View>
 
           <Text
             style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
           >
-            Note: Note Note Note NoteNote v Note Note Note Note Note
-            NoteNotednbj jdbdj ndjfn
+            Note: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            in nisi, vel mauris facilisis pellentesque.
           </Text>
           {/* section 5 : summary, terms */}
 
@@ -466,9 +604,10 @@ const PdfView = () => {
                   gap: 6,
                 }}
               >
-                <Text style={{ fontSize: "12px" }}>Terms</Text>
-                <Text style={{ fontSize: "10px", color: "#444444" }}>
-                  Terms description description description description description description description
+                <Text style={{ fontSize: "12px" }}>Terms & Conditions</Text>
+                <Text style={{ fontSize: "10px", color: "#444444", lineHeight:1.4, }}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  in nisi, vel mauris facilisis pellentesque.
                 </Text>
               </View>
             </View>
@@ -576,8 +715,8 @@ const PdfView = () => {
           {/* secion 6 : footer */}
           <View
             style={{
-              marginLeft: "45px",
-              marginRight: "45px",
+              marginLeft: "40px",
+              marginRight: "40px",
               marginTop: "1px",
               left: 0,
               right: 0,
@@ -589,7 +728,12 @@ const PdfView = () => {
             fixed
           >
             <Text
-              style={{ fontSize: "9px", color: "#5E5E62", margin: "0px auto" }}
+              style={{
+                fontSize: "9px",
+                color: "#5E5E62",
+                margin: "0px auto",
+                fontWeight: "bold",
+              }}
             >
               © 2022 ZAPTA Technologies, All Rights Reserved
             </Text>
