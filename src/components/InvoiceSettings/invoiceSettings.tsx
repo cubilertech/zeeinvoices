@@ -184,7 +184,7 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
         <Typography variant="body1" sx={{ paddingBottom: 2, paddingTop: 0 }}>
           Invoice Detail
         </Typography>
-        <hr></hr>
+        <hr style={{ marginTop: -8 }} />
         <Box sx={{ px: 2 }}>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>

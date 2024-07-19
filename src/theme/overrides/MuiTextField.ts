@@ -20,19 +20,29 @@ export const MuiTextField = () => {
           "&.MuiOutlinedInput-root": {
             border: `1px solid ${palette.color.gray[500]}`,
             borderRadius: 7,
+
+            // "& fieldset": {
+            //   borderColor: palette.color.gray[400],
+            // },
+            // "&:hover fieldset": {
+            //   borderColor: palette.color.gray[500],
+            // },
+            // "&.Mui-focused fieldset": {
+            //   borderColor: palette.color.gray[700],
+            // },
           },
 
           "& .MuiInputBase-input": {
             // Notice the space before .MuiInputBase-input
             height: "32px",
-            padding: "0px 10px", 
+            padding: "0px 10px",
             width: "100%",
             borderRadius: 2,
             border: `1px solid ${palette.base.borderColor}`,
             color: palette.base.black,
             "&:hover": {
               borderRadius: 2,
-              border: `1px solid ${palette.color.gray[500]}`,
+              border: `1px solid ${palette.color.gray[100]}`,
             },
             "&::placeholder": {
               color: palette.color.gray[100], // Change this to your desired placeholder color

@@ -1,4 +1,13 @@
-import { AppBar, Box, Button, Container } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 
@@ -19,8 +28,35 @@ const Header = () => {
         maxWidth="lg"
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
-        <Icon icon="logo" height={24} width={175} />
-        <Button variant="contained">Login</Button>
+        <Stack
+          direction={"row"}
+          gap={9}
+          sx={{
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Icon icon="logo" height={24} width={175} />
+          <Button
+            variant="outlined"
+            size="small"
+            startIcon={<Icon icon="invoiceIcon" width={15} height={15} />}
+          >
+            Invoices
+          </Button>
+        </Stack>
+
+        <Stack direction={"row"} gap={3}>
+          <Stack direction={"row"} gap={1} sx={{cursor:"pointer"}}>
+            <Avatar alt="Avatar" src="/Images/user-image.png" />
+            {/* <IconButton
+              sx={{ padding: 1, width: "5px", height: "5px", borderRadius: 5 }}
+            > */}
+              <Icon icon="arrowDownIcon" width={15} height={15} />
+            {/* </IconButton> */}
+          </Stack>
+          <Button variant="contained">Login</Button>
+        </Stack>
       </Container>
     </AppBar>
   );

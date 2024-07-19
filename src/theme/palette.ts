@@ -55,6 +55,7 @@ const success = {
 const gray = {
   800: "#202020",
   750: "#6C7278",
+  730: "#5E5E62",
   720: "#444444",
   700: "#333333",
   650: "#3D4451",
@@ -70,6 +71,7 @@ const gray = {
   100: "#90919b",
   50: "#8f8f94",
   10: "#E0E0E0",
+  5: "#EAECF0",
 };
 
 const opacity = {
@@ -127,7 +129,7 @@ const textColor = {
 };
 
 export const palette = {
-  mode: "dark" as PaletteMode,
+  // mode: "dark" as PaletteMode,
   primary: {
     main: "#3F4DE1",
     light: "#54A6FF",
