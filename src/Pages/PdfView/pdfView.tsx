@@ -578,7 +578,7 @@ const PdfView = () => {
             style={{
               marginLeft: "45px",
               marginRight: "45px",
-              // marginBottom: "1px",
+              marginTop: "1px",
               left: 0,
               right: 0,
               padding: "10px",
