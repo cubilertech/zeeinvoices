@@ -18,7 +18,11 @@ import {
 import { getDueDate } from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
 
-const InvoiceSection: FC = () => {
+interface InvoiceSectionProps {
+  InvDetails: any;
+}
+
+const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const additionalNotes = useSelector(getAddtionalNotes);
@@ -27,6 +31,8 @@ const InvoiceSection: FC = () => {
     const value = event.target.value;
     dispatch(setAddtionalNotes(value));
   };
+  const showPreview =
+    InvDetails.from.name !== "" && InvDetails.to.name !== "" ? false : true;
   return (
     <Box
       sx={{
@@ -53,7 +59,8 @@ const InvoiceSection: FC = () => {
         <Box sx={{ width: 92, height: 40 }}>
           <Stack direction={"row"} spacing={2}>
             <IconButton
-              sx={{ padding: 1 }}
+              disabled={showPreview}
+              sx={{ padding: 1, opacity: showPreview ? 0.4 : 1 }}
               onClick={() => router.push("/PdfPreview")}
             >
               <Icon icon="sendSqaureIcon" width={20} height={20} />

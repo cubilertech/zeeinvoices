@@ -4,20 +4,7 @@ import { InvoiceHeader } from "@/components/InvoiceHeader";
 import { InvoiceSection } from "@/components/InvoiceSection";
 import { InvoiceSettings } from "@/components/InvoiceSettings";
 import {
-  getColor,
-  getCurrency,
-  getDetails,
-  getDueDate,
-  getTax,
-} from "@/redux/features/invoiceSetting";
-import {
-  getAddtionalNotes,
-  getInvoiceDate,
   getInvoiceItem,
-  getInvoiceLogo,
-  getInvoiceType,
-  getRecipientDetail,
-  getSenderDetail,
   getDueDate as date,
 } from "@/redux/features/invoiceSlice";
 import { Box, Container, Stack } from "@mui/material";
@@ -51,7 +38,7 @@ const CreateInvoice = () => {
         />
       </Box>
       <Stack direction={"row"} gap={3}>
-        <InvoiceSection />
+        <InvoiceSection InvDetails={invoiceDetail} />
         <InvoiceSettings />
       </Stack>
     </Container>

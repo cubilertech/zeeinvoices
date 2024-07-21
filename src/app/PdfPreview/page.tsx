@@ -24,7 +24,10 @@ const PdfPreview = () => {
   };
 
   return (
-    <PDFViewer style={{ width: "100%", height: "76vh", marginTop: "50px" }}>
+    <PDFViewer
+      style={{ width: "100%", height: "76vh", marginTop: "50px" }}
+      showToolbar={false}
+    >
       <PdfView
         invDetails={invoiceDetail}
         invSetting={invoiceSetting}
