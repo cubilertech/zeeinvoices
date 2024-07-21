@@ -435,9 +435,9 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
                 {currency} {data.subTotal.toFixed(2)}
               </Text>
             </View>
-            <Text style={{ fontSize: "10px", color: "#444444" }}>
+            {/* <Text style={{ fontSize: "10px", color: "#444444" }}>
               Lorem ipsum dolor sit amet, con adipiscing elit.
-            </Text>
+            </Text> */}
           </View>
         ))}
 
@@ -480,13 +480,14 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
             Lorem ipsum dolor sit amet, con adipiscing elit.
           </Text>
         </View> */}
-        <Text
-          style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
-        >
-          Note: {invDetails.addtionalNotes}
-        </Text>
+        {invDetails.addtionalNotes && (
+          <Text
+            style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
+          >
+            Note: {invDetails.addtionalNotes}
+          </Text>
+        )}
         {/* section 5 : summary, terms */}
-
         <View
           style={{
             // backgroundColor:'blue',
