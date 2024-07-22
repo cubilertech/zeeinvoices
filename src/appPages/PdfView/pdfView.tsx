@@ -80,18 +80,18 @@ interface PdfViewProps {
 const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
   const [isClient, setIsClient] = useState(false);
 
-  const bgColor = invSetting.color;
-  const dueDate = invSetting.dueDate;
-  const tax = invSetting.tax;
-  const currency = invSetting.currency === "$ USD" ? "$" : invSetting.currency;
+  const bgColor = invSetting?.color;
+  const dueDate = invSetting?.dueDate;
+  const tax = invSetting?.tax;
+  const currency = invSetting?.currency === "$ USD" ? "$" : invSetting?.currency;
   const currencyText =
-    invSetting.currency === "$ USD" ? "USD" : invSetting.currency;
+    invSetting?.currency === "$ USD" ? "USD" : invSetting?.currency;
   const summarySubTotal = (
-    Summary.total - (tax ? Summary.taxAmount : 0)
+    Summary?.total - (tax ? Summary?.taxAmount : 0)
   ).toFixed(2);
 
-  const invoiceDueDate = formattedDate(invDetails.dueDate);
-  const invoiceDate = formattedDate(invDetails.invoiceDate);
+  const invoiceDueDate = formattedDate(invDetails?.dueDate);
+  const invoiceDate = formattedDate(invDetails?.invoiceDate);
 
   useEffect(() => {
     setIsClient(true);
@@ -112,7 +112,6 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               src={
                 invDetails.logo ? invDetails.logo : "/Images/logos/zee-logo.png"
               }
-              alt="zee logo"
             />
           </View>
           <View style={styles.top_view_2}>
@@ -383,8 +382,9 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
           </Text>
         </View>
         {/* item row */}
-        {invDetails.invoiceItem.map((data) => (
+        {invDetails.invoiceItem?.map((data: any, index: number) => (
           <View
+            key={index}
             style={{
               marginLeft: "7px",
               marginRight: "10px",

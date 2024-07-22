@@ -38,7 +38,7 @@ const CreateInvoice = () => {
         />
       </Box>
       <Stack direction={"row"} gap={3}>
-        <InvoiceSection InvDetails={invoiceDetail} />
+        <InvoiceSection InvDetails={invoiceDetail} /> 
         <InvoiceSettings />
       </Stack>
     </Container>

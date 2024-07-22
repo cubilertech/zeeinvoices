@@ -13,15 +13,16 @@ interface SelectInput {
   menuData?: string[];
 }
 const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
-  const dispatch= useDispatch();
-  const selectedInvoiceType= useSelector(getInvoiceType);
-  const selectedCurrency= useSelector(getCurrency);
+  const dispatch = useDispatch();
+  const selectedInvoiceType = useSelector(getInvoiceType);
+  const selectedCurrency = useSelector(getCurrency);
   // const [selected, setSelected] = useState<null | string>(null);
-  const handleSelectedItem = (item : string)=>{
-  // setSelected(item)
-  type === 'currency' ? dispatch(setCurrency(item)) : dispatch(setInvoiceType(item))
-  
-  }
+  const handleSelectedItem = (item: string) => {
+    // setSelected(item)
+    type === "currency"
+      ? dispatch(setCurrency(item))
+      : dispatch(setInvoiceType(item));
+  };
 
   return (
     <Box borderRadius={1} sx={{ height: 60 }}>
@@ -31,7 +32,7 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           IconComponent={() => <Icon icon="arrowDownIcon" />}
           labelId="demo-simple-select-label"
           id="type-select"
-          value={type === 'currency' ?selectedCurrency :selectedInvoiceType}
+          value={type === "currency" ? selectedCurrency : selectedInvoiceType}
           displayEmpty
           placeholder="Select"
           MenuProps={{
@@ -60,9 +61,10 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           }}
         >
           {menuData &&
-            menuData?.map((item) => (
+            menuData?.map((item, index) => (
               <MenuItem
-                onClick={()=>handleSelectedItem(item)}
+                key={index}
+                onClick={() => handleSelectedItem(item)}
                 sx={{
                   color: palette.base.black,
                   backgroundColor: palette.base.white,

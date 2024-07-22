@@ -1,7 +1,16 @@
-import { Theme } from "@mui/material/styles";
+import { CSSObject, Theme } from "@mui/material/styles";
 import { palette } from "../palette";
 
-export const MuiSwitch = () => {
+export const MuiSwitch = (): {
+  MuiSwitch?: {
+    styleOverrides?: {
+      root?: CSSObject;
+      switchBase?: CSSObject;
+      thumb?: CSSObject;
+      track?: CSSObject;
+    };
+  };
+} => {
   return {
     MuiSwitch: {
       styleOverrides: {
@@ -34,12 +43,8 @@ export const MuiSwitch = () => {
             border: `6px solid ${palette.base.white}`,
           },
           "&.Mui-disabled .MuiSwitch-thumb": {
-            // color:
-            //   palette.mode === "light"
-            //     ? palette.base.white
-            //     : palette.base.white,
             color: palette.base.white,
-            opacity: `${1} !important`,
+            opacity: 1, // Updated to a number, removing unnecessary string
           },
           "&.Mui-disabled + .MuiSwitch-track": {
             opacity: palette.mode === "light" ? 0.7 : 0.3,
@@ -50,8 +55,8 @@ export const MuiSwitch = () => {
           width: 16,
           height: 16,
           "&.Mui-disabled": {
-            color: palette.base.white, // Ensure thumb color remains white when disabled
-            opacity: `${1} !important`,
+            color: palette.base.white,
+            opacity: 1, // Updated to a number, removing unnecessary string
           },
         },
         track: {

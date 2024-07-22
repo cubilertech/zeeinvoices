@@ -4,7 +4,7 @@ import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { Icon } from "../Icon";
 import { ItemsTableRow } from "../ItemsTableRow";
-import { selectedColor } from "@/utils/common";
+import {useSelectedColor } from "@/utils/common";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addInvoiceItem,
@@ -15,6 +15,7 @@ import { getTax } from "@/redux/features/invoiceSetting";
 
 const InvoiceItemsTable: FC = () => {
   const getAllInvoiceItems = useSelector(getInvoiceItem);
+  const selectedColor = useSelectedColor();
   const dispatch = useDispatch();
   const selectedTax = useSelector(getTax);
   // const [items, setItems] = useState([{ id: 1 }]); // Initialize with one item

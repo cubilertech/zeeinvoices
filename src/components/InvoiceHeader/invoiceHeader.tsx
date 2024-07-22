@@ -2,7 +2,7 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { PdfView } from "@/Pages/PdfView";
+import PdfView from "@/appPages/PdfView/pdfView";
 
 interface InvoiceHeaderProps {
   invoiceName: string;

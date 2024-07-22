@@ -10,7 +10,7 @@ import { InvoiceItemsTable } from "../InvoiceItemsTable";
 import { InvoiceSummary } from "../InvoiceSummary";
 import { DetailSelecter } from "../detailSelecter";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedColor } from "@/utils/common";
+import { useSelectedColor } from "@/utils/common";
 import {
   getAddtionalNotes,
   setAddtionalNotes,
@@ -25,6 +25,7 @@ interface InvoiceSectionProps {
 const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const selectedColor = useSelectedColor();
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
   const handleChangeNotes = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +62,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
             <IconButton
               disabled={showPreview}
               sx={{ padding: 1, opacity: showPreview ? 0.4 : 1 }}
-              onClick={() => router.push("/PdfPreview")}
+              onClick={() => router.push("/preview")}
             >
               <Icon icon="sendSqaureIcon" width={20} height={20} />
             </IconButton>

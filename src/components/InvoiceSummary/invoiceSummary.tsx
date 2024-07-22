@@ -2,7 +2,7 @@
 import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
 import { getInvoiceItem } from "@/redux/features/invoiceSlice";
 import { palette } from "@/theme/palette";
-import { selectedColor } from "@/utils/common";
+import { useSelectedColor } from "@/utils/common";
 import { Box, Stack, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ const InvoiceSummary: FC = () => {
   const selectedTax = useSelector(getTax);
   const selectedCurrency = useSelector(getCurrency);
   const getAllInvoiceItems = useSelector(getInvoiceItem);
+  const selectedColor = useSelectedColor();
   //Calculate Amount
   const [total, setTotal] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
@@ -82,7 +83,7 @@ const InvoiceSummary: FC = () => {
               {taxAmount > 0
                 ? (selectedCurrency === "$ USD" ? "USD" : selectedCurrency) +
                   " " +
-                  (taxAmount).toFixed(2)
+                  taxAmount.toFixed(2)
                 : "--"}
             </Typography>
           </Stack>
@@ -102,7 +103,7 @@ const InvoiceSummary: FC = () => {
         </Typography>
         <Typography sx={{ color: palette.base.black }}>
           {selectedCurrency === "$ USD" ? "USD" : selectedCurrency}{" "}
-          {(total).toFixed(2)}
+          {total.toFixed(2)}
         </Typography>
       </Stack>
     </Stack>

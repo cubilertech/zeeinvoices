@@ -7,6 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceLogo, setInvoiceLogo } from "@/redux/features/invoiceSlice";
 import CancelIcon from "@mui/icons-material/Cancel";
+import Image from "next/image";
 
 interface UploadLogoProps {
   logoDesc: string;
@@ -46,10 +47,12 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
         <Box
           sx={{ position: "relative", alignItems: "center", display: "flex" }}
         >
-          <img
+          <Image
             src={invoiceLogo}
             alt="Selected Logo"
-            style={{ width: "70px", height: "70px", objectFit: "contain" }}
+            width={70}
+            height={70}
+            style={{ objectFit: "contain" }}
           />
           <IconButton
             sx={{
