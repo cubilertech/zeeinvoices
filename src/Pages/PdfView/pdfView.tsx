@@ -88,7 +88,7 @@ const PdfView = () => {
   }
 
   return (
-    <PDFViewer style={{ width: "100%", height: "76vh", marginTop: "50px" }}>
+    <PDFViewer style={{ width: "100%", height: "100vh", marginTop: "50px" }}>
       <Document>
         <Page size="A4" style={styles.page}>
           {/** Section 1 : logo, invoice type */}

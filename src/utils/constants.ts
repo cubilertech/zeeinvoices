@@ -15,5 +15,9 @@ export const icons = {
   invoiceIcon: "/Images/icons/invoice-icon.svg",
   clientsIcon: "/Images/icons/clients-icon.svg",
   settingsIcon: "/Images/icons/settings-icon.svg",
-
+  firstInvoiceIcon: "/Images/icons/crt-first-invoice-icon.svg",
+  searchIcon: "/Images/icons/search-icon.svg",
+  filterIcon: "/Images/icons/filter-icon.svg",
+  plusIcon: "/Images/icons/plus-icon.svg",
+  threeDotsIcon: "/Images/icons/three-dots-icon.svg",
 };

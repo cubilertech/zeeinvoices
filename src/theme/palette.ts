@@ -54,6 +54,7 @@ const success = {
 
 const gray = {
   800: "#202020",
+  770: "#6B7280",
   750: "#6C7278",
   730: "#5E5E62",
   720: "#444444",
@@ -104,7 +105,6 @@ const base = {
   white: "#FFFFFF",
   black: "#000000",
   transparent: "#FFFFFF 0%",
-
   borderColor: "#D6DAE1",
   textGreyColor: "#697483",
   dashedBorderColor: "#C8C8C8",
@@ -117,6 +117,7 @@ const base = {
 const borderColor = {
   simpleBorderColor: "#D6DAE1",
   dashedBorderColor: "#C8C8C8",
+  invoicesBorderColor: "#EAECF0",
 };
 
 const tableColor = {
@@ -139,6 +140,7 @@ export const palette = {
     // ...brand,
   },
   base: base,
+  border: borderColor,
   error: {
     main: "#F04438",
     // ...error,
