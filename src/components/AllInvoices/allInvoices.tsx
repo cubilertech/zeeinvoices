@@ -1,22 +1,4 @@
 "use client";
-// import { Button, Container, Stack, Typography } from "@mui/material";
-// import { FC } from "react";
-
-// const FirstInvoice: FC = () => {
-//   return (
-//     <Container
-//       sx={{
-//         width: "1156px",
-//         height: "422px",
-//         marginTop: "70px",
-//         marginBottom: "10px",
-//       }}
-//     ></Container>
-//   );
-// };
-
-// export default FirstInvoice;
-
 import * as React from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -25,20 +7,17 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 import { palette } from "@/theme/palette";
 import {
   Avatar,
   Badge,
   Button,
-  CircularProgress,
   IconButton,
   InputAdornment,
   Stack,
@@ -46,49 +25,59 @@ import {
 } from "@mui/material";
 import { Icon } from "../Icon";
 import { Pagination } from "../Pagination";
-import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 
 interface Data {
   id: number;
-  calories: number;
-  carbs: number;
-  fat: number;
   name: string;
-  protein: number;
+  email: string;
+  date: string;
+  status: string;
+  total: number;
+  action: any;
 }
 
 function createData(
   id: number,
   name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
+  email: string,
+  date: string,
+  status: string,
+  total: number,
+  action: any
 ): Data {
   return {
     id,
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    email,
+    date,
+    status,
+    total,
+    action,
   };
 }
 
-const rows = [
-  createData(1, "Cupcake", 305, 3.7, 67, 4.3),
-  createData(2, "Donut", 452, 25.0, 51, 4.9),
-  createData(3, "Eclair", 262, 16.0, 24, 6.0),
-  createData(4, "Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData(5, "Gingerbread", 356, 16.0, 49, 3.9),
-  createData(6, "Honeycomb", 408, 3.2, 87, 6.5),
-  createData(7, "Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData(8, "Jelly Bean", 375, 0.0, 94, 0.0),
-  createData(9, "KitKat", 518, 26.0, 65, 7.0),
-  createData(10, "Lollipop", 392, 0.2, 98, 0.0),
-  createData(11, "Marshmallow", 318, 0, 81, 2.0),
-  createData(12, "Nougat", 360, 19.0, 9, 37.0),
-  createData(13, "Oreo", 437, 18.0, 63, 4.0),
+const rows = 
+[
+  createData(1, "Penny Lane Badgely", "Pennylane@gmail.com", "13 May 2024", "complete", 4.3, ''),
+  createData(2, "John Doe", "johndoe@example.com", "01 June 2024", "pending", 3.8, ''),
+  createData(3, "Jane Smith", "janesmith@example.com", "15 April 2024", "complete", 4.7, ''),
+  createData(4, "Michael Brown", "michaelbrown@example.com", "22 March 2024", "in-progress", 4.0, ''),
+  createData(5, "Emily Davis", "emilydavis@example.com", "30 May 2024", "complete", 4.5, ''),
+  createData(6, "Chris Wilson", "chriswilson@example.com", "18 February 2024", "pending", 3.9, ''),
+  createData(7, "Patricia Taylor", "patriciataylor@example.com", "12 April 2024", "complete", 4.6, ''),
+  createData(8, "Robert Johnson", "robertjohnson@example.com", "05 July 2024", "in-progress", 4.2, ''),
+  createData(9, "Linda Martinez", "lindamartinez@example.com", "27 May 2024", "complete", 4.4, ''),
+  createData(10, "James Anderson", "jamesanderson@example.com", "10 June 2024", "pending", 4.1, ''),
+  createData(11, "Barbara Moore", "barbaramoore@example.com", "14 June 2024", "complete", 4.8, ''),
+  createData(12, "Steven Lee", "stevenlee@example.com", "20 March 2024", "in-progress", 4.3, ''),
+  createData(13, "Jessica Walker", "jessicawalker@example.com", "25 May 2024", "complete", 4.9, ''),
+  createData(14, "Daniel Harris", "danielharris@example.com", "30 April 2024", "pending", 4.0, ''),
+  createData(15, "Sarah Young", "sarahyoung@example.com", "05 June 2024", "complete", 4.7, ''),
+  createData(16, "Thomas Hall", "thomashall@example.com", "10 May 2024", "in-progress", 4.1, ''),
+  createData(17, "Nancy King", "nancyking@example.com", "15 July 2024", "complete", 4.5, ''),
+  createData(18, "Kevin Wright", "kevinwright@example.com", "20 June 2024", "pending", 3.9, ''),
+  createData(19, "Laura Green", "lauragreen@example.com", "25 April 2024", "complete", 4.6, ''),
+  createData(20, "Andrew Adams", "andrewadams@example.com", "01 July 2024", "in-progress", 4.2, '')
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -114,11 +103,6 @@ function getComparator<Key extends keyof any>(
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
-
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 function stableSort<T>(
   array: readonly T[],
   comparator: (a: T, b: T) => number
@@ -143,37 +127,37 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "name",
-    numeric: false,
+    id: "id",
+    numeric: true,
     disablePadding: true,
     label: "Invoice #",
   },
   {
-    id: "calories",
+    id: "name",
     numeric: true,
     disablePadding: false,
     label: "Receipent",
   },
   {
-    id: "fat",
+    id: "date",
     numeric: true,
     disablePadding: false,
     label: "Created",
   },
   {
-    id: "carbs",
+    id: "status",
     numeric: true,
     disablePadding: false,
     label: "Status",
   },
   {
-    id: "protein",
+    id: "total",
     numeric: true,
     disablePadding: false,
     label: "Total",
   },
   {
-    id: "protein",
+    id: "action",
     numeric: true,
     disablePadding: false,
     label: " ",
@@ -186,7 +170,6 @@ interface EnhancedTableProps {
     event: React.MouseEvent<unknown>,
     property: keyof Data
   ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
   rowCount: number;
@@ -194,7 +177,7 @@ interface EnhancedTableProps {
 
 function EnhancedTableHead(props: EnhancedTableProps) {
   const {
-    onSelectAllClick,
+    
     order,
     orderBy,
     numSelected,
@@ -215,30 +198,17 @@ function EnhancedTableHead(props: EnhancedTableProps) {
       }}
     >
       <TableRow sx={{ height: "40px !important", borderTopRightRadius: 9 }}>
-        {/* <TableCell padding="checkbox"> */}
-        {/* <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          /> */}
-        {/* </TableCell> */}
         {headCells.map((headCell) => (
           <TableCell
             sx={{ height: `40 !important`, py: "0px" }}
             key={headCell.id}
             align="left"
-            // padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
-              // IconComponent={order === 'asc' ? ArrowUpward : ArrowDownward}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
@@ -264,7 +234,6 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   return (
     <Toolbar
       sx={{
-        
         px: "0px",
         pl: "0px !important",
         pr: "0px !important",
@@ -306,8 +275,6 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         }}
       >
         <TextField
-          // id="input-with-icon-textfield"
-          // label="Search"
           variant="standard"
           placeholder="Search"
           sx={{
@@ -351,9 +318,9 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 export default function AllInvoices() {
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("calories");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(1);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -365,64 +332,17 @@ export default function AllInvoices() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = (id: number) => selected.indexOf(id) !== -1;
-
+  
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   const visibleRows = React.useMemo(
     () =>
       stableSort(rows, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
+        (page - 1) * rowsPerPage,
+        (page - 1) * rowsPerPage + rowsPerPage
       ),
     [order, orderBy, page, rowsPerPage]
   );
+  
 
   return (
     <Box
@@ -442,8 +362,6 @@ export default function AllInvoices() {
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer
           sx={{
-            // mx: "15px",
-            // width:"1193px",
             border: `1px solid ${palette.border.invoicesBorderColor}`,
             borderTopLeftRadius: "8px",
             borderTopRightRadius: "8px",
@@ -458,35 +376,21 @@ export default function AllInvoices() {
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
                     role="checkbox"
-                    aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.id}
-                    selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
-                    {/* <TableCell padding="checkbox"> */}
-                    {/* <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          "aria-labelledby": labelId,
-                        }}
-                      /> */}
-                    {/* </TableCell> */}
                     <TableCell
                       component="th"
                       id={labelId}
@@ -512,70 +416,50 @@ export default function AllInvoices() {
                         </Avatar>
                         <Stack direction={"column"}>
                           <Typography variant="text-sm-medium">
-                            Penny Lane Badgely
+                            {row.name}
                           </Typography>
                           <Typography variant="text-xs-regular">
-                            Pennylane@gmail.com
+                            {row.email}
                           </Typography>
                         </Stack>
                       </Stack>
                     </TableCell>
                     <TableCell align="left" sx={{ paddingLeft: "17px" }}>
                       <Typography variant="text-sm-regular">
-                        13 May 2024
+                        {row.date}
                       </Typography>
                     </TableCell>
                     <TableCell align="left">
                       <Badge
                         color="primary"
-                        badgeContent={"Completed"}
+                        badgeContent={row.status}
                         sx={{
                           paddingLeft: "37px",
                           "& .MuiBadge-colorPrimary": {
                             background: "skyblue",
                           },
                         }}
-                      >
-                        {/* <Typography>Completed</Typography> */}
-                      </Badge>
+                      ></Badge>
                     </TableCell>
-                    <TableCell align="left">{row.protein}</TableCell>
-                    <TableCell align="left"></TableCell>
+                    <TableCell align="left">{row.total}</TableCell>
+                    <TableCell align="left">
+                      <IconButton>
+                        <Icon icon="threeDotsIcon" width={5} height={5} />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 );
               })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
+             </TableBody>
           </Table>
         </TableContainer>
         <Pagination
           totalRecords={rows?.length ? rows?.length : 0}
-          itemsPerPage={5}
+          itemsPerPage={rowsPerPage}
           page={page}
-          setPage={1}
+          setPage={setPage}
         />
-        {/* <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
       </Paper>
-      {/* <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      /> */}
     </Box>
   );
 }

@@ -7,7 +7,7 @@ interface Pagination {
   totalRecords: number;
   itemsPerPage: number;
   page: number;
-  setPage: number;
+  setPage: any;
 }
 
 const Pagination: FC<Pagination> = ({
@@ -53,24 +53,23 @@ const Pagination: FC<Pagination> = ({
   const pageNumbersToShow = getPageNumbersToShow();
 
   const handlePreviousPage = () => {
-    // setPage((prevPage) => Math.max(prevPage - 1, 1));
+    setPage((prevPage:any) => Math.max(prevPage - 1, 1));
   };
 
   const handleNextPage = () => {
-    // setPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    setPage((prevPage:any) => Math.min(prevPage + 1, totalPages));
   };
 
-  //   const handleSetPageNumber = (pageNumber) => {
-  //    if(pageNumber !== placeHolder){
-  //     setPage(pageNumber);
-  //    }
-  //   }
+    const handleSetPageNumber = (pageNumber:any) => {
+     if(pageNumber !== placeHolder){
+      setPage(pageNumber);
+     }
+    }
   console.log(pageNumbersToShow, "page", totalPages, page);
   return (
     <Box
       sx={{
-        width: "1193px",
-        mx: "15px",
+        width: "1183px",
         marginBottom:"10px",
         border: `1px solid ${palette.border.invoicesBorderColor}`,
         display: "flex",
@@ -107,7 +106,7 @@ const Pagination: FC<Pagination> = ({
         {pageNumbersToShow.map((pagenumber, index) => (
           <Box
             key={index}
-            // onClick={() => handleSetPageNumber(pagenumber)}
+            onClick={() => handleSetPageNumber(pagenumber)}
             sx={{
               backgroundColor: page === pagenumber ? "#8477DA" : "white",
               color: page === pagenumber ? "white" : "black",
