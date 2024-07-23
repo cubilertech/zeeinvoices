@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <MuiThemeProvider>
           <ClientProvider>
-            <AppLayout>{children}</AppLayout>
+            {children}
           </ClientProvider>
         </MuiThemeProvider>
       </body>
