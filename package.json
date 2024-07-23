@@ -9,9 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@atlaskit/color-picker": "^3.2.19",
-    "@atlaskit/theme": "^12.11.1",
-    "@atlaskit/tokens": "^1.53.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.20",
