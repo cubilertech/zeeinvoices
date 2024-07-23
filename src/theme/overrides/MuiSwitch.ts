@@ -28,9 +28,10 @@ export const MuiSwitch = (): {
             color: "#fff",
             "& + .MuiSwitch-track": {
               backgroundColor:
-                palette.mode === "dark"
-                  ? palette.base.switchTrackColor
-                  : "#65C466",
+                // palette.mode === "dark"
+                //   ? palette.base.switchTrackColor
+                //   :
+                   "#65C466",
               opacity: 1,
               border: 0,
             },
@@ -47,7 +48,9 @@ export const MuiSwitch = (): {
             opacity: 1, // Updated to a number, removing unnecessary string
           },
           "&.Mui-disabled + .MuiSwitch-track": {
-            opacity: palette.mode === "light" ? 0.7 : 0.3,
+            opacity:
+            //  palette.mode === "light" ? 0.7 : 
+            0.3,
           },
         },
         thumb: {
@@ -63,9 +66,10 @@ export const MuiSwitch = (): {
           borderRadius: 13,
           width: 44,
           backgroundColor:
-            palette.mode === "light"
-              ? "#E9E9EA"
-              : palette.base.borderColor,
+            // palette.mode === "light"
+            //   ?
+               "#E9E9EA",
+              // : palette.base.borderColor,
           opacity: 1,
           transition: "background-color 500ms",
         },

@@ -8,7 +8,6 @@ import { Icon } from "../Icon";
 import { InvoiceDatePicker } from "../InvoiceDatePicker";
 import { InvoiceItemsTable } from "../InvoiceItemsTable";
 import { InvoiceSummary } from "../InvoiceSummary";
-import { DetailSelecter } from "../detailSelecter";
 import { useDispatch, useSelector } from "react-redux";
 import { useSelectedColor } from "@/utils/common";
 import {
@@ -17,6 +16,7 @@ import {
 } from "@/redux/features/invoiceSlice";
 import { getDueDate } from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
+import DetailSelecter from "../DetailSelecter/detailSelecter";
 
 interface InvoiceSectionProps {
   InvDetails: any;
@@ -29,8 +29,8 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
   const handleChangeNotes = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    dispatch(setAddtionalNotes(value));
+  const value = event.target.value;
+  dispatch(setAddtionalNotes(value));
   };
   const showPreview =
     InvDetails.from.name !== "" && InvDetails.to.name !== "" ? false : true;

@@ -1,1 +1,1 @@
-export { default as DetailSelecter } from "./detailSelecter";
+// export { default as DetailSelecter } from "./detailSelecter";
