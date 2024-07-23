@@ -54,7 +54,9 @@ const success = {
 
 const gray = {
   800: "#202020",
+  770: "#6B7280",
   750: "#6C7278",
+  730: "#5E5E62",
   720: "#444444",
   700: "#333333",
   650: "#3D4451",
@@ -70,6 +72,7 @@ const gray = {
   100: "#90919b",
   50: "#8f8f94",
   10: "#E0E0E0",
+  5: "#EAECF0",
 };
 
 const opacity = {
@@ -102,7 +105,6 @@ const base = {
   white: "#FFFFFF",
   black: "#000000",
   transparent: "#FFFFFF 0%",
-
   borderColor: "#D6DAE1",
   textGreyColor: "#697483",
   dashedBorderColor: "#C8C8C8",
@@ -115,6 +117,7 @@ const base = {
 const borderColor = {
   simpleBorderColor: "#D6DAE1",
   dashedBorderColor: "#C8C8C8",
+  invoicesBorderColor: "#EAECF0",
 };
 
 const tableColor = {
@@ -127,7 +130,7 @@ const textColor = {
 };
 
 export const palette = {
-  mode: "dark" as PaletteMode,
+  // mode: "dark" as PaletteMode,
   primary: {
     main: "#3F4DE1",
     light: "#54A6FF",
@@ -137,6 +140,7 @@ export const palette = {
     // ...brand,
   },
   base: base,
+  border: borderColor,
   error: {
     main: "#F04438",
     // ...error,

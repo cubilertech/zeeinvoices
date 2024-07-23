@@ -6,7 +6,7 @@ import { MuiIconButton } from "./MuiIconButton";
 
 export const overrides = (theme: Theme) => ({
   ...MuiButton(),
-  ...MuiTextField(),
+  ...MuiTextField(), 
   ...MuiSwitch(),
   ...MuiIconButton(),
 });

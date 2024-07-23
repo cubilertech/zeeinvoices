@@ -117,7 +117,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
           border: `1px dashed ${palette.base.borderColor}`,
           borderRadius: 1,
           // cursor: "pointer",
-          backgroundColor: palette.color.eggWhite,
+          backgroundColor: "#F9F9F9",
           marginBottom: "10px",
         }}
       >
@@ -125,15 +125,19 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
           sx={{
             width: "100%",
             "& .MuiInputBase-input": {
-              height: "29px !important",
-              backgroundColor: palette.color.eggWhite,
-              border: `1px dashed ${palette.color.eggWhite}`,
+              height: "32px !important",
+              // backgroundColor: palette.base.transparent,
+              border: `0px dashed ${"#F9F9F9"}`,
+            },
+            "& .MuiOutlinedInput-root" : {
+              border: "none !important",
+              borderRadius:0.5,
             },
           }}
           onChange={handleChangeNotes}
           value={additionalNotes}
           id="outlined-basic"
-          placeholder="Additional notes"
+          placeholder="Additional Note"
           variant="outlined"
         />
       </Box>

@@ -47,7 +47,7 @@ const TextField: FC<TextField> = ({
             ? {
                 "& .MuiInputBase-input": {
                   height: "32px",
-                  borderRadius: "2px",
+                  borderRadius: "2px", 
                 },
                 ...sx,
               }

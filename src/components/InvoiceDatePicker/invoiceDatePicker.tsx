@@ -98,6 +98,13 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               },
               padding: "0px !important",
               // width: "100% !important",
+
+              "& .MuiOutlinedInput-root": {
+                border: "none !important",
+                borderRadius:0.5,
+                width: "134px !important",
+                paddingRight:0,
+              },
             }}
           />
           {/* <DatePicker

@@ -4,14 +4,18 @@ import { Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { ChangeEvent, FC, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { addInvoiceItem, getInvoiceItem, setInvoiceItem } from "@/redux/features/invoiceSlice";
+import {
+  addInvoiceItem,
+  getInvoiceItem,
+  setInvoiceItem,
+} from "@/redux/features/invoiceSlice";
 import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
 import "../../Styles/tableItemRow.css";
 
 interface ItemsTableRowProps {
   id: number;
   onRemove: (id: number) => void;
-  data:any,
+  data: any;
   showRemoveButton: boolean;
 }
 
@@ -58,6 +62,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               color: palette.color.gray[700],
               width: "100%",
               height: "32px",
+              "& .MuiOutlinedInput-root": {
+                border: "0px !important",
+                borderRadius:0.5,
+                borderColor:`${palette.base.borderColor} !important`,
+              },
             }}
             id="outlined-basic"
             name="name"
@@ -78,13 +87,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               // border: `1px solid ${palette.borderColor.borderColor}`,
               borderRadius: 1,
               color: palette.color.gray[700],
+              "& .MuiOutlinedInput-root": {
+                border: "none !important",
+                borderRadius:0.5,
+              },
             }}
             id="outlined-basic"
             name="quantity"
             type="number"
             placeholder="1"
             variant="outlined"
-            value={data.quantity>0?data.quantity :''}
+            value={data.quantity > 0 ? data.quantity : ""}
             onChange={handleChange}
           />
         </Grid>
@@ -98,13 +111,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               // border: `1px solid ${palette.borderColor.borderColor}`,
               borderRadius: 1,
               color: palette.color.gray[700],
+              "& .MuiOutlinedInput-root": {
+                border: "none !important",
+                borderRadius:0.5,
+              },
             }}
             id="outlined-basic"
             name="rate"
             type="number"
             placeholder="$ 0.0"
             variant="outlined"
-            value={data.rate>0?data.rate:''}
+            value={data.rate > 0 ? data.rate : ""}
             onChange={handleChange}
           />
         </Grid>
@@ -116,19 +133,23 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         >
           {selectedTax ? (
             <TextField
-            InputProps={{
-              inputProps: { min: 0, max: 100 },
-            }}
+              InputProps={{
+                inputProps: { min: 0, max: 100 },
+              }}
               sx={{
                 // border: `1px solid ${palette.borderColor.borderColor}`,
                 borderRadius: 1,
                 color: palette.color.gray[700],
+                "& .MuiOutlinedInput-root": {
+                border: "none !important",
+                borderRadius:0.5,
+              },
               }}
               name="tax"
               type="number"
-               placeholder="% 0.0"
+              placeholder="% 0.0"
               variant="outlined"
-              value={data.tax>0?data.tax:''}
+              value={data.tax > 0 ? data.tax : ""}
               onChange={handleChange}
             />
           ) : (
@@ -149,7 +170,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               margin: "7px 7px 7px 7px",
             }}
           >
-            {selectedCurrency === "$ USD" ? "$" : selectedCurrency} {(data.subTotal).toFixed(2)}
+            {selectedCurrency === "$ USD" ? "$" : selectedCurrency}{" "}
+            {data.subTotal.toFixed(2)}
           </Typography>
         </Grid>
         {showRemoveButton && (
