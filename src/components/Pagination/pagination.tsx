@@ -69,7 +69,7 @@ const Pagination: FC<Pagination> = ({
   return (
     <Box
       sx={{
-        width: "1183px",
+        width: "100%",
         marginBottom:"10px",
         border: `1px solid ${palette.border.invoicesBorderColor}`,
         display: "flex",
