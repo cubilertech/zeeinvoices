@@ -27,7 +27,9 @@ import * as Yup from "yup";
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   companyName: Yup.string().required("Company Name is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string().required("City is required"),
   state: Yup.string().required("State is required"),
@@ -51,7 +53,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const handleOpen = () => setOpen(true);
 
   const [detailsEntered, setDetailsEntered] = useState(false); // for modal details
-   const initialValues = {
+  const initialValues = {
     name: "",
     companyName: "",
     email: "",
@@ -69,16 +71,16 @@ const DetailSelecter: FC<DetailSelecter> = ({
       setDetailsEntered(true);
       setOpen(false);
       detailsOf === "Sender"
-      ? dispatch(setSenderDetail(values))
-      : dispatch(setRecipientDetail(values));
+        ? dispatch(setSenderDetail(values))
+        : dispatch(setRecipientDetail(values));
     },
   });
 
   //close model
   const handleModelClose = () => {
     detailsOf === "Sender"
-    ? dispatch(setSenderDetail(senderData))
-    : dispatch(setRecipientDetail(recipientData));
+      ? dispatch(setSenderDetail(senderData))
+      : dispatch(setRecipientDetail(recipientData));
     // setDetails(detailsOf === "Sender" ? senderData : recipientData);
     setOpen(false);
   };
@@ -111,9 +113,15 @@ const DetailSelecter: FC<DetailSelecter> = ({
           }}
           onClick={handleOpen}
         >
-          <Typography variant="body1" color={palette.color.gray[750]}>
-            {detailsOf} Details
-          </Typography>
+          <Stack direction={"row"} justifyContent={"space-between"}>
+            <Typography variant="body1" color={palette.color.gray[750]}>
+              {detailsOf} Details
+            </Typography>
+            {/* <IconButton sx={{ padding: 1 }}>
+              <Icon icon="editIcon" width={20} height={20} />
+            </IconButton> */}
+          </Stack>
+
           <Stack
             direction={"column"}
             spacing={1.5}
@@ -144,9 +152,21 @@ const DetailSelecter: FC<DetailSelecter> = ({
           }}
           onClick={handleOpen}
         >
-          <Typography variant="text-sm-medium" color={palette.color.gray[750]}>
+          <Stack direction={"row"} justifyContent={"space-between"} sx={{alignItems:"center"}}>
+            <Typography
+              variant="text-sm-medium"
+              color={palette.color.gray[750]}
+            >
+              {title}
+            </Typography>
+            <IconButton sx={{ padding: 0 }}>
+              <Icon icon="editIcon" width={20} height={20} />
+            </IconButton>
+          </Stack>
+
+          {/* <Typography variant="text-sm-medium" color={palette.color.gray[750]}>
             {title}
-          </Typography>
+          </Typography> */}
           <Stack spacing={2} sx={{ marginTop: 2 }}>
             <Typography variant="text-xs-bold">
               {detailsOf === "Sender"
@@ -234,18 +254,18 @@ const DetailSelecter: FC<DetailSelecter> = ({
           </Stack>
           <form onSubmit={handleSubmit}>
             <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur} >
+              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
                 <TextField
                   label="Name"
                   size="large"
                   name="name"
                   value={values.name}
                   onChange={handleChange}
-                 
                   sx={{ width: "240px" }}
-                 
                 />
-                {errors.name && <Box sx={{color:'#D33131'}}>{errors.name}</Box>}
+                {errors.name && (
+                  <Box sx={{ color: "#D33131" }}>{errors.name}</Box>
+                )}
               </FormControl>
               <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
                 <TextField
@@ -256,9 +276,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   value={values.companyName}
                   sx={{ width: "240px" }}
                 ></TextField>
-                 {errors.companyName && <Box sx={{color:'#D33131'}}>{errors.companyName}</Box>}
-                  </FormControl>
-             
+                {errors.companyName && (
+                  <Box sx={{ color: "#D33131" }}>{errors.companyName}</Box>
+                )}
+              </FormControl>
             </Stack>
             <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
               <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
@@ -270,7 +291,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   value={values.email}
                   sx={{ width: "240px" }}
                 ></TextField>
-                {errors.email && <Box sx={{color:'#D33131'}}>{errors.email}</Box>}
+                {errors.email && (
+                  <Box sx={{ color: "#D33131" }}>{errors.email}</Box>
+                )}
               </FormControl>
               <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
                 <TextField
@@ -281,7 +304,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   value={values.phoneNumber as string}
                   sx={{ width: "240px" }}
                 ></TextField>
-                {errors.phoneNumber && <Box sx={{color:'#D33131'}}>{errors.phoneNumber}</Box>}
+                {errors.phoneNumber && (
+                  <Box sx={{ color: "#D33131" }}>{errors.phoneNumber}</Box>
+                )}
               </FormControl>
             </Stack>
             <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
@@ -294,7 +319,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   value={values.city}
                   sx={{ width: "240px" }}
                 ></TextField>
-                {errors.city && <Box sx={{color:'#D33131'}}>{errors.city}</Box>}
+                {errors.city && (
+                  <Box sx={{ color: "#D33131" }}>{errors.city}</Box>
+                )}
               </FormControl>
               <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
                 <TextField
@@ -305,7 +332,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   value={values.state}
                   sx={{ width: "240px" }}
                 ></TextField>
-                {errors.state && <Box sx={{color:'#D33131'}}>{errors.state}</Box>}
+                {errors.state && (
+                  <Box sx={{ color: "#D33131" }}>{errors.state}</Box>
+                )}
               </FormControl>
             </Stack>
             <Box sx={{ marginTop: "20px" }}>
@@ -318,7 +347,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   value={values.address}
                   // sx={{ width: "100%" }}
                 ></TextField>
-                {errors.address && <Box sx={{color:'#D33131'}}>{errors.address}</Box>}
+                {errors.address && (
+                  <Box sx={{ color: "#D33131" }}>{errors.address}</Box>
+                )}
               </FormControl>
             </Box>
             <Stack
