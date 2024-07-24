@@ -31,9 +31,8 @@ const CreateInvoice = () => {
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
       <Box sx={{ py: 4 }}>
         <InvoiceHeader
-          invoiceName="001"
-          InvSetting={invoiceSetting}
-          InvDetails={invoiceDetail}
+          InvSetting={{...invoiceSetting}}
+          InvDetails={{...invoiceDetail}}
           summaryDetail={summaryDetail}
         />
       </Box>

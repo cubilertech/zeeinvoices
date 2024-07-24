@@ -4,6 +4,7 @@ import "./globals.css";
 import MuiThemeProvider from "@/theme/provider";
 import AppLayout from "@/common/appLayout";
 import ClientProvider from "@/components/ClientProvider";
+import QueryProvider from "@/components/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <MuiThemeProvider>
           <ClientProvider>
+            <QueryProvider>
             <AppLayout>{children}</AppLayout>
+            </QueryProvider>
           </ClientProvider>
         </MuiThemeProvider>
       </body>

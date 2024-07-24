@@ -5,6 +5,7 @@ import { FC } from "react";
 import { Icon } from "../Icon";
 
 const FirstInvoice: FC = () => {
+  
   return (
     <Container
       sx={{
@@ -51,7 +52,7 @@ const FirstInvoice: FC = () => {
           </Typography>
         </Stack>
 
-        <Button variant="contained">Create New Invoice</Button>
+        <Button variant="contained"  >Create New Invoice</Button>
       </Stack>
     </Container>
   );

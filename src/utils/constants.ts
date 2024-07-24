@@ -21,3 +21,6 @@ export const icons = {
   plusIcon: "/Images/icons/plus-icon.svg",
   threeDotsIcon: "/Images/icons/three-dots-icon.svg",
 };
+
+export const backendURL =
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:3005";

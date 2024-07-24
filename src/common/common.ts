@@ -23,3 +23,8 @@ export const formattedDate=(date:string)=>{
   const formattedDate = parsedDate.format('DD-MMM-YY');
   return formattedDate;
 }
+  export const tableFormatDate=(date:string)=>{
+    const parsedDate = dayjs(date);
+    const formattedDate = parsedDate.format('DD MMMM YYYY');
+    return formattedDate;
+  }

@@ -24,6 +24,7 @@ export interface InvoiceItem {
 }
 
 export interface InvoiceState {
+  id:number;
   logo: string | null;
   invoiceType: string;
   from: ContactDetail;
@@ -41,6 +42,7 @@ interface ActionPayload {
 }
 
 const initialValue: InvoiceState = {
+  id:0,
   logo: '',
   invoiceType: "",
   from: {
@@ -82,6 +84,9 @@ export const invoiceSlice = createSlice({
   name: "invoice",
   initialState: initialValue,
   reducers: {
+    setInvoiceId:(state,action: PayloadAction<number>)=>{
+      state.id= action.payload;
+    },
     setInvoiceLogo: (state, action: PayloadAction<string | null>) => {
       state.logo = action.payload;
     },
@@ -133,6 +138,7 @@ export const invoiceSlice = createSlice({
   },
 });
 
+export const getInvoiceId=(state:RootState)=>state.invoice.id;
 export const getInvoiceLogo = (state: RootState) => state.invoice.logo;
 export const getInvoiceType = (state: RootState) => state.invoice.invoiceType;
 export const getSenderDetail = (state: RootState) => state.invoice.from;
@@ -144,6 +150,7 @@ export const getAddtionalNotes = (state: RootState) =>
   state.invoice.addtionalNotes;
 
 export const {
+  setInvoiceId,
   setInvoiceLogo,
   setInvoiceType,
   setSenderDetail,

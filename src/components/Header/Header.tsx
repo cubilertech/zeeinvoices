@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
+import CustomButton from "./CustomButton";
 
 const Header = () => {
   return (
@@ -37,13 +38,7 @@ const Header = () => {
           }}
         >
           <Icon icon="logo" height={24} width={175} />
-          <Button
-            variant="outlined"
-            size="small"
-            startIcon={<Icon icon="invoiceIcon" width={15} height={15} />}
-          >
-            Invoices
-          </Button>
+          <CustomButton/>
         </Stack>
 
         <Stack direction={"row"} gap={3}>
