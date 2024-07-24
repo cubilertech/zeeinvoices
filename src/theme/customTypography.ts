@@ -357,6 +357,14 @@ export const CustomTypography = {
       lineHeight: "19.5px",
       fontFamily: "Inter",
     },
+    "text-xs-small": {
+      fontSize: "12px",
+      lineHeight: "14px",
+      fontKerning: "0%",
+      fontWeight: 300,
+      letterSpacing: "",
+      fontFamily: "Inter",
+    },
     "text-xs-regular": {
       fontSize: "12px",
       lineHeight: "14px",

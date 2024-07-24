@@ -117,6 +117,7 @@ declare module "@mui/material/Typography" {
     "text-xs-bold": true;
     "text-xs-semibold": true;
     "text-xs-medium": true;
+    "text-xs-small": true;
     "text-xs-regular": true;
     "text-xs": true;
     "text-xxs-small": true;

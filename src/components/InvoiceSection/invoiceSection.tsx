@@ -86,7 +86,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
       <Stack direction={"row"} spacing={1} sx={{ marginTop: 5 }}>
         <Grid container spacing={0}>
           <Grid
-            sx={{ padding: "8px", paddingTop: "8px !important" }}
+            sx={{ padding: "8px", paddingTop: "8px !important", paddingLeft: "0px !important" }}
             item
             xs={6.5}
           >

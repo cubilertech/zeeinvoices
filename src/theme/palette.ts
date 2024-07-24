@@ -78,6 +78,7 @@ const gray = {
   50: "#8f8f94",
   10: "#E0E0E0",
   5: "#EAECF0",
+  3: "#EDECEF",
 };
 
 const opacity = {

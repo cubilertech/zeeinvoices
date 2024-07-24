@@ -55,12 +55,16 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         }}
         spacing={2}
       >
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={4.8}>
+        <Grid
+          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          item
+          xs={4.5}
+        >
           <TextField
             // size="small"
             sx={{
               color: palette.color.gray[700],
-              width: "256px",
+              width: "100%",
               height: "32px",
               "& .MuiOutlinedInput-root": {
                 border: "0px !important",
@@ -77,20 +81,35 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           />
         </Grid>
         <Grid
-          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          sx={{
+            padding: "4px",
+            paddingTop: "4px !important",
+            // paddingLeft: "16px !important",
+          }}
           item
-          xs={1.8}
+          xs={1.6}
         >
           <TextField
             // size="small"
             sx={{
-              // border: `1px solid ${palette.borderColor.borderColor}`,
               borderRadius: "3px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
                 border: "none !important",
                 borderRadius: 0.5,
                 borderColor: `${palette.color.gray[120]} !important`,
+              },
+              "& input[type=number]": {
+                MozAppearance: "textfield",
+                "&::-webkit-outer-spin-button": {
+                  WebkitAppearance: "none",
+                  margin: 0,
+                },
+                "&::-webkit-inner-spin-button": {
+                  WebkitAppearance: "none",
+                  margin: 0,
+                },
+                textAlign: "right",
               },
             }}
             id="outlined-basic"
@@ -99,29 +118,41 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             placeholder="1"
             variant="outlined"
             value={data.quantity > 0 ? data.quantity : ""}
+            inputProps={{ min: 0, style: { textAlign: "right" } }}
             onChange={handleChange}
           />
         </Grid>
         <Grid
           sx={{ padding: "4px", paddingTop: "4px !important" }}
           item
-          xs={1.8}
+          xs={1.6}
         >
           <TextField
             sx={{
-              // border: `1px solid ${palette.borderColor.borderColor}`,
-              borderRadius: 1,
+              borderRadius: "3px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
                 border: "none !important",
                 borderRadius: 0.5,
                 borderColor: `${palette.color.gray[120]} !important`,
               },
+              "& input[type=number]": {
+                MozAppearance: "textfield",
+                "&::-webkit-outer-spin-button": {
+                  WebkitAppearance: "none",
+                  margin: 0,
+                },
+                "&::-webkit-inner-spin-button": {
+                  WebkitAppearance: "none",
+                  margin: 0,
+                },
+                textAlign: "right",
+              },
             }}
             id="outlined-basic"
             name="rate"
             type="number"
-            placeholder="$ 0.0"
+            placeholder="$       0.0"
             variant="outlined"
             value={data.rate > 0 ? data.rate : ""}
             onChange={handleChange}
@@ -131,7 +162,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         <Grid
           sx={{ padding: "4px", paddingTop: "4px !important" }}
           item
-          xs={1.8}
+          xs={1.6}
         >
           {selectedTax ? (
             <TextField
@@ -139,18 +170,29 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 inputProps: { min: 0, max: 100 },
               }}
               sx={{
-                // border: `1px solid ${palette.borderColor.borderColor}`,
-                borderRadius: 1,
+                borderRadius: "3px",
                 color: palette.color.gray[700],
                 "& .MuiOutlinedInput-root": {
                   border: "none !important",
                   borderRadius: 0.5,
                   borderColor: `${palette.color.gray[120]} !important`,
                 },
+                "& input[type=number]": {
+                  MozAppearance: "textfield",
+                  "&::-webkit-outer-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
+                  "&::-webkit-inner-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
+                  textAlign: "right",
+                },
               }}
               name="tax"
               type="number"
-              placeholder="% 0.0"
+              placeholder="%      0.0"
               variant="outlined"
               value={data.tax > 0 ? data.tax : ""}
               onChange={handleChange}
@@ -163,7 +205,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         <Grid
           sx={{ padding: "4px", paddingTop: "4px !important" }}
           item
-          xs={1.8}
+          xs={2.2}
         >
           <Typography
             sx={{
@@ -185,7 +227,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               alignSelf: "center",
             }}
             item
-            xs={0.8}
+            xs={0.3}
           >
             <IconButton
               className="deleteIconButton"

@@ -4,7 +4,7 @@ import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { Icon } from "../Icon";
 import { ItemsTableRow } from "../ItemsTableRow";
-import {useSelectedColor } from "@/utils/common";
+import { useSelectedColor } from "@/utils/common";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addInvoiceItem,
@@ -30,7 +30,7 @@ const InvoiceItemsTable: FC = () => {
         rate: 0,
         tax: 0,
         subTotal: 0,
-        taxAmount:0
+        taxAmount: 0,
       })
     );
   };
@@ -45,46 +45,109 @@ const InvoiceItemsTable: FC = () => {
       <Grid
         container
         sx={{
+          width: "100%",
           // backgroundColor: palette.base.itemsHeadColor,
           backgroundColor: selectedColor,
           borderRadius: "2px",
           marginTop: 2,
+          ml: "0px",
+          height: "30px",
         }}
         spacing={2}
       >
-        <Grid sx={{ padding: "0px", paddingTop: "8px !important" }} item xs={4.8}>
-          <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>Items</Typography>
-        </Grid>
         <Grid
-          sx={{ padding: "8px", paddingTop: "8px !important" }}
+          sx={{ padding: "0px", paddingTop: "2px !important" }}
           item
-          xs={1.8}
+          xs={4.3}
         >
-          <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>QTY/HRS</Typography>
-        </Grid>
-        <Grid
-          sx={{ padding: "8px", paddingTop: "8px !important" }}
-          item
-          xs={1.8}
-        >
-          <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>Rate</Typography>
-        </Grid>
-
-       
-          <Grid
-            sx={{ padding: "8px", paddingTop: "8px !important" }}
-            item
-            xs={1.6}
+          <Typography
+            variant="text-xs-semibold"
+            sx={{ color: palette.base.white }}
           >
-           {selectedTax ? <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>Tax</Typography> : ''} 
-          </Grid>
+            Items
+          </Typography>
+        </Grid>
+        <Grid
+          sx={{
+            padding: "8px",
+            paddingTop: "8px !important",
+            paddingLeft: "8px !important",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          item
+          xs={1.8}
+        >
+          <Typography
+            variant="text-xs-semibold"
+            sx={{ color: palette.base.white }}
+          >
+            QTY/HRS
+          </Typography>
+        </Grid>
+        <Grid
+          sx={{
+            padding: "8px",
+            paddingTop: "6px !important",
+            paddingLeft: "8px !important",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          item
+          xs={1.6}
+        >
+          <Typography
+            variant="text-xs-semibold"
+            sx={{ color: palette.base.white }}
+          >
+            Rate
+          </Typography>
+        </Grid>
 
         <Grid
-          sx={{ padding: "8px", paddingTop: "8px !important" }}
+          sx={{
+            padding: "8px",
+            paddingTop: "6px !important",
+            paddingLeft: "8px !important",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
           item
-          xs={2}
+          xs={1.6}
         >
-          <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>Subtotal</Typography>
+          {selectedTax ? (
+            <Typography
+              variant="text-xs-semibold"
+              sx={{ color: palette.base.white }}
+            >
+              Tax
+            </Typography>
+          ) : (
+            ""
+          )}
+        </Grid>
+
+        <Grid
+          sx={{
+            padding: "8px",
+            paddingTop: "5px !important",
+            paddingLeft: "8px !important",
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+          }}
+          item
+          xs={2.2}
+        >
+          <Typography
+            variant="text-xs-semibold"
+            sx={{ color: palette.base.white, mr: "0px" }}
+          >
+            Subtotal
+          </Typography>
         </Grid>
       </Grid>
 
@@ -109,12 +172,15 @@ const InvoiceItemsTable: FC = () => {
         sx={{
           height: "40px",
           width: "100%",
-          marginTop: "10px",
-          border: `2px dashed ${palette.base.borderColor}`,
+          marginTop: "15px",
+          border: `1px dashed ${palette.color.gray[10]}`,
           borderRadius: 1,
           cursor: "pointer",
-          backgroundColor: palette.color.gray[10],
+          backgroundColor: palette.color.gray[3],
           marginBottom: "70px",
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
         }}
       >
         <Stack
@@ -128,7 +194,7 @@ const InvoiceItemsTable: FC = () => {
           <Box sx={{ padding: 1 }}>
             <Icon icon="addCircleOutlinedIcon" width={20} height={20} />
           </Box>
-          <Typography variant="caption" sx={{ color: palette.base.black }}>
+          <Typography variant="text-xs-regular" sx={{ color: palette.base.black }}>
             Add New Invoice Item
           </Typography>
         </Stack>
