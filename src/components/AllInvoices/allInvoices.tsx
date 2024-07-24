@@ -28,10 +28,11 @@ import {
 import { Icon } from "../Icon";
 import { Pagination } from "../Pagination";
 import { backendURL } from "@/utils/constants";
-import { useFetchAllDocument } from "@/utils/ApiHooks/common";
+import { useDeleteDocument, useFetchAllDocument } from "@/utils/ApiHooks/common";
 import { calculateAmount, tableFormatDate } from "@/common/common";
 import { useRouter } from "next/navigation";
 import DeleteModal from "../DeleteModal/deleteModal";
+import CustomPopOver from "./CustomPopOver";
 
 interface Data {
   id: number;
@@ -299,6 +300,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 export default function AllInvoices() {
+  const route = useRouter();
   const routePrefix = `${backendURL}/invoices`;
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
@@ -306,6 +308,8 @@ export default function AllInvoices() {
   const [page, setPage] = React.useState(1);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const { mutate: deleteInvoice, isLoading: deleteInvoiceLoading, isSuccess: deleteSuccess } =
+  useDeleteDocument();
   const {
     data: invoiceList,
     refetch: refetchInvoiceList,
@@ -313,7 +317,10 @@ export default function AllInvoices() {
   } = useFetchAllDocument(routePrefix);
   React.useEffect(() => {
     refetchInvoiceList();
-  }, []);
+    if(deleteSuccess){
+      setIsModalOpen(false);
+    }
+  }, [refetchInvoiceList,deleteSuccess]);
   console.log(invoiceList, fetchingInvoiceList, "data");
 
   const handleRequestSort = (
@@ -325,17 +332,9 @@ export default function AllInvoices() {
     setOrderBy(property);
   };
   // DropDown Poper
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  
+  
+  // const id = open ? "simple-popover" : undefined;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const visibleRows = React.useMemo(
@@ -344,20 +343,31 @@ export default function AllInvoices() {
         (page - 1) * rowsPerPage,
         (page - 1) * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage]
+    [order, orderBy, page, rowsPerPage, invoiceList.invoices]
   );
 
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);
+
   const handleDelete = () => {
-    // Handle file deletion logic here
-    console.log("File deleted");
     setIsModalOpen(false);
   };
 
   const handleDeleteModalClose = () => {
     setIsModalOpen(false);
   };
+  const handleViewInvoice = (id: number) => {
+    route.push(`/invoices/${id}`);
+  };
+  const handleOpenDeleteModal = (id: number) => {
+    setItemToDelete(id as number);
+    setIsModalOpen(true);
+  }
+  const invoiceDelete = () => {
+    console.log(itemToDelete,'id');
+    deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
+};
 
   return (
     <Box
@@ -473,9 +483,11 @@ export default function AllInvoices() {
                         {calculateAmount(row.items).toFixed(2)}
                       </TableCell>
                       <TableCell align="left">
-                        <IconButton onClick={handleClick}>
-                          <Icon icon="threeDotsIcon" width={5} height={5} />
-                        </IconButton>
+                        <CustomPopOver
+                          handleOpenDeleteModal={handleOpenDeleteModal}
+                          id={row.id}
+                          handleViewInvoice={handleViewInvoice}
+                        />
                       </TableCell>
                     </TableRow>
                   );
@@ -493,106 +505,13 @@ export default function AllInvoices() {
           setPage={setPage}
         />
       </Paper>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        sx={{ borderRadius: "8px", transform: "translateX(-35px)" }}
-      >
-        <Stack direction={"column"} sx={{ alignItems: "start" }}>
-          <Button
-            variant="outlined"
-            startIcon={<Icon icon="viewIcon" />}
-            sx={{
-              border: "none",
-              color: "#4B5563",
-              "&:hover": {
-                border: "none",
-                color: "#4B5563",
-                backgroundColor: palette.color.gray[10],
-                borderRadius: 0,
-              },
-            }}
-          >
-            View
-          </Button>
-          <Button
-            variant="outlined"
-            startIcon={<Icon icon="editIcon" />}
-            sx={{
-              border: "none",
-              color: "#4B5563",
-              "&:hover": {
-                border: "none",
-                color: "#4B5563",
-                backgroundColor: palette.color.gray[10],
-                borderRadius: 0,
-              },
-            }}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="outlined"
-            startIcon={<Icon icon="sendSqaureIcon" />}
-            sx={{
-              border: "none",
-              color: "#4B5563",
-              "&:hover": {
-                border: "none",
-                color: "#4B5563",
-                backgroundColor: palette.color.gray[10],
-                borderRadius: 0,
-              },
-            }}
-          >
-            Share
-          </Button>
-          <Button
-            variant="outlined"
-            startIcon={<Icon icon="printIconIcon" />}
-            sx={{
-              border: "none",
-              color: "#4B5563",
-              "&:hover": {
-                border: "none",
-                color: "#4B5563",
-                backgroundColor: palette.color.gray[10],
-                borderRadius: 0,
-              },
-            }}
-          >
-            Print
-          </Button>
-          <Button
-            variant="outlined"
-            startIcon={<Icon icon="deleteIcon" />}
-            sx={{
-              border: "none",
-              color: "#4B5563",
-              "&:hover": {
-                border: "none",
-                color: "#4B5563",
-                backgroundColor: palette.color.gray[10],
-                borderRadius: 0,
-              },
-            }}
-            onClick={() => setIsModalOpen(true)}
-          >
-            Delete
-          </Button>
-          <DeleteModal
-            open={isModalOpen}
-            onDelete={handleDelete}
-            onClose={handleDeleteModalClose}
-          />
-        </Stack>
-      </Popover>
+      <DeleteModal
+          open={isModalOpen}
+          onDelete={handleDelete}
+          onClose={handleDeleteModalClose}
+          invoiceDelete={invoiceDelete}
+        />
+     
     </Box>
   );
 }

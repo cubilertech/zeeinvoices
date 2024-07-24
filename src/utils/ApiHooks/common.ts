@@ -62,3 +62,22 @@ export const useCreateDocument=()=>{
   };
   return useMutation(handleCreate);
 }
+
+export const useDeleteDocument = () => {
+  const handleDelete = async (props :any) => {
+    try {
+      const response = await axios.delete(props.apiRoute);
+      if (response.data.code === 200) {
+        
+        return response.data.data;
+      } else {
+       
+        throw new Error("An error occurred while deleting record.");
+      }
+    } catch (error : any) {
+      throw new Error(`${error.response?.data?.message}`)
+    }
+  };
+
+  return useMutation(handleDelete);
+};

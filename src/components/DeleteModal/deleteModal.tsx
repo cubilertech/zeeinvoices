@@ -21,8 +21,9 @@ interface DeleteModal {
   onDelete: () => void;
   onClose: () => void;
   open: boolean;
+  invoiceDelete:any
 }
-const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open }) => {
+const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete }) => {
   return (
     <>
       <Modal
@@ -77,7 +78,7 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open }) => {
                     backgroundColor: "#BB3409",
                   },
                 }}
-                onClick={onClose}
+                onClick={invoiceDelete}
               >
                 Delete
               </Button>
