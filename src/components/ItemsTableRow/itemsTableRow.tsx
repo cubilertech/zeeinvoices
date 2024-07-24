@@ -55,17 +55,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         }}
         spacing={2}
       >
-        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={4}>
+        <Grid sx={{ padding: "4px", paddingTop: "4px !important" }} item xs={4.8}>
           <TextField
             // size="small"
             sx={{
               color: palette.color.gray[700],
-              width: "100%",
+              width: "256px",
               height: "32px",
               "& .MuiOutlinedInput-root": {
                 border: "0px !important",
-                borderRadius:0.5,
-                borderColor:`${palette.base.borderColor} !important`,
+                borderRadius: 0.5,
+                borderColor: `${palette.color.gray[120]} !important`,
               },
             }}
             id="outlined-basic"
@@ -85,11 +85,12 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // size="small"
             sx={{
               // border: `1px solid ${palette.borderColor.borderColor}`,
-              borderRadius: 1,
+              borderRadius: "3px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
                 border: "none !important",
-                borderRadius:0.5,
+                borderRadius: 0.5,
+                borderColor: `${palette.color.gray[120]} !important`,
               },
             }}
             id="outlined-basic"
@@ -113,7 +114,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
                 border: "none !important",
-                borderRadius:0.5,
+                borderRadius: 0.5,
+                borderColor: `${palette.color.gray[120]} !important`,
               },
             }}
             id="outlined-basic"
@@ -141,9 +143,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 borderRadius: 1,
                 color: palette.color.gray[700],
                 "& .MuiOutlinedInput-root": {
-                border: "none !important",
-                borderRadius:0.5,
-              },
+                  border: "none !important",
+                  borderRadius: 0.5,
+                  borderColor: `${palette.color.gray[120]} !important`,
+                },
               }}
               name="tax"
               type="number"

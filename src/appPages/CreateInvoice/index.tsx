@@ -29,7 +29,7 @@ const CreateInvoice = () => {
   };
   return (
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
-      <Box sx={{ py: 4 }}>
+      <Box sx={{ pt: 3, pb: 2 }}>
         <InvoiceHeader
           InvSetting={{...invoiceSetting}}
           InvDetails={{...invoiceDetail}}

@@ -100,11 +100,11 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
           <Stack direction={"row"} spacing={1}>
             <Icon icon="uploadLogo" height={31} width={34} />
             <Stack direction={"column"} spacing={1}>
-              <Typography variant="caption" color={"gray"}>
+              <Typography variant="text-xs-regular" color={"gray"}>
                 {logoDesc}
               </Typography>
               <Typography
-                variant="caption"
+                variant="text-xs-regular"
                 color={"black"}
                 sx={{ textDecoration: "underline" }}
               >

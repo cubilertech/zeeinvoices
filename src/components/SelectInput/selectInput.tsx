@@ -26,8 +26,8 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
 
   return (
     <Box borderRadius={1} sx={{ height: 60 }}>
-      <Stack direction={"column"} spacing={0.5}>
-        <Typography variant="body1">{type === 'currency' ? "" : type}</Typography>
+      <Stack direction={"column"} spacing={0.2}>
+        <Typography variant="text-sm-medium">{type === 'currency' ? "" : type}</Typography>
         <Select
           IconComponent={() => <Icon icon="arrowDownIcon" />}
           labelId="demo-simple-select-label"

@@ -66,7 +66,6 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileDatePicker
-            // defaultValue={dayjs(new Date().toISOString())}
             value={
               title === "Invoice Date" ? dayjs(invoiceDate) : dayjs(dueDate)
             }
@@ -107,11 +106,7 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               },
             }}
           />
-          {/* <DatePicker
-            label="Controlled picker"
-            value={value}
-            onChange={(newValue) => setValue(newValue)}
-          /> */}
+          
         </LocalizationProvider>
       </Box>
     </Stack>

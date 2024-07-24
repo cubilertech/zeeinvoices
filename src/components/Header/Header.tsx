@@ -52,7 +52,7 @@ const Header = () => {
           }}
         >
           <Icon icon="logo" height={24} width={175} />
-          <CustomButton/>
+          <CustomButton />
         </Stack>
 
         <Stack direction={"row"} gap={3}>
@@ -92,7 +92,7 @@ const Header = () => {
                     border: "none",
                     color: "#4B5563",
                     backgroundColor: palette.color.gray[10],
-                    borderRadius:0,
+                    borderRadius: 0,
                   },
                 }}
               >
@@ -108,7 +108,7 @@ const Header = () => {
                     border: "none",
                     color: "#4B5563",
                     backgroundColor: palette.color.gray[10],
-                    borderRadius:0,
+                    borderRadius: 0,
                   },
                 }}
               >
@@ -117,7 +117,9 @@ const Header = () => {
             </Stack>
           </Popover>
 
-          <Button variant="contained">Login</Button>
+          <Button variant="contained" sx={{ px:"20px", py:"8px" }}>
+            Login
+          </Button>
         </Stack>
       </Container>
     </AppBar>

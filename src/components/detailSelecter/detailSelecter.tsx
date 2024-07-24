@@ -94,7 +94,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
       }}
     >
       {title && (
-        <Typography variant="body1" color={palette.color.gray[100]}>
+        <Typography variant="text-sm-regular" color={palette.color.gray[110]}>
           {title}
         </Typography>
       )}
@@ -109,12 +109,12 @@ const DetailSelecter: FC<DetailSelecter> = ({
             padding: 2,
             borderRadius: 2,
             cursor: "pointer",
-            border: `1px solid ${palette.base.borderColor}`,
+            border: `1px solid ${palette.color.gray[120]}`,
           }}
           onClick={handleOpen}
         >
           <Stack direction={"row"} justifyContent={"space-between"}>
-            <Typography variant="body1" color={palette.color.gray[750]}>
+            <Typography variant="text-xs-regular" color={palette.color.gray[770]}>
               {detailsOf} Details
             </Typography>
             {/* <IconButton sx={{ padding: 1 }}>
@@ -133,7 +133,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             }}
           >
             <Icon icon="addCircleIcon" height={32} width={32}></Icon>
-            <Typography variant="caption" color={palette.color.gray[750]}>
+            <Typography variant="text-xs-regular" color={palette.color.gray[810]}>
               Add New {detailsOf}
             </Typography>
           </Stack>
@@ -148,7 +148,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             padding: 2,
             borderRadius: 2,
             cursor: "pointer",
-            border: `1px solid ${palette.base.borderColor}`,
+            border: `1px solid ${palette.color.gray[120]}`,
           }}
           onClick={handleOpen}
         >
@@ -225,17 +225,18 @@ const DetailSelecter: FC<DetailSelecter> = ({
       <Modal open={open} onClose={handleModelClose} disableAutoFocus>
         <Box
           sx={{
+            overflow:"auto",
             position: "absolute" as "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            // width: "566px",
-            // height: "524px",
+            width: "566px",
+            height: "524px",
             bgcolor: palette.base.white,
             // border: "2px solid #000",
             boxShadow: 24,
-            p: 4,
-            borderRadius: 2,
+            p: "24px",
+            borderRadius: "12px",
           }}
         >
           <Stack direction={"row"} justifyContent={"space-between"}>
@@ -253,8 +254,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
             </IconButton>
           </Stack>
           <form onSubmit={handleSubmit}>
-            <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+            <Stack direction={"row"} justifyContent={"space-between"} sx={{ marginTop: "20px" }}>
+              <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
                 <TextField
                   label="Name"
                   size="large"
@@ -267,7 +268,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   <Box sx={{ color: "#D33131" }}>{errors.name}</Box>
                 )}
               </FormControl>
-              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+              <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
                 <TextField
                   label="Company Name"
                   size="large"
@@ -281,8 +282,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 )}
               </FormControl>
             </Stack>
-            <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+            <Stack direction={"row"} justifyContent={"space-between"} sx={{ marginTop: "20px" }}>
+              <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
                 <TextField
                   label="Email"
                   size="large"
@@ -295,7 +296,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   <Box sx={{ color: "#D33131" }}>{errors.email}</Box>
                 )}
               </FormControl>
-              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+              <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
                 <TextField
                   label="Phone number"
                   size="large"
@@ -309,8 +310,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 )}
               </FormControl>
             </Stack>
-            <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+            <Stack direction={"row"} justifyContent={"space-between"} sx={{ marginTop: "20px" }}>
+              <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
                 <TextField
                   label="City"
                   size="large"
@@ -323,7 +324,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   <Box sx={{ color: "#D33131" }}>{errors.city}</Box>
                 )}
               </FormControl>
-              <FormControl sx={{ width: "25ch" }} onBlur={handleBlur}>
+              <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
                 <TextField
                   label="State"
                   size="large"
@@ -345,7 +346,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   name="address"
                   onChange={handleChange}
                   value={values.address}
-                  // sx={{ width: "100%" }}
+                  sx={{ width: "100%" }}
                 ></TextField>
                 {errors.address && (
                   <Box sx={{ color: "#D33131" }}>{errors.address}</Box>
@@ -361,7 +362,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               <Button
                 onClick={handleModelClose}
                 variant="outlined"
-                sx={{ width: "243px", borderColor: palette.base.borderColor }}
+                sx={{ width: "243px", borderColor: palette.base.borderColor, color:"#445164"}}
               >
                 Cancel
               </Button>

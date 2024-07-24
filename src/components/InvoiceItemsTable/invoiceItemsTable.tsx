@@ -47,44 +47,44 @@ const InvoiceItemsTable: FC = () => {
         sx={{
           // backgroundColor: palette.base.itemsHeadColor,
           backgroundColor: selectedColor,
-          borderRadius: 1,
+          borderRadius: "2px",
           marginTop: 2,
         }}
         spacing={2}
       >
-        <Grid sx={{ padding: "0px", paddingTop: "8px !important" }} item xs={4}>
-          <Typography sx={{ color: palette.base.white }}>Items</Typography>
+        <Grid sx={{ padding: "0px", paddingTop: "8px !important" }} item xs={4.8}>
+          <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>Items</Typography>
         </Grid>
         <Grid
           sx={{ padding: "8px", paddingTop: "8px !important" }}
           item
           xs={1.8}
         >
-          <Typography sx={{ color: palette.base.white }}>QTY/HRS</Typography>
+          <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>QTY/HRS</Typography>
         </Grid>
         <Grid
           sx={{ padding: "8px", paddingTop: "8px !important" }}
           item
           xs={1.8}
         >
-          <Typography sx={{ color: palette.base.white }}>Rate</Typography>
+          <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>Rate</Typography>
         </Grid>
 
        
           <Grid
             sx={{ padding: "8px", paddingTop: "8px !important" }}
             item
-            xs={2.2}
+            xs={1.6}
           >
-           {selectedTax ? <Typography sx={{ color: palette.base.white }}>Tax</Typography> : ''} 
+           {selectedTax ? <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>Tax</Typography> : ''} 
           </Grid>
 
         <Grid
           sx={{ padding: "8px", paddingTop: "8px !important" }}
           item
-          xs={1.8}
+          xs={2}
         >
-          <Typography sx={{ color: palette.base.white }}>Subtotal</Typography>
+          <Typography variant="text-xs-semibold" sx={{ color: palette.base.white }}>Subtotal</Typography>
         </Grid>
       </Grid>
 
