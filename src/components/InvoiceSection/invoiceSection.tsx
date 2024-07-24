@@ -16,7 +16,7 @@ import {
 } from "@/redux/features/invoiceSlice";
 import { getDueDate } from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
-import DetailSelecter from "../DetailSelecter/detailSelecter";
+import DetailSelecter from "../detailSelecter/detailSelecter";
 
 interface InvoiceSectionProps {
   InvDetails: any;

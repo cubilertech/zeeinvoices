@@ -20,6 +20,11 @@ export const icons = {
   filterIcon: "/Images/icons/filter-icon.svg",
   plusIcon: "/Images/icons/plus-icon.svg",
   threeDotsIcon: "/Images/icons/three-dots-icon.svg",
+  editIcon: "/Images/icons/edit-icon.svg",
+  profileIcon: "/Images/icons/profile-icon.svg",
+  logoutIcon: "/Images/icons/logout-icon.svg",
+  viewIcon: "/Images/icons/view-icon.svg",
+  deleteIcon: "/Images/icons/delete-icon.svg",
 };
 
 export const backendURL =
