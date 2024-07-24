@@ -3,7 +3,11 @@ import PdfView from "@/appPages/PdfView/pdfView";
 import { palette } from "@/theme/palette";
 import { Box, Button } from "@mui/material";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import DeleteModal from "../DeleteModal/deleteModal";
+import { useDeleteDocument } from "@/utils/ApiHooks/common";
+import { backendURL } from "@/utils/constants";
+import { useRouter } from "next/navigation";
 
 interface InvoiceDetailProps {
   InvSetting: any;
@@ -16,6 +20,25 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
   InvDetails,
   summaryDetail,
 }) => {
+  const route = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { mutateAsync: deleteInvoice, isLoading: deleteInvoiceLoading, isSuccess: deleteSuccess } =
+  useDeleteDocument();
+  const handleDelete = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteModalClose = () => {
+    setIsModalOpen(false);
+  };
+  const invoiceDelete = async () => {
+    await deleteInvoice({ apiRoute: `${backendURL}/invoices/${InvDetails.id}` }).then((res)=>{
+      route.push('/invoices');
+     });
+};
+const handleOpenDeleteModal = () => {
+  setIsModalOpen(true);
+}
   return (
     <Box
       borderRadius={3}
@@ -56,6 +79,7 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
         Save
       </Button>
       <Button
+      onClick={()=>handleOpenDeleteModal()}
         variant="contained"
         sx={{
           width: "100%",
@@ -68,6 +92,12 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
       >
         Delete
       </Button>
+      <DeleteModal
+          open={isModalOpen}
+          onDelete={handleDelete}
+          onClose={handleDeleteModalClose}
+          invoiceDelete={invoiceDelete}
+        />
     </Box>
   );
 };
