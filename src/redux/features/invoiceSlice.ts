@@ -78,6 +78,7 @@ const initialValue: InvoiceState = {
     },
   ],
   addtionalNotes: "",
+
 };
 
 export const invoiceSlice = createSlice({
@@ -131,10 +132,20 @@ export const invoiceSlice = createSlice({
         state.invoiceItem[index].subTotal= total+tax;
       }
     },
-
     setAddtionalNotes: (state, action: PayloadAction<string>) => {
       state.addtionalNotes = action.payload;
     },
+     setFullInvoice : (state,action:PayloadAction<any>)=>{
+      state.id= action.payload.id;
+      state.logo = action.payload.logo;
+      state.invoiceType = action.payload.invoiceType;
+      state.from = action.payload.from;
+      state.to = action.payload.to;
+      state.invoiceDate = action.payload.invoiceDate;
+      state.dueDate = action.payload.dueDate;
+      state.addtionalNotes = action.payload.addtionalNotes;
+      state.invoiceItem=action.payload.invoiceItem
+     }
   },
 });
 
@@ -161,5 +172,6 @@ export const {
   removeInvoiceItem,
   setInvoiceItem,
   setAddtionalNotes,
+  setFullInvoice,
 } = invoiceSlice.actions;
 export default invoiceSlice.reducer;

@@ -30,7 +30,7 @@ const InvoiceDetails = () => {
   //   };
   return (
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
-      <Stack
+       <Stack
         direction={"row"}
         justifyContent={"space-between"}
         sx={{ py: 3, marginTop: "50px" }}
@@ -59,10 +59,10 @@ const InvoiceDetails = () => {
         </Stack>
       </Stack>
 
-      <Stack direction={"row"} gap={3}>
+     {/* <Stack direction={"row"} gap={3}>
         <InvoiceDetailsSection />
         <InvoiceDetailsActions />
-      </Stack>
+      </Stack> */}
     </Container>
   );
 };

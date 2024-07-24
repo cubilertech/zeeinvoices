@@ -10,6 +10,7 @@ import {
   Font,
 } from "@react-pdf/renderer";
 import { formattedDate } from "@/common/common";
+import { imageConvertion } from "@/utils/common";
 // import OpenSans from '../../../public/Fonts/OpenSans-font.ttf';
 // import { logoImg } from "../../../public/Images/logos/zee-logo.png";
 // Font.register({
@@ -107,10 +108,11 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
+            
             <Image
               style={styles.logo}
               src={
-                invDetails.logo ? invDetails.logo : "/Images/logos/zee-logo.png"
+                invDetails?.logo ? imageConvertion(invDetails.logo) : "/Images/logos/zee-logo.png"
               }
             />
           </View>
@@ -126,7 +128,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
                 Invoice Type:
               </Text>
               <Text style={styles.top_view_2_value}>
-                {invDetails.invoiceType}
+                {invDetails?.invoiceType}
               </Text>
             </View>
           </View>
@@ -170,7 +172,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               }}
             >
               <Text style={{ fontSize: "14px", fontWeight: "extrabold" }}>
-                {invDetails.from.companyName}
+                {invDetails?.from.companyName}
               </Text>
             </View>
             <View
@@ -182,13 +184,13 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               }}
             >
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.from.name}
+                {invDetails?.from.name}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.from.address} {invDetails.from.city}
+                {invDetails?.from.address} {invDetails?.from.city}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.from.state}
+                {invDetails?.from.state}
               </Text>
             </View>
             <View
@@ -200,10 +202,10 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               }}
             >
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.from.email}
+                {invDetails?.from.email}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.from.phoneNumber}
+                {invDetails?.from.phoneNumber}
               </Text>
             </View>
           </View>
@@ -237,7 +239,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               }}
             >
               <Text style={{ fontSize: "14px", fontWeight: "extrabold" }}>
-                {invDetails.to.companyName}
+                {invDetails?.to.companyName}
               </Text>
             </View>
             <View
@@ -249,13 +251,13 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               }}
             >
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.to.name}
+                {invDetails?.to.name}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.to.address} {invDetails.to.city}
+                {invDetails?.to.address} {invDetails?.to.city}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.to.state}
+                {invDetails?.to.state}
               </Text>
             </View>
             <View
@@ -267,10 +269,10 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               }}
             >
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.to.email}
+                {invDetails?.to.email}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails.to.phoneNumber}
+                {invDetails?.to.phoneNumber}
               </Text>
             </View>
           </View>
@@ -382,7 +384,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
           </Text>
         </View>
         {/* item row */}
-        {invDetails.invoiceItem?.map((data: any, index: number) => (
+        {invDetails?.invoiceItem?.map((data: any, index: number) => (
           <View
             key={index}
             style={{
@@ -480,11 +482,11 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
             Lorem ipsum dolor sit amet, con adipiscing elit.
           </Text>
         </View> */}
-        {invDetails.addtionalNotes && (
+        {invDetails?.addtionalNotes && (
           <Text
             style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
           >
-            Note: {invDetails.addtionalNotes}
+            Note: {invDetails?.addtionalNotes}
           </Text>
         )}
         {/* section 5 : summary, terms */}
@@ -625,7 +627,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
                 </Text>
                 <Text style={{ fontSize: "12px" }}>
                   {" "}
-                  {Summary.total.toFixed(2)}
+                  {Summary?.total.toFixed(2)}
                 </Text>
               </View>
             </View>

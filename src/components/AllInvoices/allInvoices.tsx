@@ -331,7 +331,7 @@ export default function AllInvoices() {
   } = useFetchAllDocument(routePrefix);
   React.useEffect(() => {
     refetchInvoiceList();
-  }, []);
+  }, [refetchInvoiceList]);
   console.log(invoiceList, fetchingInvoiceList, "data");
 
   const handleRequestSort = (
@@ -360,7 +360,7 @@ export default function AllInvoices() {
         (page - 1) * rowsPerPage,
         (page - 1) * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage]
+    [order, orderBy, page, rowsPerPage,invoiceList.invoices]
   );
 
   return (
