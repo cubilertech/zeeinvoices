@@ -34,26 +34,26 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     refetch: refetchRecord,
     isFetching: getFetching,
   } = useFetchSingleDocument(`${backendURL}/invoices/last-record`);
+  // useEffect(() => {
+  //   refetchRecord();
+  // }, [refetchRecord]);
   useEffect(() => {
     refetchRecord();
-  }, []);
-  useEffect(() => {
     if (record) {
       dispatch(setInvoiceId(record));
     }
-  }, [record]);
+  }, [record,refetchRecord, dispatch]);
 
   const {
-    mutate: createInvoice,
+    mutateAsync: createInvoice,
     isLoading: createInvoiceLoading,
     isSuccess: createInvoiceSuccess,
   } = useCreateDocument();
-useEffect(()=>{
-  if(createInvoiceSuccess){
-
-    router.push('/invoices');
-  }
-},[createInvoiceSuccess])
+  // useEffect(() => {
+  //   if (createInvoiceSuccess) {
+  //     router.push("/invoices");
+  //   }
+  // }, [createInvoiceSuccess, router]);
 
   async function fetchBlobData(blobUrl: string) {
     const response = await fetch(blobUrl);
@@ -88,16 +88,17 @@ useEffect(()=>{
     formData.append("invoiceDate", invoiceData.invoiceDate);
     formData.append("dueDate", invoiceData.dueDate);
     formData.append("notes", invoiceData.notes);
-
     // Convert objects to JSON strings and append
     formData.append("from", JSON.stringify(invoiceData.from));
     formData.append("to", JSON.stringify(invoiceData.to));
     formData.append("settings", JSON.stringify(invoiceData.settings));
     formData.append("items", JSON.stringify(invoiceData.items));
-    createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` });
-  };
+    createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` }).then((res)=>{
+      router.push("/invoices");
+    }).catch(err=>{
 
-  console.log( "invoiceData",createInvoiceSuccess);
+    });
+  };
   return (
     <Stack
       direction={"row"}
@@ -112,6 +113,7 @@ useEffect(()=>{
           variant="outlined"
           disabled={!validateButton}
           onClick={handleCreateInvoice}
+          
         >
           {createInvoiceLoading ? (
             <CircularProgress size={24} sx={{ color: "#8477DA" }} />

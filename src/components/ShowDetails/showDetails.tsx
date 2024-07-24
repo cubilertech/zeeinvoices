@@ -27,7 +27,7 @@ const ShowDetails: FC<ShowDetails> = ({ title, companyName, name, address, state
         py: 1,
         px: 3,
         borderRadius: 2,
-        cursor: "pointer",
+        // cursor: "pointer",
         border: `1px solid #EEEEEE`,
       }}
     >
@@ -35,24 +35,24 @@ const ShowDetails: FC<ShowDetails> = ({ title, companyName, name, address, state
         {title}
       </Typography>
       <Stack spacing={1} sx={{ marginTop: 1 }}>
-        <Typography variant="text-xs-bold">Company Name</Typography>
+        <Typography variant="text-xs-bold">{companyName}</Typography>
         <Stack direction={"column"}>
           <Typography variant="text-xs-regular" color={palette.color.gray[720]}>
-            Name
+            {name}
           </Typography>
           <Typography variant="text-xs-regular" color={palette.color.gray[720]}>
-            240 FF, Dha Phase 4, Lahore, 54792
+            {address}
           </Typography>
           <Typography variant="text-xs-regular" color={palette.color.gray[720]}>
-            Pakistan
+            {state}
           </Typography>
         </Stack>
         <Stack direction={"column"}>
           <Typography variant="text-xs-regular" color={palette.color.gray[720]}>
-            ather.raza28@gmail.com
+            {email}
           </Typography>
           <Typography variant="text-xs-regular" color={palette.color.gray[720]}>
-            03215399275
+            {phone}
           </Typography>
         </Stack>
       </Stack>
