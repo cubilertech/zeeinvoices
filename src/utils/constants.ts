@@ -25,6 +25,8 @@ export const icons = {
   logoutIcon: "/Images/icons/logout-icon.svg",
   viewIcon: "/Images/icons/view-icon.svg",
   deleteIcon: "/Images/icons/delete-icon.svg",
+  deleteRedIcon: "/Images/icons/delete-Red-icon.svg",
+
 };
 
 export const backendURL =

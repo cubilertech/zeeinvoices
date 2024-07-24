@@ -31,6 +31,7 @@ import { backendURL } from "@/utils/constants";
 import { useFetchAllDocument } from "@/utils/ApiHooks/common";
 import { calculateAmount, tableFormatDate } from "@/common/common";
 import { useRouter } from "next/navigation";
+import DeleteModal from "../DeleteModal/deleteModal";
 
 interface Data {
   id: number;
@@ -64,26 +65,7 @@ function createData(
 
 // const rows =
 // [
-//   createData(1, "Penny Lane Badgely", "Pennylane@gmail.com", "13 May 2024", "complete", 4.3, ''),
-//   createData(2, "John Doe", "johndoe@example.com", "01 June 2024", "pending", 3.8, ''),
-//   createData(3, "Jane Smith", "janesmith@example.com", "15 April 2024", "complete", 4.7, ''),
-//   createData(4, "Michael Brown", "michaelbrown@example.com", "22 March 2024", "in-progress", 4.0, ''),
-//   createData(5, "Emily Davis", "emilydavis@example.com", "30 May 2024", "complete", 4.5, ''),
-//   createData(6, "Chris Wilson", "chriswilson@example.com", "18 February 2024", "pending", 3.9, ''),
-//   createData(7, "Patricia Taylor", "patriciataylor@example.com", "12 April 2024", "complete", 4.6, ''),
-//   createData(8, "Robert Johnson", "robertjohnson@example.com", "05 July 2024", "in-progress", 4.2, ''),
-//   createData(9, "Linda Martinez", "lindamartinez@example.com", "27 May 2024", "complete", 4.4, ''),
-//   createData(10, "James Anderson", "jamesanderson@example.com", "10 June 2024", "pending", 4.1, ''),
-//   createData(11, "Barbara Moore", "barbaramoore@example.com", "14 June 2024", "complete", 4.8, ''),
-//   createData(12, "Steven Lee", "stevenlee@example.com", "20 March 2024", "in-progress", 4.3, ''),
-//   createData(13, "Jessica Walker", "jessicawalker@example.com", "25 May 2024", "complete", 4.9, ''),
-//   createData(14, "Daniel Harris", "danielharris@example.com", "30 April 2024", "pending", 4.0, ''),
-//   createData(15, "Sarah Young", "sarahyoung@example.com", "05 June 2024", "complete", 4.7, ''),
-//   createData(16, "Thomas Hall", "thomashall@example.com", "10 May 2024", "in-progress", 4.1, ''),
-//   createData(17, "Nancy King", "nancyking@example.com", "15 July 2024", "complete", 4.5, ''),
-//   createData(18, "Kevin Wright", "kevinwright@example.com", "20 June 2024", "pending", 3.9, ''),
-//   createData(19, "Laura Green", "lauragreen@example.com", "25 April 2024", "complete", 4.6, ''),
-//   createData(20, "Andrew Adams", "andrewadams@example.com", "01 July 2024", "in-progress", 4.2, '')
+//   createData(1, "Penny Lane Badgely", "abcdefghi@gmail.com", "13 May 2024", "complete", 4.3, ''),
 // ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -229,7 +211,7 @@ interface EnhancedTableToolbarProps {
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   const { numSelected } = props;
-  const route=useRouter();
+  const route = useRouter();
   return (
     <Toolbar
       sx={{
@@ -306,7 +288,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Button>
         <Button
           variant="contained"
-         onClick={()=>route.push('/')}
+          onClick={() => route.push("/")}
           endIcon={<Icon icon="plusIcon" width={15} />}
           sx={{ height: `36px`, width: "140px" }}
         >
@@ -343,7 +325,9 @@ export default function AllInvoices() {
     setOrderBy(property);
   };
   // DropDown Poper
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -362,6 +346,18 @@ export default function AllInvoices() {
       ),
     [order, orderBy, page, rowsPerPage]
   );
+
+  // Delete modal
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const handleDelete = () => {
+    // Handle file deletion logic here
+    console.log("File deleted");
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Box
@@ -472,57 +468,14 @@ export default function AllInvoices() {
                           }}
                         ></Badge>
                       </TableCell>
-                      <TableCell align="left">{row.settings.currency} {calculateAmount(row.items).toFixed(2)}</TableCell>
                       <TableCell align="left">
-                        <IconButton>
+                        {row.settings.currency}{" "}
+                        {calculateAmount(row.items).toFixed(2)}
+                      </TableCell>
+                      <TableCell align="left">
+                        <IconButton onClick={handleClick}>
                           <Icon icon="threeDotsIcon" width={5} height={5} />
                         </IconButton>
-                        <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            sx={{ borderRadius: "8px" }}
-          >
-            <Stack direction={"column"}>
-              <Button
-                variant="outlined"
-                // startIcon={<Icon icon="profileIcon" />}
-                sx={{
-                  border: "none",
-                  color: "#4B5563",
-                  "&:hover": {
-                    border: "none",
-                    color: "#4B5563",
-                    backgroundColor: palette.color.gray[10],
-                    borderRadius:0,
-                  },
-                }}
-              >
-                Delete
-              </Button>
-              <Button
-                variant="outlined"
-                // startIcon={<Icon icon="logoutIcon" />}
-                sx={{
-                  border: "none",
-                  color: "#4B5563",
-                  "&:hover": {
-                    border: "none",
-                    color: "#4B5563",
-                    backgroundColor: palette.color.gray[10],
-                    borderRadius:0,
-                  },
-                }}
-              >
-                Logout
-              </Button>
-            </Stack>
-          </Popover>
                       </TableCell>
                     </TableRow>
                   );
@@ -532,12 +485,114 @@ export default function AllInvoices() {
           </Table>
         </TableContainer>
         <Pagination
-          totalRecords={invoiceList.invoices?.length ? invoiceList.invoices?.length : 0}
+          totalRecords={
+            invoiceList.invoices?.length ? invoiceList.invoices?.length : 0
+          }
           itemsPerPage={rowsPerPage}
           page={page}
           setPage={setPage}
         />
       </Paper>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        sx={{ borderRadius: "8px", transform: "translateX(-35px)" }}
+      >
+        <Stack direction={"column"} sx={{ alignItems: "start" }}>
+          <Button
+            variant="outlined"
+            startIcon={<Icon icon="viewIcon" />}
+            sx={{
+              border: "none",
+              color: "#4B5563",
+              "&:hover": {
+                border: "none",
+                color: "#4B5563",
+                backgroundColor: palette.color.gray[10],
+                borderRadius: 0,
+              },
+            }}
+          >
+            View
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<Icon icon="editIcon" />}
+            sx={{
+              border: "none",
+              color: "#4B5563",
+              "&:hover": {
+                border: "none",
+                color: "#4B5563",
+                backgroundColor: palette.color.gray[10],
+                borderRadius: 0,
+              },
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<Icon icon="sendSqaureIcon" />}
+            sx={{
+              border: "none",
+              color: "#4B5563",
+              "&:hover": {
+                border: "none",
+                color: "#4B5563",
+                backgroundColor: palette.color.gray[10],
+                borderRadius: 0,
+              },
+            }}
+          >
+            Share
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<Icon icon="printIconIcon" />}
+            sx={{
+              border: "none",
+              color: "#4B5563",
+              "&:hover": {
+                border: "none",
+                color: "#4B5563",
+                backgroundColor: palette.color.gray[10],
+                borderRadius: 0,
+              },
+            }}
+          >
+            Print
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<Icon icon="deleteIcon" />}
+            sx={{
+              border: "none",
+              color: "#4B5563",
+              "&:hover": {
+                border: "none",
+                color: "#4B5563",
+                backgroundColor: palette.color.gray[10],
+                borderRadius: 0,
+              },
+            }}
+            onClick={() => setIsModalOpen(true)}
+          >
+            Delete
+          </Button>
+          <DeleteModal
+            open={isModalOpen}
+            onDelete={handleDelete}
+            onClose={handleDeleteModalClose}
+          />
+        </Stack>
+      </Popover>
     </Box>
   );
 }
