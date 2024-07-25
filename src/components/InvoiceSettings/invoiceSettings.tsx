@@ -11,7 +11,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { SelectInput } from "../SelectInput";
 import { SwitchInput } from "../SwitchInput";
 import { ColorPicker } from "../ColorPicker";
@@ -21,10 +21,10 @@ import { useDispatch } from "react-redux";
 import { setInvoiceColor } from "@/redux/features/invoiceSetting";
 
 interface InvoiceSettings {
-  currencyMenuData?: string[];
+  InvSetting?: any;
 }
 
-const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
+const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
   const dispatch = useDispatch();
   // const handleChange = (event: SelectChangeEvent) => {
   //   setAge(event.target.value);
@@ -91,7 +91,6 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
     // logic to open the color picker
     setAnchorEl(event.currentTarget);
   };
-
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
@@ -122,9 +121,9 @@ const InvoiceSettings: FC<InvoiceSettings> = (currencyMenuData) => {
             // height: "154px",
           }}
         >
-          <ColorPicker colors={colors} onSelectColor={handleSelectColor} />
+          <ColorPicker colors={colors} onSelectColor={handleSelectColor} InvSetting={InvSetting} />
           <ColorPickerMenuButton
-            title={pickColor}
+            title={pickColor !== '' && color === ''  ? '' : InvSetting.color}
             onClick={handleColorPickerClick}
           />
 

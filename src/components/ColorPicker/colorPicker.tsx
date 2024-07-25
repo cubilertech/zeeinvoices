@@ -4,19 +4,18 @@ import { FC, useEffect, useState } from "react";
 import Color from "./color";
 
 interface ColorPicker {
-  // id?: string | number;
-  // color: string;
   colors: Array<{ id: string | number; color: string; isSelected: boolean }>;
   onSelectColor: (id: string | number) => void;
+  InvSetting?:any;
 }
-const ColorPicker: FC<ColorPicker> = ({ colors, onSelectColor }) => {
+const ColorPicker: FC<ColorPicker> = ({ colors, onSelectColor,InvSetting }) => {
   return (
     <Grid container spacing={1}>
       {colors.map((color) => (
         <Grid item xs={1.5} key={color.id}>
           <Color
             color={color.color}
-            isSelected={color.isSelected}
+            isSelected={InvSetting.color}
             onClick={() => onSelectColor(color.id)}
           />
         </Grid>

@@ -6,6 +6,7 @@ import PdfView from "@/appPages/PdfView/pdfView";
 import { backendURL } from "@/utils/constants";
 import {
   useCreateDocument,
+  useEditDocument,
   useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
 import { useDispatch } from "react-redux";
@@ -16,12 +17,14 @@ interface InvoiceHeaderProps {
   InvSetting: any;
   InvDetails: any;
   summaryDetail: any;
+  type: string;
 }
 
 const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   InvSetting,
   InvDetails,
   summaryDetail,
+  type,
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -34,26 +37,26 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     refetch: refetchRecord,
     isFetching: getFetching,
   } = useFetchSingleDocument(`${backendURL}/invoices/last-record`);
-  // useEffect(() => {
-  //   refetchRecord();
-  // }, [refetchRecord]);
   useEffect(() => {
-    refetchRecord();
-    if (record) {
-      dispatch(setInvoiceId(record));
+    if (type === "add") {
+      refetchRecord();
+      if (record) {
+        dispatch(setInvoiceId(record));
+      }
     }
-  }, [record,refetchRecord, dispatch]);
+  }, [record, refetchRecord, dispatch,type]);
 
   const {
     mutateAsync: createInvoice,
     isLoading: createInvoiceLoading,
     isSuccess: createInvoiceSuccess,
   } = useCreateDocument();
-  // useEffect(() => {
-  //   if (createInvoiceSuccess) {
-  //     router.push("/invoices");
-  //   }
-  // }, [createInvoiceSuccess, router]);
+
+  const {
+    mutateAsync: updateInvoice,
+    isLoading: updatLoading,
+    isSuccess: updateSuccess,
+  } = useEditDocument();
 
   async function fetchBlobData(blobUrl: string) {
     const response = await fetch(blobUrl);
@@ -76,6 +79,31 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     };
   }, [InvDetails, InvSetting]);
 
+  const handleUpdateInvoice = async () => {
+    const formData = new FormData();
+    if (invoiceData.logo) {
+      const blob = await fetchBlobData(invoiceData.logo);
+      const file = new File([blob], "filename.jpg", { type: blob.type });
+      formData.append("image", file);
+    }
+    else{
+      formData.append("image", 'no-image');
+    }
+    formData.append("type", invoiceData.type);
+    formData.append("invoiceDate", invoiceData.invoiceDate);
+    formData.append("dueDate", invoiceData.dueDate);
+    formData.append("notes", invoiceData.notes);
+    formData.append("from", JSON.stringify(invoiceData.from));
+    formData.append("to", JSON.stringify(invoiceData.to));
+    formData.append("settings", JSON.stringify(invoiceData.settings));
+    formData.append("items", JSON.stringify(invoiceData.items));
+    updateInvoice({data:formData,apiRoute:`${backendURL}/invoices/${invoiceData.id}`}).then((res=>{
+      router.push('/invoices')
+    })).catch((err=>{
+      throw new Error(`${err.response?.data?.message}`)
+    }))
+  };
+
   const handleCreateInvoice = async () => {
     const formData = new FormData();
     if (invoiceData.logo) {
@@ -93,11 +121,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     formData.append("to", JSON.stringify(invoiceData.to));
     formData.append("settings", JSON.stringify(invoiceData.settings));
     formData.append("items", JSON.stringify(invoiceData.items));
-    createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` }).then((res)=>{
-      router.push("/invoices");
-    }).catch(err=>{
-
-    });
+    createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
+      .then((res) => {
+        router.push("/invoices");
+      })
+      .catch((err) => {
+        throw new Error("An error occurred");
+      });
   };
   return (
     <Stack
@@ -112,13 +142,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         <Button
           variant="outlined"
           disabled={!validateButton}
-          onClick={handleCreateInvoice}
-          
+          onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
         >
           {createInvoiceLoading ? (
             <CircularProgress size={24} sx={{ color: "#8477DA" }} />
-          ) : (
+          ) : type === "add" ? (
             "Save"
+          ) : (
+            "Update"
           )}
         </Button>
 

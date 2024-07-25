@@ -28,11 +28,17 @@ import {
 import { Icon } from "../Icon";
 import { Pagination } from "../Pagination";
 import { backendURL } from "@/utils/constants";
-import { useDeleteDocument, useFetchAllDocument } from "@/utils/ApiHooks/common";
+import {
+  useDeleteDocument,
+  useFetchAllDocument,
+} from "@/utils/ApiHooks/common";
 import { calculateAmount, tableFormatDate } from "@/common/common";
 import { useRouter } from "next/navigation";
 import DeleteModal from "../DeleteModal/deleteModal";
 import CustomPopOver from "./CustomPopOver";
+import { useDispatch } from "react-redux";
+import { setFullInvoice } from "@/redux/features/invoiceSlice";
+import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
 
 interface Data {
   id: number;
@@ -301,6 +307,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 export default function AllInvoices() {
   const route = useRouter();
+  const dispatch = useDispatch();
   const routePrefix = `${backendURL}/invoices`;
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
@@ -308,8 +315,11 @@ export default function AllInvoices() {
   const [page, setPage] = React.useState(1);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const { mutate: deleteInvoice, isLoading: deleteInvoiceLoading, isSuccess: deleteSuccess } =
-  useDeleteDocument();
+  const {
+    mutate: deleteInvoice,
+    isLoading: deleteInvoiceLoading,
+    isSuccess: deleteSuccess,
+  } = useDeleteDocument();
   const {
     data: invoiceList,
     refetch: refetchInvoiceList,
@@ -317,10 +327,10 @@ export default function AllInvoices() {
   } = useFetchAllDocument(routePrefix);
   React.useEffect(() => {
     refetchInvoiceList();
-    if(deleteSuccess){
+    if (deleteSuccess) {
       setIsModalOpen(false);
     }
-  }, [refetchInvoiceList,deleteSuccess]);
+  }, [refetchInvoiceList, deleteSuccess]);
   console.log(invoiceList, fetchingInvoiceList, "data");
 
   const handleRequestSort = (
@@ -331,12 +341,6 @@ export default function AllInvoices() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-  // DropDown Poper
-  
-  
-  // const id = open ? "simple-popover" : undefined;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const visibleRows = React.useMemo(
     () =>
       stableSort(invoiceList.invoices, getComparator(order, orderBy))?.slice(
@@ -360,14 +364,40 @@ export default function AllInvoices() {
   const handleViewInvoice = (id: number) => {
     route.push(`/invoices/${id}`);
   };
+  const handleEditInvoice = (record: any) => {
+    console.log(record,'record');
+    dispatch(
+      setFullInvoice({
+        id: record?.id,
+        logo: record?.image,
+        invoiceType: record?.type,
+        from: record?.from,
+        to: record?.to,
+        invoiceDate: record?.invoiceDate,
+        dueDate: record?.dueDate,
+        addtionalNotes: record?.notes,
+        invoiceItem: record?.items,
+      })
+    );
+    dispatch(
+      setInvoiceSettings({
+        color: record?.settings.color,
+        currency: record?.settings.currency,
+        dueDate: record?.settings.dueDate,
+        tax: record?.settings.tax,
+        detail: record?.settings.detail,
+      })
+    );
+    route.push(`/invoices/${record.id}/edit`);
+  };
   const handleOpenDeleteModal = (id: number) => {
     setItemToDelete(id as number);
     setIsModalOpen(true);
-  }
+  };
   const invoiceDelete = () => {
-    console.log(itemToDelete,'id');
+    console.log(itemToDelete, "id");
     deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
-};
+  };
 
   return (
     <Box
@@ -485,8 +515,9 @@ export default function AllInvoices() {
                       <TableCell align="left">
                         <CustomPopOver
                           handleOpenDeleteModal={handleOpenDeleteModal}
-                          id={row.id}
+                          record={row}
                           handleViewInvoice={handleViewInvoice}
+                          handleEditInvoice={handleEditInvoice}
                         />
                       </TableCell>
                     </TableRow>
@@ -506,12 +537,11 @@ export default function AllInvoices() {
         />
       </Paper>
       <DeleteModal
-          open={isModalOpen}
-          onDelete={handleDelete}
-          onClose={handleDeleteModalClose}
-          invoiceDelete={invoiceDelete}
-        />
-     
+        open={isModalOpen}
+        onDelete={handleDelete}
+        onClose={handleDeleteModalClose}
+        invoiceDelete={invoiceDelete}
+      />
     </Box>
   );
 }

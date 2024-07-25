@@ -2,18 +2,20 @@
 import {
   AppBar,
   Avatar,
+  Box,
   Button,
   Container,
   Popover,
   Stack,
-  Typography,
-} from "@mui/material";
+  } from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import CustomButton from "./CustomButton";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const route = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -51,8 +53,8 @@ const Header = () => {
             alignItems: "center",
           }}
         >
-          <Icon icon="logo" height={24} width={175} />
-          <CustomButton />
+         <Box onClick={()=>route.push('/')} sx={{cursor:'pointer'}}><Icon icon="logo" height={24} width={175} /></Box> 
+          <CustomButton/>
         </Stack>
 
         <Stack direction={"row"} gap={3}>

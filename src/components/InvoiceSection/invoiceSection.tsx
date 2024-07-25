@@ -13,6 +13,8 @@ import { useSelectedColor } from "@/utils/common";
 import {
   getAddtionalNotes,
   setAddtionalNotes,
+  setRecipientDetail,
+  setSenderDetail,
 } from "@/redux/features/invoiceSlice";
 import { getDueDate } from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
@@ -20,20 +22,33 @@ import DetailSelecter from "../detailSelecter/detailSelecter";
 
 interface InvoiceSectionProps {
   InvDetails: any;
+  type:any;
 }
 
-const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
+const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails,type }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const selectedColor = useSelectedColor();
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
   const handleChangeNotes = (event: ChangeEvent<HTMLInputElement>) => {
-  const value = event.target.value;
-  dispatch(setAddtionalNotes(value));
+    const value = event.target.value;
+    dispatch(setAddtionalNotes(value));
   };
   const showPreview =
     InvDetails.from.name !== "" && InvDetails.to.name !== "" ? false : true;
+  const senderShow = InvDetails.from.name !== "" ? true : false;
+  const reciptShow = InvDetails.to.name !== "" ? true : false;
+
+const handleSubmitFrom= (values : any)=>{
+console.log('submitted',values);
+dispatch(setSenderDetail(values));
+}
+const handleSubmitTo= (values : any)=>{
+console.log('submitted',values);
+dispatch(setRecipientDetail(values));
+}
+
   return (
     <Box
       sx={{
@@ -79,8 +94,15 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
         gap={5}
         sx={{ marginTop: 2 }}
       >
-        <DetailSelecter title="From" detailsOf="Sender" />
-        <DetailSelecter title="To" detailsOf="Recipient" />
+        <DetailSelecter title="From" detailsOf="Sender" showData={senderShow} InvDetails={InvDetails.from} handleSubmitForm={handleSubmitFrom}    type={type} />
+        <DetailSelecter
+          title="To"
+          detailsOf="Recipient"
+          showData={reciptShow}
+          InvDetails={InvDetails.to}       
+          handleSubmitForm={handleSubmitTo}
+          type={type}
+        />
       </Stack>
       {/* Third section, Date pickers */}
       <Stack direction={"row"} spacing={1} sx={{ marginTop: "45px" }}>
@@ -129,9 +151,9 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
               // backgroundColor: palette.base.transparent,
               border: `0px dashed ${"#F9F9F9"}`,
             },
-            "& .MuiOutlinedInput-root" : {
+            "& .MuiOutlinedInput-root": {
               border: "none !important",
-              borderRadius:0.5,
+              borderRadius: 0.5,
             },
           }}
           onChange={handleChangeNotes}
