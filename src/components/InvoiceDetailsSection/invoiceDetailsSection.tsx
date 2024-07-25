@@ -12,14 +12,17 @@ import ShowDetails from "../ShowDetails/showDetails";
 import { formattedDate } from "@/common/common";
 import Image from "next/image";
 import { imageConvertion } from "@/utils/common";
-interface InvoiceDetailsProps{
-  singleInvoice:any; 
-  invoiceSetting:any;
+interface InvoiceDetailsProps {
+  singleInvoice: any;
+  invoiceSetting: any;
 }
 
-const InvoiceDetailsSection: FC <InvoiceDetailsProps> = ({singleInvoice,invoiceSetting}) => {
-  console.log(invoiceSetting,'invoiceSetting');
-const imageSelected=imageConvertion(singleInvoice.logo);
+const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
+  singleInvoice,
+  invoiceSetting,
+}) => {
+  console.log(invoiceSetting, "invoiceSetting");
+  const imageSelected = imageConvertion(singleInvoice.logo);
 
   return (
     <Box
@@ -35,15 +38,18 @@ const imageSelected=imageConvertion(singleInvoice.logo);
     >
       {/* First section, invoice head contains logo and invoice number, type */}
       <Stack direction={"row"} justifyContent={"space-between"}>
-      {singleInvoice.logo !== '' ?
-      <Image
+        {singleInvoice.logo !== "" ? (
+          <Image
             src={imageSelected}
             alt="Selected Logo"
             width={70}
             height={70}
             style={{ objectFit: "contain" }}
-          /> :<Icon icon="logo" height={24} width={175} />} 
-        
+          />
+        ) : (
+          <Icon icon="logo" height={24} width={175} />
+        )}
+
         <Stack direction={"column"} spacing={1}>
           <Stack direction={"row"} gap={2}>
             <Typography variant="text-xxs-medium">Invoice No:</Typography>
@@ -112,7 +118,7 @@ const imageSelected=imageConvertion(singleInvoice.logo);
         >
           <Typography variant="text-xxs-semi-bold">Due Date:</Typography>
           <Typography variant="text-xs-regular" sx={{ color: "#4F4F4F" }}>
-              {formattedDate(singleInvoice?.dueDate)}
+            {formattedDate(singleInvoice?.dueDate)}
           </Typography>
         </Stack>
       </Stack>
@@ -126,7 +132,7 @@ const imageSelected=imageConvertion(singleInvoice.logo);
           backgroundColor: invoiceSetting?.color,
           borderRadius: "2px",
           marginTop: 2,
-          marginLeft:"0px",
+          marginLeft: "0px",
         }}
         spacing={2}
       >
@@ -153,8 +159,12 @@ const imageSelected=imageConvertion(singleInvoice.logo);
           item
           xs={2.2}
         >
-        {invoiceSetting.tax ?  <Typography sx={{ color: palette.base.white }}>Tax</Typography>:' '}
-        </Grid> 
+          {invoiceSetting.tax ? (
+            <Typography sx={{ color: palette.base.white }}>Tax</Typography>
+          ) : (
+            " "
+          )}
+        </Grid>
 
         <Grid
           sx={{ padding: "8px", paddingTop: "8px !important" }}
@@ -166,72 +176,79 @@ const imageSelected=imageConvertion(singleInvoice.logo);
       </Grid>
 
       {/* Table rows */}
-        {singleInvoice?.invoiceItem.map((data:any,index:number)=>(
-          <>
+      {singleInvoice?.invoiceItem.map((data: any, index: number) => (
+        <>
           <Grid
-          container
-          key={index}
-          sx={{
-            borderRadius: "2px",
-            marginTop: 1,
-            marginLeft:"0px",
-          }}
-          spacing={2}
-        >
-          <Grid sx={{ padding: "0px", paddingTop: "4px !important" }} item xs={4.5}>
-            <Stack direction={"column"}>
-              <Typography variant="text-xs-medium" sx={{}}>
-               {data.name}
-              </Typography>
-              {/* <Typography variant="text-xxs-small" sx={{ color: "#4F4F4F" }}>
+            container
+            key={index}
+            sx={{
+              borderRadius: "2px",
+              marginTop: 1,
+              marginLeft: "0px",
+            }}
+            spacing={2}
+          >
+            <Grid
+              sx={{ padding: "0px", paddingTop: "4px !important" }}
+              item
+              xs={4.5}
+            >
+              <Stack direction={"column"}>
+                <Typography variant="text-xs-medium" sx={{}}>
+                  {data.name}
+                </Typography>
+                {/* <Typography variant="text-xxs-small" sx={{ color: "#4F4F4F" }}>
                 Lorem ipsum dolor sit amet, con adipiscing elit.{" "}
               </Typography> */}
-            </Stack>
+              </Stack>
+            </Grid>
+            <Grid
+              sx={{ padding: "8px", paddingTop: "1px !important" }}
+              item
+              xs={1.3}
+            >
+              <Typography variant="text-xs-regular" sx={{}}>
+                {data.quantity}
+              </Typography>
+            </Grid>
+            <Grid
+              sx={{ padding: "8px", paddingTop: "1px !important" }}
+              item
+              xs={1.8}
+            >
+              <Typography variant="text-xs-regular" sx={{}}>
+                {invoiceSetting.currency} {data.rate}
+              </Typography>
+            </Grid>
+
+            <Grid
+              sx={{ padding: "8px", paddingTop: "1px !important" }}
+              item
+              xs={2.2}
+            >
+              {" "}
+              {invoiceSetting.tax ? (
+                <Typography variant="text-xs-regular" sx={{}}>
+                  % {data.tax}
+                </Typography>
+              ) : (
+                ""
+              )}
+            </Grid>
+
+            <Grid
+              sx={{ padding: "8px", paddingTop: "1px !important" }}
+              item
+              xs={1.8}
+            >
+              <Typography variant="text-xs-regular" sx={{}}>
+                {invoiceSetting.currency} {data.subTotal}
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid
-            sx={{ padding: "8px", paddingTop: "1px !important" }}
-            item
-            xs={1.3}
-          >
-            <Typography variant="text-xs-regular" sx={{}}>
-            {data.quantity}
-            </Typography>
-          </Grid>
-          <Grid
-            sx={{ padding: "8px", paddingTop: "1px !important" }}
-            item
-            xs={1.8}
-          >
-            <Typography variant="text-xs-regular" sx={{}}>
-              {(invoiceSetting.currency)} {data.rate}
-            </Typography>
-          </Grid>
-  
-         <Grid
-            sx={{ padding: "8px", paddingTop: "1px !important" }}
-            item
-            xs={2.2}
-          > {invoiceSetting.tax ?
-            <Typography variant="text-xs-regular" sx={{}}>
-              % {data.tax}
-            </Typography>:''}
-          </Grid>
-  
-          <Grid
-            sx={{ padding: "8px", paddingTop: "1px !important" }}
-            item
-            xs={1.8}
-          >
-            <Typography variant="text-xs-regular" sx={{}}>
-            {(invoiceSetting.currency)} {data.subTotal}
-            </Typography>
-          </Grid>
-        </Grid>
-        <hr style={{ margin: "10px 0px 0px 0px" }}></hr>
+          <hr style={{ margin: "10px 0px 0px 0px" }}></hr>
         </>
-        ))        }
-    
-      
+      ))}
 
       {/* Fifth section, Invoice summery */}
       <Box
@@ -252,7 +269,6 @@ const imageSelected=imageConvertion(singleInvoice.logo);
           color: "#4F4F4F",
         }}
       >
-
         Note: {singleInvoice?.addtionalNotes}
       </Typography>
     </Box>

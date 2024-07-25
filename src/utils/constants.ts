@@ -26,7 +26,7 @@ export const icons = {
   viewIcon: "/Images/icons/view-icon.svg",
   deleteIcon: "/Images/icons/delete-icon.svg",
   deleteRedIcon: "/Images/icons/delete-Red-icon.svg",
-
+  watermarkIcon: "/Images/icons/watermark-icon.svg",
 };
 
 export const backendURL =

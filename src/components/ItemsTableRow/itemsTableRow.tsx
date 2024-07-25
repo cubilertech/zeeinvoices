@@ -67,9 +67,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               width: "100%",
               height: "32px",
               "& .MuiOutlinedInput-root": {
-                border: "0px !important",
-                borderRadius: 0.5,
-                borderColor: `${palette.color.gray[120]} !important`,
+                borderRadius: "2px !important",
               },
             }}
             id="outlined-basic"
@@ -95,9 +93,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               borderRadius: "3px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
-                border: "none !important",
-                borderRadius: 0.5,
-                borderColor: `${palette.color.gray[120]} !important`,
+                borderRadius: "2px !important",
               },
               "& input[type=number]": {
                 MozAppearance: "textfield",
@@ -132,9 +128,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               borderRadius: "3px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
-                border: "none !important",
-                borderRadius: 0.5,
-                borderColor: `${palette.color.gray[120]} !important`,
+                borderRadius: "2px !important",
               },
               "& input[type=number]": {
                 MozAppearance: "textfield",
@@ -173,9 +167,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 borderRadius: "3px",
                 color: palette.color.gray[700],
                 "& .MuiOutlinedInput-root": {
-                  border: "none !important",
-                  borderRadius: 0.5,
-                  borderColor: `${palette.color.gray[120]} !important`,
+                  borderRadius: "2px !important",
                 },
                 "& input[type=number]": {
                   MozAppearance: "textfield",

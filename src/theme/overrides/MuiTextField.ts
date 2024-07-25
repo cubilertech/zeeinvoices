@@ -7,29 +7,30 @@ export const MuiTextField = () => {
         root: {
           "&.MuiTextField-sizeSmall": {
             height: "42px",
-            border: `1px solid ${palette.base.borderColor}`,
+            // border: `1px solid ${palette.base.borderColor}`,
             borderRadius: 7,
           },
 
           "&.MuiTextField-sizeLarge:hover": {
             height: "42px",
-            border: `1px solid ${palette.base.borderColor}`,
+            // border: `1px solid ${palette.base.borderColor}`,
             borderRadius: "8px !important",
           },
 
-          "&.MuiOutlinedInput-root": {
-            border: `1px solid ${palette.color.gray[500]}`,
-            borderRadius: 7,
+          "& .MuiOutlinedInput-root": {
+            // border: `1px solid ${palette.color.gray[500]}`,
+            // borderColor: palette.color.gray[500],
+            borderRadius: "8px ",
 
-            // "& fieldset": {
-            //   borderColor: palette.color.gray[400],
-            // },
+            "& fieldset": {
+              borderColor: palette.color.gray[120],
+            },
             // "&:hover fieldset": {
             //   borderColor: palette.color.gray[500],
             // },
-            // "&.Mui-focused fieldset": {
-            //   borderColor: palette.color.gray[700],
-            // },
+            "&.Mui-focused fieldset": {
+              borderRadius: "8px !important",
+            },
           },
 
           "& .MuiInputBase-input": {
@@ -38,11 +39,11 @@ export const MuiTextField = () => {
             padding: "0px 10px",
             width: "100%",
             borderRadius: 2,
-            border: `1px solid ${palette.base.borderColor}`,
+            // border: `1px solid ${palette.base.borderColor}`,
             color: palette.base.black,
             "&:hover": {
               borderRadius: 2,
-              border: `1px solid ${palette.color.gray[100]}`,
+              // border: `1px solid ${palette.color.gray[100]}`,
             },
             "&::placeholder": {
               color: palette.color.gray[100], // Change this to your desired placeholder color

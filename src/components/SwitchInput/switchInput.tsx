@@ -114,7 +114,7 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       }}
     >
       <Stack direction={"row"} justifyContent={"space-between"}>
-        <Typography variant="body1" sx={{ marginTop: 1 }}>
+        <Typography variant="text-xs-regular" sx={{ marginTop: 1 }}>
           {lable}
         </Typography>
         <FormControlLabel

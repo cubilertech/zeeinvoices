@@ -54,7 +54,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
           <SelectInput
             width={240}
             type="Invoice type"
-            menuData={["Type 1", "Type 2", "Type 3"]}
+            menuData={["Bill", "Type 2", "Type 3"]}
           />
         </Stack>
         <Box sx={{ width: 92, height: 40 }}>
@@ -83,7 +83,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
         <DetailSelecter title="To" detailsOf="Recipient" />
       </Stack>
       {/* Third section, Date pickers */}
-      <Stack direction={"row"} spacing={1} sx={{ marginTop: 5 }}>
+      <Stack direction={"row"} spacing={1} sx={{ marginTop: "45px" }}>
         <Grid container spacing={0}>
           <Grid
             sx={{ padding: "8px", paddingTop: "8px !important", paddingLeft: "0px !important" }}
@@ -107,7 +107,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails }) => {
       <Box sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
         <InvoiceSummary />
       </Box>
-      <hr style={{ margin: "20px 10px 10px 10px" }}></hr>
+      <hr style={{ margin: "20px 10px 10px 10px", height:"0.5px", backgroundColor:"rgba(156, 163, 175, 1)", color:"rgba(156, 163, 175, 1)" }}></hr>
       {/* Sixth section, additional notes */}
       <Box
         sx={{
