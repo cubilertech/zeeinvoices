@@ -81,3 +81,23 @@ export const useDeleteDocument = () => {
 
   return useMutation(handleDelete);
 };
+
+export const useEditDocument = ()=>{
+  const handleEdit= async (props:any)=> {
+    try {
+      const respone = await axios.put(props.apiRoute,props.data,{
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      if(respone.data.code === 200){
+        return respone.data.data;
+      }else{
+        throw new Error('An Error Occured while Update Data');
+      }      
+    } catch (error) {
+      throw new Error('An Error Occured while Update Data')
+    }
+  }
+  return useMutation(handleEdit);
+}

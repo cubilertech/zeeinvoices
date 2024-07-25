@@ -8,10 +8,12 @@ import {
   getDueDate as date,
 } from "@/redux/features/invoiceSlice";
 import { Box, Container, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
-const CreateInvoice = () => {
+interface CreateInvoiceProps{
+  type:string;
+}
+const CreateInvoice :FC<CreateInvoiceProps> = ({type}) => {
   const allInvoiceItems = useSelector(getInvoiceItem);
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
@@ -34,11 +36,12 @@ const CreateInvoice = () => {
           InvSetting={{...invoiceSetting}}
           InvDetails={{...invoiceDetail}}
           summaryDetail={summaryDetail}
+          type={type}
         />
       </Box>
       <Stack direction={"row"} gap={3}>
-        <InvoiceSection InvDetails={invoiceDetail} /> 
-        <InvoiceSettings />
+        <InvoiceSection InvDetails={invoiceDetail} type={type} /> 
+        <InvoiceSettings InvSetting={{...invoiceSetting}} />
       </Stack>
     </Container>
   );

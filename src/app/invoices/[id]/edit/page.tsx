@@ -7,7 +7,7 @@ const InvoiceEdit = () => {
     const {id} = useParams<{ id: string }>()
   return (
     <>
-     <CreateInvoice /> 
+     <CreateInvoice type='edit' /> 
     </>
   )
 }

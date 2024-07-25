@@ -92,7 +92,7 @@ const InvoiceItemsTable: FC = () => {
       {/* <ItemsTableRow/> */}
 
       {/* Render ItemsTableRow components */}
-      {getAllInvoiceItems.map((item, index) => (
+      {getAllInvoiceItems?.map((item, index) => (
         <ItemsTableRow
           key={item.id}
           id={item.id}
