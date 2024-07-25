@@ -37,9 +37,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     refetch: refetchRecord,
     isFetching: getFetching,
   } = useFetchSingleDocument(`${backendURL}/invoices/last-record`);
-  const isAlreadyImageExist = useMemo(()=>{
-
-  },[])
   useEffect(() => {
     if (type === "add") {
       refetchRecord();
@@ -47,7 +44,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         dispatch(setInvoiceId(record));
       }
     }
-  }, [record, refetchRecord, dispatch]);
+  }, [record, refetchRecord, dispatch,type]);
 
   const {
     mutateAsync: createInvoice,
