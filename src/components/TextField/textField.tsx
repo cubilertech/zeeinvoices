@@ -14,6 +14,9 @@ interface TextField {
   name?: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  helperText?: any;
+  onBlur?: any;
+  error?: any;
 }
 const TextField: FC<TextField> = ({
   label,
@@ -22,6 +25,9 @@ const TextField: FC<TextField> = ({
   sx,
   onChange,
   value,
+  helperText,
+  onBlur,
+  error,
   ...props
 }) => {
   return (
@@ -34,6 +40,9 @@ const TextField: FC<TextField> = ({
         name={name}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
+        error={error}
+        helperText={helperText}
         sx={
           size === "large"
             ? {
@@ -47,7 +56,7 @@ const TextField: FC<TextField> = ({
             ? {
                 "& .MuiInputBase-input": {
                   height: "32px",
-                  borderRadius: "2px", 
+                  borderRadius: "2px",
                 },
                 ...sx,
               }

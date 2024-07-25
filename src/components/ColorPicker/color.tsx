@@ -16,7 +16,7 @@ const Color: FC<Color> = ({ color, isSelected, onClick }) => {
     >
       {/* {isSelected && <Icon icon="tickIcon" width={20} height={20} />} */}
 
-      {isSelected && (
+      {isSelected === color && (
         <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
           <Icon icon="tickIcon" width={20} height={20} />
         </Box>

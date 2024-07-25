@@ -30,7 +30,7 @@ const ColorPickerMenuButton: FC<ColorPickerMenuButton> = ({title,onClick}) => {
           <Icon icon="colorPickerPaletteIcon" width={24} height={24} />
         </Box>
         <Typography variant="body1" sx={{alignSelf:"center", color:palette.base.textGreyColor }}>
-       { title ? title : 'Custom Color'}
+       { title  ? title : 'Custom Color'}
         </Typography>
       </Stack>
       <Box sx={{ margin: "15px" }}>
