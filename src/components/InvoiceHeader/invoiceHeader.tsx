@@ -1,6 +1,6 @@
 "use client";
 import { Button, CircularProgress, Stack, Typography } from "@mui/material";
-import { FC, useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
 import { backendURL } from "@/utils/constants";
@@ -12,6 +12,11 @@ import {
 import { useDispatch } from "react-redux";
 import { setInvoiceId } from "@/redux/features/invoiceSlice";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import SaveModal from "../SaveModal/saveModal";
+import { handleLogin } from "@/utils/common";
+import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
+import DownloadModal from "../DownloadModal/downloadModal";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -28,10 +33,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { data: session } = useSession();
   const validateButton =
     InvDetails.from.name !== "" &&
     InvDetails.to.name !== "" &&
     InvDetails.invoiceType !== "";
+  const [loginModel, setLoginModel] = useState(false);
+  const [downloadModel, setDownloadModel] = useState(false);
+
   const {
     data: record,
     refetch: refetchRecord,
@@ -78,7 +87,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       notes: InvDetails.addtionalNotes,
     };
   }, [InvDetails, InvSetting]);
-
+  //Update Invoice
   const handleUpdateInvoice = async () => {
     const formData = new FormData();
     if (invoiceData.logo) {
@@ -107,32 +116,43 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         throw new Error(`${err.response?.data?.message}`);
       });
   };
-
+  // Create Invoice
   const handleCreateInvoice = async () => {
-    const formData = new FormData();
-    if (invoiceData.logo) {
-      const blob = await fetchBlobData(invoiceData.logo);
-      const file = new File([blob], "filename.jpg", { type: blob.type });
-      formData.append("image", file);
+    if (!session) {
+      setLoginModel(true);
+    } else {
+      const formData = new FormData();
+      if (invoiceData.logo) {
+        const blob = await fetchBlobData(invoiceData.logo);
+        const file = new File([blob], "filename.jpg", { type: blob.type });
+        formData.append("image", file);
+      }
+      formData.append("id", invoiceData.id);
+      formData.append("type", invoiceData.type);
+      formData.append("invoiceDate", invoiceData.invoiceDate);
+      formData.append("dueDate", invoiceData.dueDate);
+      formData.append("notes", invoiceData.notes);
+      // Convert objects to JSON strings and append
+      formData.append("from", JSON.stringify(invoiceData.from));
+      formData.append("to", JSON.stringify(invoiceData.to));
+      formData.append("settings", JSON.stringify(invoiceData.settings));
+      formData.append("items", JSON.stringify(invoiceData.items));
+      createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
+        .then((res) => {
+          router.push("/invoices");
+        })
+        .catch((err) => {
+          throw new Error("An error occurred");
+        });
     }
-    formData.append("id", invoiceData.id);
-    formData.append("type", invoiceData.type);
-    formData.append("invoiceDate", invoiceData.invoiceDate);
-    formData.append("dueDate", invoiceData.dueDate);
-    formData.append("notes", invoiceData.notes);
-    // Convert objects to JSON strings and append
-    formData.append("from", JSON.stringify(invoiceData.from));
-    formData.append("to", JSON.stringify(invoiceData.to));
-    formData.append("settings", JSON.stringify(invoiceData.settings));
-    formData.append("items", JSON.stringify(invoiceData.items));
-    createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
-      .then((res) => {
-        router.push("/invoices");
-      })
-      .catch((err) => {
-        throw new Error("An error occurred");
-      });
   };
+  // Login Model
+  const handleLoginModel = () => {
+    setLoginModel(false);
+    handleLogin();
+  };
+  //Download Model
+
   return (
     <Stack
       direction={"row"}
@@ -159,24 +179,27 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         </Button>
 
         {validateButton ? (
-          <PDFDownloadLink
-            document={
-              <PdfView
-                invSetting={InvSetting}
-                invDetails={InvDetails}
-                Summary={summaryDetail}
-              />
-            }
-            fileName="ZeeInvoices"
-          >
-            {({ loading }) =>
-              loading ? (
-                <button>Loading Document...</button>
-              ) : (
-                <Button variant="contained" sx={{height: "36px !important",}}>Download PDF</Button>
-              )
-            }
-          </PDFDownloadLink>
+          session ? (
+            <PdfDownloadLink
+              InvSetting={InvSetting}
+              InvDetails={InvDetails}
+              summaryDetail={summaryDetail}
+            >
+              <Button variant="contained" sx={{ height: "36px !important" }}>
+                Download PDF
+              </Button>
+            </PdfDownloadLink>
+          ) : (
+            <Button
+              onClick={() => setDownloadModel(true)}
+              variant="contained"
+              sx={{
+                height: "36px !important",
+              }}
+            >
+              Download PDF
+            </Button>
+          )
         ) : (
           <Button
             variant="outlined"
@@ -185,13 +208,26 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               // background: "#2C359D !important",
               color: "#fff",
               width: "138px",
-              px:'12px !important'
+              px: "12px !important",
             }}
           >
             Download PDF
           </Button>
         )}
       </Stack>
+      <SaveModal
+        open={loginModel}
+        onSave={handleLoginModel}
+        onClose={() => setLoginModel(false)}
+      />
+      <DownloadModal
+        onLogin={handleLoginModel}
+        onClose={() => setDownloadModel(false)}
+        open={downloadModel}
+        InvSetting={InvSetting}
+        InvDetails={InvDetails}
+        summaryDetail={summaryDetail}
+      />
     </Stack>
   );
 };

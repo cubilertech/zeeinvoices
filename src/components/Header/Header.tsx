@@ -14,7 +14,8 @@ import { palette } from "@/theme/palette";
 import CustomButton from "./CustomButton";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { signIn, signOut, useSession } from "next-auth/react";
+import {  useSession } from "next-auth/react";
+import { handleLogout,handleLogin } from "@/utils/common";
 
 const Header = () => {
   const route = useRouter();
@@ -23,17 +24,9 @@ const Header = () => {
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleLogin = () => {
-    signIn("google", { callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}/invoices` });
-  };
-  const handleLogout = () => {
-    signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` });
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
@@ -63,12 +56,10 @@ const Header = () => {
           <Box onClick={() => route.push("/")} sx={{ cursor: "pointer" }}>
             <Icon icon="logo" height={24} width={175} />
           </Box>
-        {session && <CustomButton />}  
+          {session && <CustomButton />}
         </Stack>
         <Stack direction={"row"} gap={3}>
-         
           {!session ? (
-            <>
               <Button
                 onClick={handleLogin}
                 variant="contained"
@@ -76,70 +67,73 @@ const Header = () => {
               >
                 Login
               </Button>
-            </>
           ) : (
             <>
               <Typography sx={{ color: "black", alignSelf: "center" }}>
                 Hi, {session.user?.name}
               </Typography>
               <Box>
-          <Stack
-            direction={"row"}
-            gap={1}
-            sx={{ cursor: "pointer" }}
-            onClick={handleClick}
-          >
-            <Avatar alt="Avatar" src="/Images/user-image.png" />
-            <Icon icon="arrowDownIcon" width={15} height={15} />
-          </Stack>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            sx={{ borderRadius: "8px" }}
-          >
-            <Stack direction={"column"}>
-              <Button
-                variant="outlined"
-                startIcon={<Icon icon="profileIcon" />}
-                sx={{
-                  border: "none",
-                  color: "#4B5563",
-                  "&:hover": {
-                    border: "none",
-                    color: "#4B5563",
-                    backgroundColor: palette.color.gray[10],
-                    borderRadius: 0,
-                  },
-                }}
-              >
-                Profile
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={handleLogout}
-                startIcon={<Icon icon="logoutIcon" />}
-                sx={{
-                  border: "none",
-                  color: "#4B5563",
-                  "&:hover": {
-                    border: "none",
-                    color: "#4B5563",
-                    backgroundColor: palette.color.gray[10],
-                    borderRadius: 0,
-                  },
-                }}
-              >
-                Logout
-              </Button>
-            </Stack>
-          </Popover>
-          </Box>
+                <Stack
+                  direction={"row"}
+                  gap={1}
+                  sx={{ cursor: "pointer" }}
+                  onClick={handleClick}
+                >
+                  {session.user?.image ? (
+                    <Avatar alt="Avatar" src={session.user.image} />
+                  ) : (
+                    <Avatar alt="Avatar" />
+                  )}
+                  <Icon icon="arrowDownIcon" width={15} height={15} />
+                </Stack>
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  sx={{ borderRadius: "8px" }}
+                >
+                  <Stack direction={"column"}>
+                    <Button
+                      variant="outlined"
+                      startIcon={<Icon icon="profileIcon" />}
+                      sx={{
+                        border: "none",
+                        color: "#4B5563",
+                        "&:hover": {
+                          border: "none",
+                          color: "#4B5563",
+                          backgroundColor: palette.color.gray[10],
+                          borderRadius: 0,
+                        },
+                      }}
+                    >
+                      Profile
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={handleLogout}
+                      startIcon={<Icon icon="logoutIcon" />}
+                      sx={{
+                        border: "none",
+                        color: "#4B5563",
+                        "&:hover": {
+                          border: "none",
+                          color: "#4B5563",
+                          backgroundColor: palette.color.gray[10],
+                          borderRadius: 0,
+                        },
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </Stack>
+                </Popover>
+              </Box>
               {/* <Button
                 onClick={handleLogout}
                 variant="contained"
