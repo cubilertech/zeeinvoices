@@ -268,121 +268,133 @@ const DetailSelecter: FC<DetailSelecter> = ({
               borderRadius: "12px",
             }}
           >
-          <Stack direction={"row"} justifyContent={"space-between"}>
-            <Typography variant="text-lg-semibold">
-              {type === "add" ? "Add" : "Edit"} {detailsOf} Details
-            </Typography>
-            <IconButton onClick={handleModelClose}>
-              <CloseIcon
-                sx={{
-                  width: "20px",
-                  height: "20px",
-                  color: palette.color.gray[300],
-                }}
-              />
-            </IconButton>
-          </Stack>
-          <form onSubmit={handleSubmit}>
-            <Stack direction={"row"} spacing={3} sx={{ marginTop: "20px" }}>
-              <FormControl sx={{ width: "240px" }}>
-                <TextField
-                  label="Name"
-                  size="large"
-                  name="name"
-                  value={values.name}
-                  onChange={handleChange}
-                  sx={{ width: "240px" }}
-                  helperText={touched.name && errors.name}
-                  onBlur={handleBlur}
-                  error={touched.name && Boolean(errors.name)}
+            <Stack direction={"row"} justifyContent={"space-between"}>
+              <Typography variant="text-lg-semibold">
+                {type === "add" ? "Add" : "Edit"} {detailsOf} Details
+              </Typography>
+              <IconButton onClick={handleModelClose}>
+                <CloseIcon
+                  sx={{
+                    width: "20px",
+                    height: "20px",
+                    color: palette.color.gray[300],
+                  }}
                 />
-              </FormControl>
-              <FormControl sx={{ width: "240px" }} >
-                <TextField
-                  label="Company Name"
-                  size="large"
-                  name="companyName"
-                  onChange={handleChange}
-                  value={values.companyName}
-                  sx={{ width: "240px" }}
-                  helperText={touched.companyName && errors.companyName}
-                  onBlur={handleBlur}
-                  error={touched.companyName && Boolean(errors.companyName)}
-                ></TextField>
-              </FormControl>
+              </IconButton>
             </Stack>
-            <Stack direction={"row"} justifyContent={"space-between"} sx={{ marginTop: "20px" }}>
-              <FormControl sx={{ width: "240px" }}>
-                <TextField
-                  label="Email"
-                  size="large"
-                  name="email"
-                  onChange={handleChange}
-                  value={values.email}
-                  sx={{ width: "240px" }}
-                  helperText={touched.email && errors.email}
-                  onBlur={handleBlur}
-                  error={touched.email && Boolean(errors.email)}
-                ></TextField>
-              </FormControl>
-              <FormControl sx={{ width: "240px" }} >
-                <TextField
-                  label="Phone number"
-                  size="large"
-                  name="phoneNumber"
-                  onChange={handleChange}
-                  value={values.phoneNumber as string}
-                  sx={{ width: "240px" }}
-                  helperText={touched.phoneNumber && errors.phoneNumber}
-                  onBlur={handleBlur}
-                  error={touched.phoneNumber && Boolean(errors.phoneNumber)}
-                ></TextField>
-              </FormControl>
-            </Stack>
-            <Stack direction={"row"} justifyContent={"space-between"} sx={{ marginTop: "20px" }}>
-              <FormControl sx={{ width: "240px" }} >
-                <TextField
-                  label="City"
-                  size="large"
-                  name="city"
-                  onChange={handleChange}
-                  value={values.city}
-                  sx={{ width: "240px" }}
-                  helperText={touched.city && errors.city}
-                  onBlur={handleBlur}
-                  error={touched.city && Boolean(errors.city)}
-                ></TextField>
-              </FormControl>
-              <FormControl sx={{ width: "240px" }} >
-                <TextField
-                  label="State"
-                  size="large"
-                  name="state"
-                  onChange={handleChange}
-                  value={values.state}
-                  sx={{ width: "240px" }}
-                  helperText={touched.state && errors.state}
-                  onBlur={handleBlur}
-                  error={touched.state && Boolean(errors.state)}
-                ></TextField>
-              </FormControl>
-            </Stack>
-            <Box sx={{ marginTop: "20px" }}>
-              <FormControl fullWidth >
-                <TextField
-                  label="Address"
-                  size="large"
-                  name="address"
-                  onChange={handleChange}
-                  value={values.address}
-                  helperText={touched.address && errors.address}
-                  onBlur={handleBlur}
-                  error={touched.address && Boolean(errors.address)}
-                  // sx={{ width: "100%" }}
-                ></TextField>
-              </FormControl>
-            </Box>
-            {/* <Stack
+            <form onSubmit={handleSubmit}>
+              <Stack
+                direction={"row"}
+                justifyContent={"space-between"}
+                sx={{ marginTop: "20px" }}
+              >
+                <FormControl sx={{ width: "240px" }}>
+                  <TextField
+                    label="Name"
+                    size="large"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    sx={{ width: "240px" }}
+                    helperText={touched.name && errors.name}
+                    onBlur={handleBlur}
+                    error={touched.name && Boolean(errors.name)}
+                  />
+                </FormControl>
+                <FormControl sx={{ width: "240px" }}>
+                  <TextField
+                    label="Company Name"
+                    size="large"
+                    name="companyName"
+                    onChange={handleChange}
+                    value={values.companyName}
+                    sx={{ width: "240px" }}
+                    helperText={touched.companyName && errors.companyName}
+                    onBlur={handleBlur}
+                    error={touched.companyName && Boolean(errors.companyName)}
+                  ></TextField>
+                </FormControl>
+              </Stack>
+              <Stack
+                direction={"row"}
+                justifyContent={"space-between"}
+                sx={{ marginTop: "20px" }}
+              >
+                <FormControl sx={{ width: "240px" }}>
+                  <TextField
+                    label="Email"
+                    size="large"
+                    name="email"
+                    onChange={handleChange}
+                    value={values.email}
+                    sx={{ width: "240px" }}
+                    helperText={touched.email && errors.email}
+                    onBlur={handleBlur}
+                    error={touched.email && Boolean(errors.email)}
+                  ></TextField>
+                </FormControl>
+                <FormControl sx={{ width: "240px" }}>
+                  <TextField
+                    label="Phone number"
+                    size="large"
+                    name="phoneNumber"
+                    onChange={handleChange}
+                    value={values.phoneNumber as string}
+                    sx={{ width: "240px" }}
+                    helperText={touched.phoneNumber && errors.phoneNumber}
+                    onBlur={handleBlur}
+                    error={touched.phoneNumber && Boolean(errors.phoneNumber)}
+                  ></TextField>
+                </FormControl>
+              </Stack>
+              <Stack
+                direction={"row"}
+                justifyContent={"space-between"}
+                sx={{ marginTop: "20px" }}
+              >
+                <FormControl sx={{ width: "240px" }}>
+                  <TextField
+                    label="City"
+                    size="large"
+                    name="city"
+                    onChange={handleChange}
+                    value={values.city}
+                    sx={{ width: "240px" }}
+                    helperText={touched.city && errors.city}
+                    onBlur={handleBlur}
+                    error={touched.city && Boolean(errors.city)}
+                  ></TextField>
+                </FormControl>
+                <FormControl sx={{ width: "240px" }}>
+                  <TextField
+                    label="State"
+                    size="large"
+                    name="state"
+                    onChange={handleChange}
+                    value={values.state}
+                    sx={{ width: "240px" }}
+                    helperText={touched.state && errors.state}
+                    onBlur={handleBlur}
+                    error={touched.state && Boolean(errors.state)}
+                  ></TextField>
+                </FormControl>
+              </Stack>
+              <Box sx={{ marginTop: "20px" }}>
+                <FormControl fullWidth>
+                  <TextField
+                    label="Address"
+                    size="large"
+                    name="address"
+                    onChange={handleChange}
+                    value={values.address}
+                    helperText={touched.address && errors.address}
+                    onBlur={handleBlur}
+                    error={touched.address && Boolean(errors.address)}
+                    // sx={{ width: "100%" }}
+                  ></TextField>
+                </FormControl>
+              </Box>
+              {/* <Stack
               direction={"row"}
               justifyContent={"space-between"}
               spacing={2}
@@ -510,6 +522,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   variant="outlined"
                   sx={{
                     width: "243px",
+                    height: "40px",
                     borderColor: palette.base.borderColor,
                     color: "#445164",
                   }}
@@ -520,7 +533,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   type="submit"
                   // onClick={handleCloseBd}
                   variant="contained"
-                  sx={{ width: "243px" }}
+                  sx={{ width: "243px", height: "40px" }}
                 >
                   Add
                 </Button>

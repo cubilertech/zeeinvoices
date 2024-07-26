@@ -128,7 +128,8 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
       {/* Table header */}
       <Grid
         container
-        sx={{
+        sx={{ 
+          width:"100%",
           backgroundColor: invoiceSetting?.color,
           borderRadius: "2px",
           marginTop: 2,
@@ -136,7 +137,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         }}
         spacing={2}
       >
-        <Grid sx={{ padding: "0px", paddingTop: "8px !important" }} item xs={4}>
+        <Grid sx={{ padding: "0px", paddingTop: "8px !important" }} item xs={4.1}>
           <Typography sx={{ color: palette.base.white }}>Items</Typography>
         </Grid>
         <Grid

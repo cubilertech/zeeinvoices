@@ -25,10 +25,11 @@ export const MuiTextField = () => {
             "& fieldset": {
               borderColor: palette.color.gray[120],
             },
+
             // "&:hover fieldset": {
             //   borderColor: palette.color.gray[500],
             // },
-            "&.Mui-focused fieldset": {
+            "& .Mui-focused fieldset": {
               borderRadius: "8px !important",
             },
           },
@@ -39,14 +40,13 @@ export const MuiTextField = () => {
             padding: "0px 10px",
             width: "100%",
             borderRadius: 2,
-            // border: `1px solid ${palette.base.borderColor}`,
             color: palette.base.black,
             "&:hover": {
-              borderRadius: 2,
+              // borderRadius: 2,
               // border: `1px solid ${palette.color.gray[100]}`,
             },
             "&::placeholder": {
-              color: palette.color.gray[100], // Change this to your desired placeholder color
+              color: palette.color.gray[10], // Change this to your desired placeholder color
             },
             "&:-webkit-autofill": {
               // change input field color on auto fill
@@ -54,8 +54,7 @@ export const MuiTextField = () => {
               WebkitTextFillColor: palette.base.black,
             },
           },
-          borderRadius: 7,
-          // background: palette.base.white,
+          // borderRadius: 7,
           "&:-webkit-autofill": {
             WebkitBoxShadow: "0 0 0 100px #307ECC inset",
             WebkitTextFillColor: "ffffff",
