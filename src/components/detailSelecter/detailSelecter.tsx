@@ -270,7 +270,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="text-lg-semibold">
-                {type === "add" ? "Add" : "Edit"} {detailsOf} Details
+                {type === "add" ? "Add" : "Edit"} {detailsOf === "Recipient" ? "Receiver" : detailsOf} Details
               </Typography>
               <IconButton onClick={handleModelClose}>
                 <CloseIcon
