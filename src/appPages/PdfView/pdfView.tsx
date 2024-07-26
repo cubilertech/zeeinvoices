@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: "10px 30px",
     gap: 5,
-    borderTop:"4px",
+    borderTop: "4px",
   },
   section_top: {
     display: "flex",
@@ -107,7 +107,17 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
 
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page
+        size="A4"
+        style={{
+          flexDirection: "column",
+          backgroundColor: "#fff",
+          padding: "10px 30px",
+          gap: 5,
+          borderTop: "4px",
+          borderColor: bgColor,
+        }}
+      >
         {/* Watermark */}
         <View
           style={{
@@ -149,7 +159,8 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
                 Invoice Type:
               </Text>
               <Text style={styles.top_view_2_value}>
-              {" "}{invDetails?.invoiceType}
+                {" "}
+                {invDetails?.invoiceType}
               </Text>
             </View>
           </View>
@@ -482,7 +493,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
 
               <Text
                 style={{
-                  width:"70px",
+                  width: "70px",
                   fontSize: "10px",
                   fontWeight: "bold",
                   marginLeft: "33px",
