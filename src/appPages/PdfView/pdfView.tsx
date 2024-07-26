@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: "10px 30px",
     gap: 5,
+    borderTop:"4px",
   },
   section_top: {
     display: "flex",
@@ -60,15 +61,16 @@ const styles = StyleSheet.create({
     width: 100,
     height: 25,
   },
-  // logo2: {
-  //   width: 125,
-  //   height: 150,
-  // },
-  // title: {
-  //   color: "#000",
-  //   fontSize: "20px",
-  //   fontWeight: "bold",
-  // },
+  watermark: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    fontSize: 48,
+    color: "#d3d3d3",
+    opacity: 1.3,
+    zIndex: 1,
+  },
 });
 
 interface PdfViewProps {
@@ -84,7 +86,8 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
   const tax = invSetting?.tax;
-  const currency = invSetting?.currency === "$ USD" ? "$" : invSetting?.currency;
+  const currency =
+    invSetting?.currency === "$ USD" ? "$" : invSetting?.currency;
   const currencyText =
     invSetting?.currency === "$ USD" ? "USD" : invSetting?.currency;
   const summarySubTotal = (
@@ -105,14 +108,32 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+        {/* Watermark */}
+        <View
+          style={{
+            width: 277,
+            height: 38,
+            position: "absolute",
+            top: "50%",
+            left: "40%",
+            transform: "translate(-50%, -50%)",
+            fontSize: 48,
+            color: "#d3d3d3",
+            opacity: 1.3,
+            zIndex: 1,
+          }}
+        >
+          <Image src="/Images/icons/watermark-icon.png" />
+        </View>
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
-            
             <Image
               style={styles.logo}
               src={
-                invDetails?.logo ? imageConvertion(invDetails.logo) : "/Images/logos/zee-logo.png"
+                invDetails?.logo
+                  ? imageConvertion(invDetails.logo)
+                  : "/Images/logos/zee-logo.png"
               }
             />
           </View>
@@ -128,7 +149,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
                 Invoice Type:
               </Text>
               <Text style={styles.top_view_2_value}>
-                {invDetails?.invoiceType}
+              {" "}{invDetails?.invoiceType}
               </Text>
             </View>
           </View>
@@ -314,7 +335,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               }}
             >
               <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                Due Date:{"      "}
+                Due Date:{"  "}
               </Text>
               <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
                 {invoiceDueDate}
@@ -335,7 +356,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
             flexDirection: "row",
             padding: "5px 10px",
             alignItems: "center",
-            gap: 40,
+            // gap: 40,
           }}
         >
           <Text
@@ -349,16 +370,22 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
             Items
           </Text>
           <Text
-            style={{ fontSize: "10px", fontWeight: "bold", color: "white" }}
+            style={{
+              width: "50px",
+              fontSize: "10px",
+              fontWeight: "bold",
+              color: "white",
+            }}
           >
             QTY/HRS
           </Text>
           <Text
             style={{
-              width: "40px",
+              width: "50px",
               fontSize: "10px",
               fontWeight: "bold",
               color: "white",
+              marginLeft: "25",
             }}
           >
             Rate
@@ -366,10 +393,11 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
           {tax && Summary.taxAmount > 0 ? (
             <Text
               style={{
-                width: "30px",
+                width: "50px",
                 fontSize: "10px",
                 fontWeight: "bold",
                 color: "white",
+                marginLeft: "25",
               }}
             >
               Tax
@@ -378,7 +406,12 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
             ""
           )}
           <Text
-            style={{ fontSize: "10px", fontWeight: "bold", color: "white" }}
+            style={{
+              marginLeft: "35px",
+              fontSize: "10px",
+              fontWeight: "bold",
+              color: "white",
+            }}
           >
             Subtotal
           </Text>
@@ -395,7 +428,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               justifyContent: "space-between",
               borderBottom: "1px solid #E0E0E0",
               padding: "5px 10px",
-              gap: 3,
+              // gap: 3,
             }}
           >
             <View
@@ -403,28 +436,42 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                gap: 46,
+                // gap: 47,
               }}
             >
-              <Text style={{ width: "235px", fontSize: "12px" }}>
+              <Text style={{ width: "200px", fontSize: "12px" }}>
                 {data.name}
               </Text>
               <Text
-                style={{ width: "20px", fontSize: "10px", fontWeight: "bold" }}
+                style={{
+                  width: "50px",
+                  fontSize: "10px",
+                  fontWeight: "bold",
+                  marginLeft: "1px",
+                  textAlign: "right",
+                }}
               >
                 {data.quantity}
               </Text>
               <Text
-                style={{ width: "40px", fontSize: "10px", fontWeight: "bold" }}
+                style={{
+                  width: "50px",
+                  fontSize: "10px",
+                  fontWeight: "bold",
+                  marginLeft: "17px",
+                  textAlign: "right",
+                }}
               >
                 {currency} {data.rate}
               </Text>
               {tax && Summary.taxAmount > 0 ? (
                 <Text
                   style={{
-                    width: "30px",
+                    width: "50px",
                     fontSize: "10px",
                     fontWeight: "bold",
+                    marginLeft: "22px",
+                    textAlign: "right",
                   }}
                 >
                   {data.tax} %
@@ -433,7 +480,15 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
                 ""
               )}
 
-              <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
+              <Text
+                style={{
+                  width:"70px",
+                  fontSize: "10px",
+                  fontWeight: "bold",
+                  marginLeft: "33px",
+                  textAlign: "right",
+                }}
+              >
                 {currency} {data.subTotal.toFixed(2)}
               </Text>
             </View>
@@ -583,7 +638,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               </Text>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
-                  {currency}
+                  {currencyText}
                 </Text>
                 <Text style={{ fontSize: "12px" }}> {summarySubTotal}</Text>
               </View>
@@ -602,7 +657,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
                 }}
               >
                 <Text style={{ fontSize: "12px", color: "#767676" }}>Tax</Text>
-                <Text style={{ fontSize: "12px" }}>
+                <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
                   {Summary.taxAmount > 0
                     ? currencyText + " " + Summary.taxAmount.toFixed(2)
                     : "--"}
@@ -623,7 +678,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               <Text style={{ fontSize: "12px", color: "#767676" }}>Total</Text>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
-                  {currency}
+                  {currencyText}
                 </Text>
                 <Text style={{ fontSize: "12px" }}>
                   {" "}

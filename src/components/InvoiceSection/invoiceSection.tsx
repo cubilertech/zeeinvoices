@@ -22,10 +22,10 @@ import DetailSelecter from "../detailSelecter/detailSelecter";
 
 interface InvoiceSectionProps {
   InvDetails: any;
-  type:any;
+  type: any;
 }
 
-const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails,type }) => {
+const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const selectedColor = useSelectedColor();
@@ -40,14 +40,14 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails,type }) => {
   const senderShow = InvDetails.from.name !== "" ? true : false;
   const reciptShow = InvDetails.to.name !== "" ? true : false;
 
-const handleSubmitFrom= (values : any)=>{
-console.log('submitted',values);
-dispatch(setSenderDetail(values));
-}
-const handleSubmitTo= (values : any)=>{
-console.log('submitted',values);
-dispatch(setRecipientDetail(values));
-}
+  const handleSubmitFrom = (values: any) => {
+    console.log("submitted", values);
+    dispatch(setSenderDetail(values));
+  };
+  const handleSubmitTo = (values: any) => {
+    console.log("submitted", values);
+    dispatch(setRecipientDetail(values));
+  };
 
   return (
     <Box
@@ -69,7 +69,7 @@ dispatch(setRecipientDetail(values));
           <SelectInput
             width={240}
             type="Invoice type"
-            menuData={["Type 1", "Type 2", "Type 3"]}
+            menuData={["Bill", "Type 2", "Type 3"]}
           />
         </Stack>
         <Box sx={{ width: 92, height: 40 }}>
@@ -94,21 +94,32 @@ dispatch(setRecipientDetail(values));
         gap={5}
         sx={{ marginTop: 2 }}
       >
-        <DetailSelecter title="From" detailsOf="Sender" showData={senderShow} InvDetails={InvDetails.from} handleSubmitForm={handleSubmitFrom}    type={type} />
+        <DetailSelecter
+          title="From"
+          detailsOf="Sender"
+          showData={senderShow}
+          InvDetails={InvDetails.from}
+          handleSubmitForm={handleSubmitFrom}
+          type={type}
+        />
         <DetailSelecter
           title="To"
           detailsOf="Recipient"
           showData={reciptShow}
-          InvDetails={InvDetails.to}       
+          InvDetails={InvDetails.to}
           handleSubmitForm={handleSubmitTo}
           type={type}
         />
       </Stack>
       {/* Third section, Date pickers */}
-      <Stack direction={"row"} spacing={1} sx={{ marginTop: 5 }}>
+      <Stack direction={"row"} spacing={1} sx={{ marginTop: "45px" }}>
         <Grid container spacing={0}>
           <Grid
-            sx={{ padding: "8px", paddingTop: "8px !important", paddingLeft: "0px !important" }}
+            sx={{
+              padding: "8px",
+              paddingTop: "8px !important",
+              paddingLeft: "0px !important",
+            }}
             item
             xs={6.5}
           >
@@ -129,7 +140,14 @@ dispatch(setRecipientDetail(values));
       <Box sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
         <InvoiceSummary />
       </Box>
-      <hr style={{ margin: "20px 10px 10px 10px" }}></hr>
+      <hr
+        style={{
+          margin: "20px 10px 10px 10px",
+          height: "0.5px",
+          backgroundColor: "rgba(156, 163, 175, 1)",
+          color: "rgba(156, 163, 175, 1)",
+        }}
+      ></hr>
       {/* Sixth section, additional notes */}
       <Box
         sx={{
@@ -150,10 +168,16 @@ dispatch(setRecipientDetail(values));
               height: "32px !important",
               // backgroundColor: palette.base.transparent,
               border: `0px dashed ${"#F9F9F9"}`,
+              "&::placeholder": {
+                color: "#767676", // Change this to your desired placeholder color
+              },
             },
             "& .MuiOutlinedInput-root": {
               border: "none !important",
               borderRadius: 0.5,
+              "& fieldset": {
+                borderColor: palette.base.white,
+              },
             },
           }}
           onChange={handleChangeNotes}

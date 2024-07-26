@@ -1,4 +1,5 @@
 "use client";
+import { palette } from "@/theme/palette";
 import {
   Stack,
   Typography,
@@ -49,6 +50,9 @@ const TextField: FC<TextField> = ({
                 "& .MuiInputBase-input": {
                   height: "48px",
                   borderRadius: "8px",
+                  "&::placeholder": {
+                    color: palette.color.gray[740], // Change this to your desired placeholder color
+                  },
                 },
                 ...sx,
               }

@@ -58,6 +58,7 @@ const gray = {
   770: "#6B7280",
   760: "#767676",
   750: "#6C7278",
+  740: "#697483",
   730: "#5E5E62",
   720: "#444444",
   710: "#4F4F4F",
@@ -166,9 +167,10 @@ export const palette = {
     // ...opacity,
   },
   boxShadows: {
-    100: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
-    200: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+    100: "rgba(0, 0, 0, 0.25) 0px 0px 4px 0px",
+    200: "rgba(28, 28, 28, 0.1) 0px 0px 10px 0px",
   },
+
   color: {
     gray: {
       ...gray,

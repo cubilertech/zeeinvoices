@@ -99,10 +99,12 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               // width: "100% !important",
 
               "& .MuiOutlinedInput-root": {
-                border: "none !important",
-                borderRadius:0.5,
+                border: "0.5px !important",
+                borderRadius: "5px",
                 width: "134px !important",
                 paddingRight:0,
+                px:"4px",
+                py:"2px",
               },
             }}
           />

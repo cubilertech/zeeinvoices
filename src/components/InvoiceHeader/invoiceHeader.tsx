@@ -44,7 +44,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         dispatch(setInvoiceId(record));
       }
     }
-  }, [record, refetchRecord, dispatch,type]);
+  }, [record, refetchRecord, dispatch, type]);
 
   const {
     mutateAsync: createInvoice,
@@ -85,9 +85,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       const blob = await fetchBlobData(invoiceData.logo);
       const file = new File([blob], "filename.jpg", { type: blob.type });
       formData.append("image", file);
-    }
-    else{
-      formData.append("image", 'no-image');
+    } else {
+      formData.append("image", "no-image");
     }
     formData.append("type", invoiceData.type);
     formData.append("invoiceDate", invoiceData.invoiceDate);
@@ -97,11 +96,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     formData.append("to", JSON.stringify(invoiceData.to));
     formData.append("settings", JSON.stringify(invoiceData.settings));
     formData.append("items", JSON.stringify(invoiceData.items));
-    updateInvoice({data:formData,apiRoute:`${backendURL}/invoices/${invoiceData.id}`}).then((res=>{
-      router.push('/invoices')
-    })).catch((err=>{
-      throw new Error(`${err.response?.data?.message}`)
-    }))
+    updateInvoice({
+      data: formData,
+      apiRoute: `${backendURL}/invoices/${invoiceData.id}`,
+    })
+      .then((res) => {
+        router.push("/invoices");
+      })
+      .catch((err) => {
+        throw new Error(`${err.response?.data?.message}`);
+      });
   };
 
   const handleCreateInvoice = async () => {
@@ -140,6 +144,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       </Typography>
       <Stack direction={"row"} justifyContent={"space-between"} spacing={2}>
         <Button
+          sx={{ height: "36px", width: "73px" }}
           variant="outlined"
           disabled={!validateButton}
           onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
@@ -168,15 +173,20 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               loading ? (
                 <button>Loading Document...</button>
               ) : (
-                <Button variant="contained">Download PDF</Button>
+                <Button variant="contained" sx={{height: "36px !important",}}>Download PDF</Button>
               )
             }
           </PDFDownloadLink>
         ) : (
           <Button
-            variant="contained"
+            variant="outlined"
             disabled={true}
-            sx={{ background: "#2C359D !important", color: "#fff" }}
+            sx={{
+              // background: "#2C359D !important",
+              color: "#fff",
+              width: "138px",
+              px:'12px !important'
+            }}
           >
             Download PDF
           </Button>

@@ -110,7 +110,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
           Invoice Settings
         </Typography>
         {/* Color palette for color selection */}
-        <Typography variant="body1" sx={{ paddingBottom: 2, paddingTop: 2 }}>
+        <Typography variant="text-sm-regular" sx={{ paddingBottom: 2, paddingTop: 2 }}>
           Color
         </Typography>
         <hr style={{ marginTop: -8 }} />
@@ -169,7 +169,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
           </Popover>
         </Box>
         {/* Currency selection */}
-        <Typography variant="body1" sx={{ paddingBottom: 2, paddingTop: 2 }}>
+        <Typography variant="text-sm-regular" sx={{ paddingBottom: 2, paddingTop: 2 }}>
           Currency
         </Typography>
         <hr style={{ marginTop: -8 }} />
@@ -180,11 +180,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
             menuData={["$ USD", "RS", "ADE"]}
           ></SelectInput>
         </Box>
-        <Typography variant="body1" sx={{ paddingBottom: 2, paddingTop: 0 }}>
+        <Typography variant="text-sm-regular" sx={{ paddingBottom: 2, paddingTop: 0 }}>
           Invoice Detail
         </Typography>
         <hr style={{ marginTop: -8 }} />
-        <Box sx={{ px: 2 }}>
+        <Box sx={{ px: "20px" }}>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>
           <SwitchInput type="shipping" lable="Shipping details"></SwitchInput>
