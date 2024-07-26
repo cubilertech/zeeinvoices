@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 100,
+    width: 110,
     height: 25,
   },
   watermark: {
