@@ -53,9 +53,8 @@ const Header = () => {
             alignItems: "center",
           }}
         >
-          <Box onClick={() => route.push("/")} sx={{ cursor: "pointer" }}>
+          
             <Icon icon="logo" height={24} width={175} />
-          </Box>
           {session && <CustomButton />}
         </Stack>
         <Stack direction={"row"} gap={3}>

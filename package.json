@@ -29,6 +29,8 @@
     "react-dom": "^18",
     "react-intl-next": "^0.0.1-security",
     "react-redux": "^9.1.2",
+    "react-to-print": "^2.15.1",
+    "redux-persist": "^6.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

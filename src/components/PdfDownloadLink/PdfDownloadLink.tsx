@@ -1,7 +1,7 @@
 'use client';
 import PdfView from '@/appPages/PdfView/pdfView';
-import { Button } from '@mui/material';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import { useSession } from 'next-auth/react';
 import React, { FC } from 'react'
 
 interface PdfDownloadLinkProps {
@@ -12,6 +12,7 @@ interface PdfDownloadLinkProps {
   }
 
 const PdfDownloadLink : FC<PdfDownloadLinkProps> = ({InvSetting,InvDetails,summaryDetail,children}) => {
+  const { data: session } = useSession();
   return (
     <>
      <PDFDownloadLink
@@ -20,6 +21,7 @@ const PdfDownloadLink : FC<PdfDownloadLinkProps> = ({InvSetting,InvDetails,summa
                 invSetting={InvSetting}
                 invDetails={InvDetails}
                 Summary={summaryDetail}
+                user={session?.user}
               />
             }
             fileName="ZeeInvoices"

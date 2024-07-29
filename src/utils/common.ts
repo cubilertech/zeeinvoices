@@ -11,7 +11,7 @@ export const useSelectedColor = () => {
 };
 
 export const imageConvertion=(image:string)=>{
-if(image.includes('blob:')){
+if(image?.includes('base64,')){
   return image;
 }else{
   return `${backendURL}/${image}`;
@@ -24,6 +24,20 @@ export  const handleLogout = () => {
 
 export  const handleLogin = () => {
   signIn("google", {
-    callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}/invoices`,
+    callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}`,
   });
+};
+
+export const base64ToFile = (base64String : any, filename:any) => {
+  const arr = base64String?.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  return new File([u8arr], filename, { type: mime });
 };

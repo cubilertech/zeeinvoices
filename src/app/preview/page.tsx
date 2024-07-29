@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
 
 const PDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
@@ -17,6 +18,7 @@ const PDFViewer = dynamic(
 );
 
 const Preview = () => {
+  const { data: session } = useSession();
   const allInvoiceItems = useSelector(getInvoiceItem);
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
@@ -32,16 +34,16 @@ const Preview = () => {
     total: total,
     taxAmount: taxAmount,
   };
-
   return (
     <PDFViewer
       style={{ width: "100%", height: "76vh", marginTop: "50px" }}
       showToolbar={false}
     >
       <PdfView
-        invDetails={invoiceDetail}
+        invDetails={{...invoiceDetail}}
         invSetting={invoiceSetting}
         Summary={summaryDetail}
+        user={session?.user}
       />
     </PDFViewer>
   );

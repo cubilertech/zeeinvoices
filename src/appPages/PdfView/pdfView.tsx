@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: "10px 30px",
     gap: 5,
-    borderTop:"4px",
+    borderTop: "4px",
   },
   section_top: {
     display: "flex",
@@ -77,10 +77,16 @@ interface PdfViewProps {
   invSetting: any;
   invDetails: any;
   Summary: any;
+  user?: any;
 }
 
 // Create Document Component
-const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
+const PdfView: FC<PdfViewProps> = ({
+  invSetting,
+  invDetails,
+  Summary,
+  user,
+}) => {
   const [isClient, setIsClient] = useState(false);
 
   const bgColor = invSetting?.color;
@@ -104,27 +110,30 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
   if (!isClient) {
     return null;
   }
+  console.log(invDetails, "invDetails");
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         {/* Watermark */}
-        <View
-          style={{
-            width: 277,
-            height: 38,
-            position: "absolute",
-            top: "50%",
-            left: "40%",
-            transform: "translate(-50%, -50%)",
-            fontSize: 48,
-            color: "#d3d3d3",
-            opacity: 1.3,
-            zIndex: 1,
-          }}
-        >
-          <Image src="/Images/icons/watermark-icon.png" />
-        </View>
+        {!user && (
+          <View
+            style={{
+              width: 277,
+              height: 38,
+              position: "absolute",
+              top: "50%",
+              left: "40%",
+              transform: "translate(-50%, -50%)",
+              fontSize: 48,
+              color: "#d3d3d3",
+              opacity: 1.3,
+              zIndex: 1,
+            }}
+          >
+            <Image src="/Images/icons/watermark-icon.png" />
+          </View>
+        )}
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
@@ -142,14 +151,15 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
               <Text style={{ fontWeight: "extrabold", fontSize: "10px" }}>
                 Invoice No:
               </Text>
-              <Text style={styles.top_view_2_value}> {"  "}001</Text>
+              <Text style={styles.top_view_2_value}> {"  "}{invDetails?.id}</Text>
             </View>
             <View style={styles.top_view_2_container}>
               <Text style={{ fontWeight: "extrabold", fontSize: "10px" }}>
                 Invoice Type:
               </Text>
               <Text style={styles.top_view_2_value}>
-              {" "}{invDetails?.invoiceType}
+                {" "}
+                {invDetails?.invoiceType}
               </Text>
             </View>
           </View>
@@ -482,7 +492,7 @@ const PdfView: FC<PdfViewProps> = ({ invSetting, invDetails, Summary }) => {
 
               <Text
                 style={{
-                  width:"70px",
+                  width: "70px",
                   fontSize: "10px",
                   fontWeight: "bold",
                   marginLeft: "33px",

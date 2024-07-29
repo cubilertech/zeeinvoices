@@ -25,7 +25,7 @@ export interface InvoiceItem {
 
 export interface InvoiceState {
   id:number;
-  logo: string | null;
+  logo: string | ArrayBuffer | null;
   invoiceType: string;
   from: ContactDetail;
   to: ContactDetail;
@@ -120,17 +120,21 @@ export const invoiceSlice = createSlice({
       const {id,type,value} = action.payload as ActionPayload;
       const index = state.invoiceItem.findIndex((item)=> item.id === id );
       state.invoiceItem[index][type] = value as never;
-      if(type === 'quantity' || type === 'rate'){
+      if(type === 'quantity' || type === 'rate' || type === 'tax'){
         const subtitle = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
         state.invoiceItem[index].subTotal = subtitle;
-      }
-      if(type === 'tax'){
-        const total = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
         const taxValue =state.invoiceItem[index].tax;
-        const tax = (total)*(taxValue/100);
-        state.invoiceItem[index].taxAmount = tax;
-        state.invoiceItem[index].subTotal= total+tax;
+          const tax = (subtitle)*(taxValue/100);
+          state.invoiceItem[index].taxAmount = tax;
+          state.invoiceItem[index].subTotal= subtitle+tax;
       }
+      // if(type === 'tax'){
+      //   const total = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
+      //   const taxValue =state.invoiceItem[index].tax;
+      //   const tax = (total)*(taxValue/100);
+      //   state.invoiceItem[index].taxAmount = tax;
+      //   state.invoiceItem[index].subTotal= total+tax;
+      // }
     },
     setAddtionalNotes: (state, action: PayloadAction<string>) => {
       state.addtionalNotes = action.payload;
@@ -145,7 +149,10 @@ export const invoiceSlice = createSlice({
       state.dueDate = action.payload.dueDate;
       state.addtionalNotes = action.payload.addtionalNotes;
       state.invoiceItem=action.payload.invoiceItem
-     }
+     },
+     setResetInvoice:(state)=>{
+      return initialValue;
+    }
   },
 });
 
@@ -173,5 +180,6 @@ export const {
   setInvoiceItem,
   setAddtionalNotes,
   setFullInvoice,
+  setResetInvoice,
 } = invoiceSlice.actions;
 export default invoiceSlice.reducer;

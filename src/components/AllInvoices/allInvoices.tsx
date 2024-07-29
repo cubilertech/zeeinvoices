@@ -37,8 +37,8 @@ import { useRouter } from "next/navigation";
 import DeleteModal from "../DeleteModal/deleteModal";
 import CustomPopOver from "./CustomPopOver";
 import { useDispatch } from "react-redux";
-import { setFullInvoice } from "@/redux/features/invoiceSlice";
-import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
+import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
+import { setInvoiceSettings, setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 
 interface Data {
   id: number;
@@ -159,6 +159,8 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
+
+
 interface EnhancedTableProps {
   numSelected: number;
   onRequestSort: (
@@ -219,6 +221,13 @@ interface EnhancedTableToolbarProps {
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   const { numSelected } = props;
   const route = useRouter();
+  const dispatch = useDispatch();
+  const handleCreate =()=>{
+    dispatch(setResetInvoiceSetting());
+    dispatch(setResetInvoice());
+    route.push("/")
+  }
+
   return (
     <Toolbar
       sx={{
@@ -295,7 +304,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Button>
         <Button
           variant="contained"
-          onClick={() => route.push("/")}
+          onClick={handleCreate}
           endIcon={<Icon icon="plusIcon" width={15} />}
           sx={{ height: `36px`, width: "140px" }}
         >
@@ -390,6 +399,9 @@ export default function AllInvoices() {
     );
     route.push(`/invoices/${record.id}/edit`);
   };
+  const handleShareInvoice = (record: any) => {   
+    route.push(`/preview/${record.id}`);
+  };
   const handleOpenDeleteModal = (id: number) => {
     setItemToDelete(id as number);
     setIsModalOpen(true);
@@ -448,7 +460,7 @@ export default function AllInvoices() {
               </Box>
             ) : (
               <TableBody>
-                {invoiceList.invoices?.map((row: any, index: number) => {
+                {visibleRows?.map((row: any, index: number) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
@@ -518,6 +530,7 @@ export default function AllInvoices() {
                           record={row}
                           handleViewInvoice={handleViewInvoice}
                           handleEditInvoice={handleEditInvoice}
+                          handleShareInvoice={handleShareInvoice}                          
                         />
                       </TableCell>
                     </TableRow>

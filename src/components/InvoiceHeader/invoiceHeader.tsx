@@ -1,6 +1,6 @@
 "use client";
 import { Button, CircularProgress, Stack, Typography } from "@mui/material";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
 import { backendURL } from "@/utils/constants";
@@ -10,13 +10,14 @@ import {
   useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
 import { useDispatch } from "react-redux";
-import { setInvoiceId } from "@/redux/features/invoiceSlice";
+import { setInvoiceId, setResetInvoice } from "@/redux/features/invoiceSlice";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import SaveModal from "../SaveModal/saveModal";
-import { handleLogin } from "@/utils/common";
+import { base64ToFile, handleLogin } from "@/utils/common";
 import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
 import DownloadModal from "../DownloadModal/downloadModal";
+import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -68,9 +69,18 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   } = useEditDocument();
 
   async function fetchBlobData(blobUrl: string) {
-    const response = await fetch(blobUrl);
-    const blob = await response.blob();
-    return blob;
+    try {
+      console.log('Fetching blob data from:', blobUrl);
+      const response = await fetch(blobUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch blob. Status: ${response.status}`);
+      }
+      const blob = await response.blob();
+      return blob;
+    } catch (error) {
+      console.error('Failed to fetch blob data:', error);
+      throw error;
+    }
   }
 
   const invoiceData = useMemo(() => {
@@ -91,11 +101,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const handleUpdateInvoice = async () => {
     const formData = new FormData();
     if (invoiceData.logo) {
-      const blob = await fetchBlobData(invoiceData.logo);
-      const file = new File([blob], "filename.jpg", { type: blob.type });
-      formData.append("image", file);
+      try {
+        // const blob = await fetchBlobData(invoiceData.logo);
+        // const file = new File([blob], "filename.jpg", { type: blob.type });
+        const imageFile = base64ToFile(invoiceData.logo, 'uploaded_image.png');
+        formData.append("image", imageFile);
+      } catch (error) {
+        console.error('Error fetching image:', error);
+      }
     } else {
-      formData.append("image", "no-image");
+          formData.append("image", "no-image"); 
     }
     formData.append("type", invoiceData.type);
     formData.append("invoiceDate", invoiceData.invoiceDate);
@@ -111,6 +126,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     })
       .then((res) => {
         router.push("/invoices");
+        dispatch(setResetInvoice());
+        dispatch(setResetInvoiceSetting());
       })
       .catch((err) => {
         throw new Error(`${err.response?.data?.message}`);
@@ -123,9 +140,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     } else {
       const formData = new FormData();
       if (invoiceData.logo) {
-        const blob = await fetchBlobData(invoiceData.logo);
-        const file = new File([blob], "filename.jpg", { type: blob.type });
-        formData.append("image", file);
+        const imageFile = base64ToFile(invoiceData.logo, 'uploaded_image.png');
+        formData.append("image", imageFile);
       }
       formData.append("id", invoiceData.id);
       formData.append("type", invoiceData.type);
@@ -140,6 +156,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
         .then((res) => {
           router.push("/invoices");
+          dispatch(setResetInvoice());
+          dispatch(setResetInvoiceSetting());
         })
         .catch((err) => {
           throw new Error("An error occurred");
