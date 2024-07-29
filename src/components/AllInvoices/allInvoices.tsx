@@ -39,6 +39,7 @@ import CustomPopOver from "./CustomPopOver";
 import { useDispatch } from "react-redux";
 import { setFullInvoice } from "@/redux/features/invoiceSlice";
 import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
+import { useFetchAllDocuments } from "@/utils/ApiHooks/myCommon";
 
 interface Data {
   id: number;
@@ -320,11 +321,18 @@ export default function AllInvoices() {
     isLoading: deleteInvoiceLoading,
     isSuccess: deleteSuccess,
   } = useDeleteDocument();
+  // const {
+  //   data: invoiceList,
+  //   refetch: refetchInvoiceList,
+  //   isFetching: fetchingInvoiceList,
+  // } = useFetchAllDocument(routePrefix);
+
   const {
     data: invoiceList,
     refetch: refetchInvoiceList,
     isFetching: fetchingInvoiceList,
-  } = useFetchAllDocument(routePrefix);
+  } = useFetchAllDocuments(routePrefix);   // this is written by adil
+
   React.useEffect(() => {
     refetchInvoiceList();
     if (deleteSuccess) {
@@ -343,11 +351,11 @@ export default function AllInvoices() {
   };
   const visibleRows = React.useMemo(
     () =>
-      stableSort(invoiceList.invoices, getComparator(order, orderBy))?.slice(
+      stableSort(invoiceList?.invoices, getComparator(order, orderBy))?.slice(
         (page - 1) * rowsPerPage,
         (page - 1) * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage, invoiceList.invoices]
+    [order, orderBy, page, rowsPerPage, invoiceList?.invoices]
   );
 
   // Delete modal
@@ -365,7 +373,7 @@ export default function AllInvoices() {
     route.push(`/invoices/${id}`);
   };
   const handleEditInvoice = (record: any) => {
-    console.log(record,'record');
+    console.log(record, "record");
     dispatch(
       setFullInvoice({
         id: record?.id,
@@ -432,7 +440,7 @@ export default function AllInvoices() {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={invoiceList.invoices?.length}
+              rowCount={invoiceList?.invoices?.length}
             />
             {fetchingInvoiceList ? (
               <Box
@@ -448,7 +456,7 @@ export default function AllInvoices() {
               </Box>
             ) : (
               <TableBody>
-                {invoiceList.invoices?.map((row: any, index: number) => {
+                {invoiceList?.invoices?.map((row: any, index: number) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
@@ -529,7 +537,7 @@ export default function AllInvoices() {
         </TableContainer>
         <Pagination
           totalRecords={
-            invoiceList.invoices?.length ? invoiceList.invoices?.length : 0
+            invoiceList?.invoices?.length ? invoiceList.invoices?.length : 0
           }
           itemsPerPage={rowsPerPage}
           page={page}
