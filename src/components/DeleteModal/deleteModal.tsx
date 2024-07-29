@@ -59,6 +59,7 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete })
               <Button
                 variant="outlined"
                 sx={{
+                  height:"40px",
                   width: "100%",
                   marginTop: "15px",
                   border: `1px solid #DADCE0`,
@@ -71,6 +72,7 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete })
               <Button
                 variant="contained"
                 sx={{
+                  height:"40px",
                   width: "100%",
                   backgroundColor: "#DD3409",
                   marginTop: "15px",
