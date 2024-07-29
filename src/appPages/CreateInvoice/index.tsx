@@ -3,17 +3,20 @@ import { calculateAmount, calculateTax } from "@/common/common";
 import { InvoiceHeader } from "@/components/InvoiceHeader";
 import { InvoiceSection } from "@/components/InvoiceSection";
 import { InvoiceSettings } from "@/components/InvoiceSettings";
+import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 import {
   getInvoiceItem,
   getDueDate as date,
+  setResetInvoice,
 } from "@/redux/features/invoiceSlice";
 import { Box, Container, Stack } from "@mui/material";
-import { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useEffect,  useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 interface CreateInvoiceProps{
   type:string;
 }
 const CreateInvoice :FC<CreateInvoiceProps> = ({type}) => {
+  const dispatch = useDispatch();
   const allInvoiceItems = useSelector(getInvoiceItem);
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
@@ -29,7 +32,7 @@ const CreateInvoice :FC<CreateInvoiceProps> = ({type}) => {
     total: total,
     taxAmount: taxAmount,
   };
-  return (
+   return (
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
       <Box sx={{ pt: 3, pb: 2 }}>
         <InvoiceHeader
@@ -40,7 +43,7 @@ const CreateInvoice :FC<CreateInvoiceProps> = ({type}) => {
         />
       </Box>
       <Stack direction={"row"} gap={3}>
-        <InvoiceSection InvDetails={invoiceDetail} type={type} /> 
+        <InvoiceSection InvDetails={invoiceDetail} type={type} InvSetting={{...invoiceSetting}} /> 
         <InvoiceSettings InvSetting={{...invoiceSetting}} />
       </Stack>
     </Container>

@@ -17,6 +17,7 @@ interface UploadLogoProps {
 const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   const dispatch = useDispatch();
   const invoiceLogo = useSelector(getInvoiceLogo);
+  // const [image, setImage] = useState(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   // const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -34,14 +35,23 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     const file = event.target.files?.[0];
     if (file) {
       // setSelectedFile(file);
-      dispatch(setInvoiceLogo(URL.createObjectURL(file)));
+      // dispatch(setInvoiceLogo(URL.createObjectURL(file)));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Image = reader.result;
+        // setImage(base64Image);
+        // localStorage.setItem("uploadedImage", base64Image);
+        dispatch(setInvoiceLogo(base64Image as string));
+        console.log("Image stored in localStorage");
+      // localStorage.setItem('logo',(URL.createObjectURL(file)));
     }
+    reader.readAsDataURL(file);
   };
+}
 
   // const handleFileUpload = (file: File) => {
   //   console.log("File uploaded:", file);
   // };
-
   return (
     <>
       {invoiceLogo ? (
@@ -49,7 +59,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
           sx={{ position: "relative", alignItems: "center", display: "flex" }}
         >
           <Image
-            src={imageConvertion(invoiceLogo)}
+            src={imageConvertion(invoiceLogo as string)}
             alt="Selected Logo"
             width={70}
             height={70}

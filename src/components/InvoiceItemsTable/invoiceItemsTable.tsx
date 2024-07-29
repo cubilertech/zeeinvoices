@@ -21,10 +21,12 @@ const InvoiceItemsTable: FC = () => {
   // const [items, setItems] = useState([{ id: 1 }]); // Initialize with one item
   const [itemsCount, setItemsCount] = useState(1);
   const handleAddItem = () => {
-    setItemsCount((pre) => pre + 1);
+    // setItemsCount((pre) => pre + 1);
+    const rowId= Math.floor(Math.random() * 1000)
     dispatch(
       addInvoiceItem({
-        id: itemsCount + 1,
+        // id: itemsCount + 1,
+        id: rowId,
         name: "",
         quantity: 0,
         rate: 0,

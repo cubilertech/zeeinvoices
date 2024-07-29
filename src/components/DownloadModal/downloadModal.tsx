@@ -1,6 +1,7 @@
 "use client";
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
+import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
 
 const style = {
   position: "absolute" as "absolute",
@@ -16,11 +17,20 @@ const style = {
 
 interface DownloadModal {
   onLogin: () => void;
-  onDownload: () => void;
   onClose: () => void;
   open: boolean;
+  InvSetting?: any;
+  InvDetails?: any;
+  summaryDetail?: any;
 }
-const DownloadModal: FC<DownloadModal> = ({ onLogin, onDownload, onClose, open }) => {
+const DownloadModal: FC<DownloadModal> = ({
+  onLogin,
+  onClose,
+  open,
+  InvSetting,
+  InvDetails,
+  summaryDetail,
+}) => {
   return (
     <>
       <Modal
@@ -56,7 +66,25 @@ const DownloadModal: FC<DownloadModal> = ({ onLogin, onDownload, onClose, open }
             </Stack>
 
             <Stack direction={"row"} gap={1.5}>
-              <Button
+              <PdfDownloadLink
+                InvSetting={InvSetting}
+                InvDetails={InvDetails}
+                summaryDetail={summaryDetail}
+              >
+                <Button
+                  variant="outlined"
+                  sx={{
+                    width: "100%",
+                    marginTop: "15px",
+                    border: `1px solid #DADCE0`,
+                    borderRadius: "8px",
+                    color: "#445164",
+                  }}
+                >
+                  Download
+                </Button>
+              </PdfDownloadLink>
+              {/* <Button
                 variant="outlined"
                 sx={{
                   width: "100%",
@@ -68,7 +96,7 @@ const DownloadModal: FC<DownloadModal> = ({ onLogin, onDownload, onClose, open }
                 onClick={onDownload}
               >
                 Download
-              </Button>
+              </Button> */}
               <Button
                 variant="contained"
                 sx={{

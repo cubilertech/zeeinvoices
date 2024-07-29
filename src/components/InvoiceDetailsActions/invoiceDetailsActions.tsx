@@ -8,6 +8,7 @@ import DeleteModal from "../DeleteModal/deleteModal";
 import { useDeleteDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface InvoiceDetailProps {
   InvSetting: any;
@@ -20,6 +21,7 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
   InvDetails,
   summaryDetail,
 }) => {
+  const { data: session } = useSession();
   const route = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { mutateAsync: deleteInvoice, isLoading: deleteInvoiceLoading, isSuccess: deleteSuccess } =
@@ -58,6 +60,7 @@ const handleOpenDeleteModal = () => {
             invSetting={InvSetting}
             invDetails={InvDetails}
             Summary={summaryDetail}
+            user={session?.user}
           />
         }
         fileName="ZeeInvoices"

@@ -42,6 +42,9 @@ const invoiceSetting = createSlice({
       state.dueDate = action.payload.dueDate;
       state.tax = action.payload.tax;
       state.detail = action.payload.detail;
+    },
+    setResetInvoiceSetting:(state)=>{
+      return initialState;
     }
   },
 });
@@ -52,7 +55,7 @@ export const getDueDate = (state: RootState) => state.invoiceSetting.dueDate;
 export const getTax = (state: RootState) => state.invoiceSetting.tax;
 export const getDetails = (state: RootState) => state.invoiceSetting.detail;
 
-export const { setInvoiceColor, setCurrency, setDueDate, setTax, setDetails,setInvoiceSettings } =
+export const { setInvoiceColor, setCurrency, setDueDate, setTax, setDetails,setInvoiceSettings,setResetInvoiceSetting } =
   invoiceSetting.actions;
 
 export default invoiceSetting.reducer;

@@ -9,8 +9,8 @@ import InvoiceDetailsActions from "@/components/InvoiceDetailsActions/invoiceDet
 import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { getInvoiceItem, setFullInvoice } from "@/redux/features/invoiceSlice";
-import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
+import { getInvoiceItem, setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
+import { setInvoiceSettings, setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 import { calculateAmount, calculateTax } from "@/common/common";
 
 const InvoiceDetail = () => {
@@ -32,13 +32,18 @@ const InvoiceDetail = () => {
     total: total,
     taxAmount: taxAmount,
   };
-
-
   const {
     data: singleInvoice,
     refetch: refetchSingleInvoice,
     isFetching: refetchingSingleInvoice,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
+
+useEffect(()=>{
+  return ()=>{
+    dispatch(setResetInvoiceSetting())
+    dispatch(setResetInvoice())
+  }
+},[dispatch])
 
   useEffect(() => {
     refetchSingleInvoice();
@@ -94,7 +99,7 @@ const InvoiceDetail = () => {
           <IconButton sx={{ padding: 1 }}>
             <Icon icon="editIcon" width={20} height={20} />
           </IconButton>
-          <IconButton sx={{ padding: 1 }} onClick={()=>router.push('/preview')}>
+          <IconButton sx={{ padding: 1 }} onClick={()=>router.push(`/preview/${invoiceDetail?.id}`)}>
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton>
           <IconButton sx={{ padding: 1 }}>

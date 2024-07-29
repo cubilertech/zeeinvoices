@@ -5,12 +5,14 @@ import { palette } from "@/theme/palette";
 import DeleteModal from "../DeleteModal/deleteModal";
 import { useDeleteDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
+import { Route } from "@mui/icons-material";
 
 interface CustomPopOverProps {
   record: any; // Assuming id is of type number
   handleViewInvoice: (id: number) => void;
   handleOpenDeleteModal: (id: number) => void;
   handleEditInvoice: (id: number) => void;
+  handleShareInvoice: (id: number) => void;
 }
 
 const CustomPopOver: React.FC<CustomPopOverProps> = ({
@@ -18,6 +20,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   handleViewInvoice,
   handleOpenDeleteModal,
   handleEditInvoice,
+  handleShareInvoice
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleClose = () => {
@@ -83,6 +86,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             Edit
           </Button>
           <Button
+          onClick={()=> handleShareInvoice(record)}
             variant="outlined"
             startIcon={<Icon icon="sendSqaureIcon" />}
             sx={{

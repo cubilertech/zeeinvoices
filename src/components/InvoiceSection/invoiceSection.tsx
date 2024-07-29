@@ -1,6 +1,6 @@
 "use client";
 import { Box, Grid, IconButton, Stack, TextField } from "@mui/material";
-import { FC, ChangeEvent } from "react";
+import { FC, ChangeEvent, useRef } from "react";
 import { UploadLogo } from "../UploadLogo";
 import { SelectInput } from "../SelectInput";
 import { palette } from "@/theme/palette";
@@ -19,15 +19,19 @@ import {
 import { getDueDate } from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
 import DetailSelecter from "../detailSelecter/detailSelecter";
+import ReactToPrint from "react-to-print";
+import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 
 interface InvoiceSectionProps {
   InvDetails: any;
   type: any;
+  InvSetting:any;
 }
 
-const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type }) => {
+const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const componentRef = useRef();
   const selectedColor = useSelectedColor();
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
@@ -81,12 +85,29 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type }) => {
             >
               <Icon icon="sendSqaureIcon" width={20} height={20} />
             </IconButton>
-            <IconButton sx={{ padding: 1 }}>
-              <Icon icon="printIconIcon" width={20} height={20} />
-            </IconButton>
+            <Box>
+              <Box style={{display:'none'}}>
+              <Box ref={componentRef}>
+                <InvoiceDetailsSection singleInvoice={{...InvDetails}} invoiceSetting={{...InvSetting}} />
+              </Box>
+              </Box>              
+              <ReactToPrint
+                trigger={() => (
+                  <IconButton
+                    sx={{ padding: 1,opacity: showPreview ? 0.4 : 1 }}
+                    disabled={showPreview}
+                    onClick={() => window.print()}
+                  >
+                    <Icon icon="printIconIcon" width={20} height={20} />
+                  </IconButton>
+                )}
+                content={() => componentRef.current ? componentRef.current : null}
+              />
+            </Box>
           </Stack>
         </Box>
       </Stack>
+
       {/* Second section Detail selecters */}
       <Stack
         direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
