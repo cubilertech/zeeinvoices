@@ -43,12 +43,14 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         }}
         sx={{ borderRadius: "8px", transform: "translateX(-35px)" }}
       >
-        <Stack direction={"column"} sx={{ alignItems: "start" }}>
+        <Stack direction={"column"} sx={{ display:"flex",  alignItems: "start" }}>
           <Button
             onClick={() => handleViewInvoice(record.id)}
             variant="outlined"
             startIcon={<Icon icon="viewIcon" />}
             sx={{
+              justifyContent: "start",
+              width:"100%",
               border: "none",
               color: "#4B5563",
               "&:hover": {
@@ -66,7 +68,9 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             variant="outlined"
             startIcon={<Icon icon="editIcon" />}
             sx={{
+              width:"100%",
               border: "none",
+              justifyContent: "start",
               color: "#4B5563",
               "&:hover": {
                 border: "none",
@@ -82,7 +86,9 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             variant="outlined"
             startIcon={<Icon icon="sendSqaureIcon" />}
             sx={{
+              width:"100%",
               border: "none",
+              justifyContent: "start",
               color: "#4B5563",
               "&:hover": {
                 border: "none",
@@ -98,7 +104,9 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             variant="outlined"
             startIcon={<Icon icon="printIconIcon" />}
             sx={{
+              width:"100%",
               border: "none",
+              justifyContent: "start",
               color: "#4B5563",
               "&:hover": {
                 border: "none",
@@ -114,7 +122,9 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             variant="outlined"
             startIcon={<Icon icon="deleteIcon" />}
             sx={{
+              width:"100%",
               border: "none",
+              justifyContent: "start",
               color: "#4B5563",
               "&:hover": {
                 border: "none",

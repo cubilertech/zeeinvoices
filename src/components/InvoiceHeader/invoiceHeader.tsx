@@ -179,10 +179,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           </PDFDownloadLink>
         ) : (
           <Button
-            variant="outlined"
+            variant="contained"
             disabled={true}
             sx={{
-              // background: "#2C359D !important",
+              background: "#36C2CE !important",
               color: "#fff",
               width: "138px",
               px:'12px !important'
