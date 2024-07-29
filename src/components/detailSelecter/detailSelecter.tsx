@@ -1,4 +1,3 @@
-"use client";
 import {
   Backdrop,
   Box,
@@ -22,8 +21,12 @@ import {
   setRecipientDetail,
   setSenderDetail,
 } from "../../redux/features/invoiceSlice";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import "./style.css";
+import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -53,6 +56,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
   handleSubmitForm,
   type,
 }) => {
+  const [phone, setPhone] = useState("");
   const dispatch = useDispatch();
   const senderData = useSelector(getSenderDetail);
   const recipientData = useSelector(getRecipientDetail);
@@ -63,18 +67,46 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
   const [detailsEntered, setDetailsEntered] = useState(false); // for modal details
   const initialValues = {
-    name: InvDetails?.name,
-    companyName: InvDetails?.companyName,
-    email: InvDetails?.email,
-    phoneNumber: InvDetails?.phoneNumber,
-    city: InvDetails?.city,
-    state: InvDetails?.state,
-    address: InvDetails?.address,
+    name: InvDetails?.name || "",
+    companyName: InvDetails?.companyName || "",
+    email: InvDetails?.email || "",
+    phoneNumber: InvDetails?.phoneNumber || "",
+    city: InvDetails?.city || "",
+    state: InvDetails?.state || "",
+    address: InvDetails?.address || "",
+    countryCode: 'PK',
   };
+
+  interface FormErrors {
+    name?: string;
+    companyName?: string;
+    email?: string;
+    phoneNumber?: string;
+    city?: string;
+    state?: string;
+    address?: string;
+  }
+
   const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
     useFormik({
       initialValues: initialValues,
       validationSchema: validationSchema,
+
+      validate: values => {
+        const errors: FormErrors = {}; // Use FormErrors type here
+    
+        // Validate other fields
+        // ...
+    
+        // Validate phone number
+        const phoneError = validatePhoneNumber(values.phoneNumber, values.countryCode);
+        if (phoneError) {
+          errors.phoneNumber = phoneError;
+        }
+    
+        return errors;
+      },
+
       onSubmit: (values) => {
         handleCloseBd();
         console.log(values);
@@ -94,6 +126,30 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const [openBd, setOpenBd] = React.useState(false);
   const handleCloseBd = () => {
     setOpenBd(false);
+  };
+
+  function isString(value: any): value is string {
+    return typeof value === "string";
+  }
+
+  const validatePhoneNumber = (phoneNumber: string, countryCode: string): string => {
+    // Ensure countryCode is a valid CountryCode
+    const validCountryCode: CountryCode = countryCode as CountryCode;
+  
+    if (!phoneNumber) {
+      return 'Phone number is required';
+    }
+  
+    const phoneNumberInstance = parsePhoneNumberFromString(phoneNumber, validCountryCode);
+    if (!phoneNumberInstance) {
+      return 'Invalid phone number';
+    }
+  
+    if (!phoneNumberInstance.isValid()) {
+      return 'Invalid phone number';
+    }
+  
+    return '';
   };
 
   return (
@@ -260,7 +316,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               left: "50%",
               transform: "translate(-50%, -50%)",
               width: "566px",
-              height: "524px",
+              height: "auto",
               bgcolor: palette.base.white,
               // border: "2px solid #000",
               boxShadow: 1,
@@ -270,7 +326,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="text-lg-semibold">
-                {type === "add" ? "Add" : "Edit"} {detailsOf} Details
+                {type === "add" ? "Add" : "Edit"}{" "}
+                {detailsOf === "Recipient" ? "Receiver" : detailsOf} Details
               </Typography>
               <IconButton onClick={handleModelClose}>
                 <CloseIcon
@@ -286,7 +343,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               <Stack
                 direction={"row"}
                 justifyContent={"space-between"}
-                sx={{ marginTop: "20px" }}
+                sx={{ marginTop: "10px" }}
               >
                 <FormControl sx={{ width: "240px" }}>
                   <TextField
@@ -318,7 +375,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               <Stack
                 direction={"row"}
                 justifyContent={"space-between"}
-                sx={{ marginTop: "20px" }}
+                sx={{ marginTop: "10px" }}
               >
                 <FormControl sx={{ width: "240px" }}>
                   <TextField
@@ -334,23 +391,42 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   ></TextField>
                 </FormControl>
                 <FormControl sx={{ width: "240px" }}>
-                  <TextField
-                    label="Phone number"
-                    size="large"
+                  <Typography
+                    variant="text-sm-medium"
+                    sx={{ marginBottom: "5px" }}
+                  >
+                    Phone
+                  </Typography>
+                  <PhoneInput
                     name="phoneNumber"
-                    onChange={handleChange}
-                    value={values.phoneNumber as string}
-                    sx={{ width: "240px" }}
-                    helperText={touched.phoneNumber && errors.phoneNumber}
-                    onBlur={handleBlur}
-                    error={touched.phoneNumber && Boolean(errors.phoneNumber)}
-                  ></TextField>
+                    className="custom-phone-input"
+                    defaultCountry="pk"
+                    value={values.phoneNumber || ""}
+                    onChange={(value) => {
+                      handleChange({
+                        target: {
+                          name: "phoneNumber",
+                          value: value,
+                        },
+                      });
+                    }}
+                    onBlur={() =>
+                      handleBlur({ target: { name: "phoneNumber" } })
+                    }
+                  />
+                  {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                    <Typography color="error" variant="text-xs-regular" sx={{marginTop:"5px", marginLeft:"15px"}}>
+                      {isString(errors.phoneNumber)
+                        ? errors.phoneNumber
+                        : "Invalid phone number"}
+                    </Typography>
+                  )}
                 </FormControl>
               </Stack>
               <Stack
                 direction={"row"}
                 justifyContent={"space-between"}
-                sx={{ marginTop: "20px" }}
+                sx={{ marginTop: "10px" }}
               >
                 <FormControl sx={{ width: "240px" }}>
                   <TextField
@@ -379,7 +455,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   ></TextField>
                 </FormControl>
               </Stack>
-              <Box sx={{ marginTop: "20px" }}>
+              <Box sx={{ marginTop: "10px" }}>
                 <FormControl fullWidth>
                   <TextField
                     label="Address"
@@ -394,123 +470,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   ></TextField>
                 </FormControl>
               </Box>
-              {/* <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              spacing={2}
-              sx={{ marginTop: "20px" }}
-            >
-              <Button
-                onClick={handleModelClose}
-                variant="outlined"
-                sx={{ width: "243px", borderColor: palette.base.borderColor, color:"#445164"}}
-              >
-                <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
-                  <TextField
-                    label="Name"
-                    size="large"
-                    name="name"
-                    value={values.name}
-                    onChange={handleChange}
-                    sx={{ width: "240px" }}
-                  />
-                  {errors.name && (
-                    <Box sx={{ color: "#D33131" }}>{errors.name}</Box>
-                  )}
-                </FormControl>
-                <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
-                  <TextField
-                    label="Company Name"
-                    size="large"
-                    name="companyName"
-                    onChange={handleChange}
-                    value={values.companyName}
-                    sx={{ width: "240px" }}
-                  ></TextField>
-                  {errors.companyName && (
-                    <Box sx={{ color: "#D33131" }}>{errors.companyName}</Box>
-                  )}
-                </FormControl>
-              </Stack>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                sx={{ marginTop: "20px" }}
-              >
-                <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
-                  <TextField
-                    label="Email"
-                    size="large"
-                    name="email"
-                    onChange={handleChange}
-                    value={values.email}
-                    sx={{ width: "240px" }}
-                  ></TextField>
-                  {errors.email && (
-                    <Box sx={{ color: "#D33131" }}>{errors.email}</Box>
-                  )}
-                </FormControl>
-                <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
-                  <TextField
-                    label="Phone number"
-                    size="large"
-                    name="phoneNumber"
-                    onChange={handleChange}
-                    value={values.phoneNumber as string}
-                    sx={{ width: "240px" }}
-                  ></TextField>
-                  {errors.phoneNumber && (
-                    <Box sx={{ color: "#D33131" }}>{errors.phoneNumber}</Box>
-                  )}
-                </FormControl>
-              </Stack>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                sx={{ marginTop: "20px" }}
-              >
-                <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
-                  <TextField
-                    label="City"
-                    size="large"
-                    name="city"
-                    onChange={handleChange}
-                    value={values.city}
-                    sx={{ width: "240px" }}
-                  ></TextField>
-                  {errors.city && (
-                    <Box sx={{ color: "#D33131" }}>{errors.city}</Box>
-                  )}
-                </FormControl>
-                <FormControl sx={{ width: "240px" }} onBlur={handleBlur}>
-                  <TextField
-                    label="State"
-                    size="large"
-                    name="state"
-                    onChange={handleChange}
-                    value={values.state}
-                    sx={{ width: "240px" }}
-                  ></TextField>
-                  {errors.state && (
-                    <Box sx={{ color: "#D33131" }}>{errors.state}</Box>
-                  )}
-                </FormControl>
-              </Stack>
-              <Box sx={{ marginTop: "20px" }}>
-                <FormControl fullWidth onBlur={handleBlur}>
-                  <TextField
-                    label="Address"
-                    size="large"
-                    name="address"
-                    onChange={handleChange}
-                    value={values.address}
-                    sx={{ width: "100%" }}
-                  ></TextField>
-                  {errors.address && (
-                    <Box sx={{ color: "#D33131" }}>{errors.address}</Box>
-                  )}
-                </FormControl>
-              </Box> */}
+
               <Stack
                 direction={"row"}
                 justifyContent={"space-between"}

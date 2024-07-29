@@ -1,0 +1,29 @@
+.custom-phone-input .react-international-phone {
+    height: 48px; /* Set the desired height */
+  }
+  
+  .custom-phone-input .react-international-phone__input,
+  .custom-phone-input .react-international-phone__country {
+    height: 48px; /* Match the height for the input and country code selection */
+    line-height: 48px; /* Ensure the text is vertically centered */
+  }
+  
+  .react-international-phone-country-selector-button {
+    height: 48px;
+  }
+
+  .react-international-phone-input-container .react-international-phone-input {
+    height: 48px;
+  }
+
+  .react-international-phone-input-container .react-international-phone-country-selector-button {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    border-color: #D6DAE1;
+  }
+
+  .react-international-phone-input-container .react-international-phone-input {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    border-color: #D6DAE1;
+  }

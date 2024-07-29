@@ -7,19 +7,27 @@ import {
   Container,
   Popover,
   Stack,
-  } from "@mui/material";
+  Typography,
+} from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import CustomButton from "./CustomButton";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = () => {
   const route = useRouter();
+  const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
-
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleLogin = () => {
+    signIn("google", { callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}/invoices` });
+  };
+  const handleLogout = () => {
+    signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` });
   };
 
   const handleClose = () => {
@@ -37,7 +45,6 @@ const Header = () => {
         left: 0,
         background: palette.base.white,
         py: "7px",
-        // boxShadow: "none",
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
       }}
     >
@@ -53,11 +60,29 @@ const Header = () => {
             alignItems: "center",
           }}
         >
-         <Box onClick={()=>route.push('/')} sx={{cursor:'pointer'}}><Icon icon="logo" height={24} width={175} /></Box> 
-          <CustomButton/>
+          <Box onClick={() => route.push("/")} sx={{ cursor: "pointer" }}>
+            <Icon icon="logo" height={24} width={175} />
+          </Box>
+        {session && <CustomButton />}  
         </Stack>
-
         <Stack direction={"row"} gap={3}>
+         
+          {!session ? (
+            <>
+              <Button
+                onClick={handleLogin}
+                variant="contained"
+                sx={{ px: "20px", py: "8px" }}
+              >
+                Login
+              </Button>
+            </>
+          ) : (
+            <>
+              <Typography sx={{ color: "black", alignSelf: "center" }}>
+                Hi, {session.user?.name}
+              </Typography>
+              <Box>
           <Stack
             direction={"row"}
             gap={1}
@@ -65,13 +90,8 @@ const Header = () => {
             onClick={handleClick}
           >
             <Avatar alt="Avatar" src="/Images/user-image.png" />
-            {/* <IconButton
-              sx={{ padding: 1, width: "5px", height: "5px", borderRadius: 5 }}
-            > */}
             <Icon icon="arrowDownIcon" width={15} height={15} />
-            {/* </IconButton> */}
           </Stack>
-
           <Popover
             id={id}
             open={open}
@@ -102,6 +122,7 @@ const Header = () => {
               </Button>
               <Button
                 variant="outlined"
+                onClick={handleLogout}
                 startIcon={<Icon icon="logoutIcon" />}
                 sx={{
                   border: "none",
@@ -118,10 +139,16 @@ const Header = () => {
               </Button>
             </Stack>
           </Popover>
-
-          <Button variant="contained" sx={{ px:"20px", py:"8px" }}>
-            Login
-          </Button>
+          </Box>
+              {/* <Button
+                onClick={handleLogout}
+                variant="contained"
+                sx={{ px: "20px", py: "8px" }}
+              >
+                Sign out
+              </Button> */}
+            </>
+          )}
         </Stack>
       </Container>
     </AppBar>

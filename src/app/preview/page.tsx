@@ -35,7 +35,12 @@ const Preview = () => {
 
   return (
     <PDFViewer
-      style={{ width: "100%", height: "76vh", marginTop: "50px" }}
+      style={{
+        width: "100%",
+        height: "90vh",
+        // overflow: "hidden",
+        marginTop: "55px",
+      }}
       showToolbar={false}
     >
       <PdfView
