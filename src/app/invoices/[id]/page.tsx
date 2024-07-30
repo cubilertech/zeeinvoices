@@ -9,9 +9,17 @@ import InvoiceDetailsActions from "@/components/InvoiceDetailsActions/invoiceDet
 import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { getInvoiceItem, setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
-import { setInvoiceSettings, setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import {
+  getInvoiceItem,
+  setFullInvoice,
+  setResetInvoice,
+} from "@/redux/features/invoiceSlice";
+import {
+  setInvoiceSettings,
+  setResetInvoiceSetting,
+} from "@/redux/features/invoiceSetting";
 import { calculateAmount, calculateTax } from "@/common/common";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const InvoiceDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,12 +46,12 @@ const InvoiceDetail = () => {
     isFetching: refetchingSingleInvoice,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
-useEffect(()=>{
-  return ()=>{
-    dispatch(setResetInvoiceSetting())
-    dispatch(setResetInvoice())
-  }
-},[dispatch])
+  useEffect(() => {
+    return () => {
+      dispatch(setResetInvoiceSetting());
+      dispatch(setResetInvoice());
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     refetchSingleInvoice();
@@ -71,7 +79,7 @@ useEffect(()=>{
         })
       );
     }
-  }, [refetchSingleInvoice,singleInvoice,dispatch]);
+  }, [refetchSingleInvoice, singleInvoice, dispatch]);
 
   console.log(singleInvoice, "dataaa");
 
@@ -86,6 +94,9 @@ useEffect(()=>{
           direction={"row"}
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
+          <IconButton sx={{ padding: 1, marginRight:"10px" }}>
+            <ArrowBackIosNewIcon />
+          </IconButton>
           <Typography variant="display-xs-medium">Invoices/</Typography>
           <Typography
             variant="display-xs-medium"
@@ -99,7 +110,10 @@ useEffect(()=>{
           <IconButton sx={{ padding: 1 }}>
             <Icon icon="editIcon" width={20} height={20} />
           </IconButton>
-          <IconButton sx={{ padding: 1 }} onClick={()=>router.push(`/preview/${invoiceDetail?.id}`)}>
+          <IconButton
+            sx={{ padding: 1 }}
+            onClick={() => router.push(`/preview/${invoiceDetail?.id}`)}
+          >
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton>
           <IconButton sx={{ padding: 1 }}>
@@ -109,10 +123,13 @@ useEffect(()=>{
       </Stack>
 
       <Stack direction={"row"} gap={3}>
-        <InvoiceDetailsSection singleInvoice={{...invoiceDetail}} invoiceSetting={{...invoiceSettings}} />
+        <InvoiceDetailsSection
+          singleInvoice={{ ...invoiceDetail }}
+          invoiceSetting={{ ...invoiceSettings }}
+        />
         <InvoiceDetailsActions
-          InvSetting={{...invoiceSettings}}
-          InvDetails={{...invoiceDetail}}
+          InvSetting={{ ...invoiceSettings }}
+          InvDetails={{ ...invoiceDetail }}
           summaryDetail={summaryDetail}
         />
       </Stack>

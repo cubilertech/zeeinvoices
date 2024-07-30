@@ -1,7 +1,7 @@
 "use client";
 import PdfView from "@/appPages/PdfView/pdfView";
 import { palette } from "@/theme/palette";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Tooltip } from "@mui/material";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import React, { FC, useState } from "react";
 import DeleteModal from "../DeleteModal/deleteModal";
@@ -24,8 +24,11 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
   const { data: session } = useSession();
   const route = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { mutateAsync: deleteInvoice, isLoading: deleteInvoiceLoading, isSuccess: deleteSuccess } =
-  useDeleteDocument();
+  const {
+    mutateAsync: deleteInvoice,
+    isLoading: deleteInvoiceLoading,
+    isSuccess: deleteSuccess,
+  } = useDeleteDocument();
   const handleDelete = () => {
     setIsModalOpen(false);
   };
@@ -34,13 +37,15 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
     setIsModalOpen(false);
   };
   const invoiceDelete = async () => {
-    await deleteInvoice({ apiRoute: `${backendURL}/invoices/${InvDetails.id}` }).then((res)=>{
-      route.push('/invoices');
-     });
-};
-const handleOpenDeleteModal = () => {
-  setIsModalOpen(true);
-}
+    await deleteInvoice({
+      apiRoute: `${backendURL}/invoices/${InvDetails.id}`,
+    }).then((res) => {
+      route.push("/invoices");
+    });
+  };
+  const handleOpenDeleteModal = () => {
+    setIsModalOpen(true);
+  };
   return (
     <Box
       borderRadius={3}
@@ -68,39 +73,44 @@ const handleOpenDeleteModal = () => {
         {({ loading }) =>
           loading ? (
             <Button variant="contained" sx={{ width: "100%" }}>
-            Loading PDF....
-          </Button>
-          ) : (
-            <Button variant="contained" sx={{ width: "100%" }}>
-              Download PDF
+              Loading PDF....
             </Button>
+          ) : (
+            <Tooltip title="Download PDF">
+              <Button variant="contained" sx={{ width: "100%" }}>
+                Download PDF
+              </Button>
+            </Tooltip>
           )
         }
       </PDFDownloadLink>
 
-      <Button variant="outlined" sx={{ width: "100%", marginTop: "15px" }}>
+      {/* <Button variant="outlined" sx={{ width: "100%", marginTop: "15px" }}>
         Save
-      </Button>
-      <Button
-      onClick={()=>handleOpenDeleteModal()}
-        variant="contained"
-        sx={{
-          width: "100%",
-          backgroundColor: "#DD3409",
-          marginTop: "15px",
-          "&:hover": {
-            backgroundColor: "#BB3409",
-          },
-        }}
-      >
-        Delete
-      </Button>
+      </Button> */}
+
+      <Tooltip title="Delete invoice">
+        <Button
+          onClick={() => handleOpenDeleteModal()}
+          variant="contained"
+          sx={{
+            width: "100%",
+            backgroundColor: "#DD3409",
+            marginTop: "15px",
+            "&:hover": {
+              backgroundColor: "#BB3409",
+            },
+          }}
+        >
+          Delete
+        </Button>
+      </Tooltip>
       <DeleteModal
-          open={isModalOpen}
-          onDelete={handleDelete}
-          onClose={handleDeleteModalClose}
-          invoiceDelete={invoiceDelete}
-        />
+        open={isModalOpen}
+        onDelete={handleDelete}
+        onClose={handleDeleteModalClose}
+        invoiceDelete={invoiceDelete}
+      />
     </Box>
   );
 };

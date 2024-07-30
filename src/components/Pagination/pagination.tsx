@@ -53,24 +53,24 @@ const Pagination: FC<Pagination> = ({
   const pageNumbersToShow = getPageNumbersToShow();
 
   const handlePreviousPage = () => {
-    setPage((prevPage:any) => Math.max(prevPage - 1, 1));
+    setPage((prevPage: any) => Math.max(prevPage - 1, 1));
   };
 
   const handleNextPage = () => {
-    setPage((prevPage:any) => Math.min(prevPage + 1, totalPages));
+    setPage((prevPage: any) => Math.min(prevPage + 1, totalPages));
   };
 
-    const handleSetPageNumber = (pageNumber:any) => {
-     if(pageNumber !== placeHolder){
+  const handleSetPageNumber = (pageNumber: any) => {
+    if (pageNumber !== placeHolder) {
       setPage(pageNumber);
-     }
     }
+  };
   console.log(pageNumbersToShow, "page", totalPages, page);
   return (
     <Box
       sx={{
         width: "100%",
-        marginBottom:"10px",
+        marginBottom: "10px",
         border: `1px solid ${palette.border.invoicesBorderColor}`,
         display: "flex",
         justifyContent: "space-between",
@@ -99,7 +99,13 @@ const Pagination: FC<Pagination> = ({
         onClick={handlePreviousPage}
         disabled={page === 1}
       >
-        <ArrowBack sx={{ color: "#344054", fontSize: 20, mr: 1 }} />
+        {page === 1 ? (
+          <ArrowBack
+            sx={{ color: "#344054", opacity: "0.3", fontSize: 20, mr: 1 }}
+          />
+        ) : (
+          <ArrowBack sx={{ color: "#344054", fontSize: 20, mr: 1 }} />
+        )}
         {isMobile ? "" : "Previous"}
       </Button>
       <Box sx={{ display: "flex", gap: isMobile ? "5px" : 2 }}>
@@ -144,7 +150,13 @@ const Pagination: FC<Pagination> = ({
         disabled={totalPages === page ? true : false}
       >
         {isMobile ? "" : "Next"}
-        <ArrowForward sx={{ color: "#344054", fontSize: 20, ml: 1 }} />
+        {totalPages === page ? (
+          <ArrowForward
+            sx={{ color: "#344054", opacity: "0.3", fontSize: 20, ml: 1 }}
+          />
+        ) : (
+          <ArrowForward sx={{ color: "#344054", fontSize: 20, ml: 1 }} />
+        )}
       </Button>
     </Box>
   );

@@ -24,6 +24,7 @@ import {
   Popover,
   Stack,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { Icon } from "../Icon";
 import { Pagination } from "../Pagination";
@@ -38,7 +39,11 @@ import DeleteModal from "../DeleteModal/deleteModal";
 import CustomPopOver from "./CustomPopOver";
 import { useDispatch } from "react-redux";
 import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
-import { setInvoiceSettings, setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import {
+  setInvoiceSettings,
+  setResetInvoiceSetting,
+} from "@/redux/features/invoiceSetting";
+import ShareModal from "../ShareModal/shareModal";
 
 interface Data {
   id: number;
@@ -155,11 +160,9 @@ const headCells: readonly HeadCell[] = [
     id: "action",
     numeric: true,
     disablePadding: false,
-    label: " ",
+    label: "Actions",
   },
 ];
-
-
 
 interface EnhancedTableProps {
   numSelected: number;
@@ -222,11 +225,11 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   const { numSelected } = props;
   const route = useRouter();
   const dispatch = useDispatch();
-  const handleCreate =()=>{
+  const handleCreate = () => {
     dispatch(setResetInvoiceSetting());
     dispatch(setResetInvoice());
-    route.push("/")
-  }
+    route.push("/");
+  };
 
   return (
     <Toolbar
@@ -290,7 +293,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         />
       </Stack>
       <Stack direction={"row"} gap={1} sx={{ marginLeft: "50px" }}>
-        <Button
+        {/* <Button
           variant="outlined"
           startIcon={<Icon icon="filterIcon" width={15} />}
           sx={{
@@ -301,15 +304,17 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           }}
         >
           Filter
-        </Button>
-        <Button
-          variant="contained"
-          onClick={handleCreate}
-          endIcon={<Icon icon="plusIcon" width={15} />}
-          sx={{ height: `36px`, width: "140px" }}
-        >
-          Create New
-        </Button>
+        </Button> */}
+        <Tooltip title="Create a new invoice">
+          <Button
+            variant="contained"
+            onClick={handleCreate}
+            endIcon={<Icon icon="plusIcon" width={15} />}
+            sx={{ height: `36px`, width: "140px" }}
+          >
+            Create New
+          </Button>
+        </Tooltip>
       </Stack>
     </Toolbar>
   );
@@ -374,7 +379,7 @@ export default function AllInvoices() {
     route.push(`/invoices/${id}`);
   };
   const handleEditInvoice = (record: any) => {
-    console.log(record,'record');
+    console.log(record, "record");
     dispatch(
       setFullInvoice({
         id: record?.id,
@@ -399,7 +404,7 @@ export default function AllInvoices() {
     );
     route.push(`/invoices/${record.id}/edit`);
   };
-  const handleShareInvoice = (record: any) => {   
+  const handleShareInvoice = (record: any) => {
     route.push(`/preview/${record.id}`);
   };
   const handleOpenDeleteModal = (id: number) => {
@@ -530,7 +535,7 @@ export default function AllInvoices() {
                           record={row}
                           handleViewInvoice={handleViewInvoice}
                           handleEditInvoice={handleEditInvoice}
-                          handleShareInvoice={handleShareInvoice}                          
+                          handleShareInvoice={handleShareInvoice}
                         />
                       </TableCell>
                     </TableRow>
