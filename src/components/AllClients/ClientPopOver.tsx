@@ -14,7 +14,7 @@ interface CustomPopOverProps {
   componentRef: any;
 }
 
-const CustomPopOver: React.FC<CustomPopOverProps> = ({
+const ClientPopOver: React.FC<CustomPopOverProps> = ({
   record,
   handleViewInvoice,
   handleOpenDeleteModal,
@@ -131,30 +131,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             )}
             content={() => (componentRef.current ? componentRef.current : null)}
             onBeforeGetContent={() => handlePrintInvoice(record)}
-          /> 
-          {/* <Button
-              // onClick={()=>handlePrintInvoice(record)}
-            variant="outlined"
-            startIcon={<Icon icon="printIconIcon" />}
-            sx={{
-              width:"100%",
-              border: "none",
-              justifyContent: "start",
-              color: "#4B5563",
-              "&:hover": {
-                border: "none",
-                color: "#4B5563",
-                backgroundColor: palette.color.gray[10],
-                borderRadius: 0,
-              },
-            }}
-          >
-            Print
-          </Button>
-          <ReactToPrint
-            trigger={()=><span></span>} 
-            content={() => (componentRef.current ? componentRef.current : null)}
-            onBeforeGetContent={() => handlePrintInvoice(record)} /> */}
+          />
           <Button
             variant="outlined"
             startIcon={<Icon icon="deleteIcon" />}
@@ -180,4 +157,4 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   );
 };
 
-export default CustomPopOver;
+export default ClientPopOver;
