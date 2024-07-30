@@ -3,14 +3,14 @@ import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Box, Button, useMediaQuery } from "@mui/material";
 import { FC } from "react";
 
-interface Pagination {
+interface PaginationProps {
   totalRecords: number;
   itemsPerPage: number;
   page: number;
-  setPage: any;
+  setPage: (page: number) => void;
 }
 
-const Pagination: FC<Pagination> = ({
+const Pagination: FC<PaginationProps> = ({
   totalRecords,
   itemsPerPage,
   page = 1,
@@ -20,6 +20,7 @@ const Pagination: FC<Pagination> = ({
   const totalPages = Math.ceil(totalRecords / itemsPerPage);
   const MAX_PAGES_DISPLAYED = isMobile ? 3 : 5; // Display fewer pages on mobile
   const placeHolder = "...";
+
   const getPageNumbersToShow = () => {
     if (totalPages <= MAX_PAGES_DISPLAYED) {
       return Array.from({ length: totalPages }, (_, index) => index + 1);
@@ -53,19 +54,19 @@ const Pagination: FC<Pagination> = ({
   const pageNumbersToShow = getPageNumbersToShow();
 
   const handlePreviousPage = () => {
-    setPage((prevPage: any) => Math.max(prevPage - 1, 1));
+    setPage(Math.max(page - 1, 1));
   };
 
   const handleNextPage = () => {
-    setPage((prevPage: any) => Math.min(prevPage + 1, totalPages));
+    setPage(Math.min(page + 1, totalPages));
   };
 
-  const handleSetPageNumber = (pageNumber: any) => {
+  const handleSetPageNumber = (pageNumber: number | string) => {
     if (pageNumber !== placeHolder) {
-      setPage(pageNumber);
+      setPage(Number(pageNumber));
     }
   };
-  console.log(pageNumbersToShow, "page", totalPages, page);
+
   return (
     <Box
       sx={{
@@ -151,7 +152,7 @@ const Pagination: FC<Pagination> = ({
           },
         }}
         onClick={handleNextPage}
-        disabled={totalPages === page ? true : false}
+        disabled={totalPages === page}
       >
         {isMobile ? "" : "Next"}
         {totalPages === page ? (

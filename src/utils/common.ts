@@ -41,3 +41,13 @@ export const base64ToFile = (base64String : any, filename:any) => {
 
   return new File([u8arr], filename, { type: mime });
 };
+
+export const debounce = (func:any, delay:any) => {
+  let timeout:any;
+  return (...args:any) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};

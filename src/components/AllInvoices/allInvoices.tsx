@@ -45,6 +45,7 @@ import {
 } from "@/redux/features/invoiceSetting";
 import ShareModal from "../ShareModal/shareModal";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
+import { debounce } from "@/utils/common";
 
 interface Data {
   id: number;
@@ -220,10 +221,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
+  search: any;
+  handleChangeSearch: any;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
+  const { numSelected, search, handleChangeSearch } = props;
   const route = useRouter();
   const dispatch = useDispatch();
   const handleCreate = () => {
@@ -278,6 +281,8 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         <TextField
           variant="standard"
           placeholder="Search"
+          value={search}
+          onChange={(e) => handleChangeSearch(e)}
           sx={{
             border: "none",
             textUnderlinePosition: "unset",
@@ -326,13 +331,16 @@ export default function AllInvoices() {
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
   const componentRef = React.useRef();
-  const routePrefix = `${backendURL}/invoices`;
+  const apiRoute = `${backendURL}/invoices`;
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(1);
-  const [dense, setDense] = React.useState(false);
+  const [search, setSearch] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [shareModel, setShareModel] = React.useState(false);
+  const [shareUrl,setShareUrl] = React.useState(0);
+
   const {
     mutate: deleteInvoice,
     isLoading: deleteInvoiceLoading,
@@ -342,14 +350,36 @@ export default function AllInvoices() {
     data: invoiceList,
     refetch: refetchInvoiceList,
     isFetching: fetchingInvoiceList,
-  } = useFetchAllDocument(routePrefix);
+  } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   React.useEffect(() => {
     refetchInvoiceList();
     if (deleteSuccess) {
       setIsModalOpen(false);
     }
-  }, [refetchInvoiceList, deleteSuccess]);
-  console.log(invoiceList, fetchingInvoiceList, "data");
+  }, [refetchInvoiceList, deleteSuccess, page]);
+  const debouncedRefetch = React.useCallback(
+    debounce(() => {
+      if (page === 1) {
+        refetchInvoiceList();
+      } else {
+        setPage(1);
+      }
+    }, 500),
+    [search]
+  );
+  const handleChangeSearch = (e: any) => {
+    setSearch(e.target.value);
+    debouncedRefetch();
+  };
+  const filteredData = React.useMemo(() => {
+    if (invoiceList && invoiceList?.invoices?.length) {
+      return invoiceList?.invoices;
+    } else {
+      return [];
+    }
+  }, [invoiceList, search]);
+
+  // console.log(invoiceList, fetchingInvoiceList, "setPage",setPage);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -361,11 +391,11 @@ export default function AllInvoices() {
   };
   const visibleRows = React.useMemo(
     () =>
-      stableSort(invoiceList.invoices, getComparator(order, orderBy))?.slice(
+      stableSort(invoiceList?.invoices, getComparator(order, orderBy))?.slice(
         (page - 1) * rowsPerPage,
         (page - 1) * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage, invoiceList.invoices]
+    [order, orderBy, page, rowsPerPage, invoiceList?.invoices]
   );
 
   // Delete modal
@@ -382,6 +412,7 @@ export default function AllInvoices() {
   const handleViewInvoice = (id: number) => {
     route.push(`/invoices/${id}`);
   };
+  //Edit Invoice
   const handleEditInvoice = (record: any) => {
     console.log(record, "record");
     dispatch(
@@ -408,10 +439,14 @@ export default function AllInvoices() {
     );
     route.push(`/invoices/${record.id}/edit`);
   };
+  //Share Invoice
   const handleShareInvoice = (record: any) => {
-    route.push(`/preview/${record.id}`);
+    // route.push(`/preview/${record.id}`);
+    setShareUrl(record.id);
+    setShareModel(true);
   };
-  const handlePrintInvoice = (record: any):Promise<void> => {
+  //Print Invoice
+  const handlePrintInvoice = (record: any): Promise<void> => {
     console.log(record, "recordss");
     dispatch(
       setFullInvoice({
@@ -438,7 +473,7 @@ export default function AllInvoices() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 50); 
+      }, 50);
     });
   };
   const handleOpenDeleteModal = (id: number) => {
@@ -465,7 +500,11 @@ export default function AllInvoices() {
         elevation={0}
         sx={{ width: "100%", px: "20px", mb: 2, pb: 1, border: "none" }}
       >
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          search={search}
+          handleChangeSearch={handleChangeSearch}
+        />
         <TableContainer
           sx={{
             border: `1px solid ${palette.border.invoicesBorderColor}`,
@@ -476,7 +515,7 @@ export default function AllInvoices() {
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
+            // size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -499,7 +538,7 @@ export default function AllInvoices() {
               </Box>
             ) : (
               <TableBody>
-                {visibleRows?.map((row: any, index: number) => {
+                {filteredData?.map((row: any, index: number) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
@@ -593,7 +632,7 @@ export default function AllInvoices() {
         </TableContainer>
         <Pagination
           totalRecords={
-            invoiceList.invoices?.length ? invoiceList.invoices?.length : 0
+            invoiceList?.totalRecords ? invoiceList?.totalRecords : 0
           }
           itemsPerPage={rowsPerPage}
           page={page}
@@ -605,6 +644,12 @@ export default function AllInvoices() {
         onDelete={handleDelete}
         onClose={handleDeleteModalClose}
         invoiceDelete={invoiceDelete}
+      />
+      <ShareModal
+        open={shareModel}
+        onShare={() => setShareModel(false)}
+        onClose={() => setShareModel(false)}
+        shareUrlId={shareUrl}
       />
     </Box>
   );

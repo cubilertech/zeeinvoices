@@ -9,11 +9,7 @@ import InvoiceDetailsActions from "@/components/InvoiceDetailsActions/invoiceDet
 import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getInvoiceItem,
-  setFullInvoice,
-  setResetInvoice,
-} from "@/redux/features/invoiceSlice";
+import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
 import {
   setInvoiceSettings,
   setResetInvoiceSetting,
@@ -21,14 +17,16 @@ import {
 import { calculateAmount, calculateTax } from "@/common/common";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ReactToPrint from "react-to-print";
+import ShareModal from "@/components/ShareModal/shareModal";
 
 const InvoiceDetail = () => {
   const { id } = useParams<{ id: string }>();
   const componentRef = useRef();
-  const invoiceDetail = useSelector((state: any) => state.invoice);
-  const invoiceSettings = useSelector((state: any) => state.invoiceSetting);
   const dispatch = useDispatch();
   const router = useRouter();
+  const invoiceDetail = useSelector((state: any) => state.invoice);
+  const invoiceSettings = useSelector((state: any) => state.invoiceSetting);
+  const [shareModal, setShareModal] = useState(false);
   //Total And Tax
   const [total, setTotal] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
@@ -73,11 +71,11 @@ const InvoiceDetail = () => {
       );
       dispatch(
         setInvoiceSettings({
-          color: singleInvoice?.settings.color,
-          currency: singleInvoice?.settings.currency,
-          dueDate: singleInvoice?.settings.dueDate,
-          tax: singleInvoice?.settings.tax,
-          detail: singleInvoice?.settings.detail,
+          color: singleInvoice?.settings?.color,
+          currency: singleInvoice?.settings?.currency,
+          dueDate: singleInvoice?.settings?.dueDate,
+          tax: singleInvoice?.settings?.tax,
+          detail: singleInvoice?.settings?.detail,
         })
       );
     }
@@ -96,7 +94,7 @@ const InvoiceDetail = () => {
           direction={"row"}
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
-          <IconButton sx={{ padding: 1, marginRight:"10px" }}>
+          <IconButton sx={{ padding: 1, marginRight: "10px" }}>
             <ArrowBackIosNewIcon />
           </IconButton>
           <Typography variant="display-xs-medium">Invoices/</Typography>
@@ -112,10 +110,7 @@ const InvoiceDetail = () => {
           <IconButton sx={{ padding: 1 }}>
             <Icon icon="editIcon" width={20} height={20} />
           </IconButton>
-          <IconButton
-            sx={{ padding: 1 }}
-            onClick={() => router.push(`/preview/${invoiceDetail?.id}`)}
-          >
+          <IconButton sx={{ padding: 1 }} onClick={() => setShareModal(true)}>
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton>
           <Box>
@@ -152,6 +147,12 @@ const InvoiceDetail = () => {
           summaryDetail={summaryDetail}
         />
       </Stack>
+      <ShareModal
+        open={shareModal}
+        onShare={() => setShareModal(false)}
+        onClose={() => setShareModal(false)}
+        shareUrlId={invoiceDetail?.id}
+      />
     </Container>
   );
 };
