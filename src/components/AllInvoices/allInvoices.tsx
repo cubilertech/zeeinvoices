@@ -24,6 +24,7 @@ import {
   Popover,
   Stack,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { Icon } from "../Icon";
 import { Pagination } from "../Pagination";
@@ -42,6 +43,7 @@ import {
   setInvoiceSettings,
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
+import ShareModal from "../ShareModal/shareModal";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { debounce } from "@/utils/common";
 
@@ -160,7 +162,7 @@ const headCells: readonly HeadCell[] = [
     id: "action",
     numeric: true,
     disablePadding: false,
-    label: " ",
+    label: "Actions",
   },
 ];
 
@@ -297,7 +299,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         />
       </Stack>
       <Stack direction={"row"} gap={1} sx={{ marginLeft: "50px" }}>
-        <Button
+        {/* <Button
           variant="outlined"
           startIcon={<Icon icon="filterIcon" width={15} />}
           sx={{
@@ -308,15 +310,17 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           }}
         >
           Filter
-        </Button>
-        <Button
-          variant="contained"
-          onClick={handleCreate}
-          endIcon={<Icon icon="plusIcon" width={15} />}
-          sx={{ height: `36px`, width: "140px" }}
-        >
-          Create New
-        </Button>
+        </Button> */}
+        <Tooltip title="Create a new invoice">
+          <Button
+            variant="contained"
+            onClick={handleCreate}
+            endIcon={<Icon icon="plusIcon" width={15} />}
+            sx={{ height: `36px`, width: "140px" }}
+          >
+            Create New
+          </Button>
+        </Tooltip>
       </Stack>
     </Toolbar>
   );
@@ -408,7 +412,7 @@ export default function AllInvoices() {
     route.push(`/invoices/${id}`);
   };
   const handleEditInvoice = (record: any) => {
-    // console.log(record, "recordss");
+    console.log(record, "record");
     dispatch(
       setFullInvoice({
         id: record?.id,

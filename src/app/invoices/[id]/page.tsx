@@ -10,6 +10,7 @@ import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getInvoiceItem,
   setFullInvoice,
   setResetInvoice,
 } from "@/redux/features/invoiceSlice";
@@ -18,6 +19,7 @@ import {
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
 import { calculateAmount, calculateTax } from "@/common/common";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ReactToPrint from "react-to-print";
 
 const InvoiceDetail = () => {
@@ -81,6 +83,8 @@ const InvoiceDetail = () => {
     }
   }, [refetchSingleInvoice, singleInvoice, dispatch]);
 
+  console.log(singleInvoice, "dataaa");
+
   return (
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
       <Stack
@@ -92,6 +96,9 @@ const InvoiceDetail = () => {
           direction={"row"}
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
+          <IconButton sx={{ padding: 1, marginRight:"10px" }}>
+            <ArrowBackIosNewIcon />
+          </IconButton>
           <Typography variant="display-xs-medium">Invoices/</Typography>
           <Typography
             variant="display-xs-medium"

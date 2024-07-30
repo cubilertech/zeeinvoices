@@ -73,7 +73,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }
           <SelectInput
             width={240}
             type="Invoice type"
-            menuData={["Bill", "Type 2", "Type 3"]}
+            menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
           />
         </Stack>
         <Box sx={{ width: 92, height: 40 }}>

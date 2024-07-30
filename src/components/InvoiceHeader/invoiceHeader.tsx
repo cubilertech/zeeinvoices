@@ -1,5 +1,11 @@
 "use client";
-import { Button, CircularProgress, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
@@ -70,7 +76,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   async function fetchBlobData(blobUrl: string) {
     try {
-      console.log('Fetching blob data from:', blobUrl);
+      console.log("Fetching blob data from:", blobUrl);
       const response = await fetch(blobUrl);
       if (!response.ok) {
         throw new Error(`Failed to fetch blob. Status: ${response.status}`);
@@ -78,7 +84,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       const blob = await response.blob();
       return blob;
     } catch (error) {
-      console.error('Failed to fetch blob data:', error);
+      console.error("Failed to fetch blob data:", error);
       throw error;
     }
   }
@@ -104,13 +110,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       try {
         // const blob = await fetchBlobData(invoiceData.logo);
         // const file = new File([blob], "filename.jpg", { type: blob.type });
-        const imageFile = base64ToFile(invoiceData.logo, 'uploaded_image.png');
+        const imageFile = base64ToFile(invoiceData.logo, "uploaded_image.png");
         formData.append("image", imageFile);
       } catch (error) {
-        console.error('Error fetching image:', error);
+        console.error("Error fetching image:", error);
       }
     } else {
-          formData.append("image", "no-image"); 
+      formData.append("image", "no-image");
     }
     formData.append("type", invoiceData.type);
     formData.append("invoiceDate", invoiceData.invoiceDate);
@@ -140,7 +146,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     } else {
       const formData = new FormData();
       if (invoiceData.logo) {
-        const imageFile = base64ToFile(invoiceData.logo, 'uploaded_image.png');
+        const imageFile = base64ToFile(invoiceData.logo, "uploaded_image.png");
         formData.append("image", imageFile);
       }
       formData.append("id", invoiceData.id);
@@ -203,28 +209,33 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               InvDetails={InvDetails}
               summaryDetail={summaryDetail}
             >
-              <Button variant="contained" sx={{ height: "36px !important" }}>
-                Download PDF
-              </Button>
+              <Tooltip title="Download PDF" placement="bottom">
+                <Button variant="contained" sx={{ height: "36px !important" }}>
+                  Download PDF
+                </Button>
+              </Tooltip>
             </PdfDownloadLink>
           ) : (
-            <Button
-              onClick={() => setDownloadModel(true)}
-              variant="contained"
-              sx={{
-                height: "36px !important",
-              }}
-            >
-              Download PDF
-            </Button>
+            <Tooltip title="Download PDF" placement="bottom">
+              <Button
+                onClick={() => setDownloadModel(true)}
+                variant="contained"
+                sx={{
+                  height: "36px !important",
+                }}
+              >
+                Download PDF
+              </Button>
+            </Tooltip>
           )
         ) : (
           <Button
             variant="contained"
             disabled={true}
             sx={{
-              background: "#36C2CE !important",
-              color: "#fff",
+              
+              // background: "#36C2CE !important",
+              // color: "#fff",
               width: "138px",
               px: "12px !important",
             }}

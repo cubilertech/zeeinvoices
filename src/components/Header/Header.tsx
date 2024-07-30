@@ -89,9 +89,9 @@ console.log(session,'session')
                   onClick={handleClick}
                 >
                   {session.user?.image ? (
-                    <Avatar alt="Avatar" src={session.user.image} />
+                    <Avatar sx={{width:"32px", height:"32px"}} alt="Avatar" src={session.user.image} />
                   ) : (
-                    <Avatar alt="Avatar" />
+                    <Avatar sx={{width:"32px", height:"32px"}} alt="Avatar" />
                   )}
                   <Icon icon="arrowDownIcon" width={15} height={15} />
                 </Stack>
