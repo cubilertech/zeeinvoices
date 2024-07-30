@@ -23,9 +23,15 @@ const Footer: FC = () => {
         >
           <Icon icon="whiteLogo" height={16} width={120} />
           <Stack direction={"row"} spacing={2}>
-            <Icon icon="twitter" height={28} width={28} />
-            <Icon icon="facebook" height={28} width={28} />
-            <Icon icon="instagarm" height={28} width={28} />
+            <Box sx={{ cursor: "pointer" }}>
+              <Icon icon="twitter" height={28} width={28} />
+            </Box>
+            <Box sx={{ cursor: "pointer" }}>
+              <Icon icon="facebook" height={28} width={28} />
+            </Box>
+            <Box sx={{ cursor: "pointer" }}>
+              <Icon icon="instagarm" height={28} width={28} />
+            </Box>
           </Stack>
         </Container>
       </Box>
@@ -40,9 +46,15 @@ const Footer: FC = () => {
           }}
         >
           <Stack direction={"row"} spacing={2} color={palette.color.gray[650]}>
-            <Typography variant="body1">Terms and Conditions</Typography>
-            <Typography variant="body1">Invoice Guide</Typography>
-            <Typography variant="body1">Help</Typography>
+            <Typography variant="body1" sx={{ cursor: "pointer" }}>
+              Terms and Conditions
+            </Typography>
+            <Typography variant="body1" sx={{ cursor: "pointer" }}>
+              Invoice Guide
+            </Typography>
+            <Typography variant="body1" sx={{ cursor: "pointer" }}>
+              Help
+            </Typography>
           </Stack>
           <Typography variant="body1" color={palette.color.gray[650]}>
             © Copyright 2022, All Rights Reserved by ZAPTA Technologies

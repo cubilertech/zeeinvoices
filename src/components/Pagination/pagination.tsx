@@ -126,6 +126,10 @@ const Pagination: FC<PaginationProps> = ({
               cursor: pagenumber !== placeHolder ? "pointer" : "text",
               border:
                 page === pagenumber ? "1px solid #8477DA" : "1px solid #D0D5DD",
+              ":hover": {
+                // border: "1px solid #EAECF0",
+                backgroundColor:"#313997"
+              },
             }}
           >
             {pagenumber}

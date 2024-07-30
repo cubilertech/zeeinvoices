@@ -31,6 +31,12 @@ export const icons = {
   whatsappIcon: "/Images/icons/whatsapp-icon.svg",
   facebookIcon: "/Images/icons/facebook-icon.svg",
   twitterIcon: "/Images/icons/twitter-icon.svg",
+  personIcon: "/Images/icons/person-icon.svg",
+  cameraIcon: "/Images/icons/camera-icon.svg",
+  editWhiteIcon: "/Images/icons/edit-white-icon.svg",
+  openEyeIcon: "/Images/icons/open-eye-icon.svg",
+  closeEyeIcon: "/Images/icons/close-eye-icon.svg",
+  sortIcon: "/Images/icons/sort-icon.svg",
 };
 
 export const backendURL =
