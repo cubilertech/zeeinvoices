@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Container, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import { palette } from "@/theme/palette";
 import { Icon } from "@/components/Icon";
 import InvoiceDetailsSection from "@/components/InvoiceDetailsSection/invoiceDetailsSection";
@@ -20,9 +20,11 @@ import {
 } from "@/redux/features/invoiceSetting";
 import { calculateAmount, calculateTax } from "@/common/common";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ReactToPrint from "react-to-print";
 
 const InvoiceDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const componentRef = useRef();
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSettings = useSelector((state: any) => state.invoiceSetting);
   const dispatch = useDispatch();
@@ -116,9 +118,26 @@ const InvoiceDetail = () => {
           >
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton>
-          <IconButton sx={{ padding: 1 }}>
-            <Icon icon="printIconIcon" width={20} height={20} />
-          </IconButton>
+          <Box>
+            <Box style={{ display: "none" }}>
+              <Box ref={componentRef}>
+                <InvoiceDetailsSection
+                  singleInvoice={{ ...invoiceDetail }}
+                  invoiceSetting={{ ...invoiceSettings }}
+                />
+              </Box>
+            </Box>
+            <ReactToPrint
+              trigger={() => (
+                <IconButton sx={{ padding: 1 }} onClick={() => window.print()}>
+                  <Icon icon="printIconIcon" width={20} height={20} />
+                </IconButton>
+              )}
+              content={() =>
+                componentRef.current ? componentRef.current : null
+              }
+            />
+          </Box>
         </Stack>
       </Stack>
 

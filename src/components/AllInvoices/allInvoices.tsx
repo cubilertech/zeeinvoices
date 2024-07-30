@@ -37,13 +37,14 @@ import { calculateAmount, tableFormatDate } from "@/common/common";
 import { useRouter } from "next/navigation";
 import DeleteModal from "../DeleteModal/deleteModal";
 import CustomPopOver from "./CustomPopOver";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
 import {
   setInvoiceSettings,
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
 import ShareModal from "../ShareModal/shareModal";
+import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 
 interface Data {
   id: number;
@@ -322,6 +323,9 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function AllInvoices() {
   const route = useRouter();
   const dispatch = useDispatch();
+  const invoiceDetail = useSelector((state: any) => state.invoice);
+  const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
+  const componentRef = React.useRef();
   const routePrefix = `${backendURL}/invoices`;
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
@@ -406,6 +410,36 @@ export default function AllInvoices() {
   };
   const handleShareInvoice = (record: any) => {
     route.push(`/preview/${record.id}`);
+  };
+  const handlePrintInvoice = (record: any):Promise<void> => {
+    console.log(record, "recordss");
+    dispatch(
+      setFullInvoice({
+        id: record?.id,
+        logo: record?.image,
+        invoiceType: record?.type,
+        from: record?.from,
+        to: record?.to,
+        invoiceDate: record?.invoiceDate,
+        dueDate: record?.dueDate,
+        addtionalNotes: record?.notes,
+        invoiceItem: record?.items,
+      })
+    );
+    dispatch(
+      setInvoiceSettings({
+        color: record?.settings?.color,
+        currency: record?.settings?.currency,
+        dueDate: record?.settings?.dueDate,
+        tax: record?.settings?.tax,
+        detail: record?.settings?.detail,
+      })
+    );
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 50); 
+    });
   };
   const handleOpenDeleteModal = (id: number) => {
     setItemToDelete(id as number);
@@ -536,7 +570,19 @@ export default function AllInvoices() {
                           handleViewInvoice={handleViewInvoice}
                           handleEditInvoice={handleEditInvoice}
                           handleShareInvoice={handleShareInvoice}
+                          handlePrintInvoice={handlePrintInvoice}
+                          componentRef={componentRef}
                         />
+                        <Box>
+                          <Box style={{ display: "none" }}>
+                            <Box ref={componentRef}>
+                              <InvoiceDetailsSection
+                                singleInvoice={{ ...invoiceDetail }}
+                                invoiceSetting={{ ...invoiceSetting }}
+                              />
+                            </Box>
+                          </Box>
+                        </Box>
                       </TableCell>
                     </TableRow>
                   );

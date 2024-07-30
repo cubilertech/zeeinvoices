@@ -13,16 +13,16 @@ import { formattedDate } from "@/common/common";
 import Image from "next/image";
 import { imageConvertion } from "@/utils/common";
 interface InvoiceDetailsProps {
-  singleInvoice: any;
-  invoiceSetting: any;
+  singleInvoice?: any;
+  invoiceSetting?: any;
 }
 
 const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
   singleInvoice,
   invoiceSetting,
 }) => {
-  console.log(invoiceSetting, "invoiceSetting");
-  const imageSelected = imageConvertion(singleInvoice.logo);
+  console.log(invoiceSetting, "invoiceSetting",singleInvoice);
+  const imageSelected = imageConvertion(singleInvoice?.logo);
 
   return (
     <Box
@@ -38,7 +38,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
     >
       {/* First section, invoice head contains logo and invoice number, type */}
       <Stack direction={"row"} justifyContent={"space-between"}>
-        {singleInvoice.logo !== "" ? (
+        {singleInvoice?.logo !== "" ? (
           <Image
             src={imageSelected}
             alt="Selected Logo"
@@ -73,26 +73,26 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
       </Stack>
       {/* Second section, Show (To, From) Detail */}
       <Stack
-        direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
+        direction={{ xs: "column", sm: "row", md: "row", lg: "row" }}
         justifyContent={"space-between"}
-        gap={5}
+        gap={2}
         sx={{ marginTop: 2 }}
       >
         <ShowDetails
           title="From"
-          companyName={singleInvoice?.from.name}
-          address={singleInvoice?.from.address}
-          state={singleInvoice?.from.state}
-          email={singleInvoice?.from.email}
-          phone={singleInvoice?.from.phoneNumber}
+          companyName={singleInvoice?.from?.name}
+          address={singleInvoice?.from?.address}
+          state={singleInvoice?.from?.state}
+          email={singleInvoice?.from?.email}
+          phone={singleInvoice?.from?.phoneNumber}
         />
         <ShowDetails
           title="To"
-          companyName={singleInvoice?.to.name}
-          address={singleInvoice?.to.address}
-          state={singleInvoice?.to.state}
-          email={singleInvoice?.to.email}
-          phone={singleInvoice?.to.phoneNumber}
+          companyName={singleInvoice?.to?.name}
+          address={singleInvoice?.to?.address}
+          state={singleInvoice?.to?.state}
+          email={singleInvoice?.to?.email}
+          phone={singleInvoice?.to?.phoneNumber}
         />
       </Stack>
       {/* Third section, Dates (Invoice  and Due) */}
@@ -160,7 +160,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
           item
           xs={2.2}
         >
-          {invoiceSetting.tax ? (
+          {invoiceSetting?.tax ? (
             <Typography sx={{ color: palette.base.white }}>Tax</Typography>
           ) : (
             " "
@@ -177,7 +177,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
       </Grid>
 
       {/* Table rows */}
-      {singleInvoice?.invoiceItem.map((data: any, index: number) => (
+      {singleInvoice?.invoiceItem?.map((data: any, index: number) => (
         <>
           <Grid
             container
