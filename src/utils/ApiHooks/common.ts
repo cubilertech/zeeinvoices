@@ -1,12 +1,19 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useFetchAllDocument = (apiRoute: any) => {
+export const useFetchAllDocument = (
+  apiRoute: any,
+  page: any,
+  limit: any,
+  search: any
+) => {
   async function fetch() {
     try {
-      const response = await axios.get(apiRoute);
+      const response = await axios.get(apiRoute,{
+        params:{page,limit,search}
+      });
       if (response.data && response.data.code === 200) {
-       return response.data.data ? response.data.data : [];
+        return response.data.data ? response.data.data : [];
       } else {
         throw new Error("An error occurred while fetching records.");
       }
@@ -21,7 +28,7 @@ export const useFetchAllDocument = (apiRoute: any) => {
     placeholderData: [],
   });
 };
-export const useFetchSingleDocument = (apiRoute : string) => {
+export const useFetchSingleDocument = (apiRoute: string) => {
   async function fetch() {
     try {
       const response = await axios.get(apiRoute);
@@ -41,63 +48,60 @@ export const useFetchSingleDocument = (apiRoute : string) => {
     // placeholderData: {},
   });
 };
-export const useCreateDocument=()=>{
-  const handleCreate = async (props : any) =>{
+export const useCreateDocument = () => {
+  const handleCreate = async (props: any) => {
     try {
-      const response = await axios.post(props.apiRoute,props.data,{
+      const response = await axios.post(props.apiRoute, props.data, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
-    if(response.data.code === 200){
-      console.log('Create Successfully');
-      return response.data.data
-    }else{
-      throw new Error('An error occurred while creating record.');
+      if (response.data.code === 200) {
+        console.log("Create Successfully");
+        return response.data.data;
+      } else {
+        throw new Error("An error occurred while creating record.");
+      }
+    } catch (error: any) {
+      throw new Error(`${error.response?.data?.message}`);
     }
-    } catch (error : any) {
-      throw new Error(`${error.response?.data?.message}`)
-    }
-    
   };
   return useMutation(handleCreate);
-}
+};
 
 export const useDeleteDocument = () => {
-  const handleDelete = async (props :any) => {
+  const handleDelete = async (props: any) => {
     try {
       const response = await axios.delete(props.apiRoute);
       if (response.data.code === 200) {
-        
         return response.data.data;
       } else {
-       
         throw new Error("An error occurred while deleting record.");
       }
-    } catch (error : any) {
-      throw new Error(`${error.response?.data?.message}`)
+    } catch (error: any) {
+      throw new Error(`${error.response?.data?.message}`);
     }
   };
 
   return useMutation(handleDelete);
 };
 
-export const useEditDocument = ()=>{
-  const handleEdit= async (props:any)=> {
+export const useEditDocument = () => {
+  const handleEdit = async (props: any) => {
     try {
-      const respone = await axios.put(props.apiRoute,props.data,{
-        headers:{
-          'Content-Type': 'multipart/form-data'
-        }
+      const respone = await axios.put(props.apiRoute, props.data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-      if(respone.data.code === 200){
+      if (respone.data.code === 200) {
         return respone.data.data;
-      }else{
-        throw new Error('An Error Occured while Update Data');
-      }      
+      } else {
+        throw new Error("An Error Occured while Update Data");
+      }
     } catch (error) {
-      throw new Error('An Error Occured while Update Data')
+      throw new Error("An Error Occured while Update Data");
     }
-  }
+  };
   return useMutation(handleEdit);
-}
+};

@@ -27,7 +27,13 @@ export const icons = {
   deleteIcon: "/Images/icons/delete-icon.svg",
   deleteRedIcon: "/Images/icons/delete-Red-icon.svg",
   watermarkIcon: "/Images/icons/watermark-icon.svg",
+  copyIcon: "/Images/icons/copy-icon.svg",
+  whatsappIcon: "/Images/icons/whatsapp-icon.svg",
+  facebookIcon: "/Images/icons/facebook-icon.svg",
+  twitterIcon: "/Images/icons/twitter-icon.svg",
 };
 
 export const backendURL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:3005";
+
+  export const frontendUrl =process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "http://localhost:3000";

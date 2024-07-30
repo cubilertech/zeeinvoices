@@ -26,7 +26,7 @@ import "react-international-phone/style.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./style.css";
-import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
+import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -83,7 +83,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
     city: InvDetails?.city || "",
     state: InvDetails?.state || "",
     address: InvDetails?.address || "",
-    countryCode: 'PK',
+    countryCode: "PK",
   };
 
   interface FormErrors {
@@ -101,18 +101,21 @@ const DetailSelecter: FC<DetailSelecter> = ({
       initialValues: initialValues,
       validationSchema: validationSchema,
 
-      validate: values => {
+      validate: (values) => {
         const errors: FormErrors = {}; // Use FormErrors type here
-    
+
         // Validate other fields
         // ...
-    
+
         // Validate phone number
-        const phoneError = validatePhoneNumber(values.phoneNumber, values.countryCode);
+        const phoneError = validatePhoneNumber(
+          values.phoneNumber,
+          values.countryCode
+        );
         if (phoneError) {
           errors.phoneNumber = phoneError;
         }
-    
+
         return errors;
       },
 
@@ -141,24 +144,30 @@ const DetailSelecter: FC<DetailSelecter> = ({
     return typeof value === "string";
   }
 
-  const validatePhoneNumber = (phoneNumber: string, countryCode: string): string => {
+  const validatePhoneNumber = (
+    phoneNumber: string,
+    countryCode: string
+  ): string => {
     // Ensure countryCode is a valid CountryCode
     const validCountryCode: CountryCode = countryCode as CountryCode;
-  
+
     if (!phoneNumber) {
-      return 'Phone number is required';
+      return "Phone number is required";
     }
-  
-    const phoneNumberInstance = parsePhoneNumberFromString(phoneNumber, validCountryCode);
+
+    const phoneNumberInstance = parsePhoneNumberFromString(
+      phoneNumber,
+      validCountryCode
+    );
     if (!phoneNumberInstance) {
-      return 'Invalid phone number';
+      return "Invalid phone number";
     }
-  
+
     if (!phoneNumberInstance.isValid()) {
-      return 'Invalid phone number';
+      return "Invalid phone number";
     }
-  
-    return '';
+
+    return "";
   };
 
   return (
@@ -221,6 +230,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           </Stack>
         </Box>
       ) : (
+        // After data populate
         <Box
           borderRadius={1}
           sx={{
@@ -243,16 +253,12 @@ const DetailSelecter: FC<DetailSelecter> = ({
               variant="text-sm-medium"
               color={palette.color.gray[750]}
             >
-              {title}
+              {title === "From" ? "Sender Details": "Recipient Details"}
             </Typography>
             <IconButton sx={{ padding: 0 }}>
               <Icon icon="editIcon" width={20} height={20} />
             </IconButton>
           </Stack>
-
-          {/* <Typography variant="text-sm-medium" color={palette.color.gray[750]}>
-            {title}
-          </Typography> */}
           <Stack spacing={2} sx={{ marginTop: 2 }}>
             <Typography variant="text-xs-bold">
               {InvDetails?.companyName}
@@ -424,7 +430,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     }
                   />
                   {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                    <Typography color="error" variant="text-xs-regular" sx={{marginTop:"5px", marginLeft:"15px"}}>
+                    <Typography
+                      color="error"
+                      variant="text-xs-regular"
+                      sx={{ marginTop: "5px", marginLeft: "15px" }}
+                    >
                       {isString(errors.phoneNumber)
                         ? errors.phoneNumber
                         : "Invalid phone number"}
