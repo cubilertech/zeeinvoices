@@ -40,9 +40,9 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }
     dispatch(setAddtionalNotes(value));
   };
   const showPreview =
-    InvDetails.from.name !== "" && InvDetails.to.name !== "" ? false : true;
-  const senderShow = InvDetails.from.name !== "" ? true : false;
-  const reciptShow = InvDetails.to.name !== "" ? true : false;
+    InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
+  const senderShow = InvDetails.from?.name !== "" ? true : false;
+  const reciptShow = InvDetails.to?.name !== "" ? true : false;
 
   const handleSubmitFrom = (values: any) => {
     console.log("submitted", values);

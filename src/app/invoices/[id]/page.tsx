@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Container, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import { palette } from "@/theme/palette";
 import { Icon } from "@/components/Icon";
 import InvoiceDetailsSection from "@/components/InvoiceDetailsSection/invoiceDetailsSection";
@@ -9,12 +9,20 @@ import InvoiceDetailsActions from "@/components/InvoiceDetailsActions/invoiceDet
 import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { getInvoiceItem, setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
-import { setInvoiceSettings, setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import {
+  setFullInvoice,
+  setResetInvoice,
+} from "@/redux/features/invoiceSlice";
+import {
+  setInvoiceSettings,
+  setResetInvoiceSetting,
+} from "@/redux/features/invoiceSetting";
 import { calculateAmount, calculateTax } from "@/common/common";
+import ReactToPrint from "react-to-print";
 
 const InvoiceDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const componentRef = useRef();
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSettings = useSelector((state: any) => state.invoiceSetting);
   const dispatch = useDispatch();
@@ -38,12 +46,12 @@ const InvoiceDetail = () => {
     isFetching: refetchingSingleInvoice,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
-useEffect(()=>{
-  return ()=>{
-    dispatch(setResetInvoiceSetting())
-    dispatch(setResetInvoice())
-  }
-},[dispatch])
+  useEffect(() => {
+    return () => {
+      dispatch(setResetInvoiceSetting());
+      dispatch(setResetInvoice());
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     refetchSingleInvoice();
@@ -71,9 +79,7 @@ useEffect(()=>{
         })
       );
     }
-  }, [refetchSingleInvoice,singleInvoice,dispatch]);
-
-  console.log(singleInvoice, "dataaa");
+  }, [refetchSingleInvoice, singleInvoice, dispatch]);
 
   return (
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
@@ -99,20 +105,43 @@ useEffect(()=>{
           <IconButton sx={{ padding: 1 }}>
             <Icon icon="editIcon" width={20} height={20} />
           </IconButton>
-          <IconButton sx={{ padding: 1 }} onClick={()=>router.push(`/preview/${invoiceDetail?.id}`)}>
+          <IconButton
+            sx={{ padding: 1 }}
+            onClick={() => router.push(`/preview/${invoiceDetail?.id}`)}
+          >
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton>
-          <IconButton sx={{ padding: 1 }}>
-            <Icon icon="printIconIcon" width={20} height={20} />
-          </IconButton>
+          <Box>
+            <Box style={{ display: "none" }}>
+              <Box ref={componentRef}>
+                <InvoiceDetailsSection
+                  singleInvoice={{ ...invoiceDetail }}
+                  invoiceSetting={{ ...invoiceSettings }}
+                />
+              </Box>
+            </Box>
+            <ReactToPrint
+              trigger={() => (
+                <IconButton sx={{ padding: 1 }} onClick={() => window.print()}>
+                  <Icon icon="printIconIcon" width={20} height={20} />
+                </IconButton>
+              )}
+              content={() =>
+                componentRef.current ? componentRef.current : null
+              }
+            />
+          </Box>
         </Stack>
       </Stack>
 
       <Stack direction={"row"} gap={3}>
-        <InvoiceDetailsSection singleInvoice={{...invoiceDetail}} invoiceSetting={{...invoiceSettings}} />
+        <InvoiceDetailsSection
+          singleInvoice={{ ...invoiceDetail }}
+          invoiceSetting={{ ...invoiceSettings }}
+        />
         <InvoiceDetailsActions
-          InvSetting={{...invoiceSettings}}
-          InvDetails={{...invoiceDetail}}
+          InvSetting={{ ...invoiceSettings }}
+          InvDetails={{ ...invoiceDetail }}
           summaryDetail={summaryDetail}
         />
       </Stack>

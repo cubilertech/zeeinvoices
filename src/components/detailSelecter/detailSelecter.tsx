@@ -28,17 +28,26 @@ import * as Yup from "yup";
 import "./style.css";
 import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
 
+const alphaRegex = /[a-zA-Z]/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   companyName: Yup.string().required("Company Name is required"),
   email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
+  .matches(emailRegex, "Invalid email address")
+  .required("Email is required"),
   phoneNumber: Yup.string().required("Phone number is required"),
-  city: Yup.string().required("City is required"),
-  state: Yup.string().required("State is required"),
-  address: Yup.string().required("Address is required"),
+  city: Yup.string()
+    .matches(alphaRegex, "Invalid City")
+    .required("City is required"),
+  state: Yup.string()
+    .matches(alphaRegex, "Invalid State").min(3, "City must be at least 3 characters long")
+    .required("State is required"),
+  address: Yup.string()
+    .matches(alphaRegex, "Invalid Address").min(5, "Too short")
+    .required("Address is required"),
 });
+
 
 interface DetailSelecter {
   title?: string;
@@ -246,26 +255,26 @@ const DetailSelecter: FC<DetailSelecter> = ({
           </Typography> */}
           <Stack spacing={2} sx={{ marginTop: 2 }}>
             <Typography variant="text-xs-bold">
-              {InvDetails.companyName}
+              {InvDetails?.companyName}
             </Typography>
             <Stack direction={"column"}>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {InvDetails.name}
+                {InvDetails?.name}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {InvDetails.address}, {InvDetails.city}
+                {InvDetails?.address}, {InvDetails?.city}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {InvDetails.state}
+                {InvDetails?.state}
               </Typography>
             </Stack>
             <Stack direction={"column"}>
@@ -273,13 +282,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {InvDetails.email}
+                {InvDetails?.email}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[720]}
               >
-                {InvDetails.phoneNumber}
+                {InvDetails?.phoneNumber}
               </Typography>
             </Stack>
           </Stack>

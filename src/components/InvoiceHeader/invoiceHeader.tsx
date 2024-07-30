@@ -36,9 +36,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const router = useRouter();
   const { data: session } = useSession();
   const validateButton =
-    InvDetails.from.name !== "" &&
-    InvDetails.to.name !== "" &&
-    InvDetails.invoiceType !== "";
+    InvDetails.from?.name !== "" &&
+    InvDetails.to?.name !== "" &&
+    InvDetails?.invoiceType !== "";
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
 

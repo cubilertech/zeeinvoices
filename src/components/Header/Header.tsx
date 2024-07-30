@@ -16,11 +16,20 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import {  useSession } from "next-auth/react";
 import { handleLogout,handleLogin } from "@/utils/common";
+import { useDispatch } from "react-redux";
+import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import { setResetInvoice } from "@/redux/features/invoiceSlice";
 
 const Header = () => {
   const route = useRouter();
+  const dispatch= useDispatch();
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+  const handLogoClick= ()=>{
+      route.push('/invoices')
+      dispatch(setResetInvoice());
+      dispatch(setResetInvoiceSetting());    
+  }
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -53,8 +62,9 @@ const Header = () => {
             alignItems: "center",
           }}
         >
-          
+          <Box onClick={handLogoClick} sx={{cursor:'pointer'}}>
             <Icon icon="logo" height={24} width={175} />
+            </Box>
           {session && <CustomButton />}
         </Stack>
         <Stack direction={"row"} gap={3}>
