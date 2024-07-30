@@ -25,7 +25,7 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import "./style.css";
+import "@/Styles/phoneNoStyle.css";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 
 const alphaRegex = /[a-zA-Z]/;
