@@ -65,7 +65,8 @@ const Pagination: FC<Pagination> = ({
       setPage(pageNumber);
      }
     }
-  console.log(pageNumbersToShow, "page", totalPages, page);
+  console.log(pageNumbersToShow, "page", totalPages, page,totalRecords,
+    itemsPerPage,);
   return (
     <Box
       sx={{

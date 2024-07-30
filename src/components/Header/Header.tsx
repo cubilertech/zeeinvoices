@@ -38,7 +38,7 @@ const Header = () => {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
+console.log(session,'session')
   return (
     <AppBar
       position="fixed"
