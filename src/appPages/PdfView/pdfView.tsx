@@ -213,7 +213,7 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "14px", fontWeight: "extrabold" }}>
-                {invDetails?.from.companyName}
+                {invDetails?.from?.companyName}
               </Text>
             </View>
             <View
@@ -225,13 +225,13 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.from.name}
+                {invDetails?.from?.name}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.from.address} {invDetails?.from.city}
+                {invDetails?.from?.address} {invDetails?.from?.city}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.from.state}
+                {invDetails?.from?.state}
               </Text>
             </View>
             <View
@@ -243,10 +243,10 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.from.email}
+                {invDetails?.from?.email}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.from.phoneNumber}
+                {invDetails?.from?.phoneNumber}
               </Text>
             </View>
           </View>
@@ -280,7 +280,7 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "14px", fontWeight: "extrabold" }}>
-                {invDetails?.to.companyName}
+                {invDetails?.to?.companyName}
               </Text>
             </View>
             <View
@@ -292,13 +292,13 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.to.name}
+                {invDetails?.to?.name}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.to.address} {invDetails?.to.city}
+                {invDetails?.to?.address} {invDetails?.to?.city}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.to.state}
+                {invDetails?.to?.state}
               </Text>
             </View>
             <View
@@ -310,10 +310,10 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.to.email}
+                {invDetails?.to?.email}
               </Text>
               <Text style={{ fontSize: "12px", color: "#444444" }}>
-                {invDetails?.to.phoneNumber}
+                {invDetails?.to?.phoneNumber}
               </Text>
             </View>
           </View>
@@ -410,7 +410,7 @@ const PdfView: FC<PdfViewProps> = ({
           >
             Rate
           </Text>
-          {tax && Summary.taxAmount > 0 ? (
+          {tax && Summary?.taxAmount > 0 ? (
             <Text
               style={{
                 width: "50px",
@@ -471,7 +471,7 @@ const PdfView: FC<PdfViewProps> = ({
                   textAlign: "right",
                 }}
               >
-                {data.quantity}
+                {data?.quantity}
               </Text>
               <Text
                 style={{
@@ -482,9 +482,9 @@ const PdfView: FC<PdfViewProps> = ({
                   textAlign: "right",
                 }}
               >
-                {currency} {data.rate}
+                {currency} {data?.rate}
               </Text>
-              {tax && Summary.taxAmount > 0 ? (
+              {tax && Summary?.taxAmount > 0 ? (
                 <Text
                   style={{
                     width: "50px",
@@ -494,7 +494,7 @@ const PdfView: FC<PdfViewProps> = ({
                     textAlign: "right",
                   }}
                 >
-                  {data.tax} %
+                  {data?.tax} %
                 </Text>
               ) : (
                 ""
@@ -509,7 +509,7 @@ const PdfView: FC<PdfViewProps> = ({
                   textAlign: "right",
                 }}
               >
-                {currency} {data.subTotal.toFixed(2)}
+                {currency} {data?.subTotal.toFixed(2)}
               </Text>
             </View>
             {/* <Text style={{ fontSize: "10px", color: "#444444" }}>
@@ -678,8 +678,8 @@ const PdfView: FC<PdfViewProps> = ({
               >
                 <Text style={{ fontSize: "12px", color: "#767676" }}>Tax</Text>
                 <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
-                  {Summary.taxAmount > 0
-                    ? currencyText + " " + Summary.taxAmount.toFixed(2)
+                  {Summary?.taxAmount > 0
+                    ? currencyText + " " + Summary?.taxAmount.toFixed(2)
                     : "--"}
                 </Text>
               </View>

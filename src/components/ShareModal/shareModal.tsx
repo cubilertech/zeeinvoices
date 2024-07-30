@@ -15,6 +15,7 @@ import {
 import React, { FC } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Icon } from "../Icon";
+import { frontendUrl } from "@/utils/constants";
 
 const style = {
   position: "absolute" as "absolute",
@@ -33,13 +34,24 @@ interface ShareModal {
   onShare: () => void;
   onClose: () => void;
   open: boolean;
+  shareUrlId:number;
 }
-const ShareModal: FC<ShareModal> = ({ onShare, onClose, open }) => {
+const ShareModal: FC<ShareModal> = ({ onShare, onClose, open ,shareUrlId}) => {
+  const value = `${frontendUrl}/preview/${shareUrlId}`;
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(value)
+      .then(() => {
+        alert('Text copied! Feel free to paste it into a new tab');
+      })
+      .catch((err) => {
+        console.error('Failed to copy text: ', err);
+      });
+  };
   return (
     <>
       <Modal
         disableAutoFocus
-        open={true}
+        open={open}
         onClose={onClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -49,7 +61,7 @@ const ShareModal: FC<ShareModal> = ({ onShare, onClose, open }) => {
             <Stack direction={"column"} gap={0}>
               <Stack direction={"row"} justifyContent={"space-between"}>
                 <Typography variant="text-lg-semibold">Share</Typography>
-                <IconButton>
+                <IconButton onClick={onClose}>
                   <CloseIcon
                     sx={{
                       width: "20px",
@@ -68,6 +80,7 @@ const ShareModal: FC<ShareModal> = ({ onShare, onClose, open }) => {
                   Password
                 </InputLabel>
                 <OutlinedInput
+                  value={value}
                   sx={{
                     borderRadius: "8px",
                     height: "48px",
@@ -80,7 +93,7 @@ const ShareModal: FC<ShareModal> = ({ onShare, onClose, open }) => {
                       <IconButton
                         sx={{ borderRadius: "50px" }}
                         aria-label="toggle password visibility"
-                        // onClick={}
+                        onClick={handleCopyClick}
                         edge="end"
                       >
                         {<Icon icon="copyIcon" width={16} height={16} />}
@@ -147,11 +160,12 @@ const ShareModal: FC<ShareModal> = ({ onShare, onClose, open }) => {
                   border: `1px solid #DADCE0`,
                   color: "#445164",
                 }}
-                onClick={onShare}
+                onClick={onClose}
               >
                 Cancel
               </Button>
               <Button
+              onClick={onShare}
                 variant="contained"
                 sx={{
                   height: "40px",

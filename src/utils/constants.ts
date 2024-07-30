@@ -35,3 +35,5 @@ export const icons = {
 
 export const backendURL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:3005";
+
+  export const frontendUrl =process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "http://localhost:3000";

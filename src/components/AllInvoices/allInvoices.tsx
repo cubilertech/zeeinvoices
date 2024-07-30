@@ -221,12 +221,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
-  search:any;
-  handleChangeSearch:any; 
+  search: any;
+  handleChangeSearch: any;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected ,search,handleChangeSearch } = props;
+  const { numSelected, search, handleChangeSearch } = props;
   const route = useRouter();
   const dispatch = useDispatch();
   const handleCreate = () => {
@@ -234,7 +234,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     dispatch(setResetInvoice());
     route.push("/");
   };
- 
+
   return (
     <Toolbar
       sx={{
@@ -282,7 +282,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           variant="standard"
           placeholder="Search"
           value={search}
-          onChange={(e)=>handleChangeSearch(e)}
+          onChange={(e) => handleChangeSearch(e)}
           sx={{
             border: "none",
             textUnderlinePosition: "unset",
@@ -338,6 +338,8 @@ export default function AllInvoices() {
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [shareModel, setShareModel] = React.useState(false);
+  const [shareUrl,setShareUrl] = React.useState(0);
 
   const {
     mutate: deleteInvoice,
@@ -348,25 +350,24 @@ export default function AllInvoices() {
     data: invoiceList,
     refetch: refetchInvoiceList,
     isFetching: fetchingInvoiceList,
-  } = useFetchAllDocument(apiRoute,page, rowsPerPage, search);
+  } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   React.useEffect(() => {
     refetchInvoiceList();
     if (deleteSuccess) {
       setIsModalOpen(false);
     }
-  }, [refetchInvoiceList, deleteSuccess,page]);
+  }, [refetchInvoiceList, deleteSuccess, page]);
   const debouncedRefetch = React.useCallback(
     debounce(() => {
-      if(page === 1){
+      if (page === 1) {
         refetchInvoiceList();
-        }
-        else{
-          setPage(1);
-        }
+      } else {
+        setPage(1);
+      }
     }, 500),
     [search]
   );
-  const handleChangeSearch = (e:any) => {
+  const handleChangeSearch = (e: any) => {
     setSearch(e.target.value);
     debouncedRefetch();
   };
@@ -411,6 +412,7 @@ export default function AllInvoices() {
   const handleViewInvoice = (id: number) => {
     route.push(`/invoices/${id}`);
   };
+  //Edit Invoice
   const handleEditInvoice = (record: any) => {
     console.log(record, "record");
     dispatch(
@@ -437,10 +439,14 @@ export default function AllInvoices() {
     );
     route.push(`/invoices/${record.id}/edit`);
   };
+  //Share Invoice
   const handleShareInvoice = (record: any) => {
-    route.push(`/preview/${record.id}`);
+    // route.push(`/preview/${record.id}`);
+    setShareUrl(record.id);
+    setShareModel(true);
   };
-  const handlePrintInvoice = (record: any):Promise<void> => {
+  //Print Invoice
+  const handlePrintInvoice = (record: any): Promise<void> => {
     console.log(record, "recordss");
     dispatch(
       setFullInvoice({
@@ -467,7 +473,7 @@ export default function AllInvoices() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 50); 
+      }, 50);
     });
   };
   const handleOpenDeleteModal = (id: number) => {
@@ -494,7 +500,11 @@ export default function AllInvoices() {
         elevation={0}
         sx={{ width: "100%", px: "20px", mb: 2, pb: 1, border: "none" }}
       >
-        <EnhancedTableToolbar numSelected={selected.length} search={search} handleChangeSearch={handleChangeSearch} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          search={search}
+          handleChangeSearch={handleChangeSearch}
+        />
         <TableContainer
           sx={{
             border: `1px solid ${palette.border.invoicesBorderColor}`,
@@ -634,6 +644,12 @@ export default function AllInvoices() {
         onDelete={handleDelete}
         onClose={handleDeleteModalClose}
         invoiceDelete={invoiceDelete}
+      />
+      <ShareModal
+        open={shareModel}
+        onShare={() => setShareModel(false)}
+        onClose={() => setShareModel(false)}
+        shareUrlId={shareUrl}
       />
     </Box>
   );
