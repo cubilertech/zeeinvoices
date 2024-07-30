@@ -9,9 +9,6 @@ interface CustomPopOverProps {
   handleViewInvoice: (id: number) => void;
   handleOpenDeleteModal: (id: number) => void;
   handleEditInvoice: (id: number) => void;
-  handleShareInvoice: (id: number) => void;
-  handlePrintInvoice: (id: number) => void;
-  componentRef: any;
 }
 
 const ClientPopOver: React.FC<CustomPopOverProps> = ({
@@ -19,9 +16,6 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   handleViewInvoice,
   handleOpenDeleteModal,
   handleEditInvoice,
-  handleShareInvoice,
-  handlePrintInvoice,
-  componentRef,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleClose = () => {
@@ -89,49 +83,6 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
           >
             Edit
           </Button>
-          <Button
-            onClick={() => handleShareInvoice(record)}
-            variant="outlined"
-            startIcon={<Icon icon="sendSqaureIcon" />}
-            sx={{
-              width: "100%",
-              border: "none",
-              justifyContent: "start",
-              color: "#4B5563",
-              "&:hover": {
-                border: "none",
-                color: "#4B5563",
-                backgroundColor: palette.color.gray[10],
-                borderRadius: 0,
-              },
-            }}
-          >
-            Share
-          </Button>
-           <ReactToPrint
-            trigger={() => (
-              <Button
-                variant="outlined"
-                startIcon={<Icon icon="printIconIcon" />}
-                sx={{
-                  width: "100%",
-                  border: "none",
-                  justifyContent: "start",
-                  color: "#4B5563",
-                  "&:hover": {
-                    border: "none",
-                    color: "#4B5563",
-                    backgroundColor: palette.color.gray[10],
-                    borderRadius: 0,
-                  },
-                }}
-              >
-                Print
-              </Button>
-            )}
-            content={() => (componentRef.current ? componentRef.current : null)}
-            onBeforeGetContent={() => handlePrintInvoice(record)}
-          />
           <Button
             variant="outlined"
             startIcon={<Icon icon="deleteIcon" />}

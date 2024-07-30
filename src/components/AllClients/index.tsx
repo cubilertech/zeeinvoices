@@ -19,9 +19,7 @@ import {
   Badge,
   Button,
   CircularProgress,
-  IconButton,
   InputAdornment,
-  Popover,
   Stack,
   TextField,
   Tooltip,
@@ -37,15 +35,11 @@ import { calculateAmount, tableFormatDate } from "@/common/common";
 import { useRouter } from "next/navigation";
 import DeleteModal from "../DeleteModal/deleteModal";
 import CustomPopOver from "./ClientPopOver";
-import { useDispatch, useSelector } from "react-redux";
-import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
-import {
-  setInvoiceSettings,
-  setResetInvoiceSetting,
-} from "@/redux/features/invoiceSetting";
-import ShareModal from "../ShareModal/shareModal";
-import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
+import { useDispatch } from "react-redux";
+import { setFullInvoice } from "@/redux/features/invoiceSlice";
+import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
 import { debounce } from "@/utils/common";
+import ClientDetailModel from "./ClientDetailModel";
 
 interface Data {
   name: string;
@@ -57,72 +51,13 @@ interface Data {
   address: string;
   action: any;
 }
-
-// function createData(
-//   id: number,
-//   name: string,
-//   email: string,
-//   date: string,
-//   status: string,
-//   total: number,
-//   action: any
-// ): Data {
-//   return {
-//     id,
-//     name,
-//     email,
-//     date,
-//     status,
-//     total,
-//     action,
-//   };
-// }
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
 type Order = "asc" | "desc";
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-function stableSort<T>(
-  array: readonly T[],
-  comparator: (a: T, b: T) => number
-) {
-  const stabilizedThis = array?.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis?.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis?.map((el) => el[0]);
-}
-
 interface HeadCell {
   disablePadding: boolean;
   id: keyof Data;
   label: string;
   numeric: boolean;
 }
-
 const headCells: readonly HeadCell[] = [
   {
     id: "name",
@@ -184,14 +119,12 @@ interface EnhancedTableProps {
   orderBy: string;
   rowCount: number;
 }
-
 function EnhancedTableHead(props: EnhancedTableProps) {
   const { order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler =
     (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
-
   return (
     <TableHead
       sx={{
@@ -231,18 +164,24 @@ interface EnhancedTableToolbarProps {
   numSelected: number;
   search: any;
   handleChangeSearch: any;
+  clientModel?: any;
+  handleClientModel?: any;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected, search, handleChangeSearch } = props;
-  const route = useRouter();
+  const {
+    numSelected,
+    search,
+    handleChangeSearch,
+    clientModel,
+    handleClientModel,
+  } = props;
   const dispatch = useDispatch();
-  const handleCreate = () => {
-    dispatch(setResetInvoiceSetting());
-    dispatch(setResetInvoice());
-    route.push("/");
-  };
-
+  // const handleCreate = () => {
+  //   dispatch(setResetInvoiceSetting());
+  //   dispatch(setResetInvoice());
+  //   route.push("/");
+  // };
   return (
     <Toolbar
       sx={{
@@ -307,22 +246,10 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         />
       </Stack>
       <Stack direction={"row"} gap={1} sx={{ marginLeft: "50px" }}>
-        {/* <Button
-          variant="outlined"
-          startIcon={<Icon icon="filterIcon" width={15} />}
-          sx={{
-            height: `36px`,
-            width: "120px",
-            borderColor: palette.border.invoicesBorderColor,
-            color: palette.base.black,
-          }}
-        >
-          Filter
-        </Button> */}
         <Tooltip title="Create a new invoice">
           <Button
             variant="contained"
-            onClick={handleCreate}
+            onClick={handleClientModel}
             endIcon={<Icon icon="plusIcon" width={15} />}
             sx={{ height: `36px`, width: "140px" }}
           >
@@ -336,9 +263,6 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function AllClients() {
   const route = useRouter();
   const dispatch = useDispatch();
-  const invoiceDetail = useSelector((state: any) => state.invoice);
-  const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
-  const componentRef = React.useRef();
   const apiRoute = `${backendURL}/invoices`;
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("name");
@@ -346,8 +270,17 @@ export default function AllClients() {
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [shareModel, setShareModel] = React.useState(false);
-  const [shareUrl, setShareUrl] = React.useState(0);
+  const [clientModel, setClientModel] = React.useState({
+    openModel: false,
+    openBd: false,
+  });
+  const handleClientModel = () => {
+    console.log("handleClientModel");
+    setClientModel({
+      openModel: true,
+      openBd: true,
+    });
+  };
 
   const {
     mutate: deleteInvoice,
@@ -397,23 +330,15 @@ export default function AllClients() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(invoiceList?.invoices, getComparator(order, orderBy))?.slice(
-        (page - 1) * rowsPerPage,
-        (page - 1) * rowsPerPage + rowsPerPage
-      ),
-    [order, orderBy, page, rowsPerPage, invoiceList?.invoices]
-  );
-
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);
-
   const handleDelete = () => {
     setIsModalOpen(false);
   };
-
+ const handleSubmitForm =(values:any)=>{
+  console.log(values,'valuessss')
+ }
   const handleDeleteModalClose = () => {
     setIsModalOpen(false);
   };
@@ -422,7 +347,6 @@ export default function AllClients() {
   };
   //Edit Invoice
   const handleEditInvoice = (record: any) => {
-    console.log(record, "record");
     dispatch(
       setFullInvoice({
         id: record?.id,
@@ -447,43 +371,6 @@ export default function AllClients() {
     );
     route.push(`/invoices/${record.id}/edit`);
   };
-  //Share Invoice
-  const handleShareInvoice = (record: any) => {
-    // route.push(`/preview/${record.id}`);
-    setShareUrl(record.id);
-    setShareModel(true);
-  };
-  //Print Invoice
-  const handlePrintInvoice = (record: any): Promise<void> => {
-    console.log(record, "recordss");
-    dispatch(
-      setFullInvoice({
-        id: record?.id,
-        logo: record?.image,
-        invoiceType: record?.type,
-        from: record?.from,
-        to: record?.to,
-        invoiceDate: record?.invoiceDate,
-        dueDate: record?.dueDate,
-        addtionalNotes: record?.notes,
-        invoiceItem: record?.items,
-      })
-    );
-    dispatch(
-      setInvoiceSettings({
-        color: record?.settings?.color,
-        currency: record?.settings?.currency,
-        dueDate: record?.settings?.dueDate,
-        tax: record?.settings?.tax,
-        detail: record?.settings?.detail,
-      })
-    );
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 50);
-    });
-  };
   const handleOpenDeleteModal = (id: number) => {
     setItemToDelete(id as number);
     setIsModalOpen(true);
@@ -492,7 +379,6 @@ export default function AllClients() {
     console.log(itemToDelete, "id");
     deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
   };
-
   return (
     <Box
       sx={{
@@ -509,6 +395,8 @@ export default function AllClients() {
         sx={{ width: "100%", px: "20px", mb: 2, pb: 1, border: "none" }}
       >
         <EnhancedTableToolbar
+          clientModel={clientModel}
+          handleClientModel={handleClientModel}
           numSelected={selected.length}
           search={search}
           handleChangeSearch={handleChangeSearch}
@@ -530,7 +418,7 @@ export default function AllClients() {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={invoiceList.invoices?.length}
+              rowCount={invoiceList?.invoices?.length}
             />
             {fetchingInvoiceList ? (
               <Box
@@ -626,20 +514,7 @@ export default function AllClients() {
                           record={row}
                           handleViewInvoice={handleViewInvoice}
                           handleEditInvoice={handleEditInvoice}
-                          handleShareInvoice={handleShareInvoice}
-                          handlePrintInvoice={handlePrintInvoice}
-                          componentRef={componentRef}
                         />
-                        <Box>
-                          <Box style={{ display: "none" }}>
-                            <Box ref={componentRef}>
-                              <InvoiceDetailsSection
-                                singleInvoice={{ ...invoiceDetail }}
-                                invoiceSetting={{ ...invoiceSetting }}
-                              />
-                            </Box>
-                          </Box>
-                        </Box>
                       </TableCell>
                     </TableRow>
                   );
@@ -663,11 +538,11 @@ export default function AllClients() {
         onClose={handleDeleteModalClose}
         invoiceDelete={invoiceDelete}
       />
-      <ShareModal
-        open={shareModel}
-        onShare={() => setShareModel(false)}
-        onClose={() => setShareModel(false)}
-        shareUrlId={shareUrl}
+      <ClientDetailModel
+      handleSubmitForm={handleSubmitForm}
+        type="Add"
+        clientModel={clientModel}
+        setClientModel={setClientModel}
       />
     </Box>
   );

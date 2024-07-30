@@ -52,7 +52,6 @@ const InvoiceDetail = () => {
       dispatch(setResetInvoice());
     };
   }, [dispatch]);
-
   useEffect(() => {
     refetchSingleInvoice();
     if (singleInvoice) {
@@ -80,7 +79,7 @@ const InvoiceDetail = () => {
       );
     }
   }, [refetchSingleInvoice, singleInvoice, dispatch]);
-
+  
   console.log(singleInvoice, "dataaa");
 
   return (

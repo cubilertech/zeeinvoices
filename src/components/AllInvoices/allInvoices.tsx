@@ -46,6 +46,7 @@ import {
 import ShareModal from "../ShareModal/shareModal";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { debounce } from "@/utils/common";
+import { useSession } from "next-auth/react";
 
 interface Data {
   id: number;
@@ -328,6 +329,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function AllInvoices() {
   const route = useRouter();
   const dispatch = useDispatch();
+  const {data:session} = useSession();
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
   const componentRef = React.useRef();
@@ -340,7 +342,7 @@ export default function AllInvoices() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [shareModel, setShareModel] = React.useState(false);
   const [shareUrl,setShareUrl] = React.useState(0);
-
+console.log(session,'sessionss');
   const {
     mutate: deleteInvoice,
     isLoading: deleteInvoiceLoading,
@@ -352,11 +354,12 @@ export default function AllInvoices() {
     isFetching: fetchingInvoiceList,
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   React.useEffect(() => {
+    if(session?.accessToken)
     refetchInvoiceList();
     if (deleteSuccess) {
       setIsModalOpen(false);
     }
-  }, [refetchInvoiceList, deleteSuccess, page]);
+  }, [refetchInvoiceList, deleteSuccess, page, session?.accessToken]);
   const debouncedRefetch = React.useCallback(
     debounce(() => {
       if (page === 1) {
@@ -522,7 +525,7 @@ export default function AllInvoices() {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={invoiceList.invoices?.length}
+              rowCount={invoiceList?.invoices?.length}
             />
             {fetchingInvoiceList ? (
               <Box

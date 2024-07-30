@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export const useFetchAllDocument = (
   apiRoute: any,
@@ -7,11 +8,15 @@ export const useFetchAllDocument = (
   limit: any,
   search: any
 ) => {
-  async function fetch() {
+  const { data: session } = useSession();
+  const token = session?.accessToken;
+  async function fetch() {   
     try {
-      const response = await axios.get(apiRoute,{
-        params:{page,limit,search}
+      const response = await axios.get(apiRoute, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { page, limit, search },
       });
+      console.log("API Response:", response.data);
       if (response.data && response.data.code === 200) {
         return response.data.data ? response.data.data : [];
       } else {
@@ -29,9 +34,15 @@ export const useFetchAllDocument = (
   });
 };
 export const useFetchSingleDocument = (apiRoute: string) => {
+  const { data: session } = useSession();
   async function fetch() {
+    const token = session?.accessToken;
     try {
-      const response = await axios.get(apiRoute);
+      const response = await axios.get(apiRoute, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.data && response.data.code === 200) {
         return response.data.data ? response.data.data : {};
       } else {
@@ -49,11 +60,14 @@ export const useFetchSingleDocument = (apiRoute: string) => {
   });
 };
 export const useCreateDocument = () => {
+  const { data: session } = useSession();
   const handleCreate = async (props: any) => {
+    const token = session?.accessToken;
     try {
       const response = await axios.post(props.apiRoute, props.data, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
       if (response.data.code === 200) {
@@ -70,9 +84,15 @@ export const useCreateDocument = () => {
 };
 
 export const useDeleteDocument = () => {
+  const { data: session } = useSession();
   const handleDelete = async (props: any) => {
+    const token = session?.accessToken;
     try {
-      const response = await axios.delete(props.apiRoute);
+      const response = await axios.delete(props.apiRoute,{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (response.data.code === 200) {
         return response.data.data;
       } else {
@@ -87,11 +107,14 @@ export const useDeleteDocument = () => {
 };
 
 export const useEditDocument = () => {
+  const { data: session } = useSession();
   const handleEdit = async (props: any) => {
+    const token = session?.accessToken;
     try {
       const respone = await axios.put(props.apiRoute, props.data, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
       if (respone.data.code === 200) {
