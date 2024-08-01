@@ -22,14 +22,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <SessionProviders>
-        <MuiThemeProvider>
-          <ClientProvider>
-            <QueryProvider>              
-            <AppLayout>{children}</AppLayout>           
-            </QueryProvider>
-          </ClientProvider>
-        </MuiThemeProvider>
+        <SessionProviders>
+          <MuiThemeProvider>
+            <ClientProvider>
+              <QueryProvider>
+                <AppLayout>{children}</AppLayout>
+              </QueryProvider>
+            </ClientProvider>
+          </MuiThemeProvider>
         </SessionProviders>
       </body>
     </html>

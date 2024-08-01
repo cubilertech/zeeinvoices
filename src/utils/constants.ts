@@ -4,6 +4,12 @@ export const icons = {
   twitter: "/Images/logos/twitter.svg",
   instagarm: "/Images/logos/instagram.svg",
   facebook: "/Images/logos/facebook.svg",
+  youtube: "/Images/logos/youtube.svg",
+
+  twitterlpf: "/Images/logos/twitter-lpf.svg",
+  facebooklpf: "/Images/logos/facebook-lpf.svg",
+  instagarmlpf: "/Images/logos/instagram-lpf.svg",
+
   uploadLogo: "/Images/icons/upload-logo.svg",
   arrowDownIcon: "/Images/icons/arrow-down.svg",
   sendSqaureIcon: "/Images/icons/send-sqaure.svg",
@@ -37,9 +43,22 @@ export const icons = {
   openEyeIcon: "/Images/icons/open-eye-icon.svg",
   closeEyeIcon: "/Images/icons/close-eye-icon.svg",
   sortIcon: "/Images/icons/sort-icon.svg",
+  easyUseIcon: "/Images/icons/easy-use-icon.svg",
+  customColorIcon: "/Images/icons/custom-color-icon.svg",
+  freeGenerateIcon: "/Images/icons/free-generate-icon.svg",
+
+  educationIcon: "/Images/icons/education-icon.svg",
+  fitnessIcon: "/Images/icons/fitness-icon.svg",
+  beautyIcon: "/Images/icons/beauty-icon.svg",
+  officialsIcon: "/Images/icons/officials-icon.svg",
+  medicalIcon: "/Images/icons/medical-icon.svg",
+  eventsIcon: "/Images/icons/events-icon.svg",
+  plusCircleIcon: "/Images/icons/plus-circle-icon.svg",
+  minusCircleIcon: "/Images/icons/minus-circle-icon.svg",
 };
 
 export const backendURL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3005";
 
-  export const frontendUrl =process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "http://localhost:3000";
+export const frontendUrl =
+  process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "http://localhost:3000";

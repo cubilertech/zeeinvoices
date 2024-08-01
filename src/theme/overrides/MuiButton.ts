@@ -16,7 +16,10 @@ export const MuiButton = () => {
             padding: "8px 20px 8px 20px",
           },
           "&.MuiButton-sizeLarge": {
-            height: "45px",
+            // height: "45px",
+            fontSize: "22px",
+            fontWeight: 600,
+            padding: "20px 30px 20px 30px",
           },
           //   "&.Mui-disabled": {
           //     opacity: 0.8,
