@@ -1,7 +1,5 @@
 "use client";
 import { AccordionCard } from "@/components/AccordionCard";
-import FeaturesCard from "@/components/FeaturesCard/FeaturesCard";
-import { Icon } from "@/components/Icon";
 import { palette } from "@/theme/palette";
 import { Box, Stack, Typography } from "@mui/material";
 import { useState } from "react";
@@ -64,27 +62,6 @@ const FAQsSection = () => {
         gap={5}
         sx={{ display: "flex", mx: "22%", mt: "5%", justifyContent: "center" }}
       >
-        {/* <AccordionCard
-          title="Is there a free trial available?"
-          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
-        />
-        <AccordionCard
-          title="Can I change my plan later?"
-          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
-        />
-        <AccordionCard
-          title="What is your cancellation policy?"
-          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
-        />
-        <AccordionCard
-          title="Can other info be added to an invoice?"
-          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
-        />
-        <AccordionCard
-          title="How do I change my account email?"
-          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
-        /> */}
-
         {accordionData.map((item, index) => (
           <AccordionCard
             key={index}
