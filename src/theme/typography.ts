@@ -78,6 +78,7 @@ declare module "@mui/material/Typography" {
     "display-2xl-semibold": true;
     "display-2xl-medium": true;
     "display-2xl-regular": true;
+    "display-xxl-bold" : true;
     "display-xl-bold": true;
     "display-xl-semibold": true;
     "display-xl-medium": true;

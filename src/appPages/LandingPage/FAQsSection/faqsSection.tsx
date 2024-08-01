@@ -1,0 +1,101 @@
+"use client";
+import { AccordionCard } from "@/components/AccordionCard";
+import FeaturesCard from "@/components/FeaturesCard/FeaturesCard";
+import { Icon } from "@/components/Icon";
+import { palette } from "@/theme/palette";
+import { Box, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+
+const accordionData = [
+  {
+    title: "Is there a free trial available?",
+    desc: "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+  },
+  { title: "Can I change my plan later?", desc: "Description" },
+  { title: "What is your cancellation policy?", desc: "Description" },
+  { title: "Can other info be added to an invoice?", desc: "Description" },
+  { title: "How do I change my account email?", desc: "Description" },
+];
+
+const FAQsSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleToggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        py: 9,
+        justifyContent: "center",
+        alignItems: "center",
+        // display: "flex",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          my: "10px",
+        }}
+      >
+        <Typography variant="display-lg-bold" sx={{ textAlign: "center" }}>
+          Frequently asked questions
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          //   my: "30px",
+        }}
+      >
+        <Typography
+          variant="text-xl-regular"
+          sx={{ textAlign: "center", color: palette.color.gray[725] }}
+        >
+          Everything you need to know about the product and billing.
+        </Typography>
+      </Box>
+      <Stack
+        direction={"column"}
+        gap={5}
+        sx={{ display: "flex", mx: "22%", mt: "5%", justifyContent: "center" }}
+      >
+        {/* <AccordionCard
+          title="Is there a free trial available?"
+          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
+        />
+        <AccordionCard
+          title="Can I change my plan later?"
+          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
+        />
+        <AccordionCard
+          title="What is your cancellation policy?"
+          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
+        />
+        <AccordionCard
+          title="Can other info be added to an invoice?"
+          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
+        />
+        <AccordionCard
+          title="How do I change my account email?"
+          desc="Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible."
+        /> */}
+
+        {accordionData.map((item, index) => (
+          <AccordionCard
+            key={index}
+            title={item.title}
+            desc={item.desc}
+            isOpen={openIndex === index}
+            onToggle={() => handleToggle(index)}
+          />
+        ))}
+      </Stack>
+    </Box>
+  );
+};
+export default FAQsSection;

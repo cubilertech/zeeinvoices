@@ -64,6 +64,15 @@ export const CustomTypography = {
       fontFamily: "Inter",
       letterSpacing: "",
     },
+
+    "display-xxl-bold": {
+      fontSize: "52px",
+      lineHeight: "64px",
+      fontKerning: "0%",
+      fontWeight: 800,
+      letterSpacing: "",
+      fontFamily: "Inter",
+    },
   
     "display-lg-regular": {
       fontSize: "48px",
@@ -306,7 +315,7 @@ export const CustomTypography = {
     },
     "text-md-bold": {
       fontSize: "16px",
-      lineHeight: "24px",
+      lineHeight: "22px",
       fontKerning: "0%",
       fontWeight: 700,
       letterSpacing: "",
