@@ -18,6 +18,7 @@ interface TextField {
   helperText?: any;
   onBlur?: any;
   error?: any;
+  disabled?:any
 }
 const TextField: FC<TextField> = ({
   label,
@@ -29,6 +30,7 @@ const TextField: FC<TextField> = ({
   helperText,
   onBlur,
   error,
+  disabled,
   ...props
 }) => {
   return (
@@ -43,6 +45,7 @@ const TextField: FC<TextField> = ({
         onChange={onChange}
         onBlur={onBlur}
         error={error}
+        disabled={disabled}
         helperText={helperText}
         sx={
           size === "large"

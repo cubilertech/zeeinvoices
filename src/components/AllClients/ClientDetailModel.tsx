@@ -44,37 +44,30 @@ const validationSchema = Yup.object({
 interface ClientDetail {
   handleSubmitForm?: any;
   type?: string;
-  clientModel?:any;
-setClientModel?:any;
+  clientModel?: any;
+  setClientModel?: any;
+  editId?: any;
 }
-const ClientDetailModel: FC<ClientDetail> = ({ handleSubmitForm, type ,clientModel,setClientModel}) => {
-   //close model
+const ClientDetailModel: FC<ClientDetail> = ({
+  handleSubmitForm,
+  type,
+  clientModel,
+  setClientModel,
+  editId,
+}) => {
+  //close model
   const handleModelClose = () => {
-   setClientModel({
-    openModel:false,
-    openBd:false
-   })
+    setClientModel(false);    
   };
 
-  //   const initialValues = {
-  //   name: InvDetails?.name || "",
-  //   companyName: InvDetails?.companyName || "",
-  //   email: InvDetails?.email || "",
-  //   phoneNumber: InvDetails?.phoneNumber || "",
-  //   city: InvDetails?.city || "",
-  //   state: InvDetails?.state || "",
-  //   address: InvDetails?.address || "",
-  //   countryCode: "PK",
-  // };
-
-  const initialValues = {
-    name: "",
-    companyName: "",
-    email: "",
-    phoneNumber: "",
-    city: "",
-    state: "",
-    address: "",
+    const initialValues = {
+    name:editId?.name || "",
+    companyName: editId?.company_name || "",
+    email: editId?.email || "",
+    phoneNumber: editId?.phone_number || "",
+    city: editId?.city || "",
+    state: editId?.state || "",
+    address: editId?.address || "",
     countryCode: "PK",
   };
   interface FormErrors {
@@ -86,12 +79,12 @@ const ClientDetailModel: FC<ClientDetail> = ({ handleSubmitForm, type ,clientMod
     state?: string;
     address?: string;
   }
-
+  console.log(editId?.name, "editId");
   const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
     useFormik({
       initialValues: initialValues,
       validationSchema: validationSchema,
-
+      enableReinitialize: true,
       validate: (values) => {
         const errors: FormErrors = {};
         const phoneError = validatePhoneNumber(
@@ -101,17 +94,13 @@ const ClientDetailModel: FC<ClientDetail> = ({ handleSubmitForm, type ,clientMod
         if (phoneError) {
           errors.phoneNumber = phoneError;
         }
-
         return errors;
       },
-      onSubmit: (values) => {        
-        console.log(values,'valuessss');     
-        handleSubmitForm(values);
+      onSubmit: (values) => {
         handleModelClose();
+        handleSubmitForm(values);
       },
     });
-  console.log(initialValues, "valuesss");
-
   function isString(value: any): value is string {
     return typeof value === "string";
   }
@@ -121,11 +110,9 @@ const ClientDetailModel: FC<ClientDetail> = ({ handleSubmitForm, type ,clientMod
   ): string => {
     // Ensure countryCode is a valid CountryCode
     const validCountryCode: CountryCode = countryCode as CountryCode;
-
     if (!phoneNumber) {
       return "Phone number is required";
     }
-
     const phoneNumberInstance = parsePhoneNumberFromString(
       phoneNumber,
       validCountryCode
@@ -133,14 +120,11 @@ const ClientDetailModel: FC<ClientDetail> = ({ handleSubmitForm, type ,clientMod
     if (!phoneNumberInstance) {
       return "Invalid phone number";
     }
-
     if (!phoneNumberInstance.isValid()) {
       return "Invalid phone number";
     }
-
     return "";
   };
-
   return (
     <Box
       borderRadius={1}
@@ -157,11 +141,10 @@ const ClientDetailModel: FC<ClientDetail> = ({ handleSubmitForm, type ,clientMod
           backdropFilter: "blur(2px)",
           backgroundColor: "rgba(0, 0, 0, 0)",
         }}
-        open={clientModel.openBd}
-        // onClick={handleCloseBd}
+        open={clientModel}
       >
         <Modal
-          open={clientModel.openModel}
+          open={clientModel}
           onClose={handleModelClose}
           disableAutoFocus
           sx={{
@@ -187,8 +170,7 @@ const ClientDetailModel: FC<ClientDetail> = ({ handleSubmitForm, type ,clientMod
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="text-lg-semibold">
-                {type === "add" ? "Add" : "Edit"}{" "}
-                {/* {detailsOf === "Recipient" ? "Receiver" : detailsOf} Details */}
+                {type === "add" ? "Add New" : "Edit"} Client
               </Typography>
               <IconButton onClick={handleModelClose}>
                 <CloseIcon
@@ -358,7 +340,7 @@ const ClientDetailModel: FC<ClientDetail> = ({ handleSubmitForm, type ,clientMod
                   variant="contained"
                   sx={{ width: "243px", height: "40px" }}
                 >
-                  Add
+                  {type === "add" ? "Add " : "Update"}
                 </Button>
               </Stack>
             </form>

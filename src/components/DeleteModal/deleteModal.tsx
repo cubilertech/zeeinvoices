@@ -18,7 +18,7 @@ const style = {
 };
 
 interface DeleteModal {
-  onDelete: () => void;
+  onDelete?: () => void;
   onClose: () => void;
   open: boolean;
   invoiceDelete:any
@@ -65,7 +65,7 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete })
                   border: `1px solid #DADCE0`,
                   color: "#445164",
                 }}
-                onClick={onDelete}
+                onClick={onClose}
               >
                 Cancel
               </Button>

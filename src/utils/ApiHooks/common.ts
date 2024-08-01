@@ -16,7 +16,6 @@ export const useFetchAllDocument = (
         headers: { Authorization: `Bearer ${token}` },
         params: { page, limit, search },
       });
-      console.log("API Response:", response.data);
       if (response.data && response.data.code === 200) {
         return response.data.data ? response.data.data : [];
       } else {
@@ -59,14 +58,14 @@ export const useFetchSingleDocument = (apiRoute: string) => {
     // placeholderData: {},
   });
 };
-export const useCreateDocument = () => {
+export const useCreateDocument = (multipart=true) => {
   const { data: session } = useSession();
   const handleCreate = async (props: any) => {
     const token = session?.accessToken;
     try {
       const response = await axios.post(props.apiRoute, props.data, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": multipart ? "multipart/form-data" : "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
@@ -106,14 +105,14 @@ export const useDeleteDocument = () => {
   return useMutation(handleDelete);
 };
 
-export const useEditDocument = () => {
+export const useEditDocument = (multipart=true) => {
   const { data: session } = useSession();
   const handleEdit = async (props: any) => {
     const token = session?.accessToken;
     try {
       const respone = await axios.put(props.apiRoute, props.data, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": multipart ? "multipart/form-data" : "application/json",
           Authorization: `Bearer ${token}`,
         },
       });

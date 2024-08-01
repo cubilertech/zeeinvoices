@@ -10,7 +10,15 @@ export const useSelectedColor = () => {
   return color;
 };
 
-export const imageConvertion=(image:string)=>{
+export const imageConvertion=(image:any)=>{
+if(image?.includes('lh3.googleusercontent.com') || image?.includes('blob:')){
+  return image;
+}else{
+  return `${backendURL}/${image}`;
+}
+}
+export const googleImage=(image:string)=>{
+  console.log(image,'imageee')
 if(image?.includes('base64,')){
   return image;
 }else{

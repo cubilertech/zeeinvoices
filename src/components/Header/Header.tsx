@@ -12,33 +12,49 @@ import {
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import CustomButton from "./CustomButton";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import {  useSession } from "next-auth/react";
-import { handleLogout,handleLogin } from "@/utils/common";
-import { useDispatch } from "react-redux";
+import { useSession } from "next-auth/react";
+import { handleLogout, handleLogin, imageConvertion } from "@/utils/common";
+import { useDispatch, useSelector } from "react-redux";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 import { setResetInvoice } from "@/redux/features/invoiceSlice";
+import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
+import { backendURL } from "@/utils/constants";
+import { getCountValue } from "@/redux/features/counterSlice";
 
 const Header = () => {
   const route = useRouter();
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
+  const counter = useSelector(getCountValue);
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
-  const handLogoClick= ()=>{
-      route.push('/invoices')
-      dispatch(setResetInvoice());
-      dispatch(setResetInvoiceSetting());    
-  }
+  const {
+    data: profileData,
+    refetch: fetchProfile,
+    isFetching: fetchingProfile,
+  } = useFetchSingleDocument(`${backendURL}/users/my-profile`);
+  useEffect(() => {
+    if (session?.accessToken) fetchProfile();
+  }, [fetchProfile, session?.accessToken,counter]);
+  const handLogoClick = () => {
+    route.push("/invoices");
+    dispatch(setResetInvoice());
+    dispatch(setResetInvoiceSetting());
+  };
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleProfile = () => {
+    route.push("/profile");
+    setAnchorEl(null);
+  };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  console.log(session,'sessiom');
+  console.log(session, "sessiom");
   return (
     <AppBar
       position="fixed"
@@ -62,24 +78,24 @@ const Header = () => {
             alignItems: "center",
           }}
         >
-          <Box onClick={handLogoClick} sx={{cursor:'pointer'}}>
+          <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
             <Icon icon="logo" height={24} width={175} />
-            </Box>
+          </Box>
           {session && <CustomButton />}
         </Stack>
         <Stack direction={"row"} gap={3}>
           {!session ? (
-              <Button
-                onClick={handleLogin}
-                variant="contained"
-                sx={{ px: "20px", py: "8px" }}
-              >
-                Login
-              </Button>
+            <Button
+              onClick={handleLogin}
+              variant="contained"
+              sx={{ px: "20px", py: "8px" }}
+            >
+              Login
+            </Button>
           ) : (
             <>
               <Typography sx={{ color: "black", alignSelf: "center" }}>
-                Hi, {session.user?.name}
+                Hi, {profileData?.name}
               </Typography>
               <Box>
                 <Stack
@@ -88,10 +104,17 @@ const Header = () => {
                   sx={{ cursor: "pointer" }}
                   onClick={handleClick}
                 >
-                  {session.user?.image ? (
-                    <Avatar sx={{width:"32px", height:"32px"}} alt="Avatar" src={session.user.image} />
+                  {profileData?.image ? (
+                    <Avatar
+                      sx={{ width: "32px", height: "32px" }}
+                      alt="Avatar"
+                      src={imageConvertion(profileData?.image)}
+                    />
                   ) : (
-                    <Avatar sx={{width:"32px", height:"32px"}} alt="Avatar" />
+                    <Avatar
+                      sx={{ width: "32px", height: "32px" }}
+                      alt="Avatar"
+                    />
                   )}
                   <Icon icon="arrowDownIcon" width={15} height={15} />
                 </Stack>
@@ -109,6 +132,7 @@ const Header = () => {
                   <Stack direction={"column"}>
                     <Button
                       variant="outlined"
+                      onClick={handleProfile}
                       startIcon={<Icon icon="profileIcon" />}
                       sx={{
                         border: "none",

@@ -28,18 +28,21 @@ import { Icon } from "../Icon";
 import { Pagination } from "../Pagination";
 import { backendURL } from "@/utils/constants";
 import {
+  useCreateDocument,
   useDeleteDocument,
+  useEditDocument,
   useFetchAllDocument,
 } from "@/utils/ApiHooks/common";
 import { calculateAmount, tableFormatDate } from "@/common/common";
 import { useRouter } from "next/navigation";
 import DeleteModal from "../DeleteModal/deleteModal";
-import CustomPopOver from "./ClientPopOver";
+import ClientPopOver from "./ClientPopOver";
 import { useDispatch } from "react-redux";
 import { setFullInvoice } from "@/redux/features/invoiceSlice";
 import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
 import { debounce } from "@/utils/common";
 import ClientDetailModel from "./ClientDetailModel";
+import { useSession } from "next-auth/react";
 
 interface Data {
   name: string;
@@ -164,24 +167,12 @@ interface EnhancedTableToolbarProps {
   numSelected: number;
   search: any;
   handleChangeSearch: any;
-  clientModel?: any;
-  handleClientModel?: any;
+  handleClientAddModel?: any;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const {
-    numSelected,
-    search,
-    handleChangeSearch,
-    clientModel,
-    handleClientModel,
-  } = props;
-  const dispatch = useDispatch();
-  // const handleCreate = () => {
-  //   dispatch(setResetInvoiceSetting());
-  //   dispatch(setResetInvoice());
-  //   route.push("/");
-  // };
+  const { numSelected, search, handleChangeSearch, handleClientAddModel } =
+    props;
   return (
     <Toolbar
       sx={{
@@ -249,7 +240,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         <Tooltip title="Create a new invoice">
           <Button
             variant="contained"
-            onClick={handleClientModel}
+            onClick={handleClientAddModel}
             endIcon={<Icon icon="plusIcon" width={15} />}
             sx={{ height: `36px`, width: "140px" }}
           >
@@ -263,65 +254,71 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function AllClients() {
   const route = useRouter();
   const dispatch = useDispatch();
-  const apiRoute = `${backendURL}/invoices`;
+  const apiRoute = `${backendURL}/clients`;
+  const { data: session } = useSession();
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("name");
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [clientModel, setClientModel] = React.useState({
-    openModel: false,
-    openBd: false,
-  });
-  const handleClientModel = () => {
-    console.log("handleClientModel");
-    setClientModel({
-      openModel: true,
-      openBd: true,
-    });
-  };
+  const [clientType, setClientType] = React.useState("add");
+  const [clientModel, setClientModel] = React.useState(false);
+  const [editId, setEditId] = React.useState<any | undefined>(undefined);
 
+  const handleClientAddModel = () => {
+    setClientType("add");
+    setClientModel(true);
+    setEditId(undefined);
+  };
+  //Client List
   const {
-    mutate: deleteInvoice,
-    isLoading: deleteInvoiceLoading,
+    data: clientList,
+    refetch: refetchClientList,
+    isFetching: fetchingClientList,
+  } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
+  //Delete Client
+  const {
+    mutate: deleteClient,
+    isLoading: deleteClientLoading,
     isSuccess: deleteSuccess,
   } = useDeleteDocument();
+  //Create Client
   const {
-    data: invoiceList,
-    refetch: refetchInvoiceList,
-    isFetching: fetchingInvoiceList,
-  } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
+    mutateAsync: createClient,
+    isLoading: createClientLoading,
+    isSuccess: createClientSuccess,
+  } = useCreateDocument(false);
+  // Update Client
+  const {
+    mutateAsync: updateClient,
+    isLoading: updateClientLoading,
+    isSuccess: updateClientSuccess,
+  } = useEditDocument(false);
+
   React.useEffect(() => {
-    refetchInvoiceList();
+    if (session?.accessToken) refetchClientList();
     if (deleteSuccess) {
       setIsModalOpen(false);
     }
-  }, [refetchInvoiceList, deleteSuccess, page]);
-  const debouncedRefetch = React.useCallback(
-    debounce(() => {
-      if (page === 1) {
-        refetchInvoiceList();
-      } else {
-        setPage(1);
-      }
-    }, 500),
-    [search]
-  );
+  }, [refetchClientList, deleteSuccess, page, session?.accessToken]);
   const handleChangeSearch = (e: any) => {
     setSearch(e.target.value);
-    debouncedRefetch();
+   setTimeout(()=>{
+    if (page === 1) {
+            refetchClientList();
+          } else {
+            setPage(1);
+          }
+   },800)
   };
   const filteredData = React.useMemo(() => {
-    if (invoiceList && invoiceList?.invoices?.length) {
-      return invoiceList?.invoices;
+    if (clientList && clientList?.clients?.length) {
+      return clientList?.clients;
     } else {
       return [];
     }
-  }, [invoiceList, search]);
-
-  // console.log(invoiceList, fetchingInvoiceList, "setPage",setPage);
-
+  }, [clientList]);
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Data
@@ -333,51 +330,58 @@ export default function AllClients() {
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);
-  const handleDelete = () => {
-    setIsModalOpen(false);
+  const handleSubmitForm = (values: any) => {
+    const data = {
+      name: values.name,
+      company_name: values.companyName,
+      email: values.email,
+      phone_number: values.phoneNumber,
+      city: values.city,
+      state: values.state,
+      address: values.address,
+    };
+    if (clientType === "add") {
+      createClient({ apiRoute: `${backendURL}/clients/save`, data: data })
+        .then((res) => {
+          console.log("Added");
+          refetchClientList();
+        })
+        .catch((err) => {
+          alert(`${err}`);
+          throw new Error("Error Occured!");
+        });
+    }
+    else {
+      try {
+        updateClient({data:data,apiRoute:`${backendURL}/clients/${editId?._id}`}).then((res)=>{
+          console.log("Updated");
+          refetchClientList();
+        })
+      } catch (error) {
+        throw new Error('Not Updated!');
+      }
+      
+    }
   };
- const handleSubmitForm =(values:any)=>{
-  console.log(values,'valuessss')
- }
   const handleDeleteModalClose = () => {
     setIsModalOpen(false);
   };
-  const handleViewInvoice = (id: number) => {
-    route.push(`/invoices/${id}`);
+  const handleViewClient = (id: number) => {
+    route.push(`/clients/${id}`);
   };
   //Edit Invoice
-  const handleEditInvoice = (record: any) => {
-    dispatch(
-      setFullInvoice({
-        id: record?.id,
-        logo: record?.image,
-        invoiceType: record?.type,
-        from: record?.from,
-        to: record?.to,
-        invoiceDate: record?.invoiceDate,
-        dueDate: record?.dueDate,
-        addtionalNotes: record?.notes,
-        invoiceItem: record?.items,
-      })
-    );
-    dispatch(
-      setInvoiceSettings({
-        color: record?.settings.color,
-        currency: record?.settings.currency,
-        dueDate: record?.settings.dueDate,
-        tax: record?.settings.tax,
-        detail: record?.settings.detail,
-      })
-    );
-    route.push(`/invoices/${record.id}/edit`);
+  const handleEditClient = (record: any) => {
+    setClientType("edit");
+    setClientModel(true);
+    setEditId(record);
   };
   const handleOpenDeleteModal = (id: number) => {
     setItemToDelete(id as number);
     setIsModalOpen(true);
   };
-  const invoiceDelete = () => {
+  const clientDelete = () => {
     console.log(itemToDelete, "id");
-    deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
+    deleteClient({ apiRoute: `${backendURL}/clients/${itemToDelete}` });
   };
   return (
     <Box
@@ -395,8 +399,7 @@ export default function AllClients() {
         sx={{ width: "100%", px: "20px", mb: 2, pb: 1, border: "none" }}
       >
         <EnhancedTableToolbar
-          clientModel={clientModel}
-          handleClientModel={handleClientModel}
+          handleClientAddModel={handleClientAddModel}
           numSelected={selected.length}
           search={search}
           handleChangeSearch={handleChangeSearch}
@@ -418,9 +421,9 @@ export default function AllClients() {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={invoiceList?.invoices?.length}
+              rowCount={clientList?.clients?.length}
             />
-            {fetchingInvoiceList ? (
+            {fetchingClientList ? (
               <Box
                 sx={{
                   display: "flex",
@@ -451,69 +454,36 @@ export default function AllClients() {
                         padding="none"
                         sx={{ paddingLeft: "20px" }}
                       >
-                        {row.id}
+                        {row?.name}
                       </TableCell>
                       <TableCell align="left">
-                        <Stack direction={"row"} gap={1}>
-                          <Avatar
-                            sx={{
-                              bgcolor: palette.primary.main,
-                              width: "32px",
-                              height: "32px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            {row.to.name.charAt(0).toUpperCase()}
-                          </Avatar>
-                          <Stack direction={"column"}>
-                            <Typography variant="text-sm-medium">
-                              {row.to.name}
-                            </Typography>
-                            <Typography variant="text-xs-regular">
-                              {row.to.email}
-                            </Typography>
-                          </Stack>
-                        </Stack>
-                      </TableCell>
-                      <TableCell align="left" sx={{ paddingLeft: "17px" }}>
                         <Typography variant="text-sm-regular">
-                          {tableFormatDate(row.invoiceDate)}
+                          {row?.email}
                         </Typography>
                       </TableCell>
                       <TableCell align="left" sx={{ paddingLeft: "17px" }}>
                         <Typography variant="text-sm-regular">
-                          {tableFormatDate(row.invoiceDate)}
+                          {row?.company_name}
                         </Typography>
                       </TableCell>
                       <TableCell align="left" sx={{ paddingLeft: "17px" }}>
                         <Typography variant="text-sm-regular">
-                          {tableFormatDate(row.invoiceDate)}
+                          {row?.phone_number}
                         </Typography>
                       </TableCell>
-                      <TableCell align="left">
-                        <Badge
-                          color="primary"
-                          badgeContent={row.status}
-                          sx={{
-                            paddingLeft: "37px",
-                            "& .MuiBadge-colorPrimary": {
-                              background: "skyblue",
-                            },
-                          }}
-                        ></Badge>
+                      <TableCell align="left" sx={{ paddingLeft: "17px" }}>
+                        <Typography variant="text-sm-regular">
+                          {row?.city}
+                        </Typography>
                       </TableCell>
+                      <TableCell align="left">{row?.state}</TableCell>
+                      <TableCell align="left">{row?.address}</TableCell>
                       <TableCell align="left">
-                        {row.settings.currency}{" "}
-                        {calculateAmount(row.items).toFixed(2)}
-                      </TableCell>
-                      <TableCell align="left">
-                        <CustomPopOver
+                        <ClientPopOver
                           handleOpenDeleteModal={handleOpenDeleteModal}
                           record={row}
-                          handleViewInvoice={handleViewInvoice}
-                          handleEditInvoice={handleEditInvoice}
+                          handleViewClient={handleViewClient}
+                          handleEditClient={handleEditClient}
                         />
                       </TableCell>
                     </TableRow>
@@ -524,9 +494,7 @@ export default function AllClients() {
           </Table>
         </TableContainer>
         <Pagination
-          totalRecords={
-            invoiceList?.totalRecords ? invoiceList?.totalRecords : 0
-          }
+          totalRecords={clientList?.totalRecords ? clientList?.totalRecords : 0}
           itemsPerPage={rowsPerPage}
           page={page}
           setPage={setPage}
@@ -534,15 +502,15 @@ export default function AllClients() {
       </Paper>
       <DeleteModal
         open={isModalOpen}
-        onDelete={handleDelete}
         onClose={handleDeleteModalClose}
-        invoiceDelete={invoiceDelete}
+        invoiceDelete={clientDelete}
       />
       <ClientDetailModel
-      handleSubmitForm={handleSubmitForm}
-        type="Add"
+        handleSubmitForm={handleSubmitForm}
+        type={clientType}
         clientModel={clientModel}
         setClientModel={setClientModel}
+        editId={editId}
       />
     </Box>
   );

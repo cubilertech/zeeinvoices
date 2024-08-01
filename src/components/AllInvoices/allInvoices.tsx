@@ -329,7 +329,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function AllInvoices() {
   const route = useRouter();
   const dispatch = useDispatch();
-  const {data:session} = useSession();
+  const { data: session } = useSession();
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
   const componentRef = React.useRef();
@@ -341,8 +341,8 @@ export default function AllInvoices() {
   const [search, setSearch] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [shareModel, setShareModel] = React.useState(false);
-  const [shareUrl,setShareUrl] = React.useState(0);
-console.log(session,'sessionss');
+  const [shareUrl, setShareUrl] = React.useState(0);
+  console.log(session, "sessionss");
   const {
     mutate: deleteInvoice,
     isLoading: deleteInvoiceLoading,
@@ -354,25 +354,31 @@ console.log(session,'sessionss');
     isFetching: fetchingInvoiceList,
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   React.useEffect(() => {
-    if(session?.accessToken)
-    refetchInvoiceList();
+    if (session?.accessToken) refetchInvoiceList();
     if (deleteSuccess) {
       setIsModalOpen(false);
     }
   }, [refetchInvoiceList, deleteSuccess, page, session?.accessToken]);
-  const debouncedRefetch = React.useCallback(
-    debounce(() => {
+  // const debouncedRefetch = React.useCallback(
+  //   debounce(() => {
+  //     if (page === 1) {
+  //       refetchInvoiceList();
+  //     } else {
+  //       setPage(1);
+  //     }
+  //   }, 500),
+  //   [search]
+  // );
+  const handleChangeSearch = (e: any) => {
+    setSearch(e.target.value);
+    setTimeout(() => {
       if (page === 1) {
         refetchInvoiceList();
       } else {
         setPage(1);
       }
-    }, 500),
-    [search]
-  );
-  const handleChangeSearch = (e: any) => {
-    setSearch(e.target.value);
-    debouncedRefetch();
+    }, 800);
+    // debouncedRefetch();
   };
   const filteredData = React.useMemo(() => {
     if (invoiceList && invoiceList?.invoices?.length) {
@@ -380,7 +386,7 @@ console.log(session,'sessionss');
     } else {
       return [];
     }
-  }, [invoiceList, search]);
+  }, [invoiceList]);
 
   // console.log(invoiceList, fetchingInvoiceList, "setPage",setPage);
 

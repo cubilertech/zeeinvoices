@@ -2,20 +2,19 @@ import { Button, IconButton, Popover, Stack } from "@mui/material";
 import { useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
-import ReactToPrint from "react-to-print";
 
 interface CustomPopOverProps {
   record: any; // Assuming id is of type number
-  handleViewInvoice: (id: number) => void;
+  handleViewClient: (id: number) => void;
   handleOpenDeleteModal: (id: number) => void;
-  handleEditInvoice: (id: number) => void;
+  handleEditClient: (id: number) => void;
 }
 
 const ClientPopOver: React.FC<CustomPopOverProps> = ({
   record,
-  handleViewInvoice,
+  handleViewClient,
   handleOpenDeleteModal,
-  handleEditInvoice,
+  handleEditClient,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleClose = () => {
@@ -31,7 +30,7 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
         <Icon icon="threeDotsIcon" width={5} height={5} />
       </IconButton>
       <Popover
-        id={record.id.toString()} 
+        id={record?.id} 
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -46,7 +45,7 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
           sx={{ display: "flex", alignItems: "start" }}
         >
           <Button
-            onClick={() => handleViewInvoice(record.id)}
+            onClick={() => handleViewClient(record._id)}
             variant="outlined"
             startIcon={<Icon icon="viewIcon" />}
             sx={{
@@ -65,7 +64,7 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
             View
           </Button>
           <Button
-            onClick={() => handleEditInvoice(record)}
+            onClick={() => handleEditClient(record)}
             variant="outlined"
             startIcon={<Icon icon="editIcon" />}
             sx={{
@@ -98,7 +97,7 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
                 borderRadius: 0,
               },
             }}
-            onClick={() => handleOpenDeleteModal(record.id)}
+            onClick={() => handleOpenDeleteModal(record._id)}
           >
             Delete
           </Button>

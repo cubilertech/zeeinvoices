@@ -8,16 +8,29 @@ import { Icon } from "../Icon";
 import Image from "next/image";
 import { imageConvertion } from "@/utils/common";
 
-interface ProfileAvatar {}
+interface ProfileAvatar {
+  // image?: any;
+  // setImage?: any;
+  // isImage?: any;
+  // setIsImage?: any;
+  uploadImage?: any,
+  setUploadImage?: any,
+  imageUrl?: any,
+  setImageUrl?: any
+}
 
-const ProfileAvatar: FC<ProfileAvatar> = ({}) => {
-  //   const dispatch = useDispatch();
-  //   const invoiceLogo = useSelector(getInvoiceLogo);
-  const [isImage, setIsImage] = useState(false);
-  const [image, setImage] = useState<string | null>(null);
-
+const ProfileAvatar: FC<ProfileAvatar> = ({
+  uploadImage,
+  setUploadImage,
+  imageUrl,
+  setImageUrl
+  // image,
+  // setImage,
+  // isImage,
+  // setIsImage,
+}) => {
+  // const [isImage, setIsImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
   const handleClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -27,24 +40,13 @@ const ProfileAvatar: FC<ProfileAvatar> = ({}) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setIsImage(true);
-      setImage(imageUrl);
-      // setSelectedFile(file);
-      // dispatch(setInvoiceLogo(URL.createObjectURL(file)));
-      //   const reader = new FileReader();
-      //   reader.onloadend = () => {
-      //     const base64Image = reader.result;
-      // setImage(base64Image);
-      // localStorage.setItem("uploadedImage", base64Image);
-      // dispatch(setInvoiceLogo(base64Image as string));
-      // console.log("Image stored in localStorage");
-      // localStorage.setItem('logo',(URL.createObjectURL(file)));
+      setUploadImage(file);
+      setImageUrl(URL.createObjectURL(file));
+      // setIsImage(true);
+      // setImage(file);
     }
-    //   reader.readAsDataURL(file);
-    // }
   };
-
+console.log(imageUrl,'ddddd',uploadImage);
   return (
     <>
       {/* circle avatar */}
@@ -74,11 +76,13 @@ const ProfileAvatar: FC<ProfileAvatar> = ({}) => {
             justifyContent: "center",
           }}
         >
-          {!isImage ? (
+          {!imageUrl || imageUrl === '' ? (
             <Icon icon="personIcon" width={87} height={103} />
           ) : (
             <Image
-              src={image || ""}
+              src={
+                imageConvertion(imageUrl)
+              }
               alt="Selected Logo"
               width={100}
               height={100}

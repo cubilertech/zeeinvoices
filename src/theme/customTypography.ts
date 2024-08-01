@@ -367,6 +367,17 @@ export const CustomTypography = {
       letterSpacing: "",
       fontFamily: "Inter",
     },
+    "text-xs-regular-color": {
+      fontSize: "12px",
+      lineHeight: "14px",
+      fontKerning: "0%",
+      fontWeight: 400,
+      letterSpacing: "",
+      fontFamily: "Inter",
+      display:'flex',
+      color:'#333333',
+      gap:'2px',
+    },
     "text-xs-medium": {
       fontSize: "12px",
       lineHeight: "15.6px",

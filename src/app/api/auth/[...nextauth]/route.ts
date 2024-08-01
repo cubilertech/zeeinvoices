@@ -1,10 +1,10 @@
-// // app/api/auth/[...nextauth]/route.ts
+// // // app/api/auth/[...nextauth]/route.ts
 
 import { backendURL } from '@/utils/constants';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = ({
   providers: [
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
@@ -15,7 +15,6 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, account, user }) {
       if (account && user) {
         token.accessToken = account.access_token;
-
         // Call your backend API here
         try {
           const response = await fetch(`${backendURL}/users/save`, {
@@ -36,9 +35,9 @@ export const authOptions: NextAuthOptions = {
             throw new Error('Failed to call backend API');
           }
 
-          const data = await response.json();
+          // const data = await response.json();
           // You can add the response data to the token if needed
-          token.backendApiResponse = data;
+          // token.backendApiResponse = data;
         } catch (error) {
           console.error('Error calling backend API:', error);
           // Handle the error as needed
@@ -53,7 +52,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-};
+});
 
 const handler = NextAuth(authOptions);
 

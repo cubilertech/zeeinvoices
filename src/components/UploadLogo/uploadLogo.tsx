@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceLogo, setInvoiceLogo } from "@/redux/features/invoiceSlice";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Image from "next/image";
-import { imageConvertion } from "@/utils/common";
+import { googleImage, imageConvertion } from "@/utils/common";
 
 interface UploadLogoProps {
   logoDesc: string;
@@ -26,7 +26,6 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
       fileInputRef.current.click();
     }
   };
-
   const handleCancelLogoClick = () => {
     dispatch(setInvoiceLogo(null));
   };
@@ -59,7 +58,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
           sx={{ position: "relative", alignItems: "center", display: "flex" }}
         >
           <Image
-            src={imageConvertion(invoiceLogo as string)}
+            src={googleImage(invoiceLogo as string)}
             alt="Selected Logo"
             width={70}
             height={70}
