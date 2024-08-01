@@ -53,7 +53,7 @@ const ContectSection = () => {
             Our friendly team would love to hear from you.
           </Typography>
 
-          <Stack direction={"column"} gap={2}>
+          <Stack direction={"column"} gap={2} sx={{ mt: "5%" }}>
             <Stack direction={"row"} justifyContent={"space-between"}>
               <FormControl sx={{ width: "240px" }}>
                 <TextField
@@ -88,7 +88,7 @@ const ContectSection = () => {
                 name="phoneNumber"
                 className="custom-phone-input"
                 defaultCountry="pk"
-                value={"92 300-0000000"}
+                value={""}
                 // onChange={(value) => {
                 //   handleChange({
                 //     target: {
@@ -121,25 +121,39 @@ const ContectSection = () => {
               <MulTextField
                 id="outlined-multiline-static"
                 multiline
-                rows={6}
+                rows={5}
                 placeholder="Leave us a message..."
+                sx={{
+                  "& .MuiInputBase-input::placeholder": {
+                    color: "#667085",
+                  },
+                }}
               />
             </Stack>
-            <Stack direction={"row"} sx={{alignItems:"center"}}>
-            <FormControlLabel
-            sx={{mr:"3px"}}
-              control={<Checkbox defaultChecked />}
-              label="You agree to our friendly"
-            />
-            <Link color="inherit" sx={{fontSize:"14px", fontWeight:400, lineHeight:"20px"}}>privacy policy.</Link>
+            <Stack direction={"row"} sx={{ alignItems: "center" }}>
+              <FormControlLabel
+                sx={{ mr: "3px" }}
+                control={<Checkbox defaultChecked />}
+                label="You agree to our friendly"
+              />
+              <Link
+                color="inherit"
+                sx={{
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  fontWeight: 400,
+                  lineHeight: "20px",
+                }}
+              >
+                privacy policy.
+              </Link>
             </Stack>
-            
           </Stack>
 
           <Button
             variant="contained"
             size="large"
-            sx={{ height: "48px", py: "12px", px: "20px", mt:"10px" }}
+            sx={{ height: "48px", py: "12px", px: "20px", mt: "10px" }}
           >
             Send message
           </Button>

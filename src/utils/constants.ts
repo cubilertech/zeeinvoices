@@ -6,6 +6,10 @@ export const icons = {
   facebook: "/Images/logos/facebook.svg",
   youtube: "/Images/logos/youtube.svg",
 
+  twitterlpf: "/Images/logos/twitter-lpf.svg",
+  facebooklpf: "/Images/logos/facebook-lpf.svg",
+  instagarmlpf: "/Images/logos/instagram-lpf.svg",
+
   uploadLogo: "/Images/icons/upload-logo.svg",
   arrowDownIcon: "/Images/icons/arrow-down.svg",
   sendSqaureIcon: "/Images/icons/send-sqaure.svg",

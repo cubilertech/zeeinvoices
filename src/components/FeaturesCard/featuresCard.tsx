@@ -19,16 +19,17 @@ const FeaturesCard: FC<FeaturesCard> = ({ title, desc, icon }) => {
       direction={"row"}
       gap={2}
       sx={{
-        py: "20px",
-        px: "10px",
+        // width:"387px",
+        py: "25px",
+        px: "20px",
         boxShadow: palette.boxShadows[300],
         borderRadius: "10px",
       }}
     >
       <Box
         sx={{
-          width: "50px",
-          height: "50px",
+          width: "46px",
+          height: "46px",
           backgroundColor: "#D9DBF9",
           borderRadius: 45,
           alignItems: "center",

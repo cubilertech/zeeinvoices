@@ -131,16 +131,16 @@ const FooterSection = () => {
           </Typography>
           <Stack direction={"row"} gap={1}>
             <Box sx={{ cursor: "pointer" }}>
-              <Icon icon="instagarm" height={32} width={32} />
+              <Icon icon="instagarmlpf" height={32} width={32} />
             </Box>
             <Box sx={{ cursor: "pointer" }}>
-              <Icon icon="facebook" height={32} width={32} />
+              <Icon icon="facebooklpf" height={32} width={32} />
             </Box>
             <Box sx={{ cursor: "pointer" }}>
               <Icon icon="youtube" height={32} width={32} />
             </Box>
             <Box sx={{ cursor: "pointer" }}>
-              <Icon icon="twitter" height={32} width={32} />
+              <Icon icon="twitterlpf" height={32} width={32} />
             </Box>
           </Stack>
         </Stack>

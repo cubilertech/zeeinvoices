@@ -18,6 +18,8 @@ const HeroSection = () => {
         // height: "785px",
         width: "100%",
         py: 9,
+        pt: 19,
+
       }}
     >
       <Stack

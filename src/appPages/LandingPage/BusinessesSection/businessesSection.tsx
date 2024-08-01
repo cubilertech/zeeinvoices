@@ -1,6 +1,5 @@
-
-import FeaturesCard from "@/components/FeaturesCard/FeaturesCard";
-import { Box, Stack, Typography } from "@mui/material";
+import { FeaturesCard } from "@/components/FeaturesCard";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 
 const BusinessesSection = () => {
   return (
@@ -27,65 +26,55 @@ const BusinessesSection = () => {
           Smart Invoices for business and freelancers
         </Typography>
       </Box>
-      <Stack
-        direction={"column"}
-        gap={5}
-        sx={{ display: "flex", mx: "30px", justifyContent: "center" }}
-      >
-        {/* first row */}
-        <Stack direction={"row"} justifyContent={"space-between"}>
-          {/* education system */}
-          <FeaturesCard
-            icon="educationIcon"
-            title="Education System"
-            desc="Many desktop publishing packages and web page editors now use
-                for them."
-          />
+      <Box sx={{ mx: "5%", display: "flex", justifyContent: "center" }}>
+        <Grid container spacing={2}>
+          {/* first row */}
+          <Grid item xs={12} sm={6} lg={4} md={4}>
+            <FeaturesCard
+              icon="educationIcon"
+              title="Education System"
+              desc="Many desktop publishing packages and web page editors now use for them."
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={4} md={4}>
+            <FeaturesCard
+              icon="fitnessIcon"
+              title="Sports & Fitness"
+              desc="Many desktop publishing packages and web page editors now use for them."
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={4} md={4}>
+            <FeaturesCard
+              icon="beautyIcon"
+              title="Beauty and Wellness"
+              desc="Many desktop publishing packages and web page editors now use for them."
+            />
+          </Grid>
 
-          {/* fitness */}
-          <FeaturesCard
-            icon="fitnessIcon"
-            title="Sports & Fitness"
-            desc="Many desktop publishing packages and web page editors now use
-                for them."
-          />
-
-          {/* beauty and wellness */}
-          <FeaturesCard
-            icon="beautyIcon"
-            title="Beauty and Wellness"
-            desc="Many desktop publishing packages and web page editors now use
-                for them."
-          />
-        </Stack>
-
-        {/* second row */}
-        <Stack direction={"row"} justifyContent={"space-between"}>
-          {/* officials & financial */}
-          <FeaturesCard
-            icon="officialsIcon"
-            title="Officials & Financial"
-            desc="Many desktop publishing packages and web page editors now use
-                for them."
-          />
-
-          {/* medical services */}
-          <FeaturesCard
-            icon="medicalIcon"
-            title="Medical ervices"
-            desc="Many desktop publishing packages and web page editors now use
-                for them."
-          />
-
-          {/* events & entertainment */}
-          <FeaturesCard
-            icon="eventsIcon"
-            title="Events & Entertainment"
-            desc="Many desktop publishing packages and web page editors now use
-                for them."
-          />
-        </Stack>
-      </Stack>
+          {/* second row */}
+          <Grid item xs={12} sm={6} lg={4} md={4}>
+            <FeaturesCard
+              icon="officialsIcon"
+              title="Officials & Financial"
+              desc="Many desktop publishing packages and web page editors now use for them."
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={4} md={4}>
+            <FeaturesCard
+              icon="medicalIcon"
+              title="Medical Services"
+              desc="Many desktop publishing packages and web page editors now use for them."
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={4} md={4}>
+            <FeaturesCard
+              icon="eventsIcon"
+              title="Events & Entertainment"
+              desc="Many desktop publishing packages and web page editors now use for them."
+            />
+          </Grid>
+        </Grid>
+      </Box>
     </Box>
   );
 };
