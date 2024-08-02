@@ -20,7 +20,7 @@ const GradientBox = styled(Box)({
     height: "100%",
     background:
       "conic-gradient(from 180.47deg at 117.4% 50%, #3F4DE1 -72.9deg, #DEDBFA 87.9deg, #3F4DE1 287.1deg, #DEDBFA 447.9deg)",
-    opacity: 0.2, // Adjust opacity as needed
+    opacity: 0.2,
     zIndex: 0,
   },
   "& > *": {
@@ -56,7 +56,6 @@ const HelpBusinessSection = () => {
               alt="rectangle iaptop bg"
             />
           </Box>
-
           {/* right features section */}
           <Stack direction={"column"} gap={3} sx={{ width: "540px" }}>
             <Typography variant="display-lg-bold">
@@ -78,7 +77,6 @@ const HelpBusinessSection = () => {
               visual form of a document or a typeface without relying on
               meaningful content.
             </Typography>
-
             <Button
               variant="contained"
               size="large"

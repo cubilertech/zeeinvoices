@@ -41,19 +41,6 @@ const DownloadModal: FC<DownloadModal> = ({
       >
         <Box sx={style}>
           <Stack direction={"column"} gap={2}>
-            {/* <Box
-              sx={{
-                width: "48px",
-                height: "48px",
-                backgroundColor: "#FCEBE6",
-                borderRadius: 45,
-                alignItems: "center",
-                justifyContent: "center",
-                display: "flex",
-              }}
-            >
-              <Icon icon="deleteRedIcon" />
-            </Box> */}
             <Stack direction={"column"} gap={1}>
               <Typography variant="text-lg-semibold">
                 If you want to Download then watermark will be added, if you
@@ -64,7 +51,6 @@ const DownloadModal: FC<DownloadModal> = ({
                 in with Google.
               </Typography>
             </Stack>
-
             <Stack direction={"row"} gap={1.5}>
               <PdfDownloadLink
                 InvSetting={InvSetting}
@@ -84,25 +70,11 @@ const DownloadModal: FC<DownloadModal> = ({
                   Download
                 </Button>
               </PdfDownloadLink>
-              {/* <Button
-                variant="outlined"
-                sx={{
-                  width: "100%",
-                  marginTop: "15px",
-                  border: `1px solid #DADCE0`,
-                  borderRadius: "8px",
-                  color: "#445164",
-                }}
-                onClick={onDownload}
-              >
-                Download
-              </Button> */}
               <Button
                 variant="contained"
                 sx={{
                   width: "100%",
                   borderRadius: "8px",
-                  //   backgroundColor: "#DD3409",
                   marginTop: "15px",
                   "&:hover": {
                     // backgroundColor: "#BB3409",

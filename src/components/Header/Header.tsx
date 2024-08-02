@@ -29,6 +29,7 @@ const Header = () => {
   const counter = useSelector(getCountValue);
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+  //Fetch Profile Data
   const {
     data: profileData,
     refetch: fetchProfile,
@@ -37,6 +38,7 @@ const Header = () => {
   useEffect(() => {
     if (session?.accessToken) fetchProfile();
   }, [fetchProfile, session?.accessToken,counter]);
+  // Handle Logo Click
   const handLogoClick = () => {
     route.push("/invoices");
     dispatch(setResetInvoice());
@@ -51,10 +53,9 @@ const Header = () => {
   const handleProfile = () => {
     route.push("/profile");
     setAnchorEl(null);
-  };
+  };  
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  console.log(session, "sessiom");
   return (
     <AppBar
       position="fixed"
@@ -167,13 +168,6 @@ const Header = () => {
                   </Stack>
                 </Popover>
               </Box>
-              {/* <Button
-                onClick={handleLogout}
-                variant="contained"
-                sx={{ px: "20px", py: "8px" }}
-              >
-                Sign out
-              </Button> */}
             </>
           )}
         </Stack>

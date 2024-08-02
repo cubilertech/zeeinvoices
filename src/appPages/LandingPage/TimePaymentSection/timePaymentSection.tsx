@@ -20,7 +20,7 @@ const GradientBox = styled(Box)({
     height: "100%",
     background:
       "conic-gradient(from 180.47deg at 117.4% 50%, #3F4DE1 -72.9deg, #DEDBFA 87.9deg, #3F4DE1 287.1deg, #DEDBFA 447.9deg)",
-    opacity: 0.2, // Adjust opacity as needed
+    opacity: 0.2,
     zIndex: 0,
   },
   "& > *": {
@@ -48,12 +48,10 @@ const TimePaymentSection = () => {
           sx={{ display: "flex", justifyContent: "center" }}
         >
           {/* left features section */}
-
           <Stack direction={"column"} gap={8} sx={{ width: "530px" }}>
             <Typography variant="display-lg-bold">
               Save time and get paid fast
             </Typography>
-
             <Stack direction={"column"} gap={3}>
               <Stack direction={"row"} gap={2}>
                 <Box
@@ -74,7 +72,6 @@ const TimePaymentSection = () => {
                   Lorem ipsum may be used as a placeholder before
                 </Typography>
               </Stack>
-
               <Stack direction={"row"} gap={2}>
                 <Box
                   sx={{
@@ -94,7 +91,6 @@ const TimePaymentSection = () => {
                   Lorem ipsum may be used as a placeholder before
                 </Typography>
               </Stack>
-
               <Stack direction={"row"} gap={2}>
                 <Box
                   sx={{
@@ -114,7 +110,6 @@ const TimePaymentSection = () => {
                   Lorem ipsum may be used as a placeholder before
                 </Typography>
               </Stack>
-
               <Stack direction={"row"} gap={2}>
                 <Box
                   sx={{
@@ -134,7 +129,6 @@ const TimePaymentSection = () => {
                   Lorem ipsum may be used as a placeholder before
                 </Typography>
               </Stack>
-
               <Stack direction={"row"} gap={2}>
                 <Box
                   sx={{
@@ -156,7 +150,6 @@ const TimePaymentSection = () => {
               </Stack>
             </Stack>
           </Stack>
-
           {/* right features section */}
           <Box sx={{ position: "relative" }}>
             <Box sx={{}}>

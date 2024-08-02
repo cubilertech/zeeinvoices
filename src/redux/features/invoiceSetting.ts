@@ -8,7 +8,6 @@ export interface InvoiceSettingState {
   tax: boolean;
   detail: boolean;
 }
-
 const initialState: InvoiceSettingState = {
   color: "#2A2A2A",
   currency: "$ USD",
@@ -16,7 +15,6 @@ const initialState: InvoiceSettingState = {
   tax: true,
   detail: true,
 };
-
 const invoiceSetting = createSlice({
   name: "invoiceSetting",
   initialState,

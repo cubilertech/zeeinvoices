@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
-
 const drawerWidth = 240;
 
 const SideBar = () => {
@@ -20,7 +19,6 @@ const SideBar = () => {
         borderRight: `1px solid ${palette.color.gray[5]}`,
         width: drawerWidth,
         flexShrink: 0,
-        // paddingRight: "100px",
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
@@ -88,7 +86,6 @@ const SideBar = () => {
               <ListItemText primary={"My Details"} />
             </ListItemButton>
           </ListItem>
-
           {/* {["Invoices", "Clients", "My Details"].map((text, index) => (
             <ListItem
               sx={{ color: palette.color.gray[730] }}

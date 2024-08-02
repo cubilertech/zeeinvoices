@@ -2,7 +2,6 @@ import { palette } from "@/theme/palette";
 import { Box, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import { Icon } from "../Icon";
-import Image from "next/image";
 import { icons } from "@/utils/constants";
 import { IconTypes } from "@/types/icons";
 
@@ -19,7 +18,6 @@ const FeaturesCard: FC<FeaturesCard> = ({ title, desc, icon }) => {
       direction={"row"}
       gap={2}
       sx={{
-        // width:"387px",
         py: "25px",
         px: "20px",
         boxShadow: palette.boxShadows[300],

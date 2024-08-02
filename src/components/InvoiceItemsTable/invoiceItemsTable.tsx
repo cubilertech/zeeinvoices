@@ -18,14 +18,10 @@ const InvoiceItemsTable: FC = () => {
   const selectedColor = useSelectedColor();
   const dispatch = useDispatch();
   const selectedTax = useSelector(getTax);
-  // const [items, setItems] = useState([{ id: 1 }]); // Initialize with one item
-  const [itemsCount, setItemsCount] = useState(1);
   const handleAddItem = () => {
-    // setItemsCount((pre) => pre + 1);
     const rowId= Math.floor(Math.random() * 1000)
     dispatch(
       addInvoiceItem({
-        // id: itemsCount + 1,
         id: rowId,
         name: "",
         quantity: 0,
@@ -36,7 +32,7 @@ const InvoiceItemsTable: FC = () => {
       })
     );
   };
-
+  // Remove Item
   const handleRemoveItem = (id: number) => {
     dispatch(removeInvoiceItem(id));
   };
@@ -48,7 +44,6 @@ const InvoiceItemsTable: FC = () => {
         container
         sx={{
           width: "100%",
-          // backgroundColor: palette.base.itemsHeadColor,
           backgroundColor: selectedColor,
           borderRadius: "2px",
           marginTop: 2,
@@ -131,7 +126,6 @@ const InvoiceItemsTable: FC = () => {
             ""
           )}
         </Grid>
-
         <Grid
           sx={{
             padding: "8px",
@@ -152,10 +146,8 @@ const InvoiceItemsTable: FC = () => {
           </Typography>
         </Grid>
       </Grid>
-
       {/* Input fields */}
       {/* <ItemsTableRow/> */}
-
       {/* Render ItemsTableRow components */}
       {getAllInvoiceItems?.map((item, index) => (
         <ItemsTableRow
@@ -166,9 +158,7 @@ const InvoiceItemsTable: FC = () => {
           showRemoveButton={getAllInvoiceItems[index].id === 1 ? false : true} // Show remove button only if there's more than one item
         />
       ))}
-
       {/* add items button */}
-
       <Box
         onClick={handleAddItem}
         sx={{

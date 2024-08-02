@@ -11,7 +11,6 @@ const persistConfig = {
   key: 'root',
   storage,
 };
-
 // Root reducer
 const rootReducer = combineReducers({
   counter: CountReducer,
@@ -21,7 +20,6 @@ const rootReducer = combineReducers({
 
 // Persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 // Configure store
 export const store = configureStore({
   reducer: persistedReducer, // Use persistedReducer
@@ -30,10 +28,8 @@ export const store = configureStore({
       thunk: true,
     }).concat(thunk),
 });
-
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
 // Create persistor
 export const persistor = persistStore(store);

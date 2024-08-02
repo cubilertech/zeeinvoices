@@ -13,20 +13,12 @@ import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  ContactDetail,
-  getRecipientDetail,
-  getSenderDetail,
-  setRecipientDetail,
-  setSenderDetail,
-} from "../../redux/features/invoiceSlice";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "@/Styles/phoneNoStyle.css";
-import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
+// import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -34,21 +26,21 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   companyName: Yup.string().required("Company Name is required"),
   email: Yup.string()
-  .matches(emailRegex, "Invalid email address")
-  .required("Email is required"),
+    .matches(emailRegex, "Invalid email address")
+    .required("Email is required"),
   phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
   state: Yup.string()
-    .matches(alphaRegex, "Invalid State").min(3, "City must be at least 3 characters long")
+    .matches(alphaRegex, "Invalid State")
+    .min(3, "City must be at least 3 characters long")
     .required("State is required"),
   address: Yup.string()
-    .matches(alphaRegex, "Invalid Address").min(5, "Too short")
+    .matches(alphaRegex, "Invalid Address")
+    .min(5, "Too short")
     .required("Address is required"),
 });
-
-
 interface DetailSelecter {
   title?: string;
   detailsOf: string;
@@ -65,16 +57,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
   handleSubmitForm,
   type,
 }) => {
-  const [phone, setPhone] = useState("");
-  const dispatch = useDispatch();
-  const senderData = useSelector(getSenderDetail);
-  const recipientData = useSelector(getRecipientDetail);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true), setOpenBd(true);
   };
-
-  const [detailsEntered, setDetailsEntered] = useState(false); // for modal details
   const initialValues = {
     name: InvDetails?.name || "",
     companyName: InvDetails?.companyName || "",
@@ -85,7 +71,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
     address: InvDetails?.address || "",
     countryCode: "PK",
   };
-
   interface FormErrors {
     name?: string;
     companyName?: string;
@@ -95,12 +80,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
     state?: string;
     address?: string;
   }
-
   const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
     useFormik({
       initialValues: initialValues,
       validationSchema: validationSchema,
-
       // validate: (values) => {
       //   const errors: FormErrors = {}; // Use FormErrors type here
 
@@ -118,32 +101,25 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
       //   return errors;
       // },
-
       onSubmit: (values) => {
         handleCloseBd();
-        console.log(values);
-        // setDetailsEntered(true);
         setOpen(false);
         handleSubmitForm(values);
       },
     });
-  console.log(initialValues, "valuesss");
   //close model
   const handleModelClose = () => {
     handleCloseBd();
     setOpen(false);
   };
-
   // backdrop for modal
   const [openBd, setOpenBd] = React.useState(false);
   const handleCloseBd = () => {
     setOpenBd(false);
   };
-
   function isString(value: any): value is string {
     return typeof value === "string";
   }
-
   // const validatePhoneNumber = (
   //   phoneNumber: string,
   //   countryCode: string
@@ -154,7 +130,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
   //   if (!phoneNumber) {
   //     return "Phone number is required";
   //   }
-
   //   const phoneNumberInstance = parsePhoneNumberFromString(
   //     phoneNumber,
   //     validCountryCode
@@ -162,11 +137,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
   //   if (!phoneNumberInstance) {
   //     return "Invalid phone number";
   //   }
-
   //   if (!phoneNumberInstance.isValid()) {
   //     return "Invalid phone number";
   //   }
-
   //   return "";
   // };
 
@@ -183,7 +156,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
           {title}
         </Typography>
       )}
-
       {!showData ? (
         <Box
           borderRadius={1}
@@ -205,11 +177,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             >
               {detailsOf} Details
             </Typography>
-            {/* <IconButton sx={{ padding: 1 }}>
-              <Icon icon="editIcon" width={20} height={20} />
-            </IconButton> */}
           </Stack>
-
           <Stack
             direction={"column"}
             spacing={1.5}
@@ -253,7 +221,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               variant="text-sm-medium"
               color={palette.color.gray[750]}
             >
-              {title === "From" ? "Sender Details": "Recipient Details"}
+              {title === "From" ? "Sender Details" : "Recipient Details"}
             </Typography>
             <IconButton sx={{ padding: 0 }}>
               <Icon icon="editIcon" width={20} height={20} />
@@ -310,7 +278,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
           backgroundColor: "rgba(0, 0, 0, 0)",
         }}
         open={openBd}
-        // onClick={handleCloseBd}
       >
         <Modal
           open={open}
@@ -324,7 +291,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
         >
           <Box
             sx={{
-              // boxShadow: `rgba(16, 24, 40, 0.1)`,
               overflow: "auto",
               position: "absolute" as "absolute",
               top: "50%",
@@ -333,7 +299,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
               width: "566px",
               height: "auto",
               bgcolor: palette.base.white,
-              // border: "2px solid #000",
               boxShadow: 1,
               p: "24px",
               borderRadius: "12px",
@@ -485,7 +450,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     helperText={touched.address && errors.address}
                     onBlur={handleBlur}
                     error={touched.address && Boolean(errors.address)}
-                    // sx={{ width: "100%" }}
                   ></TextField>
                 </FormControl>
               </Box>
@@ -510,7 +474,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 </Button>
                 <Button
                   type="submit"
-                  // onClick={handleCloseBd}
                   variant="contained"
                   sx={{ width: "243px", height: "40px" }}
                 >
