@@ -29,7 +29,18 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           {type === "currency" ? "" : type}
         </Typography>
         <Select
-          IconComponent={() => <Icon icon="arrowDownIcon" />}
+          IconComponent={(props) => (
+            <span
+              {...props}
+              style={{
+                width: "16px",
+                height: "16px",
+                marginRight: "7px",
+              }}
+            >
+              <Icon icon="arrowDownIcon" width={16} height={16} />
+            </span>
+          )}
           labelId="demo-simple-select-label"
           id="type-select"
           value={type === "currency" ? selectedCurrency : selectedInvoiceType}
@@ -56,9 +67,9 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
               borderColor: "#D6DAE1",
               ":hover": { borderColor: "black !important" },
             },
-            
+
             borderRadius: 2,
-            paddingRight: 2,
+            // paddingRight: 2,
             marginTop: 0,
             backgroundColor: palette.base.white,
           }}
@@ -82,7 +93,7 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
                     bgcolor: "lightgrey", // Change background color on hover
                   },
                 }}
-                value={10}
+                value={item}
               >
                 {item}
               </MenuItem>

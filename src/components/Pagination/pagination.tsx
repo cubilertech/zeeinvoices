@@ -115,8 +115,8 @@ const Pagination: FC<PaginationProps> = ({
             key={index}
             onClick={() => handleSetPageNumber(pagenumber)}
             sx={{
-              backgroundColor: page === pagenumber ? "#8477DA" : "white",
-              color: page === pagenumber ? "white" : "black",
+              backgroundColor: page === pagenumber ? "#F5F6F7" : "white",
+              color: page === pagenumber ? "#445164" : "#445164",
               width: "40px",
               height: "40px",
               borderRadius: "8px",
@@ -125,11 +125,11 @@ const Pagination: FC<PaginationProps> = ({
               justifyContent: "center",
               cursor: pagenumber !== placeHolder ? "pointer" : "text",
               border:
-                page === pagenumber ? "1px solid #8477DA" : "1px solid #D0D5DD",
+                page === pagenumber ? "2px solid #EAECF0" : "1px solid #ffffff",
               ":hover": {
-                // border: "1px solid #EAECF0",
-                backgroundColor:"#313997"
-              },
+                backgroundColor:"#6183E4",
+                color:"white",
+              }
             }}
           >
             {pagenumber}

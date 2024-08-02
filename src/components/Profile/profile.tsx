@@ -28,9 +28,9 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
-  // city: Yup.string()
-  //   .matches(alphaRegex, "Invalid City")
-  //   .required("City is required"),
+  city: Yup.string()
+    .matches(alphaRegex, "Invalid City")
+    // .required("City is required"),
   // state: Yup.string()
   //   .matches(alphaRegex, "Invalid State")
   //   .min(3, "City must be at least 3 characters long")

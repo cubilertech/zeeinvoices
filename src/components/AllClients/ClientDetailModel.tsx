@@ -85,17 +85,17 @@ const ClientDetailModel: FC<ClientDetail> = ({
       initialValues: initialValues,
       validationSchema: validationSchema,
       enableReinitialize: true,
-      validate: (values) => {
-        const errors: FormErrors = {};
-        const phoneError = validatePhoneNumber(
-          values.phoneNumber,
-          values.countryCode
-        );
-        if (phoneError) {
-          errors.phoneNumber = phoneError;
-        }
-        return errors;
-      },
+      // validate: (values) => {
+      //   const errors: FormErrors = {};
+      //   const phoneError = validatePhoneNumber(
+      //     values.phoneNumber,
+      //     values.countryCode
+      //   );
+      //   if (phoneError) {
+      //     errors.phoneNumber = phoneError;
+      //   }
+      //   return errors;
+      // },
       onSubmit: (values) => {
         handleModelClose();
         handleSubmitForm(values);

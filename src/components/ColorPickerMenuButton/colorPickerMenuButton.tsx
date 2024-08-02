@@ -34,7 +34,7 @@ const ColorPickerMenuButton: FC<ColorPickerMenuButton> = ({title,onClick}) => {
         </Typography>
       </Stack>
       <Box sx={{ margin: "15px" }}>
-        <Icon icon="arrowDownIcon" width={19} height={19} />
+        <Icon icon="arrowDownIcon" width={16} height={16} />
       </Box>
     </Stack>
   );
