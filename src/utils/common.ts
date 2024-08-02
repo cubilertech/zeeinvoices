@@ -3,6 +3,7 @@ import { getColor } from "@/redux/features/invoiceSetting";
 import { useSelector } from "react-redux";
 import { backendURL } from "./constants";
 import { signIn, signOut } from "next-auth/react";
+import { toast } from "react-toastify";
 
 // Custom hook to get the selected color
 export const useSelectedColor = () => {
@@ -28,12 +29,14 @@ if(image?.includes('base64,')){
 
 export  const handleLogout = () => {
   signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` });
+  toast.success('Logout Successfully!');
 };
 
 export  const handleLogin = () => {
   signIn("google", {
     callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}`,
   });
+  toast.success('Login Successfully!');
 };
 
 export const base64ToFile = (base64String : any, filename:any) => {

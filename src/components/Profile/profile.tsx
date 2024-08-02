@@ -1,7 +1,7 @@
 "use client";
 import { palette } from "@/theme/palette";
 import { Box, Button, CircularProgress, FormControl, Stack, Typography } from "@mui/material";
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Icon } from "../Icon";
 import { TextField } from "../TextField";
 import { PhoneInput } from "react-international-phone";

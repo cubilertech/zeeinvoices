@@ -7,16 +7,9 @@ import {
   Document,
   StyleSheet,
   Image,
-  Font,
 } from "@react-pdf/renderer";
 import { formattedDate } from "@/common/common";
 import { googleImage } from "@/utils/common";
-// import OpenSans from '../../../public/Fonts/OpenSans-font.ttf';
-// import { logoImg } from "../../../public/Images/logos/zee-logo.png";
-// Font.register({
-//   family: 'OpenSans',
-//   src: "../../../public/Fonts/OpenSans-font.ttf",
-// });
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
@@ -24,7 +17,7 @@ const styles = StyleSheet.create({
     padding: "10px 30px",
     gap: 5,
     borderTop: "4px",
-    overflow:"hidden",
+    overflow: "hidden",
   },
   section_top: {
     display: "flex",
@@ -46,10 +39,7 @@ const styles = StyleSheet.create({
     gap: 5,
     alignItems: "baseline",
   },
-  // top_view_2_title: {
-  //   fontSize: 12,
-  //   fontWeight: 900,
-  // },
+
   top_view_2_value: {
     fontSize: 12,
   },
@@ -111,10 +101,9 @@ const PdfView: FC<PdfViewProps> = ({
   if (!isClient) {
     return null;
   }
-  // console.log(invDetails, "invDetails");
 
   return (
-    <Document style={{overflow:"hidden"}}>
+    <Document style={{ overflow: "hidden" }}>
       <Page
         size="A4"
         style={{
@@ -162,7 +151,11 @@ const PdfView: FC<PdfViewProps> = ({
               <Text style={{ fontWeight: "extrabold", fontSize: "10px" }}>
                 Invoice No:
               </Text>
-              <Text style={styles.top_view_2_value}> {"  "}{invDetails?.id}</Text>
+              <Text style={styles.top_view_2_value}>
+                {" "}
+                {"  "}
+                {invDetails?.id}
+              </Text>
             </View>
             <View style={styles.top_view_2_container}>
               <Text style={{ fontWeight: "extrabold", fontSize: "10px" }}>
@@ -377,7 +370,6 @@ const PdfView: FC<PdfViewProps> = ({
             flexDirection: "row",
             padding: "5px 10px",
             alignItems: "center",
-            // gap: 40,
           }}
         >
           <Text
@@ -438,7 +430,7 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
         </View>
         {/* item row */}
-        {console.log(invDetails?.invoiceItem, "invDetailsItems")}
+
         {invDetails?.invoiceItem?.map((data: any, index: number) => (
           <View
             key={data.id}
@@ -458,7 +450,6 @@ const PdfView: FC<PdfViewProps> = ({
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                // gap: 47,
               }}
             >
               <Text style={{ width: "200px", fontSize: "12px" }}>
@@ -514,51 +505,9 @@ const PdfView: FC<PdfViewProps> = ({
                 {currency} {data?.subTotal.toFixed(2)}
               </Text>
             </View>
-            {/* <Text style={{ fontSize: "10px", color: "#444444" }}>
-              Lorem ipsum dolor sit amet, con adipiscing elit.
-            </Text> */}
           </View>
         ))}
 
-        {/* <View
-          style={{
-            marginLeft: "7px",
-            marginRight: "10px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            borderBottom: "1px solid #E0E0E0",
-            padding: "5px 10px",
-            gap: 3,
-          }}
-        >
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 46,
-            }}
-          >
-            <Text style={{ width: "265px", fontSize: "12px" }}>
-              Web and App Design
-            </Text>
-            <Text
-              style={{ width: "20px", fontSize: "10px", fontWeight: "bold" }}
-            >
-              10
-            </Text>
-            <Text
-              style={{ width: "40px", fontSize: "10px", fontWeight: "bold" }}
-            >
-              $4.0
-            </Text>
-            <Text style={{ fontSize: "10px", fontWeight: "bold" }}>$224.0</Text>
-          </View>
-          <Text style={{ fontSize: "10px", color: "#444444" }}>
-            Lorem ipsum dolor sit amet, con adipiscing elit.
-          </Text>
-        </View> */}
         {invDetails?.addtionalNotes && (
           <Text
             style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
@@ -569,7 +518,6 @@ const PdfView: FC<PdfViewProps> = ({
         {/* section 5 : summary, terms */}
         <View
           style={{
-            // backgroundColor:'blue',
             marginTop: "70px",
             padding: "1px 10px",
             display: "flex",

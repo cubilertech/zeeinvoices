@@ -1,6 +1,6 @@
 "use client";
 import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,14 +62,11 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           sx={{
             width: { width },
             height: 36,
-            // backgroundColor:"black",
             "& fieldset": {
               borderColor: "#D6DAE1",
               ":hover": { borderColor: "black !important" },
             },
-
             borderRadius: 2,
-            // paddingRight: 2,
             marginTop: 0,
             backgroundColor: palette.base.white,
           }}

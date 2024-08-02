@@ -1,17 +1,11 @@
 import { Icon } from "@/components/Icon";
 import { palette } from "@/theme/palette";
 import {
-  Avatar,
-  AvatarGroup,
   Box,
-  Button,
-  Container,
   Link,
-  Rating,
   Stack,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
 
 const FooterSection = () => {
   return (

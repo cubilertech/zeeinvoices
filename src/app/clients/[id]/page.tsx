@@ -1,15 +1,16 @@
-'use client';
-import ClientSingleDetail from '@/components/AllClients/ClientSingleDetail'
-import { useParams } from 'next/navigation'
-import React from 'react'
+"use client";
+import ClientSingleDetail from "@/components/AllClients/ClientSingleDetail";
+import { Container } from "@mui/material";
+import { useParams } from "next/navigation";
+import React from "react";
 
 const ClientSingleView = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   return (
-    <div>
+    <Container sx={{ minHeight: { xl: "90vh", lg: "84vh" } }}>
       <ClientSingleDetail id={id} />
-    </div>
-  )
-}
+    </Container>
+  );
+};
 
-export default ClientSingleView
+export default ClientSingleView;

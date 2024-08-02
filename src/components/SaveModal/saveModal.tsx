@@ -46,10 +46,8 @@ const SaveModal: FC<SaveModal> = ({ onSave, onClose, open }) => {
                 sx={{
                   borderRadius: "8px",
                   width: "100%",
-                  //   backgroundColor: "#DD3409",
                   marginTop: "15px",
                   "&:hover": {
-                    // backgroundColor: "#BB3409",
                   },
                 }}
                 onClick={onSave}

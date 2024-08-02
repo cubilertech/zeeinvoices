@@ -1,31 +1,16 @@
 "use client";
 import * as React from "react";
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
+
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import { visuallyHidden } from "@mui/utils";
 import { palette } from "@/theme/palette";
-import {
-  Avatar,
-  Badge,
-  Button,
-  CircularProgress,
-  Container,
-  InputAdornment,
-  Stack,
-  TextField,
-  Tooltip,
-} from "@mui/material";
-import { Icon } from "../Icon";
+import { CircularProgress, Container } from "@mui/material";
 import { Pagination } from "../Pagination";
 import { backendURL } from "@/utils/constants";
 import {
@@ -34,18 +19,16 @@ import {
   useEditDocument,
   useFetchAllDocument,
 } from "@/utils/ApiHooks/common";
-import { calculateAmount, tableFormatDate } from "@/common/common";
 import { useRouter } from "next/navigation";
 import DeleteModal from "../DeleteModal/deleteModal";
 import ClientPopOver from "./ClientPopOver";
 import { useDispatch } from "react-redux";
-import { setFullInvoice } from "@/redux/features/invoiceSlice";
-import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
-import { debounce } from "@/utils/common";
+
 import ClientDetailModel from "./ClientDetailModel";
 import { useSession } from "next-auth/react";
 import EnhancedTableToolbar from "./enhancedTableToolbar";
 import EnhancedTableHead from "./enhancedTableHead";
+import { toast } from "react-toastify";
 
 interface Data {
   name: string;
@@ -114,149 +97,6 @@ const headCells: readonly HeadCell[] = [
     label: "Actions",
   },
 ];
-
-// interface EnhancedTableProps {
-//   numSelected: number;
-//   onRequestSort: (
-//     event: React.MouseEvent<unknown>,
-//     property: keyof Data
-//   ) => void;
-//   order: Order;
-//   orderBy: string;
-//   rowCount: number;
-// }
-// function EnhancedTableHead(props: EnhancedTableProps) {
-//   const { order, orderBy, numSelected, rowCount, onRequestSort } = props;
-//   const createSortHandler =
-//     (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-//       onRequestSort(event, property);
-//     };
-//   return (
-//     <TableHead
-//       sx={{
-//         backgroundColor: palette.border.invoicesBorderColor,
-//         height: "40px !important",
-//         borderTopRightRadius: 9,
-//       }}
-//     >
-//       <TableRow sx={{ height: "40px !important", borderTopRightRadius: 9 }}>
-//         {headCells.map((headCell) => (
-//           <TableCell
-//             sx={{ height: `40 !important`, py: "0px" }}
-//             key={headCell.id}
-//             align="left"
-//             sortDirection={orderBy === headCell.id ? order : false}
-//           >
-//             <TableSortLabel
-//               active={orderBy === headCell.id}
-//               direction={orderBy === headCell.id ? order : "asc"}
-//               onClick={createSortHandler(headCell.id)}
-//             >
-//               {headCell.label}
-//               {orderBy === headCell.id ? (
-//                 <Box component="span" sx={visuallyHidden}>
-//                   {order === "desc" ? "sorted descending" : "sorted ascending"}
-//                 </Box>
-//               ) : null}
-//             </TableSortLabel>
-//           </TableCell>
-//         ))}
-//       </TableRow>
-//     </TableHead>
-//   );
-// }
-
-// interface EnhancedTableToolbarProps {
-//   numSelected: number;
-//   search: any;
-//   handleChangeSearch: any;
-//   handleClientAddModel?: any;
-// }
-
-// function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-//   const { numSelected, search, handleChangeSearch, handleClientAddModel } =
-//     props;
-//   return (
-//     <Toolbar
-//       sx={{
-//         px: "0px",
-//         pl: "0px !important",
-//         pr: "0px !important",
-//         ...(numSelected > 0 && {
-//           bgcolor: (theme) =>
-//             alpha(
-//               theme.palette.primary.main,
-//               theme.palette.action.activatedOpacity
-//             ),
-//         }),
-//       }}
-//     >
-//       {numSelected > 0 ? (
-//         <Typography
-//           sx={{ flex: "1 1 100%" }}
-//           color="inherit"
-//           variant="subtitle1"
-//           component="div"
-//         >
-//           {numSelected} selected
-//         </Typography>
-//       ) : (
-//         <Typography
-//           sx={{ flex: "1 1 100%" }}
-//           variant="h6"
-//           id="tableTitle"
-//           component="div"
-//         >
-//           All Clients
-//         </Typography>
-//       )}
-//       <Stack
-//         direction={"row"}
-//         sx={{
-//           backgroundColor: "#FAFAFA",
-//           borderRadius: "8px",
-//           width: "292px",
-//           paddingLeft: "15px",
-//         }}
-//       >
-//         <TextField
-//           variant="standard"
-//           placeholder="Search"
-//           value={search}
-//           onChange={(e) => handleChangeSearch(e)}
-//           sx={{
-//             border: "none",
-//             textUnderlinePosition: "unset",
-//             "& .MuiInputBase-input": { border: "none" },
-//             "& .MuiInputBase-input::placeholder": {
-//               color: "#8F97A2",
-//             },
-//           }}
-//           InputProps={{
-//             disableUnderline: true,
-//             startAdornment: (
-//               <InputAdornment position="start">
-//                 <Icon icon="searchIcon" />
-//               </InputAdornment>
-//             ),
-//           }}
-//         />
-//       </Stack>
-//       <Stack direction={"row"} gap={1} sx={{ marginLeft: "50px" }}>
-//         <Tooltip title="Create a new client">
-//           <Button
-//             variant="contained"
-//             onClick={handleClientAddModel}
-//             endIcon={<Icon icon="plusIcon" width={15} />}
-//             sx={{ height: `36px`, width: "140px" }}
-//           >
-//             Create New
-//           </Button>
-//         </Tooltip>
-//       </Stack>
-//     </Toolbar>
-//   );
-// }
 
 export default function AllClients() {
   const route = useRouter();
@@ -354,8 +194,7 @@ export default function AllClients() {
           refetchClientList();
         })
         .catch((err) => {
-          alert(`${err}`);
-          throw new Error("Error Occured!");
+          toast.error(err.message);
         });
     } else {
       try {
@@ -422,11 +261,7 @@ export default function AllClients() {
                 borderTopRightRadius: "8px",
               }}
             >
-              <Table
-                sx={{ minWidth: 750 }}
-                aria-labelledby="tableTitle"
-                // size={dense ? "small" : "medium"}
-              >
+              <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
                 <EnhancedTableHead
                   numSelected={selected.length}
                   order={order}

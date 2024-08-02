@@ -5,7 +5,6 @@ import { FC, MouseEvent } from "react";
 import { Icon } from "../Icon";
 
 interface ColorPickerMenuButton {
-  // onClick: () => void;
   title:string;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }

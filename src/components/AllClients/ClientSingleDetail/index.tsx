@@ -29,7 +29,6 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     singleFetch();
   }, [singleFetch]);
 
-
   // Update Client
   const {
     mutateAsync: updateClient,
@@ -81,7 +80,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     <Box
       sx={{
         width: "100%",
-        px: "20px",
+        // px: "20px",
         pt: 8,
         justifyContent: "center",
         alignItems: "center",
@@ -96,6 +95,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
           mb: 2,
           pb: 1,
           border: "none",
+
           py: 2,
           display: "flex",
           justifyContent: "space-between",
@@ -114,7 +114,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
               fontSize: "32px",
             }}
           >
-             {singleClient?.name.charAt(0).toUpperCase()}
+            {singleClient?.name.charAt(0).toUpperCase()}
           </Avatar>
           <Stack direction={"column"} gap={1}>
             <Typography
@@ -127,10 +127,12 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
               Email: <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
             </Typography>
             <Typography variant="text-xs-regular-color">
-              Phone: <Box sx={{ color: "#9CA3AF" }}>{singleClient?.phone_number}</Box>
+              Phone:{" "}
+              <Box sx={{ color: "#9CA3AF" }}>{singleClient?.phone_number}</Box>
             </Typography>
             <Typography variant="text-xs-regular-color">
-              Country: <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
+              Country:{" "}
+              <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
             </Typography>
           </Stack>
         </Stack>
@@ -148,7 +150,11 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
             Delete
           </Button>
 
-          <Button onClick={()=>setClientModel(true)} variant="contained" sx={{ height: `40px`, width: "114px" }}>
+          <Button
+            onClick={() => setClientModel(true)}
+            variant="contained"
+            sx={{ height: `40px`, width: "114px" }}
+          >
             Edit
           </Button>
         </Stack>

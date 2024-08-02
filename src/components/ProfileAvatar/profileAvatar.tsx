@@ -1,7 +1,5 @@
 "use client";
-import { FC, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getInvoiceLogo, setInvoiceLogo } from "@/redux/features/invoiceSlice";
+import { FC, useRef } from "react";
 import { Box, IconButton } from "@mui/material";
 import { palette } from "@/theme/palette";
 import { Icon } from "../Icon";
@@ -9,10 +7,6 @@ import Image from "next/image";
 import { imageConvertion } from "@/utils/common";
 
 interface ProfileAvatar {
-  // image?: any;
-  // setImage?: any;
-  // isImage?: any;
-  // setIsImage?: any;
   uploadImage?: any;
   setUploadImage?: any;
   imageUrl?: any;
@@ -24,12 +18,7 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
   setUploadImage,
   imageUrl,
   setImageUrl,
-  // image,
-  // setImage,
-  // isImage,
-  // setIsImage,
 }) => {
-  // const [isImage, setIsImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleClick = () => {
     if (fileInputRef.current) {
@@ -42,8 +31,6 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
     if (file) {
       setUploadImage(file);
       setImageUrl(URL.createObjectURL(file));
-      // setIsImage(true);
-      // setImage(file);
     }
   };
   console.log(imageUrl, "ddddd", uploadImage);

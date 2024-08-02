@@ -29,7 +29,6 @@ const FAQsSection = () => {
         py: 9,
         justifyContent: "center",
         alignItems: "center",
-        // display: "flex",
       }}
     >
       <Box
@@ -47,7 +46,6 @@ const FAQsSection = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          //   my: "30px",
         }}
       >
         <Typography

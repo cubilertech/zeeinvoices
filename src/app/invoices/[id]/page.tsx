@@ -1,7 +1,14 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { palette } from "@/theme/palette";
 import { Icon } from "@/components/Icon";
 import InvoiceDetailsSection from "@/components/InvoiceDetailsSection/invoiceDetailsSection";
@@ -46,7 +53,7 @@ const InvoiceDetail = () => {
     isFetching: refetchingSingleInvoice,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
-   useEffect(() => {
+  useEffect(() => {
     refetchSingleInvoice();
     if (singleInvoice) {
       dispatch(
@@ -73,12 +80,41 @@ const InvoiceDetail = () => {
       );
     }
   }, [refetchSingleInvoice, singleInvoice, dispatch]);
+  // Edit Invoice
+  const handleEditInvoice = (record: any) => {
+    router.push(`/invoices/${id}/edit`);
+    dispatch(
+      setFullInvoice({
+        id: singleInvoice?.id,
+        logo: singleInvoice?.image,
+        invoiceType: singleInvoice?.type,
+        from: singleInvoice?.from,
+        to: singleInvoice?.to,
+        invoiceDate: singleInvoice?.invoiceDate,
+        dueDate: singleInvoice?.dueDate,
+        addtionalNotes: singleInvoice?.notes,
+        invoiceItem: singleInvoice?.items,
+      })
+    );
+    dispatch(
+      setInvoiceSettings({
+        color: singleInvoice?.settings?.color,
+        currency: singleInvoice?.settings?.currency,
+        dueDate: record?.settings?.dueDate,
+        tax: singleInvoice?.settings?.tax,
+        detail: singleInvoice?.settings?.detail,
+      })
+    );
+  };
+
   // Back Handle
-  const handleBack = ()=>{
-    router.back();
+  const handleBack = () => {
+   router.back();
+   setTimeout(() => {
     dispatch(setResetInvoiceSetting());
     dispatch(setResetInvoice());
-  }
+   }, 500);   
+  };
 
   return (
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
@@ -91,7 +127,10 @@ const InvoiceDetail = () => {
           direction={"row"}
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
-          <IconButton sx={{ padding: 1, marginRight: "10px" }} onClick={handleBack}>
+          <IconButton
+            sx={{ padding: 1, marginRight: "10px" }}
+            onClick={handleBack}
+          >
             <ArrowBackIosNewIcon />
           </IconButton>
           <Typography variant="display-xs-medium">Invoices/</Typography>
@@ -103,10 +142,10 @@ const InvoiceDetail = () => {
           </Typography>
         </Stack>
 
-        <Stack direction={"row"}>
-          <IconButton sx={{ padding: 1 }}>
-            <Icon icon="editIcon" width={20} height={20} />
-          </IconButton>
+        <Stack direction={"row"}>        
+            <IconButton sx={{ padding: 1 }} onClick={handleEditInvoice}>
+              <Icon icon="editIcon" width={20} height={20} />
+            </IconButton>
           <IconButton sx={{ padding: 1 }} onClick={() => setShareModal(true)}>
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton>

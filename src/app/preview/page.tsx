@@ -39,7 +39,6 @@ const Preview = () => {
       style={{
         width: "100%",
         height: "90vh",
-        // overflow: "hidden",
         marginTop: "47px",
       }}
       showToolbar={false}
