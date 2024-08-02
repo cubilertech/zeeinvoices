@@ -1,4 +1,3 @@
-import AppLayout from "@/common/appLayout";
 import DashBoardLayout from "@/common/dashboardLayout";
 
 export default function RootLayout({

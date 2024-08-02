@@ -1,7 +1,5 @@
 "use client";
 
-import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
-import { setResetInvoice } from "@/redux/features/invoiceSlice";
 import {
   alpha,
   Button,
@@ -12,30 +10,21 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
 import React, { FC } from "react";
-import { useDispatch } from "react-redux";
 import { Icon } from "../Icon";
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
   search: any;
   handleChangeSearch: any;
+  handleClientAddModel?: any;
 }
 
 const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
   props: EnhancedTableToolbarProps
 ) => {
-  const { numSelected, search, handleChangeSearch } = props;
-  const route = useRouter();
-  const dispatch = useDispatch();
-  const handleCreate = () => {
-    dispatch(setResetInvoiceSetting());
-    dispatch(setResetInvoice());
-    route.push("/");
-  };
-
-
+  const { numSelected, search, handleChangeSearch, handleClientAddModel } =
+    props;
   return (
     <Toolbar
       sx={{
@@ -67,7 +56,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           id="tableTitle"
           component="div"
         >
-          All Invoices
+          All Clients
         </Typography>
       )}
       <Stack
@@ -103,22 +92,10 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         />
       </Stack>
       <Stack direction={"row"} gap={1} sx={{ marginLeft: "50px" }}>
-        {/* <Button
-          variant="outlined"
-          startIcon={<Icon icon="filterIcon" width={15} />}
-          sx={{
-            height: `36px`,
-            width: "120px",
-            borderColor: palette.border.invoicesBorderColor,
-            color: palette.base.black,
-          }}
-        >
-          Filter
-        </Button> */}
-        <Tooltip title="Create a new invoice">
+        <Tooltip title="Create a new client">
           <Button
             variant="contained"
-            onClick={handleCreate}
+            onClick={handleClientAddModel}
             endIcon={<Icon icon="plusIcon" width={15} />}
             sx={{ height: `36px`, width: "140px" }}
           >

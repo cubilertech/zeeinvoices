@@ -16,9 +16,7 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
   const dispatch = useDispatch();
   const selectedInvoiceType = useSelector(getInvoiceType);
   const selectedCurrency = useSelector(getCurrency);
-  // const [selected, setSelected] = useState<null | string>(null);
   const handleSelectedItem = (item: string) => {
-    // setSelected(item)
     type === "currency"
       ? dispatch(setCurrency(item))
       : dispatch(setInvoiceType(item));

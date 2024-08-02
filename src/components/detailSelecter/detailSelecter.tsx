@@ -101,23 +101,23 @@ const DetailSelecter: FC<DetailSelecter> = ({
       initialValues: initialValues,
       validationSchema: validationSchema,
 
-      validate: (values) => {
-        const errors: FormErrors = {}; // Use FormErrors type here
+      // validate: (values) => {
+      //   const errors: FormErrors = {}; // Use FormErrors type here
 
-        // Validate other fields
-        // ...
+      //   // Validate other fields
+      //   // ...
 
-        // Validate phone number
-        const phoneError = validatePhoneNumber(
-          values.phoneNumber,
-          values.countryCode
-        );
-        if (phoneError) {
-          errors.phoneNumber = phoneError;
-        }
+      //   // Validate phone number
+      //   const phoneError = validatePhoneNumber(
+      //     values.phoneNumber,
+      //     values.countryCode
+      //   );
+      //   if (phoneError) {
+      //     errors.phoneNumber = phoneError;
+      //   }
 
-        return errors;
-      },
+      //   return errors;
+      // },
 
       onSubmit: (values) => {
         handleCloseBd();
@@ -144,31 +144,31 @@ const DetailSelecter: FC<DetailSelecter> = ({
     return typeof value === "string";
   }
 
-  const validatePhoneNumber = (
-    phoneNumber: string,
-    countryCode: string
-  ): string => {
-    // Ensure countryCode is a valid CountryCode
-    const validCountryCode: CountryCode = countryCode as CountryCode;
+  // const validatePhoneNumber = (
+  //   phoneNumber: string,
+  //   countryCode: string
+  // ): string => {
+  //   // Ensure countryCode is a valid CountryCode
+  //   const validCountryCode: CountryCode = countryCode as CountryCode;
 
-    if (!phoneNumber) {
-      return "Phone number is required";
-    }
+  //   if (!phoneNumber) {
+  //     return "Phone number is required";
+  //   }
 
-    const phoneNumberInstance = parsePhoneNumberFromString(
-      phoneNumber,
-      validCountryCode
-    );
-    if (!phoneNumberInstance) {
-      return "Invalid phone number";
-    }
+  //   const phoneNumberInstance = parsePhoneNumberFromString(
+  //     phoneNumber,
+  //     validCountryCode
+  //   );
+  //   if (!phoneNumberInstance) {
+  //     return "Invalid phone number";
+  //   }
 
-    if (!phoneNumberInstance.isValid()) {
-      return "Invalid phone number";
-    }
+  //   if (!phoneNumberInstance.isValid()) {
+  //     return "Invalid phone number";
+  //   }
 
-    return "";
-  };
+  //   return "";
+  // };
 
   return (
     <Box

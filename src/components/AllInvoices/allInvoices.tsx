@@ -19,6 +19,7 @@ import {
   Badge,
   Button,
   CircularProgress,
+  Container,
   IconButton,
   InputAdornment,
   Popover,
@@ -47,6 +48,8 @@ import ShareModal from "../ShareModal/shareModal";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { debounce } from "@/utils/common";
 import { useSession } from "next-auth/react";
+import EnhancedTableToolbar from "./enhancedTableToolbar";
+import EnhancedTableHead from "./enhancedTableHead";
 
 interface Data {
   id: number;
@@ -167,165 +170,6 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, numSelected, rowCount, onRequestSort } = props;
-  const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
-
-  return (
-    <TableHead
-      sx={{
-        backgroundColor: palette.border.invoicesBorderColor,
-        height: "40px !important",
-        borderTopRightRadius: 9,
-      }}
-    >
-      <TableRow sx={{ height: "40px !important", borderTopRightRadius: 9 }}>
-        {headCells.map((headCell) => (
-          <TableCell
-            sx={{ height: `40 !important`, py: "0px" }}
-            key={headCell.id}
-            align="left"
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-interface EnhancedTableToolbarProps {
-  numSelected: number;
-  search: any;
-  handleChangeSearch: any;
-}
-
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected, search, handleChangeSearch } = props;
-  const route = useRouter();
-  const dispatch = useDispatch();
-  const handleCreate = () => {
-    dispatch(setResetInvoiceSetting());
-    dispatch(setResetInvoice());
-    route.push("/");
-  };
-
-  return (
-    <Toolbar
-      sx={{
-        px: "0px",
-        pl: "0px !important",
-        pr: "0px !important",
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          All Invoices
-        </Typography>
-      )}
-      <Stack
-        direction={"row"}
-        sx={{
-          backgroundColor: "#FAFAFA",
-          borderRadius: "8px",
-          width: "292px",
-          paddingLeft: "15px",
-        }}
-      >
-        <TextField
-          variant="standard"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => handleChangeSearch(e)}
-          sx={{
-            border: "none",
-            textUnderlinePosition: "unset",
-            "& .MuiInputBase-input": { border: "none" },
-          }}
-          InputProps={{
-            disableUnderline: true,
-            startAdornment: (
-              <InputAdornment position="start">
-                <Icon icon="searchIcon" />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
-      <Stack direction={"row"} gap={1} sx={{ marginLeft: "50px" }}>
-        {/* <Button
-          variant="outlined"
-          startIcon={<Icon icon="filterIcon" width={15} />}
-          sx={{
-            height: `36px`,
-            width: "120px",
-            borderColor: palette.border.invoicesBorderColor,
-            color: palette.base.black,
-          }}
-        >
-          Filter
-        </Button> */}
-        <Tooltip title="Create a new invoice">
-          <Button
-            variant="contained"
-            onClick={handleCreate}
-            endIcon={<Icon icon="plusIcon" width={15} />}
-            sx={{ height: `36px`, width: "140px" }}
-          >
-            Create New
-          </Button>
-        </Tooltip>
-      </Stack>
-    </Toolbar>
-  );
-}
 export default function AllInvoices() {
   const route = useRouter();
   const dispatch = useDispatch();
@@ -495,171 +339,176 @@ export default function AllInvoices() {
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        px: "20px",
-        marginTop: "65px",
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
-      }}
-    >
-      <Paper
-        elevation={0}
-        sx={{ width: "100%", px: "20px", mb: 2, pb: 1, border: "none" }}
-      >
-        <EnhancedTableToolbar
-          numSelected={selected.length}
-          search={search}
-          handleChangeSearch={handleChangeSearch}
-        />
-        <TableContainer
+    <>
+      <hr />
+      <Container maxWidth="lg">
+        <Box
           sx={{
-            border: `1px solid ${palette.border.invoicesBorderColor}`,
-            borderTopLeftRadius: "8px",
-            borderTopRightRadius: "8px",
+            minHeight: { xl: "83vh", lg: "73vh" },
+            width: "100%",
+            marginTop: "65px",
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
           }}
         >
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            // size={dense ? "small" : "medium"}
+          <Paper
+            elevation={0}
+            sx={{ width: "100%", px: "20px", mb: 2, pb: 1, border: "none" }}
           >
-            <EnhancedTableHead
+            <EnhancedTableToolbar
               numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={invoiceList?.invoices?.length}
+              search={search}
+              handleChangeSearch={handleChangeSearch}
             />
-            {fetchingInvoiceList ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "20px",
-                  alignItems: "center",
-                  height: "56vh",
-                }}
+            <TableContainer
+              sx={{
+                border: `1px solid ${palette.border.invoicesBorderColor}`,
+                borderTopLeftRadius: "8px",
+                borderTopRightRadius: "8px",
+              }}
+            >
+              <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                // size={dense ? "small" : "medium"}
               >
-                <CircularProgress size={24} sx={{ color: "#8477DA" }} />
-              </Box>
-            ) : (
-              <TableBody>
-                {filteredData?.map((row: any, index: number) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.id}
-                      sx={{ cursor: "pointer" }}
-                    >
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                        sx={{ paddingLeft: "20px" }}
-                      >
-                        {row.id}
-                      </TableCell>
-                      <TableCell align="left">
-                        <Stack direction={"row"} gap={1}>
-                          <Avatar
-                            sx={{
-                              bgcolor: palette.primary.main,
-                              width: "32px",
-                              height: "32px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onRequestSort={handleRequestSort}
+                  rowCount={invoiceList?.invoices?.length}
+                />
+                {fetchingInvoiceList ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      padding: "20px",
+                      alignItems: "center",
+                      height: "56vh",
+                    }}
+                  >
+                    <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+                  </Box>
+                ) : (
+                  <TableBody>
+                    {filteredData?.map((row: any, index: number) => {
+                      const labelId = `enhanced-table-checkbox-${index}`;
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.id}
+                          sx={{ cursor: "pointer" }}
+                        >
+                          <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                            sx={{ paddingLeft: "20px" }}
                           >
-                            {row.to.name.charAt(0).toUpperCase()}
-                          </Avatar>
-                          <Stack direction={"column"}>
-                            <Typography variant="text-sm-medium">
-                              {row.to.name}
+                            {row.id}
+                          </TableCell>
+                          <TableCell align="left">
+                            <Stack direction={"row"} gap={1}>
+                              <Avatar
+                                sx={{
+                                  bgcolor: palette.primary.main,
+                                  width: "32px",
+                                  height: "32px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                {row.to.name.charAt(0).toUpperCase()}
+                              </Avatar>
+                              <Stack direction={"column"}>
+                                <Typography variant="text-sm-medium">
+                                  {row.to.name}
+                                </Typography>
+                                <Typography variant="text-xs-regular">
+                                  {row.to.email}
+                                </Typography>
+                              </Stack>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="left" sx={{ paddingLeft: "17px" }}>
+                            <Typography variant="text-sm-regular">
+                              {tableFormatDate(row.invoiceDate)}
                             </Typography>
-                            <Typography variant="text-xs-regular">
-                              {row.to.email}
-                            </Typography>
-                          </Stack>
-                        </Stack>
-                      </TableCell>
-                      <TableCell align="left" sx={{ paddingLeft: "17px" }}>
-                        <Typography variant="text-sm-regular">
-                          {tableFormatDate(row.invoiceDate)}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Badge
-                          color="primary"
-                          badgeContent={row.status}
-                          sx={{
-                            paddingLeft: "37px",
-                            "& .MuiBadge-colorPrimary": {
-                              background: "skyblue",
-                            },
-                          }}
-                        ></Badge>
-                      </TableCell>
-                      <TableCell align="left">
-                        {row.settings.currency}{" "}
-                        {calculateAmount(row.items).toFixed(2)}
-                      </TableCell>
-                      <TableCell align="left">
-                        <CustomPopOver
-                          handleOpenDeleteModal={handleOpenDeleteModal}
-                          record={row}
-                          handleViewInvoice={handleViewInvoice}
-                          handleEditInvoice={handleEditInvoice}
-                          handleShareInvoice={handleShareInvoice}
-                          handlePrintInvoice={handlePrintInvoice}
-                          componentRef={componentRef}
-                        />
-                        <Box>
-                          <Box style={{ display: "none" }}>
-                            <Box ref={componentRef}>
-                              <InvoiceDetailsSection
-                                singleInvoice={{ ...invoiceDetail }}
-                                invoiceSetting={{ ...invoiceSetting }}
-                              />
+                          </TableCell>
+                          <TableCell align="left">
+                            <Badge
+                              color="primary"
+                              badgeContent={row.status}
+                              sx={{
+                                paddingLeft: "37px",
+                                "& .MuiBadge-colorPrimary": {
+                                  background: "skyblue",
+                                },
+                              }}
+                            ></Badge>
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.settings.currency}{" "}
+                            {calculateAmount(row.items).toFixed(2)}
+                          </TableCell>
+                          <TableCell align="left">
+                            <CustomPopOver
+                              handleOpenDeleteModal={handleOpenDeleteModal}
+                              record={row}
+                              handleViewInvoice={handleViewInvoice}
+                              handleEditInvoice={handleEditInvoice}
+                              handleShareInvoice={handleShareInvoice}
+                              handlePrintInvoice={handlePrintInvoice}
+                              componentRef={componentRef}
+                            />
+                            <Box>
+                              <Box style={{ display: "none" }}>
+                                <Box ref={componentRef}>
+                                  <InvoiceDetailsSection
+                                    singleInvoice={{ ...invoiceDetail }}
+                                    invoiceSetting={{ ...invoiceSetting }}
+                                  />
+                                </Box>
+                              </Box>
                             </Box>
-                          </Box>
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            )}
-          </Table>
-        </TableContainer>
-        <Pagination
-          totalRecords={
-            invoiceList?.totalRecords ? invoiceList?.totalRecords : 0
-          }
-          itemsPerPage={rowsPerPage}
-          page={page}
-          setPage={setPage}
-        />
-      </Paper>
-      <DeleteModal
-        open={isModalOpen}
-        onDelete={handleDelete}
-        onClose={handleDeleteModalClose}
-        invoiceDelete={invoiceDelete}
-      />
-      <ShareModal
-        open={shareModel}
-        onShare={() => setShareModel(false)}
-        onClose={() => setShareModel(false)}
-        shareUrlId={shareUrl}
-      />
-    </Box>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                )}
+              </Table>
+            </TableContainer>
+            <Pagination
+              totalRecords={
+                invoiceList?.totalRecords ? invoiceList?.totalRecords : 0
+              }
+              itemsPerPage={rowsPerPage}
+              page={page}
+              setPage={setPage}
+            />
+          </Paper>
+          <DeleteModal
+            open={isModalOpen}
+            onDelete={handleDelete}
+            onClose={handleDeleteModalClose}
+            invoiceDelete={invoiceDelete}
+          />
+          <ShareModal
+            open={shareModel}
+            onShare={() => setShareModel(false)}
+            onClose={() => setShareModel(false)}
+            shareUrlId={shareUrl}
+          />
+        </Box>
+      </Container>
+    </>
   );
 }

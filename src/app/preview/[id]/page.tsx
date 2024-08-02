@@ -1,7 +1,7 @@
 "use client";
 import { calculateAmount, calculateTax } from "@/common/common";
 import PdfView from "@/appPages/PdfView/pdfView";
-import { getInvoiceItem, setFullInvoice } from "@/redux/features/invoiceSlice";
+import { setFullInvoice } from "@/redux/features/invoiceSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import dynamic from "next/dynamic";

@@ -130,7 +130,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
       borderRadius={1}
       sx={{
         width: 316,
-        height: 242,
+        // height: 242,
       }}
     >
       {/* Modal */}

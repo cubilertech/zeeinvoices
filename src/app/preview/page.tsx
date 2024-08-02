@@ -2,7 +2,7 @@
 import { calculateAmount, calculateTax } from "@/common/common";
 import PdfView from "@/appPages/PdfView/pdfView";
 import { getInvoiceItem } from "@/redux/features/invoiceSlice";
-// import { PDFViewer, Text } from "@react-pdf/renderer";
+
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -45,7 +45,7 @@ const Preview = () => {
       showToolbar={false}
     >
       <PdfView
-        invDetails={{...invoiceDetail}}
+        invDetails={{ ...invoiceDetail }}
         invSetting={invoiceSetting}
         Summary={summaryDetail}
         user={session?.user}
