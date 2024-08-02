@@ -27,7 +27,6 @@ const ShowDetails: FC<ShowDetails> = ({ title, companyName, name, address, state
         py: 1,
         px: 3,
         borderRadius: 2,
-        // cursor: "pointer",
         border: `1px solid #EEEEEE`,
       }}
     >

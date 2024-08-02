@@ -4,7 +4,6 @@ import {
   AvatarGroup,
   Box,
   Button,
-  Container,
   Rating,
   Stack,
   Typography,
@@ -15,7 +14,6 @@ const HeroSection = () => {
   return (
     <Box
       sx={{
-        // height: "785px",
         width: "100%",
         py: 9,
         pt: 19,
@@ -60,7 +58,6 @@ const HeroSection = () => {
           >
             Create Invoice
           </Button>
-
           {/* Avatar and rating section */}
           <Stack direction={"row"}>
             <AvatarGroup max={3} spacing={20}>

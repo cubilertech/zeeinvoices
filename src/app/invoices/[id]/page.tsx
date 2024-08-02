@@ -2,8 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  Box,
-  CircularProgress,
+  Box,  
   Container,
   IconButton,
   Stack,
@@ -121,7 +120,7 @@ const InvoiceDetail = () => {
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
-        sx={{ py: 3, marginTop: "50px" }}
+        sx={{ py: 3, marginTop: "60px" }}
       >
         <Stack
           direction={"row"}
@@ -141,7 +140,6 @@ const InvoiceDetail = () => {
             {invoiceDetail?.id}
           </Typography>
         </Stack>
-
         <Stack direction={"row"}>        
             <IconButton sx={{ padding: 1 }} onClick={handleEditInvoice}>
               <Icon icon="editIcon" width={20} height={20} />
@@ -171,7 +169,6 @@ const InvoiceDetail = () => {
           </Box>
         </Stack>
       </Stack>
-
       <Stack direction={"row"} gap={3}>
         <InvoiceDetailsSection
           singleInvoice={{ ...invoiceDetail }}

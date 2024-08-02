@@ -19,13 +19,8 @@ import { setInvoiceColor } from "@/redux/features/invoiceSetting";
 interface InvoiceSettings {
   InvSetting?: any;
 }
-
 const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
   const dispatch = useDispatch();
-  // const handleChange = (event: SelectChangeEvent) => {
-  //   setAge(event.target.value);
-  // };
-
   const initialColors = [
     { id: 1, color: "#2A2A2A", isSelected: true },
     { id: 2, color: "#444444", isSelected: false },
@@ -47,11 +42,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
   const [colors, setColors] = useState(initialColors);
   const [color, setColor] = useState("");
   const [pickColor, setPickColor] = useState("");
-
+// Color Change
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
   };
-
+// Custom Color Change
   const handleSelectColor = (id: number | string) => {
     setPickColor("");
     const selectedColor = initialColors.filter((data) => data.id === id);
@@ -77,14 +72,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
     setAnchorEl(null);
     dispatch(setInvoiceColor(color));
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const handleColorPickerClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    console.log("Color picker button clicked", event.currentTarget);
-    // logic to open the color picker
+  // open the color picker
+  const handleColorPickerClick = (event: React.MouseEvent<HTMLDivElement>) => {    
     setAnchorEl(event.currentTarget);
   };
   const open = Boolean(anchorEl);
@@ -114,7 +106,6 @@ const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
           sx={{
             marginTop: "10px",
             width: "317px",
-            // height: "154px",
           }}
         >
           <ColorPicker colors={colors} onSelectColor={handleSelectColor} InvSetting={InvSetting} />
@@ -122,7 +113,6 @@ const InvoiceSettings: FC<InvoiceSettings> = ({InvSetting}) => {
             title={pickColor !== '' && color === ''  ? '' : InvSetting.color}
             onClick={handleColorPickerClick}
           />
-
           <Popover
             id={id}
             open={open}

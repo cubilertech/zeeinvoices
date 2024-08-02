@@ -24,7 +24,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "540px",
   bgcolor: "background.paper",
-  //   border: "2px solid #000",
   borderRadius: "12px",
   boxShadow: 24,
   p: 3,
@@ -74,7 +73,6 @@ const ShareModal: FC<ShareModal> = ({ onShare, onClose, open ,shareUrlId}) => {
               <Typography variant="text-sm-regular" sx={{ color: "#445164" }}>
                 Share this to one of the platforms below
               </Typography>
-
               <FormControl sx={{ my: 3 }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
@@ -103,7 +101,6 @@ const ShareModal: FC<ShareModal> = ({ onShare, onClose, open ,shareUrlId}) => {
                   label="Password"
                 />
               </FormControl>
-
               <Stack direction={"row"} gap={3}>
                 <Box
                   sx={{
@@ -149,7 +146,6 @@ const ShareModal: FC<ShareModal> = ({ onShare, onClose, open ,shareUrlId}) => {
                 </Box>
               </Stack>
             </Stack>
-
             <Stack direction={"row"} gap={1.5}>
               <Button
                 variant="outlined"

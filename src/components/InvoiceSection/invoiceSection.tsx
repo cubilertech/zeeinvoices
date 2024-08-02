@@ -25,10 +25,13 @@ import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSectio
 interface InvoiceSectionProps {
   InvDetails: any;
   type: any;
-  InvSetting:any;
+  InvSetting: any;
 }
-
-const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }) => {
+const InvoiceSection: FC<InvoiceSectionProps> = ({
+  InvDetails,
+  type,
+  InvSetting,
+}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const componentRef = useRef();
@@ -45,11 +48,9 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }
   const reciptShow = InvDetails.to?.name !== "" ? true : false;
 
   const handleSubmitFrom = (values: any) => {
-    console.log("submitted", values);
     dispatch(setSenderDetail(values));
   };
   const handleSubmitTo = (values: any) => {
-    console.log("submitted", values);
     dispatch(setRecipientDetail(values));
   };
 
@@ -66,7 +67,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }
       }}
     >
       {/* First section, add logo, invoice type, print */}
-
       <Stack direction={"row"} justifyContent={"space-between"}>
         <Stack direction={"row"} spacing={3}>
           <UploadLogo logoDesc="Add your bussiness logo" />
@@ -86,28 +86,32 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }
               <Icon icon="sendSqaureIcon" width={20} height={20} />
             </IconButton>
             <Box>
-              <Box style={{display:'none'}}>
-              <Box ref={componentRef}>
-                <InvoiceDetailsSection singleInvoice={{...InvDetails}} invoiceSetting={{...InvSetting}} />
+              <Box style={{ display: "none" }}>
+                <Box ref={componentRef}>
+                  <InvoiceDetailsSection
+                    singleInvoice={{ ...InvDetails }}
+                    invoiceSetting={{ ...InvSetting }}
+                  />
+                </Box>
               </Box>
-              </Box>              
               <ReactToPrint
                 trigger={() => (
                   <IconButton
-                    sx={{ padding: 1,opacity: showPreview ? 0.4 : 1 }}
+                    sx={{ padding: 1, opacity: showPreview ? 0.4 : 1 }}
                     disabled={showPreview}
                     onClick={() => window.print()}
                   >
                     <Icon icon="printIconIcon" width={20} height={20} />
                   </IconButton>
                 )}
-                content={() => componentRef.current ? componentRef.current : null}
+                content={() =>
+                  componentRef.current ? componentRef.current : null
+                }
               />
             </Box>
           </Stack>
         </Box>
       </Stack>
-
       {/* Second section Detail selecters */}
       <Stack
         direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
@@ -177,7 +181,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }
           marginTop: "20px",
           border: `1px dashed ${palette.base.borderColor}`,
           borderRadius: 1,
-          // cursor: "pointer",
           backgroundColor: "#F9F9F9",
           marginBottom: "10px",
         }}
@@ -187,10 +190,9 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({ InvDetails, type,InvSetting }
             width: "100%",
             "& .MuiInputBase-input": {
               height: "32px !important",
-              // backgroundColor: palette.base.transparent,
               border: `0px dashed ${"#F9F9F9"}`,
               "&::placeholder": {
-                color: "#767676", // Change this to your desired placeholder color
+                color: "#767676",
               },
             },
             "& .MuiOutlinedInput-root": {

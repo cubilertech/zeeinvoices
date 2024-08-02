@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Dayjs } from "dayjs";
 
 export interface ContactDetail {
   name: string;
@@ -18,13 +17,11 @@ export interface InvoiceItem {
   quantity: number;
   rate: number;
   tax: number;
-  // description: string;
   subTotal: number;
-  taxAmount:number;
+  taxAmount: number;
 }
-
 export interface InvoiceState {
-  id:number;
+  id: number;
   logo: string | ArrayBuffer | null;
   invoiceType: string;
   from: ContactDetail;
@@ -34,16 +31,15 @@ export interface InvoiceState {
   invoiceItem: InvoiceItem[];
   addtionalNotes: string;
 }
-type UpdatableKeys = 'name' | 'quantity' | 'rate' | 'tax' | 'subTotal';
+type UpdatableKeys = "name" | "quantity" | "rate" | "tax" | "subTotal";
 interface ActionPayload {
   id: number;
   type: UpdatableKeys;
   value: any;
 }
-
 const initialValue: InvoiceState = {
-  id:0,
-  logo: '',
+  id: 0,
+  logo: "",
   invoiceType: "",
   from: {
     name: "",
@@ -72,21 +68,19 @@ const initialValue: InvoiceState = {
       quantity: 0,
       rate: 0,
       tax: 0,
-      // description: "",
       subTotal: 0,
-      taxAmount:0
+      taxAmount: 0,
     },
   ],
   addtionalNotes: "",
-
 };
 
 export const invoiceSlice = createSlice({
   name: "invoice",
   initialState: initialValue,
   reducers: {
-    setInvoiceId:(state,action: PayloadAction<number>)=>{
-      state.id= action.payload;
+    setInvoiceId: (state, action: PayloadAction<number>) => {
+      state.id = action.payload;
     },
     setInvoiceLogo: (state, action: PayloadAction<string | null>) => {
       state.logo = action.payload;
@@ -117,16 +111,17 @@ export const invoiceSlice = createSlice({
       state.invoiceItem = filterData;
     },
     setInvoiceItem: (state, action: PayloadAction<any>) => {
-      const {id,type,value} = action.payload as ActionPayload;
-      const index = state.invoiceItem.findIndex((item)=> item.id === id );
+      const { id, type, value } = action.payload as ActionPayload;
+      const index = state.invoiceItem.findIndex((item) => item.id === id);
       state.invoiceItem[index][type] = value as never;
-      if(type === 'quantity' || type === 'rate' || type === 'tax'){
-        const subtitle = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
+      if (type === "quantity" || type === "rate" || type === "tax") {
+        const subtitle =
+          state.invoiceItem[index].quantity * state.invoiceItem[index].rate;
         state.invoiceItem[index].subTotal = subtitle;
-        const taxValue =state.invoiceItem[index].tax;
-          const tax = (subtitle)*(taxValue/100);
-          state.invoiceItem[index].taxAmount = tax;
-          state.invoiceItem[index].subTotal= subtitle+tax;
+        const taxValue = state.invoiceItem[index].tax;
+        const tax = subtitle * (taxValue / 100);
+        state.invoiceItem[index].taxAmount = tax;
+        state.invoiceItem[index].subTotal = subtitle + tax;
       }
       // if(type === 'tax'){
       //   const total = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
@@ -139,8 +134,8 @@ export const invoiceSlice = createSlice({
     setAddtionalNotes: (state, action: PayloadAction<string>) => {
       state.addtionalNotes = action.payload;
     },
-     setFullInvoice : (state,action:PayloadAction<any>)=>{
-      state.id= action.payload.id;
+    setFullInvoice: (state, action: PayloadAction<any>) => {
+      state.id = action.payload.id;
       state.logo = action.payload.logo;
       state.invoiceType = action.payload.invoiceType;
       state.from = action.payload.from;
@@ -148,15 +143,15 @@ export const invoiceSlice = createSlice({
       state.invoiceDate = action.payload.invoiceDate;
       state.dueDate = action.payload.dueDate;
       state.addtionalNotes = action.payload.addtionalNotes;
-      state.invoiceItem=action.payload.invoiceItem
-     },
-     setResetInvoice:(state)=>{
+      state.invoiceItem = action.payload.invoiceItem;
+    },
+    setResetInvoice: (state) => {
       return initialValue;
-    }
+    },
   },
 });
 
-export const getInvoiceId=(state:RootState)=>state.invoice.id;
+export const getInvoiceId = (state: RootState) => state.invoice.id;
 export const getInvoiceLogo = (state: RootState) => state.invoice.logo;
 export const getInvoiceType = (state: RootState) => state.invoice.invoiceType;
 export const getSenderDetail = (state: RootState) => state.invoice.from;

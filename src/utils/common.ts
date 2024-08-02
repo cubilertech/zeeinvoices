@@ -10,7 +10,7 @@ export const useSelectedColor = () => {
   const color = useSelector(getColor);
   return color;
 };
-
+// Image convertion
 export const imageConvertion=(image:any)=>{
 if(image?.includes('lh3.googleusercontent.com') || image?.includes('blob:')){
   return image;
@@ -26,33 +26,35 @@ if(image?.includes('base64,')){
   return `${backendURL}/${image}`;
 }
 }
-
+//Logout function
 export  const handleLogout = () => {
+  // setTimeout(())
   signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` });
-  toast.success('Logout Successfully!');
+    toast.success('Logout Successfully!'); 
 };
-
+// Login function
 export  const handleLogin = () => {
   signIn("google", {
     callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}`,
   });
-  toast.success('Login Successfully!');
+  setTimeout(() => {
+    toast.success('Login Successfully!');
+  }, 2000);
+ 
 };
-
+//Image Base 64 Convertion
 export const base64ToFile = (base64String : any, filename:any) => {
   const arr = base64String?.split(',');
   const mime = arr[0].match(/:(.*?);/)[1];
   const bstr = atob(arr[1]);
   let n = bstr.length;
   const u8arr = new Uint8Array(n);
-
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
-
   return new File([u8arr], filename, { type: mime });
 };
-
+// Debounce
 export const debounce = (func:any, delay:any) => {
   let timeout:any;
   return (...args:any) => {
@@ -62,3 +64,18 @@ export const debounce = (func:any, delay:any) => {
     }, delay);
   };
 };
+// Image blob function
+//  async function fetchBlobData(blobUrl: string) {
+//     try {
+//       console.log("Fetching blob data from:", blobUrl);
+//       const response = await fetch(blobUrl);
+//       if (!response.ok) {
+//         throw new Error(`Failed to fetch blob. Status: ${response.status}`);
+//       }
+//       const blob = await response.blob();
+//       return blob;
+//     } catch (error) {
+//       console.error("Failed to fetch blob data:", error);
+//       throw error;
+//     }
+//   }

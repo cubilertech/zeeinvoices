@@ -83,11 +83,6 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
           )
         }
       </PDFDownloadLink>
-
-      {/* <Button variant="outlined" sx={{ width: "100%", marginTop: "15px" }}>
-        Save
-      </Button> */}
-
       <Tooltip title="Delete invoice">
         <Button
           onClick={() => handleOpenDeleteModal()}

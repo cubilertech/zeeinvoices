@@ -3,11 +3,7 @@ import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { FC, useEffect } from "react";
 import { palette } from "@/theme/palette";
 import { Icon } from "../Icon";
-import { InvoiceDatePicker } from "../InvoiceDatePicker";
-import { InvoiceItemsTable } from "../InvoiceItemsTable";
 import { InvoiceSummary } from "../InvoiceSummary";
-
-import DetailSelecter from "../detailSelecter/detailSelecter";
 import ShowDetails from "../ShowDetails/showDetails";
 import { formattedDate } from "@/common/common";
 import Image from "next/image";
@@ -21,8 +17,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
   singleInvoice,
   invoiceSetting,
 }) => {
-  const imageSelected = googleImage(singleInvoice?.logo);
-  
+  const imageSelected = googleImage(singleInvoice?.logo);  
   return (
     <Box
       sx={{
@@ -123,7 +118,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
       </Stack>
       {/* Fourth section, items table */}
       {/* <InvoiceItemsTable /> */}
-
       {/* Table header */}
       <Grid
         container
@@ -153,7 +147,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         >
           <Typography sx={{ color: palette.base.white }}>Rate</Typography>
         </Grid>
-
         <Grid
           sx={{ padding: "8px", paddingTop: "8px !important" }}
           item
@@ -174,7 +167,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
           <Typography sx={{ color: palette.base.white }}>Subtotal</Typography>
         </Grid>
       </Grid>
-
       {/* Table rows */}
       {singleInvoice?.invoiceItem?.map((data: any, index: number) => (
         <>
@@ -197,9 +189,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
                 <Typography variant="text-xs-medium" sx={{}}>
                   {data.name}
                 </Typography>
-                {/* <Typography variant="text-xxs-small" sx={{ color: "#4F4F4F" }}>
-                Lorem ipsum dolor sit amet, con adipiscing elit.{" "}
-              </Typography> */}
               </Stack>
             </Grid>
             <Grid
@@ -235,7 +224,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
                 ""
               )}
             </Grid>
-
             <Grid
               sx={{ padding: "8px", paddingTop: "1px !important" }}
               item

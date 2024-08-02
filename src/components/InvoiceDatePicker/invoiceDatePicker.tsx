@@ -4,8 +4,7 @@ import { MobileDatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
-import { FC, useState } from "react";
-import { palette } from "@/theme/palette";
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDueDate,
@@ -13,7 +12,6 @@ import {
   setDueDate,
   setInvoiceDate,
 } from "@/redux/features/invoiceSlice";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface InvoiceDatePicker {
   title: string;
@@ -22,11 +20,6 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
   const dispatch = useDispatch();
   const invoiceDate = useSelector(getInvoiceDate);
   const dueDate = useSelector(getDueDate);
-  // const [value, setValue] = useState<Dayjs | null>(
-  //   dayjs("2024-07-25T07:00:00.000Z")
-  // );
-  // console.log(value?.toISOString(), "valueDat");
-  console.log(new Date().toISOString(), "dd");
   const handleDateChange = (newDate: Dayjs | null) => {
     console.log(newDate, "newDte");
     if (newDate) {
@@ -36,13 +29,11 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
         : dispatch(setDueDate(date));
     }
   };
-
   return (
     <Stack
       direction={"row"}
       spacing={1}
       sx={{
-        // backgroundColor:'skyblue',
         width: 205,
         height: 25,
         justifyContent: "center",
@@ -61,7 +52,6 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
         sx={{
           width: "134px !important",
           height: 24,
-          // backgroundColor: "skyblue",
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -88,7 +78,6 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               "& .MuiOutlinedInput-input": {
                 padding: "1px !important",
                 paddingLeft: "7px !important",
-                // color: palette.color.gray[800],
                 fontSize: 12,
               },
               "& .MuiInputBase-input": {
@@ -96,8 +85,6 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
                 width: "134px !important",
               },
               padding: "0px !important",
-              // width: "100% !important",
-
               "& .MuiOutlinedInput-root": {
                 border: "0.5px !important",
                 borderRadius: "5px",
@@ -107,8 +94,7 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
                 py:"2px",
               },
             }}
-          />
-          
+          />          
         </LocalizationProvider>
       </Box>
     </Stack>

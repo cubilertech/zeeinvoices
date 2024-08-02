@@ -1,5 +1,4 @@
 "use client";
-import { palette } from "@/theme/palette";
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import { Icon } from "../Icon";
@@ -11,11 +10,11 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  //   border: "2px solid #000",
   borderRadius: "12px",
   boxShadow: 24,
   p: 3,
 };
+// Capitalize String
 function capitalizeFirstLetter(title?:string) {
   if (!title) return "";
   return title.charAt(0).toLocaleUpperCase() + title.slice(1).toLocaleLowerCase();
@@ -58,7 +57,6 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete,ti
                 Are you sure you want to delete this {title}?
               </Typography>
             </Stack>
-
             <Stack direction={"row"} gap={1.5}>
               <Button
                 variant="outlined"

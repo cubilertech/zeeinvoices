@@ -18,7 +18,6 @@ const Icon: FC<IconProps> = ({
   ...props
 }) => {
   const iconPath = icons[icon];
-  // console.log(iconPath, "iconPath");
   return (
     <Image {...props} src={iconPath} alt="icon" width={width} height={height} />
   );

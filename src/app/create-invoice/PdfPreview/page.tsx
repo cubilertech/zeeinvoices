@@ -11,6 +11,7 @@ const PdfPreview = () => {
   const allInvoiceItems = useSelector(getInvoiceItem);
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
+  // Get Total Amount And Tax
   const [total, setTotal] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
   useEffect(() => {

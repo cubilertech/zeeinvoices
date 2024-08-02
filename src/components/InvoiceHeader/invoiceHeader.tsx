@@ -31,7 +31,6 @@ interface InvoiceHeaderProps {
   summaryDetail: any;
   type: string;
 }
-
 const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   InvSetting,
   InvDetails,
@@ -47,7 +46,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     InvDetails?.invoiceType !== "";
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
-
   const {
     data: record,
     refetch: refetchRecord,
@@ -73,22 +71,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     isLoading: updatLoading,
     isSuccess: updateSuccess,
   } = useEditDocument();
-
-  async function fetchBlobData(blobUrl: string) {
-    try {
-      console.log("Fetching blob data from:", blobUrl);
-      const response = await fetch(blobUrl);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch blob. Status: ${response.status}`);
-      }
-      const blob = await response.blob();
-      return blob;
-    } catch (error) {
-      console.error("Failed to fetch blob data:", error);
-      throw error;
-    }
-  }
-
   const invoiceData = useMemo(() => {
     return {
       id: InvDetails.id,
@@ -177,9 +159,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Edit Back Button
   const handleBack = ()=>{
-    router.back();
-    dispatch(setResetInvoiceSetting());
+    router.push('/invoices');
+    setTimeout(() => {
+      dispatch(setResetInvoiceSetting());
     dispatch(setResetInvoice());
+    }, 500);    
   }
 
   return (
@@ -218,7 +202,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             "Update"
           )}
         </Button>
-
         {validateButton ? (
           session ? (
             <PdfDownloadLink
@@ -250,8 +233,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             variant="contained"
             disabled={true}
             sx={{
-              // background: "#36C2CE !important",
-              // color: "#fff",
               width: "138px",
               px: "12px !important",
             }}

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-
+// Fetch All Recods
 export const useFetchAllDocument = (
   apiRoute: any,
   page: any,
@@ -33,6 +33,7 @@ export const useFetchAllDocument = (
     placeholderData: [],
   });
 };
+// Fetch Single Recods
 export const useFetchSingleDocument = (apiRoute: string) => {
   const { data: session } = useSession();
   async function fetch() {
@@ -56,9 +57,9 @@ export const useFetchSingleDocument = (apiRoute: string) => {
     queryKey: [`key-${apiRoute}`],
     queryFn: fetch,
     enabled: false,
-    // placeholderData: {},
   });
 };
+// Create Recods
 export const useCreateDocument = (multipart=true) => {
   const { data: session } = useSession();
   const handleCreate = async (props: any) => {
@@ -82,7 +83,7 @@ export const useCreateDocument = (multipart=true) => {
   };
   return useMutation(handleCreate);
 };
-
+// Delete Recods
 export const useDeleteDocument = () => {
   const { data: session } = useSession();
   const handleDelete = async (props: any) => {
@@ -106,7 +107,7 @@ export const useDeleteDocument = () => {
 
   return useMutation(handleDelete);
 };
-
+// Edit Recods
 export const useEditDocument = (multipart=true) => {
   const { data: session } = useSession();
   const handleEdit = async (props: any) => {
@@ -123,7 +124,6 @@ export const useEditDocument = (multipart=true) => {
         return response.data.data;
       } else {
         toast.error("An Error Occured while Update Data")
-        // throw new Error("An Error Occured while Update Data");
       }
     } catch (error) {
       throw new Error("An Error Occured while Update Data");

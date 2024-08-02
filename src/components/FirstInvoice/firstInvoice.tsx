@@ -33,8 +33,6 @@ const FirstInvoice: FC = () => {
       <Container
         sx={{
           width: "460px",
-          // height: "422px",
-
           marginTop: "57px",
           marginBottom: "9px",
           py:"50px",
@@ -77,7 +75,6 @@ const FirstInvoice: FC = () => {
               No invoice to show, Please add an invoice to view.
             </Typography>
           </Stack>
-
           <Button
             variant="contained"
             sx={{ width: "210px", height: "40px" }}
