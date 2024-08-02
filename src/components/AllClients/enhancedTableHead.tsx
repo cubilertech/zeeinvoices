@@ -10,6 +10,7 @@ import {
 import React, { FC } from "react";
 import { palette } from "@/theme/palette";
 import { visuallyHidden } from "@mui/utils";
+import { Icon } from "../Icon";
 
 interface Data {
   name: string;
@@ -118,6 +119,18 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
+              IconComponent={(props) => (
+                <span
+                  {...props}
+                  style={{
+                    width: "16px",
+                    height: "16px",
+                    marginRight: "7px",
+                  }}
+                >
+                  <Icon icon="sortIcon" width={16} height={16} />
+                </span>
+              )}
             >
               {headCell.label}
               {orderBy === headCell.id ? (

@@ -42,11 +42,11 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
         // localStorage.setItem("uploadedImage", base64Image);
         dispatch(setInvoiceLogo(base64Image as string));
         console.log("Image stored in localStorage");
-      // localStorage.setItem('logo',(URL.createObjectURL(file)));
+        // localStorage.setItem('logo',(URL.createObjectURL(file)));
+      };
+      reader.readAsDataURL(file);
     }
-    reader.readAsDataURL(file);
   };
-}
 
   // const handleFileUpload = (file: File) => {
   //   console.log("File uploaded:", file);
@@ -106,6 +106,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             ref={fileInputRef}
             style={{ display: "none" }}
             onChange={handleFileChange}
+            accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
           />
           <Stack direction={"row"} spacing={1}>
             <Icon icon="uploadLogo" height={31} width={34} />

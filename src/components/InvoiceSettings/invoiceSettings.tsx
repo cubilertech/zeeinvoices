@@ -3,10 +3,6 @@ import { palette } from "@/theme/palette";
 import {
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Popover,
   Stack,
   Typography,

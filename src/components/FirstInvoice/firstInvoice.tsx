@@ -1,6 +1,6 @@
 "use client";
 import { palette } from "@/theme/palette";
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import { Icon } from "../Icon";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
 const FirstInvoice: FC = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const route = useRouter();
   const handleCreate = () => {
     dispatch(setResetInvoiceSetting());
@@ -17,54 +17,77 @@ const FirstInvoice: FC = () => {
     route.push("/");
   };
   return (
-    <Container
+    <Box
       sx={{
-        width: "460px",
-        height: "422px",
-        marginTop: "70px",
-        marginBottom: "10px",
-        justifyContent: "center",
-        alignItems: "center",
-        display: "flex",
-        borderRadius: "12px",
-        boxShadow: palette.boxShadows[100],
+        display:"flex",
+        alignItems:"center",
+        minHeight: {
+          xl: "90vh",
+          lg: "73vh",
+          md: "63vh",
+          sm: "53vh",
+          xs: "43vh",
+        },
       }}
     >
-      <Stack
-        direction={"column"}
-        gap={4}
+      <Container
         sx={{
-          backgroundColor: palette.base.white,
+          width: "460px",
+          // height: "422px",
+
+          marginTop: "57px",
+          marginBottom: "9px",
+          py:"50px",
           justifyContent: "center",
           alignItems: "center",
+          display: "flex",
+          borderRadius: "12px",
+          boxShadow: palette.boxShadows[100],
+          backgroundColor: palette.base.white,
         }}
       >
-        <Icon icon="firstInvoiceIcon" width={121} height={116} />
         <Stack
           direction={"column"}
-          gap={0.5}
+          gap={4}
           sx={{
+            backgroundColor: palette.base.white,
             justifyContent: "center",
             alignItems: "center",
-            display: "flex",
           }}
         >
-          <Typography variant="display-xs-semibold">
-            Create your first Invoice
-          </Typography>
-          <Typography
-            variant="text-sm-regular"
+          <Icon icon="firstInvoiceIcon" width={200} height={200} />
+          <Stack
+            direction={"column"}
+            gap={0.5}
             sx={{
-              color: palette.color.gray[770],
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
             }}
           >
-            No invoice to show, Please add an invoice to view.
-          </Typography>
-        </Stack>
+            <Typography variant="display-xs-semibold">
+              Create your first Invoice
+            </Typography>
+            <Typography
+              variant="text-sm-regular"
+              sx={{
+                color: palette.color.gray[770],
+              }}
+            >
+              No invoice to show, Please add an invoice to view.
+            </Typography>
+          </Stack>
 
-        <Button variant="contained" onClick={handleCreate} >Create New Invoice</Button>
-      </Stack>
-    </Container>
+          <Button
+            variant="contained"
+            sx={{ width: "210px", height: "40px" }}
+            onClick={handleCreate}
+          >
+            Create New Invoice
+          </Button>
+        </Stack>
+      </Container>
+    </Box>
   );
 };
 
