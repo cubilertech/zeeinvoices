@@ -1,20 +1,10 @@
 import { palette } from "@/theme/palette";
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { AppBar, Avatar, IconButton, Stack, Typography } from "@mui/material";
 import { Icon } from "../Icon";
 
 const DashboardHeader = () => {
   return (
     <AppBar
-      //   position="fixed"
       sx={{
         top: 0,
         left: 0,
@@ -25,7 +15,6 @@ const DashboardHeader = () => {
         justifyContent: "center",
         py: "7px",
         borderBottom: `1px solid ${palette.color.gray[5]}`,
-        // boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
         boxShadow: "0",
       }}
     >

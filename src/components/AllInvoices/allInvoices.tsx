@@ -1,33 +1,21 @@
 "use client";
 import * as React from "react";
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import { visuallyHidden } from "@mui/utils";
 import { palette } from "@/theme/palette";
 import {
   Avatar,
   Badge,
-  Button,
   CircularProgress,
   Container,
-  IconButton,
-  InputAdornment,
-  Popover,
   Stack,
-  TextField,
-  Tooltip,
 } from "@mui/material";
-import { Icon } from "../Icon";
 import { Pagination } from "../Pagination";
 import { backendURL } from "@/utils/constants";
 import {
@@ -81,11 +69,6 @@ function createData(
     action,
   };
 }
-
-// const rows =
-// [
-//   createData(1, "Penny Lane Badgely", "abcdefghi@gmail.com", "13 May 2024", "complete", 4.3, ''),
-// ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -233,7 +216,7 @@ export default function AllInvoices() {
     }
   }, [invoiceList]);
 
-  console.log(invoiceList, fetchingInvoiceList, "fetchingInvoiceList",setPage);
+  console.log(invoiceList, fetchingInvoiceList, "fetchingInvoiceList", setPage);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -295,7 +278,6 @@ export default function AllInvoices() {
   };
   //Share Invoice
   const handleShareInvoice = (record: any) => {
-    // route.push(`/preview/${record.id}`);
     setShareUrl(record.id);
     setShareModel(true);
   };
@@ -339,12 +321,12 @@ export default function AllInvoices() {
     deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
   };
   //handle create
- 
+
   return (
     <>
       <hr />
       <Container maxWidth="lg">
-       {invoiceList?.invoices?.length > 0 ? (
+        {invoiceList?.invoices?.length > 0 ? (
           <Box
             sx={{
               minHeight: { xl: "83vh", lg: "73vh" },
@@ -371,11 +353,7 @@ export default function AllInvoices() {
                   borderTopRightRadius: "8px",
                 }}
               >
-                <Table
-                  sx={{ minWidth: 750 }}
-                  aria-labelledby="tableTitle"
-                  // size={dense ? "small" : "medium"}
-                >
+                <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
                   <EnhancedTableHead
                     numSelected={selected.length}
                     order={order}
@@ -455,8 +433,8 @@ export default function AllInvoices() {
                                 sx={{
                                   paddingLeft: "37px",
                                   "& .MuiBadge-colorPrimary": {
-                                    // background: "yellow",
-                                    background: palette.color.badgeColors["pending-bg"],
+                                    background:
+                                      palette.color.badgeColors["pending-bg"],
                                     color: palette.color.badgeColors.pending,
                                   },
                                 }}

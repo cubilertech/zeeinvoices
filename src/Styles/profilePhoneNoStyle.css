@@ -1,11 +1,11 @@
 .custom-phone-input .react-international-phone {
-    height: 48px; /* Set the desired height */
+    height: 48px;
   }
   
   .custom-phone-input .react-international-phone__input,
   .custom-phone-input .react-international-phone__country {
-    height: 48px; /* Match the height for the input and country code selection */
-    line-height: 48px; /* Ensure the text is vertically centered */
+    height: 48px;
+    line-height: 48px;
   }
   
   .react-international-phone-country-selector-button {

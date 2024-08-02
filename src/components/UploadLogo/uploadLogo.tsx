@@ -3,7 +3,6 @@ import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { FC, useRef, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
-import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceLogo, setInvoiceLogo } from "@/redux/features/invoiceSlice";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -17,10 +16,7 @@ interface UploadLogoProps {
 const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   const dispatch = useDispatch();
   const invoiceLogo = useSelector(getInvoiceLogo);
-  // const [image, setImage] = useState(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   const handleClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -33,24 +29,15 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // setSelectedFile(file);
-      // dispatch(setInvoiceLogo(URL.createObjectURL(file)));
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64Image = reader.result;
-        // setImage(base64Image);
-        // localStorage.setItem("uploadedImage", base64Image);
         dispatch(setInvoiceLogo(base64Image as string));
-        console.log("Image stored in localStorage");
-        // localStorage.setItem('logo',(URL.createObjectURL(file)));
       };
       reader.readAsDataURL(file);
     }
   };
 
-  // const handleFileUpload = (file: File) => {
-  //   console.log("File uploaded:", file);
-  // };
   return (
     <>
       {invoiceLogo ? (

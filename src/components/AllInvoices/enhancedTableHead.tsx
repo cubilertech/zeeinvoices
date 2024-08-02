@@ -12,8 +12,6 @@ import React, { FC } from "react";
 
 import { palette } from "@/theme/palette";
 import { visuallyHidden } from "@mui/utils";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { Icon } from "../Icon";
 
 interface Data {

@@ -1,6 +1,6 @@
 "use client";
-import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { Box } from "@mui/material";
+import { FC } from "react";
 import { Icon } from "../Icon";
 
 interface Color {
@@ -10,14 +10,27 @@ interface Color {
 }
 const Color: FC<Color> = ({ color, isSelected, onClick }) => {
   return (
-    <Box onClick={onClick}
+    <Box
+      onClick={onClick}
       borderRadius={1}
-      sx={{cursor:"pointer", height: "32px", width: "32px", backgroundColor: color , borderRadius:"3px", position: 'relative' }}
+      sx={{
+        cursor: "pointer",
+        height: "32px",
+        width: "32px",
+        backgroundColor: color,
+        borderRadius: "3px",
+        position: "relative",
+      }}
     >
-      {/* {isSelected && <Icon icon="tickIcon" width={20} height={20} />} */}
-
       {isSelected === color && (
-        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
           <Icon icon="tickIcon" width={20} height={20} />
         </Box>
       )}

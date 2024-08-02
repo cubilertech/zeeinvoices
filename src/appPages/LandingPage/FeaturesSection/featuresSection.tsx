@@ -11,7 +11,6 @@ const FeaturesSection = () => {
         py: 9,
         justifyContent: "center",
         alignItems: "center",
-        // display: "flex",
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "center", my: "30px" }}>
@@ -125,7 +124,6 @@ const FeaturesSection = () => {
           sx={{
             width: 596,
             height: 375,
-            // mt:"3%",
             display: "flex",
             justifyContent: "right",
 

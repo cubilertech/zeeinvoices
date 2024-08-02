@@ -1,6 +1,6 @@
 "use client";
-import { Box, Grid, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { Grid } from "@mui/material";
+import { FC } from "react";
 import Color from "./color";
 
 interface ColorPicker {

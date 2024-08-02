@@ -1,14 +1,10 @@
 "use client";
 import { palette } from "@/theme/palette";
 import { Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addInvoiceItem,
-  getInvoiceItem,
-  setInvoiceItem,
-} from "@/redux/features/invoiceSlice";
+import { setInvoiceItem } from "@/redux/features/invoiceSlice";
 import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
 import "../../Styles/tableItemRow.css";
 
@@ -208,7 +204,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             }}
           >
             {selectedCurrency === "$ USD" ? "$" : selectedCurrency}{" "}
-            {data.subTotal.toFixed(2)} 
+            {data.subTotal.toFixed(2)}
             {/* {id} */}
           </Typography>
         </Grid>

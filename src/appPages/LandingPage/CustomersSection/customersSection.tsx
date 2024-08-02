@@ -93,18 +93,14 @@ const CustomersSection = () => {
         sx={{
           width: "100%",
           py: 9,
-          // background:
-          //   "conic-gradient(from 180.47deg at 117.4% 50%, #3F4DE1 -72.9deg, #DEDBFA 87.9deg, #3F4DE1 287.1deg, #DEDBFA 447.9deg)",
           justifyContent: "center",
           alignItems: "center",
-          // textAlign: "center",
         }}
       >
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
-            //   my: "10px",
           }}
         >
           <Typography
@@ -140,8 +136,6 @@ const CustomersSection = () => {
                   width: "360px !important",
                   height: "480px !important",
                   background: "#0000004D",
-                  // width: "20% !important",
-                  // height: "20% !important",
                 }}
               >
                 <Box
@@ -152,23 +146,17 @@ const CustomersSection = () => {
                     position: "absolute",
                     width: "360px !important",
                     height: "480px !important",
-                    // width: "20% !important",
-                    // height: "20% !important",
                   }}
                 >
                   <Image
                     src={testimonial.image}
                     alt={testimonial.name}
-                    // width={360}
-                    // height={480}
                     layout="fill"
                     objectFit="cover"
                   />
                 </Box>
                 <Box
                   sx={{
-                    // filter: "blur(4px)",
-                    // background: "#FFFFFF4D",
                     background: "rgba(255, 255, 255, 0.3)",
                     borderRadius: "6px",
                     position: "absolute",
@@ -226,10 +214,6 @@ const CustomersSection = () => {
               onClick={handlePrev}
               sx={{
                 borderRadius: "50px",
-                // position: "absolute",
-                // top: "50%",
-                // left: 0,
-                // transform: "translateY(-50%)",
                 backgroundColor: "#fff",
                 ":hover": { backgroundColor: "#e0e0e0" },
               }}
@@ -240,10 +224,6 @@ const CustomersSection = () => {
               onClick={handleNext}
               sx={{
                 borderRadius: "50px",
-                // position: "absolute",
-                // top: "50%",
-                // right: 0,
-                // transform: "translateY(-50%)",
                 backgroundColor: "#fff",
                 ":hover": { backgroundColor: "#e0e0e0" },
               }}

@@ -1,9 +1,7 @@
-import { Theme } from "@mui/material/styles";
 import { palette } from "../palette";
 
 export const MuiIconButton = () => {
   return {
-
     MuiIconButton: {
       styleOverrides: {
         root: {
@@ -22,7 +20,6 @@ export const MuiIconButton = () => {
           borderRadius: "10%",
           "&:hover": {
             backgroundColor: palette.color.gray[10],
-            // color: palette.base.white,
           },
         },
       },

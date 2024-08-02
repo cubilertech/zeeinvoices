@@ -9,7 +9,6 @@ const BusinessesSection = () => {
         py: 9,
         justifyContent: "center",
         alignItems: "center",
-        // display: "flex",
       }}
     >
       <Box

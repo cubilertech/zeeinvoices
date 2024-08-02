@@ -30,7 +30,6 @@ const InvoiceSummary: FC = () => {
       sx={{
         borderRadius: "3px",
         width: "240px",
-        // height: "176px",
         border: `1px solid ${palette.base.borderColor}`,
       }}
     >
