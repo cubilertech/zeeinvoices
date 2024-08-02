@@ -383,14 +383,14 @@ export default function AllInvoices() {
                     onRequestSort={handleRequestSort}
                     rowCount={invoiceList?.invoices?.length}
                   />
-                  {fetchingInvoiceList ? (
+                  {!fetchingInvoiceList ? (
                     <Box
                       sx={{
                         display: "flex",
                         justifyContent: "center",
                         padding: "20px",
                         alignItems: "center",
-                        height: "56vh",
+                        height: "400px",
                       }}
                     >
                       <CircularProgress size={24} sx={{ color: "#8477DA" }} />
