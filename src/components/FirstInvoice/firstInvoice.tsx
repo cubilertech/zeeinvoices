@@ -3,9 +3,19 @@ import { palette } from "@/theme/palette";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import { Icon } from "../Icon";
+import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import { setResetInvoice } from "@/redux/features/invoiceSlice";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const FirstInvoice: FC = () => {
-  
+  const dispatch=useDispatch();
+  const route = useRouter();
+  const handleCreate = () => {
+    dispatch(setResetInvoiceSetting());
+    dispatch(setResetInvoice());
+    route.push("/");
+  };
   return (
     <Container
       sx={{
@@ -52,7 +62,7 @@ const FirstInvoice: FC = () => {
           </Typography>
         </Stack>
 
-        <Button variant="contained"  >Create New Invoice</Button>
+        <Button variant="contained" onClick={handleCreate} >Create New Invoice</Button>
       </Stack>
     </Container>
   );
