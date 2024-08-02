@@ -2,13 +2,13 @@
 import {
   Button,
   CircularProgress,
+  IconButton,
   Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfView from "@/appPages/PdfView/pdfView";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { backendURL } from "@/utils/constants";
 import {
   useCreateDocument,
@@ -175,7 +175,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     setLoginModel(false);
     handleLogin();
   };
-  //Download Model
+  // Edit Back Button
+  const handleBack = ()=>{
+    router.back();
+    dispatch(setResetInvoiceSetting());
+    dispatch(setResetInvoice());
+  }
 
   return (
     <Stack
@@ -183,9 +188,21 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       justifyContent={"space-between"}
       sx={{ marginTop: "5%" }}
     >
-      <Typography variant="display-xs-medium">
-        Invoice: {InvDetails.id > 0 ? InvDetails.id : ""}
-      </Typography>
+      <Stack
+        direction={"row"}
+        sx={{ justifyContent: "center", alignItems: "center" }}
+      >
+        {type === "add" ? (
+          ""
+        ) : (
+          <IconButton sx={{ padding: 1, marginRight: "10px" }} onClick={handleBack}>
+            <ArrowBackIosNewIcon />
+          </IconButton>
+        )}
+        <Typography variant="display-xs-medium">
+          Invoice: {InvDetails.id > 0 ? InvDetails.id : ""}
+        </Typography>
+      </Stack>
       <Stack direction={"row"} justifyContent={"space-between"} spacing={2}>
         <Button
           sx={{ height: "36px", width: "73px" }}
@@ -193,7 +210,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           disabled={!validateButton}
           onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
         >
-          {createInvoiceLoading ? (
+          {createInvoiceLoading || updatLoading ? (
             <CircularProgress size={24} sx={{ color: "#8477DA" }} />
           ) : type === "add" ? (
             "Save"
@@ -233,7 +250,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             variant="contained"
             disabled={true}
             sx={{
-              
               // background: "#36C2CE !important",
               // color: "#fff",
               width: "138px",

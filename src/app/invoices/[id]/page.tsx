@@ -46,13 +46,7 @@ const InvoiceDetail = () => {
     isFetching: refetchingSingleInvoice,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
-  useEffect(() => {
-    return () => {
-      dispatch(setResetInvoiceSetting());
-      dispatch(setResetInvoice());
-    };
-  }, [dispatch]);
-  useEffect(() => {
+   useEffect(() => {
     refetchSingleInvoice();
     if (singleInvoice) {
       dispatch(
@@ -79,8 +73,12 @@ const InvoiceDetail = () => {
       );
     }
   }, [refetchSingleInvoice, singleInvoice, dispatch]);
-  
-  console.log(singleInvoice, "dataaa");
+  // Back Handle
+  const handleBack = ()=>{
+    router.back();
+    dispatch(setResetInvoiceSetting());
+    dispatch(setResetInvoice());
+  }
 
   return (
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
@@ -93,7 +91,7 @@ const InvoiceDetail = () => {
           direction={"row"}
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
-          <IconButton sx={{ padding: 1, marginRight: "10px" }}>
+          <IconButton sx={{ padding: 1, marginRight: "10px" }} onClick={handleBack}>
             <ArrowBackIosNewIcon />
           </IconButton>
           <Typography variant="display-xs-medium">Invoices/</Typography>

@@ -80,7 +80,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
     address?: string;
   }
   console.log(editId?.name, "editId");
-  const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
+  const { values, handleBlur, handleChange, handleSubmit, touched, errors,resetForm  } =
     useFormik({
       initialValues: initialValues,
       validationSchema: validationSchema,
@@ -99,6 +99,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
       onSubmit: (values) => {
         handleModelClose();
         handleSubmitForm(values);
+        resetForm();
       },
     });
   function isString(value: any): value is string {

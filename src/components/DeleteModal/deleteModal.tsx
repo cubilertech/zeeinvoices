@@ -16,14 +16,18 @@ const style = {
   boxShadow: 24,
   p: 3,
 };
-
+function capitalizeFirstLetter(title?:string) {
+  if (!title) return "";
+  return title.charAt(0).toLocaleUpperCase() + title.slice(1).toLocaleLowerCase();
+}
 interface DeleteModal {
   onDelete?: () => void;
   onClose: () => void;
   open: boolean;
   invoiceDelete:any
+  title?:string
 }
-const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete }) => {
+const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete,title }) => {
   return (
     <>
       <Modal
@@ -49,9 +53,9 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete })
               <Icon icon="deleteRedIcon" />
             </Box>
             <Stack direction={"column"} gap={1}>
-              <Typography variant="text-lg-semibold">Delete Client</Typography>
+              <Typography variant="text-lg-semibold">Delete {capitalizeFirstLetter(title)}</Typography>
               <Typography variant="text-sm-regular">
-                Are you sure you want to delete this client?
+                Are you sure you want to delete this {title}?
               </Typography>
             </Stack>
 

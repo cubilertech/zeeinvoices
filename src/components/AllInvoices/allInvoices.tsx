@@ -500,6 +500,7 @@ export default function AllInvoices() {
             onDelete={handleDelete}
             onClose={handleDeleteModalClose}
             invoiceDelete={invoiceDelete}
+            title="invoice"
           />
           <ShareModal
             open={shareModel}
