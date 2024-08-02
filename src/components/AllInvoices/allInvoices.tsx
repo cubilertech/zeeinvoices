@@ -233,7 +233,7 @@ export default function AllInvoices() {
     }
   }, [invoiceList]);
 
-  // console.log(invoiceList, fetchingInvoiceList, "setPage",setPage);
+  console.log(invoiceList, fetchingInvoiceList, "fetchingInvoiceList",setPage);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -344,7 +344,7 @@ export default function AllInvoices() {
     <>
       <hr />
       <Container maxWidth="lg">
-        {invoiceList?.invoices?.length > 0 ? (
+       {invoiceList?.invoices?.length > 0 ? (
           <Box
             sx={{
               minHeight: { xl: "83vh", lg: "73vh" },

@@ -46,6 +46,7 @@ import ClientDetailModel from "./ClientDetailModel";
 import { useSession } from "next-auth/react";
 import EnhancedTableToolbar from "./enhancedTableToolbar";
 import EnhancedTableHead from "./enhancedTableHead";
+import { toast } from "react-toastify";
 
 interface Data {
   name: string;
@@ -354,8 +355,9 @@ export default function AllClients() {
           refetchClientList();
         })
         .catch((err) => {
-          alert(`${err}`);
-          throw new Error("Error Occured!");
+          toast.error(err.message)
+          // alert(`${err.message}`);
+          // throw new Error("Error Occured!");
         });
     } else {
       try {

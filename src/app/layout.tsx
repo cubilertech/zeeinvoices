@@ -6,6 +6,8 @@ import AppLayout from "@/common/appLayout";
 import ClientProvider from "@/components/ClientProvider";
 import QueryProvider from "@/components/QueryProvider";
 import SessionProviders from "@/components/SessionProviders";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +28,16 @@ export default function RootLayout({
           <MuiThemeProvider>
             <ClientProvider>
               <QueryProvider>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={3000}
+                  newestOnTop={false}
+                  closeOnClick
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
                 <AppLayout>{children}</AppLayout>
               </QueryProvider>
             </ClientProvider>

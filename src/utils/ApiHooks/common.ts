@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export const useFetchAllDocument = (
   apiRoute: any,
@@ -19,7 +20,7 @@ export const useFetchAllDocument = (
       if (response.data && response.data.code === 200) {
         return response.data.data ? response.data.data : [];
       } else {
-        throw new Error("An error occurred while fetching records.");
+         toast.error("An error occurred while fetching records.");
       }
     } catch (error) {
       throw new Error("An error occurred while fetching records.");
@@ -45,7 +46,7 @@ export const useFetchSingleDocument = (apiRoute: string) => {
       if (response.data && response.data.code === 200) {
         return response.data.data ? response.data.data : {};
       } else {
-        throw new Error("An error occurred while fetching records.");
+         toast.error("An error occurred while fetching records.");
       }
     } catch (error) {
       throw new Error("An error occurred while fetching records.");
@@ -70,10 +71,10 @@ export const useCreateDocument = (multipart=true) => {
         },
       });
       if (response.data.code === 200) {
-        console.log("Create Successfully");
+        toast.success(response.data.message);
         return response.data.data;
       } else {
-        throw new Error("An error occurred while creating record.");
+         toast.error("An error occurred while creating record.");
       }
     } catch (error: any) {
       throw new Error(`${error.response?.data?.message}`);
@@ -93,9 +94,10 @@ export const useDeleteDocument = () => {
         }
       });
       if (response.data.code === 200) {
+        toast.success(response.data.message);
         return response.data.data;
       } else {
-        throw new Error("An error occurred while deleting record.");
+        toast.error("An error occurred while deleting record.");
       }
     } catch (error: any) {
       throw new Error(`${error.response?.data?.message}`);
@@ -110,16 +112,18 @@ export const useEditDocument = (multipart=true) => {
   const handleEdit = async (props: any) => {
     const token = session?.accessToken;
     try {
-      const respone = await axios.put(props.apiRoute, props.data, {
+      const response = await axios.put(props.apiRoute, props.data, {
         headers: {
           "Content-Type": multipart ? "multipart/form-data" : "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-      if (respone.data.code === 200) {
-        return respone.data.data;
+      if (response.data.code === 200) {
+        toast.success(response.data.message);
+        return response.data.data;
       } else {
-        throw new Error("An Error Occured while Update Data");
+        toast.error("An Error Occured while Update Data")
+        // throw new Error("An Error Occured while Update Data");
       }
     } catch (error) {
       throw new Error("An Error Occured while Update Data");
