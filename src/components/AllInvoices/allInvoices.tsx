@@ -361,7 +361,7 @@ export default function AllInvoices() {
                     onRequestSort={handleRequestSort}
                     rowCount={invoiceList?.invoices?.length}
                   />
-                  {!fetchingInvoiceList ? (
+                  {fetchingInvoiceList ? (
                     <Box
                       sx={{
                         display: "flex",
