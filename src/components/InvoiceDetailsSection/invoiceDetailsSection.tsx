@@ -11,7 +11,7 @@ import DetailSelecter from "../detailSelecter/detailSelecter";
 import ShowDetails from "../ShowDetails/showDetails";
 import { formattedDate } from "@/common/common";
 import Image from "next/image";
-import { imageConvertion } from "@/utils/common";
+import { googleImage } from "@/utils/common";
 interface InvoiceDetailsProps {
   singleInvoice?: any;
   invoiceSetting?: any;
@@ -21,9 +21,8 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
   singleInvoice,
   invoiceSetting,
 }) => {
-  console.log(invoiceSetting, "invoiceSetting",singleInvoice);
-  const imageSelected = imageConvertion(singleInvoice?.logo);
-
+  const imageSelected = googleImage(singleInvoice?.logo);
+  
   return (
     <Box
       sx={{
@@ -230,7 +229,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
               {" "}
               {invoiceSetting.tax ? (
                 <Typography variant="text-xs-regular" sx={{}}>
-                  % {data.tax}
+                {data.tax}  %
                 </Typography>
               ) : (
                 ""

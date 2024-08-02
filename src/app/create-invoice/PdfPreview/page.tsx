@@ -26,8 +26,8 @@ const PdfPreview = () => {
 
   return (
     <PdfView
-      invDetails={invoiceDetail}
-      invSetting={invoiceSetting}
+      invDetails={{...invoiceDetail}}
+      invSetting={{...invoiceSetting}}
       Summary={summaryDetail}
       user={session?.user}
     />

@@ -504,6 +504,7 @@ export default function AllClients() {
         open={isModalOpen}
         onClose={handleDeleteModalClose}
         invoiceDelete={clientDelete}
+        title="client"
       />
       <ClientDetailModel
         handleSubmitForm={handleSubmitForm}

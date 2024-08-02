@@ -32,7 +32,6 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
   const handleDelete = () => {
     setIsModalOpen(false);
   };
-
   const handleDeleteModalClose = () => {
     setIsModalOpen(false);
   };
@@ -62,8 +61,8 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
       <PDFDownloadLink
         document={
           <PdfView
-            invSetting={InvSetting}
-            invDetails={InvDetails}
+            invSetting={{...InvSetting}}
+            invDetails={{...InvDetails}}
             Summary={summaryDetail}
             user={session?.user}
           />
@@ -110,6 +109,7 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
         onDelete={handleDelete}
         onClose={handleDeleteModalClose}
         invoiceDelete={invoiceDelete}
+        title="invoice"
       />
     </Box>
   );

@@ -164,6 +164,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
         open={isModalOpen}
         onClose={handleDeleteModalClose}
         invoiceDelete={clientDelete}
+        title="client"
       />
     </Box>
   );

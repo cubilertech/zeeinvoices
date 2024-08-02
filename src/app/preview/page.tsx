@@ -46,7 +46,7 @@ const Preview = () => {
     >
       <PdfView
         invDetails={{...invoiceDetail}}
-        invSetting={invoiceSetting}
+        invSetting={{...invoiceSetting}}
         Summary={summaryDetail}
         user={session?.user}
       />

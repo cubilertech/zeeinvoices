@@ -10,7 +10,7 @@ import {
   Font,
 } from "@react-pdf/renderer";
 import { formattedDate } from "@/common/common";
-import { imageConvertion } from "@/utils/common";
+import { googleImage } from "@/utils/common";
 // import OpenSans from '../../../public/Fonts/OpenSans-font.ttf';
 // import { logoImg } from "../../../public/Images/logos/zee-logo.png";
 // Font.register({
@@ -110,7 +110,7 @@ const PdfView: FC<PdfViewProps> = ({
   if (!isClient) {
     return null;
   }
-  console.log(invDetails, "invDetails");
+  // console.log(invDetails, "invDetails");
 
   return (
     <Document>
@@ -151,7 +151,7 @@ const PdfView: FC<PdfViewProps> = ({
               style={styles.logo}
               src={
                 invDetails?.logo
-                  ? imageConvertion(invDetails.logo)
+                  ? googleImage(invDetails.logo)
                   : "/Images/logos/zee-logo.png"
               }
             />
@@ -437,9 +437,10 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
         </View>
         {/* item row */}
+        {console.log(invDetails?.invoiceItem, "invDetailsItems")}
         {invDetails?.invoiceItem?.map((data: any, index: number) => (
           <View
-            key={index}
+            key={data.id}
             style={{
               marginLeft: "7px",
               marginRight: "10px",
