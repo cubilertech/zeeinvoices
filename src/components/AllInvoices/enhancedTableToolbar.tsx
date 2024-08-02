@@ -1,7 +1,4 @@
 "use client";
-
-import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
-import { setResetInvoice } from "@/redux/features/invoiceSlice";
 import {
   alpha,
   Button,
@@ -12,10 +9,12 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
 import React, { FC } from "react";
-import { useDispatch } from "react-redux";
 import { Icon } from "../Icon";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import { setResetInvoice } from "@/redux/features/invoiceSlice";
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
@@ -27,15 +26,13 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
   props: EnhancedTableToolbarProps
 ) => {
   const { numSelected, search, handleChangeSearch } = props;
+  const dispatch=useDispatch();
   const route = useRouter();
-  const dispatch = useDispatch();
   const handleCreate = () => {
     dispatch(setResetInvoiceSetting());
     dispatch(setResetInvoice());
     route.push("/");
   };
-
-
   return (
     <Toolbar
       sx={{
