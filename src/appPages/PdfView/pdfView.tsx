@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     padding: "10px 30px",
     gap: 5,
     borderTop: "4px",
+    overflow:"hidden",
   },
   section_top: {
     display: "flex",
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 110,
+    width: 175,
     height: 25,
   },
   watermark: {
@@ -113,7 +114,7 @@ const PdfView: FC<PdfViewProps> = ({
   // console.log(invDetails, "invDetails");
 
   return (
-    <Document>
+    <Document style={{overflow:"hidden"}}>
       <Page
         size="A4"
         style={{
