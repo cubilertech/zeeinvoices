@@ -13,17 +13,17 @@ interface ProfileAvatar {
   // setImage?: any;
   // isImage?: any;
   // setIsImage?: any;
-  uploadImage?: any,
-  setUploadImage?: any,
-  imageUrl?: any,
-  setImageUrl?: any
+  uploadImage?: any;
+  setUploadImage?: any;
+  imageUrl?: any;
+  setImageUrl?: any;
 }
 
 const ProfileAvatar: FC<ProfileAvatar> = ({
   uploadImage,
   setUploadImage,
   imageUrl,
-  setImageUrl
+  setImageUrl,
   // image,
   // setImage,
   // isImage,
@@ -46,7 +46,7 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
       // setImage(file);
     }
   };
-console.log(imageUrl,'ddddd',uploadImage);
+  console.log(imageUrl, "ddddd", uploadImage);
   return (
     <>
       {/* circle avatar */}
@@ -76,13 +76,11 @@ console.log(imageUrl,'ddddd',uploadImage);
             justifyContent: "center",
           }}
         >
-          {!imageUrl || imageUrl === '' ? (
+          {!imageUrl || imageUrl === "" ? (
             <Icon icon="personIcon" width={87} height={103} />
           ) : (
             <Image
-              src={
-                imageConvertion(imageUrl)
-              }
+              src={imageConvertion(imageUrl)}
               alt="Selected Logo"
               width={100}
               height={100}
@@ -115,6 +113,7 @@ console.log(imageUrl,'ddddd',uploadImage);
               ref={fileInputRef}
               style={{ display: "none" }}
               onChange={handleFileChange}
+              accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
             />
             <Icon icon="cameraIcon" width={18} height={16} />
           </IconButton>

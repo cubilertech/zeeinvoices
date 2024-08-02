@@ -455,7 +455,9 @@ export default function AllInvoices() {
                                 sx={{
                                   paddingLeft: "37px",
                                   "& .MuiBadge-colorPrimary": {
-                                    background: "skyblue",
+                                    // background: "yellow",
+                                    background: palette.color.badgeColors["pending-bg"],
+                                    color: palette.color.badgeColors.pending,
                                   },
                                 }}
                               ></Badge>

@@ -14,6 +14,7 @@ import { palette } from "@/theme/palette";
 import { visuallyHidden } from "@mui/utils";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import { Icon } from "../Icon";
 
 interface Data {
   id: number;
@@ -113,7 +114,19 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
-            //   IconComponent={orderBy === headCell.id && order === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon}
+              IconComponent={(props) => (
+                <span
+                  {...props}
+                  style={{
+                    width: "16px",
+                    height: "16px",
+                    marginRight: "7px",
+                  }}
+                >
+                  <Icon icon="sortIcon" width={16} height={16} />
+                </span>
+              )}
+              // IconComponent={orderBy === headCell.id && order === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon}
             >
               {headCell.label}
               {orderBy === headCell.id ? (

@@ -52,6 +52,21 @@ const success = {
   50: "#DCFAE6",
 };
 
+const badgeColors = {
+  10: "#F0ECFD",
+  11: "#5630BC",
+  20: "#FEF4E6",
+  21: "#C47206",
+  30: "#E8F5F1",
+  31: "#137A5F",
+  "pending-bg": "#F0ECFD",
+  pending: "#5630BC",
+  "in-progress-bg": "#FEF4E6",
+  "in-progress": "#C47206",
+  completed: "#E8F5F1",
+  "completed-bg": "#137A5F",
+};
+
 const gray = {
   820: "#101828",
   810: "#374151",
@@ -85,8 +100,6 @@ const gray = {
   5: "#EAECF0",
   3: "#EDECEF",
 };
-
-
 
 const opacity = {
   blue: "rgba(93, 146, 254, 0.3)",
@@ -181,6 +194,9 @@ export const palette = {
   color: {
     gray: {
       ...gray,
+    },
+    badgeColors: {
+      ...badgeColors,
     },
 
     ...color,
