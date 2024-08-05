@@ -1,21 +1,26 @@
-'use client';
-import { Button, } from '@mui/material'
-import React from 'react'
-import { Icon } from "../Icon";
-import { useRouter } from 'next/navigation';
+"use client";
+import { Button } from "@mui/material";
+import React, { FC } from "react";
+import { useRouter } from "next/navigation";
+import { palette } from "@/theme/palette";
 
-const CustomButton = () => {
-    const route = useRouter();
-  return (
-    <Button
-    onClick={()=>route.push('/invoices')}
-      variant="outlined"
-      size="small"
-      startIcon={<Icon icon="invoiceIcon" width={15} height={15} />}
-    >
-      Invoices
-    </Button>
-  )
+interface CustomButtonProps{
+  title:string;
+  url:string;
 }
 
-export default CustomButton
+const CustomButton: FC<CustomButtonProps> = ({title,url}) => {
+  const route = useRouter();
+  return (
+    <Button
+      onClick={() => route.push(url)}
+      variant="text"
+      size="small"
+      sx={{borderBottom:`2px solid ${palette.primary.main}`,borderRadius:'0px',px:1}}
+    >
+      {title}
+    </Button>
+  );
+};
+
+export default CustomButton;

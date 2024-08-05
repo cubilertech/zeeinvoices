@@ -13,7 +13,7 @@ import {
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import CustomButton from "./CustomButton";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { handleLogout, handleLogin, imageConvertion } from "@/utils/common";
@@ -31,6 +31,7 @@ const Header = () => {
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [selected, setSelected] = useState("Invoices");
   //Fetch Profile Data
   const {
     data: profileData,
@@ -39,7 +40,7 @@ const Header = () => {
   } = useFetchSingleDocument(`${backendURL}/users/my-profile`);
   useEffect(() => {
     if (session?.accessToken) fetchProfile();
-  }, [fetchProfile, session?.accessToken,counter]);
+  }, [fetchProfile, session?.accessToken, counter]);
   // Handle Logo Click
   const handLogoClick = () => {
     route.push("/invoices");
@@ -55,11 +56,19 @@ const Header = () => {
   const handleProfile = () => {
     route.push("/profile");
     setAnchorEl(null);
-  };  
-  const handleLoginButton =()=>{
+  };
+  const handleLoginButton = () => {
     setLoading(true);
     handleLogin();
-  }
+  };
+  const headerData = [
+    { title: "Invoices", url: "/invoices" },
+    { title: "Customers", url: "/clients" },
+  ];
+  const handleButton = (data: any) => {
+    setSelected(data.title);
+    route.push(data.url);
+  };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
@@ -88,7 +97,28 @@ const Header = () => {
           <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
             <Icon icon="logo" height={24} width={175} />
           </Box>
-          {session && <CustomButton />}
+          <Box >
+            {session &&
+              headerData.map((data, index) => (
+                <Button
+                  key={index}
+                  onClick={() => handleButton(data)}
+                  variant="text"
+                  size="small"
+                  sx={{
+                    borderBottom:
+                      data.title === selected
+                        ? `2px solid ${palette.primary.main}`
+                        : "",
+                    borderRadius: "0px",
+                    px: 1,
+                    mr:1
+                  }}
+                >
+                  {data.title}
+                </Button>
+              ))}
+          </Box>
         </Stack>
         <Stack direction={"row"} gap={3}>
           {!session ? (
@@ -98,7 +128,7 @@ const Header = () => {
               disabled={loading}
               sx={{ px: "20px", py: "8px" }}
             >
-             {loading ? <CircularProgress size={18} /> : 'Login'} 
+              {loading ? <CircularProgress size={18} /> : "Login"}
             </Button>
           ) : (
             <>

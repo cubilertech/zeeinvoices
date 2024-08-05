@@ -276,7 +276,7 @@ export default function AllClients() {
                       justifyContent: "center",
                       padding: "20px",
                       alignItems: "center",
-                      height: "56vh",
+                      height: "400px",
                     }}
                   >
                     <CircularProgress size={24} sx={{ color: "#8477DA" }} />
