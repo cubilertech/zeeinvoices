@@ -28,19 +28,13 @@ if(image?.includes('base64,')){
 }
 //Logout function
 export  const handleLogout = () => {
-  // setTimeout(())
   signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` });
-    toast.success('Logout Successfully!'); 
 };
 // Login function
 export  const handleLogin = () => {
   signIn("google", {
     callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}`,
-  });
-  setTimeout(() => {
-    toast.success('Login Successfully!');
-  }, 2000);
- 
+  }); 
 };
 //Image Base 64 Convertion
 export const base64ToFile = (base64String : any, filename:any) => {

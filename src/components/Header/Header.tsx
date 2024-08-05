@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Container,
   Popover,
   Stack,
@@ -29,6 +30,7 @@ const Header = () => {
   const counter = useSelector(getCountValue);
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+  const [loading, setLoading] = React.useState<boolean>(false);
   //Fetch Profile Data
   const {
     data: profileData,
@@ -54,6 +56,10 @@ const Header = () => {
     route.push("/profile");
     setAnchorEl(null);
   };  
+  const handleLoginButton =()=>{
+    setLoading(true);
+    handleLogin();
+  }
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
@@ -87,11 +93,12 @@ const Header = () => {
         <Stack direction={"row"} gap={3}>
           {!session ? (
             <Button
-              onClick={handleLogin}
+              onClick={handleLoginButton}
               variant="contained"
+              disabled={loading}
               sx={{ px: "20px", py: "8px" }}
             >
-              Login
+             {loading ? <CircularProgress size={18} /> : 'Login'} 
             </Button>
           ) : (
             <>

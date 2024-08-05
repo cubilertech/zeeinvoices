@@ -16,6 +16,7 @@ import React, { FC } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Icon } from "../Icon";
 import { frontendUrl } from "@/utils/constants";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute" as "absolute",
@@ -40,7 +41,7 @@ const ShareModal: FC<ShareModal> = ({ onShare, onClose, open ,shareUrlId}) => {
   const handleCopyClick = () => {
     navigator.clipboard.writeText(value)
       .then(() => {
-        alert('Text copied! Feel free to paste it into a new tab');
+        toast.success('Text copied! Feel free to paste it into a new tab');
       })
       .catch((err) => {
         console.error('Failed to copy text: ', err);
