@@ -165,8 +165,8 @@ const dispatch = useDispatch();
                 Profile Details
               </Typography>
               <Button disabled={profileLoading} type="submit" variant="contained" sx={{ gap: "7px" }}>
-               {profileLoading ? <CircularProgress size={14} sx={{ color: "#8477DA" }} /> : 'Edit Profile'} 
-                <Icon icon="editWhiteIcon" width={12} height={14} />
+               {profileLoading ? <CircularProgress size={18} sx={{ color: "#8477DA" }} /> : 'Edit Profile'} 
+                {profileLoading ? '' : <Icon icon="editWhiteIcon" width={12} height={14} />}
               </Button>
             </Stack>
 
