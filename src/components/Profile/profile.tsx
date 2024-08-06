@@ -1,12 +1,21 @@
 "use client";
 import { palette } from "@/theme/palette";
-import { Box, Button, CircularProgress, FormControl, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  FormControl,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { Icon } from "../Icon";
 import { TextField } from "../TextField";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "@/Styles/profilePhoneNoStyle.css";
+import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
+
 import ProfileAvatar from "../ProfileAvatar/profileAvatar";
 import {
   useEditDocument,
@@ -28,9 +37,8 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
-  city: Yup.string()
-    .matches(alphaRegex, "Invalid City")
-    // .required("City is required"),
+  city: Yup.string().matches(alphaRegex, "Invalid City"),
+  // .required("City is required"),
   // state: Yup.string()
   //   .matches(alphaRegex, "Invalid State")
   //   .min(3, "City must be at least 3 characters long")
@@ -44,10 +52,10 @@ const validationSchema = Yup.object({
 interface Profile {}
 
 const Profile: FC<Profile> = ({}) => {
-  const {data:session} = useSession();
+  const { data: session } = useSession();
   const counter = useSelector(getCountValue);
   const [showPassword, setShowPassword] = React.useState(false);
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   // Get Data Of Login User
@@ -62,14 +70,13 @@ const dispatch = useDispatch();
     isSuccess: profileSuccess,
   } = useEditDocument();
   useEffect(() => {
-    if (session?.accessToken)
-    fetchProfile();
-  }, [fetchProfile,session?.accessToken,counter]);
+    if (session?.accessToken) fetchProfile();
+  }, [fetchProfile, session?.accessToken, counter]);
   // Image
   const [uploadImage, setUploadImage] = useState<any>(null);
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState("");
   useEffect(() => {
-    if (profileData?.image) setImageUrl(profileData?.image);    
+    if (profileData?.image) setImageUrl(profileData?.image);
   }, [profileData?.image]);
   // Form Handle
   const initialValues = {
@@ -79,14 +86,43 @@ const dispatch = useDispatch();
     city: profileData?.city || "",
     state: profileData?.state || "",
     address: profileData?.address || "",
-    countryCode: "PK",
+    countryCode: "",
   };
+
+  interface FormErrors {
+    name?: string;
+    companyName?: string;
+    email?: string;
+    phoneNumber?: string;
+    city?: string;
+    state?: string;
+    address?: string;
+  }
 
   const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
     useFormik({
       initialValues: initialValues,
       validationSchema: validationSchema,
       enableReinitialize: true,
+
+      validate: (values) => {
+        const errors: FormErrors = {}; // Use FormErrors type here
+
+        // Validate other fields
+        // ...
+
+        // Validate phone number
+        const phoneError = validatePhoneNumber(
+          values.phoneNumber,
+          values.countryCode
+        );
+        if (phoneError) {
+          errors.phoneNumber = phoneError;
+        }
+
+        return errors;
+      },
+
       onSubmit: (values) => {
         const data = {
           name: values.name,
@@ -95,20 +131,55 @@ const dispatch = useDispatch();
           city: values.city,
           state: values.state,
           address: values.address,
-          ...(uploadImage ? {image:uploadImage} : {})
+          ...(uploadImage ? { image: uploadImage } : {}),
           // image: image,
         };
-        
-        profileUpdate({apiRoute:`${backendURL}/users/my-profile`,data:data}).then((res)=>{          
-          setUploadImage(null);
-          setImageUrl(res?.image);
-          dispatch(increment())
-          console.log("Updateed Succesfully");
-        }).catch((err)=>{
-          console.error(err);
+
+        profileUpdate({
+          apiRoute: `${backendURL}/users/my-profile`,
+          data: data,
         })
+          .then((res) => {
+            setUploadImage(null);
+            setImageUrl(res?.image);
+            dispatch(increment());
+            console.log("Updateed Succesfully");
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       },
     });
+
+  function isString(value: any): value is string {
+    return typeof value === "string";
+  }
+
+  const validatePhoneNumber = (
+    phoneNumber: string,
+    countryCode: string
+  ): string => {
+    // Ensure countryCode is a valid CountryCode
+    // const validCountryCode: CountryCode = countryCode as CountryCode;
+    const validCountryCode = countryCode as CountryCode;
+    if (!phoneNumber) {
+      // return "Phone number is required";
+      return "";
+    }
+    const phoneNumberInstance = parsePhoneNumberFromString(
+      // This function parses the phone number according to the given country code.
+      phoneNumber,
+      validCountryCode
+    );
+    if (!phoneNumberInstance) {
+      return "Invalid phone number.";
+    }
+    if (!phoneNumberInstance.isValid()) {
+      return "Invalid phone number";
+    }
+    return "";
+  };
+
   return (
     <>
       <hr />
@@ -135,11 +206,18 @@ const dispatch = useDispatch();
         ></Box>
 
         {/* circle avatar */}
-        <ProfileAvatar uploadImage={uploadImage} setUploadImage={setUploadImage} imageUrl={imageUrl} setImageUrl={setImageUrl} />
+        <ProfileAvatar
+          uploadImage={uploadImage}
+          setUploadImage={setUploadImage}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+        />
 
         {/* name and email  */}
         <Stack direction={"column"} sx={{ ml: "210px", mt: "5px" }}>
-          <Typography variant="display-xs-semibold">{profileData?.name}</Typography>
+          <Typography variant="display-xs-semibold">
+            {profileData?.name}
+          </Typography>
           <Typography
             variant="text-md-regular"
             sx={{ color: palette.color.gray[735] }}
@@ -164,9 +242,22 @@ const dispatch = useDispatch();
               <Typography variant="text-xl-semibold">
                 Profile Details
               </Typography>
-              <Button disabled={profileLoading} type="submit" variant="contained" sx={{ gap: "7px" }}>
-               {profileLoading ? <CircularProgress size={18} sx={{ color: "#8477DA" }} /> : 'Edit Profile'} 
-                {profileLoading ? '' : <Icon icon="editWhiteIcon" width={12} height={14} />}
+              <Button
+                disabled={profileLoading}
+                type="submit"
+                variant="contained"
+                sx={{ gap: "7px" }}
+              >
+                {profileLoading ? (
+                  <CircularProgress size={18} sx={{ color: "#8477DA" }} />
+                ) : (
+                  "Edit Profile"
+                )}
+                {profileLoading ? (
+                  ""
+                ) : (
+                  <Icon icon="editWhiteIcon" width={12} height={14} />
+                )}
               </Button>
             </Stack>
 
@@ -188,7 +279,7 @@ const dispatch = useDispatch();
                   error={touched.name && Boolean(errors.name)}
                 />
               </FormControl>
-              <FormControl sx={{ width: "333px" }} >
+              <FormControl sx={{ width: "333px" }}>
                 <TextField
                   label="Email"
                   size="large"
@@ -225,17 +316,17 @@ const dispatch = useDispatch();
                   }}
                   onBlur={() => handleBlur({ target: { name: "phoneNumber" } })}
                 />
-                {/* {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                    <Typography
-                      color="error"
-                      variant="text-xs-regular"
-                      sx={{ marginTop: "5px", marginLeft: "15px" }}
-                    >
-                      {isString(errors.phoneNumber)
-                        ? errors.phoneNumber
-                        : "Invalid phone number"}
-                    </Typography>
-                  )} */}
+                {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                  <Typography
+                    color="error"
+                    variant="text-xs-regular"
+                    sx={{ marginTop: "5px", marginLeft: "15px" }}
+                  >
+                    {isString(errors.phoneNumber)
+                      ? errors.phoneNumber
+                      : "Invalid phone number"}
+                  </Typography>
+                )}
               </FormControl>
             </Stack>
 

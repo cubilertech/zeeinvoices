@@ -8,17 +8,17 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "@/Styles/phoneNoStyle.css";
-// import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -28,7 +28,7 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
-  phoneNumber: Yup.string().required("Phone number is required"),
+  // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
@@ -69,7 +69,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
     city: InvDetails?.city || "",
     state: InvDetails?.state || "",
     address: InvDetails?.address || "",
-    countryCode: "PK",
+    countryCode: "",
   };
   interface FormErrors {
     name?: string;
@@ -84,23 +84,25 @@ const DetailSelecter: FC<DetailSelecter> = ({
     useFormik({
       initialValues: initialValues,
       validationSchema: validationSchema,
-      // validate: (values) => {
-      //   const errors: FormErrors = {}; // Use FormErrors type here
 
-      //   // Validate other fields
-      //   // ...
+      validate: (values) => {
+        const errors: FormErrors = {}; // Use FormErrors type here
 
-      //   // Validate phone number
-      //   const phoneError = validatePhoneNumber(
-      //     values.phoneNumber,
-      //     values.countryCode
-      //   );
-      //   if (phoneError) {
-      //     errors.phoneNumber = phoneError;
-      //   }
+        // Validate other fields
+        // ...
 
-      //   return errors;
-      // },
+        // Validate phone number
+        const phoneError = validatePhoneNumber(
+          values.phoneNumber,
+          values.countryCode
+        );
+        if (phoneError) {
+          errors.phoneNumber = phoneError;
+        }
+
+        return errors;
+      },
+
       onSubmit: (values) => {
         handleCloseBd();
         setOpen(false);
@@ -120,28 +122,31 @@ const DetailSelecter: FC<DetailSelecter> = ({
   function isString(value: any): value is string {
     return typeof value === "string";
   }
-  // const validatePhoneNumber = (
-  //   phoneNumber: string,
-  //   countryCode: string
-  // ): string => {
-  //   // Ensure countryCode is a valid CountryCode
-  //   const validCountryCode: CountryCode = countryCode as CountryCode;
 
-  //   if (!phoneNumber) {
-  //     return "Phone number is required";
-  //   }
-  //   const phoneNumberInstance = parsePhoneNumberFromString(
-  //     phoneNumber,
-  //     validCountryCode
-  //   );
-  //   if (!phoneNumberInstance) {
-  //     return "Invalid phone number";
-  //   }
-  //   if (!phoneNumberInstance.isValid()) {
-  //     return "Invalid phone number";
-  //   }
-  //   return "";
-  // };
+  const validatePhoneNumber = (
+    phoneNumber: string,
+    countryCode: string
+  ): string => {
+    // Ensure countryCode is a valid CountryCode
+    // const validCountryCode: CountryCode = countryCode as CountryCode;
+    const validCountryCode = countryCode as CountryCode;
+    if (!phoneNumber) {
+      // return "Phone number is required";
+      return "";
+    }
+    const phoneNumberInstance = parsePhoneNumberFromString(
+      // This function parses the phone number according to the given country code.
+      phoneNumber,
+      validCountryCode
+    );
+    if (!phoneNumberInstance) {
+      return "Invalid phone number.";
+    }
+    if (!phoneNumberInstance.isValid()) {
+      return "Invalid phone number";
+    }
+    return "";
+  };
 
   return (
     <Box
@@ -380,7 +385,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   <PhoneInput
                     name="phoneNumber"
                     className="custom-phone-input"
-                    defaultCountry="pk"
                     value={values.phoneNumber || ""}
                     onChange={(value) => {
                       handleChange({

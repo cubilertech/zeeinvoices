@@ -14,6 +14,7 @@ import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 // import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
@@ -25,7 +26,7 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
-  phoneNumber: Yup.string().required("Phone number is required"),
+  // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
@@ -66,7 +67,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
     city: editId?.city || "",
     state: editId?.state || "",
     address: editId?.address || "",
-    countryCode: "PK",
+    countryCode: "",
   };
   interface FormErrors {
     name?: string;
@@ -90,17 +91,23 @@ const ClientDetailModel: FC<ClientDetail> = ({
     initialValues: initialValues,
     validationSchema: validationSchema,
     enableReinitialize: true,
-    // validate: (values) => {
-    //   const errors: FormErrors = {};
-    //   const phoneError = validatePhoneNumber(
-    //     values.phoneNumber,
-    //     values.countryCode
-    //   );
-    //   if (phoneError) {
-    //     errors.phoneNumber = phoneError;
-    //   }
-    //   return errors;
-    // },
+    validate: (values) => {
+      const errors: FormErrors = {}; // Use FormErrors type here
+
+      // Validate other fields
+      // ...
+
+      // Validate phone number
+      const phoneError = validatePhoneNumber(
+        values.phoneNumber,
+        values.countryCode
+      );
+      if (phoneError) {
+        errors.phoneNumber = phoneError;
+      }
+
+      return errors;
+    },
     onSubmit: (values) => {
       handleModelClose();
       handleSubmitForm(values);
@@ -110,27 +117,31 @@ const ClientDetailModel: FC<ClientDetail> = ({
   function isString(value: any): value is string {
     return typeof value === "string";
   }
-  // const validatePhoneNumber = (
-  //   phoneNumber: string,
-  //   countryCode: string
-  // ): string => {
-  //   // Ensure countryCode is a valid CountryCode
-  //   const validCountryCode: CountryCode = countryCode as CountryCode;
-  //   if (!phoneNumber) {
-  //     return "Phone number is required";
-  //   }
-  //   const phoneNumberInstance = parsePhoneNumberFromString(
-  //     phoneNumber,
-  //     validCountryCode
-  //   );
-  //   if (!phoneNumberInstance) {
-  //     return "Invalid phone number";
-  //   }
-  //   if (!phoneNumberInstance.isValid()) {
-  //     return "Invalid phone number";
-  //   }
-  //   return "";
-  // };
+
+  const validatePhoneNumber = (
+    phoneNumber: string,
+    countryCode: string
+  ): string => {
+    // Ensure countryCode is a valid CountryCode
+    // const validCountryCode: CountryCode = countryCode as CountryCode;
+    const validCountryCode = countryCode as CountryCode;
+    if (!phoneNumber) {
+      // return "Phone number is required";
+      return "";
+    }
+    const phoneNumberInstance = parsePhoneNumberFromString(
+      // This function parses the phone number according to the given country code.
+      phoneNumber,
+      validCountryCode
+    );
+    if (!phoneNumberInstance) {
+      return "Invalid phone number.";
+    }
+    if (!phoneNumberInstance.isValid()) {
+      return "Invalid phone number";
+    }
+    return "";
+  };
   return (
     <Box
       borderRadius={1}
@@ -249,7 +260,6 @@ const ClientDetailModel: FC<ClientDetail> = ({
                   <PhoneInput
                     name="phoneNumber"
                     className="custom-phone-input"
-                    defaultCountry="pk"
                     value={values.phoneNumber || ""}
                     onChange={(value) => {
                       handleChange({
