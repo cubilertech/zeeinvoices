@@ -28,12 +28,12 @@ if(image?.includes('base64,')){
 }
 //Logout function
 export  const handleLogout = () => {
-  signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` });
+  signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` || 'https://main.d33zziho5sqnl9.amplifyapp.com' });
 };
 // Login function
 export  const handleLogin = () => {
   signIn("google", {
-    callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}`,
+    callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` || 'https://main.d33zziho5sqnl9.amplifyapp.com',
   }); 
 };
 //Image Base 64 Convertion
