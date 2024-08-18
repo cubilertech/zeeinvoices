@@ -61,4 +61,4 @@ export const backendURL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3005";
 
 export const frontendUrl =
-  process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "http://localhost:3000";
+  process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "https://main.d33zziho5sqnl9.amplifyapp.com";
