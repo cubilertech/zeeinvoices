@@ -19,7 +19,7 @@ const InvoiceItemsTable: FC = () => {
   const dispatch = useDispatch();
   const selectedTax = useSelector(getTax);
   const handleAddItem = () => {
-    const rowId= Math.floor(Math.random() * 1000)
+    const rowId = Math.floor(Math.random() * 1000);
     dispatch(
       addInvoiceItem({
         id: rowId,
@@ -74,7 +74,8 @@ const InvoiceItemsTable: FC = () => {
             alignItems: "center",
           }}
           item
-          xs={1.8}
+          xs={selectedTax ? 1.8 : 2.2}
+          // xs={1.8}
         >
           <Typography
             variant="text-xs-semibold"
@@ -93,7 +94,8 @@ const InvoiceItemsTable: FC = () => {
             alignItems: "center",
           }}
           item
-          xs={1.6}
+          xs={selectedTax ? 1.6 : 2}
+          // xs={1.6}
         >
           <Typography
             variant="text-xs-semibold"
@@ -103,29 +105,34 @@ const InvoiceItemsTable: FC = () => {
           </Typography>
         </Grid>
 
-        <Grid
-          sx={{
-            padding: "8px",
-            paddingTop: "6px !important",
-            paddingLeft: "8px !important",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          item
-          xs={1.6}
-        >
-          {selectedTax ? (
-            <Typography
-              variant="text-xs-semibold"
-              sx={{ color: palette.base.white }}
-            >
-              Tax
-            </Typography>
-          ) : (
-            ""
-          )}
-        </Grid>
+        {selectedTax ? (
+          <Grid
+            sx={{
+              padding: "8px",
+              paddingTop: "6px !important",
+              paddingLeft: "8px !important",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            item
+            xs={1.6}
+          >
+            {selectedTax ? (
+              <Typography
+                variant="text-xs-semibold"
+                sx={{ color: palette.base.white }}
+              >
+                Tax
+              </Typography>
+            ) : (
+              ""
+            )}
+          </Grid>
+        ) : (
+          <></>
+        )}
+
         <Grid
           sx={{
             padding: "8px",
@@ -136,7 +143,8 @@ const InvoiceItemsTable: FC = () => {
             alignItems: "center",
           }}
           item
-          xs={2.2}
+          xs={selectedTax ? 2.2 : 3}
+          // xs={2.2}
         >
           <Typography
             variant="text-xs-semibold"
@@ -155,7 +163,7 @@ const InvoiceItemsTable: FC = () => {
           id={item.id}
           data={item}
           onRemove={handleRemoveItem}
-          showRemoveButton={getAllInvoiceItems[index].id === 1 ? false : true} // Show remove button only if there's more than one item
+          showRemoveButton={getAllInvoiceItems.length === 1 ? false : true} // Show remove button only if there's more than one item
         />
       ))}
       {/* add items button */}
@@ -186,7 +194,10 @@ const InvoiceItemsTable: FC = () => {
           <Box sx={{ padding: 1 }}>
             <Icon icon="addCircleOutlinedIcon" width={20} height={20} />
           </Box>
-          <Typography variant="text-xs-regular" sx={{ color: palette.base.black }}>
+          <Typography
+            variant="text-xs-regular"
+            sx={{ color: palette.base.black }}
+          >
             Add New Invoice Item
           </Typography>
         </Stack>

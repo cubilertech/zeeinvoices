@@ -189,7 +189,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           sx={{
             width: "100%",
             "& .MuiInputBase-input": {
-              height: "32px !important",
+              height: "31px !important",
               border: `0px dashed ${"#F9F9F9"}`,
               "&::placeholder": {
                 color: "#767676",

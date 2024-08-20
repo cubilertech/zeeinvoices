@@ -81,7 +81,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // paddingLeft: "16px !important",
           }}
           item
-          xs={1.6}
+          xs={selectedTax ? 1.6 : 2}
         >
           <TextField
             // size="small"
@@ -117,7 +117,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         <Grid
           sx={{ padding: "4px", paddingTop: "4px !important" }}
           item
-          xs={1.6}
+          xs={selectedTax ? 1.6 : 2}
         >
           <TextField
             sx={{
@@ -149,51 +149,55 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           />
         </Grid>
 
-        <Grid
-          sx={{ padding: "4px", paddingTop: "4px !important" }}
-          item
-          xs={1.6}
-        >
-          {selectedTax ? (
-            <TextField
-              InputProps={{
-                inputProps: { min: 0, max: 100 },
-              }}
-              sx={{
-                borderRadius: "3px",
-                color: palette.color.gray[700],
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "2px !important",
-                },
-                "& input[type=number]": {
-                  MozAppearance: "textfield",
-                  "&::-webkit-outer-spin-button": {
-                    WebkitAppearance: "none",
-                    margin: 0,
+        {selectedTax ? (
+          <Grid
+            sx={{ padding: "4px", paddingTop: "4px !important" }}
+            item
+            xs={1.6}
+          >
+            {selectedTax ? (
+              <TextField
+                InputProps={{
+                  inputProps: { min: 0, max: 100 },
+                }}
+                sx={{
+                  borderRadius: "3px",
+                  color: palette.color.gray[700],
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "2px !important",
                   },
-                  "&::-webkit-inner-spin-button": {
-                    WebkitAppearance: "none",
-                    margin: 0,
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                    "&::-webkit-outer-spin-button": {
+                      WebkitAppearance: "none",
+                      margin: 0,
+                    },
+                    "&::-webkit-inner-spin-button": {
+                      WebkitAppearance: "none",
+                      margin: 0,
+                    },
+                    textAlign: "right",
                   },
-                  textAlign: "right",
-                },
-              }}
-              name="tax"
-              type="number"
-              placeholder="%      0.0"
-              variant="outlined"
-              value={data.tax > 0 ? data.tax : ""}
-              onChange={handleChange}
-            />
-          ) : (
-            ""
-          )}
-        </Grid>
+                }}
+                name="tax"
+                type="number"
+                placeholder="%      0.0"
+                variant="outlined"
+                value={data.tax > 0 ? data.tax : ""}
+                onChange={handleChange}
+              />
+            ) : (
+              ""
+            )}
+          </Grid>
+        ) : (
+          <></>
+        )}
 
         <Grid
           sx={{ padding: "4px", paddingTop: "4px !important" }}
           item
-          xs={2.2}
+          xs={selectedTax ? 2.2 : 3.1}
         >
           <Typography
             sx={{

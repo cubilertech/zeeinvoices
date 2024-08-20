@@ -63,7 +63,7 @@ const Header = () => {
   };
   const headerData = [
     { title: "Invoices", url: "/invoices" },
-    { title: "Customers", url: "/clients" },
+    { title: "Clients", url: "/clients" },
   ];
   const handleButton = (data: any) => {
     setSelected(data.title);

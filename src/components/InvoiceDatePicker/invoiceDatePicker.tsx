@@ -60,6 +60,7 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               title === "Invoice Date" ? dayjs(invoiceDate) : dayjs(dueDate)
             }
             onChange={handleDateChange}
+            minDate={title === "Due Date" ? dayjs(invoiceDate) : undefined}
             format="MMM Do, YYYY"
             sx={{
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
@@ -89,12 +90,12 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
                 border: "0.5px !important",
                 borderRadius: "5px",
                 width: "134px !important",
-                paddingRight:0,
-                px:"4px",
-                py:"2px",
+                paddingRight: 0,
+                px: "4px",
+                py: "2px",
               },
             }}
-          />          
+          />
         </LocalizationProvider>
       </Box>
     </Stack>
