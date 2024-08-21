@@ -23,15 +23,17 @@ import { setResetInvoice } from "@/redux/features/invoiceSlice";
 import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { getCountValue } from "@/redux/features/counterSlice";
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
+  const pathname = usePathname();
   const route = useRouter();
   const dispatch = useDispatch();
   const counter = useSelector(getCountValue);
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [selected, setSelected] = useState("Invoices");
+  // const [selected, setSelected] = useState("Invoices");
   //Fetch Profile Data
   const {
     data: profileData,
@@ -66,7 +68,7 @@ const Header = () => {
     { title: "Clients", url: "/clients" },
   ];
   const handleButton = (data: any) => {
-    setSelected(data.title);
+    // setSelected(data.title);
     route.push(data.url);
   };
   const open = Boolean(anchorEl);
@@ -107,7 +109,7 @@ const Header = () => {
                   size="small"
                   sx={{
                     borderBottom:
-                      data.title === selected
+                      data.url === pathname
                         ? `2px solid ${palette.primary.main}`
                         : "",
                     borderRadius: "0px",

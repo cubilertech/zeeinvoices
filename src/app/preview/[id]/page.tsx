@@ -20,29 +20,32 @@ const PDFViewer = dynamic(
 );
 
 const PreviewPage = () => {
+  const [total, setTotal] = useState(0);
+  const [taxAmount, setTaxAmount] = useState(0);
   const { id } = useParams<{ id: string }>();
   const { data: session } = useSession();
   const dispatch = useDispatch();
-  const invoiceDetail = useSelector((state: any) => state.invoice);
-  const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
-  const [total, setTotal] = useState(0);
-  const [taxAmount, setTaxAmount] = useState(0);
-  useEffect(() => {
-    const totalAmount = calculateAmount(invoiceDetail.invoiceItem);
-    const totalTax = calculateTax(invoiceDetail.invoiceItem);
-    setTotal(totalAmount);
-    setTaxAmount(totalTax);
-  }, [invoiceDetail.invoiceItem]);
-  const summaryDetail = {
-    total: total,
-    taxAmount: taxAmount,
-  };
 
   const {
     data: singleInvoice,
     refetch: refetchSingleInvoice,
     isFetching: refetchingSingleInvoice,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
+
+  const invoiceDetail = useSelector((state: any) => state.invoice);
+  const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
+
+  useEffect(() => {
+    const totalAmount = calculateAmount(invoiceDetail.invoiceItem);
+    const totalTax = calculateTax(invoiceDetail.invoiceItem);
+    setTotal(totalAmount);
+    setTaxAmount(totalTax);
+  }, [invoiceDetail.invoiceItem]);
+
+  const summaryDetail = {
+    total: total,
+    taxAmount: taxAmount,
+  };
 
   useEffect(() => {
     refetchSingleInvoice();
@@ -72,18 +75,25 @@ const PreviewPage = () => {
     }
   }, [refetchSingleInvoice,singleInvoice,dispatch]);
 
+  console.log(invoiceDetail,'invoiceDetail',singleInvoice);
+
   return (
-    <PDFViewer
-      style={{ width: "100%", height: "76vh", marginTop: "50px" }}
-      showToolbar={false}
-    >
-      <PdfView
-        invDetails={{...invoiceDetail}}
-        invSetting={{...invoiceSetting}}
-        Summary={summaryDetail}
-        user={session?.user}
-      />
-    </PDFViewer>
+    <>
+    {singleInvoice && (
+      <PDFViewer
+        style={{ width: "100%", height: "76vh", marginTop: "50px" }}
+        showToolbar={false}
+      >
+        <PdfView
+          invDetails={{ ...invoiceDetail }}
+          invSetting={{ ...invoiceSetting }}
+          Summary={summaryDetail}
+          user={session?.user}
+        />
+      </PDFViewer>
+    )}
+    {!singleInvoice && <p>Loading...</p>}
+  </>
   );
 };
 

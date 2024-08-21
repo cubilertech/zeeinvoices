@@ -208,7 +208,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             }}
           >
             {selectedCurrency === "$ USD" ? "$" : selectedCurrency}{" "}
-            {data.subTotal.toFixed(2)}
+            { (selectedTax ? data?.subTotal : (data?.subTotal - data?.taxAmount)).toFixed(2) }
             {/* {id} */}
           </Typography>
         </Grid>

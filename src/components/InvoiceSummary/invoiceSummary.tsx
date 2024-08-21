@@ -114,7 +114,8 @@ const InvoiceSummary: FC = () => {
         <Typography variant="text-xs-small" sx={{ color: palette.base.black }}>
           {selectedCurrency === "$ USD" ? "USD" : selectedCurrency}{" "}
           <span style={{ fontSize: 12, fontWeight: 700 }}>
-            {total.toFixed(2)}
+            {/* {total.toFixed(2)} */}
+            { (selectedTax ? total : (total - taxAmount)).toFixed(2) }
           </span>
         </Typography>
       </Stack>

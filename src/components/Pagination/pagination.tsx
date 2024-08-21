@@ -152,10 +152,10 @@ const Pagination: FC<PaginationProps> = ({
           },
         }}
         onClick={handleNextPage}
-        disabled={totalPages === page}
+        disabled={totalPages === page || totalPages === 0 }
       >
         {isMobile ? "" : "Next"}
-        {totalPages === page ? (
+        {totalPages === page || totalPages === 0  ? (
           <ArrowForward
             sx={{ color: "#344054", opacity: "0.3", fontSize: 20, ml: 1 }}
           />

@@ -18,6 +18,12 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
   invoiceSetting,
 }) => {
   const imageSelected = googleImage(singleInvoice?.logo);  
+  const itemsLength =
+      singleInvoice?.invoiceItem[0]?.name !== "" &&
+      singleInvoice?.invoiceItem[0].quantity !== 0
+      ? true
+      : false;
+
   return (
     <Box
       sx={{
@@ -168,7 +174,8 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         </Grid>
       </Grid>
       {/* Table rows */}
-      {singleInvoice?.invoiceItem?.map((data: any, index: number) => (
+    
+      {itemsLength && singleInvoice?.invoiceItem?.map((data: any, index: number) => (
         <>
           <Grid
             container
@@ -230,7 +237,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
               xs={1.8}
             >
               <Typography variant="text-xs-regular" sx={{}}>
-                {invoiceSetting.currency} {data.subTotal}
+                {invoiceSetting.currency} { (invoiceSetting.tax ? data?.subTotal : (data?.subTotal - data?.taxAmount)).toFixed(2) }
               </Typography>
             </Grid>
           </Grid>
