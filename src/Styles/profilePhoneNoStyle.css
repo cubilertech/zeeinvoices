@@ -14,7 +14,7 @@
 
 .react-international-phone-input-container .react-international-phone-input {
   height: 48px;
-  width: 333px;
+  width: 288px !important;
 }
 
 .react-international-phone-input-container

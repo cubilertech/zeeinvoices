@@ -216,13 +216,13 @@ const Profile: FC<Profile> = ({}) => {
         {/* name and email  */}
         <Stack direction={"column"} sx={{ ml: "210px", mt: "5px" }}>
           <Typography variant="display-xs-semibold">
-            {profileData?.name}
+            {profileData? profileData.name: "."}
           </Typography>
           <Typography
             variant="text-md-regular"
             sx={{ color: palette.color.gray[735] }}
           >
-            {profileData?.email}
+            {profileData? profileData.email:"."}
           </Typography>
         </Stack>
 
