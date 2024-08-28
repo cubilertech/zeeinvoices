@@ -2,6 +2,7 @@
 import { palette } from "@/theme/palette";
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const GradientBox = styled(Box)({
   position: "relative",
@@ -30,6 +31,11 @@ const GradientBox = styled(Box)({
 });
 
 const HelpBusinessSection = () => {
+  const route = useRouter();
+
+  const handleCrtInvButton = (data: any) => {
+    route.push("/create-new-invoice");
+  };
   return (
     <GradientBox>
       <Box
@@ -81,6 +87,7 @@ const HelpBusinessSection = () => {
               variant="contained"
               size="large"
               sx={{ width: "241px", height: "64px", py: "20px", px: "30px" }}
+              onClick={handleCrtInvButton}
             >
               Generate Invoice
             </Button>

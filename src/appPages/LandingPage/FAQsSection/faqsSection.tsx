@@ -9,10 +9,22 @@ const accordionData = [
     title: "Is there a free trial available?",
     desc: "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
   },
-  { title: "Can I change my plan later?", desc: "Description" },
-  { title: "What is your cancellation policy?", desc: "Description" },
-  { title: "Can other info be added to an invoice?", desc: "Description" },
-  { title: "How do I change my account email?", desc: "Description" },
+  {
+    title: "Can I change my plan later?",
+    desc: "You can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+  },
+  {
+    title: "What is your cancellation policy?",
+    desc: "You can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+  },
+  {
+    title: "Can other info be added to an invoice?",
+    desc: "You can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+  },
+  {
+    title: "How do I change my account email?",
+    desc: "You can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+  },
 ];
 
 const FAQsSection = () => {

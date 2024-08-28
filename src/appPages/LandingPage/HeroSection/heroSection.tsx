@@ -1,3 +1,4 @@
+"use client";
 import { palette } from "@/theme/palette";
 import {
   Avatar,
@@ -9,15 +10,20 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
+  const route = useRouter();
+
+  const handleCrtInvButton = (data: any) => {
+    route.push("/create-new-invoice");
+  };
   return (
     <Box
       sx={{
         width: "100%",
         py: 9,
         pt: 19,
-
       }}
     >
       <Stack
@@ -55,6 +61,7 @@ const HeroSection = () => {
             variant="contained"
             size="large"
             sx={{ width: "214px", height: "64px", py: "20px", px: "30px" }}
+            onClick={handleCrtInvButton}
           >
             Create Invoice
           </Button>

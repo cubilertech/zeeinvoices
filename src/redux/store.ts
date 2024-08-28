@@ -2,13 +2,13 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import CountReducer from "./features/counterSlice";
 import InvoiceReducer from "./features/invoiceSlice";
 import InvoiceSettingReducer from "./features/invoiceSetting";
-import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
-import {thunk} from 'redux-thunk';
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
+import { thunk } from "redux-thunk";
 
 // Persist config
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 };
 // Root reducer

@@ -1,3 +1,4 @@
+"use client";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
@@ -9,7 +10,8 @@ const Footer: FC = () => {
       {/* black footer */}
       <Box
         sx={{
-          background: palette.color.gray[700],
+          // background: palette.color.gray[700],
+          backgroundColor: palette.primary.main,
           py: "10px",
         }}
       >
@@ -23,13 +25,28 @@ const Footer: FC = () => {
         >
           <Icon icon="whiteLogo" height={16} width={120} />
           <Stack direction={"row"} spacing={2}>
-            <Box sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open("https://twitter.com/zeeinvoices", "_blank")
+              }
+            >
               <Icon icon="twitter" height={28} width={28} />
             </Box>
-            <Box sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open("https://www.facebook.com/zeeinvoices/", "_blank")
+              }
+            >
               <Icon icon="facebook" height={28} width={28} />
             </Box>
-            <Box sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open("https://www.instagram.com/zeeinvoices/", "_blank")
+              }
+            >
               <Icon icon="instagarm" height={28} width={28} />
             </Box>
           </Stack>

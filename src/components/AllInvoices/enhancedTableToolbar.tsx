@@ -31,7 +31,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
   const handleCreate = () => {
     dispatch(setResetInvoiceSetting());
     dispatch(setResetInvoice());
-    route.push("/");
+    route.push("/create-new-invoice");
   };
   return (
     <Toolbar

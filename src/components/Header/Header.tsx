@@ -45,7 +45,7 @@ const Header = () => {
   }, [fetchProfile, session?.accessToken, counter]);
   // Handle Logo Click
   const handLogoClick = () => {
-    route.push("/invoices");
+    route.push("/");
     dispatch(setResetInvoice());
     dispatch(setResetInvoiceSetting());
   };

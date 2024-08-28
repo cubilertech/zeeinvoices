@@ -8,12 +8,12 @@ import {
   getDueDate as date,
 } from "@/redux/features/invoiceSlice";
 import { Box, Container, Stack } from "@mui/material";
-import { FC, useEffect,  useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-interface CreateInvoiceProps{
-  type:string;
+interface CreateInvoiceProps {
+  type: string;
 }
-const CreateInvoice :FC<CreateInvoiceProps> = ({type}) => {
+const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
   const allInvoiceItems = useSelector(getInvoiceItem);
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
@@ -30,19 +30,23 @@ const CreateInvoice :FC<CreateInvoiceProps> = ({type}) => {
     total: total,
     taxAmount: taxAmount,
   };
-   return (
+  return (
     <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
       <Box sx={{ pt: 3, pb: 2 }}>
         <InvoiceHeader
-          InvSetting={{...invoiceSetting}}
-          InvDetails={{...invoiceDetail}}
+          InvSetting={{ ...invoiceSetting }}
+          InvDetails={{ ...invoiceDetail }}
           summaryDetail={summaryDetail}
           type={type}
         />
       </Box>
       <Stack direction={"row"} gap={3}>
-        <InvoiceSection InvDetails={invoiceDetail} type={type} InvSetting={{...invoiceSetting}} /> 
-        <InvoiceSettings InvSetting={{...invoiceSetting}} />
+        <InvoiceSection
+          InvDetails={invoiceDetail}
+          type={type}
+          InvSetting={{ ...invoiceSetting }}
+        />
+        <InvoiceSettings InvSetting={{ ...invoiceSetting }} />
       </Stack>
     </Container>
   );

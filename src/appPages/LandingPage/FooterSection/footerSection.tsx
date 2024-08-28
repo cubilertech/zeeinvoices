@@ -1,11 +1,7 @@
+"use client";
 import { Icon } from "@/components/Icon";
 import { palette } from "@/theme/palette";
-import {
-  Box,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Link, Stack, Typography } from "@mui/material";
 
 const FooterSection = () => {
   return (
@@ -124,16 +120,31 @@ const FooterSection = () => {
             Follow us
           </Typography>
           <Stack direction={"row"} gap={1}>
-            <Box sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open("https://www.instagram.com/zeeinvoices/", "_blank")
+              }
+            >
               <Icon icon="instagarmlpf" height={32} width={32} />
             </Box>
-            <Box sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open("https://www.facebook.com/zeeinvoices/", "_blank")
+              }
+            >
               <Icon icon="facebooklpf" height={32} width={32} />
             </Box>
             <Box sx={{ cursor: "pointer" }}>
               <Icon icon="youtube" height={32} width={32} />
             </Box>
-            <Box sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open("https://twitter.com/zeeinvoices", "_blank")
+              }
+            >
               <Icon icon="twitterlpf" height={32} width={32} />
             </Box>
           </Stack>

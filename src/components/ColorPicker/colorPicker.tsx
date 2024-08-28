@@ -2,21 +2,40 @@
 import { Grid } from "@mui/material";
 import { FC } from "react";
 import Color from "./color";
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getColors,
+  updateColorSelection,
+} from "@/redux/features/invoiceSetting";
+import { RootState } from "@/redux/store";
 interface ColorPicker {
   colors: Array<{ id: string | number; color: string; isSelected: boolean }>;
   onSelectColor: (id: string | number) => void;
-  InvSetting?:any;
+  InvSetting?: any;
 }
-const ColorPicker: FC<ColorPicker> = ({ colors, onSelectColor,InvSetting }) => {
+const ColorPicker: FC<ColorPicker> = ({
+  colors,
+  onSelectColor,
+  InvSetting,
+}) => {
+  const dispatch = useDispatch();
+  const reduxColors = useSelector((state: RootState) => getColors(state));
+  console.log(`Colors: >>> : ${reduxColors}`);
+  const entireState = useSelector((state: RootState) => state);
+  console.log("Entire Redux State: >>>", entireState);
+  const handleSelectColor = (id: number) => {
+    dispatch(updateColorSelection(id));
+  };
   return (
     <Grid container spacing={1}>
-      {colors.map((color) => (
+      {colors?.map((color) => (
         <Grid item xs={1.5} key={color.id}>
           <Color
             color={color.color}
             isSelected={InvSetting.color}
+            // isSelected={color.isSelected}
             onClick={() => onSelectColor(color.id)}
+            // onClick={() => handleSelectColor(color.id)}
           />
         </Grid>
       ))}

@@ -70,14 +70,20 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       <Stack direction={"row"} justifyContent={"space-between"}>
         <Stack direction={"row"} spacing={3}>
           <UploadLogo logoDesc="Add your bussiness logo" />
-          <SelectInput
+          {/* <SelectInput
             width={240}
             type="Invoice type"
             menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
-          />
+          /> */}
         </Stack>
-        <Box sx={{ width: 92, height: 40 }}>
+        <SelectInput
+          width={240}
+          type="Invoice type"
+          menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
+        />
+        {/* <Box sx={{ width: 92, height: 40 }}>
           <Stack direction={"row"} spacing={2}>
+            
             <IconButton
               disabled={showPreview}
               sx={{ padding: 1, opacity: showPreview ? 0.4 : 1 }}
@@ -110,7 +116,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
               />
             </Box>
           </Stack>
-        </Box>
+        </Box> */}
       </Stack>
       {/* Second section Detail selecters */}
       <Stack

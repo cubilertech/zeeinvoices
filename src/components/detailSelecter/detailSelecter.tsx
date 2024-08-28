@@ -165,8 +165,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
         <Box
           borderRadius={1}
           sx={{
-            width: 316,
-            height: 242,
+            width: 292,
+            height: 192,
             marginTop: 1.5,
             padding: 2,
             borderRadius: 2,
@@ -479,7 +479,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ width: "243px", height: "40px" }}
+                  sx={{ width: "243px", height: "40px", px: "24px !important" }}
                 >
                   Add
                 </Button>
