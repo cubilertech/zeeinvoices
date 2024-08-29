@@ -34,17 +34,24 @@ const ContectSection = () => {
         gap={8}
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        {/* left features section */}
-        <Box sx={{}}>
-          <Image
+        {/* left section */}
+        <Box
+          sx={{
+            width: "576px",
+            height: "712px",
+            borderRadius: "15px",
+            backgroundColor: palette.primary.main,
+          }}
+        >
+          {/* <Image
             src="/Images/zepta-image.svg"
             width={576}
             height={712}
             alt="rectangle iaptop bg"
-          />
+          /> */}
         </Box>
 
-        {/* right features section */}
+        {/* right section */}
         <Stack direction={"column"} gap={2} sx={{ width: "540px" }}>
           <Typography variant="display-lg-bold">Contact us</Typography>
           <Typography
