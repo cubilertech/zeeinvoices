@@ -1,3 +1,5 @@
+"use client";
+import React, { useRef } from "react";
 import { Box } from "@mui/material";
 import { Herosection } from "./HeroSection";
 import { HelpBusinessSection } from "./HelpBusinessSection";
@@ -10,6 +12,8 @@ import { FooterSection } from "./FooterSection";
 import { CustomersSection } from "./CustomersSection";
 
 const LandingPage = () => {
+  const contactSectionRef = useRef<HTMLDivElement>(null);
+
   return (
     <Box>
       <Herosection />
@@ -19,7 +23,7 @@ const LandingPage = () => {
       <TimePaymentSection />
       <FAQsSection />
       <CustomersSection />
-      <ContectSection />
+      <ContectSection ref={contactSectionRef} />
       <FooterSection />
     </Box>
   );

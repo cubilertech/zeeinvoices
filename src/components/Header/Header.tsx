@@ -64,6 +64,11 @@ const Header = () => {
     setLoading(true);
     handleLogin();
   };
+  const handleLogoutButton = () => {
+    dispatch(setResetInvoiceSetting());
+    dispatch(setResetInvoice());
+    handleLogout();
+  };
   const headerData = [
     { title: "Invoices", url: "/invoices" },
     { title: "Clients", url: "/clients" },
@@ -208,7 +213,7 @@ const Header = () => {
                     </Button>
                     <Button
                       variant="outlined"
-                      onClick={handleLogout}
+                      onClick={handleLogoutButton}
                       startIcon={<Icon icon="logoutIcon" />}
                       sx={{
                         border: "none",

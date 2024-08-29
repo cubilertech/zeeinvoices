@@ -1,9 +1,13 @@
 "use client";
-import { getColor } from "@/redux/features/invoiceSetting";
-import { useSelector } from "react-redux";
+import {
+  getColor,
+  setResetInvoiceSetting,
+} from "@/redux/features/invoiceSetting";
+import { useDispatch, useSelector } from "react-redux";
 import { backendURL } from "./constants";
 import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
+import { setResetInvoice } from "@/redux/features/invoiceSlice";
 
 // Custom hook to get the selected color
 export const useSelectedColor = () => {
@@ -11,34 +15,43 @@ export const useSelectedColor = () => {
   return color;
 };
 // Image convertion
-export const imageConvertion=(image:any)=>{
-if(image?.includes('lh3.googleusercontent.com') || image?.includes('blob:')){
-  return image;
-}else{
-  return `${backendURL}/${image}`;
-}
-}
-export const googleImage=(image:string)=>{
-  console.log(image,'imageee')
-if(image?.includes('base64,')){
-  return image;
-}else{
-  return `${backendURL}/${image}`;
-}
-}
+export const imageConvertion = (image: any) => {
+  if (
+    image?.includes("lh3.googleusercontent.com") ||
+    image?.includes("blob:")
+  ) {
+    return image;
+  } else {
+    return `${backendURL}/${image}`;
+  }
+};
+export const googleImage = (image: string) => {
+  console.log(image, "imageee");
+  if (image?.includes("base64,")) {
+    return image;
+  } else {
+    return `${backendURL}/${image}`;
+  }
+};
 //Logout function
-export  const handleLogout = () => {
-  signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` || 'https://main.d33zziho5sqnl9.amplifyapp.com' });
+export const handleLogout = () => {
+  signOut({
+    callbackUrl:
+      `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` ||
+      "https://main.d33zziho5sqnl9.amplifyapp.com",
+  });
 };
 // Login function
-export  const handleLogin = () => {
+export const handleLogin = () => {
   signIn("google", {
-    callbackUrl: `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` || 'https://main.d33zziho5sqnl9.amplifyapp.com',
-  }); 
+    callbackUrl:
+      `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` ||
+      "https://main.d33zziho5sqnl9.amplifyapp.com",
+  });
 };
 //Image Base 64 Convertion
-export const base64ToFile = (base64String : any, filename:any) => {
-  const arr = base64String?.split(',');
+export const base64ToFile = (base64String: any, filename: any) => {
+  const arr = base64String?.split(",");
   const mime = arr[0].match(/:(.*?);/)[1];
   const bstr = atob(arr[1]);
   let n = bstr.length;
@@ -49,9 +62,9 @@ export const base64ToFile = (base64String : any, filename:any) => {
   return new File([u8arr], filename, { type: mime });
 };
 // Debounce
-export const debounce = (func:any, delay:any) => {
-  let timeout:any;
-  return (...args:any) => {
+export const debounce = (func: any, delay: any) => {
+  let timeout: any;
+  return (...args: any) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       func(...args);

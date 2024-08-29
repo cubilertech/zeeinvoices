@@ -20,6 +20,7 @@ import MulTextField from "@mui/material/TextField";
 const ContectSection = () => {
   return (
     <Box
+      id="contact-section"
       sx={{
         width: "100%",
         py: 12,

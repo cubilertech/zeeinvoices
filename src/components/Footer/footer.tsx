@@ -3,8 +3,13 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
 
 const Footer: FC = () => {
+  const route = useRouter();
+  const handleHelpButton = (data: any) => {
+    route.push(`/#contact-section`);
+  };
   return (
     <Box sx={{ width: "100%" }}>
       {/* black footer */}
@@ -66,12 +71,12 @@ const Footer: FC = () => {
             <Typography variant="body1" sx={{ cursor: "pointer" }}>
               Terms and Conditions
             </Typography>
-            <Typography variant="body1" sx={{ cursor: "pointer" }}>
+            {/* <Typography variant="body1" sx={{ cursor: "pointer" }}>
               Invoice Guide
-            </Typography>
-            <Typography variant="body1" sx={{ cursor: "pointer" }}>
-              Help
-            </Typography>
+            </Typography> */}
+            <Box sx={{ cursor: "pointer" }} onClick={handleHelpButton}>
+              <Typography variant="body1">Help</Typography>
+            </Box>
           </Stack>
           <Typography variant="body1" color={palette.color.gray[650]}>
             © Copyrights 2024, All rights Reserved by Zee Invoices

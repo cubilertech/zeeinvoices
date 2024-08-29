@@ -52,6 +52,11 @@ const styles = StyleSheet.create({
     width: 175,
     height: 25,
   },
+  image: {
+    width: "100px", // Scale the image to fit the width of the container
+    height: "50px", // Scale the image to fit the height of the container
+    objectFit: "contain", // Ensure the image scales proportionally without stretching
+  },
   watermark: {
     position: "absolute",
     top: "50%",
@@ -106,13 +111,6 @@ const PdfView: FC<PdfViewProps> = ({
       ? true
       : false;
 
-  const actualSize = {
-    // width: invDetails?.logoWidth || "auto", // Replace with actual width if available
-    // height: invDetails?.logoHeight || "auto", // Replace with actual height if available
-    width: "50px", // Fixed width
-    height: "50px", // Adjust height automatically
-  };
-
   return (
     <Document style={{ overflow: "hidden" }}>
       <Page
@@ -150,7 +148,7 @@ const PdfView: FC<PdfViewProps> = ({
           <View style={styles.title_logo}>
             <Image
               // style={styles.logo}
-              style={invDetails?.logo ? actualSize : styles.logo}
+              style={invDetails?.logo ? styles.image : styles.logo}
               src={
                 invDetails?.logo
                   ? googleImage(invDetails.logo)
