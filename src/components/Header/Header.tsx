@@ -23,10 +23,11 @@ import { setResetInvoice } from "@/redux/features/invoiceSlice";
 import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { getCountValue } from "@/redux/features/counterSlice";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const pathname = usePathname();
+  console.log(`Path Name: >>> : ${pathname}`);
   const route = useRouter();
   const dispatch = useDispatch();
   const counter = useSelector(getCountValue);
@@ -71,6 +72,9 @@ const Header = () => {
     // setSelected(data.title);
     route.push(data.url);
   };
+  const handleCrtInvButton = (data: any) => {
+    route.push("/create-new-invoice");
+  };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
@@ -99,7 +103,7 @@ const Header = () => {
           <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
             <Icon icon="logo" height={24} width={175} />
           </Box>
-          <Box >
+          <Box>
             {session &&
               headerData.map((data, index) => (
                 <Button
@@ -114,7 +118,7 @@ const Header = () => {
                         : "",
                     borderRadius: "0px",
                     px: 1,
-                    mr:1
+                    mr: 1,
                   }}
                 >
                   {data.title}
@@ -124,14 +128,29 @@ const Header = () => {
         </Stack>
         <Stack direction={"row"} gap={3}>
           {!session ? (
-            <Button
-              onClick={handleLoginButton}
-              variant="contained"
-              disabled={loading}
-              sx={{ px: "20px", py: "8px" }}
-            >
-              {loading ? <CircularProgress size={18} /> : "Login"}
-            </Button>
+            <Stack direction={"row"} gap={1.5}>
+              {pathname == "/" ? (
+                <Button
+                  onClick={handleCrtInvButton}
+                  variant="contained"
+                  disabled={loading}
+                  sx={{ px: "20px", py: "8px" }}
+                >
+                  Create Invoice
+                </Button>
+              ) : (
+                <></>
+              )}
+
+              <Button
+                onClick={handleLoginButton}
+                variant={pathname == "/" ? "outlined" : "contained"}
+                disabled={loading}
+                sx={{ px: "20px", py: "8px" }}
+              >
+                {loading ? <CircularProgress size={18} /> : "Login"}
+              </Button>
+            </Stack>
           ) : (
             <>
               <Typography sx={{ color: "black", alignSelf: "center" }}>

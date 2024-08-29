@@ -74,7 +74,7 @@ const Footer: FC = () => {
             </Typography>
           </Stack>
           <Typography variant="body1" color={palette.color.gray[650]}>
-            © Copyright 2022, All Rights Reserved by ZAPTA Technologies
+            © Copyrights 2024, All rights Reserved by Zee Invoices
           </Typography>
         </Container>
       </Box>

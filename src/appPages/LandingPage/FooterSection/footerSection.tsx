@@ -114,6 +114,27 @@ const FooterSection = () => {
           </Stack>
         </Stack>
 
+        {/* Contact us */}
+        <Stack direction={"column"} gap={2} sx={{ width: "197px" }}>
+          <Typography variant="text-md-bold" sx={{ color: palette.base.white }}>
+            Contact Us
+          </Typography>
+          <Stack direction={"column"} gap={1}>
+            <Typography
+              variant="text-md-regular"
+              sx={{ color: palette.color.gray[10] }}
+            >
+              Address: 11133 Shady Trail PMB 205 Dallas, TX 75229
+            </Typography>
+            <Typography
+              variant="text-md-regular"
+              sx={{ color: palette.color.gray[10] }}
+            >
+              Contact: +14809201123
+            </Typography>
+          </Stack>
+        </Stack>
+
         {/* Follow us */}
         <Stack direction={"column"} gap={2} sx={{ width: "157px" }}>
           <Typography variant="text-md-bold" sx={{ color: palette.base.white }}>
@@ -178,7 +199,7 @@ const FooterSection = () => {
           variant="text-sm-medium"
           sx={{ color: palette.base.white, my: "3%" }}
         >
-          © 2022 ZeeInvoices. All rights reserved.
+          © Copyrights 2024, All rights Reserved by Zee Invoices.
         </Typography>
       </div>
     </Box>

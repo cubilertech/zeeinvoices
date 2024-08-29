@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   CircularProgress,
+  Container,
   FormControl,
   Stack,
   Typography,
@@ -216,167 +217,212 @@ const Profile: FC<Profile> = ({}) => {
         {/* name and email  */}
         <Stack direction={"column"} sx={{ ml: "210px", mt: "5px" }}>
           <Typography variant="display-xs-semibold">
-            {profileData? profileData.name: "."}
+            {profileData ? profileData.name : "."}
           </Typography>
           <Typography
             variant="text-md-regular"
             sx={{ color: palette.color.gray[735] }}
           >
-            {profileData? profileData.email:"."}
+            {profileData ? profileData.email : "."}
           </Typography>
         </Stack>
 
         {/* profile detail section */}
         <form onSubmit={handleSubmit}>
-          <Stack
-            direction={"column"}
+          <Container
+            maxWidth="lg"
             sx={{
-              mt: "50px",
-              mx: "20px",
-              p: "20px",
-              border: `1px solid ${palette.color.gray[5]}`,
-              borderRadius: "10px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+
+              // Optional: additional styling for responsiveness
+              // "@media (max-width: 600px)": {
+              //   maxWidth: "xs", // Set maxWidth for small screens
+              // },
+              // "@media (min-width: 600px) and (max-width: 960px)": {
+              //   maxWidth: "sm", // Set maxWidth for medium screens
+              // },
+              // "@media (min-width: 960px) and (max-width: 1280px)": {
+              //   maxWidth: "md", // Set maxWidth for medium-large screens
+              // },
+              "@media (min-width: 1200px)": {
+                maxWidth: "lg", // Set maxWidth for large screens and above
+              },
             }}
           >
-            <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography variant="text-xl-semibold">
-                Profile Details
-              </Typography>
-              <Button
-                disabled={profileLoading}
-                type="submit"
-                variant="contained"
-                sx={{ gap: "7px" }}
-              >
-                {profileLoading ? (
-                  <CircularProgress size={18} sx={{ color: "#8477DA" }} />
-                ) : (
-                  "Edit Profile"
-                )}
-                {profileLoading ? (
-                  ""
-                ) : (
-                  <Icon icon="editWhiteIcon" width={12} height={14} />
-                )}
-              </Button>
-            </Stack>
-
             <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              sx={{ mt: "30px" }}
+              direction={"column"}
+              sx={{
+                width: "100%",
+                mt: "50px",
+                mx: "20px",
+                p: "20px",
+                border: `1px solid ${palette.color.gray[5]}`,
+                borderRadius: "10px",
+              }}
             >
-              <FormControl sx={{ width: "333px" }}>
-                <TextField
-                  label="Name/Company Name"
-                  size="large"
-                  name="name"
-                  sx={{ width: "333px" }}
-                  value={values.name}
-                  onChange={handleChange}
-                  helperText={touched.name && errors.name}
-                  onBlur={handleBlur}
-                  error={touched.name && Boolean(errors.name)}
-                />
-              </FormControl>
-              <FormControl sx={{ width: "333px" }}>
-                <TextField
-                  label="Email"
-                  size="large"
-                  name="email"
-                  sx={{ width: "333px" }}
-                  disabled={true}
-                  onChange={handleChange}
-                  value={values.email}
-                  helperText={touched.email && errors.email}
-                  onBlur={handleBlur}
-                  error={touched.email && Boolean(errors.email)}
-                />
-              </FormControl>
-              <FormControl sx={{ width: "333px" }}>
-                <Typography
-                  variant="text-sm-medium"
-                  sx={{ marginBottom: "5px" }}
-                >
-                  Phone
+              <Stack direction={"row"} justifyContent={"space-between"}>
+                <Typography variant="text-xl-semibold">
+                  Profile Details
                 </Typography>
-                <PhoneInput
-                  style={{ width: "333px" }}
-                  name="phoneNumber"
-                  className="custom-phone-input"
-                  defaultCountry="pk"
-                  value={values.phoneNumber || ""}
-                  onChange={(value) => {
-                    handleChange({
-                      target: {
-                        name: "phoneNumber",
-                        value: value,
-                      },
-                    });
-                  }}
-                  onBlur={() => handleBlur({ target: { name: "phoneNumber" } })}
-                />
-                {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                  <Typography
-                    color="error"
-                    variant="text-xs-regular"
-                    sx={{ marginTop: "5px", marginLeft: "15px" }}
-                  >
-                    {isString(errors.phoneNumber)
-                      ? errors.phoneNumber
-                      : "Invalid phone number"}
-                  </Typography>
-                )}
-              </FormControl>
-            </Stack>
+                <Button
+                  disabled={profileLoading}
+                  type="submit"
+                  variant="contained"
+                  sx={{ gap: "7px" }}
+                >
+                  {profileLoading ? (
+                    <CircularProgress size={18} sx={{ color: "#8477DA" }} />
+                  ) : (
+                    "Edit Profile"
+                  )}
+                  {profileLoading ? (
+                    ""
+                  ) : (
+                    <Icon icon="editWhiteIcon" width={12} height={14} />
+                  )}
+                </Button>
+              </Stack>
 
-            {/* city, state , address */}
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              sx={{ mt: "20px" }}
-            >
-              <FormControl sx={{ width: "333px" }}>
-                <TextField
-                  label="City"
-                  size="large"
-                  name="city"
-                  sx={{ width: "333px" }}
-                  onChange={handleChange}
-                  value={values.city}
-                  helperText={touched.city && errors.city}
-                  onBlur={handleBlur}
-                  error={touched.city && Boolean(errors.city)}
-                />
-              </FormControl>
-              <FormControl sx={{ width: "333px" }}>
-                <TextField
-                  label="State"
-                  size="large"
-                  name="state"
-                  sx={{ width: "333px" }}
-                  onChange={handleChange}
-                  value={values.state}
-                  helperText={touched.state && errors.state}
-                  onBlur={handleBlur}
-                  error={touched.state && Boolean(errors.state)}
-                />
-              </FormControl>
-              <FormControl sx={{ width: "333px" }}>
-                <TextField
-                  label="Address"
-                  size="large"
-                  name="address"
-                  sx={{ width: "333px" }}
-                  onChange={handleChange}
-                  value={values.address}
-                  helperText={touched.address && errors.address}
-                  onBlur={handleBlur}
-                  error={touched.address && Boolean(errors.address)}
-                />
-              </FormControl>
+              {/* section for text fields */}
+              <Stack
+                direction={{
+                  md: "row",
+                  lg: "column",
+                }}
+                justifyContent={"space-evenly"}
+              >
+                <Stack
+                  direction={{
+                    xs: "column",
+                    sm: "column",
+                    md: "column",
+                    lg: "row",
+                  }}
+                  justifyContent={"space-between"}
+                  sx={{ mt: "30px" }}
+                >
+                  <FormControl sx={{ width: "333px" }}>
+                    <TextField
+                      label="Name/Company Name"
+                      size="large"
+                      name="name"
+                      sx={{ width: "333px" }}
+                      value={values.name}
+                      onChange={handleChange}
+                      helperText={touched.name && errors.name}
+                      onBlur={handleBlur}
+                      error={touched.name && Boolean(errors.name)}
+                    />
+                  </FormControl>
+                  <FormControl sx={{ width: "333px" }}>
+                    <TextField
+                      label="Email"
+                      size="large"
+                      name="email"
+                      sx={{ width: "333px" }}
+                      disabled={true}
+                      onChange={handleChange}
+                      value={values.email}
+                      helperText={touched.email && errors.email}
+                      onBlur={handleBlur}
+                      error={touched.email && Boolean(errors.email)}
+                    />
+                  </FormControl>
+                  <FormControl sx={{ width: "333px" }}>
+                    <Typography
+                      variant="text-sm-medium"
+                      sx={{ marginBottom: "5px" }}
+                    >
+                      Phone
+                    </Typography>
+                    <PhoneInput
+                      style={{ width: "333px" }}
+                      name="phoneNumber"
+                      className="custom-phone-input"
+                      defaultCountry="pk"
+                      value={values.phoneNumber || ""}
+                      onChange={(value) => {
+                        handleChange({
+                          target: {
+                            name: "phoneNumber",
+                            value: value,
+                          },
+                        });
+                      }}
+                      onBlur={() =>
+                        handleBlur({ target: { name: "phoneNumber" } })
+                      }
+                    />
+                    {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                      <Typography
+                        color="error"
+                        variant="text-xs-regular"
+                        sx={{ marginTop: "5px", marginLeft: "15px" }}
+                      >
+                        {isString(errors.phoneNumber)
+                          ? errors.phoneNumber
+                          : "Invalid phone number"}
+                      </Typography>
+                    )}
+                  </FormControl>
+                </Stack>
+
+                {/* city, state , address */}
+                <Stack
+                  direction={{
+                    xs: "column",
+                    sm: "column",
+                    md: "column",
+                    lg: "row",
+                  }}
+                  justifyContent={"space-between"}
+                  sx={{ mt: "20px" }}
+                >
+                  <FormControl sx={{ width: "333px" }}>
+                    <TextField
+                      label="City"
+                      size="large"
+                      name="city"
+                      sx={{ width: "333px" }}
+                      onChange={handleChange}
+                      value={values.city}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
+                    />
+                  </FormControl>
+                  <FormControl sx={{ width: "333px" }}>
+                    <TextField
+                      label="State"
+                      size="large"
+                      name="state"
+                      sx={{ width: "333px" }}
+                      onChange={handleChange}
+                      value={values.state}
+                      helperText={touched.state && errors.state}
+                      onBlur={handleBlur}
+                      error={touched.state && Boolean(errors.state)}
+                    />
+                  </FormControl>
+                  <FormControl sx={{ width: "333px" }}>
+                    <TextField
+                      label="Address"
+                      size="large"
+                      name="address"
+                      sx={{ width: "333px" }}
+                      onChange={handleChange}
+                      value={values.address}
+                      helperText={touched.address && errors.address}
+                      onBlur={handleBlur}
+                      error={touched.address && Boolean(errors.address)}
+                    />
+                  </FormControl>
+                </Stack>
+              </Stack>
             </Stack>
-          </Stack>
+          </Container>
         </form>
       </Box>
     </>

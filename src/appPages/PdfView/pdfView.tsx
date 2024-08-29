@@ -88,9 +88,7 @@ const PdfView: FC<PdfViewProps> = ({
   const currencyText =
     invSetting?.currency === "$ USD" ? "USD" : invSetting?.currency;
 
-  const summarySubTotal = (
-    Summary?.total -   Summary?.taxAmount 
-  ).toFixed(2);
+  const summarySubTotal = (Summary?.total - Summary?.taxAmount).toFixed(2);
 
   const invoiceDueDate = formattedDate(invDetails?.dueDate);
   const invoiceDate = formattedDate(invDetails?.invoiceDate);
@@ -107,6 +105,13 @@ const PdfView: FC<PdfViewProps> = ({
     invDetails?.invoiceItem[0].quantity !== 0
       ? true
       : false;
+
+  const actualSize = {
+    // width: invDetails?.logoWidth || "auto", // Replace with actual width if available
+    // height: invDetails?.logoHeight || "auto", // Replace with actual height if available
+    width: "50px", // Fixed width
+    height: "50px", // Adjust height automatically
+  };
 
   return (
     <Document style={{ overflow: "hidden" }}>
@@ -144,7 +149,8 @@ const PdfView: FC<PdfViewProps> = ({
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
             <Image
-              style={styles.logo}
+              // style={styles.logo}
+              style={invDetails?.logo ? actualSize : styles.logo}
               src={
                 invDetails?.logo
                   ? googleImage(invDetails.logo)
@@ -508,7 +514,11 @@ const PdfView: FC<PdfViewProps> = ({
                     textAlign: "right",
                   }}
                 >
-                  {currency} { (tax ? data?.subTotal : (data?.subTotal - data?.taxAmount)).toFixed(2) }
+                  {currency}{" "}
+                  {(tax
+                    ? data?.subTotal
+                    : data?.subTotal - data?.taxAmount
+                  ).toFixed(2)}
                 </Text>
               </View>
             </View>
@@ -658,7 +668,10 @@ const PdfView: FC<PdfViewProps> = ({
                 </Text>
                 <Text style={{ fontSize: "12px" }}>
                   {" "}
-                  { (tax ? Summary?.total : (Summary?.total - Summary?.taxAmount)).toFixed(2) }
+                  {(tax
+                    ? Summary?.total
+                    : Summary?.total - Summary?.taxAmount
+                  ).toFixed(2)}
                 </Text>
               </View>
             </View>
