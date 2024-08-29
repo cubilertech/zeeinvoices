@@ -35,13 +35,20 @@ const ContectSection = () => {
         sx={{ display: "flex", justifyContent: "center" }}
       >
         {/* left features section */}
-        <Box sx={{}}>
-          <Image
+        <Box
+          sx={{
+            width: "576px",
+            height: "712px",
+            borderRadius: "15px",
+            backgroundColor: palette.primary.main,
+          }}
+        >
+          {/* <Image
             src="/Images/zepta-image.svg"
             width={576}
             height={712}
             alt="rectangle iaptop bg"
-          />
+          /> */}
         </Box>
 
         {/* right features section */}
