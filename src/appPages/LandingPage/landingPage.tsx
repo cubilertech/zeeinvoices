@@ -23,7 +23,7 @@ const LandingPage = () => {
       <TimePaymentSection />
       <FAQsSection />
       <CustomersSection />
-      <ContectSection ref={contactSectionRef} />
+      <ContectSection />
       <FooterSection />
     </Box>
   );
