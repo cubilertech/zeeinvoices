@@ -79,6 +79,7 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
                 minHeight: "100%",
                 objectFit: "cover",
               }}
+              unoptimized
             />
           )}
           <IconButton
