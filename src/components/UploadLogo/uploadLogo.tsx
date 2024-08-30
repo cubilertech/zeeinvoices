@@ -375,6 +375,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             width={70}
             height={70}
             style={{ objectFit: "contain" }}
+            unoptimized
           />
           <IconButton
             sx={{
