@@ -152,7 +152,7 @@ const tableColor = {
 };
 
 const textColor = {
-  primary: '',
+  primary: '#697483',
   textGreyColor: "#697483",
   termsHeadingColor: "#3F4DE1",
   termsdescColor: "#464646",
