@@ -152,10 +152,12 @@ const tableColor = {
 };
 
 const textColor = {
+  primary: '',
   textGreyColor: "#697483",
   termsHeadingColor: "#3F4DE1",
   termsdescColor: "#464646",
 };
+
 export const palette = {
   // mode: "dark" as PaletteMode,
   primary: {
@@ -164,7 +166,6 @@ export const palette = {
   },
   brand: {
     main: "#7F56D9",
-    // ...brand,
   },
   base: base,
   border: borderColor,
