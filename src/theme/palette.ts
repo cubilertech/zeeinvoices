@@ -153,8 +153,9 @@ const tableColor = {
 
 const textColor = {
   textGreyColor: "#697483",
+  termsHeadingColor: "#3F4DE1",
+  termsdescColor: "#464646",
 };
-
 export const palette = {
   // mode: "dark" as PaletteMode,
   primary: {
@@ -167,6 +168,7 @@ export const palette = {
   },
   base: base,
   border: borderColor,
+  text: textColor,
   error: {
     main: "#F04438",
     // ...error,
