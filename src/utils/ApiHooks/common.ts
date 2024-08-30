@@ -1,7 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { useSession , signOut } from "next-auth/react";
 import { toast } from "react-toastify";
+import { setResetInvoice } from "@/redux/features/invoiceSlice";
+import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+
+
 // Fetch All Recods
 export const useFetchAllDocument = (
   apiRoute: any,
@@ -9,7 +13,7 @@ export const useFetchAllDocument = (
   limit: any,
   search: any
 ) => {
-  const { data: session } = useSession();
+  const { data: session , update } = useSession();
   const token = session?.accessToken;
   async function fetch() {   
     try {
@@ -22,7 +26,12 @@ export const useFetchAllDocument = (
       } else {
          toast.error("An error occurred while fetching records.");
       }
-    } catch (error) {
+    } catch (error: any) {
+      if(error?.response?.status == 401){
+        setResetInvoice();
+        setResetInvoiceSetting();
+        signOut({callbackUrl: '/'});
+      }
       throw new Error("An error occurred while fetching records.");
     }
   }
@@ -49,7 +58,12 @@ export const useFetchSingleDocument = (apiRoute: string) => {
       } else {
          toast.error("An error occurred while fetching records.");
       }
-    } catch (error) {
+    } catch (error: any) {
+      if(error?.response?.status == 401){
+        setResetInvoice();
+        setResetInvoiceSetting();
+        signOut({callbackUrl: '/'});
+      }
       throw new Error("An error occurred while fetching records.");
     }
   }
@@ -78,6 +92,11 @@ export const useCreateDocument = (multipart=true) => {
          toast.error("An error occurred while creating record.");
       }
     } catch (error: any) {
+      if(error?.response?.status == 401){
+        setResetInvoice();
+        setResetInvoiceSetting();
+        signOut({callbackUrl: '/'});
+      }
       throw new Error(`${error.response?.data?.message}`);
     }
   };
@@ -125,7 +144,12 @@ export const useEditDocument = (multipart=true) => {
       } else {
         toast.error("An Error Occured while Update Data")
       }
-    } catch (error) {
+    } catch (error: any) {
+      if(error?.response?.status == 401){
+        setResetInvoice();
+        setResetInvoiceSetting();
+        signOut({callbackUrl: '/'});
+      }
       throw new Error("An Error Occured while Update Data");
     }
   };
