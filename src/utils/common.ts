@@ -42,10 +42,10 @@ export const handleLogout = () => {
   });
 };
 // Login function
-export const handleLogin = () => {
+export const handleLogin = (pathname="/") => {
   signIn("google", {
     callbackUrl:
-      `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}` ||
+      `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}${pathname}` ||
       "https://main.d33zziho5sqnl9.amplifyapp.com",
   });
 };

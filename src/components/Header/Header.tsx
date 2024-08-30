@@ -62,7 +62,7 @@ const Header = () => {
   };
   const handleLoginButton = () => {
     setLoading(true);
-    handleLogin();
+    handleLogin(pathname);
   };
   const handleLogoutButton = () => {
     dispatch(setResetInvoiceSetting());
@@ -132,7 +132,7 @@ const Header = () => {
           </Box>
         </Stack>
         <Stack direction={"row"} gap={3}>
-          {!session ? (
+          {!session?.accessToken ? (
             <Stack direction={"row"} gap={1.5}>
               {pathname == "/" ? (
                 <Button
