@@ -14,7 +14,7 @@ const FirstInvoice: FC = () => {
   const handleCreate = () => {
     dispatch(setResetInvoiceSetting());
     dispatch(setResetInvoice());
-    route.push("/");
+    route.push("/create-new-invoice");
   };
   return (
     <Box

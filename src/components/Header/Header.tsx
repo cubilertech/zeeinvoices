@@ -177,7 +177,7 @@ const Header = () => {
                   ) : (
                     <Avatar
                       sx={{ width: "32px", height: "32px" }}
-                      alt="Avatar"
+                      alt="Bvatar"
                     />
                   )}
                   <Icon icon="arrowDownIcon" width={15} height={15} />
