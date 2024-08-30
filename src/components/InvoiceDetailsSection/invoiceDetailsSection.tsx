@@ -17,10 +17,15 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
   singleInvoice,
   invoiceSetting,
 }) => {
-  const imageSelected = googleImage(singleInvoice?.logo);  
+  const imageSelected = googleImage(singleInvoice?.logo);
+  console.log(
+    imageSelected,
+    "image path in preview page",
+    decodeURIComponent(imageSelected)
+  );
   const itemsLength =
-      singleInvoice?.invoiceItem[0]?.name !== "" &&
-      singleInvoice?.invoiceItem[0].quantity !== 0
+    singleInvoice?.invoiceItem[0]?.name !== "" &&
+    singleInvoice?.invoiceItem[0].quantity !== 0
       ? true
       : false;
 
@@ -127,8 +132,8 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
       {/* Table header */}
       <Grid
         container
-        sx={{ 
-          width:"100%",
+        sx={{
+          width: "100%",
           backgroundColor: invoiceSetting?.color,
           borderRadius: "2px",
           marginTop: 2,
@@ -136,7 +141,11 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         }}
         spacing={2}
       >
-        <Grid sx={{ padding: "0px", paddingTop: "8px !important" }} item xs={4.1}>
+        <Grid
+          sx={{ padding: "0px", paddingTop: "8px !important" }}
+          item
+          xs={4.1}
+        >
           <Typography sx={{ color: palette.base.white }}>Items</Typography>
         </Grid>
         <Grid
@@ -174,76 +183,81 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         </Grid>
       </Grid>
       {/* Table rows */}
-    
-      {itemsLength && singleInvoice?.invoiceItem?.map((data: any, index: number) => (
-        <>
-          <Grid
-            container
-            key={index}
-            sx={{
-              borderRadius: "2px",
-              marginTop: 1,
-              marginLeft: "0px",
-            }}
-            spacing={2}
-          >
-            <Grid
-              sx={{ padding: "0px", paddingTop: "4px !important" }}
-              item
-              xs={4.5}
-            >
-              <Stack direction={"column"}>
-                <Typography variant="text-xs-medium" sx={{}}>
-                  {data.name}
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid
-              sx={{ padding: "8px", paddingTop: "1px !important" }}
-              item
-              xs={1.3}
-            >
-              <Typography variant="text-xs-regular" sx={{}}>
-                {data.quantity}
-              </Typography>
-            </Grid>
-            <Grid
-              sx={{ padding: "8px", paddingTop: "1px !important" }}
-              item
-              xs={1.8}
-            >
-              <Typography variant="text-xs-regular" sx={{}}>
-                {invoiceSetting.currency} {data.rate}
-              </Typography>
-            </Grid>
 
+      {itemsLength &&
+        singleInvoice?.invoiceItem?.map((data: any, index: number) => (
+          <>
             <Grid
-              sx={{ padding: "8px", paddingTop: "1px !important" }}
-              item
-              xs={2.2}
+              container
+              key={index}
+              sx={{
+                borderRadius: "2px",
+                marginTop: 1,
+                marginLeft: "0px",
+              }}
+              spacing={2}
             >
-              {" "}
-              {invoiceSetting.tax ? (
+              <Grid
+                sx={{ padding: "0px", paddingTop: "4px !important" }}
+                item
+                xs={4.5}
+              >
+                <Stack direction={"column"}>
+                  <Typography variant="text-xs-medium" sx={{}}>
+                    {data.name}
+                  </Typography>
+                </Stack>
+              </Grid>
+              <Grid
+                sx={{ padding: "8px", paddingTop: "1px !important" }}
+                item
+                xs={1.3}
+              >
                 <Typography variant="text-xs-regular" sx={{}}>
-                {data.tax}  %
+                  {data.quantity}
                 </Typography>
-              ) : (
-                ""
-              )}
+              </Grid>
+              <Grid
+                sx={{ padding: "8px", paddingTop: "1px !important" }}
+                item
+                xs={1.8}
+              >
+                <Typography variant="text-xs-regular" sx={{}}>
+                  {invoiceSetting.currency} {data.rate}
+                </Typography>
+              </Grid>
+
+              <Grid
+                sx={{ padding: "8px", paddingTop: "1px !important" }}
+                item
+                xs={2.2}
+              >
+                {" "}
+                {invoiceSetting.tax ? (
+                  <Typography variant="text-xs-regular" sx={{}}>
+                    {data.tax} %
+                  </Typography>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid
+                sx={{ padding: "8px", paddingTop: "1px !important" }}
+                item
+                xs={1.8}
+              >
+                <Typography variant="text-xs-regular" sx={{}}>
+                  {invoiceSetting.currency}{" "}
+                  {(invoiceSetting.tax
+                    ? data?.subTotal
+                    : data?.subTotal - data?.taxAmount
+                  ).toFixed(2)}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid
-              sx={{ padding: "8px", paddingTop: "1px !important" }}
-              item
-              xs={1.8}
-            >
-              <Typography variant="text-xs-regular" sx={{}}>
-                {invoiceSetting.currency} { (invoiceSetting.tax ? data?.subTotal : (data?.subTotal - data?.taxAmount)).toFixed(2) }
-              </Typography>
-            </Grid>
-          </Grid>
-          <hr style={{ margin: "10px 0px 0px 0px" }}></hr>
-        </>
-      ))}
+            <hr style={{ margin: "10px 0px 0px 0px" }}></hr>
+          </>
+        ))}
 
       {/* Fifth section, Invoice summery */}
       <Box

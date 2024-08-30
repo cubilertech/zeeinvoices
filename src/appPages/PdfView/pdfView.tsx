@@ -698,7 +698,7 @@ const PdfView: FC<PdfViewProps> = ({
               fontWeight: "bold",
             }}
           >
-            © 2022 ZAPTA Technologies, All Rights Reserved
+            © Copyrights 2024, All rights Reserved by Zee Invoices
           </Text>
         </View>
       </Page>

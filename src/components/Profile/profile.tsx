@@ -181,6 +181,8 @@ const Profile: FC<Profile> = ({}) => {
     return "";
   };
 
+  console.log(profileData?.image, ">>>>>>>>>>>>>>>>> profile image >>>>>>>>>>>>>>>>>>>>")
+
   return (
     <>
       <hr />

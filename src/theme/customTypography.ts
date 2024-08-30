@@ -106,6 +106,14 @@ export const CustomTypography = {
     fontFamily: "Inter",
     letterSpacing: "",
   },
+  "display-md1-semibold": {
+    fontSize: "37px",
+    lineHeight: "44px",
+    fontKerning: "0%",
+    fontWeight: 600,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
   "display-md-regular": {
     fontSize: "36px",
     lineHeight: "44px",
@@ -167,6 +175,15 @@ export const CustomTypography = {
     lineHeight: "38px",
     fontKerning: "0%",
     fontWeight: 700,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
+
+  "display-sm1-medium": {
+    fontSize: "26px",
+    lineHeight: "27px",
+    fontKerning: "0%",
+    fontWeight: 500,
     letterSpacing: "",
     fontFamily: "Inter",
   },

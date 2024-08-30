@@ -12,8 +12,6 @@ import { FooterSection } from "./FooterSection";
 import { CustomersSection } from "./CustomersSection";
 
 const LandingPage = () => {
-  const contactSectionRef = useRef<HTMLDivElement>(null);
-
   return (
     <Box>
       <Herosection />

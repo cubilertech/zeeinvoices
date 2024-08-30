@@ -10,6 +10,9 @@ const Footer: FC = () => {
   const handleHelpButton = (data: any) => {
     route.push(`/#contact-section`);
   };
+  const handleTermsAndConditionButton = (data: any) => {
+    route.push(`/termsAndCondition`);
+  };
   return (
     <Box sx={{ width: "100%" }}>
       {/* black footer */}
@@ -68,9 +71,14 @@ const Footer: FC = () => {
           }}
         >
           <Stack direction={"row"} spacing={2} color={palette.color.gray[650]}>
-            <Typography variant="body1" sx={{ cursor: "pointer" }}>
-              Terms and Conditions
-            </Typography>
+            <Box
+              sx={{ cursor: "pointer" }}
+              onClick={handleTermsAndConditionButton}
+            >
+              <Typography variant="body1" sx={{ cursor: "pointer" }}>
+                Terms and Conditions
+              </Typography>
+            </Box>
             {/* <Typography variant="body1" sx={{ cursor: "pointer" }}>
               Invoice Guide
             </Typography> */}

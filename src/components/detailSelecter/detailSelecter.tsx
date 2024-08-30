@@ -38,7 +38,7 @@ const validationSchema = Yup.object({
     .required("State is required"),
   address: Yup.string()
     .matches(alphaRegex, "Invalid Address")
-    .min(5, "Too short")
+    // .min(5, "Too short")
     .required("Address is required"),
 });
 interface DetailSelecter {

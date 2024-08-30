@@ -181,12 +181,13 @@ export default function AllInvoices() {
     isFetching: fetchingInvoiceList,
     isFetched: invoiceFetched,
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
-  React.useEffect(() => {
-    if (session?.accessToken) refetchInvoiceList();
-    if (deleteSuccess) {
-      setIsModalOpen(false);
-    }
-  }, [refetchInvoiceList, deleteSuccess, page, session?.accessToken]);
+  // React.useEffect(() => {
+  //   if (session?.accessToken) refetchInvoiceList();
+  //   if (deleteSuccess) {
+  //     setIsModalOpen(false);
+  //   }
+  // }, [refetchInvoiceList, deleteSuccess, page, session?.accessToken]);
+
   // const debouncedRefetch = React.useCallback(
   //   debounce(() => {
   //     if (page === 1) {
@@ -208,6 +209,7 @@ export default function AllInvoices() {
     }, 800);
     // debouncedRefetch();
   };
+
   const filteredData = React.useMemo(() => {
     if (invoiceList && invoiceList?.invoices?.length) {
       return invoiceList?.invoices;
@@ -215,6 +217,25 @@ export default function AllInvoices() {
       return [];
     }
   }, [invoiceList]);
+
+  React.useEffect(() => {
+    if (session?.accessToken) refetchInvoiceList();
+
+    if (deleteSuccess) {
+      setIsModalOpen(false);
+
+      // If the current page is greater than 1 and there are no more invoices on the current page
+      if (page > 1 && filteredData.length === 0) {
+        setPage(page - 1); // Navigate to the previous page
+      }
+    }
+  }, [
+    refetchInvoiceList,
+    deleteSuccess,
+    page,
+    session?.accessToken,
+    filteredData.length,
+  ]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -318,7 +339,7 @@ export default function AllInvoices() {
   const invoiceDelete = () => {
     deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
   };
-
+  console.log(invoiceList?.invoices, "invoices in all invoices");
   return (
     <>
       <hr />

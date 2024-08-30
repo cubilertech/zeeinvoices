@@ -34,7 +34,7 @@ const ContectSection = () => {
         gap={8}
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        {/* left features section */}
+        {/* left section */}
         <Box
           sx={{
             width: "576px",
@@ -51,7 +51,7 @@ const ContectSection = () => {
           /> */}
         </Box>
 
-        {/* right features section */}
+        {/* right section */}
         <Stack direction={"column"} gap={2} sx={{ width: "540px" }}>
           <Typography variant="display-lg-bold">Contact us</Typography>
           <Typography
