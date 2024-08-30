@@ -50,6 +50,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
             width={70}
             height={70}
             style={{ objectFit: "contain" }}
+            unoptimized
           />
         ) : (
           <Icon icon="logo" height={24} width={175} />
