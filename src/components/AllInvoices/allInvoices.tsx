@@ -22,7 +22,11 @@ import {
   useDeleteDocument,
   useFetchAllDocument,
 } from "@/utils/ApiHooks/common";
-import { calculateAmount, tableFormatDate } from "@/common/common";
+import {
+  calculateAmount,
+  calculateTax,
+  tableFormatDate,
+} from "@/common/common";
 import { useRouter } from "next/navigation";
 import DeleteModal from "../DeleteModal/deleteModal";
 import CustomPopOver from "./CustomPopOver";
@@ -39,6 +43,11 @@ import { useSession } from "next-auth/react";
 import EnhancedTableToolbar from "./enhancedTableToolbar";
 import EnhancedTableHead from "./enhancedTableHead";
 import { CreateFirstInvoice } from "@/appPages/CreateFirstInvoice";
+
+import {
+  getInvoiceItem,
+  getDueDate as date,
+} from "@/redux/features/invoiceSlice";
 
 interface Data {
   id: number;
@@ -155,6 +164,23 @@ const headCells: readonly HeadCell[] = [
 ];
 
 export default function AllInvoices() {
+  const allInvoiceItems = useSelector(getInvoiceItem);
+  // const invoiceDetail = useSelector((state: any) => state.invoice);
+  // const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
+  // // Get Total Amount And Tax
+  // const [total, setTotal] = useState(0);
+  // const [taxAmount, setTaxAmount] = useState(0);
+  // useEffect(() => {
+  //   const totalAmount = calculateAmount(allInvoiceItems);
+  //   const totalTax = calculateTax(allInvoiceItems);
+  //   setTotal(totalAmount);
+  //   setTaxAmount(totalTax);
+  // }, [allInvoiceItems]);
+  // const summaryDetail = {
+  //   total: total,
+  //   taxAmount: taxAmount,
+  // };
+
   const route = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
@@ -181,6 +207,20 @@ export default function AllInvoices() {
     isFetching: fetchingInvoiceList,
     isFetched: invoiceFetched,
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
+
+  // Get Total Amount And Tax . for down load pdf
+  const [total, setTotal] = React.useState(0);
+  const [taxAmount, setTaxAmount] = React.useState(0);
+  React.useEffect(() => {
+    const totalAmount = calculateAmount(allInvoiceItems);
+    const totalTax = calculateTax(allInvoiceItems);
+    setTotal(totalAmount);
+    setTaxAmount(totalTax);
+  }, [allInvoiceItems]);
+  const summaryDetail = {
+    total: total,
+    taxAmount: taxAmount,
+  };
   // React.useEffect(() => {
   //   if (session?.accessToken) refetchInvoiceList();
   //   if (deleteSuccess) {
@@ -472,6 +512,9 @@ export default function AllInvoices() {
                                   handleShareInvoice={handleShareInvoice}
                                   handlePrintInvoice={handlePrintInvoice}
                                   componentRef={componentRef}
+                                  InvSetting={{ ...invoiceSetting }}
+                                  InvDetails={{ ...invoiceDetail }}
+                                  summaryDetail={summaryDetail}
                                 />
                                 <Box>
                                   <Box style={{ display: "none" }}>

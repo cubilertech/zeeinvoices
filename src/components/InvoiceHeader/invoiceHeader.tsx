@@ -155,7 +155,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   // Login Model
   const handleLoginModel = () => {
     setLoginModel(false);
-    handleLogin();
+    handleLogin("/create-new-invoice");
   };
   // Edit Back Button
   const handleBack = ()=>{

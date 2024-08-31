@@ -55,10 +55,16 @@ export const icons = {
   eventsIcon: "/Images/icons/events-icon.svg",
   plusCircleIcon: "/Images/icons/plus-circle-icon.svg",
   minusCircleIcon: "/Images/icons/minus-circle-icon.svg",
+  emailIcon: "/Images/icons/mail-icon.svg",
+  markerPinIcon: "/Images/icons/marker-pin-icon.svg",
+  PhoneIcon: "/Images/icons/phone-icon.svg",
+  navigationPinterIcon: "/Images/icons/navigation-pointer-icon.svg",
+
 };
 
 export const backendURL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3005";
 
 export const frontendUrl =
-  process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "https://main.d33zziho5sqnl9.amplifyapp.com";
+  process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL ||
+  "https://main.d33zziho5sqnl9.amplifyapp.com";

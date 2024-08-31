@@ -29,9 +29,9 @@ const InvoiceDetails = () => {
           <IconButton sx={{ padding: 1 }}>
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton>
-          <IconButton sx={{ padding: 1 }}>
+          {/* <IconButton sx={{ padding: 1 }}>
             <Icon icon="printIconIcon" width={20} height={20} />
-          </IconButton>
+          </IconButton> */}
         </Stack>
       </Stack>
     </Container>

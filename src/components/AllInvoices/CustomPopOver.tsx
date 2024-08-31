@@ -3,6 +3,10 @@ import { useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import ReactToPrint from "react-to-print";
+import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
+import { setFullInvoice } from "@/redux/features/invoiceSlice";
+import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
+import { useDispatch } from "react-redux";
 
 interface CustomPopOverProps {
   record: any; // Assuming id is of type number
@@ -12,6 +16,9 @@ interface CustomPopOverProps {
   handleShareInvoice: (id: number) => void;
   handlePrintInvoice: (id: number) => void;
   componentRef: any;
+  InvSetting?: any;
+  InvDetails?: any;
+  summaryDetail?: any;
 }
 
 const CustomPopOver: React.FC<CustomPopOverProps> = ({
@@ -22,7 +29,11 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   handleShareInvoice,
   handlePrintInvoice,
   componentRef,
+  InvSetting,
+  InvDetails,
+  summaryDetail,
 }) => {
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleClose = () => {
     setAnchorEl(null);
@@ -30,6 +41,28 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    dispatch(
+      setFullInvoice({
+        id: record?.id,
+        logo: record?.image,
+        invoiceType: record?.type,
+        from: record?.from,
+        to: record?.to,
+        invoiceDate: record?.invoiceDate,
+        dueDate: record?.dueDate,
+        addtionalNotes: record?.notes,
+        invoiceItem: record?.items,
+      })
+    );
+    dispatch(
+      setInvoiceSettings({
+        color: record?.settings?.color,
+        currency: record?.settings?.currency,
+        dueDate: record?.settings?.dueDate,
+        tax: record?.settings?.tax,
+        detail: record?.settings?.detail,
+      })
+    );
   };
   return (
     <>
@@ -37,7 +70,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         <Icon icon="threeDotsIcon" width={5} height={5} />
       </IconButton>
       <Popover
-        id={record.id.toString()} 
+        id={record.id.toString()}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -108,7 +141,32 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           >
             Share
           </Button>
-           <ReactToPrint
+          <PdfDownloadLink
+            InvSetting={InvSetting}
+            InvDetails={InvDetails}
+            summaryDetail={summaryDetail}
+          >
+            <Button
+              variant="outlined"
+              startIcon={<Icon icon="printIconIcon" />}
+              sx={{
+                width: "100%",
+                border: "none",
+                justifyContent: "start",
+                color: "#4B5563",
+                "&:hover": {
+                  border: "none",
+                  color: "#4B5563",
+                  backgroundColor: palette.color.gray[10],
+                  borderRadius: 0,
+                },
+              }}
+              onClick={() => handlePrintInvoice(record)}
+            >
+              Download
+            </Button>
+          </PdfDownloadLink>
+          {/* <ReactToPrint
             trigger={() => (
               <Button
                 variant="outlined"
@@ -126,12 +184,12 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
                   },
                 }}
               >
-                Print
+                Download
               </Button>
             )}
             content={() => (componentRef.current ? componentRef.current : null)}
             onBeforeGetContent={() => handlePrintInvoice(record)}
-          />
+          /> */}
           <Button
             variant="outlined"
             startIcon={<Icon icon="deleteIcon" />}

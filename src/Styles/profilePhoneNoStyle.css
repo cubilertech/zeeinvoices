@@ -19,7 +19,7 @@
 
 .react-international-phone-input-container
   .react-international-phone-country-selector-button {
-  width: auto;
+  width: 55px;
   border-bottom-left-radius: 8px;
   border-top-left-radius: 8px;
   border-color: #d6dae1;

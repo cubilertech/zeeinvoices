@@ -10,6 +10,7 @@ import { ChangeEvent, FC } from "react";
 
 interface TextField {
   label?: string;
+  labelColor?: string;
   size?: "small" | "medium" | "large";
   sx?: SxProps;
   name?: string;
@@ -18,10 +19,11 @@ interface TextField {
   helperText?: any;
   onBlur?: any;
   error?: any;
-  disabled?:any
+  disabled?: any;
 }
 const TextField: FC<TextField> = ({
   label,
+  labelColor,
   name,
   size = "medium",
   sx,
@@ -35,7 +37,10 @@ const TextField: FC<TextField> = ({
 }) => {
   return (
     <Stack direction={"column"}>
-      <Typography variant="text-sm-medium" sx={{ marginBottom: "5px" }}>
+      <Typography
+        variant="text-sm-medium"
+        sx={{ marginBottom: "5px", color: `${labelColor}` }}
+      >
         {label}
       </Typography>
       <MuiTextField

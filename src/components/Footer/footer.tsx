@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const Footer: FC = () => {
   const route = useRouter();
   const handleHelpButton = (data: any) => {
-    route.push(`/#contact-section`);
+    route.push(`/contact-us`);
   };
   const handleTermsAndConditionButton = (data: any) => {
     route.push(`/termsAndCondition`);

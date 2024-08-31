@@ -138,12 +138,15 @@ const base = {
   addItemsColor: "#E0E0E0",
   switchTrackColor: "#34C759",
   blueButtonColor: "#2C359D",
+  contactInfoBgColor: "#3F4DE112",
 };
 
 const borderColor = {
   simpleBorderColor: "#D6DAE1",
   dashedBorderColor: "#C8C8C8",
   invoicesBorderColor: "#EAECF0",
+  contactInfoBorderColor: "#3F4DE14D",
+  contactUsBorderColor: "#E1E1E1",
 };
 
 const tableColor = {
@@ -152,10 +155,11 @@ const tableColor = {
 };
 
 const textColor = {
-  primary: '#697483',
+  primary: "#697483",
   textGreyColor: "#697483",
   termsHeadingColor: "#3F4DE1",
   termsdescColor: "#464646",
+  contactInfoDescColor: "#1F1F1F",
 };
 
 export const palette = {

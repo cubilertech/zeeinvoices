@@ -156,7 +156,7 @@ const InvoiceDetail = () => {
                 />
               </Box>
             </Box>
-            <ReactToPrint
+            {/* <ReactToPrint
               trigger={() => (
                 <IconButton sx={{ padding: 1 }} onClick={() => window.print()}>
                   <Icon icon="printIconIcon" width={20} height={20} />
@@ -165,7 +165,7 @@ const InvoiceDetail = () => {
               content={() =>
                 componentRef.current ? componentRef.current : null
               }
-            />
+            /> */}
           </Box>
         </Stack>
       </Stack>
