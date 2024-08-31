@@ -19,6 +19,9 @@ import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "@/Styles/phoneNoStyle.css";
+import { getSenderDetail , getRecipientDetail } from "@/redux/features/invoiceSlice";
+import { useSelector } from "react-redux";
+
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -80,6 +83,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
     state?: string;
     address?: string;
   }
+  const senderDetail = useSelector(getSenderDetail);
+  const recipientDetail = useSelector(getRecipientDetail);
   const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
     useFormik({
       initialValues: initialValues,
@@ -90,7 +95,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
         // Validate other fields
         // ...
-
+        
         // Validate phone number
         const phoneError = validatePhoneNumber(
           values.phoneNumber,
@@ -98,6 +103,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
         );
         if (phoneError) {
           errors.phoneNumber = phoneError;
+        }
+
+        const emailError = validateEmail(values.email);
+        if(emailError){
+          errors.email = emailError;
         }
 
         return errors;
@@ -147,6 +157,18 @@ const DetailSelecter: FC<DetailSelecter> = ({
     }
     return "";
   };
+
+  const validateEmail = (email: string) => {
+    if(title === 'From'){
+      if(email === recipientDetail.email)
+        return "Sender email must be different from recipient email"
+    }else{
+      if(email === senderDetail.email)
+        return "Recipient email must be different from sender email"
+    }
+
+    return "";
+  }
 
   return (
     <Box
