@@ -103,7 +103,7 @@ const PdfView: FC<PdfViewProps> = ({
     setIsClient(true);
     const invoiceItems = invDetails?.invoiceItem[0]?.name !== "" && invDetails?.invoiceItem[0].quantity !== 0 ? true : false;
     setItemsLength(invoiceItems);
-  }, []);
+  }, [invDetails?.invoiceItem]);
 
   if (!isClient) {
     return null;
