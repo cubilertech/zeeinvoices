@@ -84,6 +84,7 @@ const PdfView: FC<PdfViewProps> = ({
   user,
 }) => {
   const [isClient, setIsClient] = useState(false);
+  const [itemsLength , setItemsLength] = useState(false);
 
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
@@ -100,17 +101,14 @@ const PdfView: FC<PdfViewProps> = ({
 
   useEffect(() => {
     setIsClient(true);
+    const invoiceItems = invDetails?.invoiceItem[0]?.name !== "" && invDetails?.invoiceItem[0].quantity !== 0 ? true : false;
+    setItemsLength(invoiceItems);
   }, []);
 
   if (!isClient) {
     return null;
   }
-  const itemsLength =
-    invDetails?.invoiceItem[0]?.name !== "" &&
-    invDetails?.invoiceItem[0].quantity !== 0
-      ? true
-      : false;
-
+  
   return (
     <Document style={{ overflow: "hidden" }}>
       <Page
@@ -440,7 +438,7 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
         </View>
 
-        {itemsLength &&
+        {
           invDetails?.invoiceItem?.map((data: any, index: number) => (
             <View
               key={data.id}
