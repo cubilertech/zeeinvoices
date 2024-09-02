@@ -1,21 +1,19 @@
 "use client";
+import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import { setResetInvoice } from "@/redux/features/invoiceSlice";
 import { palette } from "@/theme/palette";
-import {
-  Avatar,
-  AvatarGroup,
-  Box,
-  Button,
-  Rating,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 
 const HeroSection = () => {
   const route = useRouter();
+  const dispatch = useDispatch();
 
   const handleCrtInvButton = (data: any) => {
+    dispatch(setResetInvoiceSetting());
+    dispatch(setResetInvoice());
     route.push("/create-new-invoice");
   };
   return (

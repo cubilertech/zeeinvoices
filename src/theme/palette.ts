@@ -70,6 +70,7 @@ const badgeColors = {
 const gray = {
   820: "#101828",
   810: "#374151",
+  805: "#333333",
   800: "#202020",
   770: "#6B7280",
   760: "#767676",
@@ -149,6 +150,7 @@ const borderColor = {
   invoicesBorderColor: "#EAECF0",
   contactInfoBorderColor: "#3F4DE14D",
   contactUsBorderColor: "#E1E1E1",
+  outlinedBtnBorderColor: "#D6D8DC",
 };
 
 const tableColor = {

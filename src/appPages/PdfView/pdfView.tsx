@@ -83,8 +83,9 @@ const PdfView: FC<PdfViewProps> = ({
   Summary,
   user,
 }) => {
+  console.log(invDetails, "InvDetails in PDF view");
   const [isClient, setIsClient] = useState(false);
-  const [itemsLength , setItemsLength] = useState(false);
+  const [itemsLength, setItemsLength] = useState(false);
 
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
@@ -101,14 +102,19 @@ const PdfView: FC<PdfViewProps> = ({
 
   useEffect(() => {
     setIsClient(true);
-    const invoiceItems = invDetails?.invoiceItem[0]?.name !== "" && invDetails?.invoiceItem[0].quantity !== 0 ? true : false;
+    const invoiceItems =
+      invDetails?.invoiceItem[0]?.name !== "" &&
+      invDetails?.invoiceItem[0].quantity !== 0
+        ? true
+        : false;
+    console.log(invoiceItems, "Invoice Items", invDetails?.invoiceItem[0]);
     setItemsLength(invoiceItems);
   }, [invDetails?.invoiceItem]);
 
   if (!isClient) {
     return null;
   }
-  
+
   return (
     <Document style={{ overflow: "hidden" }}>
       <Page
@@ -438,87 +444,90 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
         </View>
 
-        {
-          invDetails?.invoiceItem?.map((data: any, index: number) => (
-            <View
-              key={data.id}
-              style={{
-                marginLeft: "7px",
-                marginRight: "10px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                borderBottom: "1px solid #E0E0E0",
-                padding: "5px 10px",
-                // gap: 3,
-              }}
-            >
+        {invDetails?.invoiceItem?.map((data: any, index: number) => (
+          <>
+            {data.name == "" ? null : (
               <View
+                key={data.id}
                 style={{
+                  marginLeft: "7px",
+                  marginRight: "10px",
                   display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  borderBottom: "1px solid #E0E0E0",
+                  padding: "5px 10px",
+                  // gap: 3,
                 }}
               >
-                <Text style={{ width: "200px", fontSize: "12px" }}>
-                  {data.name}
-                </Text>
-                <Text
+                <View
                   style={{
-                    width: "50px",
-                    fontSize: "10px",
-                    fontWeight: "bold",
-                    marginLeft: "1px",
-                    textAlign: "right",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
                   }}
                 >
-                  {data?.quantity}
-                </Text>
-                <Text
-                  style={{
-                    width: "50px",
-                    fontSize: "10px",
-                    fontWeight: "bold",
-                    marginLeft: "17px",
-                    textAlign: "right",
-                  }}
-                >
-                  {currency} {data?.rate}
-                </Text>
-                {tax && Summary?.taxAmount > 0 ? (
+                  <Text style={{ width: "200px", fontSize: "12px" }}>
+                    {data.name}
+                  </Text>
                   <Text
                     style={{
                       width: "50px",
                       fontSize: "10px",
                       fontWeight: "bold",
-                      marginLeft: "22px",
+                      marginLeft: "1px",
                       textAlign: "right",
                     }}
                   >
-                    {data?.tax} %
+                    {data?.quantity}
                   </Text>
-                ) : (
-                  ""
-                )}
+                  <Text
+                    style={{
+                      width: "50px",
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      marginLeft: "17px",
+                      textAlign: "right",
+                    }}
+                  >
+                    {currency} {data?.rate}
+                  </Text>
+                  {tax && Summary?.taxAmount > 0 ? (
+                    <Text
+                      style={{
+                        width: "50px",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        marginLeft: "22px",
+                        textAlign: "right",
+                      }}
+                    >
+                      {data?.tax} %
+                    </Text>
+                  ) : (
+                    ""
+                  )}
 
-                <Text
-                  style={{
-                    width: "70px",
-                    fontSize: "10px",
-                    fontWeight: "bold",
-                    marginLeft: "33px",
-                    textAlign: "right",
-                  }}
-                >
-                  {currency}{" "}
-                  {(tax
-                    ? data?.subTotal
-                    : data?.subTotal - data?.taxAmount
-                  ).toFixed(2)}
-                </Text>
+                  <Text
+                    style={{
+                      width: "70px",
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      marginLeft: "33px",
+                      textAlign: "right",
+                    }}
+                  >
+                    {currency}{" "}
+                    {(tax
+                      ? data?.subTotal
+                      : data?.subTotal - data?.taxAmount
+                    ).toFixed(2)}
+                  </Text>
+                </View>
               </View>
-            </View>
-          ))}
+            )}
+          </>
+        ))}
 
         {invDetails?.addtionalNotes && (
           <Text

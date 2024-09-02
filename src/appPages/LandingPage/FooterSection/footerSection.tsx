@@ -16,9 +16,9 @@ const FooterSection = () => {
         direction={"row"}
         gap={5}
         justifyContent={"space-between"}
-        sx={{ mx: "6%" }}
+        sx={{ mx: "5%" }}
       >
-        <Stack direction={"column"} gap={2} sx={{ width: "268px" }}>
+        <Stack direction={"column"} gap={2} sx={{ width: "270px" }}>
           <Box sx={{ cursor: "pointer" }}>
             <Icon icon="whiteLogo" height={16} width={120} />
           </Box>
@@ -32,7 +32,7 @@ const FooterSection = () => {
         </Stack>
 
         {/* Quick Links */}
-        <Stack direction={"column"} gap={2} sx={{ width: "197px" }}>
+        <Stack direction={"column"} gap={2} sx={{ width: "140px" }}>
           <Typography variant="text-md-bold" sx={{ color: palette.base.white }}>
             Quick Links
           </Typography>
@@ -62,7 +62,7 @@ const FooterSection = () => {
         </Stack>
 
         {/* Other Menus */}
-        <Stack direction={"column"} gap={2} sx={{ width: "197px" }}>
+        <Stack direction={"column"} gap={2} sx={{ width: "140px" }}>
           <Typography variant="text-md-bold" sx={{ color: palette.base.white }}>
             Other Menus
           </Typography>
@@ -115,7 +115,7 @@ const FooterSection = () => {
         </Stack>
 
         {/* Contact us */}
-        <Stack direction={"column"} gap={2} sx={{ width: "197px" }}>
+        {/* <Stack direction={"column"} gap={2} sx={{ width: "197px" }}>
           <Typography variant="text-md-bold" sx={{ color: palette.base.white }}>
             Contact Us
           </Typography>
@@ -133,14 +133,14 @@ const FooterSection = () => {
               Contact: +14809201123
             </Typography>
           </Stack>
-        </Stack>
+        </Stack> */}
 
         {/* Follow us */}
         <Stack direction={"column"} gap={2} sx={{ width: "157px" }}>
           <Typography variant="text-md-bold" sx={{ color: palette.base.white }}>
             Follow us
           </Typography>
-          <Stack direction={"row"} gap={1}>
+          <Stack direction={"row"} gap={1} justifyContent={"space-between"}>
             <Box
               sx={{ cursor: "pointer" }}
               onClick={() =>

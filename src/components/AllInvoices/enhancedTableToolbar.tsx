@@ -26,7 +26,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
   props: EnhancedTableToolbarProps
 ) => {
   const { numSelected, search, handleChangeSearch } = props;
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const route = useRouter();
   const handleCreate = () => {
     dispatch(setResetInvoiceSetting());

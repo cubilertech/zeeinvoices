@@ -27,7 +27,10 @@ const EveryBusinessSection = () => {
       <Stack direction={"row"} gap={2}>
         <Typography
           variant="display-lg-bold"
-          sx={{ fontFamily: "Product Sans, sans-serif" }}
+          sx={{
+            fontFamily: "Product Sans, sans-serif",
+            color: palette.color.gray[805],
+          }}
         >
           Built For
         </Typography>

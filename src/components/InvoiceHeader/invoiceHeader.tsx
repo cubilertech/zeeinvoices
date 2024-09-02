@@ -24,6 +24,7 @@ import { base64ToFile, handleLogin } from "@/utils/common";
 import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
 import DownloadModal from "../DownloadModal/downloadModal";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import { palette } from "@/theme/palette";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -158,13 +159,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     handleLogin("/create-new-invoice");
   };
   // Edit Back Button
-  const handleBack = ()=>{
-    router.push('/invoices');
+  const handleBack = () => {
+    router.push("/invoices");
     setTimeout(() => {
       dispatch(setResetInvoiceSetting());
-    dispatch(setResetInvoice());
-    }, 500);    
-  }
+      dispatch(setResetInvoice());
+    }, 500);
+  };
 
   return (
     <Stack
@@ -179,7 +180,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         {type === "add" ? (
           ""
         ) : (
-          <IconButton sx={{ padding: 1, marginRight: "10px" }} onClick={handleBack}>
+          <IconButton
+            sx={{ padding: 1, marginRight: "10px" }}
+            onClick={handleBack}
+          >
             <ArrowBackIosNewIcon />
           </IconButton>
         )}
@@ -189,7 +193,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       </Stack>
       <Stack direction={"row"} justifyContent={"space-between"} spacing={2}>
         <Button
-          sx={{ height: "36px", width: "73px" }}
+          sx={{
+            height: "36px",
+            width: "73px",
+            borderRadius: "4px",
+            p: "0px !important",
+            border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
+          }}
           variant="outlined"
           disabled={!validateButton}
           onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
@@ -210,7 +220,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               summaryDetail={summaryDetail}
             >
               <Tooltip title="Download PDF" placement="bottom">
-                <Button variant="contained" sx={{ height: "36px !important" }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    height: "36px !important",
+                    borderRadius: "4px",
+                    py: "0px !important",
+                  }}
+                >
                   Download PDF
                 </Button>
               </Tooltip>
@@ -222,6 +239,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 variant="contained"
                 sx={{
                   height: "36px !important",
+                  borderRadius: "4px",
+                  py: "0px !important",
                 }}
               >
                 Download PDF
@@ -234,7 +253,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             disabled={true}
             sx={{
               width: "138px",
-              px: "12px !important",
+              borderRadius: "4px",
+              py: "0px !important",
             }}
           >
             Download PDF

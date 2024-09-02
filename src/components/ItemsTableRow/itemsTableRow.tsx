@@ -37,6 +37,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
     const { name, value } = event.target;
     // setData((prev) => ({ ...prev, [name]: value }));
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
+    console.log(name, "Name and Value", value);
   };
 
   return (
@@ -201,14 +202,33 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         >
           <Typography
             sx={{
+              width: "100%", // Set width to ensure there's space to scroll
               color: palette.base.black,
               display: "flex",
               justifyContent: "flex-end",
               margin: "7px 7px 7px 7px",
+              whiteSpace: "nowrap", // Prevent line break
+              overflowX: "auto", // Enable horizontal scrolling
+              overflowY: "hidden", // Hide vertical overflow
+              textOverflow: "ellipsis", // Add ellipsis if text overflows
+              // scrollbarWidth: "none", // Hide scrollbar in Firefox
+              // "&::-webkit-scrollbar": {
+              //   display: "none", // Hide scrollbar in WebKit browsers (Chrome, Safari)
+              // },
+              cursor: "pointer",
             }}
+            title={`${
+              selectedCurrency === "$ USD" ? "$" : selectedCurrency
+            } ${(selectedTax
+              ? data?.subTotal
+              : data?.subTotal - data?.taxAmount
+            ).toFixed(2)}`} // Optional: Show full value on hover
           >
             {selectedCurrency === "$ USD" ? "$" : selectedCurrency}{" "}
-            { (selectedTax ? data?.subTotal : (data?.subTotal - data?.taxAmount)).toFixed(2) }
+            {(selectedTax
+              ? data?.subTotal
+              : data?.subTotal - data?.taxAmount
+            ).toFixed(2)}
             {/* {id} */}
           </Typography>
         </Grid>

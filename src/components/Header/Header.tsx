@@ -73,6 +73,11 @@ const Header = () => {
     { title: "Invoices", url: "/invoices" },
     { title: "Clients", url: "/clients" },
   ];
+  const headerLandingData = [
+    { title: "Home", url: "/" },
+    { title: "About Us", url: "" },
+    { title: "Learn", url: "" },
+  ];
   const handleButton = (data: any) => {
     // setSelected(data.title);
     route.push(data.url);
@@ -89,8 +94,10 @@ const Header = () => {
         top: 0,
         left: 0,
         background: palette.base.white,
-        py: "7px",
-        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+        py: "14px",
+        px: "40px",
+        borderBottom: `1px solid #00000033`,
+        boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 0px 0px",
       }}
     >
       <Container
@@ -109,6 +116,29 @@ const Header = () => {
             <Icon icon="logo" height={24} width={175} />
           </Box>
           <Box>
+            {headerLandingData.map((data, index) => (
+              <Button
+                key={index}
+                onClick={() => handleButton(data)}
+                variant="text"
+                size="small"
+                sx={{
+                  color:
+                    data.url === pathname
+                      ? palette.primary.main
+                      : palette.base.black,
+                  borderBottom:
+                    data.url === pathname
+                      ? `2px solid ${palette.primary.main}`
+                      : "",
+                  borderRadius: "0px",
+                  px: 1,
+                  mr: 1,
+                }}
+              >
+                {data.title}
+              </Button>
+            ))}
             {session &&
               headerData.map((data, index) => (
                 <Button
@@ -117,6 +147,10 @@ const Header = () => {
                   variant="text"
                   size="small"
                   sx={{
+                    color:
+                      data.url === pathname
+                        ? palette.primary.main
+                        : palette.base.black,
                     borderBottom:
                       data.url === pathname
                         ? `2px solid ${palette.primary.main}`
@@ -134,12 +168,17 @@ const Header = () => {
         <Stack direction={"row"} gap={3}>
           {!session?.accessToken ? (
             <Stack direction={"row"} gap={1.5}>
-              {pathname == "/" ? (
+              {pathname == "/" || pathname == "/termsAndCondition" ? (
                 <Button
                   onClick={handleCrtInvButton}
-                  variant="contained"
+                  variant="outlined"
                   disabled={loading}
-                  sx={{ px: "20px", py: "8px" }}
+                  sx={{
+                    px: "20px",
+                    py: "8px",
+                    borderRadius: "4px",
+                    border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
+                  }}
                 >
                   Create Invoice
                 </Button>
@@ -149,11 +188,15 @@ const Header = () => {
 
               <Button
                 onClick={handleLoginButton}
-                variant={pathname == "/" ? "outlined" : "contained"}
+                variant={
+                  pathname == "/" || pathname == "/termsAndCondition"
+                    ? "contained"
+                    : "contained"
+                }
                 disabled={loading}
-                sx={{ px: "20px", py: "8px" }}
+                sx={{ px: "20px", py: "0px", borderRadius: "4px" }}
               >
-                {loading ? <CircularProgress size={18} /> : "Login"}
+                {loading ? <CircularProgress size={18} /> : "Sign In"}
               </Button>
             </Stack>
           ) : (

@@ -1,6 +1,6 @@
 "use client";
 import { Box, Grid, IconButton, Stack, TextField } from "@mui/material";
-import { FC, ChangeEvent, useRef } from "react";
+import { FC, ChangeEvent, useRef, useEffect } from "react";
 import { UploadLogo } from "../UploadLogo";
 import { SelectInput } from "../SelectInput";
 import { palette } from "@/theme/palette";
@@ -14,13 +14,60 @@ import {
   getAddtionalNotes,
   setAddtionalNotes,
   setRecipientDetail,
+  setResetInvoice,
   setSenderDetail,
 } from "@/redux/features/invoiceSlice";
-import { getDueDate } from "@/redux/features/invoiceSetting";
+import {
+  getDueDate,
+  setResetInvoiceSetting,
+} from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
 import DetailSelecter from "../detailSelecter/detailSelecter";
 import ReactToPrint from "react-to-print";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
+
+// for handle refresh button
+
+const useHandleRefresh = (type: string) => {
+  const dispatch = useDispatch();
+
+  const handleRefresh = () => {
+    localStorage.setItem("intentionalRefresh", "true");
+  };
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleRefresh);
+
+    const isIntentionalRefresh = localStorage.getItem("intentionalRefresh");
+    const navigationEntries = performance.getEntriesByType(
+      "navigation"
+    ) as PerformanceNavigationTiming[];
+
+    // const resetInvoice = localStorage.getItem("resetInvoice");
+
+    if (navigationEntries.length > 0) {
+      const navigationEntry = navigationEntries[0];
+      const isPageReload = navigationEntry.type === "reload";
+      console.log(isIntentionalRefresh, "Is Page Reload", isPageReload);
+      if (
+        // resetInvoice &&
+        type === "add" &&
+        isIntentionalRefresh &&
+        isPageReload
+      ) {
+        dispatch(setResetInvoiceSetting());
+        dispatch(setResetInvoice());
+      }
+    }
+
+    localStorage.removeItem("intentionalRefresh");
+    localStorage.removeItem("resetInvoice");
+
+    return () => {
+      window.removeEventListener("beforeunload", handleRefresh);
+    };
+  }, [dispatch, type]);
+};
 
 interface InvoiceSectionProps {
   InvDetails: any;
@@ -32,6 +79,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   type,
   InvSetting,
 }) => {
+  useHandleRefresh((type = type)); // reset data on refresh button click
   const router = useRouter();
   const dispatch = useDispatch();
   const componentRef = useRef();

@@ -78,7 +78,7 @@ const FooterSection = () => {
               </Box>
               <Box
                 sx={{ cursor: "pointer" }}
-                onClick={() => window.open("", "_blank")}
+                // onClick={() => window.open("", "")}
               >
                 <Icon icon="youtube1Icon" height={28} width={28} />
               </Box>
@@ -93,7 +93,12 @@ const FooterSection = () => {
               </Box>
               <Box
                 sx={{ cursor: "pointer" }}
-                onClick={() => window.open("", "_blank")}
+                onClick={() =>
+                  window.open(
+                    "https://www.linkedin.com/company/zeeinvoices/",
+                    "_blank"
+                  )
+                }
               >
                 <Icon icon="linkedin1Icon" height={25} width={25} />
               </Box>
