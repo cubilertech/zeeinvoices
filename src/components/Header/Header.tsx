@@ -134,6 +134,9 @@ const Header = () => {
                   borderRadius: "0px",
                   px: 1,
                   mr: 1,
+                  fontFamily: "Product Sans, sans-serif !important",
+                  fontSize: "14px !important",
+                  fontWeight: "400 !important",
                 }}
               >
                 {data.title}
@@ -158,6 +161,9 @@ const Header = () => {
                     borderRadius: "0px",
                     px: 1,
                     mr: 1,
+                    fontFamily: "Product Sans, sans-serif !important",
+                    fontSize: "14px !important",
+                    fontWeight: "400 !important",
                   }}
                 >
                   {data.title}

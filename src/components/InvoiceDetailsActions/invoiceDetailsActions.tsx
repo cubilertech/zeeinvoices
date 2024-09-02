@@ -72,7 +72,7 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
         {({ loading }) =>
           loading ? (
             <Button variant="contained" sx={{ width: "100%" }}>
-              Loading PDF....
+              Download PDF
             </Button>
           ) : (
             <Tooltip title="Download PDF">

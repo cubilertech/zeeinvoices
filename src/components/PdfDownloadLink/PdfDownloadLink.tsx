@@ -52,9 +52,7 @@ const PdfDownloadLink: FC<PdfDownloadLinkProps> = ({
         }
         fileName="ZeeInvoices"
       >
-        {({ loading }) =>
-          loading ? <button>Loading ...</button> : children
-        }
+        {({ loading }) => (loading ? <button>Loading ...</button> : children)}
       </PDFDownloadLink>
     </>
   );

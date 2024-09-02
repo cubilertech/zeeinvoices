@@ -19,9 +19,11 @@ import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "@/Styles/phoneNoStyle.css";
-import { getSenderDetail , getRecipientDetail } from "@/redux/features/invoiceSlice";
+import {
+  getSenderDetail,
+  getRecipientDetail,
+} from "@/redux/features/invoiceSlice";
 import { useSelector } from "react-redux";
-
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -64,6 +66,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const handleOpen = () => {
     setOpen(true), setOpenBd(true);
   };
+  console.log(InvDetails, "121a");
   const initialValues = {
     name: InvDetails?.name || "",
     companyName: InvDetails?.companyName || "",
@@ -85,40 +88,51 @@ const DetailSelecter: FC<DetailSelecter> = ({
   }
   const senderDetail = useSelector(getSenderDetail);
   const recipientDetail = useSelector(getRecipientDetail);
-  const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: validationSchema,
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    touched,
+    errors,
+    resetForm,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    enableReinitialize: true,
+    validate: (values) => {
+      const errors: FormErrors = {}; // Use FormErrors type here
 
-      validate: (values) => {
-        const errors: FormErrors = {}; // Use FormErrors type here
+      // Validate other fields
+      // ...
 
-        // Validate other fields
-        // ...
-        
-        // Validate phone number
-        const phoneError = validatePhoneNumber(
-          values.phoneNumber,
-          values.countryCode
-        );
-        if (phoneError) {
-          errors.phoneNumber = phoneError;
-        }
+      // Validate phone number
+      const phoneError = validatePhoneNumber(
+        values.phoneNumber,
+        values.countryCode
+      );
+      if (phoneError) {
+        errors.phoneNumber = phoneError;
+      }
 
-        const emailError = validateEmail(values.email);
-        if(emailError){
-          errors.email = emailError;
-        }
+      const emailError = validateEmail(values.email);
+      if (emailError) {
+        errors.email = emailError;
+      }
 
-        return errors;
-      },
+      return errors;
+    },
 
-      onSubmit: (values) => {
-        handleCloseBd();
-        setOpen(false);
-        handleSubmitForm(values);
-      },
-    });
+    onSubmit: (values) => {
+      handleCloseBd();
+      setOpen(false);
+      handleSubmitForm(values);
+      // Reset the form fields
+      resetForm();
+    },
+  });
+  console.log(values, "121a67676767");
+
   //close model
   const handleModelClose = () => {
     handleCloseBd();
@@ -159,16 +173,16 @@ const DetailSelecter: FC<DetailSelecter> = ({
   };
 
   const validateEmail = (email: string) => {
-    if(title === 'From'){
-      if(email === recipientDetail.email)
-        return "Sender email must be different from recipient email"
-    }else{
-      if(email === senderDetail.email)
-        return "Recipient email must be different from sender email"
+    if (title === "From") {
+      if (email === recipientDetail.email)
+        return "Sender email must be different from recipient email";
+    } else {
+      if (email === senderDetail.email)
+        return "Recipient email must be different from sender email";
     }
 
     return "";
-  }
+  };
 
   return (
     <Box

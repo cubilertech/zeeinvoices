@@ -14,6 +14,7 @@ import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import "@/Styles/phoneNoStyle.css";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -32,11 +33,11 @@ const validationSchema = Yup.object({
     .required("City is required"),
   state: Yup.string()
     .matches(alphaRegex, "Invalid State")
-    .min(3, "City must be at least 3 characters long")
+    // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
   address: Yup.string()
     .matches(alphaRegex, "Invalid Address")
-    .min(5, "Too short")
+    // .min(5, "Too short")
     .required("Address is required"),
 });
 
