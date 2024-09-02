@@ -1,4 +1,12 @@
 export const CustomTypography = {
+  "display-3xl-bold": {
+    fontSize: "74px",
+    lineHeight: "75px",
+    fontKerning: "0%",
+    fontWeight: 700,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
   "display-2xl-regular": {
     fontSize: "72px",
     lineHeight: "90px",
@@ -65,6 +73,15 @@ export const CustomTypography = {
     letterSpacing: "",
   },
 
+  "display-xxxl-bold": {
+    fontSize: "54px",
+    lineHeight: "75px",
+    fontKerning: "0%",
+    fontWeight: 700,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
+
   "display-xxl-bold": {
     fontSize: "52px",
     lineHeight: "64px",
@@ -106,6 +123,16 @@ export const CustomTypography = {
     fontFamily: "Inter",
     letterSpacing: "",
   },
+
+  "display-md1-regular": {
+    fontSize: "40px",
+    lineHeight: "31px",
+    fontKerning: "0%",
+    fontWeight: 400,
+    fontFamily: "Inter",
+    letterSpacing: "",
+  },
+
   "display-md1-semibold": {
     fontSize: "37px",
     lineHeight: "44px",
@@ -179,6 +206,24 @@ export const CustomTypography = {
     fontFamily: "Inter",
   },
 
+  "display-md1-medium": {
+    fontSize: "28px",
+    lineHeight: "31px",
+    fontKerning: "0%",
+    fontWeight: 400,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
+
+  "display-sm0-medium": {
+    fontSize: "26px",
+    lineHeight: "31px",
+    fontKerning: "0%",
+    fontWeight: 400,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
+
   "display-sm1-medium": {
     fontSize: "26px",
     lineHeight: "27px",
@@ -244,13 +289,7 @@ export const CustomTypography = {
     letterSpacing: "",
     fontFamily: "Inter",
   },
-  "display-xs-response-bold": {
-    fontSize: "20px",
-    lineHeight: "32px",
-    fontWeight: 600,
-    letterSpacing: "",
-    fontFamily: "Inter",
-  },
+
   "text-xl-regular": {
     fontSize: "20px",
     lineHeight: "30px",
@@ -259,6 +298,24 @@ export const CustomTypography = {
     letterSpacing: "",
     fontFamily: "Inter",
   },
+
+  "display-xs-response-bold": {
+    fontSize: "20px",
+    lineHeight: "32px",
+    fontWeight: 600,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
+
+  "text-xl1-1-regular": {
+    fontSize: "20px",
+    lineHeight: "34px",
+    fontKerning: "0%",
+    fontWeight: 400,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
+
   "text-xl1-regular": {
     fontSize: "20px",
     lineHeight: "24px",

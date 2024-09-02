@@ -135,6 +135,12 @@ declare module "@mui/material/Typography" {
     "display-sm1-medium": true;
     "display-sm2-medium": true;
     "text-xl1-regular": true;
+    "display-3xl-bold": true;
+    "text-xl1-1-regular": true;
+    "display-md1-regular": true;
+    "display-xxxl-bold": true;
+    "display-sm0-medium": true;
+    "display-md1-medium": true;
   }
 }
 declare module "@mui/material/styles" {
