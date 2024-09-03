@@ -4,9 +4,11 @@ import { palette } from "@/theme/palette";
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const EveryBusinessSection = () => {
   const route = useRouter();
+  const [isHover, setIsHover] = useState(false);
 
   const handleCrtInvButton = (data: any) => {
     route.push("/create-new-invoice");
@@ -67,13 +69,17 @@ const EveryBusinessSection = () => {
           direction={"row"}
           gap={13}
           sx={{
-            width: "100%",
+            width: "1200px",
             px: "10%",
             py: "9%",
             borderRadius: "30px",
             border: `1.06px solid #0000001A`,
             alignItems: "center",
             backgroundColor: palette.base.white,
+            transition: "all 0.3s ease", // Add transition for smooth animation
+            "&:hover": {
+              transform: "scale(1.03)", // Scale the component up by 10% on hover
+            },
           }}
         >
           <Box>
@@ -122,11 +128,15 @@ const EveryBusinessSection = () => {
               border: `1.06px solid #0000001A`,
               alignItems: "center",
               backgroundColor: palette.base.white,
+              transition: "all 0.3s ease", // Add transition for smooth animation
+              "&:hover": {
+                transform: "scale(1.05)", // Scale the component up by 10% on hover
+              },
             }}
           >
             <Icon icon="handCodingIcon" width={42} height={42} />
             <Typography
-              variant="display-sm2-medium"
+              variant="display-sm0-medium"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.base.black,
@@ -158,26 +168,51 @@ const EveryBusinessSection = () => {
               borderRadius: "30px",
               border: `1.06px solid #0000001A`,
               alignItems: "center",
+              color: palette.base.white,
               backgroundColor: palette.primary.main,
+              transition: "all 0.3s ease", // Add transition for smooth animation
+              "&:hover": {
+                color: palette.base.black,
+                backgroundColor: palette.base.white,
+                transform: "scale(1.05)", // Scale the component up by 10% on hover
+              },
+              "&:hover .text-md-regular": {
+                color: palette.color.gray[745], // Change the color of the specific Typography on hover
+              },
+              "&:hover .display-sm0-medium": {
+                color: palette.base.black, // Change the color of the other Typography on hover
+              },
             }}
+            onMouseEnter={() => setIsHover(true)} // Set hover state to true on mouse enter
+            onMouseLeave={() => setIsHover(false)} // Set hover state to false on mouse leave
           >
-            <Icon icon="gearsIcon" width={42} height={42} />
+            {isHover ? (
+              <Icon icon="gearsPurpoleIcon" width={42} height={42} />
+            ) : (
+              <Icon icon="gearsIcon" width={42} height={42} />
+            )}
+
             <Typography
-              variant="display-sm2-medium"
+              variant="display-sm0-medium"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
-                color: palette.base.white,
+                // color: palette.base.white,
+                // Add a class for targeting in the hover state
+                "&.display-sm0-medium": {},
               }}
             >
               Professional Services
             </Typography>
             <Typography
               variant="text-md-regular"
+              className="text-md-regular"
               sx={{
                 width: "400px",
                 fontFamily: "Product Sans, sans-serif",
                 textAlign: "center",
-                color: palette.base.white,
+                // color: palette.base.white,
+                // Add a class for targeting in the hover state
+                "&.text-md-regular": {},
               }}
             >
               Our invoice company provides significant benefits for professional

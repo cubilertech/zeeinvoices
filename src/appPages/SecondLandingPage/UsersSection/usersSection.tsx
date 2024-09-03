@@ -1,10 +1,45 @@
 "use client";
+import { SelectableComment } from "@/components/SelectableComment";
 import { palette } from "@/theme/palette";
-import { Box, Button, Rating, Stack, styled, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Rating,
+  Stack,
+  styled,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const expandableTextData = [
+  {
+    title1: "James",
+    title2: "Collin",
+    imgSrc: "/Images/james-image.svg",
+    desc: "Designer, Catalog",
+  },
+  {
+    title1: "Jessica",
+    title2: "Collin",
+    imgSrc: "/Images/jessica-image.svg",
+    desc: "Designer, Catalog",
+  },
+  {
+    title1: "Jhon",
+    title2: "Jhonson",
+    imgSrc: "/Images/jhon-image.svg",
+    desc: "COO, Sisyphus",
+  },
+];
 
 const UsersSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
+  const handleToggle = (index: number) => {
+    setOpenIndex(openIndex === index ? index : index);
+  };
   const route = useRouter();
 
   const handleCrtInvButton = (data: any) => {
@@ -18,7 +53,7 @@ const UsersSection = () => {
         width: "100%",
         pt: 3,
         pb: 7,
-
+        backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -63,155 +98,17 @@ const UsersSection = () => {
       >
         {/* left section */}
         <Stack direction={"column"} gap={3} sx={{ width: "540px" }}>
-          {/* 1st */}
-          <Stack
-            direction={"row"}
-            sx={{
-              width: "100%",
-              pl: "5px",
-              borderLeftWidth: "4px",
-              borderLeftStyle: "solid",
-              borderImageSource:
-                "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-              borderImageSlice: 1,
-            }}
-          >
-            <Stack
-              direction={"column"}
-              sx={{
-                width: "100%",
-                py: "5px",
-                px: "15px",
-                borderRadius: "8px",
-                border: `1px solid #0000001A`,
-              }}
-            >
-              <Stack direction={"row"} gap={1}>
-                <Typography
-                  variant="display-xs-bold"
-                  sx={{
-                    fontFamily: "Product Sans, sans-serif",
-                    color: palette.color.gray[745],
-                  }}
-                >
-                  James
-                </Typography>
-                <Typography
-                  variant="display-xs-bold"
-                  sx={{
-                    fontFamily: "Product Sans, sans-serif",
-                    color: palette.color.gray[745],
-                    background:
-                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  Collin
-                </Typography>
-              </Stack>
-              <Typography
-                variant="text-xl-regular"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                }}
-              >
-                Designer, Catalog
-              </Typography>
-            </Stack>
-          </Stack>
-          {/* 2nd */}
-          <Stack
-            direction={"column"}
-            sx={{
-              py: "5px",
-              px: "15px",
-              borderRadius: "8px",
-              border: `1px solid #0000001A`,
-            }}
-          >
-            <Stack direction={"row"} gap={1}>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                }}
-              >
-                Jessica
-              </Typography>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
-                }}
-              >
-                Collin
-              </Typography>
-            </Stack>
-            <Typography
-              variant="text-xl-regular"
-              sx={{
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[745],
-              }}
-            >
-              Designer, Catalog
-            </Typography>
-          </Stack>
-          {/* 3rd */}
-          <Stack
-            direction={"column"}
-            sx={{
-              py: "5px",
-              px: "15px",
-              borderRadius: "8px",
-              border: `1px solid #0000001A`,
-            }}
-          >
-            <Stack direction={"row"} gap={1}>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                }}
-              >
-                Jhon
-              </Typography>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
-                }}
-              >
-                Jhonson
-              </Typography>
-            </Stack>
-            <Typography
-              variant="text-xl-regular"
-              sx={{
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[745],
-              }}
-            >
-              COO, Sisyphus
-            </Typography>
-          </Stack>
+          {expandableTextData.map((item, index) => (
+            <SelectableComment
+              key={index}
+              imgSrc={item.imgSrc}
+              title1={item.title1}
+              title2={item.title2}
+              desc={item.desc}
+              isOpen={openIndex === index}
+              onToggle={() => handleToggle(index)}
+            />
+          ))}
         </Stack>
 
         {/* right section */}

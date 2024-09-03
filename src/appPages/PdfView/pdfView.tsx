@@ -74,6 +74,7 @@ interface PdfViewProps {
   invDetails: any;
   Summary: any;
   user?: any;
+  itemDetail? : any;
 }
 
 // Create Document Component
@@ -82,6 +83,7 @@ const PdfView: FC<PdfViewProps> = ({
   invDetails,
   Summary,
   user,
+  itemDetail,
 }) => {
   console.log(invDetails, "InvDetails in PDF view");
   const [isClient, setIsClient] = useState(false);

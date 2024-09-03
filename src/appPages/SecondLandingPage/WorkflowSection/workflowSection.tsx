@@ -1,10 +1,34 @@
 "use client";
+import { ExpandableText } from "@/components/ExpandableText";
 import { palette } from "@/theme/palette";
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const expandableTextData = [
+  {
+    title1: "Automated",
+    title2: "Invoicing",
+    desc: "Reduce manual work with automation, reduce manual ands Reduce manual work with automation, reduce manual asdaReduce manual work with automation, reduce manual asda.",
+  },
+  {
+    title1: "Stay",
+    title2: "Organazied",
+    desc: "Reduce manual work with automation.",
+  },
+  {
+    title1: "Automated",
+    title2: "Invoicing",
+    desc: "Reduce manual work with automation.",
+  },
+];
 
 const WorkflowSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
+  const handleToggle = (index: number) => {
+    setOpenIndex(openIndex === index ? index : index);
+  };
   const route = useRouter();
 
   const handleCrtInvButton = (data: any) => {
@@ -18,10 +42,7 @@ const WorkflowSection = () => {
         width: "100%",
         pt: 3,
         pb: 7,
-        // background:
-        //   "conic-gradient(from 180.47deg at 117.4% 50%, #3F4DE1 -72.9deg, #DEDBFA 87.9deg, #3F4DE1 287.1deg, #DEDBFA 447.9deg)",
-        // display: "flex",
-        // flexDirection: "column",
+        backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -66,150 +87,16 @@ const WorkflowSection = () => {
       >
         {/* left section */}
         <Stack direction={"column"} gap={3} sx={{ width: "540px" }}>
-          {/* 1st */}
-          <Stack
-            direction={"column"}
-            sx={{
-              py: "5px",
-              px: "15px",
-              borderLeftWidth: "4px",
-              borderLeftStyle: "solid",
-              borderImageSource:
-                "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-              borderImageSlice: 1,
-            }}
-          >
-            <Stack direction={"row"} gap={1}>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                }}
-              >
-                Automated
-              </Typography>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
-                }}
-              >
-                Invoicing
-              </Typography>
-            </Stack>
-            <Typography
-              variant="text-xl1-1-regular"
-              sx={{
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[745],
-              }}
-            >
-              Reduce manual work with automation, reduce manual ands Reduce
-              manual work with automation, reduce manual asdaReduce manual work
-              with automation, reduce manual asda
-            </Typography>
-          </Stack>
-          {/* 2nd */}
-          <Stack
-            direction={"column"}
-            sx={{
-              py: "2px",
-              px: "15px",
-              borderLeftWidth: "4px",
-              borderLeftStyle: "solid",
-              borderImageSource: "#D9D9D9",
-              borderImageSlice: 1,
-            }}
-          >
-            <Stack direction={"row"} gap={1}>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                }}
-              >
-                Stay
-              </Typography>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
-                }}
-              >
-                Organized
-              </Typography>
-            </Stack>
-            <Typography
-              variant="text-xl1-1-regular"
-              sx={{
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[745],
-              }}
-            >
-              Reduce manual work with automation.adsadadasdasdads
-            </Typography>
-          </Stack>
-          {/* 3rd */}
-          <Stack
-            direction={"column"}
-            sx={{
-              py: "2px",
-              px: "15px",
-              borderLeftWidth: "4px",
-              borderLeftStyle: "solid",
-              borderImageSource: "#D9D9D9",
-              borderImageSlice: 1,
-            }}
-          >
-            <Stack direction={"row"} gap={1}>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                }}
-              >
-                Automated
-              </Typography>
-              <Typography
-                variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
-                }}
-              >
-                Invoicing:
-              </Typography>
-            </Stack>
-            <Typography
-              variant="text-xl1-1-regular"
-              sx={{
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[745],
-              }}
-            >
-              Reduce manual work with automation.adsadadasdasdads
-            </Typography>
-          </Stack>
+          {expandableTextData.map((item, index) => (
+            <ExpandableText
+              key={index}
+              title1={item.title1}
+              title2={item.title2}
+              desc={item.desc}
+              isOpen={openIndex === index}
+              onToggle={() => handleToggle(index)}
+            />
+          ))}
         </Stack>
 
         {/* right section */}

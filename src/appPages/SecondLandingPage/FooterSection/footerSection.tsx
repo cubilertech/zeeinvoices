@@ -89,7 +89,7 @@ const FooterSection = () => {
                   window.open("https://twitter.com/zeeinvoices", "_blank")
                 }
               >
-                <Icon icon="twittter1Icon" height={20} width={25} />
+                <Icon icon="twitterxIcon" height={20} width={25} />
               </Box>
               <Box
                 sx={{ cursor: "pointer" }}

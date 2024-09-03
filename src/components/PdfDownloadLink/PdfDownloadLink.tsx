@@ -37,7 +37,7 @@ const PdfDownloadLink: FC<PdfDownloadLinkProps> = ({
     total: total,
     taxAmount: taxAmount,
   };
-
+  const itemDetail = invoiceDetail?.invoiceItem;
   const { data: session } = useSession();
   return (
     <>
@@ -48,6 +48,7 @@ const PdfDownloadLink: FC<PdfDownloadLinkProps> = ({
             invDetails={{ ...invoiceDetail }}
             Summary={invSummaryDetail}
             user={session?.user}
+            itemDetail={itemDetail}
           />
         }
         fileName="ZeeInvoices"

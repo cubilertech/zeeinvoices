@@ -25,6 +25,7 @@ const HeroSection = () => {
         pt: 15,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: palette.base.white,
       }}
     >
       <Stack
@@ -73,9 +74,9 @@ const HeroSection = () => {
             </Typography>
           </Stack>
           <Typography
-            variant="text-lg-regular"
+            variant="display-xs1-regular"
             sx={{
-              width: "419px",
+              width: "531px",
               color: palette.color.gray[745],
               fontFamily: "Product Sans, sans-serif",
             }}

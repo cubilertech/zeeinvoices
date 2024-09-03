@@ -48,6 +48,7 @@ const FAQsSection = () => {
         py: 9,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: palette.base.white,
       }}
     >
       <Stack direction={"row"} gap={2}>
@@ -80,8 +81,8 @@ const FAQsSection = () => {
           color: palette.color.gray[745],
         }}
       >
-        Thousands of businesses trust Zeeinvoices to get paid faster.ZeeInvoices
-        to get paid faster faster.
+        Everything you need to know about the product and billing. about the
+        product and billing and billing
       </Typography>
       <Stack
         direction={"column"}

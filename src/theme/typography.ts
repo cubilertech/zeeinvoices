@@ -141,6 +141,8 @@ declare module "@mui/material/Typography" {
     "display-xxxl-bold": true;
     "display-sm0-medium": true;
     "display-md1-medium": true;
+    "display-xs1-regular": true;
+    "display-xs1-bold": true;
   }
 }
 declare module "@mui/material/styles" {

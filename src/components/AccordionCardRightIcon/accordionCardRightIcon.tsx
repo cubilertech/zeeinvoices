@@ -18,66 +18,71 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
 }) => {
   return (
     <Stack
-      direction={"row"}
-      gap={2}
+      direction={"column"}
+      gap={0}
       sx={{
-        width: "100%",
+        // width: "100%",
         // my: "1%",
-        background: isOpen ? "#F9FAFB" : "transparent",
+        // background: isOpen ? "#F9FAFB" : "transparent",
         borderRadius: "16px",
-        p: isOpen ? "2%" : "2%",
+        // p: isOpen ? "2%" : "2%",
         transition: "background 0.3s, padding 0.3s",
         overflow: "hidden",
       }}
     >
       <Stack
-        direction={"column"}
-        justifyContent={isOpen ? "flex-start" : "center"}
-        gap={2}
-        sx={{ width: "100%", transition: "all 0.3s" }}
+        direction={"row"}
+        sx={{ py: "32px", borderBottom: "1px solid #0000001A" }}
       >
-        <Typography
-          variant="display-xs"
-          sx={{ color: palette.color.gray[820], mt: "1%", cursor: "pointer" }}
-          onClick={onToggle}
-        >
-          {title}
-        </Typography>
-
-        <div
-          style={{
-            maxHeight: isOpen ? "100px" : "0px",
-            overflow: "hidden",
-            transition: "max-height 0.3s ease",
-          }}
+        <Stack
+          direction={"column"}
+          justifyContent={isOpen ? "flex-start" : "center"}
+          gap={2}
+          sx={{ width: "100%", transition: "all 0.3s" }}
         >
           <Typography
-            variant="text-md-regular"
-            sx={{
-              color: palette.color.gray[725],
-              transition: "opacity 0.3s",
+            variant="display-xs"
+            sx={{ color: palette.color.gray[820], mt: "1%", cursor: "pointer" }}
+            onClick={onToggle}
+          >
+            {title}
+          </Typography>
+
+          <div
+            style={{
+              maxHeight: isOpen ? "100px" : "0px",
+              overflow: "hidden",
+              transition: "max-height 0.3s ease",
             }}
           >
-            {desc}
-          </Typography>
-        </div>
-        <hr
-          style={{
-            width: "100%",
-            margin: "10px 0px 10px 0px",
-            height: "1px",
-            backgroundColor: "rgba(156, 163, 175, 1)",
-            color: "rgba(156, 163, 175, 1)",
-          }}
-        ></hr>
+            <Typography
+              variant="text-md-regular"
+              sx={{
+                color: palette.color.gray[725],
+                transition: "opacity 0.3s",
+              }}
+            >
+              {desc}
+            </Typography>
+          </div>
+        </Stack>
+        <IconButton onClick={onToggle} sx={{ mt: "1.5%" }}>
+          <Icon
+            icon={isOpen ? "arrowDownUpIcon" : "arrowDownBlueIcon"}
+            width={15}
+            height={7.5}
+          />
+        </IconButton>
       </Stack>
-      <IconButton onClick={onToggle} sx={{ mt: "1.5%" }}>
-        <Icon
-          icon={isOpen ? "arrowDownUpIcon" : "arrowDownBlueIcon"}
-          width={15}
-          height={7.5}
-        />
-      </IconButton>
+      {/* <hr
+        style={{
+          width: "100%",
+          margin: "0px 0px 0px 0px",
+          height: "1px",
+          // backgroundColor: "rgba(156, 163, 175, 1)",
+          // color: "rgba(156, 163, 175, 1)",
+        }}
+      ></hr> */}
     </Stack>
   );
 };

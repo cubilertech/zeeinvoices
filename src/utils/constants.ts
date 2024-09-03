@@ -61,6 +61,7 @@ export const icons = {
   navigationPinterIcon: "/Images/icons/navigation-pointer-icon.svg",
   handCodingIcon: "/Images/icons/hand-coding-icon.svg",
   gearsIcon: "/Images/icons/gears-icon.svg",
+  gearsPurpoleIcon: "/Images/icons/gears-purple-icon.svg",
   arrowDownBlueIcon: "/Images/icons/arrow-down-blue-icon.svg",
   arrowDownUpIcon: "/Images/icons/arrow-up-blue-icon.svg",
   facebook1Icon: "/Images/icons/facebook1-icon.svg",
@@ -68,6 +69,7 @@ export const icons = {
   youtube1Icon: "/Images/icons/youtube1-icon.svg",
   twittter1Icon: "/Images/icons/twitter1-icon.svg",
   linkedin1Icon: "/Images/icons/linkedin1-icon.svg",
+  twitterxIcon: "/Images/icons/twitterx-icon.svg",
 };
 
 export const backendURL =

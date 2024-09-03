@@ -28,6 +28,7 @@ export const MuiButton = () => {
         },
         contained: {
           background: palette.primary.main,
+          // background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
           color: palette.base.white,
           "&:hover": {
             color: palette.base.white,
