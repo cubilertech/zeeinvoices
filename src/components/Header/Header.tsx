@@ -174,7 +174,9 @@ const Header = () => {
         <Stack direction={"row"} gap={3}>
           {!session?.accessToken ? (
             <Stack direction={"row"} gap={1.5}>
-              {pathname == "/" || pathname == "/termsAndCondition" ? (
+              {pathname == "/" ||
+              pathname == "/termsAndCondition" ||
+              pathname == "/contact-us" ? (
                 <Button
                   onClick={handleCrtInvButton}
                   variant="outlined"

@@ -31,8 +31,11 @@ const WorkflowSection = () => {
   };
   const route = useRouter();
 
-  const handleCrtInvButton = (data: any) => {
-    route.push("/create-new-invoice");
+  const handleComplete = () => {
+    setOpenIndex((prevIndex) => {
+      const nextIndex = (openIndex as number) + 1;
+      return nextIndex >= expandableTextData.length ? 0 : nextIndex;
+    });
   };
   return (
     <Stack
@@ -95,6 +98,7 @@ const WorkflowSection = () => {
               desc={item.desc}
               isOpen={openIndex === index}
               onToggle={() => handleToggle(index)}
+              onComplete={handleComplete} // Pass the completion handler
             />
           ))}
         </Stack>

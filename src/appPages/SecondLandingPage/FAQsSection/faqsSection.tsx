@@ -1,7 +1,7 @@
 "use client";
 import { AccordionCardRightIcon } from "@/components/AccordionCardRightIcon";
 import { palette } from "@/theme/palette";
-import { Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
 const accordionData = [
@@ -84,21 +84,23 @@ const FAQsSection = () => {
         Everything you need to know about the product and billing. about the
         product and billing and billing
       </Typography>
-      <Stack
-        direction={"column"}
-        gap={0}
-        sx={{ display: "flex", mx: "3%", mt: "5%", justifyContent: "center" }}
-      >
-        {accordionData.map((item, index) => (
-          <AccordionCardRightIcon
-            key={index}
-            title={item.title}
-            desc={item.desc}
-            isOpen={openIndex === index}
-            onToggle={() => handleToggle(index)}
-          />
-        ))}
-      </Stack>
+      <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
+        <Stack
+          direction={"column"}
+          gap={0}
+          sx={{ display: "flex", mx: "0%", mt: "5%", justifyContent: "center" }}
+        >
+          {accordionData.map((item, index) => (
+            <AccordionCardRightIcon
+              key={index}
+              title={item.title}
+              desc={item.desc}
+              isOpen={openIndex === index}
+              onToggle={() => handleToggle(index)}
+            />
+          ))}
+        </Stack>
+      </Container>
     </Stack>
   );
 };

@@ -7,7 +7,6 @@ interface VerticalProgressBarProps {
 const VerticalProgressBar: FC<VerticalProgressBarProps> = ({ value }) => {
   const progressValue = Math.min(Math.max(value, 0), 100); // Ensure value is between 1 and 100
 
-
   return (
     <Stack
       direction={"column"}
@@ -24,6 +23,7 @@ const VerticalProgressBar: FC<VerticalProgressBarProps> = ({ value }) => {
           height: `${progressValue}%`,
           background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
           borderRadius: "100px",
+          transition: "all 0.3s ease",
         }}
       />
     </Stack>

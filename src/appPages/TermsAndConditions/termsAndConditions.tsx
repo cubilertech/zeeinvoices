@@ -6,6 +6,8 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { FooterSection } from "../LandingPage/FooterSection";
 import { ExpandableText } from "@/components/ExpandableText";
+import Image from "next/image";
+import { Icon } from "@/components/Icon";
 
 const expandableTextData = [
   {
@@ -62,9 +64,16 @@ const expandableTextData = [
 
 interface TermsAndConditions {}
 const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
+  const [isHover, setIsHover] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
+  };
+  const handleComplete = () => {
+    // setOpenIndex((prevIndex) => {
+    //   const nextIndex = (openIndex as number) + 1;
+    //   return nextIndex >= expandableTextData.length ? 0 : nextIndex;
+    // });
   };
   return (
     <>
@@ -75,96 +84,90 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
           width: "100%",
           // pt: 3,
           // pb: 7,
+          display: "flex",
           backgroundColor: palette.base.white,
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
-          <Box sx={{ mt: "9%" }}></Box>
-          <Stack direction={"column"} gap={4}>
-            {/* <Typography variant="display-md1-semibold">
-              Terms and Condition
-            </Typography> */}
+        {/* <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}> */}
+        <Box sx={{ mt: "9%" }}></Box>
+        <Stack direction={"column"} gap={4} sx={{ width: "65%" }}>
+          <Stack
+            direction={"column"}
+            gap={0.5}
+            sx={{
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Stack
-              direction={"column"}
-              gap={0.5}
+              direction={"row"}
+              gap={2}
               sx={{
                 width: "100%",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <Stack
-                direction={"row"}
-                gap={2}
-                sx={{
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  variant="display-lg-bold"
-                  sx={{
-                    fontFamily: "Product Sans, sans-serif",
-                    color: palette.color.gray[805],
-                  }}
-                >
-                  Terms &
-                </Typography>
-                <Typography
-                  variant="display-lg-bold"
-                  sx={{
-                    fontFamily: "Product Sans, sans-serif",
-                    background:
-                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  Conditions
-                </Typography>
-              </Stack>
-              {/* <hr
-              style={{
-                margin: "10px 0px 10px 0px",
-                height: "0.5px",
-                backgroundColor: "rgba(156, 163, 175, 1)",
-                color: "rgba(156, 163, 175, 1)",
-              }}
-            ></hr> */}
               <Typography
-                variant="text-xl-regular"
+                variant="display-lg-bold"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
+                  color: palette.color.gray[805],
                 }}
               >
-                See our terms of Use
+                Terms &
+              </Typography>
+              <Typography
+                variant="display-lg-bold"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  display: "inline-block",
+                }}
+              >
+                Conditions
               </Typography>
             </Stack>
-            {/* <Stack
-              direction={"column"}
-              gap={3}
+
+            <Typography
+              variant="text-xl-regular"
               sx={{
-                width: "100%",
-                ml: "1%",
+                fontFamily: "Product Sans, sans-serif",
+                color: palette.color.gray[745],
               }}
             >
-              {expandableTextData.map((item, index) => (
-                <ExpandableText
-                  key={index}
-                  title1={item.title1}
-                  title2={item.title2}
-                  desc={item.desc}
-                  isOpen={openIndex === index}
-                  onToggle={() => handleToggle(index)}
-                />
-              ))}
-            </Stack> */}
-            <TermsConditions
+              See our terms of Use
+            </Typography>
+          </Stack>
+          <Stack
+            direction={"column"}
+            gap={3}
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              mt: "1%",
+            }}
+          >
+            {expandableTextData.map((item, index) => (
+              <ExpandableText
+                key={index}
+                title1={item.title1}
+                title2={item.title2}
+                desc={item.desc}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+                onComplete={handleComplete} // Pass the completion handler
+              />
+            ))}
+          </Stack>
+          {/* <TermsConditions
               num="1"
               title="1. Introduction"
               description="Please read these Terms and Conditions carefully before using ZEE Invoices. By using the service, you agree to these terms. If you don’t agree, please don’t use the service."
@@ -213,9 +216,9 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               num="10"
               title="10. Contact Information"
               description="For any questions or concerns about these Terms and Conditions, please contact us at:"
-            />
-          </Stack>
-          <Stack
+            /> */}
+        </Stack>
+        {/* <Stack
             direction={"row"}
             gap={2.5}
             justifyContent={"space-between"}
@@ -236,8 +239,167 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               title="Phone"
               desc="+1 (480) 920-1123"
             />
+          </Stack> */}
+        <Stack
+          direction={"column"}
+          gap={3}
+          sx={{ display: "flex", justifyContent: "center", mt: "3%" }}
+        >
+          {/* upper section */}
+          <Stack
+            direction={"row"}
+            gap={13}
+            sx={{
+              width: "1200px",
+              px: "10%",
+              py: "9%",
+              borderRadius: "30px",
+              border: `1.06px solid #0000001A`,
+              alignItems: "center",
+              backgroundColor: palette.base.white,
+              transition: "all 0.3s ease", // Add transition for smooth animation
+              "&:hover": {
+                transform: "scale(1.03)", // Scale the component up by 10% on hover
+              },
+            }}
+          >
+            <Box>
+              <Image
+                src="/Images/contact-email-image.svg"
+                width={243}
+                height={243}
+                alt="rectangle iaptop bg"
+              />
+            </Box>
+
+            <Stack direction={"column"} gap={2.5} sx={{ pl: "12%" }}>
+              <Typography
+                variant="display-md1-regular"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.base.black,
+                }}
+              >
+                Email
+              </Typography>
+              <Typography
+                variant="display-md1-medium"
+                sx={{
+                  width: "500px",
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.text.contactEmailColor,
+                }}
+              >
+                support@zeeinvoices.com
+              </Typography>
+            </Stack>
           </Stack>
-        </Container>
+
+          {/* bottom section */}
+          <Stack direction={"row"} gap={3}>
+            <Stack
+              direction={"column"}
+              gap={5}
+              sx={{
+                width: "587px",
+                px: "7%",
+                py: "5%",
+                borderRadius: "30px",
+                border: `1.06px solid #0000001A`,
+                alignItems: "center",
+                backgroundColor: palette.base.white,
+                transition: "all 0.3s ease", // Add transition for smooth animation
+                "&:hover": {
+                  transform: "scale(1.05)", // Scale the component up by 10% on hover
+                },
+              }}
+            >
+              <Icon icon="contactLocationIcon" width={42} height={42} />
+              <Typography
+                variant="display-sm0-medium"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.base.black,
+                }}
+              >
+                Address
+              </Typography>
+              <Typography
+                variant="text-md-regular"
+                sx={{
+                  width: "400px",
+                  fontFamily: "Product Sans, sans-serif",
+                  textAlign: "center",
+                  color: palette.color.gray[745],
+                }}
+              >
+                11133 Shady Trail PMB 205 Dallas, TX 75229
+              </Typography>
+            </Stack>
+            {/* right bottom */}
+            <Stack
+              direction={"column"}
+              gap={4}
+              sx={{
+                width: "587px",
+                px: "7%",
+                py: "5%",
+                borderRadius: "30px",
+                border: `1.06px solid #0000001A`,
+                alignItems: "center",
+                color: palette.base.white,
+                backgroundColor: palette.primary.main,
+                transition: "all 0.3s ease", // Add transition for smooth animation
+                "&:hover": {
+                  color: palette.base.black,
+                  backgroundColor: palette.base.white,
+                  transform: "scale(1.05)", // Scale the component up by 10% on hover
+                },
+                "&:hover .text-md-regular": {
+                  color: palette.color.gray[745], // Change the color of the specific Typography on hover
+                },
+                "&:hover .display-sm0-medium": {
+                  color: palette.base.black, // Change the color of the other Typography on hover
+                },
+              }}
+              onMouseEnter={() => setIsHover(true)} // Set hover state to true on mouse enter
+              onMouseLeave={() => setIsHover(false)} // Set hover state to false on mouse leave
+            >
+              {isHover ? (
+                <Icon icon="contactPhoneIcon" width={42} height={42} />
+              ) : (
+                <Icon icon="contactPhoneIcon" width={42} height={42} />
+              )}
+
+              <Typography
+                variant="display-sm0-medium"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  // color: palette.base.white,
+                  // Add a class for targeting in the hover state
+                  "&.display-sm0-medium": {},
+                }}
+              >
+                Phone
+              </Typography>
+              <Typography
+                variant="text-md-regular"
+                className="text-md-regular"
+                sx={{
+                  width: "400px",
+                  fontFamily: "Product Sans, sans-serif",
+                  textAlign: "center",
+                  // color: palette.base.white,
+                  // Add a class for targeting in the hover state
+                  "&.text-md-regular": {},
+                }}
+              >
+                +14809201123
+              </Typography>
+            </Stack>
+          </Stack>
+        </Stack>
+        {/* </Container> */}
         <FooterSection />
       </Stack>
     </>

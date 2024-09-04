@@ -70,6 +70,8 @@ export const icons = {
   twittter1Icon: "/Images/icons/twitter1-icon.svg",
   linkedin1Icon: "/Images/icons/linkedin1-icon.svg",
   twitterxIcon: "/Images/icons/twitterx-icon.svg",
+  contactLocationIcon: "/Images/icons/contact-location-icon.svg",
+  contactPhoneIcon: "/Images/icons/contact-phone-icon.svg",
 };
 
 export const backendURL =

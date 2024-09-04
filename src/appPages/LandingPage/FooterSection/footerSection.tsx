@@ -157,7 +157,12 @@ const FooterSection = () => {
             >
               <Icon icon="facebooklpf" height={32} width={32} />
             </Box>
-            <Box sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open("https://www.youtube.com/@ZeeInvoices", "_blank")
+              }
+            >
               <Icon icon="youtube" height={32} width={32} />
             </Box>
             <Box
