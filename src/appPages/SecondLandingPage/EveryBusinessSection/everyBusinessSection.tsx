@@ -9,6 +9,8 @@ import { useState } from "react";
 const EveryBusinessSection = () => {
   const route = useRouter();
   const [isHover, setIsHover] = useState(false);
+  const [is1Hover, set1IsHover] = useState(false);
+  const [is2Hover, set2IsHover] = useState(false);
 
   const handleCrtInvButton = (data: any) => {
     route.push("/create-new-invoice");
@@ -78,22 +80,44 @@ const EveryBusinessSection = () => {
             backgroundColor: palette.base.white,
             transition: "all 0.3s ease", // Add transition for smooth animation
             "&:hover": {
+              color: palette.base.white,
+              backgroundColor: palette.text.contactEmailColor,
               transform: "scale(1.03)", // Scale the component up by 10% on hover
             },
+            "&:hover .display-md1-regular": {
+              color: palette.base.white, // Change the color of the specific Typography on hover
+            },
+            "&:hover .text-md-regular": {
+              color: palette.base.white, // Change the color of the other Typography on hover
+            },
           }}
+          onMouseEnter={() => set1IsHover(true)}
+          onMouseLeave={() => set1IsHover(false)}
         >
-          <Box>
-            <Image
-              src="/Images/pro-business-image.svg"
-              width={243}
-              height={243}
-              alt="rectangle iaptop bg"
-            />
-          </Box>
+          {is1Hover ? (
+            <Box>
+              <Image
+                src="/Images/pro-business-white-image.svg"
+                width={243}
+                height={243}
+                alt="rectangle iaptop bg"
+              />
+            </Box>
+          ) : (
+            <Box>
+              <Image
+                src="/Images/pro-business-image.svg"
+                width={243}
+                height={243}
+                alt="rectangle iaptop bg"
+              />
+            </Box>
+          )}
 
           <Stack direction={"column"} gap={1} sx={{ pl: "12%" }}>
             <Typography
               variant="display-md1-regular"
+              className="display-md1-regular"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.base.black,
@@ -103,6 +127,7 @@ const EveryBusinessSection = () => {
             </Typography>
             <Typography
               variant="text-md-regular"
+              className="text-md-regular"
               sx={{
                 width: "500px",
                 fontFamily: "Product Sans, sans-serif",
@@ -130,13 +155,28 @@ const EveryBusinessSection = () => {
               backgroundColor: palette.base.white,
               transition: "all 0.3s ease", // Add transition for smooth animation
               "&:hover": {
+                color: palette.base.white,
+                backgroundColor: palette.text.contactEmailColor,
                 transform: "scale(1.05)", // Scale the component up by 10% on hover
               },
+              "&:hover .text-md-regular": {
+                color: palette.base.white, // Change the color of the specific Typography on hover
+              },
+              "&:hover .display-sm0-medium": {
+                color: palette.base.white, // Change the color of the other Typography on hover
+              },
             }}
+            onMouseEnter={() => set2IsHover(true)}
+            onMouseLeave={() => set2IsHover(false)}
           >
-            <Icon icon="handCodingIcon" width={42} height={42} />
+            {is2Hover ? (
+              <Icon icon="handCodingWhiteIcon" width={42} height={42} />
+            ) : (
+              <Icon icon="handCodingIcon" width={42} height={42} />
+            )}
             <Typography
               variant="display-sm0-medium"
+              className="display-sm0-medium"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.base.black,
@@ -146,6 +186,7 @@ const EveryBusinessSection = () => {
             </Typography>
             <Typography
               variant="text-md-regular"
+              className="text-md-regular"
               sx={{
                 width: "400px",
                 fontFamily: "Product Sans, sans-serif",
@@ -169,7 +210,7 @@ const EveryBusinessSection = () => {
               border: `1.06px solid #0000001A`,
               alignItems: "center",
               color: palette.base.white,
-              backgroundColor: palette.primary.main,
+              backgroundColor: palette.text.contactEmailColor,
               transition: "all 0.3s ease", // Add transition for smooth animation
               "&:hover": {
                 color: palette.base.black,
@@ -183,8 +224,8 @@ const EveryBusinessSection = () => {
                 color: palette.base.black, // Change the color of the other Typography on hover
               },
             }}
-            onMouseEnter={() => setIsHover(true)} // Set hover state to true on mouse enter
-            onMouseLeave={() => setIsHover(false)} // Set hover state to false on mouse leave
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
           >
             {isHover ? (
               <Icon icon="gearsPurpoleIcon" width={42} height={42} />

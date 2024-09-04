@@ -60,6 +60,7 @@ export const icons = {
   PhoneIcon: "/Images/icons/phone-icon.svg",
   navigationPinterIcon: "/Images/icons/navigation-pointer-icon.svg",
   handCodingIcon: "/Images/icons/hand-coding-icon.svg",
+  handCodingWhiteIcon: "/Images/icons/hand-coding-white-icon.svg",
   gearsIcon: "/Images/icons/gears-icon.svg",
   gearsPurpoleIcon: "/Images/icons/gears-purple-icon.svg",
   arrowDownBlueIcon: "/Images/icons/arrow-down-blue-icon.svg",

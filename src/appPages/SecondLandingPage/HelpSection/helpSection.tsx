@@ -38,6 +38,9 @@ const HelpSection = () => {
     });
   };
 
+  const resetProgress = () => {
+  };
+
   return (
     <Stack
       direction={"column"}

@@ -51,20 +51,21 @@ const SelectableComment: FC<SelectableCommentProps> = ({
   onComplete,
 }) => {
   const [progress, setProgress] = useState(1);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
-    if (!isOpen) return; // If not open, do nothing
+    if (!isOpen || isClicked) return;
 
-    setProgress(1); // Reset progress when a new item is selected
+    setProgress(1);
 
-    const duration = 5000; // 5 seconds
-    const increment = 100 / (duration / 100); // Update every 100ms
+    const duration = 5000;
+    const increment = 100 / (duration / 100);
 
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          onComplete(); // Trigger onComplete when progress reaches 100%
+          onComplete();
           return 100;
         }
         return prev + increment;
@@ -72,7 +73,14 @@ const SelectableComment: FC<SelectableCommentProps> = ({
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isOpen, onComplete]);
+  }, [isOpen, onComplete, isClicked]);
+
+  const handleClick = () => {
+    setIsClicked(true);
+    setProgress(100);
+    onToggle();
+  };
+
   return (
     <Stack direction={"row"}>
       {/* <Box
@@ -118,6 +126,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
             borderRadius: "8px",
             border: `1px solid #0000001A`,
           }}
+          onClick={handleClick}
         >
           <Avatar
             sx={{ width: 61, height: 61 }}

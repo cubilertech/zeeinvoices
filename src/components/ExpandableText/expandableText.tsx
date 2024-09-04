@@ -1,7 +1,5 @@
-import { palette } from "@/theme/palette";
 import {
   Box,
-  IconButton,
   LinearProgress,
   linearProgressClasses,
   Stack,
@@ -12,21 +10,15 @@ import { FC, useEffect, useState } from "react";
 import { VerticalProgressBar } from "../VerticalProgressBar";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 4, // Set the height to the desired length for the vertical bar
-  width: 100, // Adjust the width accordingly
+  height: 4,
+  width: 100,
   borderRadius: 100,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor: theme.palette.grey[200],
-    ...theme.applyStyles("dark", {
-      backgroundColor: theme.palette.grey[800],
-    }),
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: "#linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-    ...theme.applyStyles("dark", {
-      backgroundColor: "#D9D9D9",
-    }),
+    backgroundColor: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
   },
 }));
 
@@ -48,20 +40,21 @@ const ExpandableText: FC<ExpandableTextProps> = ({
   onComplete,
 }) => {
   const [progress, setProgress] = useState(1);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
-    if (!isOpen) return; // If not open, do nothing
+    if (!isOpen || isClicked) return;
 
-    setProgress(1); // Reset progress when a new item is selected
+    setProgress(1);
 
-    const duration = 5000; // 5 seconds
-    const increment = 100 / (duration / 100); // Update every 100ms
+    const duration = 5000;
+    const increment = 100 / (duration / 100);
 
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          onComplete(); // Trigger onComplete when progress reaches 100%
+          onComplete();
           return 100;
         }
         return prev + increment;
@@ -69,19 +62,16 @@ const ExpandableText: FC<ExpandableTextProps> = ({
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isOpen, onComplete]);
+  }, [isOpen, onComplete, isClicked]);
+
+  const handleClick = () => {
+    setIsClicked(true);
+    setProgress(100);
+    onToggle();
+  };
 
   return (
     <Stack direction={"row"}>
-      {/* <Box
-        sx={{
-          transform: "rotate(90deg)", // Rotate the progress bar to make it vertical
-          display: "inline-block",
-          height: "100%",
-        }}
-      >
-        <BorderLinearProgress variant="determinate" value={50} />
-      </Box> */}
       {isOpen ? (
         <VerticalProgressBar value={progress} />
       ) : (
@@ -93,49 +83,36 @@ const ExpandableText: FC<ExpandableTextProps> = ({
         sx={{
           py: "5px",
           px: "15px",
-          // mb: "3%",
-          // borderLeftWidth: "4px",
-          // borderLeftStyle: "solid",
-          // borderImageSource: isOpen
-          //   ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
-          //   : "#D9D9D9",
-          // borderImageSlice: 1,
         }}
       >
         <Stack
           direction={"row"}
           gap={1}
           sx={{ cursor: "pointer" }}
-          onClick={onToggle}
+          onClick={handleClick}
         >
-          {title1 !== "" ? (
+          {title1 && (
             <Typography
               variant="display-xs-bold"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[745],
+                color: "#745",
               }}
-              onClick={onToggle}
             >
               {title1}
             </Typography>
-          ) : (
-            <></>
           )}
-
           <Typography
             variant="display-xs-bold"
             sx={{
               fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
               background: isOpen
                 ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
-                : palette.color.gray[745],
+                : "#745",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               display: "inline-block",
             }}
-            onClick={onToggle}
           >
             {title2}
           </Typography>
@@ -151,7 +128,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             variant="text-xl1-1-regular"
             sx={{
               fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
+              color: "#745",
             }}
           >
             {desc}
