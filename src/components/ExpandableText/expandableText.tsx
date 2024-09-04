@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { VerticalProgressBar } from "../VerticalProgressBar";
+import { palette } from "@/theme/palette";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 4,
@@ -96,7 +97,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
               variant="display-xs-bold"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
-                color: "#745",
+                color: palette.text.expandableTextGreyColor,
               }}
             >
               {title1}

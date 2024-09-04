@@ -202,7 +202,16 @@ const Header = () => {
                     : "contained"
                 }
                 disabled={loading}
-                sx={{ px: "20px", py: "0px", borderRadius: "4px" }}
+                sx={{
+                  py: "0px !important",
+                  px: "20px !important",
+                  borderRadius: "4px !important",
+                  fontFamily: "Product Sans, sans-serif !important",
+                  fontSize: "14px !important",
+                  fontWeight: "400 !important",
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                }}
               >
                 {loading ? <CircularProgress size={18} /> : "Sign In"}
               </Button>

@@ -99,22 +99,22 @@ const EveryBusinessSection = () => {
               <Image
                 src="/Images/pro-business-white-image.svg"
                 width={243}
-                height={243}
+                height={225}
                 alt="rectangle iaptop bg"
               />
             </Box>
           ) : (
             <Box>
               <Image
-                src="/Images/pro-business-image.svg"
+                src="/Images/pro-business-purple-image.svg"
                 width={243}
-                height={243}
+                height={225}
                 alt="rectangle iaptop bg"
               />
             </Box>
           )}
 
-          <Stack direction={"column"} gap={1} sx={{ pl: "12%" }}>
+          <Stack direction={"column"} gap={2} sx={{ pl: "12%" }}>
             <Typography
               variant="display-md1-regular"
               className="display-md1-regular"
@@ -172,7 +172,7 @@ const EveryBusinessSection = () => {
             {is2Hover ? (
               <Icon icon="handCodingWhiteIcon" width={42} height={42} />
             ) : (
-              <Icon icon="handCodingIcon" width={42} height={42} />
+              <Icon icon="handCodingPurpleIcon" width={42} height={42} />
             )}
             <Typography
               variant="display-sm0-medium"
@@ -230,7 +230,7 @@ const EveryBusinessSection = () => {
             {isHover ? (
               <Icon icon="gearsPurpoleIcon" width={42} height={42} />
             ) : (
-              <Icon icon="gearsIcon" width={42} height={42} />
+              <Icon icon="gearsWhiteIcon" width={42} height={42} />
             )}
 
             <Typography

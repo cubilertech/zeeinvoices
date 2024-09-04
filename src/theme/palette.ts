@@ -161,6 +161,7 @@ const tableColor = {
 const textColor = {
   primary: "#697483",
   textGreyColor: "#697483",
+  expandableTextGreyColor: "#52525B",
   termsHeadingColor: "#3F4DE1",
   termsdescColor: "#464646",
   contactInfoDescColor: "#1F1F1F",
