@@ -209,13 +209,23 @@ const ContactUs: FC<ContactUs> = ({}) => {
               <form onSubmit={handleSubmit}>
                 <Stack direction={"column"} gap={2} sx={{}}>
                   <Stack direction={"row"} justifyContent={"space-between"}>
-                    <FormControl sx={{ width: "224px" }}>
+                    <FormControl sx={{ width: "224px", height: "44px" }}>
                       <TextField
                         label="First Name"
                         labelColor="#344054"
                         size="large"
                         name="firstName"
-                        sx={{ width: "224px" }}
+                        sx={{
+                          width: "224px",
+                          height: "44px !important",
+                          "& .MuiInputBase-input": {
+                            height: "44px",
+                            borderRadius: "8px",
+                            "&::placeholder": {
+                              color: palette.color.gray[740], // Change this to your desired placeholder color
+                            },
+                          },
+                        }}
                         value={values.firstName}
                         onChange={handleChange}
                         helperText={touched.firstName && errors.firstName}
@@ -229,7 +239,16 @@ const ContactUs: FC<ContactUs> = ({}) => {
                         labelColor="#344054"
                         size="large"
                         name="lastName"
-                        sx={{ width: "224px" }}
+                        sx={{
+                          width: "224px",
+                          "& .MuiInputBase-input": {
+                            height: "44px",
+                            borderRadius: "8px",
+                            "&::placeholder": {
+                              color: palette.color.gray[740], // Change this to your desired placeholder color
+                            },
+                          },
+                        }}
                         value={values.lastName}
                         onChange={handleChange}
                         helperText={touched.lastName && errors.lastName}
@@ -246,6 +265,15 @@ const ContactUs: FC<ContactUs> = ({}) => {
                         labelColor="#344054"
                         size="large"
                         name="email"
+                        sx={{
+                          "& .MuiInputBase-input": {
+                            height: "44px",
+                            borderRadius: "8px",
+                            "&::placeholder": {
+                              color: palette.color.gray[740], // Change this to your desired placeholder color
+                            },
+                          },
+                        }}
                         value={values.email}
                         onChange={handleChange}
                         helperText={touched.email && errors.email}

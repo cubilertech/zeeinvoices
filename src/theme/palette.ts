@@ -164,6 +164,7 @@ const textColor = {
   termsHeadingColor: "#3F4DE1",
   termsdescColor: "#464646",
   contactInfoDescColor: "#1F1F1F",
+  contactEmailColor: "#4F35DF",
 };
 
 export const palette = {

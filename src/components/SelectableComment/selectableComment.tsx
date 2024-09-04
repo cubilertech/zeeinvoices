@@ -9,7 +9,8 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { VerticalProgressBar } from "../VerticalProgressBar";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 4, // Set the height to the desired length for the vertical bar
@@ -37,6 +38,7 @@ interface SelectableCommentProps {
   imgSrc?: string;
   isOpen: boolean;
   onToggle: () => void;
+  onComplete: () => void;
 }
 
 const SelectableComment: FC<SelectableCommentProps> = ({
@@ -46,18 +48,42 @@ const SelectableComment: FC<SelectableCommentProps> = ({
   imgSrc,
   isOpen,
   onToggle,
+  onComplete,
 }) => {
+  const [progress, setProgress] = useState(1);
+
+  useEffect(() => {
+    if (!isOpen) return; // If not open, do nothing
+
+    setProgress(1); // Reset progress when a new item is selected
+
+    const duration = 5000; // 5 seconds
+    const increment = 100 / (duration / 100); // Update every 100ms
+
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          onComplete(); // Trigger onComplete when progress reaches 100%
+          return 100;
+        }
+        return prev + increment;
+      });
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [isOpen, onComplete]);
   return (
     <Stack direction={"row"}>
-      <Box
+      {/* <Box
         sx={{
           transform: "rotate(90deg)", // Rotate the progress bar to make it vertical
           display: "inline-block",
           height: "100%",
         }}
       >
-        {/* <BorderLinearProgress variant="determinate" value={50} /> */}
-      </Box>
+        <BorderLinearProgress variant="determinate" value={50} />
+      </Box> */}
       <Stack
         direction={"row"}
         gap={0.5}
@@ -75,15 +101,9 @@ const SelectableComment: FC<SelectableCommentProps> = ({
         onClick={onToggle}
       >
         {isOpen ? (
-          <Box
-            sx={{
-              width: "4px",
-              height: "100%",
-              borderRadius: "10px",
-              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-            }}
-          />
+          <VerticalProgressBar value={progress} />
         ) : (
+          // <VerticalProgressBar value={0} />
           <></>
         )}
 
