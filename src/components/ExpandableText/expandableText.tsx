@@ -82,22 +82,29 @@ const ExpandableText: FC<ExpandableTextProps> = ({
           sx={{ cursor: "pointer" }}
           onClick={onToggle}
         >
+          {title1 !== "" ? (
+            <Typography
+              variant="display-xs-bold"
+              sx={{
+                fontFamily: "Product Sans, sans-serif",
+                color: palette.color.gray[745],
+              }}
+              onClick={onToggle}
+            >
+              {title1}
+            </Typography>
+          ) : (
+            <></>
+          )}
+
           <Typography
             variant="display-xs-bold"
             sx={{
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[745],
-            }}
-            onClick={onToggle}
-          >
-            {title1}
-          </Typography>
-          <Typography
-            variant="display-xs-bold"
-            sx={{
-              fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
-              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+              background: isOpen
+                ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
+                : palette.color.gray[745],
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               display: "inline-block",

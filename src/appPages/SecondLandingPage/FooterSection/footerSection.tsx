@@ -174,7 +174,7 @@ const FooterSection = () => {
                 variant="text-md-regular"
                 sx={{ color: palette.color.gray[731] }}
               >
-                Phone: +92 111 333 233
+                Phone: +14809201123
               </Typography>
               <Typography
                 variant="text-md-regular"
@@ -186,7 +186,7 @@ const FooterSection = () => {
                 variant="text-md-regular"
                 sx={{ color: palette.color.gray[731] }}
               >
-                Address: 123, ABC, XYZ, Lahore.
+                Address: 11133 Shady Trail PMB 205 Dallas, TX 75229
               </Typography>
             </Stack>
           </Stack>
