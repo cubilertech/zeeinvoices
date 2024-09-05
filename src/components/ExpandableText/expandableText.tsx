@@ -109,7 +109,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
               fontFamily: "Product Sans, sans-serif",
               background: isOpen
                 ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
-                : "#745",
+                : palette.text.expandableTextGreyColor,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               display: "inline-block",
@@ -129,7 +129,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             variant="text-xl1-1-regular"
             sx={{
               fontFamily: "Product Sans, sans-serif",
-              color: "#745",
+              color: palette.text.expandableTextGreyColor,
             }}
           >
             {desc}
