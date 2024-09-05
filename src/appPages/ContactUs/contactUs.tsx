@@ -25,10 +25,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 
-const alphaRegex = /[a-zA-Z]/;
+const alphaRegex = /^[a-zA-Z]+$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
-  firstName: Yup.string().required("Name is required"),
+  firstName: Yup.string()
+    .matches(alphaRegex, "Invalid name")
+    .required("Name is required"),
   message: Yup.string().required("Message is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
@@ -54,49 +56,57 @@ const ContactUs: FC<ContactUs> = ({}) => {
     message?: string;
     countryCode?: string;
   }
-  const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: validationSchema,
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    touched,
+    errors,
+    resetForm,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
 
-      validate: (values) => {
-        const errors: FormErrors = {}; // Use FormErrors type here
+    validate: (values) => {
+      const errors: FormErrors = {}; // Use FormErrors type here
 
-        // Validate other fields
-        // ...
+      // Validate other fields
+      // ...
 
-        // Validate phone number
-        const phoneError = validatePhoneNumber(
-          values.phoneNumber,
-          values.countryCode
-        );
-        if (phoneError) {
-          errors.phoneNumber = phoneError;
-        }
+      // Validate phone number
+      const phoneError = validatePhoneNumber(
+        values.phoneNumber,
+        values.countryCode
+      );
+      if (phoneError) {
+        errors.phoneNumber = phoneError;
+      }
 
-        return errors;
-      },
+      return errors;
+    },
 
-      onSubmit: (values) => {
-        fetch("/api/send-email", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
+    onSubmit: (values) => {
+      fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert("Message sent successfully!");
+            resetForm();
+          } else {
+            alert("Failed to send message.");
+          }
         })
-          .then((response) => {
-            if (response.status === 200) {
-              alert("Message sent successfully!");
-            } else {
-              alert("Failed to send message.");
-            }
-          })
-          .catch((error) => {
-            alert("An error occurred while sending the message.");
-          });
-      },
-    });
+        .catch((error) => {
+          alert("An error occurred while sending the message.");
+        });
+    },
+  });
 
   function isString(value: any): value is string {
     return typeof value === "string";
@@ -129,7 +139,7 @@ const ContactUs: FC<ContactUs> = ({}) => {
 
   return (
     <>
-      <Box sx={{ mt: "2%" }}></Box>
+      <Box sx={{ mt: "3%" }}></Box>
 
       <Box sx={{ backgroundColor: palette.text.termsHeadingColor }}>
         <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
@@ -144,7 +154,7 @@ const ContactUs: FC<ContactUs> = ({}) => {
               variant="display-xl-semibold"
               sx={{ color: palette.base.white }}
             >
-              Let s Start Working with Us Today
+              Let's Start Working with Us Today
             </Typography>
           </Stack>
         </Container>
@@ -168,9 +178,8 @@ const ContactUs: FC<ContactUs> = ({}) => {
             <hr
               style={{
                 margin: "10px 0px 10px 0px",
-                height: "0.5px",
-                backgroundColor: "rgba(156, 163, 175, 1)",
-                color: "rgba(156, 163, 175, 1)",
+                height: "1px",
+                color: "#D6D8DC",
               }}
             ></hr>
           </Stack>
@@ -195,7 +204,7 @@ const ContactUs: FC<ContactUs> = ({}) => {
                 sx={{
                   height: "85%",
                   borderRightWidth: 1,
-                  // backgroundColor: "#D6D8DC",
+                  color: "#D6D8DC",
                 }}
               />
             </Box>

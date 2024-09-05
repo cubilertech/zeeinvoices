@@ -70,7 +70,9 @@ export const icons = {
   youtube1Icon: "/Images/icons/youtube1-icon.svg",
   twittter1Icon: "/Images/icons/twitter1-icon.svg",
   linkedin1Icon: "/Images/icons/linkedin1-icon.svg",
+  twitterxDarkIcon: "/Images/icons/twitterx-dark-icon.svg",
   twitterxIcon: "/Images/icons/twitterx-icon.svg",
+
   contactLocationIcon: "/Images/icons/contact-location-icon.svg",
   contactPhoneIcon: "/Images/icons/contact-phone-icon.svg",
 };

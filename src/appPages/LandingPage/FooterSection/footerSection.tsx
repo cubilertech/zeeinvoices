@@ -166,12 +166,21 @@ const FooterSection = () => {
               <Icon icon="youtube" height={32} width={32} />
             </Box>
             <Box
-              sx={{ cursor: "pointer" }}
+              sx={{
+                cursor: "pointer",
+                height: "32px",
+                width: "32px",
+                borderRadius: "50%",
+                backgroundColor: "#E0E0E0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onClick={() =>
                 window.open("https://twitter.com/zeeinvoices", "_blank")
               }
             >
-              <Icon icon="twitterlpf" height={32} width={32} />
+              <Icon icon="twitterxDarkIcon" height={20} width={20} />
             </Box>
           </Stack>
         </Stack>
