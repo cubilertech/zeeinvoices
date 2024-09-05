@@ -35,8 +35,35 @@ const expandableTextData = [
   },
 ];
 
+const commentTextData = [
+  {
+    title1: "It was great experience!",
+    title2: "",
+    rating: 5,
+    desc: "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+    desc2:
+      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+  },
+  {
+    title1: "It was a great tool!",
+    title2: "",
+    rating: 5,
+    desc: "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
+    desc2:
+      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+  },
+  {
+    title1: "Great experience!",
+    title2: "",
+    rating: 5,
+    desc: "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+    desc2:
+      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
+  },
+];
+
 const UsersSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
+  const [openIndex, setOpenIndex] = useState<number>(0); // for expanding the text description.
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
   };
@@ -124,7 +151,7 @@ const UsersSection = () => {
               color: palette.base.black,
             }}
           >
-            It was great experience!
+            {commentTextData[openIndex].title1}
           </Typography>
           <Rating
             name="half-rating-read"
@@ -142,12 +169,7 @@ const UsersSection = () => {
               color: palette.color.gray[745],
             }}
           >
-            I recently used Zeeinvoice and I’m thoroughly impressed. The user
-            interface is incredibly intuitive and easy to navigate. The
-            available invoice templates are both professional and accurate,
-            which made creating my invoices a breeze.intuitive and easy to
-            navigate. The available invoice templates are both professional and
-            accurate, which made creating my invoices a breeze.
+            {commentTextData[openIndex].desc}
           </Typography>
           <Typography
             variant="text-xl-regular"
@@ -157,12 +179,7 @@ const UsersSection = () => {
               color: palette.color.gray[745],
             }}
           >
-            I recently used Zeeinvoice and I’m thoroughly impressed. The user
-            interface is incredibly intuitive and easy to navigate. The
-            available invoice templates are both professional and accurate,
-            which made creating my invoices a breeze.intuitive and easy to
-            navigate. The available invoice templates are both professional and
-            accurate, which made creating my invoices a breeze.
+            {commentTextData[openIndex].desc2}
           </Typography>
         </Stack>
       </Stack>

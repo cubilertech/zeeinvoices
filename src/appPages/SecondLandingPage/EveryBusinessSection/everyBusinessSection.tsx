@@ -11,7 +11,7 @@ const EveryBusinessSection = () => {
   const [isHover, setIsHover] = useState(false);
   const [is1Hover, set1IsHover] = useState(false);
   const [is2Hover, set2IsHover] = useState(false);
-
+  const [isUpperHover, setIsUpperHover] = useState(false);
   const handleCrtInvButton = (data: any) => {
     route.push("/create-new-invoice");
   };
@@ -68,6 +68,7 @@ const EveryBusinessSection = () => {
       >
         {/* upper section */}
         <Stack
+          className="upper-card"
           direction={"row"}
           gap={13}
           sx={{
@@ -83,6 +84,9 @@ const EveryBusinessSection = () => {
               color: palette.base.white,
               backgroundColor: palette.text.contactEmailColor,
               transform: "scale(1.03)", // Scale the component up by 10% on hover
+              "& .buttom-right-card": {
+                backgroundColor: `${palette.base.white} !important`,
+              },
             },
             "&:hover .display-md1-regular": {
               color: palette.base.white, // Change the color of the specific Typography on hover
@@ -91,8 +95,14 @@ const EveryBusinessSection = () => {
               color: palette.base.white, // Change the color of the other Typography on hover
             },
           }}
-          onMouseEnter={() => set1IsHover(true)}
-          onMouseLeave={() => set1IsHover(false)}
+          onMouseEnter={() => {
+            set1IsHover(true);
+            setIsUpperHover(true);
+          }}
+          onMouseLeave={() => {
+            set1IsHover(false);
+            setIsUpperHover(false);
+          }}
         >
           {is1Hover ? (
             <Box>
@@ -143,6 +153,7 @@ const EveryBusinessSection = () => {
         {/* bottom section */}
         <Stack direction={"row"} gap={3}>
           <Stack
+            className="buttom-left-card"
             direction={"column"}
             gap={5}
             sx={{
@@ -166,8 +177,14 @@ const EveryBusinessSection = () => {
                 color: palette.base.white, // Change the color of the other Typography on hover
               },
             }}
-            onMouseEnter={() => set2IsHover(true)}
-            onMouseLeave={() => set2IsHover(false)}
+            onMouseEnter={() => {
+              set2IsHover(true);
+              setIsUpperHover(true);
+            }}
+            onMouseLeave={() => {
+              set2IsHover(false);
+              setIsUpperHover(false);
+            }}
           >
             {is2Hover ? (
               <Icon icon="handCodingWhiteIcon" width={42} height={42} />
@@ -200,6 +217,7 @@ const EveryBusinessSection = () => {
           </Stack>
           {/* right bottom */}
           <Stack
+            className="buttom-right-card"
             direction={"column"}
             gap={5}
             sx={{
@@ -209,16 +227,20 @@ const EveryBusinessSection = () => {
               borderRadius: "30px",
               border: `1.06px solid #0000001A`,
               alignItems: "center",
-              color: palette.base.white,
-              backgroundColor: palette.text.contactEmailColor,
+              color: isUpperHover ? palette.base.black : palette.base.white,
+              backgroundColor: isUpperHover
+                ? palette.base.white
+                : palette.text.contactEmailColor,
               transition: "all 0.3s ease", // Add transition for smooth animation
               "&:hover": {
                 color: palette.base.black,
                 backgroundColor: palette.base.white,
                 transform: "scale(1.05)", // Scale the component up by 10% on hover
               },
-              "&:hover .text-md-regular": {
-                color: palette.color.gray[745], // Change the color of the specific Typography on hover
+              "&:hover .text-md-regular-right": {
+                color: isUpperHover
+                  ? palette.color.gray[745]
+                  : palette.color.gray[745], // Change the color of the specific Typography on hover
               },
               "&:hover .display-sm0-medium": {
                 color: palette.base.black, // Change the color of the other Typography on hover
@@ -227,7 +249,7 @@ const EveryBusinessSection = () => {
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
           >
-            {isHover ? (
+            {isHover || isUpperHover ? (
               <Icon icon="gearsPurpoleIcon" width={42} height={42} />
             ) : (
               <Icon icon="gearsWhiteIcon" width={42} height={42} />
@@ -244,21 +266,41 @@ const EveryBusinessSection = () => {
             >
               Professional Services
             </Typography>
-            <Typography
-              variant="text-md-regular"
-              className="text-md-regular"
-              sx={{
-                width: "400px",
-                fontFamily: "Product Sans, sans-serif",
-                textAlign: "center",
-                // color: palette.base.white,
-                // Add a class for targeting in the hover state
-                "&.text-md-regular": {},
-              }}
-            >
-              Our invoice company provides significant benefits for professional
-              services. We offer a streamlined platform for creating
-            </Typography>
+            {isUpperHover ? (
+              <Typography
+                variant="text-md-regular"
+                className="text-md-regular-right"
+                sx={{
+                  width: "400px",
+                  fontFamily: "Product Sans, sans-serif",
+                  textAlign: "center",
+                  color: palette.color.gray[745],
+
+                  "&.text-md-regular": {},
+                }}
+              >
+                Our invoice company provides significant benefits for
+                professional services. We offer a streamlined platform for
+                creating
+              </Typography>
+            ) : (
+              <Typography
+                variant="text-md-regular"
+                className="text-md-regular-right"
+                sx={{
+                  width: "400px",
+                  fontFamily: "Product Sans, sans-serif",
+                  textAlign: "center",
+                  // color: palette.base.white,
+                  // Add a class for targeting in the hover state
+                  "&.text-md-regular": {},
+                }}
+              >
+                Our invoice company provides significant benefits for
+                professional services. We offer a streamlined platform for
+                creating
+              </Typography>
+            )}
           </Stack>
         </Stack>
       </Stack>
