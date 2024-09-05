@@ -38,8 +38,7 @@ const HelpSection = () => {
     });
   };
 
-  const resetProgress = () => {
-  };
+  const resetProgress = () => {};
 
   return (
     <Stack
@@ -52,6 +51,7 @@ const HelpSection = () => {
         backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",
+        mx: { md: "0px", xs: "0px" },
       }}
     >
       <Stack direction={"row"} gap={2}>
@@ -60,37 +60,53 @@ const HelpSection = () => {
           sx={{
             fontFamily: "Product Sans, sans-serif",
             color: palette.color.gray[805],
+            fontSize: { md: "48px", xs: "24px" },
+            lineHeight: { md: "64px", xs: "29px" },
+            fontWeight: { md: 700 },
           }}
         >
-          How
-        </Typography>
-        <Typography
-          variant="display-lg-bold"
-          sx={{
-            fontFamily: "Product Sans, sans-serif",
-            background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            display: "inline-block",
-          }}
-        >
-          ZeeInvoices Helps?
+          How{" "}
+          <Box
+            component="span"
+            sx={{
+              fontFamily: "Product Sans, sans-serif",
+              fontSize: { md: "48px", xs: "24px" },
+              lineHeight: { md: "64px", xs: "29px" },
+              fontWeight: { md: 700 },
+              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              display: "inline-block",
+            }}
+          >
+            ZeeInvoices Helps?
+          </Box>
         </Typography>
       </Stack>
       <Typography
         variant="text-xl-regular"
         sx={{
+          width: { md: "100%", xs: "335px" },
           fontFamily: "Product Sans, sans-serif",
           color: palette.color.gray[745],
+          fontSize: { md: "20px", xs: "12px" },
+          lineHeight: { md: "24px", xs: "18px" },
+          fontWeight: { md: 400 },
+          textAlign: { xs: "center" },
         }}
       >
         Effortless invoicing with essential features, Effortless invoicing with
         essential features. Effortless
       </Typography>
       <Stack
-        direction={"row"}
-        gap={8}
-        sx={{ display: "flex", justifyContent: "center", mt: "3%" }}
+        direction={{ md: "row", xs: "column" }}
+        gap={{ md: 8, xs: 2 }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: "3%",
+          mx: { md: "0px", xs: "30px" },
+        }}
       >
         {/* left section */}
         <Box>
@@ -102,7 +118,11 @@ const HelpSection = () => {
           />
         </Box>
         {/* right section */}
-        <Stack direction={"column"} gap={3} sx={{ width: "540px" }}>
+        <Stack
+          direction={"column"}
+          gap={3}
+          sx={{ width: { md: "540px", xs: "335px" } }}
+        >
           {expandableTextData.map((item, index) => (
             <ExpandableText
               key={index}

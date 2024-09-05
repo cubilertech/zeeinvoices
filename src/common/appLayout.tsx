@@ -10,11 +10,13 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   console.log(pathname, "current route");
   return (
-    <Box sx={{ background: palette.color.lightWhite, height: "100%" }}>
+    <>
+    {/* // <Box sx={{ background: palette.color.lightWhite, height: "100%" }}> */}
       <Header />
       {children}
       {pathname == "/" || pathname == "/termsAndCondition" ? <></> : <Footer />}
-    </Box>
+    {/* // </Box> */}
+    </>
   );
 };
 
