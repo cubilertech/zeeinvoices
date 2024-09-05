@@ -26,6 +26,10 @@ import DownloadModal from "../DownloadModal/downloadModal";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 import { palette } from "@/theme/palette";
 
+import { saveAs } from "file-saver";
+import { pdf } from "@react-pdf/renderer";
+import PdfView from "@/appPages/PdfView/pdfView";
+
 interface InvoiceHeaderProps {
   InvSetting: any;
   InvDetails: any;
@@ -167,6 +171,25 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     }, 500);
   };
 
+  const generatePDFDocument = async () => {
+    const itemDetail = InvDetails?.invoiceItem;
+    const doc = (
+      <PdfView
+        invSetting={{ ...InvSetting }}
+        invDetails={{ ...InvDetails }}
+        Summary={summaryDetail}
+        user={session?.user}
+        itemDetail={itemDetail}
+      />
+    );
+    const blobPdf = await pdf(doc);
+    blobPdf.updateContainer(doc);
+    const result = await blobPdf.toBlob();
+    saveAs(result, "ZeeInvoice");
+  };
+
+  console.log(InvSetting, InvDetails, summaryDetail, "data");
+
   return (
     <Stack
       direction={"row"}
@@ -214,24 +237,35 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         </Button>
         {validateButton ? (
           session ? (
-            <PdfDownloadLink
-              InvSetting={InvSetting}
-              InvDetails={InvDetails}
-              summaryDetail={summaryDetail}
+            // <PdfDownloadLink
+            //   InvSetting={InvSetting}
+            //   InvDetails={InvDetails}
+            //   summaryDetail={summaryDetail}
+            // >
+            //   <Tooltip title="Download PDF" placement="bottom">
+            //     <Button
+            //       variant="contained"
+            //       sx={{
+            //         height: "36px !important",
+            //         borderRadius: "4px",
+            //         py: "0px !important",
+            //       }}
+            //     >
+            //       Download PDF
+            //     </Button>
+            //   </Tooltip>
+            // </PdfDownloadLink>
+            <Button
+              variant="contained"
+              sx={{
+                height: "36px !important",
+                borderRadius: "4px",
+                py: "0px !important",
+              }}
+              onClick={() => generatePDFDocument()}
             >
-              <Tooltip title="Download PDF" placement="bottom">
-                <Button
-                  variant="contained"
-                  sx={{
-                    height: "36px !important",
-                    borderRadius: "4px",
-                    py: "0px !important",
-                  }}
-                >
-                  Download PDF
-                </Button>
-              </Tooltip>
-            </PdfDownloadLink>
+              Download
+            </Button>
           ) : (
             <Tooltip title="Download PDF" placement="bottom">
               <Button
