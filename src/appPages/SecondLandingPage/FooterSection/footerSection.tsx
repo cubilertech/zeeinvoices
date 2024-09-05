@@ -18,15 +18,26 @@ const FooterSection = () => {
         backgroundColor: "#F7F8F9",
         width: "100%",
         pt: 7,
+        // display:"flex",
+        // alignItems:"center",
       }}
     >
       <Stack
-        direction={"row"}
+        direction={{ md: "row", xs: "column" }}
         gap={8}
         justifyContent={"space-between"}
         sx={{ mx: "6%" }}
       >
-        <Stack direction={"column"} gap={2} sx={{ width: "667px" }}>
+        <Stack
+          direction={"column"}
+          gap={2}
+          sx={{
+            width: { sm: "667px", xs: "100%" },
+            justifyContent: { sm: "start", xs: "center" },
+            alignItems: { sm: "start", xs: "center" },
+            textAlign: { sm: "start", xs: "center" },
+          }}
+        >
           <Box sx={{ cursor: "pointer" }}>
             <Icon icon="logo" height={31} width={225} />
           </Box>
@@ -34,8 +45,11 @@ const FooterSection = () => {
             variant="text-md-regular"
             sx={{
               fontFamily: "Product Sans, sans-serif",
-              width: "667px",
+              width: { md: "667px", xs: "295px" },
               color: palette.color.gray[745],
+              fontSize: { md: "16px", xs: "12px" },
+              lineHeight: { md: "24px", xs: "24px" },
+              fontWeight: { md: 400 },
             }}
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum
@@ -46,7 +60,17 @@ const FooterSection = () => {
           </Typography>
 
           {/* Follow us */}
-          <Stack direction={"row"} gap={4} sx={{ width: "396px", mt: "3%" }}>
+          <Stack
+            direction={"row"}
+            gap={{ md: 4, xs: 3 }}
+            sx={{
+              width: {sm:"396px", xs:"100%"},
+              mt: "3%",
+              justifyContent: { sm: "start", xs: "center" },
+              alignItems: { sm: "start", xs: "center" },
+              textAlign: { sm: "start", xs: "center" },
+            }}
+          >
             <Typography
               variant="display-xs-regular"
               sx={{
@@ -56,7 +80,11 @@ const FooterSection = () => {
             >
               Follow us
             </Typography>
-            <Stack direction={"row"} gap={4} sx={{ alignItems: "center" }}>
+            <Stack
+              direction={"row"}
+              gap={{ md: 4, xs: 2 }}
+              sx={{ alignItems: "center" }}
+            >
               <Box
                 sx={{ cursor: "pointer" }}
                 onClick={() =>
@@ -107,9 +135,22 @@ const FooterSection = () => {
             </Stack>
           </Stack>
         </Stack>
-        <Stack direction={"row"} gap={15}>
+        <Stack
+          direction={{ md: "row", xs: "column" }}
+          sx={{ justifyContent: {sm:"start", xs: "center"}, alignItems: {sm:"start", xs: "center"} }}
+          gap={{ md: 15, xs: 5 }}
+        >
           {/* Pages */}
-          <Stack direction={"column"} gap={2} sx={{ width: "70px" }}>
+          <Stack
+            direction={"column"}
+            gap={2}
+            sx={{
+              width: {sm:"70px", xs: "100%"},
+              justifyContent: { sm: "start", xs: "center" },
+              alignItems: { sm: "start", xs: "center" },
+              textAlign: { sm: "start", xs: "center" },
+            }}
+          >
             <Typography
               variant="display-xs-regular"
               sx={{
@@ -161,7 +202,16 @@ const FooterSection = () => {
           </Stack>
 
           {/* Contact us */}
-          <Stack direction={"column"} gap={2} sx={{ width: "232px" }}>
+          <Stack
+            direction={"column"}
+            gap={2}
+            sx={{
+              width: {sm:"279px", xs:"100%"},
+              justifyContent: { sm: "start", xs: "center" },
+              alignItems: { sm: "start", xs: "center" },
+              textAlign: { sm: "start", xs: "center" },
+            }}
+          >
             <Typography
               variant="display-xs-regular"
               sx={{
@@ -197,7 +247,7 @@ const FooterSection = () => {
 
       <div
         style={{
-          marginTop: "7%",
+          marginTop: "3%",
           display: "flex",
           justifyContent: "center",
           textAlign: "center",

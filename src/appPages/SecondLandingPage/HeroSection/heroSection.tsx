@@ -29,9 +29,10 @@ const HeroSection = () => {
       }}
     >
       <Stack
-        direction={{ md: "row", xs: "column-reverse" }}
+        direction={{ md: "row", xs: "column" }}
         justifyContent={"space-between"}
         gap={9}
+        sx={{ mx: { md: "0px", xs: "30px" } }}
       >
         {/* left hero section */}
         <Stack
@@ -43,40 +44,49 @@ const HeroSection = () => {
             <Typography
               variant="display-3xl-bold"
               sx={{
-                width: "443px",
+                width: { md: "596px", xs: "335px" },
+                fontSize: { md: "74px", xs: "32px" },
+                lineHeight: { md: "75px", xs: "39px" },
+                fontWeight: { md: 700 },
                 color: palette.color.gray[755],
                 fontFamily: "Product Sans, sans-serif",
               }}
             >
-              AI powered
-            </Typography>
-            <Typography
-              variant="display-3xl-bold"
-              sx={{
-                width: "596px",
-                fontFamily: "Product Sans, sans-serif",
-              }}
-            >
-              custom invoices
-            </Typography>
-            <Typography
-              variant="display-xxxl-bold"
-              sx={{
-                width: "443px",
-                fontFamily: "Product Sans, sans-serif",
-                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                display: "inline-block",
-              }}
-            >
-              Free for all
+              AI powered{" "}
+              <Box
+                component="span"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  fontSize: { md: "74px", xs: "32px" },
+                  lineHeight: { md: "75px", xs: "39px" },
+                  fontWeight: { md: 700 },
+                  color: palette.color.gray[830],
+                }}
+              >
+                custom invoices{" "}
+              </Box>
+              <Box
+                component="span"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  fontSize: { md: "54px", xs: "32px" },
+                  lineHeight: { md: "75px", xs: "39px" },
+                  fontWeight: { md: 700 },
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  display: "inline-block",
+                }}
+              >
+                Free for all
+              </Box>
             </Typography>
           </Stack>
           <Typography
             variant="display-xs1-regular"
             sx={{
-              width: "531px",
+              maxWidth: { md: "531px", xs: "335px" },
               color: palette.color.gray[745],
               fontFamily: "Product Sans, sans-serif",
             }}

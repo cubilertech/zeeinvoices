@@ -35,8 +35,38 @@ const expandableTextData = [
   },
 ];
 
+const commentTextData = [
+  {
+    title1: "It was great experience!",
+    title2: "",
+    rating: 5,
+    desc1:
+      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+    desc2:
+      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+  },
+  {
+    title1: "It was a great tool!",
+    title2: "",
+    rating: 5,
+    desc1:
+      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
+    desc2:
+      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+  },
+  {
+    title1: "Great experience!",
+    title2: "",
+    rating: 5,
+    desc1:
+      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+    desc2:
+      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
+  },
+];
+
 const UsersSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
+  const [openIndex, setOpenIndex] = useState<number>(0); // for expanding the text description.
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
   };
@@ -67,40 +97,60 @@ const UsersSection = () => {
           sx={{
             fontFamily: "Product Sans, sans-serif",
             color: palette.color.gray[805],
+            fontSize: { md: "48px", xs: "24px" },
+            lineHeight: { md: "64px", xs: "29px" },
+            fontWeight: { md: 700 },
           }}
         >
-          What Our
-        </Typography>
-        <Typography
-          variant="display-lg-bold"
-          sx={{
-            fontFamily: "Product Sans, sans-serif",
-            background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            display: "inline-block",
-          }}
-        >
-          Users Say
+          What Our{" "}
+          <Box
+            component="span"
+            sx={{
+              fontFamily: "Product Sans, sans-serif",
+              fontSize: { md: "48px", xs: "24px" },
+              lineHeight: { md: "64px", xs: "29px" },
+              fontWeight: { md: 700 },
+              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              display: "inline-block",
+            }}
+          >
+            Users Say
+          </Box>
         </Typography>
       </Stack>
       <Typography
         variant="text-xl-regular"
         sx={{
+          width: { md: "100%", xs: "335px" },
           fontFamily: "Product Sans, sans-serif",
           color: palette.color.gray[745],
+          fontSize: { md: "20px", xs: "12px" },
+          lineHeight: { md: "24px", xs: "18px" },
+          fontWeight: { md: 400 },
+          textAlign: { xs: "center" },
         }}
       >
         Thousands of businesses trust Zeeinvoices to get paid faster.ZeeInvoices
         to get paid faster faster.
       </Typography>
       <Stack
-        direction={"row"}
+        direction={{ md: "row", xs: "column" }}
         gap={8}
-        sx={{ display: "flex", justifyContent: "center", mt: "3%" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: "3%",
+          alignItems: { xs: "center" },
+        }}
       >
         {/* left section */}
-        <Stack direction={"column"} gap={3} sx={{ width: "540px" }}>
+        <Stack
+          direction={"column"}
+          gap={3}
+          sx={{ width: { md: "560px", xs: "335px" } }}
+        >
           {expandableTextData.map((item, index) => (
             <SelectableComment
               key={index}
@@ -122,9 +172,12 @@ const UsersSection = () => {
             sx={{
               fontFamily: "Product Sans, sans-serif",
               color: palette.base.black,
+              fontSize: { md: "28px", xs: "14px" },
+              lineHeight: { md: "32px", xs: "32px" },
+              fontWeight: { md: 400 },
             }}
           >
-            It was great experience!
+            {commentTextData[openIndex].title1}
           </Typography>
           <Rating
             name="half-rating-read"
@@ -137,32 +190,28 @@ const UsersSection = () => {
           <Typography
             variant="text-xl-regular"
             sx={{
-              width: "560px",
+              width: { md: "560px", xs: "335px" },
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[745],
+              fontSize: { md: "20px", xs: "12px" },
+              lineHeight: { md: "24px", xs: "18px" },
+              fontWeight: { md: 400 },
             }}
           >
-            I recently used Zeeinvoice and I’m thoroughly impressed. The user
-            interface is incredibly intuitive and easy to navigate. The
-            available invoice templates are both professional and accurate,
-            which made creating my invoices a breeze.intuitive and easy to
-            navigate. The available invoice templates are both professional and
-            accurate, which made creating my invoices a breeze.
+            {commentTextData[openIndex].desc1}
           </Typography>
           <Typography
             variant="text-xl-regular"
             sx={{
-              width: "560px",
+              width: { md: "560px", xs: "335px" },
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[745],
+              fontSize: { md: "20px", xs: "12px" },
+              lineHeight: { md: "24px", xs: "18px" },
+              fontWeight: { md: 400 },
             }}
           >
-            I recently used Zeeinvoice and I’m thoroughly impressed. The user
-            interface is incredibly intuitive and easy to navigate. The
-            available invoice templates are both professional and accurate,
-            which made creating my invoices a breeze.intuitive and easy to
-            navigate. The available invoice templates are both professional and
-            accurate, which made creating my invoices a breeze.
+            {commentTextData[openIndex].desc2}
           </Typography>
         </Stack>
       </Stack>

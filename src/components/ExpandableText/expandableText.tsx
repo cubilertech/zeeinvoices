@@ -83,7 +83,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
         direction={"column"}
         sx={{
           py: "5px",
-          px: "15px",
+          px: { md: "15px", xs: "7px" },
         }}
       >
         <Stack
@@ -98,12 +98,32 @@ const ExpandableText: FC<ExpandableTextProps> = ({
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.text.expandableTextGreyColor,
+                fontSize: { md: "24px", xs: "14px" },
+                lineHeight: { md: "34px", xs: "18px" },
+                fontWeight: { md: 700 },
               }}
             >
-              {title1}
+              {title1}{" "}
+              <Box
+                component="span"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  fontSize: { md: "24px", xs: "14px" },
+                  lineHeight: { md: "34px", xs: "18px" },
+                  fontWeight: { md: 700 },
+                  background: isOpen
+                    ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
+                    : palette.text.expandableTextGreyColor,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  display: "inline-block",
+                }}
+              >
+                {title2}
+              </Box>
             </Typography>
           )}
-          <Typography
+          {/* <Typography
             variant="display-xs-bold"
             sx={{
               fontFamily: "Product Sans, sans-serif",
@@ -116,7 +136,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             }}
           >
             {title2}
-          </Typography>
+          </Typography> */}
         </Stack>
         <div
           style={{
@@ -130,6 +150,9 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             sx={{
               fontFamily: "Product Sans, sans-serif",
               color: palette.text.expandableTextGreyColor,
+              fontSize: { md: "20px", xs: "12px" },
+              lineHeight: { md: "34px", xs: "18px" },
+              fontWeight: { md: 400 },
             }}
           >
             {desc}

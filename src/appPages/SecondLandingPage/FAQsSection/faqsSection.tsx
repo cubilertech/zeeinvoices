@@ -1,7 +1,7 @@
 "use client";
 import { AccordionCardRightIcon } from "@/components/AccordionCardRightIcon";
 import { palette } from "@/theme/palette";
-import { Container, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
 const accordionData = [
@@ -45,7 +45,7 @@ const FAQsSection = () => {
       gap={3}
       sx={{
         width: "100%",
-        py: 9,
+        py: { md: 9, xs: 2 },
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: palette.base.white,
@@ -57,28 +57,39 @@ const FAQsSection = () => {
           sx={{
             fontFamily: "Product Sans, sans-serif",
             color: palette.color.gray[805],
+            fontSize: { md: "48px", xs: "24px" },
+            lineHeight: { md: "64px", xs: "29px" },
+            fontWeight: { md: 700 },
           }}
         >
-          Frequently
-        </Typography>
-        <Typography
-          variant="display-lg-bold"
-          sx={{
-            fontFamily: "Product Sans, sans-serif",
-            background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            display: "inline-block",
-          }}
-        >
-          Asked Questions
+          Frequently{" "}
+          <Box
+            component="span"
+            sx={{
+              fontFamily: "Product Sans, sans-serif",
+              fontSize: { md: "48px", xs: "24px" },
+              lineHeight: { md: "64px", xs: "29px" },
+              fontWeight: { md: 700 },
+              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              display: "inline-block",
+            }}
+          >
+            Asked Questions
+          </Box>
         </Typography>
       </Stack>
       <Typography
         variant="text-xl-regular"
         sx={{
+          width: { md: "100%", xs: "335px" },
           fontFamily: "Product Sans, sans-serif",
           color: palette.color.gray[745],
+          fontSize: { md: "20px", xs: "12px" },
+          lineHeight: { md: "24px", xs: "18px" },
+          fontWeight: { md: 400 },
+          textAlign: { xs: "center" },
         }}
       >
         Everything you need to know about the product and billing. about the

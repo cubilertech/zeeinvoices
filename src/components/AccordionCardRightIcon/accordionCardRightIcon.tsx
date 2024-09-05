@@ -32,7 +32,10 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
     >
       <Stack
         direction={"row"}
-        sx={{ py: "32px", borderBottom: "1px solid #0000001A" }}
+        sx={{
+          py: { md: "32px", xs: "10px" },
+          borderBottom: "1px solid #0000001A",
+        }}
       >
         <Stack
           direction={"column"}
@@ -42,7 +45,15 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
         >
           <Typography
             variant="display-xs"
-            sx={{ color: palette.color.gray[820], mt: "1%", cursor: "pointer" }}
+            sx={{
+              color: palette.color.gray[820],
+              fontFamily: "Product Sans, sans-serif",
+              mt: "1%",
+              cursor: "pointer",
+              fontSize: { md: "22px", xs: "14px" },
+              lineHeight: { md: "28px", xs: "18px" },
+              fontWeight: { md: 400 },
+            }}
             onClick={onToggle}
           >
             {title}
@@ -58,8 +69,12 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
             <Typography
               variant="text-md-regular"
               sx={{
+                fontFamily: "Product Sans, sans-serif",
                 color: palette.color.gray[725],
                 transition: "opacity 0.3s",
+                fontSize: { md: "16px", xs: "12px" },
+                lineHeight: { md: "24px", xs: "18px" },
+                fontWeight: { md: 400 },
               }}
             >
               {desc}
