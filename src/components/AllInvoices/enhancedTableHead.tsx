@@ -51,11 +51,17 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Created",
   },
+  // {
+  //   id: "status",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "Status",
+  // },
   {
-    id: "status",
+    id: "email",
     numeric: true,
     disablePadding: false,
-    label: "Status",
+    label: "Email",
   },
   {
     id: "total",

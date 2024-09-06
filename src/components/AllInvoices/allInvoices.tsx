@@ -454,7 +454,11 @@ export default function AllInvoices() {
                                 {row.id}
                               </TableCell>
                               <TableCell align="left">
-                                <Stack direction={"row"} gap={1}>
+                                <Stack
+                                  direction={"row"}
+                                  gap={1}
+                                  sx={{ alignItems: "center" }}
+                                >
                                   <Avatar
                                     sx={{
                                       bgcolor: palette.primary.main,
@@ -471,9 +475,9 @@ export default function AllInvoices() {
                                     <Typography variant="text-sm-medium">
                                       {row.to.name}
                                     </Typography>
-                                    <Typography variant="text-xs-regular">
+                                    {/* <Typography variant="text-xs-regular">
                                       {row.to.email}
-                                    </Typography>
+                                    </Typography> */}
                                   </Stack>
                                 </Stack>
                               </TableCell>
@@ -485,7 +489,7 @@ export default function AllInvoices() {
                                   {tableFormatDate(row.invoiceDate)}
                                 </Typography>
                               </TableCell>
-                              <TableCell align="left">
+                              {/* <TableCell align="left">
                                 <Badge
                                   color="primary"
                                   badgeContent={row.status}
@@ -498,7 +502,14 @@ export default function AllInvoices() {
                                     },
                                   }}
                                 ></Badge>
+                              </TableCell> */}
+
+                              <TableCell align="left">
+                                <Typography variant="text-xs-regular">
+                                  {row.to.email}
+                                </Typography>
                               </TableCell>
+
                               <TableCell align="left">
                                 {row.settings.currency}{" "}
                                 {calculateAmount(row.items).toFixed(2)}

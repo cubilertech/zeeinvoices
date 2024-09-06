@@ -71,12 +71,12 @@ const Header = () => {
   };
   const headerData = [
     { title: "Invoices", url: "/invoices" },
-    { title: "Clients", url: "/clients" },
+    { title: "Recipient", url: "/clients" },
   ];
   const headerLandingData = [
     { title: "Home", url: "/" },
     { title: "About Us", url: "" },
-    { title: "Learn", url: "" },
+    // { title: "Learn", url: "" },
   ];
   const handleButton = (data: any) => {
     // setSelected(data.title);
