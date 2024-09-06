@@ -51,7 +51,7 @@ const headCells: readonly HeadCell[] = [
   {
     id: "name",
     numeric: true,
-    disablePadding: true,
+    disablePadding: false,
     label: "Name",
   },
   {
@@ -300,7 +300,9 @@ export default function AllClients() {
                             padding="none"
                             sx={{ paddingLeft: "20px" }}
                           >
-                            {row?.name}
+                            <Typography variant="text-sm-regular">
+                              {row?.name}
+                            </Typography>
                           </TableCell>
                           <TableCell align="left">
                             <Typography variant="text-sm-regular">
@@ -322,7 +324,11 @@ export default function AllClients() {
                               {row?.city}
                             </Typography>
                           </TableCell>
-                          <TableCell align="left">{row?.state}</TableCell>
+                          <TableCell align="left">
+                            <Typography variant="text-sm-regular">
+                              {row?.state}
+                            </Typography>
+                          </TableCell>
                           <TableCell align="left">{row?.address}</TableCell>
                           <TableCell align="left">
                             <ClientPopOver

@@ -38,7 +38,7 @@ const initialColors: ColorOption[] = [
 const initialState: InvoiceSettingState = {
   colors: initialColors,
   color: "#2A2A2A",
-  currency: "$ USD",
+  currency: "$ Usd",
   dueDate: true,
   tax: true,
   detail: true,

@@ -481,6 +481,11 @@ export default function AllInvoices() {
                                   </Stack>
                                 </Stack>
                               </TableCell>
+                              <TableCell align="left">
+                                <Typography variant="text-sm-medium">
+                                  {row.to.email}
+                                </Typography>
+                              </TableCell>
                               <TableCell
                                 align="left"
                                 sx={{ paddingLeft: "17px" }}
@@ -503,12 +508,6 @@ export default function AllInvoices() {
                                   }}
                                 ></Badge>
                               </TableCell> */}
-
-                              <TableCell align="left">
-                                <Typography variant="text-xs-regular">
-                                  {row.to.email}
-                                </Typography>
-                              </TableCell>
 
                               <TableCell align="left">
                                 {row.settings.currency}{" "}

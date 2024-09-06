@@ -71,7 +71,7 @@ const Header = () => {
   };
   const headerData = [
     { title: "Invoices", url: "/invoices" },
-    { title: "Recipient", url: "/clients" },
+    { title: "Recipients", url: "/clients" },
   ];
   const headerLandingData = [
     { title: "Home", url: "/" },

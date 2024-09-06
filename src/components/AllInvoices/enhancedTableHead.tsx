@@ -46,6 +46,12 @@ const headCells: readonly HeadCell[] = [
     label: "Receipent",
   },
   {
+    id: "email",
+    numeric: true,
+    disablePadding: false,
+    label: "Email",
+  },
+  {
     id: "date",
     numeric: true,
     disablePadding: false,
@@ -57,12 +63,7 @@ const headCells: readonly HeadCell[] = [
   //   disablePadding: false,
   //   label: "Status",
   // },
-  {
-    id: "email",
-    numeric: true,
-    disablePadding: false,
-    label: "Email",
-  },
+
   {
     id: "total",
     numeric: true,
@@ -95,7 +96,7 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
   const createSortHandler =
     (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
-      order === "asc"
+      order === "asc";
     };
 
   return (

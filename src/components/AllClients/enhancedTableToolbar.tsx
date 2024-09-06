@@ -56,7 +56,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           id="tableTitle"
           component="div"
         >
-          All Clients
+          All Recipients
         </Typography>
       )}
       <Stack
