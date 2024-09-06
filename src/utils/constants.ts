@@ -80,7 +80,9 @@ export const icons = {
   twitterxIcon: "/Images/icons/twitterx-icon.svg",
 
   contactLocationIcon: "/Images/icons/contact-location-icon.svg",
+  contactWhiteLocationIcon: "/Images/icons/contact-location-white-icon.svg",
   contactPhoneIcon: "/Images/icons/contact-phone-icon.svg",
+  contactWhitePhoneIcon: "/Images/icons/contact-phone-white-icon.svg",
 };
 
 export const backendURL =

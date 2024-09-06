@@ -64,7 +64,15 @@ const expandableTextData = [
 
 interface TermsAndConditions {}
 const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
-  const [isHover, setIsHover] = useState(false);
+  const [hoveredBox, setHoveredBox] = useState<number | null>(null);
+
+  const handleBoxMouseEnter = (index: number) => {
+    setHoveredBox(index);
+  };
+
+  const handleBoxMouseLeave = () => {
+    setHoveredBox(null);
+  };
   const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
@@ -190,22 +198,42 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               backgroundColor: palette.base.white,
               transition: "all 0.3s ease", // Add transition for smooth animation
               "&:hover": {
-                transform: "scale(1.03)", // Scale the component up by 10% on hover
+                color: palette.base.white,
+                backgroundColor: palette.primary.main,
+                transform: "scale(1.05)", // Scale the component up by 10% on hover
+              },
+              "&:hover .text-md-regular": {
+                color: palette.base.white, // Change the color of the specific Typography on hover
+              },
+              "&:hover .display-sm0-medium": {
+                color: palette.base.white, // Change the color of the other Typography on hover
               },
             }}
+            onMouseEnter={() => handleBoxMouseEnter(0)} // Set hover state to true on mouse enter
+            onMouseLeave={handleBoxMouseLeave}
           >
             <Box>
-              <Image
-                src="/Images/contact-email-image.svg"
-                width={243}
-                height={243}
-                alt="rectangle iaptop bg"
-              />
+              {hoveredBox !== 0 ? (
+                <Image
+                  src="/Images/contact-email-image.svg"
+                  width={243}
+                  height={243}
+                  alt="rectangle iaptop bg"
+                />
+              ) : (
+                <Image
+                  src="/Images/contact-email-white-image.svg"
+                  width={243}
+                  height={243}
+                  alt="rectangle iaptop bg"
+                />
+              )}
             </Box>
 
             <Stack direction={"column"} gap={2.5} sx={{ pl: "12%" }}>
               <Typography
                 variant="display-md1-regular"
+                className="display-sm0-medium"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.base.black,
@@ -215,6 +243,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               </Typography>
               <Typography
                 variant="display-md1-medium"
+                className="text-md-regular"
                 sx={{
                   width: "500px",
                   fontFamily: "Product Sans, sans-serif",
@@ -241,13 +270,28 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 backgroundColor: palette.base.white,
                 transition: "all 0.3s ease", // Add transition for smooth animation
                 "&:hover": {
+                  color: palette.base.white,
+                  backgroundColor: palette.primary.main,
                   transform: "scale(1.05)", // Scale the component up by 10% on hover
                 },
+                "&:hover .text-md-regular": {
+                  color: palette.base.white, // Change the color of the specific Typography on hover
+                },
+                "&:hover .display-sm0-medium": {
+                  color: palette.base.white, // Change the color of the other Typography on hover
+                },
               }}
+              onMouseEnter={() => handleBoxMouseEnter(1)} // Set hover state to true on mouse enter
+              onMouseLeave={handleBoxMouseLeave}
             >
-              <Icon icon="contactLocationIcon" width={42} height={42} />
+              {hoveredBox === 1 ? (
+                <Icon icon="contactWhiteLocationIcon" width={42} height={42} />
+              ) : (
+                <Icon icon="contactLocationIcon" width={42} height={42} />
+              )}
               <Typography
                 variant="display-sm0-medium"
+                className="display-sm0-medium"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.base.black,
@@ -257,6 +301,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               </Typography>
               <Typography
                 variant="text-md-regular"
+                className="text-md-regular"
                 sx={{
                   width: "400px",
                   fontFamily: "Product Sans, sans-serif",
@@ -278,28 +323,34 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 borderRadius: "30px",
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
-                color: palette.base.white,
-                backgroundColor: palette.primary.main,
+                color:
+                  hoveredBox === 1 || hoveredBox === 0
+                    ? palette.base.black
+                    : palette.base.white,
+                backgroundColor:
+                  hoveredBox === 1 || hoveredBox === 0
+                    ? palette.base.white
+                    : palette.primary.main,
                 transition: "all 0.3s ease", // Add transition for smooth animation
                 "&:hover": {
-                  color: palette.base.black,
-                  backgroundColor: palette.base.white,
+                  color: palette.base.white,
+                  backgroundColor: palette.primary.main,
                   transform: "scale(1.05)", // Scale the component up by 10% on hover
                 },
                 "&:hover .text-md-regular": {
-                  color: palette.color.gray[745], // Change the color of the specific Typography on hover
+                  color: palette.base.white, // Change the color of the specific Typography on hover
                 },
                 "&:hover .display-sm0-medium": {
-                  color: palette.base.black, // Change the color of the other Typography on hover
+                  color: palette.base.white, // Change the color of the other Typography on hover
                 },
               }}
-              onMouseEnter={() => setIsHover(true)} // Set hover state to true on mouse enter
-              onMouseLeave={() => setIsHover(false)} // Set hover state to false on mouse leave
+              onMouseEnter={() => handleBoxMouseEnter(3)} // Set hover state to true on mouse enter
+              onMouseLeave={handleBoxMouseLeave} // Set hover state to false on mouse leave
             >
-              {isHover ? (
+              {hoveredBox === 1 || hoveredBox === 0 ? (
                 <Icon icon="contactPhoneIcon" width={42} height={42} />
               ) : (
-                <Icon icon="contactPhoneIcon" width={42} height={42} />
+                <Icon icon="contactWhitePhoneIcon" width={42} height={42} />
               )}
 
               <Typography
