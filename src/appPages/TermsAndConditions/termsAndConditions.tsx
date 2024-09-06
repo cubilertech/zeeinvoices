@@ -92,7 +92,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
         <Stack
           direction={"column"}
           gap={4}
-          sx={{ width: "65%", alignItems: "center", display: "flex", mt: "8%" }}
+          sx={{ width: "65%", alignItems: "center", display: "flex", mt: "6%" }}
         >
           <Stack
             direction={"column"}
@@ -163,6 +163,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 title2={item.title2}
                 desc={item.desc}
                 isOpen={openIndex === index}
+                isOneTitle={true}
                 onToggle={() => handleToggle(index)}
                 onComplete={handleComplete} // Pass the completion handler
               />

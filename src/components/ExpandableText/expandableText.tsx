@@ -28,6 +28,7 @@ interface ExpandableTextProps {
   title2?: string;
   desc?: string;
   isOpen: boolean;
+  isOneTitle?: boolean;
   onToggle: () => void;
   onComplete: () => void;
 }
@@ -37,6 +38,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
   title2,
   desc,
   isOpen,
+  isOneTitle,
   onToggle,
   onComplete,
 }) => {
@@ -72,13 +74,14 @@ const ExpandableText: FC<ExpandableTextProps> = ({
   };
 
   return (
-    <Stack direction={"row"}>
-      {isOpen ? (
-        <VerticalProgressBar value={progress} />
-      ) : (
-        <VerticalProgressBar value={0} />
-      )}
-
+    <Stack direction={"row"} sx={{ height: "fit-content" }}>
+      <Box>
+        {isOpen ? (
+          <VerticalProgressBar value={progress} />
+        ) : (
+          <VerticalProgressBar value={0} />
+        )}
+      </Box>
       <Stack
         direction={"column"}
         sx={{
@@ -123,20 +126,23 @@ const ExpandableText: FC<ExpandableTextProps> = ({
               </Box>
             </Typography>
           )}
-          {/* <Typography
-            variant="display-xs-bold"
-            sx={{
-              fontFamily: "Product Sans, sans-serif",
-              background: isOpen
-                ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
-                : palette.text.expandableTextGreyColor,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              display: "inline-block",
-            }}
-          >
-            {title2}
-          </Typography> */}
+
+          {isOneTitle && (
+            <Typography
+              variant="display-xs-bold"
+              sx={{
+                fontFamily: "Product Sans, sans-serif",
+                background: isOpen
+                  ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
+                  : palette.text.expandableTextGreyColor,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                display: "inline-block",
+              }}
+            >
+              {title2}
+            </Typography>
+          )}
         </Stack>
         <div
           style={{
