@@ -196,7 +196,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting }) => {
         </Box>
         <Typography
           variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 0 }}
+          sx={{ paddingBottom: 2, paddingTop: 2 }}
         >
           Invoice Detail
         </Typography>

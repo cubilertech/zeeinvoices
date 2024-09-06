@@ -9,10 +9,20 @@ import { getCurrency, setCurrency } from "@/redux/features/invoiceSetting";
 
 interface SelectInput {
   width?: string | number;
+  height?: string | number;
+  placeholder?: string;
+  borderRadius?: string | number;
   type?: string;
   menuData?: string[];
 }
-const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
+const SelectInput: FC<SelectInput> = ({
+  type,
+  menuData,
+  placeholder = "Select",
+  width = 200,
+  height = 36,
+  borderRadius = 2,
+}) => {
   const dispatch = useDispatch();
   const selectedInvoiceType = useSelector(getInvoiceType);
   const selectedCurrency = useSelector(getCurrency);
@@ -23,10 +33,10 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
   };
 
   return (
-    <Box borderRadius={1} sx={{ height: 60 }}>
+    <Box borderRadius={1}>
       <Stack direction={"column"} spacing={0.2}>
         <Typography variant="text-sm-medium">
-          {type === "currency" ? "" : type}
+          {type === "currency" || type === "Select SR" ? "" : type}
         </Typography>
         <Select
           IconComponent={(props) => (
@@ -55,18 +65,18 @@ const SelectInput: FC<SelectInput> = ({ type, menuData, width = 200 }) => {
           }}
           renderValue={(selected) => {
             if (!selected) {
-              return <span style={{ color: "grey" }}>Select</span>; // Placeholder text styling
+              return <span style={{ color: "grey" }}>{`${placeholder}`}</span>; // Placeholder text styling
             }
             return <span style={{ color: "black" }}>{selected}</span>;
           }}
           sx={{
             width: { width },
-            height: 36,
+            height: { height },
             "& fieldset": {
               borderColor: "#D6DAE1",
               ":hover": { borderColor: "black !important" },
             },
-            borderRadius: 2,
+            borderRadius: borderRadius,
             marginTop: 0,
             backgroundColor: palette.base.white,
           }}

@@ -6,6 +6,12 @@ export const icons = {
   facebook: "/Images/logos/facebook.svg",
   youtube: "/Images/logos/youtube.svg",
 
+  youtubeWhiteIcon: "/Images/icons/youtube-white-icon.svg",
+  instagramWhiteIcon: "/Images/icons/instagram-white-icon.svg",
+  facebookWhiteIcon: "/Images/icons/facebook-white-icon.svg",
+  twitterxWhiteIcon: "/Images/icons/twitterx-white-icon.svg",
+  linkedinWhiteIcon: "/Images/icons/linkedin-white-icon.svg",
+
   twitterlpf: "/Images/logos/twitter-lpf.svg",
   facebooklpf: "/Images/logos/facebook-lpf.svg",
   instagarmlpf: "/Images/logos/instagram-lpf.svg",

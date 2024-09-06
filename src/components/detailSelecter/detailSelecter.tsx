@@ -24,6 +24,7 @@ import {
   getRecipientDetail,
 } from "@/redux/features/invoiceSlice";
 import { useSelector } from "react-redux";
+import { SelectInput } from "../SelectInput";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -187,10 +188,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
   return (
     <Box
       borderRadius={1}
-      sx={{
-        width: 316,
-        height: 242,
-      }}
+      // sx={{
+      //   width: 316,
+      //   height: 242,
+      // }}
     >
       {title && (
         <Typography variant="text-sm-regular" color={palette.color.gray[110]}>
@@ -198,46 +199,56 @@ const DetailSelecter: FC<DetailSelecter> = ({
         </Typography>
       )}
       {!showData ? (
-        <Box
-          borderRadius={1}
-          sx={{
-            width: 292,
-            height: 192,
-            marginTop: 1.5,
-            padding: 2,
-            borderRadius: 2,
-            cursor: "pointer",
-            border: `1px solid ${palette.color.gray[120]}`,
-          }}
-          onClick={handleOpen}
-        >
-          <Stack direction={"row"} justifyContent={"space-between"}>
-            <Typography
-              variant="text-xs-regular"
-              color={palette.color.gray[770]}
-            >
-              {detailsOf} Details
-            </Typography>
-          </Stack>
-          <Stack
-            direction={"column"}
-            spacing={1.5}
+        <>
+          <SelectInput
+            width={292}
+            placeholder={`Add existing ${detailsOf}`}
+            borderRadius={"4px"}
+            type="Select SR"
+            menuData={["James", "James", "James"]}
+          />
+
+          <Box
+            borderRadius={1}
             sx={{
-              height: "90%",
-              justifyContent: "center",
-              alignItems: "center",
-              display: "flex",
+              width: 292,
+              height: 192,
+              marginTop: 1.5,
+              padding: 2,
+              borderRadius: 2,
+              cursor: "pointer",
+              border: `1px solid ${palette.color.gray[120]}`,
             }}
+            onClick={handleOpen}
           >
-            <Icon icon="addCircleIcon" height={32} width={32}></Icon>
-            <Typography
-              variant="text-xs-regular"
-              color={palette.color.gray[810]}
+            <Stack direction={"row"} justifyContent={"space-between"}>
+              <Typography
+                variant="text-xs-regular"
+                color={palette.color.gray[770]}
+              >
+                {detailsOf} Details
+              </Typography>
+            </Stack>
+            <Stack
+              direction={"column"}
+              spacing={1.5}
+              sx={{
+                height: "90%",
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+              }}
             >
-              Add New {detailsOf}
-            </Typography>
-          </Stack>
-        </Box>
+              <Icon icon="addCircleIcon" height={32} width={32}></Icon>
+              <Typography
+                variant="text-xs-regular"
+                color={palette.color.gray[810]}
+              >
+                Add New {detailsOf}
+              </Typography>
+            </Stack>
+          </Box>
+        </>
       ) : (
         // After data populate
         <Box

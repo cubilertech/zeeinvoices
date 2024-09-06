@@ -126,6 +126,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         </Stack>
         <SelectInput
           width={240}
+          borderRadius={"4px"}
           type="Invoice type"
           menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
         />
@@ -170,7 +171,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       <Stack
         direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
         justifyContent={"space-between"}
-        gap={5}
+        // gap={5}
         sx={{ marginTop: 2 }}
       >
         <DetailSelecter
@@ -191,7 +192,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         />
       </Stack>
       {/* Third section, Date pickers */}
-      <Stack direction={"row"} spacing={1} sx={{ marginTop: "45px" }}>
+      <Stack direction={"row"} spacing={1} sx={{ marginTop: "1%" }}>
         <Grid container spacing={0}>
           <Grid
             sx={{

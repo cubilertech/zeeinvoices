@@ -67,7 +67,7 @@ const FooterSection = () => {
               width: {sm:"396px", xs:"100%"},
               mt: "3%",
               justifyContent: { sm: "start", xs: "center" },
-              alignItems: { sm: "start", xs: "center" },
+              alignItems: { sm: "center", xs: "center" },
               textAlign: { sm: "start", xs: "center" },
             }}
           >

@@ -469,7 +469,7 @@ export default function AllInvoices() {
                                       justifyContent: "center",
                                     }}
                                   >
-                                    {row.to.name.charAt(0).toUpperCase()}
+                                    {/* {row.to.name.charAt(0).toUpperCase()} */}
                                   </Avatar>
                                   <Stack direction={"column"}>
                                     <Typography variant="text-sm-medium">
