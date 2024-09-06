@@ -206,7 +206,7 @@ const FooterSection = () => {
             direction={"column"}
             gap={2}
             sx={{
-              width: {sm:"279px", xs:"100%"},
+              width: {sm:"232px", xs:"100%"},
               justifyContent: { sm: "start", xs: "center" },
               alignItems: { sm: "start", xs: "center" },
               textAlign: { sm: "start", xs: "center" },
