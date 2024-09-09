@@ -37,7 +37,7 @@ export const icons = {
   logoutIcon: "/Images/icons/logout-icon.svg",
   viewIcon: "/Images/icons/view-icon.svg",
   deleteIcon: "/Images/icons/delete-icon.svg",
-  deleteRedIcon: "/Images/icons/delete-Red-icon.svg",
+  deleteRedIcon: "/Images/icons/delete-red-icon.svg",
   watermarkIcon: "/Images/icons/watermark-icon.svg",
   copyIcon: "/Images/icons/copy-icon.svg",
   whatsappIcon: "/Images/icons/whatsapp-icon.svg",

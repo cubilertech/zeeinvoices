@@ -97,12 +97,12 @@ const ExpandableText: FC<ExpandableTextProps> = ({
         >
           {title1 && (
             <Typography
-              variant="display-xs-bold"
+              // variant="display-xs-bold"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.text.expandableTextGreyColor,
-                fontSize: { md: "24px", xs: "14px" },
-                lineHeight: { md: "34px", xs: "18px" },
+                fontSize: { md: "24px !important", xs: "14px !important" },
+                lineHeight: { md: "34px !important", xs: "18px !important" },
                 fontWeight: { md: 700 },
               }}
             >
@@ -111,8 +111,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 component="span"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  fontSize: { md: "24px", xs: "14px" },
-                  lineHeight: { md: "34px", xs: "18px" },
+                  fontSize: { md: "24px !important", xs: "14px !important" },
+                  lineHeight: { md: "34px !important", xs: "18px !important" },
                   fontWeight: { md: 700 },
                   background: isOpen
                     ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
@@ -138,6 +138,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 display: "inline-block",
+                fontSize: { md: "24px !important", xs: "14px !important" },
+                lineHeight: { md: "34px !important", xs: "18px !important" },
               }}
             >
               {title2}

@@ -6,9 +6,14 @@ import {
   Button,
   CircularProgress,
   Container,
+  Divider,
+  IconButton,
+  Menu,
+  MenuItem,
   Popover,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
@@ -24,6 +29,7 @@ import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { getCountValue } from "@/redux/features/counterSlice";
 import { usePathname } from "next/navigation";
+import { BorderRight, Menu as MenuIcon } from "@mui/icons-material";
 
 const Header = () => {
   const pathname = usePathname();
@@ -31,10 +37,16 @@ const Header = () => {
   const route = useRouter();
   const dispatch = useDispatch();
   const counter = useSelector(getCountValue);
+  const isModile = useMediaQuery("(max-width: 500px)");
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   // const [selected, setSelected] = useState("Invoices");
+  const [anchorElMenu, setAnchorElMenu] = React.useState<null | HTMLElement>(
+    null
+  );
+  const openMenu = Boolean(anchorElMenu);
+
   //Fetch Profile Data
   const {
     data: profileData,
@@ -49,6 +61,12 @@ const Header = () => {
     route.push("/");
     dispatch(setResetInvoice());
     dispatch(setResetInvoiceSetting());
+  };
+  const handleClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElMenu(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorElMenu(null);
   };
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
@@ -94,8 +112,8 @@ const Header = () => {
         top: 0,
         left: 0,
         background: palette.base.white,
-        py: "14px",
-        px: "40px",
+        py: { sm: "14px", xs: "10px" },
+        px: { sm: "40px", xs: "5px" },
         borderBottom: `1px solid #00000033`,
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 0px 0px",
       }}
@@ -106,16 +124,252 @@ const Header = () => {
       >
         <Stack
           direction={"row"}
-          gap={9}
+          // gap={9}
           sx={{
-            justifyContent: "center",
+            justifyContent: { sm: "center", xs: "flex-start" },
             alignItems: "center",
+            gap: { sm: 9, xs: 2 },
           }}
         >
-          <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
-            <Icon icon="logo" height={24} width={175} />
+          <Box sx={{ display: { sm: "none", xs: "block" } }}>
+            <IconButton aria-haspopup="true" onClick={handleClickMenu}>
+              <MenuIcon sx={{ width: 24, height: 24 }} />
+            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorElMenu}
+              open={openMenu}
+              onClose={handleCloseMenu}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+              sx={{
+                "&.MuiMenu-list": {
+                  padding: 0,
+                },
+              }}
+              PaperProps={{
+                sx: {
+                  borderRadius: "8px", // Change border radius
+                  border: "1px solid #0000001A", // Add border
+                },
+              }}
+            >
+              {headerLandingData.map((data, index) => (
+                <>
+                  {index !== 0 && (
+                    <Divider
+                      sx={{
+                        my: "0px !important",
+                        p: 0,
+                        borderColor: "1px solid #0000001A",
+                        width: "80%",
+                        mx: "auto",
+                      }}
+                      variant="middle"
+                    />
+                  )}
+
+                  <MenuItem
+                    key={index}
+                    onClick={() => {
+                      handleCloseMenu();
+                      handleButton(data);
+                    }}
+                  >
+                    {data.title}
+                  </MenuItem>
+                </>
+              ))}
+              {session &&
+                headerData.map((data, index) => (
+                  <>
+                    <Divider
+                      sx={{
+                        my: "0px !important",
+                        p: 0,
+                        borderColor: "1px solid #0000001A",
+                        width: "80%",
+                        mx: "auto",
+                      }}
+                      variant="middle"
+                    />
+                    <MenuItem
+                      key={index}
+                      onClick={() => {
+                        handleCloseMenu();
+                        handleButton(data);
+                      }}
+                      // variant="text"
+                      // size="small"
+                      // sx={{
+                      //   color:
+                      //     data.url === pathname
+                      //       ? palette.primary.main
+                      //       : palette.base.black,
+                      //   borderBottom:
+                      //     data.url === pathname
+                      //       ? `2px solid ${palette.primary.main}`
+                      //       : "",
+                      //   borderRadius: "0px",
+                      //   px: 1,
+                      //   mr: 1,
+                      //   fontFamily: "Product Sans, sans-serif !important",
+                      //   fontSize: "14px !important",
+                      //   fontWeight: "400 !important",
+                      // }}
+                    >
+                      {data.title}
+                    </MenuItem>
+                  </>
+                ))}
+
+              {/* <MenuItem onClick={handleCloseMenu}>My account</MenuItem> */}
+              <Divider
+                sx={{
+                  my: "0px !important",
+                  p: 0,
+                  borderColor: "1px solid #0000001A",
+                  width: "80%",
+                  mx: "auto",
+                }}
+                variant="middle"
+              />
+              <MenuItem onClick={handleCloseMenu}>
+                {" "}
+                {!session?.accessToken ? (
+                  <Stack gap={1.5} mt={0.5}>
+                    {pathname == "/" ||
+                    pathname == "/termsAndCondition" ||
+                    pathname == "/contact-us" ? (
+                      <Button
+                        onClick={handleCrtInvButton}
+                        variant="outlined"
+                        disabled={loading}
+                        sx={{
+                          px: "20px",
+                          py: "8px",
+                          borderRadius: "4px",
+                          border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
+                        }}
+                      >
+                        Create Invoice
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+
+                    <Button
+                      onClick={handleLoginButton}
+                      variant={
+                        pathname == "/" || pathname == "/termsAndCondition"
+                          ? "contained"
+                          : "contained"
+                      }
+                      disabled={loading}
+                      sx={{
+                        height: "35px",
+                        py: "0px !important",
+                        px: "20px !important",
+                        borderRadius: "4px !important",
+                        fontFamily: "Product Sans, sans-serif !important",
+                        fontSize: "14px !important",
+                        fontWeight: "400 !important",
+                        background:
+                          "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      }}
+                    >
+                      {loading ? <CircularProgress size={18} /> : "Sign In"}
+                    </Button>
+                  </Stack>
+                ) : (
+                  <>
+                    <Typography sx={{ color: "black", alignSelf: "center" }}>
+                      Hi, {profileData?.name}
+                    </Typography>
+                    <Box>
+                      <Stack
+                        direction={"row"}
+                        gap={1}
+                        sx={{ cursor: "pointer" }}
+                        onClick={handleClick}
+                      >
+                        {profileData?.image ? (
+                          <Avatar
+                            sx={{ width: "32px", height: "32px" }}
+                            alt="Avatar"
+                            src={imageConvertion(profileData?.image)}
+                          />
+                        ) : (
+                          <Avatar
+                            sx={{ width: "32px", height: "32px" }}
+                            alt="Bvatar"
+                          />
+                        )}
+                        <Icon icon="arrowDownIcon" width={15} height={15} />
+                      </Stack>
+                      <Popover
+                        id={id}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }}
+                        sx={{ borderRadius: "8px" }}
+                      >
+                        <Stack direction={"column"}>
+                          <Button
+                            variant="outlined"
+                            onClick={handleProfile}
+                            startIcon={<Icon icon="profileIcon" />}
+                            sx={{
+                              border: "none",
+                              color: "#4B5563",
+                              "&:hover": {
+                                border: "none",
+                                color: "#4B5563",
+                                backgroundColor: palette.color.gray[10],
+                                borderRadius: 0,
+                              },
+                            }}
+                          >
+                            Profile
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            onClick={handleLogoutButton}
+                            startIcon={<Icon icon="logoutIcon" />}
+                            sx={{
+                              border: "none",
+                              color: "#4B5563",
+                              "&:hover": {
+                                border: "none",
+                                color: "#4B5563",
+                                backgroundColor: palette.color.gray[10],
+                                borderRadius: 0,
+                              },
+                            }}
+                          >
+                            Logout
+                          </Button>
+                        </Stack>
+                      </Popover>
+                    </Box>
+                  </>
+                )}
+              </MenuItem>
+            </Menu>
           </Box>
-          <Box>
+          <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
+            <Icon
+              icon="logo"
+              height={isModile ? 18 : 24}
+              width={isModile ? 132 : 175}
+            />
+          </Box>
+          <Box sx={{ display: { sm: "block", xs: "none" } }}>
             {headerLandingData.map((data, index) => (
               <Button
                 key={index}
@@ -171,7 +425,11 @@ const Header = () => {
               ))}
           </Box>
         </Stack>
-        <Stack direction={"row"} gap={3}>
+        <Stack
+          direction={"row"}
+          gap={3}
+          sx={{ display: { sm: "block", xs: "none" } }}
+        >
           {!session?.accessToken ? (
             <Stack direction={"row"} gap={1.5}>
               {pathname == "/" ||
