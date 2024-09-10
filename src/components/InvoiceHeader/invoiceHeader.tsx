@@ -142,8 +142,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       formData.append("dueDate", invoiceData.dueDate);
       formData.append("notes", invoiceData.notes);
       // Convert objects to JSON strings and append
-      formData.append("from", JSON.stringify(invoiceData.from));
-      formData.append("to", JSON.stringify(invoiceData.to));
+      // formData.append("from", "");
+      // formData.append("to", "");
+      formData.append("newFrom", JSON.stringify(invoiceData.from));
+      formData.append("newTo", JSON.stringify(invoiceData.to));
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
       createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
@@ -153,6 +155,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           dispatch(setResetInvoiceSetting());
         })
         .catch((err) => {
+          console.log(err, "err1");
           throw new Error("An error occurred");
         });
     }
