@@ -17,7 +17,7 @@ export interface InvoiceSettingState {
 }
 
 const initialColors: ColorOption[] = [
-  { id: 1, color: "#2A2A2A", isSelected: true },
+  { id: 1, color: "#4F35DF", isSelected: true },
   { id: 2, color: "#444444", isSelected: false },
   { id: 3, color: "#1A1A21", isSelected: false },
   { id: 4, color: "#6183E4", isSelected: false },
@@ -37,7 +37,7 @@ const initialColors: ColorOption[] = [
 
 const initialState: InvoiceSettingState = {
   colors: initialColors,
-  color: "#2A2A2A",
+  color: "#4F35DF",
   currency: "$ Usd",
   dueDate: true,
   tax: true,

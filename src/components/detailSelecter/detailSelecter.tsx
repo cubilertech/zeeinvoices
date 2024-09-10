@@ -250,7 +250,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
         </Typography>
       )}
       {/* <SelectSenderReceiver
-        width={292}
+        width={359}
         placeholder={`Add existing ${detailsOf}`}
         borderRadius={"4px"}
         type={`${detailsOf}`}
@@ -263,7 +263,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
           <Box
             borderRadius={1}
             sx={{
-              width: 292,
+              // width: 292,
+              width: 359,
               height: 192,
               marginTop: 1.5,
               padding: 2,
@@ -306,9 +307,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
         <Box
           borderRadius={1}
           sx={{
-            // width: 316,
-            // height: 242,
-            width: 292,
+            // width: 292,
+            width: 359,
             height: 222,
             marginTop: 1.5,
             padding: 2,

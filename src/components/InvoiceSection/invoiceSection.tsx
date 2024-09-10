@@ -172,7 +172,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       <Stack
         direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
         justifyContent={"space-between"}
-        // gap={5}
+        gap={2.5}
         sx={{ marginTop: 2 }}
       >
         <DetailSelecter

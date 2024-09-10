@@ -144,8 +144,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       // Convert objects to JSON strings and append
       // formData.append("from", "");
       // formData.append("to", "");
-      formData.append("newFrom", JSON.stringify(invoiceData.from));
-      formData.append("newTo", JSON.stringify(invoiceData.to));
+      // formData.append("newFrom", JSON.stringify(invoiceData.from));
+      // formData.append("newTo", JSON.stringify(invoiceData.to));
+      formData.append("from", JSON.stringify(invoiceData.from));
+      formData.append("to", JSON.stringify(invoiceData.to));
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
       createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })

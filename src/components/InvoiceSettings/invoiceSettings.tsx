@@ -19,7 +19,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting }) => {
   const reduxColors = useSelector((state: RootState) => getColors(state));
   console.log(`Invoice Settings, redux colors: ${reduxColors}`);
   const initialColors = [
-    { id: 1, color: "#2A2A2A", isSelected: true },
+    { id: 1, color: "#4F35DF", isSelected: true },
     { id: 2, color: "#444444", isSelected: false },
     { id: 3, color: "#1A1A21", isSelected: false },
     { id: 4, color: "#6183E4", isSelected: false },
