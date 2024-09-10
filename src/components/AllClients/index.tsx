@@ -246,7 +246,15 @@ export default function AllClients() {
         >
           <Paper
             elevation={0}
-            sx={{ width: "100%", px: "20px", mb: 2, pb: 1, border: "none" }}
+            sx={{
+              width: "100%",
+              px: "20px",
+              mb: 2,
+              pb: 1,
+              border: "none",
+              borderRadius: "8px",
+              boxShadow: `0px 0px 2px 0px #0000001A`,
+            }}
           >
             <EnhancedTableToolbar
               handleClientAddModel={handleClientAddModel}

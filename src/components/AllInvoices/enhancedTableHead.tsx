@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
+  Typography,
 } from "@mui/material";
 
 import React, { FC } from "react";
@@ -133,7 +134,13 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
               )}
               // IconComponent={orderBy === headCell.id && order === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon}
             >
-              {headCell.label}
+              <Typography
+                variant="text-xs-medium"
+                sx={{ color: palette.color.gray[840] }}
+              >
+                {headCell.label}
+              </Typography>
+
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === "desc" ? "sorted descending" : "sorted ascending"}

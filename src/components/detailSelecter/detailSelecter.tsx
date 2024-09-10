@@ -200,13 +200,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
       )}
       {!showData ? (
         <>
-          <SelectInput
+          {/* <SelectInput
             width={292}
             placeholder={`Add existing ${detailsOf}`}
             borderRadius={"4px"}
             type="Select SR"
             menuData={["James", "James", "James"]}
-          />
+          /> */}
 
           <Box
             borderRadius={1}

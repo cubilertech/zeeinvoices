@@ -475,7 +475,7 @@ const Header = () => {
               </Button>
             </Stack>
           ) : (
-            <>
+            <Stack direction={"row"} gap={2}>
               <Typography sx={{ color: "black", alignSelf: "center" }}>
                 Hi, {profileData?.name}
               </Typography>
@@ -549,7 +549,7 @@ const Header = () => {
                   </Stack>
                 </Popover>
               </Box>
-            </>
+            </Stack>
           )}
         </Stack>
       </Container>

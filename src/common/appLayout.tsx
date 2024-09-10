@@ -13,7 +13,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
     <>
       {/* // <Box sx={{ background: palette.color.lightWhite, height: "100%" }}> */}
       <Header />
-      {children}
+      <Box sx={{backgroundColor:palette.color.lightWhite}}>{children}</Box>
       {pathname == "/" ||
       pathname == "/termsAndCondition" ||
       pathname == "/contact-us" ? (
