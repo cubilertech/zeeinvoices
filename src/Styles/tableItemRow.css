@@ -1,9 +1,13 @@
-.tableItemRow:hover .deleteIconButton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.tableItemRow:hover .deleteIconButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.deleteIconButton{
-    display: none;
+.tableCell {
+  min-width: 200px;
+}
+
+.deleteIconButton {
+  display: none;
 }
