@@ -9,8 +9,8 @@ const themeOptions: ThemeOptions = {
   breakpoints: {
     values: {
       miniMobile: 0,
-      xs: 390,
-      sm: 600,
+      xs: 0,
+      sm: 500,
       md: 900,
       lg: 1200,
       xl: 1536,

@@ -2,12 +2,19 @@
 import { ContactInfoCard } from "@/components/ContactInfoCard";
 import { TermsConditions } from "@/components/TermsConditions";
 import { palette } from "@/theme/palette";
-import { Box, Container, Stack, Typography } from "@mui/material";
-import { FC, useState } from "react";
-import { FooterSection } from "../LandingPage/FooterSection";
+import {
+  Box,
+  Container,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { FC, useCallback, useState } from "react";
+// import { FooterSection } from "../LandingPage/FooterSection";
 import { ExpandableText } from "@/components/ExpandableText";
 import Image from "next/image";
 import { Icon } from "@/components/Icon";
+import { FooterSection } from "../SecondLandingPage/FooterSection";
 
 const expandableTextData = [
   {
@@ -64,7 +71,24 @@ const expandableTextData = [
 
 interface TermsAndConditions {}
 const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
-  const [isHover, setIsHover] = useState(false);
+  const isModile = useMediaQuery("(max-width: 500px)");
+  const [hoveredBox, setHoveredBox] = useState<number | null>(null);
+
+  const handleBoxMouseEnter = useCallback(
+    (index: number) => {
+      // Only update state if it's not already the hovered index
+      if (hoveredBox !== index) {
+        setHoveredBox(index);
+      }
+    },
+    [hoveredBox] // Add hoveredBox as a dependency
+  );
+  const handleBoxMouseLeave = useCallback(() => {
+    // Only clear state if it's not already null
+    if (hoveredBox !== null) {
+      setHoveredBox(null);
+    }
+  }, [hoveredBox]);
   const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
@@ -92,7 +116,12 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
         <Stack
           direction={"column"}
           gap={4}
-          sx={{ width: "65%", alignItems: "center", display: "flex", mt: "6%" }}
+          sx={{
+            width: { md: "65%", xs: "90%" },
+            alignItems: "center",
+            display: "flex",
+            mt: "6%",
+          }}
         >
           <Stack
             direction={"column"}
@@ -103,28 +132,20 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               alignItems: "center",
             }}
           >
-            <Stack
-              direction={"row"}
-              gap={2}
+            <Typography
+              variant="display-lg-bold"
               sx={{
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
+                fontFamily: "Product Sans, sans-serif",
+                color: palette.color.gray[805],
+                fontSize: { md: "48px !important", xs: "24px !important" },
+                lineHeight: { md: "64px !important", xs: "29.11px !important" },
               }}
             >
-              <Typography
-                variant="display-lg-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[805],
-                }}
-              >
-                Terms &
-              </Typography>
-              <Typography
-                variant="display-lg-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
+              Terms &{" "}
+              <span
+                // variant="display-lg-bold"
+                // component={"span"}
+                style={{
                   background:
                     "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   WebkitBackgroundClip: "text",
@@ -133,14 +154,15 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 }}
               >
                 Conditions
-              </Typography>
-            </Stack>
+              </span>
+            </Typography>
 
             <Typography
               variant="text-xl-regular"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.color.gray[745],
+                fontSize: { sm: "20px !important", xs: "18px !important" },
               }}
             >
               See our terms of Use
@@ -174,51 +196,96 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
         <Stack
           direction={"column"}
           gap={3}
-          sx={{ display: "flex", justifyContent: "center", mt: "3%" }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: { md: 3, xs: 1 },
+            mt: "3%",
+            width: { md: "fit-content", xs: "90%" },
+            mx: "auto",
+          }}
         >
           {/* upper section */}
           <Stack
             direction={"row"}
-            gap={13}
+            // gap={13}
             sx={{
-              width: "1200px",
+              width: { md: "1200px", xs: "100%" },
               px: "10%",
               py: "9%",
-              borderRadius: "30px",
+              borderRadius: { md: "30px", xs: "9.39px" },
               border: `1.06px solid #0000001A`,
               alignItems: "center",
               backgroundColor: palette.base.white,
-              transition: "all 0.3s ease", // Add transition for smooth animation
+              transition: "all 0.3s ease",
+              gap: { md: 13, xs: "22px" }, // Add transition for smooth animation
               "&:hover": {
-                transform: "scale(1.03)", // Scale the component up by 10% on hover
+                color: palette.base.white,
+                backgroundColor: palette.primary.main,
+                transform: "scale(1.05)", // Scale the component up by 10% on hover
+              },
+              "&:hover .text-md-regular": {
+                color: palette.base.white, // Change the color of the specific Typography on hover
+              },
+              "&:hover .display-sm0-medium": {
+                color: palette.base.white, // Change the color of the other Typography on hover
               },
             }}
+            onMouseEnter={() => handleBoxMouseEnter(0)} // Set hover state to true on mouse enter
+            onMouseLeave={handleBoxMouseLeave}
           >
-            <Box>
-              <Image
-                src="/Images/contact-email-image.svg"
-                width={243}
-                height={243}
-                alt="rectangle iaptop bg"
-              />
+            <Box
+              sx={{
+                width: { md: "243px", xs: "72px" },
+                height: { md: "243px", xs: "58px" },
+              }}
+            >
+              {hoveredBox !== 0 ? (
+                <Image
+                style={{}}
+                  src="/Images/contact-email-image.svg"
+                  width={isModile ? 72 : 243}
+                  height={isModile ? 58 : 243}
+                  alt="rectangle iaptop bg"
+                />
+              ) : (
+                <Image
+                  src="/Images/contact-email-white-image.svg"
+                  width={isModile ? 72 : 243}
+                  height={isModile ? 58 : 243}
+                  alt="rectangle iaptop bg"
+                />
+              )}
             </Box>
 
-            <Stack direction={"column"} gap={2.5} sx={{ pl: "12%" }}>
+            <Stack
+              direction={"column"}
+              sx={{ pl: "12%", gap: { md: 2.5, xs: 1 } }}
+            >
               <Typography
                 variant="display-md1-regular"
+                className="display-sm0-medium"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.base.black,
+                  fontSize: { md: "40px !important", xs: "14px !important" },
+                  lineHeight: {
+                    md: "31px  !important",
+                    xs: "9.94px !important",
+                  },
                 }}
               >
                 Email
               </Typography>
               <Typography
                 variant="display-md1-medium"
+                className="text-md-regular"
                 sx={{
-                  width: "500px",
+                  width: { md: "500px", xs: "auto" },
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.text.contactEmailColor,
+                  fontSize: { md: "28px !important", xs: "12px !important" },
+                  lineHeight: { md: "34px !important", xs: "18px !important" },
                 }}
               >
                 support@zeeinvoices.com
@@ -227,41 +294,78 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
           </Stack>
 
           {/* bottom section */}
-          <Stack direction={"row"} gap={3}>
+          <Stack
+            // direction={"row"}
+            gap={3}
+            sx={{ flexDirection: { md: "row", xs: "column" } }}
+          >
             <Stack
               direction={"column"}
-              gap={5}
+              // gap={5}
               sx={{
-                width: "587px",
+                width: { md: "587px", xs: "100%" },
                 px: "7%",
                 py: "5%",
-                borderRadius: "30px",
+                borderRadius: { md: "30px", xs: "9.39px" },
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
                 backgroundColor: palette.base.white,
-                transition: "all 0.3s ease", // Add transition for smooth animation
+                transition: "all 0.3s ease",
+                gap: { md: 5, xs: 1.5 }, // Add transition for smooth animation
                 "&:hover": {
+                  color: palette.base.white,
+                  backgroundColor: palette.primary.main,
                   transform: "scale(1.05)", // Scale the component up by 10% on hover
                 },
+                "&:hover .text-md-regular": {
+                  color: palette.base.white, // Change the color of the specific Typography on hover
+                },
+                "&:hover .display-sm0-medium": {
+                  color: palette.base.white, // Change the color of the other Typography on hover
+                },
               }}
+              onMouseEnter={() => handleBoxMouseEnter(1)} // Set hover state to true on mouse enter
+              onMouseLeave={handleBoxMouseLeave}
             >
-              <Icon icon="contactLocationIcon" width={42} height={42} />
+              {hoveredBox === 1 ? (
+                <Icon
+                  icon="contactWhiteLocationIcon"
+                  width={isModile ? 31 : 42}
+                  height={isModile ? 35 : 42}
+                />
+              ) : (
+                <Icon
+                  icon="contactLocationIcon"
+                  width={isModile ? 31 : 42}
+                  height={isModile ? 35 : 2}
+                />
+              )}
               <Typography
                 variant="display-sm0-medium"
+                className="display-sm0-medium"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.base.black,
+                  fontSize: { md: "26px !important", xs: "14px !important" },
+                  lineHeight: {
+                    md: "31px !important",
+                    xs: "7.34px !important",
+                  },
                 }}
               >
                 Address
               </Typography>
               <Typography
                 variant="text-md-regular"
+                className="text-md-regular"
                 sx={{
                   width: "400px",
                   fontFamily: "Product Sans, sans-serif",
                   textAlign: "center",
                   color: palette.color.gray[745],
+                  fontSize: { md: "16px !important", xs: "10px !important" },
+                  lineHeight: { md: "19px !important", xs: "18px !important" },
+                  mt: { md: 0, xs: 1 },
                 }}
               >
                 11133 Shady Trail PMB 205 Dallas, TX 75229
@@ -270,36 +374,51 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
             {/* right bottom */}
             <Stack
               direction={"column"}
-              gap={4}
+              // gap={4}
               sx={{
-                width: "587px",
+                width: { md: "587px", xs: "100%" },
                 px: "7%",
                 py: "5%",
-                borderRadius: "30px",
+                borderRadius: { md: "30px", xs: "9.39px" },
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
-                color: palette.base.white,
-                backgroundColor: palette.primary.main,
+                gap: { md: 5, xs: 1.5 },
+                color:
+                  hoveredBox === 1 || hoveredBox === 0
+                    ? palette.base.black
+                    : palette.base.white,
+                backgroundColor:
+                  hoveredBox === 1 || hoveredBox === 0
+                    ? palette.base.white
+                    : palette.primary.main,
                 transition: "all 0.3s ease", // Add transition for smooth animation
                 "&:hover": {
-                  color: palette.base.black,
-                  backgroundColor: palette.base.white,
+                  color: palette.base.white,
+                  backgroundColor: palette.primary.main,
                   transform: "scale(1.05)", // Scale the component up by 10% on hover
                 },
                 "&:hover .text-md-regular": {
-                  color: palette.color.gray[745], // Change the color of the specific Typography on hover
+                  color: palette.base.white, // Change the color of the specific Typography on hover
                 },
                 "&:hover .display-sm0-medium": {
-                  color: palette.base.black, // Change the color of the other Typography on hover
+                  color: palette.base.white, // Change the color of the other Typography on hover
                 },
               }}
-              onMouseEnter={() => setIsHover(true)} // Set hover state to true on mouse enter
-              onMouseLeave={() => setIsHover(false)} // Set hover state to false on mouse leave
+              onMouseEnter={() => handleBoxMouseEnter(3)} // Set hover state to true on mouse enter
+              onMouseLeave={handleBoxMouseLeave} // Set hover state to false on mouse leave
             >
-              {isHover ? (
-                <Icon icon="contactPhoneIcon" width={42} height={42} />
+              {hoveredBox === 1 || hoveredBox === 0 ? (
+                <Icon
+                  icon="contactPhoneIcon"
+                  width={isModile ? 29 : 42}
+                  height={isModile ? 30 : 42}
+                />
               ) : (
-                <Icon icon="contactPhoneIcon" width={42} height={42} />
+                <Icon
+                  icon="contactWhitePhoneIcon"
+                  width={isModile ? 29 : 42}
+                  height={isModile ? 30 : 42}
+                />
               )}
 
               <Typography
@@ -309,6 +428,11 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   // color: palette.base.white,
                   // Add a class for targeting in the hover state
                   "&.display-sm0-medium": {},
+                  fontSize: { md: "26px !important", xs: "14px !important" },
+                  lineHeight: {
+                    md: "31px !important",
+                    xs: "7.34px !important",
+                  },
                 }}
               >
                 Phone
@@ -323,6 +447,8 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   // color: palette.base.white,
                   // Add a class for targeting in the hover state
                   "&.text-md-regular": {},
+                  fontSize: { md: "16px !important", xs: "10px !important" },
+                  lineHeight: { md: "19px !important", xs: "18px !important" },
                 }}
               >
                 +14809201123

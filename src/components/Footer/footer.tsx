@@ -113,7 +113,7 @@ const Footer: FC = () => {
             </Box>
           </Stack>
           <Typography variant="body1" color={palette.color.gray[650]}>
-            © Copyrights 2024, All rights Reserved by Zee Invoices
+            © Copyrights 2024, All rights Reserved by ZeeInvoices
           </Typography>
         </Container>
       </Box>

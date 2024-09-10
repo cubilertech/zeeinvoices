@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
+  Typography,
 } from "@mui/material";
 import React, { FC } from "react";
 import { palette } from "@/theme/palette";
@@ -132,7 +133,12 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
                 </span>
               )}
             >
-              {headCell.label}
+              <Typography
+                variant="text-xs-medium"
+                sx={{ color: palette.color.gray[840] }}
+              >
+                {headCell.label}
+              </Typography>
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === "desc" ? "sorted descending" : "sorted ascending"}

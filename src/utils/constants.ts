@@ -37,7 +37,7 @@ export const icons = {
   logoutIcon: "/Images/icons/logout-icon.svg",
   viewIcon: "/Images/icons/view-icon.svg",
   deleteIcon: "/Images/icons/delete-icon.svg",
-  deleteRedIcon: "/Images/icons/delete-Red-icon.svg",
+  deleteRedIcon: "/Images/icons/delete-red-icon.svg",
   watermarkIcon: "/Images/icons/watermark-icon.svg",
   copyIcon: "/Images/icons/copy-icon.svg",
   whatsappIcon: "/Images/icons/whatsapp-icon.svg",
@@ -80,7 +80,9 @@ export const icons = {
   twitterxIcon: "/Images/icons/twitterx-icon.svg",
 
   contactLocationIcon: "/Images/icons/contact-location-icon.svg",
+  contactWhiteLocationIcon: "/Images/icons/contact-location-white-icon.svg",
   contactPhoneIcon: "/Images/icons/contact-phone-icon.svg",
+  contactWhitePhoneIcon: "/Images/icons/contact-phone-white-icon.svg",
 };
 
 export const backendURL =

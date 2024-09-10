@@ -7,7 +7,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { backendURL } from "@/utils/constants";
 import {
@@ -21,11 +21,9 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import SaveModal from "../SaveModal/saveModal";
 import { base64ToFile, handleLogin } from "@/utils/common";
-import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
 import DownloadModal from "../DownloadModal/downloadModal";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 import { palette } from "@/theme/palette";
-
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
