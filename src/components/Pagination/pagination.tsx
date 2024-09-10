@@ -109,7 +109,7 @@ const Pagination: FC<PaginationProps> = ({
         )}
         {isMobile ? "" : "Previous"}
       </Button>
-      <Box sx={{ display: "flex", gap: isMobile ? "5px" : 2 }}>
+      <Box sx={{ display: "flex", gap: isMobile ? "0px" : 2 }}>
         {pageNumbersToShow.map((pagenumber, index) => (
           <Box
             key={index}

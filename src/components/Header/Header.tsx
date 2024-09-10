@@ -135,26 +135,70 @@ const Header = () => {
             <IconButton aria-haspopup="true" onClick={handleClickMenu}>
               <MenuIcon sx={{ width: 24, height: 24 }} />
             </IconButton>
-            <Menu
-              id="basic-menu"
+            <Popover
+              // id="basic-menu"
               anchorEl={anchorElMenu}
               open={openMenu}
               onClose={handleCloseMenu}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
               }}
+              // style={{ borderRadius: "8px", p: 2 }}
               sx={{
-                "&.MuiMenu-list": {
-                  padding: 0,
-                },
-              }}
-              PaperProps={{
-                sx: {
-                  borderRadius: "8px", // Change border radius
-                  border: "1px solid #0000001A", // Add border
+                "& .MuiPopover-paper": {
+                  borderRadius: "8px",
+                  p: "8px 12px 8px 12px",
+                  width: "189px",
                 },
               }}
             >
+              {session?.accessToken && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    pb: 1,
+                  }}
+                >
+                  {" "}
+                  <Box sx={{ width: "41px", height: "41px" }}>
+                    {profileData?.image ? (
+                      <Avatar
+                        sx={{ width: "41px", height: "41px" }}
+                        alt="Avatar"
+                        src={imageConvertion(profileData?.image)}
+                      />
+                    ) : (
+                      <Avatar
+                        sx={{ width: "41px", height: "41px" }}
+                        alt="Bvatar"
+                      />
+                    )}
+                  </Box>
+                  <Typography
+                    sx={{
+                      color: "#52525B;",
+                      alignSelf: "center",
+                      mt: 2,
+                      fontSize: "14px",
+                    }}
+                  >
+                    Hi, {profileData?.name}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#4F35DF",
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {profileData?.email}
+                  </Typography>
+                </Box>
+              )}
               {headerLandingData.map((data, index) => (
                 <>
                   {index !== 0 && (
@@ -163,22 +207,23 @@ const Header = () => {
                         my: "0px !important",
                         p: 0,
                         borderColor: "1px solid #0000001A",
-                        width: "80%",
+                        width: "100%",
                         mx: "auto",
                       }}
                       variant="middle"
                     />
                   )}
 
-                  <MenuItem
+                  <Typography
                     key={index}
                     onClick={() => {
                       handleCloseMenu();
                       handleButton(data);
                     }}
+                    sx={{ py: 2, color: "black", fontSize: "12px" }}
                   >
                     {data.title}
-                  </MenuItem>
+                  </Typography>
                 </>
               ))}
               {session &&
@@ -189,178 +234,127 @@ const Header = () => {
                         my: "0px !important",
                         p: 0,
                         borderColor: "1px solid #0000001A",
-                        width: "80%",
+                        width: "100%",
                         mx: "auto",
                       }}
                       variant="middle"
                     />
-                    <MenuItem
+                    <Typography
                       key={index}
                       onClick={() => {
                         handleCloseMenu();
                         handleButton(data);
                       }}
-                      // variant="text"
-                      // size="small"
-                      // sx={{
-                      //   color:
-                      //     data.url === pathname
-                      //       ? palette.primary.main
-                      //       : palette.base.black,
-                      //   borderBottom:
-                      //     data.url === pathname
-                      //       ? `2px solid ${palette.primary.main}`
-                      //       : "",
-                      //   borderRadius: "0px",
-                      //   px: 1,
-                      //   mr: 1,
-                      //   fontFamily: "Product Sans, sans-serif !important",
-                      //   fontSize: "14px !important",
-                      //   fontWeight: "400 !important",
-                      // }}
+                      sx={{ py: 2, color: "black", fontSize: "12px" }}
                     >
                       {data.title}
-                    </MenuItem>
+                    </Typography>
                   </>
                 ))}
-
-              {/* <MenuItem onClick={handleCloseMenu}>My account</MenuItem> */}
               <Divider
                 sx={{
                   my: "0px !important",
                   p: 0,
                   borderColor: "1px solid #0000001A",
-                  width: "80%",
+                  width: "100%",
                   mx: "auto",
                 }}
                 variant="middle"
-              />
-              <MenuItem onClick={handleCloseMenu}>
-                {" "}
-                {!session?.accessToken ? (
-                  <Stack gap={1.5} mt={0.5}>
-                    {pathname == "/" ||
-                    pathname == "/termsAndCondition" ||
-                    pathname == "/contact-us" ? (
-                      <Button
-                        onClick={handleCrtInvButton}
-                        variant="outlined"
-                        disabled={loading}
-                        sx={{
-                          px: "20px",
-                          py: "8px",
-                          borderRadius: "4px",
-                          border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
-                        }}
-                      >
-                        Create Invoice
-                      </Button>
-                    ) : (
-                      <></>
-                    )}
-
+              />{" "}
+              {!session?.accessToken ? (
+                <Stack gap={1.5} mt={1}>
+                  {pathname == "/" ||
+                  pathname == "/termsAndCondition" ||
+                  pathname == "/contact-us" ? (
                     <Button
-                      onClick={handleLoginButton}
-                      variant={
-                        pathname == "/" || pathname == "/termsAndCondition"
-                          ? "contained"
-                          : "contained"
-                      }
+                      onClick={handleCrtInvButton}
+                      variant="outlined"
                       disabled={loading}
                       sx={{
-                        height: "35px",
-                        py: "0px !important",
-                        px: "20px !important",
-                        borderRadius: "4px !important",
-                        fontFamily: "Product Sans, sans-serif !important",
-                        fontSize: "14px !important",
-                        fontWeight: "400 !important",
-                        background:
-                          "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                        px: "20px",
+                        py: "8px",
+                        borderRadius: "4px",
+                        border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
                       }}
                     >
-                      {loading ? <CircularProgress size={18} /> : "Sign In"}
+                      Create Invoice
                     </Button>
-                  </Stack>
-                ) : (
-                  <>
-                    <Typography sx={{ color: "black", alignSelf: "center" }}>
-                      Hi, {profileData?.name}
-                    </Typography>
-                    <Box>
-                      <Stack
-                        direction={"row"}
-                        gap={1}
-                        sx={{ cursor: "pointer" }}
-                        onClick={handleClick}
-                      >
-                        {profileData?.image ? (
-                          <Avatar
-                            sx={{ width: "32px", height: "32px" }}
-                            alt="Avatar"
-                            src={imageConvertion(profileData?.image)}
-                          />
-                        ) : (
-                          <Avatar
-                            sx={{ width: "32px", height: "32px" }}
-                            alt="Bvatar"
-                          />
-                        )}
-                        <Icon icon="arrowDownIcon" width={15} height={15} />
-                      </Stack>
-                      <Popover
-                        id={id}
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "left",
-                        }}
-                        sx={{ borderRadius: "8px" }}
-                      >
-                        <Stack direction={"column"}>
-                          <Button
-                            variant="outlined"
-                            onClick={handleProfile}
-                            startIcon={<Icon icon="profileIcon" />}
-                            sx={{
-                              border: "none",
-                              color: "#4B5563",
-                              "&:hover": {
-                                border: "none",
-                                color: "#4B5563",
-                                backgroundColor: palette.color.gray[10],
-                                borderRadius: 0,
-                              },
-                            }}
-                          >
-                            Profile
-                          </Button>
-                          <Button
-                            variant="outlined"
-                            onClick={handleLogoutButton}
-                            startIcon={<Icon icon="logoutIcon" />}
-                            sx={{
-                              border: "none",
-                              color: "#4B5563",
-                              "&:hover": {
-                                border: "none",
-                                color: "#4B5563",
-                                backgroundColor: palette.color.gray[10],
-                                borderRadius: 0,
-                              },
-                            }}
-                          >
-                            Logout
-                          </Button>
-                        </Stack>
-                      </Popover>
-                    </Box>
-                  </>
-                )}
-              </MenuItem>
-            </Menu>
+                  ) : (
+                    <></>
+                  )}
+
+                  <Button
+                    onClick={handleLoginButton}
+                    variant={
+                      pathname == "/" || pathname == "/termsAndCondition"
+                        ? "contained"
+                        : "contained"
+                    }
+                    disabled={loading}
+                    sx={{
+                      height: "35px !important",
+                      py: "0px !important",
+                      px: "20px !important",
+                      borderRadius: "4px !important",
+                      fontFamily: "Product Sans, sans-serif !important",
+                      fontSize: "14px !important",
+                      fontWeight: "400 !important",
+                      background:
+                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    }}
+                  >
+                    {loading ? <CircularProgress size={18} /> : "Sign In"}
+                  </Button>
+                </Stack>
+              ) : (
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 1,
+                    mt: 2,
+                    flexDirection: "column",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    onClick={handleProfile}
+                    sx={{
+                      color: "#4F35DF",
+                      border: "0.56px solid #D6D8DC",
+                      borderRadius: "2px",
+                      "&:hover": {
+                        color: "#4F35DF",
+                        border: "0.56px solid #D6D8DC",
+                        backgroundColor: palette.color.gray[10],
+                        borderRadius: "2px",
+                      },
+                    }}
+                    disabled={loading}
+                  >
+                    Profile
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={handleLogoutButton}
+                    disabled={loading}
+                    sx={{
+                      height: "35px !important",
+                      py: "0px !important",
+                      px: "20px !important",
+                      borderRadius: "4px !important",
+                      fontFamily: "Product Sans, sans-serif !important",
+                      fontSize: "14px !important",
+                      fontWeight: "400 !important",
+                      background:
+                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      color: "white",
+                    }}
+                  >
+                    {loading ? <CircularProgress size={18} /> : "Logout"}
+                  </Button>
+                </Box>
+              )}
+            </Popover>
           </Box>
           <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
             <Icon

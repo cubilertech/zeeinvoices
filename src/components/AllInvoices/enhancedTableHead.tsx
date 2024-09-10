@@ -111,7 +111,7 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
       <TableRow sx={{ height: "40px !important", borderTopRightRadius: 9 }}>
         {headCells.map((headCell) => (
           <TableCell
-            sx={{ height: `40 !important`, py: "0px" }}
+            sx={{ height: `40px !important`, py: "0px" }}
             key={headCell.id}
             align="left"
             sortDirection={orderBy === headCell.id ? order : false}

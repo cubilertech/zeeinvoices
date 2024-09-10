@@ -43,7 +43,7 @@ import { useSession } from "next-auth/react";
 import EnhancedTableToolbar from "./enhancedTableToolbar";
 import EnhancedTableHead from "./enhancedTableHead";
 import { CreateFirstInvoice } from "@/appPages/CreateFirstInvoice";
-
+import "../../Styles/tableItemRow.css";
 import {
   getInvoiceItem,
   getDueDate as date,
@@ -124,44 +124,44 @@ interface HeadCell {
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
-  {
-    id: "id",
-    numeric: true,
-    disablePadding: true,
-    label: "Invoice #",
-  },
-  {
-    id: "name",
-    numeric: true,
-    disablePadding: false,
-    label: "Receipent",
-  },
-  {
-    id: "date",
-    numeric: true,
-    disablePadding: false,
-    label: "Created",
-  },
-  {
-    id: "status",
-    numeric: true,
-    disablePadding: false,
-    label: "Status",
-  },
-  {
-    id: "total",
-    numeric: true,
-    disablePadding: false,
-    label: "Total",
-  },
-  {
-    id: "action",
-    numeric: true,
-    disablePadding: false,
-    label: "Actions",
-  },
-];
+// const headCells: readonly HeadCell[] = [
+//   {
+//     id: "id",
+//     numeric: true,
+//     disablePadding: true,
+//     label: "Invoice #",
+//   },
+//   {
+//     id: "name",
+//     numeric: true,
+//     disablePadding: false,
+//     label: "Receipent",
+//   },
+//   {
+//     id: "date",
+//     numeric: true,
+//     disablePadding: false,
+//     label: "Created",
+//   },
+//   {
+//     id: "status",
+//     numeric: true,
+//     disablePadding: false,
+//     label: "Status",
+//   },
+//   {
+//     id: "total",
+//     numeric: true,
+//     disablePadding: false,
+//     label: "Total",
+//   },
+//   {
+//     id: "action",
+//     numeric: true,
+//     disablePadding: false,
+//     label: "Actions",
+//   },
+// ];
 
 export default function AllInvoices() {
   const allInvoiceItems = useSelector(getInvoiceItem);
@@ -457,11 +457,12 @@ export default function AllInvoices() {
                                 id={labelId}
                                 scope="row"
                                 padding="none"
+                                className="tableCell"
                                 sx={{ paddingLeft: "20px" }}
                               >
                                 {row.id}
                               </TableCell>
-                              <TableCell align="left">
+                              <TableCell align="left" className="tableCell">
                                 <Stack
                                   direction={"row"}
                                   gap={1}
@@ -489,7 +490,7 @@ export default function AllInvoices() {
                                   </Stack>
                                 </Stack>
                               </TableCell>
-                              <TableCell align="left">
+                              <TableCell align="left" className="tableCell">
                                 <Typography variant="text-sm-medium">
                                   {row.to.email}
                                 </Typography>
@@ -497,6 +498,7 @@ export default function AllInvoices() {
                               <TableCell
                                 align="left"
                                 sx={{ paddingLeft: "17px" }}
+                                className="tableCell"
                               >
                                 <Typography variant="text-sm-regular">
                                   {tableFormatDate(row.invoiceDate)}
@@ -517,11 +519,11 @@ export default function AllInvoices() {
                                 ></Badge>
                               </TableCell> */}
 
-                              <TableCell align="left">
+                              <TableCell align="left" className="tableCell">
                                 {row.settings.currency}{" "}
                                 {calculateAmount(row.items).toFixed(2)}
                               </TableCell>
-                              <TableCell align="left">
+                              <TableCell align="left" className="tableCell">
                                 <CustomPopOver
                                   handleOpenDeleteModal={handleOpenDeleteModal}
                                   record={row}
