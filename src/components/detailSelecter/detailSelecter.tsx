@@ -8,6 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { backendURL } from "@/utils/constants";
 import React, { FC, useState, useEffect } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
@@ -25,6 +26,12 @@ import {
 } from "@/redux/features/invoiceSlice";
 import { useSelector } from "react-redux";
 import { SelectInput } from "../SelectInput";
+import { SelectSenderReceiver } from "../SelectSenderReceiver";
+import {
+  useFetchAllDocument,
+  useFetchSingleDocument,
+} from "@/utils/ApiHooks/common";
+import { useSession } from "next-auth/react";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -63,6 +70,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
   handleSubmitForm,
   type,
 }) => {
+  const apiRouteSender = `${backendURL}/senders/getAll`;
+
+  const apiRouteClient = `${backendURL}/clients/getAll`;
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true), setOpenBd(true);
@@ -89,6 +100,20 @@ const DetailSelecter: FC<DetailSelecter> = ({
   }
   const senderDetail = useSelector(getSenderDetail);
   const recipientDetail = useSelector(getRecipientDetail);
+  const { data: session } = useSession();
+  const {
+    data: senderList,
+    refetch: refetchSenderList,
+    isFetching: fetchingSenderList,
+    isFetched: SenderFetched,
+  } = useFetchAllDocument(apiRouteSender);
+  const {
+    data: clientList,
+    refetch: refetchClientList,
+    isFetching: fetchingClientList,
+    isFetched: ClientFetched,
+  } = useFetchAllDocument(apiRouteClient);
+
   const {
     values,
     handleBlur,
@@ -185,6 +210,32 @@ const DetailSelecter: FC<DetailSelecter> = ({
     return "";
   };
 
+  const filteredClientData = React.useMemo(() => {
+    if (clientList && clientList?.clients?.length) {
+      return clientList?.clients;
+    } else {
+      return [];
+    }
+  }, [clientList]);
+
+  const filteredSenderData = React.useMemo(() => {
+    if (senderList && senderList?.senders?.length) {
+      return senderList?.senders;
+    } else {
+      return [];
+    }
+  }, [senderList]);
+
+  useEffect(() => {
+    if (session?.accessToken) {
+      refetchClientList();
+      refetchSenderList();
+    }
+  }, [refetchClientList, refetchSenderList, session?.accessToken]);
+  console.log(senderList, "senderList");
+  console.log(filteredClientData, "filteredClientData");
+  console.log(filteredSenderData, "filteredSenderData");
+
   return (
     <Box
       borderRadius={1}
@@ -198,20 +249,22 @@ const DetailSelecter: FC<DetailSelecter> = ({
           {title}
         </Typography>
       )}
+      {/* <SelectSenderReceiver
+        width={359}
+        placeholder={`Add existing ${detailsOf}`}
+        borderRadius={"4px"}
+        type={`${detailsOf}`}
+        filteredData={
+          detailsOf === `Sender` ? filteredSenderData : filteredClientData
+        }
+      /> */}
       {!showData ? (
         <>
-          {/* <SelectInput
-            width={292}
-            placeholder={`Add existing ${detailsOf}`}
-            borderRadius={"4px"}
-            type="Select SR"
-            menuData={["James", "James", "James"]}
-          /> */}
-
           <Box
             borderRadius={1}
             sx={{
-              width: 292,
+              // width: 292,
+              width: 359,
               height: 192,
               marginTop: 1.5,
               padding: 2,
@@ -254,8 +307,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
         <Box
           borderRadius={1}
           sx={{
-            width: 316,
-            height: 242,
+            // width: 292,
+            width: 359,
+            height: 222,
             marginTop: 1.5,
             padding: 2,
             borderRadius: 2,

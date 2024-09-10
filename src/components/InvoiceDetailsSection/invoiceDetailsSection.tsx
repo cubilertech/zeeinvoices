@@ -24,6 +24,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
     decodeURIComponent(imageSelected)
   );
   const itemsLength =
+    singleInvoice?.invoiceItem &&
     singleInvoice?.invoiceItem[0]?.name !== "" &&
     singleInvoice?.invoiceItem[0].quantity !== 0
       ? true

@@ -74,7 +74,7 @@ interface PdfViewProps {
   invDetails: any;
   Summary: any;
   user?: any;
-  itemDetail? : any;
+  itemDetail?: any;
 }
 
 // Create Document Component
@@ -105,11 +105,12 @@ const PdfView: FC<PdfViewProps> = ({
   useEffect(() => {
     setIsClient(true);
     const invoiceItems =
+      invDetails?.invoiceItem &&
       invDetails?.invoiceItem[0]?.name !== "" &&
       invDetails?.invoiceItem[0].quantity !== 0
         ? true
         : false;
-    console.log(invoiceItems, "Invoice Items", invDetails?.invoiceItem[0]);
+    // console.log(invoiceItems, "Invoice Items", invDetails?.invoiceItem[0]);
     setItemsLength(invoiceItems);
   }, [invDetails?.invoiceItem]);
 

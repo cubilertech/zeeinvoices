@@ -96,6 +96,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const reciptShow = InvDetails.to?.name !== "" ? true : false;
 
   const handleSubmitFrom = (values: any) => {
+    console.log(values, "values123")
     dispatch(setSenderDetail(values));
   };
   const handleSubmitTo = (values: any) => {
@@ -171,7 +172,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       <Stack
         direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
         justifyContent={"space-between"}
-        // gap={5}
+        gap={2.5}
         sx={{ marginTop: 2 }}
       >
         <DetailSelecter
@@ -192,27 +193,13 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         />
       </Stack>
       {/* Third section, Date pickers */}
-      <Stack direction={"row"} spacing={1} sx={{ marginTop: "1%" }}>
-        <Grid container spacing={0}>
-          <Grid
-            sx={{
-              padding: "8px",
-              paddingTop: "8px !important",
-              paddingLeft: "0px !important",
-            }}
-            item
-            xs={6.5}
-          >
-            <InvoiceDatePicker title="Invoice Date" />
-          </Grid>
-          <Grid
-            sx={{ padding: "8px", paddingTop: "8px !important" }}
-            item
-            xs={5.5}
-          >
-            {isDueDate ? <InvoiceDatePicker title="Due Date" /> : ""}
-          </Grid>
-        </Grid>
+      <Stack
+        direction={"row"}
+        justifyContent={"space-between"}
+        sx={{ marginTop: "2%" }}
+      >
+        <InvoiceDatePicker title="Invoice Date" />
+        {isDueDate ? <InvoiceDatePicker title="Due Date" /> : ""}
       </Stack>
       {/* Fourth section, add items table */}
       <InvoiceItemsTable />

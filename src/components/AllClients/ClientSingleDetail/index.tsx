@@ -114,7 +114,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
               fontSize: "32px",
             }}
           >
-            {singleClient?.name.charAt(0).toUpperCase()}
+            {singleClient?.name?.charAt(0).toUpperCase()}
           </Avatar>
           <Stack direction={"column"} gap={1}>
             <Typography

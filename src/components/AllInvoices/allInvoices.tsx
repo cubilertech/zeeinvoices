@@ -443,6 +443,7 @@ export default function AllInvoices() {
                     ) : (
                       <TableBody>
                         {filteredData?.map((row: any, index: number) => {
+                          console.log(row, "row12");
                           const labelId = `enhanced-table-checkbox-${index}`;
                           return (
                             <TableRow
@@ -482,7 +483,7 @@ export default function AllInvoices() {
                                   </Avatar>
                                   <Stack direction={"column"}>
                                     <Typography variant="text-sm-medium">
-                                      {row.to.name}
+                                      {row.to?.name || row.toDetails?.name}
                                     </Typography>
                                     {/* <Typography variant="text-xs-regular">
                                       {row.to.email}
@@ -492,7 +493,7 @@ export default function AllInvoices() {
                               </TableCell>
                               <TableCell align="left" className="tableCell">
                                 <Typography variant="text-sm-medium">
-                                  {row.to.email}
+                                  {row.to?.email || row.toDetails?.email}
                                 </Typography>
                               </TableCell>
                               <TableCell
