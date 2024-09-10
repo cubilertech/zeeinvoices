@@ -82,6 +82,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           flexDirection: { sm: "row", xs: "column" },
           alignItems: { sm: "center", xs: "flex-start" },
           justifyContent: { sm: "center", xs: "start" },
+          border: "1px solid #0000001A",
         }}
       >
         <TextField

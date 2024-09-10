@@ -85,7 +85,7 @@ const UsersSection = () => {
       sx={{
         width: "100%",
         pt: 3,
-        pb: 7,
+        pb: { sm: 7, xs: 4 },
         backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",

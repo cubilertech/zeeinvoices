@@ -253,7 +253,7 @@ export default function AllClients() {
               pb: 1,
               border: "none",
               borderRadius: "8px",
-              boxShadow: `0px 0px 2px 0px #0000001A`,
+              boxShadow: { sm: `0px 0px 2px 0px #0000001A` },
             }}
           >
             <EnhancedTableToolbar
@@ -306,39 +306,54 @@ export default function AllClients() {
                             id={labelId}
                             scope="row"
                             padding="none"
+                            className="tableCell"
                             sx={{ paddingLeft: "20px" }}
                           >
                             <Typography variant="text-sm-regular">
                               {row?.name}
                             </Typography>
                           </TableCell>
-                          <TableCell align="left">
+                          <TableCell align="left" className="tableCell">
                             <Typography variant="text-sm-regular">
                               {row?.email}
                             </Typography>
                           </TableCell>
-                          <TableCell align="left" sx={{ paddingLeft: "17px" }}>
+                          <TableCell
+                            align="left"
+                            className="tableCell"
+                            sx={{ paddingLeft: "17px" }}
+                          >
                             <Typography variant="text-sm-regular">
                               {row?.company_name}
                             </Typography>
                           </TableCell>
-                          <TableCell align="left" sx={{ paddingLeft: "17px" }}>
+                          <TableCell
+                            align="left"
+                            className="tableCell"
+                            sx={{ paddingLeft: "17px" }}
+                          >
                             <Typography variant="text-sm-regular">
                               {row?.phone_number}
                             </Typography>
                           </TableCell>
-                          <TableCell align="left" sx={{ paddingLeft: "17px" }}>
+                          <TableCell
+                            align="left"
+                            className="tableCell"
+                            sx={{ paddingLeft: "17px" }}
+                          >
                             <Typography variant="text-sm-regular">
                               {row?.city}
                             </Typography>
                           </TableCell>
-                          <TableCell align="left">
+                          <TableCell align="left" className="tableCell">
                             <Typography variant="text-sm-regular">
                               {row?.state}
                             </Typography>
                           </TableCell>
-                          <TableCell align="left">{row?.address}</TableCell>
-                          <TableCell align="left">
+                          <TableCell align="left" className="tableCell">
+                            {row?.address}
+                          </TableCell>
+                          <TableCell align="left" className="tableCell">
                             <ClientPopOver
                               handleOpenDeleteModal={handleOpenDeleteModal}
                               record={row}

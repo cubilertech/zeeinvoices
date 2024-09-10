@@ -128,7 +128,7 @@ const Header = () => {
           sx={{
             justifyContent: { sm: "center", xs: "flex-start" },
             alignItems: "center",
-            gap: { sm: 9, xs: 2 },
+            gap: { sm: 9, xs: 0.8 },
           }}
         >
           <Box sx={{ display: { sm: "none", xs: "block" } }}>

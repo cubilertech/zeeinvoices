@@ -21,8 +21,8 @@ const HeroSection = () => {
       direction={"column"}
       sx={{
         width: "100%",
-        py: 9,
-        pt: 15,
+        pb: { sm: 9, xs: 4 },
+        pt: { sm: 15, xs: 8 },
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: palette.base.white,
@@ -37,8 +37,7 @@ const HeroSection = () => {
         {/* left hero section */}
         <Stack
           direction={"column"}
-          gap={5}
-          sx={{ pl: { md: "3%", lg: "7%" }, mt: "4%" }}
+          sx={{ pl: { md: "3%", lg: "7%" }, mt: "4%", gap: { sm: 5, xs: 3 } }}
         >
           <Stack direction={"column"} gap={0.5}>
             <Typography
@@ -89,6 +88,8 @@ const HeroSection = () => {
               maxWidth: { md: "531px", xs: "335px" },
               color: palette.color.gray[745],
               fontFamily: "Product Sans, sans-serif",
+              fontSize: { sm: "24px !important", xs: "18px !important" },
+              lineHeight: { sm: "29px !important", xs: "21px !important" },
             }}
           >
             Simplify your invoicing process and focus on what really
