@@ -70,6 +70,7 @@ const FirstInvoice: FC = () => {
               variant="text-sm-regular"
               sx={{
                 color: palette.color.gray[770],
+                textAlign: "center"
               }}
             >
               No invoice to show, Please add an invoice to view.

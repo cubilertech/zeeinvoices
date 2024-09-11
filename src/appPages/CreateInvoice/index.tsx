@@ -7,8 +7,16 @@ import {
   getInvoiceItem,
   getDueDate as date,
 } from "@/redux/features/invoiceSlice";
-import { Box, Container, Stack } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { KeyboardArrowDown } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Container,
+  Popover,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
+import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 interface CreateInvoiceProps {
   type: string;
@@ -17,9 +25,19 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
   const allInvoiceItems = useSelector(getInvoiceItem);
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
+  const isModile = useMediaQuery("(max-width: 500px)");
   // Get Total Amount And Tax
+  const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const [total, setTotal] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  // open the color picker
+  const handleColorPickerClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
   useEffect(() => {
     const totalAmount = calculateAmount(allInvoiceItems);
     const totalTax = calculateTax(allInvoiceItems);
@@ -30,8 +48,13 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
     total: total,
     taxAmount: taxAmount,
   };
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
   return (
-    <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
+    <Container
+      maxWidth="lg"
+      sx={{ overflowY: "auto", height: "100%", mt: { sm: 0, xs: 6 } }}
+    >
       <Box sx={{ pt: 3, pb: 2 }}>
         <InvoiceHeader
           InvSetting={{ ...invoiceSetting }}
@@ -40,13 +63,44 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
           type={type}
         />
       </Box>
-      <Stack direction={"row"} gap={3}>
+      <Button
+        sx={{
+          display: { sm: "none", xs: "flex" },
+          border: "1px solid #4F35DF",
+          color: "#4F35DF",
+          width: "100%",
+          justifyContent: "space-between",
+        }}
+        variant="outlined"
+        onClick={handleColorPickerClick}
+        // endIcon={<KeyboardArrowDown sx={{ color: "#4F35DF" }} />}
+      >
+        Inoive Settings
+        <KeyboardArrowDown sx={{ color: "#4F35DF" }} />
+      </Button>
+
+      <Stack direction={"row"} gap={3} sx={{ mt: { sm: 0, xs: 2 } }}>
         <InvoiceSection
           InvDetails={invoiceDetail}
           type={type}
           InvSetting={{ ...invoiceSetting }}
         />
-        <InvoiceSettings InvSetting={{ ...invoiceSetting }} />
+        {isModile ? (
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <InvoiceSettings InvSetting={{ ...invoiceSetting }} handleClose={handleClose} />
+          </Popover>
+        ) : (
+          <InvoiceSettings InvSetting={{ ...invoiceSetting }} />
+        )}
       </Stack>
     </Container>
   );

@@ -579,7 +579,9 @@ export default function AllInvoices() {
               />
             </Box>
           ) : (
-            <CreateFirstInvoice />
+            <Box sx={{ pt: { sm: 0, xs: 5 } }}>
+              <CreateFirstInvoice />
+            </Box>
           )
         ) : (
           <Box

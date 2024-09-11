@@ -8,6 +8,7 @@ import {
   FormControl,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { Icon } from "../Icon";
@@ -54,6 +55,7 @@ interface Profile {}
 
 const Profile: FC<Profile> = ({}) => {
   const { data: session } = useSession();
+  const isModile = useMediaQuery("(max-width: 500px)");
   const counter = useSelector(getCountValue);
   const [showPassword, setShowPassword] = React.useState(false);
   const dispatch = useDispatch();
@@ -181,7 +183,10 @@ const Profile: FC<Profile> = ({}) => {
     return "";
   };
 
-  console.log(profileData?.image, ">>>>>>>>>>>>>>>>> profile image >>>>>>>>>>>>>>>>>>>>")
+  console.log(
+    profileData?.image,
+    ">>>>>>>>>>>>>>>>> profile image >>>>>>>>>>>>>>>>>>>>"
+  );
 
   return (
     <>
@@ -192,8 +197,8 @@ const Profile: FC<Profile> = ({}) => {
           alignSelf: "center",
           margin: "20px",
           marginTop: "70px",
-          width: "97%",
-          height: "928px",
+          width: { sm: "97%", xs: "90%" },
+          height: { sm: "928px", xs: "auto" },
           backgroundColor: palette.base.white,
         }}
       >
@@ -205,6 +210,7 @@ const Profile: FC<Profile> = ({}) => {
             borderTopLeftRadius: "8px",
             borderTopRightRadius: "8px",
             position: "relative",
+            width: "100%",
           }}
         ></Box>
 
@@ -217,15 +223,23 @@ const Profile: FC<Profile> = ({}) => {
         />
 
         {/* name and email  */}
-        <Stack direction={"column"} sx={{ ml: "210px", mt: "5px" }}>
+        <Stack
+          direction={"column"}
+          sx={{
+            ml: { sm: "210px", xs: "auto" },
+            mt: { sm: "5px", xs: "140px" },
+            mr: { sm: 0, xs: "auto" },
+            textAlign: { sm: "start", xs: "center" },
+          }}
+        >
           <Typography variant="display-xs-semibold">
-            {profileData ? profileData.name : "."}
+            {profileData ? profileData.name : "---"}
           </Typography>
           <Typography
             variant="text-md-regular"
             sx={{ color: palette.color.gray[735] }}
           >
-            {profileData ? profileData.email : "."}
+            {profileData ? profileData.email : "---"}
           </Typography>
         </Stack>
 
@@ -248,6 +262,7 @@ const Profile: FC<Profile> = ({}) => {
               // "@media (min-width: 960px) and (max-width: 1280px)": {
               //   maxWidth: "md", // Set maxWidth for medium-large screens
               // },
+              px: { sm: 2, xs: 0 },
               "@media (min-width: 1200px)": {
                 maxWidth: "lg", // Set maxWidth for large screens and above
               },
@@ -258,13 +273,20 @@ const Profile: FC<Profile> = ({}) => {
               sx={{
                 width: "100%",
                 mt: "50px",
-                mx: "20px",
+                mx: { sm: "20px", xs: "0px" },
                 p: "20px",
                 border: `1px solid ${palette.color.gray[5]}`,
                 borderRadius: "10px",
               }}
             >
-              <Stack direction={"row"} justifyContent={"space-between"}>
+              <Stack
+                // direction={"row"}
+                justifyContent={"space-between"}
+                sx={{
+                  flexDirection: { sm: "row", xs: "column" },
+                  gap: { sm: 0, xs: 3 },
+                }}
+              >
                 <Typography variant="text-xl-semibold">
                   Profile Details
                 </Typography>
@@ -272,7 +294,7 @@ const Profile: FC<Profile> = ({}) => {
                   disabled={profileLoading}
                   type="submit"
                   variant="contained"
-                  sx={{ gap: "7px" }}
+                  sx={{ gap: "7px", borderRadius: { sm: "8px", xs: "4px" } }}
                 >
                   {profileLoading ? (
                     <CircularProgress size={18} sx={{ color: "#8477DA" }} />
@@ -305,12 +327,12 @@ const Profile: FC<Profile> = ({}) => {
                   justifyContent={"space-between"}
                   sx={{ mt: "30px" }}
                 >
-                  <FormControl sx={{ width: "333px" }}>
+                  <FormControl sx={{ width: { sm: "333px", xs: "100%" } }}>
                     <TextField
                       label="Name/Company Name"
                       size="large"
                       name="name"
-                      sx={{ width: "333px" }}
+                      sx={{ width: { sm: "333px", xs: "100%" } }}
                       value={values.name}
                       onChange={handleChange}
                       helperText={touched.name && errors.name}
@@ -318,12 +340,17 @@ const Profile: FC<Profile> = ({}) => {
                       error={touched.name && Boolean(errors.name)}
                     />
                   </FormControl>
-                  <FormControl sx={{ width: "333px" }}>
+                  <FormControl
+                    sx={{
+                      width: { sm: "333px", xs: "100%" },
+                      mt: { sm: 0, xs: 1 },
+                    }}
+                  >
                     <TextField
                       label="Email"
                       size="large"
                       name="email"
-                      sx={{ width: "333px" }}
+                      sx={{ width: { sm: "333px", xs: "100%" } }}
                       disabled={true}
                       onChange={handleChange}
                       value={values.email}
@@ -332,7 +359,12 @@ const Profile: FC<Profile> = ({}) => {
                       error={touched.email && Boolean(errors.email)}
                     />
                   </FormControl>
-                  <FormControl sx={{ width: "333px" }}>
+                  <FormControl
+                    sx={{
+                      width: { sm: "333px", xs: "100%" },
+                      mt: { sm: 0, xs: 1 },
+                    }}
+                  >
                     <Typography
                       variant="text-sm-medium"
                       sx={{ marginBottom: "5px" }}
@@ -340,7 +372,7 @@ const Profile: FC<Profile> = ({}) => {
                       Phone
                     </Typography>
                     <PhoneInput
-                      style={{ width: "333px" }}
+                      style={{ width: isModile ? "100%" : "333px" }}
                       name="phoneNumber"
                       className="custom-phone-input"
                       defaultCountry="pk"
@@ -382,12 +414,12 @@ const Profile: FC<Profile> = ({}) => {
                   justifyContent={"space-between"}
                   sx={{ mt: "20px" }}
                 >
-                  <FormControl sx={{ width: "333px" }}>
+                  <FormControl sx={{ width: { sm: "333px", xs: "100%" } }}>
                     <TextField
                       label="City"
                       size="large"
                       name="city"
-                      sx={{ width: "333px" }}
+                      sx={{ width: { sm: "333px", xs: "100%" } }}
                       onChange={handleChange}
                       value={values.city}
                       helperText={touched.city && errors.city}
@@ -395,12 +427,17 @@ const Profile: FC<Profile> = ({}) => {
                       error={touched.city && Boolean(errors.city)}
                     />
                   </FormControl>
-                  <FormControl sx={{ width: "333px" }}>
+                  <FormControl
+                    sx={{
+                      width: { sm: "333px", xs: "100%" },
+                      mt: { sm: 0, xs: 1 },
+                    }}
+                  >
                     <TextField
                       label="State"
                       size="large"
                       name="state"
-                      sx={{ width: "333px" }}
+                      sx={{ width: { sm: "333px", xs: "100%" } }}
                       onChange={handleChange}
                       value={values.state}
                       helperText={touched.state && errors.state}
@@ -408,12 +445,17 @@ const Profile: FC<Profile> = ({}) => {
                       error={touched.state && Boolean(errors.state)}
                     />
                   </FormControl>
-                  <FormControl sx={{ width: "333px" }}>
+                  <FormControl
+                    sx={{
+                      width: { sm: "333px", xs: "100%" },
+                      mt: { sm: 0, xs: 1 },
+                    }}
+                  >
                     <TextField
                       label="Address"
                       size="large"
                       name="address"
-                      sx={{ width: "333px" }}
+                      sx={{ width: { sm: "333px", xs: "100%" } }}
                       onChange={handleChange}
                       value={values.address}
                       helperText={touched.address && errors.address}

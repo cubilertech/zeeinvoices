@@ -1,5 +1,12 @@
 "use client";
-import { Box, Grid, IconButton, Stack, TextField } from "@mui/material";
+import {
+  Box,
+  Grid,
+  IconButton,
+  Stack,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import { FC, ChangeEvent, useRef, useEffect } from "react";
 import { UploadLogo } from "../UploadLogo";
 import { SelectInput } from "../SelectInput";
@@ -83,6 +90,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const router = useRouter();
   const dispatch = useDispatch();
   const componentRef = useRef();
+  const isModile = useMediaQuery("(max-width: 500px)");
   const selectedColor = useSelectedColor();
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
@@ -96,7 +104,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const reciptShow = InvDetails.to?.name !== "" ? true : false;
 
   const handleSubmitFrom = (values: any) => {
-    console.log(values, "values123")
+    console.log(values, "values123");
     dispatch(setSenderDetail(values));
   };
   const handleSubmitTo = (values: any) => {
@@ -109,14 +117,18 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         boxShadow: palette.boxShadows[200],
         backgroundColor: palette.base.white,
         width: "100%",
-        padding: 4,
+        padding: { sm: 4, xs: 2 },
         marginBottom: 3,
         borderTop: "5px solid",
         borderColor: selectedColor,
       }}
     >
       {/* First section, add logo, invoice type, print */}
-      <Stack direction={"row"} justifyContent={"space-between"}>
+      <Stack
+        direction={"row"}
+        justifyContent={"space-between"}
+        sx={{ flexDirection: { sm: "row", xs: "column" } }}
+      >
         <Stack direction={"row"} spacing={3}>
           <UploadLogo logoDesc="Add your bussiness logo" />
           {/* <SelectInput
@@ -125,12 +137,14 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
             menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
           /> */}
         </Stack>
-        <SelectInput
-          width={240}
-          borderRadius={"4px"}
-          type="Invoice type"
-          menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
-        />
+        <Box sx={{ mt: { sm: 0, xs: 1 } }}>
+          <SelectInput
+            width={isModile ? "100%" : 240}
+            borderRadius={"4px"}
+            type="Invoice type"
+            menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
+          />
+        </Box>
         {/* <Box sx={{ width: 92, height: 40 }}>
           <Stack direction={"row"} spacing={2}>
             
@@ -183,6 +197,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           handleSubmitForm={handleSubmitFrom}
           type={type}
         />
+
         <DetailSelecter
           title="To"
           detailsOf="Recipient"
@@ -196,13 +211,20 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
-        sx={{ marginTop: "2%" }}
+        sx={{
+          marginTop: { sm: "2%", xs: 2 },
+          flexDirection: { sm: "row", xs: "column" },
+          gap: { sm: 0, xs: 2 },
+        }}
       >
         <InvoiceDatePicker title="Invoice Date" />
+
         {isDueDate ? <InvoiceDatePicker title="Due Date" /> : ""}
       </Stack>
       {/* Fourth section, add items table */}
+
       <InvoiceItemsTable />
+
       {/* Fifth section, Invoice summery */}
       <Box sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
         <InvoiceSummary />

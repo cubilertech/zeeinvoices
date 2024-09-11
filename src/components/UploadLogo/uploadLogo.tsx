@@ -367,7 +367,12 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     <>
       {invoiceLogo ? (
         <Box
-          sx={{ position: "relative", alignItems: "center", display: "flex" }}
+          sx={{
+            position: "relative",
+            alignItems: "center",
+            display: "flex",
+            width: { sm: "auto", xs: "100%" },
+          }}
         >
           <Image
             src={googleImage(invoiceLogo as string)}
@@ -407,7 +412,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
           sx={{
             border: "1px dashed",
             padding: 1,
-            width: 200,
+            width: { sm: 200, xs: "100%" },
             height: 56,
             cursor: "pointer",
             borderColor: palette.base.dashedBorderColor,

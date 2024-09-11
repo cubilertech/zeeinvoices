@@ -178,7 +178,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "566px",
+              width: { sm: "566px", xs: "90%" },
               height: "auto",
               bgcolor: palette.base.white,
               boxShadow: 1,
@@ -202,31 +202,34 @@ const ClientDetailModel: FC<ClientDetail> = ({
             </Stack>
             <form onSubmit={handleSubmit}>
               <Stack
-                direction={"row"}
+                // direction={"row"}
                 justifyContent={"space-between"}
-                sx={{ marginTop: "10px" }}
+                sx={{
+                  marginTop: "10px",
+                  flexDirection: { sm: "row", xs: "column" },
+                }}
               >
-                <FormControl sx={{ width: "240px" }}>
+                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
                     label="Name"
                     size="large"
                     name="name"
                     value={values.name}
                     onChange={handleChange}
-                    sx={{ width: "240px" }}
+                    sx={{ width: { sm: "240px", xs: "100%" } }}
                     helperText={touched.name && errors.name}
                     onBlur={handleBlur}
                     error={touched.name && Boolean(errors.name)}
                   />
                 </FormControl>
-                <FormControl sx={{ width: "240px" }}>
+                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
                     label="Company Name"
                     size="large"
                     name="companyName"
                     onChange={handleChange}
                     value={values.companyName}
-                    sx={{ width: "240px" }}
+                    sx={{ width: { sm: "240px", xs: "100%" } }}
                     helperText={touched.companyName && errors.companyName}
                     onBlur={handleBlur}
                     error={touched.companyName && Boolean(errors.companyName)}
@@ -234,24 +237,26 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 </FormControl>
               </Stack>
               <Stack
-                direction={"row"}
                 justifyContent={"space-between"}
-                sx={{ marginTop: "10px" }}
+                sx={{
+                  marginTop: "10px",
+                  flexDirection: { sm: "row", xs: "column" },
+                }}
               >
-                <FormControl sx={{ width: "240px" }}>
+                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
                     label="Email"
                     size="large"
                     name="email"
                     onChange={handleChange}
                     value={values.email}
-                    sx={{ width: "240px" }}
+                    sx={{ width: { sm: "240px", xs: "100%" } }}
                     helperText={touched.email && errors.email}
                     onBlur={handleBlur}
                     error={touched.email && Boolean(errors.email)}
                   ></TextField>
                 </FormControl>
-                <FormControl sx={{ width: "240px" }}>
+                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <Typography
                     variant="text-sm-medium"
                     sx={{ marginBottom: "5px" }}
@@ -288,31 +293,33 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 </FormControl>
               </Stack>
               <Stack
-                direction={"row"}
                 justifyContent={"space-between"}
-                sx={{ marginTop: "10px" }}
+                sx={{
+                  marginTop: "10px",
+                  flexDirection: { sm: "row", xs: "column" },
+                }}
               >
-                <FormControl sx={{ width: "240px" }}>
+                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
                     label="City"
                     size="large"
                     name="city"
                     onChange={handleChange}
                     value={values.city}
-                    sx={{ width: "240px" }}
+                    sx={{ width: { sm: "240px", xs: "100%" } }}
                     helperText={touched.city && errors.city}
                     onBlur={handleBlur}
                     error={touched.city && Boolean(errors.city)}
                   ></TextField>
                 </FormControl>
-                <FormControl sx={{ width: "240px" }}>
+                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
                     label="State"
                     size="large"
                     name="state"
                     onChange={handleChange}
                     value={values.state}
-                    sx={{ width: "240px" }}
+                    sx={{ width: { sm: "240px", xs: "100%" } }}
                     helperText={touched.state && errors.state}
                     onBlur={handleBlur}
                     error={touched.state && Boolean(errors.state)}
@@ -335,16 +342,19 @@ const ClientDetailModel: FC<ClientDetail> = ({
               </Box>
 
               <Stack
-                direction={"row"}
+                // direction={"row"}
                 justifyContent={"space-between"}
-                spacing={2}
-                sx={{ marginTop: "20px" }}
+                // spacing={2}  
+                sx={{
+                  marginTop: "20px",
+                  flexDirection: { sm: "row", xs: "column" },
+                }}
               >
                 <Button
                   onClick={handleModelClose}
                   variant="outlined"
                   sx={{
-                    width: "243px",
+                    width: { sm: "243px", xs: "100%" },
                     height: "40px",
                     borderColor: palette.base.borderColor,
                     color: "#445164",
@@ -355,7 +365,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ width: "243px", height: "40px" }}
+                  sx={{ width: { sm: "243px", xs: "100%" }, height: "40px", m: 0 }}
                 >
                   {type === "add" ? "Add " : "Update"}
                 </Button>

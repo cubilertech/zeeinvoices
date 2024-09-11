@@ -29,14 +29,14 @@ const InvoiceSummary: FC = () => {
       direction={"column"}
       sx={{
         borderRadius: "3px",
-        width: "240px",
+        width: {sm:"240px",xs: "100%"},
         border: `1px solid ${palette.base.borderColor}`,
       }}
     >
       {/* summary head */}
       <Box
         sx={{
-          width: "239px",
+          width: {sm:"239px",xs: "100%"},
           height: "30px",
           borderRadius: "2px 2px 0px 0px",
           backgroundColor: selectedColor,

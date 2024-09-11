@@ -1,6 +1,13 @@
 "use client";
 import { palette } from "@/theme/palette";
-import { Box, Button, Popover, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Popover,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { SelectInput } from "../SelectInput";
 import { SwitchInput } from "../SwitchInput";
@@ -10,11 +17,13 @@ import { HexColorPicker } from "react-colorful";
 import { useSelector, useDispatch } from "react-redux";
 import { getColors, setInvoiceColor } from "@/redux/features/invoiceSetting";
 import { RootState } from "@/redux/store";
+import { Close } from "@mui/icons-material";
 
 interface InvoiceSettings {
   InvSetting?: any;
+  handleClose?: () => void;
 }
-const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting }) => {
+const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
   console.log(`Invoice Settings, redux colors: ${reduxColors}`);
@@ -90,7 +99,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting }) => {
     setAnchorEl(null);
     dispatch(setInvoiceColor(color));
   };
-  const handleClose = () => {
+  const handleCloseMenu = () => {
     setAnchorEl(null);
   };
   // open the color picker
@@ -105,16 +114,30 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting }) => {
       borderRadius={3}
       sx={{
         width: 357,
-        height: 776,
+        height: { sm: 776, xs: "auto" },
         backgroundColor: palette.base.white,
         padding: 2,
         boxShadow: palette.boxShadows[100],
       }}
     >
       <Stack direction={"column"}>
-        <Typography variant="h6" sx={{ paddingBottom: 2, paddingTop: 1 }}>
-          Customize Your Invoice
-        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between", textAlign: "center" }}>
+          <Typography variant="h6" sx={{ paddingBottom: 2, paddingTop: 1 }}>
+            Customize Your Invoice
+          </Typography>
+          <IconButton
+            sx={{
+              display: { sm: "none", xs: "" },
+              borderRadius: "100%",
+              width: "24px",
+              height: "24px",
+            }}
+            onClick={handleClose}
+          >
+            <Close sx={{ width: "24px", height: "24px" }} />
+          </IconButton>
+        </Box>
+
         {/* Color palette for color selection */}
         <Typography
           variant="text-sm-regular"
@@ -142,7 +165,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting }) => {
             id={id}
             open={open}
             anchorEl={anchorEl}
-            onClose={handleClose}
+            onClose={handleCloseMenu}
             anchorOrigin={{
               vertical: "bottom",
               horizontal: "left",

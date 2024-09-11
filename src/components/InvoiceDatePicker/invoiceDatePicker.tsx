@@ -36,7 +36,7 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
       sx={{
         // width: 205,
         height: 25,
-        justifyContent: "center",
+        justifyContent: { sm: "center", xs: "space-between" },
         alignItems: "center",
         display: "flex",
       }}

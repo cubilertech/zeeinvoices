@@ -264,7 +264,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             borderRadius={1}
             sx={{
               // width: 292,
-              width: 359,
+              width: {sm:359,xs: "100%"},
               height: 192,
               marginTop: 1.5,
               padding: 2,

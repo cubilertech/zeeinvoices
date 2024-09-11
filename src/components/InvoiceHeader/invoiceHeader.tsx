@@ -1,5 +1,6 @@
 "use client";
 import {
+  Box,
   Button,
   CircularProgress,
   IconButton,
@@ -195,9 +196,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   return (
     <Stack
-      direction={"row"}
+      // direction={"row"}
       justifyContent={"space-between"}
-      sx={{ marginTop: "5%" }}
+      sx={{
+        marginTop: "5%",
+        flexDirection: { sm: "row", xs: "column" },
+        alignItems: "start",
+      }}
     >
       <Stack
         direction={"row"}
@@ -217,11 +222,19 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           Invoice: {InvDetails.id > 0 ? InvDetails.id : ""}
         </Typography>
       </Stack>
-      <Stack direction={"row"} justifyContent={"space-between"} spacing={2}>
+      <Stack
+        justifyContent={"space-between"}
+        spacing={2}
+        sx={{
+          flexDirection: { sm: "row", xs: "column-reverse" },
+          gap: { sm: 0, xs: 2 },
+          width: { sm: "auto", xs: "100%" },
+        }}
+      >
         <Button
           sx={{
             height: "36px",
-            width: "73px",
+            width: { sm: "73px", xs: "100%" },
             borderRadius: "4px",
             p: "0px !important",
             border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
@@ -258,17 +271,19 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             //     </Button>
             //   </Tooltip>
             // </PdfDownloadLink>
-            <Button
-              variant="contained"
-              sx={{
-                height: "36px !important",
-                borderRadius: "4px",
-                py: "0px !important",
-              }}
-              onClick={() => generatePDFDocument()}
-            >
-              Download
-            </Button>
+            <Box sx={{ width: { sm: "73px", xs: "100%" } }}>
+              <Button
+                variant="contained"
+                sx={{
+                  height: "36px !important",
+                  borderRadius: "4px",
+                  py: "0px !important",
+                }}
+                onClick={() => generatePDFDocument()}
+              >
+                Download
+              </Button>
+            </Box>
           ) : (
             <Tooltip title="Download PDF" placement="bottom">
               <Button
@@ -289,9 +304,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             variant="contained"
             disabled={true}
             sx={{
-              width: "138px",
+              width: { sm: "138px", xs: "100%" },
               borderRadius: "4px",
               py: "0px !important",
+              height: "36px !important",  
             }}
           >
             Download PDF
