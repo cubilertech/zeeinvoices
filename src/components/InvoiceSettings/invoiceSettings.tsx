@@ -114,7 +114,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
       borderRadius={3}
       sx={{
         width: 357,
-        height: { sm: "100%", xs: "auto" },
+        height: { sm: "auto", xs: "100%" },
         marginBottom: 3,
         backgroundColor: palette.base.white,
         padding: 2,
