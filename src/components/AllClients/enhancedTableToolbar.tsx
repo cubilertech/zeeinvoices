@@ -97,7 +97,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
             variant="contained"
             onClick={handleClientAddModel}
             endIcon={<Icon icon="plusIcon" width={15} />}
-            sx={{ height: `36px`, width: "140px" }}
+            sx={{ height: `36px`, borderRadius: "4px", width: "140px" }}
           >
             Create New
           </Button>

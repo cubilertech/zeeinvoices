@@ -249,15 +249,17 @@ const DetailSelecter: FC<DetailSelecter> = ({
           {title}
         </Typography>
       )}
-      {/* <SelectSenderReceiver
-        width={359}
-        placeholder={`Add existing ${detailsOf}`}
-        borderRadius={"4px"}
-        type={`${detailsOf}`}
-        filteredData={
-          detailsOf === `Sender` ? filteredSenderData : filteredClientData
-        }
-      /> */}
+      {session?.accessToken && type != "edit" && (
+        <SelectSenderReceiver
+          width={359}
+          placeholder={`Add existing ${detailsOf}`}
+          borderRadius={"4px"}
+          type={`${detailsOf}`}
+          filteredData={
+            detailsOf === `Sender` ? filteredSenderData : filteredClientData
+          }
+        />
+      )}
       {!showData ? (
         <>
           <Box
@@ -313,10 +315,14 @@ const DetailSelecter: FC<DetailSelecter> = ({
             marginTop: 1.5,
             padding: 2,
             borderRadius: 2,
-            cursor: "pointer",
+            cursor: type != "edit" ? "pointer" : "default",
             border: `1px solid ${palette.color.gray[120]}`,
           }}
-          onClick={handleOpen}
+          onClick={() => {
+            if (type != "edit") {
+              handleOpen();
+            }
+          }}
         >
           <Stack
             direction={"row"}
@@ -329,9 +335,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
             >
               {title === "From" ? "Sender Details" : "Recipient Details"}
             </Typography>
-            <IconButton sx={{ padding: 0 }}>
-              <Icon icon="editIcon" width={20} height={20} />
-            </IconButton>
+            {type != "edit" && (
+              <IconButton sx={{ padding: 0 }}>
+                <Icon icon="editIcon" width={20} height={20} />
+              </IconButton>
+            )}
           </Stack>
           <Stack spacing={2} sx={{ marginTop: 2 }}>
             <Typography variant="text-xs-bold">

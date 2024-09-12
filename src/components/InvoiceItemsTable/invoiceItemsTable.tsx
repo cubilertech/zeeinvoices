@@ -55,7 +55,7 @@ const InvoiceItemsTable: FC = () => {
         <Grid
           sx={{ padding: "0px", paddingTop: "2px !important" }}
           item
-          xs={4.3}
+          xs={4.5}
         >
           <Typography
             variant="text-xs-semibold"
@@ -70,11 +70,11 @@ const InvoiceItemsTable: FC = () => {
             paddingTop: "8px !important",
             paddingLeft: "8px !important",
             display: "flex",
-            justifyContent: "center",
+            // justifyContent: "center",
             alignItems: "center",
           }}
           item
-          xs={selectedTax ? 1.8 : 2.2}
+          xs={selectedTax ? 1.6 : 2}
           // xs={1.8}
         >
           <Typography
@@ -90,7 +90,7 @@ const InvoiceItemsTable: FC = () => {
             paddingTop: "6px !important",
             paddingLeft: "8px !important",
             display: "flex",
-            justifyContent: "center",
+            // justifyContent: "center",
             alignItems: "center",
           }}
           item
@@ -112,7 +112,7 @@ const InvoiceItemsTable: FC = () => {
               paddingTop: "6px !important",
               paddingLeft: "8px !important",
               display: "flex",
-              justifyContent: "center",
+              // justifyContent: "center",
               alignItems: "center",
             }}
             item
@@ -143,7 +143,7 @@ const InvoiceItemsTable: FC = () => {
             alignItems: "center",
           }}
           item
-          xs={selectedTax ? 2.2 : 3}
+          xs={selectedTax ? 2.3 : 3.1}
           // xs={2.2}
         >
           <Typography

@@ -1,13 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import {
-  Box,  
-  Container,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import { palette } from "@/theme/palette";
 import { Icon } from "@/components/Icon";
 import InvoiceDetailsSection from "@/components/InvoiceDetailsSection/invoiceDetailsSection";
@@ -60,8 +54,16 @@ const InvoiceDetail = () => {
           id: singleInvoice?.id,
           logo: singleInvoice?.image,
           invoiceType: singleInvoice?.type,
-          from: singleInvoice?.from,
-          to: singleInvoice?.to,
+          from: {
+            ...singleInvoice?.fromDetails,
+            phoneNumber: singleInvoice?.fromDetails?.phone_number,
+            companyName: singleInvoice?.fromDetails?.company_name,
+          },
+          to: {
+            ...singleInvoice?.toDetails,
+            phoneNumber: singleInvoice?.toDetails?.phone_number,
+            companyName: singleInvoice?.toDetails?.company_name,
+          },
           invoiceDate: singleInvoice?.invoiceDate,
           dueDate: singleInvoice?.dueDate,
           addtionalNotes: singleInvoice?.notes,
@@ -87,8 +89,16 @@ const InvoiceDetail = () => {
         id: singleInvoice?.id,
         logo: singleInvoice?.image,
         invoiceType: singleInvoice?.type,
-        from: singleInvoice?.from,
-        to: singleInvoice?.to,
+        from: {
+          ...singleInvoice?.fromDetails,
+          phoneNumber: singleInvoice?.fromDetails?.phone_number,
+          companyName: singleInvoice?.fromDetails?.company_name,
+        },
+        to: {
+          ...singleInvoice?.toDetails,
+          phoneNumber: singleInvoice?.toDetails?.phone_number,
+          companyName: singleInvoice?.toDetails?.company_name,
+        },
         invoiceDate: singleInvoice?.invoiceDate,
         dueDate: singleInvoice?.dueDate,
         addtionalNotes: singleInvoice?.notes,
@@ -108,11 +118,11 @@ const InvoiceDetail = () => {
 
   // Back Handle
   const handleBack = () => {
-   router.back();
-   setTimeout(() => {
-    dispatch(setResetInvoiceSetting());
-    dispatch(setResetInvoice());
-   }, 500);   
+    router.back();
+    setTimeout(() => {
+      dispatch(setResetInvoiceSetting());
+      dispatch(setResetInvoice());
+    }, 500);
   };
 
   return (
@@ -140,10 +150,10 @@ const InvoiceDetail = () => {
             {invoiceDetail?.id}
           </Typography>
         </Stack>
-        <Stack direction={"row"}>        
-            <IconButton sx={{ padding: 1 }} onClick={handleEditInvoice}>
-              <Icon icon="editIcon" width={20} height={20} />
-            </IconButton>
+        <Stack direction={"row"}>
+          <IconButton sx={{ padding: 1 }} onClick={handleEditInvoice}>
+            <Icon icon="editIcon" width={20} height={20} />
+          </IconButton>
           <IconButton sx={{ padding: 1 }} onClick={() => setShareModal(true)}>
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton>

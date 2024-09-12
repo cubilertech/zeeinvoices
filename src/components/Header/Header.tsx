@@ -455,6 +455,7 @@ const Header = () => {
                 }
                 disabled={loading}
                 sx={{
+                  height: "35px !important",
                   py: "0px !important",
                   px: "20px !important",
                   borderRadius: "4px !important",

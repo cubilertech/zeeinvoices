@@ -14,7 +14,6 @@ import {
   Typography,
 } from "@mui/material";
 import { FC } from "react";
-import { FooterSection } from "../LandingPage/FooterSection";
 import { ContactUsCard } from "@/components/ContactUsCrad";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
@@ -24,6 +23,7 @@ import MulTextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
+import { FooterSection } from "../SecondLandingPage/FooterSection";
 
 const alphaRegex = /^[a-zA-Z]+$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;

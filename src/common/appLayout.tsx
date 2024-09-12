@@ -24,7 +24,8 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
       ) : isModile ? (
         <FooterSection />
       ) : (
-        <DesktopFooter />
+        // <DesktopFooter />
+        <FooterSection />
       )}
       {/* </Box> */}
     </>

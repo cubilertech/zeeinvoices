@@ -105,7 +105,8 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting }) => {
       borderRadius={3}
       sx={{
         width: 357,
-        height: 776,
+        // height: 776,
+        marginBottom: 3,
         backgroundColor: palette.base.white,
         padding: 2,
         boxShadow: palette.boxShadows[100],

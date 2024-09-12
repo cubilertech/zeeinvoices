@@ -198,7 +198,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         <Grid
           sx={{ padding: "4px", paddingTop: "4px !important" }}
           item
-          xs={selectedTax ? 2.2 : 3.1}
+          xs={selectedTax ? 2.2 : 3}
         >
           <Typography
             sx={{
