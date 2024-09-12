@@ -66,6 +66,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               "& .MuiOutlinedInput-root": {
                 borderRadius: "2px !important",
               },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[800],
+                opacity: 0.7,
+              },
             }}
             id="outlined-basic"
             name="name"
@@ -92,6 +96,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               "& .MuiOutlinedInput-root": {
                 borderRadius: "2px !important",
               },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[800],
+                opacity: 0.7,
+              },
               "& input[type=number]": {
                 MozAppearance: "textfield",
                 "&::-webkit-outer-spin-button": {
@@ -102,17 +110,27 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   WebkitAppearance: "none",
                   margin: 0,
                 },
-                textAlign: "right",
+                textAlign: "left",
               },
             }}
             id="outlined-basic"
             name="quantity"
             type="number"
-            placeholder="1"
+            placeholder="1             "
             variant="outlined"
             value={data.quantity > 0 ? data.quantity : ""}
             inputProps={{ min: 0, style: { textAlign: "right" } }}
-            onChange={handleChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              const value = parseInt(e.target.value, 10);
+              if (value >= 0 || e.target.value === "") {
+                handleChange(e); // Now the type should match
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "-" || e.key === "e") {
+                e.preventDefault(); // Prevent entering the minus sign or 'e'
+              }
+            }}
           />
         </Grid>
         <Grid
@@ -126,6 +144,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
                 borderRadius: "2px !important",
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[800],
+                opacity: 0.7,
               },
               "& input[type=number]": {
                 MozAppearance: "textfield",
@@ -146,7 +168,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             placeholder="$       0.0"
             variant="outlined"
             value={data.rate > 0 ? data.rate : ""}
-            onChange={handleChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              const value = parseInt(e.target.value, 10);
+              if (value >= 0 || e.target.value === "") {
+                handleChange(e); // Now the type should match
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "-" || e.key === "e") {
+                e.preventDefault(); // Prevent entering the minus sign or 'e'
+              }
+            }}
           />
         </Grid>
 
@@ -167,6 +199,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   "& .MuiOutlinedInput-root": {
                     borderRadius: "2px !important",
                   },
+                  "& .MuiInputBase-input::placeholder": {
+                    color: palette.color.gray[800],
+                    opacity: 0.7,
+                  },
                   "& input[type=number]": {
                     MozAppearance: "textfield",
                     "&::-webkit-outer-spin-button": {
@@ -185,7 +221,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 placeholder="%      0.0"
                 variant="outlined"
                 value={data.tax > 0 ? data.tax : ""}
-                onChange={handleChange}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const value = parseInt(e.target.value, 10);
+                  if (value >= 0 || e.target.value === "") {
+                    handleChange(e); // Now the type should match
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "-" || e.key === "e") {
+                    e.preventDefault(); // Prevent entering the minus sign or 'e'
+                  }
+                }}
               />
             ) : (
               ""
@@ -201,6 +247,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           xs={selectedTax ? 2.2 : 3}
         >
           <Typography
+            variant="text-xs1-semibold"
             sx={{
               width: "100%", // Set width to ensure there's space to scroll
               color: palette.base.black,
@@ -218,13 +265,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               cursor: "pointer",
             }}
             title={`${
-              selectedCurrency === "$ USD" ? "$" : selectedCurrency
+              selectedCurrency === "$ Usd" ? "$" : selectedCurrency
             } ${(selectedTax
               ? data?.subTotal
               : data?.subTotal - data?.taxAmount
             ).toFixed(2)}`} // Optional: Show full value on hover
           >
-            {selectedCurrency === "$ USD" ? "$" : selectedCurrency}{" "}
+            {selectedCurrency === "$ Usd" ? "$" : selectedCurrency}{" "}
             {(selectedTax
               ? data?.subTotal
               : data?.subTotal - data?.taxAmount

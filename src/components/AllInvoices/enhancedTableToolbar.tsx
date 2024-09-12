@@ -65,7 +65,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
       ) : (
         <Typography
           sx={{ flex: "1 1 100%", color: "#1B2533" }}
-          variant="h6"
+          variant="text-lg-semibold"
           id="tableTitle"
           component="div"
         >
@@ -76,8 +76,8 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         direction={"row"}
         sx={{
           backgroundColor: "#FAFAFA",
-          borderRadius: "8px",
-          width: { sm: "292px", xs: "100%" },
+          borderRadius: "4px",
+          width: { sm: "272px", xs: "100%" },
           paddingLeft: "15px",
           flexDirection: { sm: "row", xs: "column" },
           alignItems: { sm: "center", xs: "flex-start" },
@@ -112,7 +112,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
       <Stack
         direction={"row"}
         sx={{
-          marginLeft: { sm: "50px", xs: "0px" },
+          marginLeft: { sm: "10px", xs: "0px" },
           width: { sm: "auto", xs: "100%" },
         }}
       >
@@ -137,6 +137,10 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
               height: `36px`,
               borderRadius: "4px",
               width: { sm: "140px", xs: "100%" },
+              fontFamily: "Product Sans, sans-serif !important",
+              fontSize: "14px !important",
+              fontWeight: "500 !important",
+              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
             }}
           >
             Create New

@@ -144,6 +144,7 @@ declare module "@mui/material/Typography" {
     "display-xs1-regular": true;
     "display-xs1-bold": true;
     "text-xs0-semibold": true;
+    "text-xs1-semibold": true;
   }
 }
 declare module "@mui/material/styles" {

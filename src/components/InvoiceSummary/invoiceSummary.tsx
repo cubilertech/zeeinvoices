@@ -29,14 +29,14 @@ const InvoiceSummary: FC = () => {
       direction={"column"}
       sx={{
         borderRadius: "3px",
-        width: {sm:"240px",xs: "100%"},
+        width: { sm: "240px", xs: "100%" },
         border: `1px solid ${palette.base.borderColor}`,
       }}
     >
       {/* summary head */}
       <Box
         sx={{
-          width: {sm:"239px",xs: "100%"},
+          width: { sm: "239px", xs: "100%" },
           height: "30px",
           borderRadius: "2px 2px 0px 0px",
           backgroundColor: selectedColor,
@@ -63,10 +63,13 @@ const InvoiceSummary: FC = () => {
         >
           Subtotal
         </Typography>
-        <Typography variant="text-xs-small" sx={{ color: palette.base.black }}>
+        <Typography
+          variant="text-xs0-semibold"
+          sx={{ color: palette.base.black, lineHeight: "14px" }}
+        >
           {" "}
-          {selectedCurrency === "$ USD" ? "USD" : selectedCurrency}{" "}
-          <span style={{ fontSize: 12, fontWeight: 500 }}>
+          {selectedCurrency === "$ Usd" ? "USD" : selectedCurrency}{" "}
+          <span style={{ fontSize: 12, fontWeight: 600 }}>
             {(total - taxAmount).toFixed(2)}
           </span>
         </Typography>
@@ -86,9 +89,12 @@ const InvoiceSummary: FC = () => {
             >
               Tax
             </Typography>
-            <Typography variant="text-xs-small" sx={{ color: palette.base.black }}>
+            <Typography
+              variant="text-xs0-semibold"
+              sx={{ color: palette.base.black, fontWeight: 300 }}
+            >
               {taxAmount > 0
-                ? (selectedCurrency === "$ USD" ? "USD" : selectedCurrency) +
+                ? (selectedCurrency === "$ Usd" ? "USD" : selectedCurrency) +
                   " " +
                   taxAmount.toFixed(2)
                 : "--"}
@@ -111,11 +117,14 @@ const InvoiceSummary: FC = () => {
         >
           Total
         </Typography>
-        <Typography variant="text-xs-small" sx={{ color: palette.base.black }}>
-          {selectedCurrency === "$ USD" ? "USD" : selectedCurrency}{" "}
-          <span style={{ fontSize: 12, fontWeight: 700 }}>
+        <Typography
+          variant="text-xs0-semibold"
+          sx={{ color: palette.base.black }}
+        >
+          {selectedCurrency === "$ Usd" ? "USD" : selectedCurrency}{" "}
+          <span style={{ fontSize: 12, fontWeight: 600 }}>
             {/* {total.toFixed(2)} */}
-            { (selectedTax ? total : (total - taxAmount)).toFixed(2) }
+            {(selectedTax ? total : total - taxAmount).toFixed(2)}
           </span>
         </Typography>
       </Stack>

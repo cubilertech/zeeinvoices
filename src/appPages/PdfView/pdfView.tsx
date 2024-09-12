@@ -686,6 +686,7 @@ const PdfView: FC<PdfViewProps> = ({
           </View>
         </View>
         {/* secion 6 : footer */}
+
         <View
           style={{
             marginLeft: "40px",
@@ -708,7 +709,7 @@ const PdfView: FC<PdfViewProps> = ({
               fontWeight: "bold",
             }}
           >
-            © Copyrights 2024, All rights Reserved by Zee Invoices
+            © Copyrights 2024, All rights Reserved by ZeeInvoices
           </Text>
         </View>
       </Page>

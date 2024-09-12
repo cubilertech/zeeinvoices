@@ -191,284 +191,302 @@ const Profile: FC<Profile> = ({}) => {
   return (
     <>
       <hr />
-      <Box
-        borderRadius={3}
+      <Container
+        maxWidth="lg"
         sx={{
-          alignSelf: "center",
-          margin: "20px",
-          marginTop: "70px",
-          width: { sm: "97%", xs: "90%" },
-          height: { sm: "928px", xs: "auto" },
-          backgroundColor: palette.base.white,
+          overflowY: "auto",
+          height: "100%",
+          mt: { sm: 0, xs: 6 },
         }}
       >
-        {/* top bar */}
         <Box
+          borderRadius={3}
           sx={{
-            height: "156px",
-            background: `linear-gradient(92.47deg, #3F4DE1 47.93%, #4B59E8 112.85%)`,
-            borderTopLeftRadius: "8px",
-            borderTopRightRadius: "8px",
-            position: "relative",
-            width: "100%",
-          }}
-        ></Box>
-
-        {/* circle avatar */}
-        <ProfileAvatar
-          uploadImage={uploadImage}
-          setUploadImage={setUploadImage}
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
-        />
-
-        {/* name and email  */}
-        <Stack
-          direction={"column"}
-          sx={{
-            ml: { sm: "210px", xs: "auto" },
-            mt: { sm: "5px", xs: "140px" },
-            mr: { sm: 0, xs: "auto" },
-            textAlign: { sm: "start", xs: "center" },
+            alignSelf: "center",
+            // margin: "20px",
+            marginTop: "70px",
+            mb: "2%",
+            width: { sm: "100%", xs: "100%" },
+            height: { sm: "928px", xs: "auto" },
+            backgroundColor: palette.base.white,
           }}
         >
-          <Typography variant="display-xs-semibold">
-            {profileData ? profileData.name : "---"}
-          </Typography>
-          <Typography
-            variant="text-md-regular"
-            sx={{ color: palette.color.gray[735] }}
-          >
-            {profileData ? profileData.email : "---"}
-          </Typography>
-        </Stack>
-
-        {/* profile detail section */}
-        <form onSubmit={handleSubmit}>
-          <Container
-            maxWidth="lg"
+          {/* top bar */}
+          <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-around",
+              height: "156px",
+              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+              borderTopLeftRadius: "8px",
+              borderTopRightRadius: "8px",
+              position: "relative",
+              width: "100%",
+            }}
+          ></Box>
 
-              // Optional: additional styling for responsiveness
-              // "@media (max-width: 600px)": {
-              //   maxWidth: "xs", // Set maxWidth for small screens
-              // },
-              // "@media (min-width: 600px) and (max-width: 960px)": {
-              //   maxWidth: "sm", // Set maxWidth for medium screens
-              // },
-              // "@media (min-width: 960px) and (max-width: 1280px)": {
-              //   maxWidth: "md", // Set maxWidth for medium-large screens
-              // },
-              px: { sm: 2, xs: 0 },
-              "@media (min-width: 1200px)": {
-                maxWidth: "lg", // Set maxWidth for large screens and above
-              },
+          {/* circle avatar */}
+          <ProfileAvatar
+            uploadImage={uploadImage}
+            setUploadImage={setUploadImage}
+            imageUrl={imageUrl}
+            setImageUrl={setImageUrl}
+          />
+
+          {/* name and email  */}
+          <Stack
+            direction={"column"}
+            sx={{
+              ml: { sm: "210px", xs: "auto" },
+              mt: { sm: "5px", xs: "140px" },
+              mr: { sm: 0, xs: "auto" },
+              textAlign: { sm: "start", xs: "center" },
             }}
           >
-            <Stack
-              direction={"column"}
+            <Typography variant="display-xs-semibold">
+              {profileData ? profileData.name : "---"}
+            </Typography>
+            <Typography
+              variant="text-md-regular"
+              sx={{ color: palette.color.gray[735] }}
+            >
+              {profileData ? profileData.email : "---"}
+            </Typography>
+          </Stack>
+
+          {/* profile detail section */}
+          <form onSubmit={handleSubmit}>
+            <Container
+              maxWidth="lg"
               sx={{
-                width: "100%",
-                mt: "50px",
-                mx: { sm: "20px", xs: "0px" },
-                p: "20px",
-                border: `1px solid ${palette.color.gray[5]}`,
-                borderRadius: "10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
+
+                // Optional: additional styling for responsiveness
+                // "@media (max-width: 600px)": {
+                //   maxWidth: "xs", // Set maxWidth for small screens
+                // },
+                // "@media (min-width: 600px) and (max-width: 960px)": {
+                //   maxWidth: "sm", // Set maxWidth for medium screens
+                // },
+                // "@media (min-width: 960px) and (max-width: 1280px)": {
+                //   maxWidth: "md", // Set maxWidth for medium-large screens
+                // },
+                px: { sm: 2, xs: 0 },
+                "@media (min-width: 1200px)": {
+                  maxWidth: "lg", // Set maxWidth for large screens and above
+                },
               }}
             >
               <Stack
-                // direction={"row"}
-                justifyContent={"space-between"}
+                direction={"column"}
                 sx={{
-                  flexDirection: { sm: "row", xs: "column" },
-                  gap: { sm: 0, xs: 3 },
+                  width: "100%",
+                  mt: "50px",
+                  mx: { sm: "20px", xs: "0px" },
+                  p: "20px",
+                  border: `1px solid ${palette.color.gray[5]}`,
+                  borderRadius: "10px",
                 }}
-              >
-                <Typography variant="text-xl-semibold">
-                  Profile Details
-                </Typography>
-                <Button
-                  disabled={profileLoading}
-                  type="submit"
-                  variant="contained"
-                  sx={{ gap: "7px", borderRadius: { sm: "8px", xs: "4px" } }}
-                >
-                  {profileLoading ? (
-                    <CircularProgress size={18} sx={{ color: "#8477DA" }} />
-                  ) : (
-                    "Edit Profile"
-                  )}
-                  {profileLoading ? (
-                    ""
-                  ) : (
-                    <Icon icon="editWhiteIcon" width={12} height={14} />
-                  )}
-                </Button>
-              </Stack>
-
-              {/* section for text fields */}
-              <Stack
-                direction={{
-                  md: "row",
-                  lg: "column",
-                }}
-                justifyContent={"space-evenly"}
               >
                 <Stack
-                  direction={{
-                    xs: "column",
-                    sm: "column",
-                    md: "column",
-                    lg: "row",
-                  }}
+                  // direction={"row"}
                   justifyContent={"space-between"}
-                  sx={{ mt: "30px" }}
+                  sx={{
+                    flexDirection: { sm: "row", xs: "column" },
+                    gap: { sm: 0, xs: 3 },
+                  }}
                 >
-                  <FormControl sx={{ width: { sm: "333px", xs: "100%" } }}>
-                    <TextField
-                      label="Name/Company Name"
-                      size="large"
-                      name="name"
-                      sx={{ width: { sm: "333px", xs: "100%" } }}
-                      value={values.name}
-                      onChange={handleChange}
-                      helperText={touched.name && errors.name}
-                      onBlur={handleBlur}
-                      error={touched.name && Boolean(errors.name)}
-                    />
-                  </FormControl>
-                  <FormControl
+                  <Typography variant="text-xl-semibold">
+                    Profile Details
+                  </Typography>
+                  <Button
+                    disabled={profileLoading}
+                    type="submit"
+                    variant="contained"
                     sx={{
-                      width: { sm: "333px", xs: "100%" },
-                      mt: { sm: 0, xs: 1 },
+                      gap: "7px",
+                      borderRadius: { sm: "4px", xs: "4px" },
+                      fontFamily: "Product Sans, sans-serif !important",
+                      fontSize: "14px !important",
+                      fontWeight: "400 !important",
+                      background:
+                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                     }}
                   >
-                    <TextField
-                      label="Email"
-                      size="large"
-                      name="email"
-                      sx={{ width: { sm: "333px", xs: "100%" } }}
-                      disabled={true}
-                      onChange={handleChange}
-                      value={values.email}
-                      helperText={touched.email && errors.email}
-                      onBlur={handleBlur}
-                      error={touched.email && Boolean(errors.email)}
-                    />
-                  </FormControl>
-                  <FormControl
-                    sx={{
-                      width: { sm: "333px", xs: "100%" },
-                      mt: { sm: 0, xs: 1 },
-                    }}
-                  >
-                    <Typography
-                      variant="text-sm-medium"
-                      sx={{ marginBottom: "5px" }}
-                    >
-                      Phone
-                    </Typography>
-                    <PhoneInput
-                      style={{ width: isModile ? "100%" : "333px" }}
-                      name="phoneNumber"
-                      className="custom-phone-input"
-                      defaultCountry="pk"
-                      value={values.phoneNumber || ""}
-                      onChange={(value) => {
-                        handleChange({
-                          target: {
-                            name: "phoneNumber",
-                            value: value,
-                          },
-                        });
-                      }}
-                      onBlur={() =>
-                        handleBlur({ target: { name: "phoneNumber" } })
-                      }
-                    />
-                    {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                      <Typography
-                        color="error"
-                        variant="text-xs-regular"
-                        sx={{ marginTop: "5px", marginLeft: "15px" }}
-                      >
-                        {isString(errors.phoneNumber)
-                          ? errors.phoneNumber
-                          : "Invalid phone number"}
-                      </Typography>
+                    {profileLoading ? (
+                      <CircularProgress size={18} sx={{ color: "#8477DA" }} />
+                    ) : (
+                      "Edit Profile"
                     )}
-                  </FormControl>
+                    {profileLoading ? (
+                      ""
+                    ) : (
+                      <Icon icon="editWhiteIcon" width={12} height={14} />
+                    )}
+                  </Button>
                 </Stack>
 
-                {/* city, state , address */}
+                {/* section for text fields */}
                 <Stack
                   direction={{
-                    xs: "column",
-                    sm: "column",
-                    md: "column",
-                    lg: "row",
+                    md: "row",
+                    lg: "column",
                   }}
-                  justifyContent={"space-between"}
-                  sx={{ mt: "20px" }}
+                  justifyContent={"space-evenly"}
                 >
-                  <FormControl sx={{ width: { sm: "333px", xs: "100%" } }}>
-                    <TextField
-                      label="City"
-                      size="large"
-                      name="city"
-                      sx={{ width: { sm: "333px", xs: "100%" } }}
-                      onChange={handleChange}
-                      value={values.city}
-                      helperText={touched.city && errors.city}
-                      onBlur={handleBlur}
-                      error={touched.city && Boolean(errors.city)}
-                    />
-                  </FormControl>
-                  <FormControl
-                    sx={{
-                      width: { sm: "333px", xs: "100%" },
-                      mt: { sm: 0, xs: 1 },
+                  <Stack
+                    direction={{
+                      xs: "column",
+                      sm: "column",
+                      md: "column",
+                      lg: "row",
                     }}
+                    justifyContent={"space-between"}
+                    sx={{ mt: "30px" }}
                   >
-                    <TextField
-                      label="State"
-                      size="large"
-                      name="state"
-                      sx={{ width: { sm: "333px", xs: "100%" } }}
-                      onChange={handleChange}
-                      value={values.state}
-                      helperText={touched.state && errors.state}
-                      onBlur={handleBlur}
-                      error={touched.state && Boolean(errors.state)}
-                    />
-                  </FormControl>
-                  <FormControl
-                    sx={{
-                      width: { sm: "333px", xs: "100%" },
-                      mt: { sm: 0, xs: 1 },
+                    <FormControl sx={{ width: { sm: "333px", xs: "100%" } }}>
+                      <TextField
+                        label="Name/Company Name"
+                        size="large"
+                        name="name"
+                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        value={values.name}
+                        onChange={handleChange}
+                        helperText={touched.name && errors.name}
+                        onBlur={handleBlur}
+                        error={touched.name && Boolean(errors.name)}
+                      />
+                    </FormControl>
+                    <FormControl
+                      sx={{
+                        width: { sm: "333px", xs: "100%" },
+                        mt: { sm: 0, xs: 1 },
+                      }}
+                    >
+                      <TextField
+                        label="Email"
+                        size="large"
+                        name="email"
+                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        disabled={true}
+                        onChange={handleChange}
+                        value={values.email}
+                        helperText={touched.email && errors.email}
+                        onBlur={handleBlur}
+                        error={touched.email && Boolean(errors.email)}
+                      />
+                    </FormControl>
+                    <FormControl
+                      sx={{
+                        width: { sm: "333px", xs: "100%" },
+                        mt: { sm: 0, xs: 1 },
+                      }}
+                    >
+                      <Typography
+                        variant="text-sm-medium"
+                        sx={{ marginBottom: "5px" }}
+                      >
+                        Phone
+                      </Typography>
+                      <PhoneInput
+                        style={{ width: isModile ? "100%" : "333px" }}
+                        name="phoneNumber"
+                        className="custom-phone-input"
+                        defaultCountry="pk"
+                        value={values.phoneNumber || ""}
+                        onChange={(value) => {
+                          handleChange({
+                            target: {
+                              name: "phoneNumber",
+                              value: value,
+                            },
+                          });
+                        }}
+                        onBlur={() =>
+                          handleBlur({ target: { name: "phoneNumber" } })
+                        }
+                      />
+                      {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                        <Typography
+                          color="error"
+                          variant="text-xs-regular"
+                          sx={{ marginTop: "5px", marginLeft: "15px" }}
+                        >
+                          {isString(errors.phoneNumber)
+                            ? errors.phoneNumber
+                            : "Invalid phone number"}
+                        </Typography>
+                      )}
+                    </FormControl>
+                  </Stack>
+
+                  {/* city, state , address */}
+                  <Stack
+                    direction={{
+                      xs: "column",
+                      sm: "column",
+                      md: "column",
+                      lg: "row",
                     }}
+                    justifyContent={"space-between"}
+                    sx={{ mt: "20px" }}
                   >
-                    <TextField
-                      label="Address"
-                      size="large"
-                      name="address"
-                      sx={{ width: { sm: "333px", xs: "100%" } }}
-                      onChange={handleChange}
-                      value={values.address}
-                      helperText={touched.address && errors.address}
-                      onBlur={handleBlur}
-                      error={touched.address && Boolean(errors.address)}
-                    />
-                  </FormControl>
+                    <FormControl sx={{ width: { sm: "333px", xs: "100%" } }}>
+                      <TextField
+                        label="City"
+                        size="large"
+                        name="city"
+                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        onChange={handleChange}
+                        value={values.city}
+                        helperText={touched.city && errors.city}
+                        onBlur={handleBlur}
+                        error={touched.city && Boolean(errors.city)}
+                      />
+                    </FormControl>
+                    <FormControl
+                      sx={{
+                        width: { sm: "333px", xs: "100%" },
+                        mt: { sm: 0, xs: 1 },
+                      }}
+                    >
+                      <TextField
+                        label="State"
+                        size="large"
+                        name="state"
+                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        onChange={handleChange}
+                        value={values.state}
+                        helperText={touched.state && errors.state}
+                        onBlur={handleBlur}
+                        error={touched.state && Boolean(errors.state)}
+                      />
+                    </FormControl>
+                    <FormControl
+                      sx={{
+                        width: { sm: "333px", xs: "100%" },
+                        mt: { sm: 0, xs: 1 },
+                      }}
+                    >
+                      <TextField
+                        label="Address"
+                        size="large"
+                        name="address"
+                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        onChange={handleChange}
+                        value={values.address}
+                        helperText={touched.address && errors.address}
+                        onBlur={handleBlur}
+                        error={touched.address && Boolean(errors.address)}
+                      />
+                    </FormControl>
+                  </Stack>
                 </Stack>
               </Stack>
-            </Stack>
-          </Container>
-        </form>
-      </Box>
+            </Container>
+          </form>
+        </Box>
+      </Container>
     </>
   );
 };

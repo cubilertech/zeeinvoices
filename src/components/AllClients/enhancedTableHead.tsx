@@ -103,7 +103,7 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
   return (
     <TableHead
       sx={{
-        backgroundColor: palette.border.invoicesBorderColor,
+        backgroundColor: palette.color.gray[20],
         height: "40px !important",
         borderTopRightRadius: 9,
       }}
