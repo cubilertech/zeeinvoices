@@ -108,8 +108,37 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     formData.append("invoiceDate", invoiceData.invoiceDate);
     formData.append("dueDate", invoiceData.dueDate);
     formData.append("notes", invoiceData.notes);
-    formData.append("from", JSON.stringify(invoiceData.from));
-    formData.append("to", JSON.stringify(invoiceData.to));
+
+    // Map the `from` object to the expected API format
+    const fromMapped = {
+      name: invoiceData.from.name,
+      company_name: invoiceData.from.companyName,
+      email: invoiceData.from.email,
+      phone_number: invoiceData.from.phoneNumber || "", // Assuming null or undefined should be an empty string
+      city: invoiceData.from.city,
+      state: invoiceData.from.state,
+      address: invoiceData.from.address,
+      countryCode: invoiceData.from.countryCode || "", // Add if countryCode is used
+    };
+
+    // Map the `to` object to the expected API format similarly
+    const toMapped = {
+      name: invoiceData.to.name,
+      company_name: invoiceData.to.companyName,
+      email: invoiceData.to.email,
+      phone_number: invoiceData.to.phoneNumber || "", // Assuming null or undefined should be an empty string
+      city: invoiceData.to.city,
+      state: invoiceData.to.state,
+      address: invoiceData.to.address,
+      countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
+    };
+
+    // formData.append("from", JSON.stringify(invoiceData.from));
+    // formData.append("to", JSON.stringify(invoiceData.to));
+
+    formData.append("newFrom", JSON.stringify(fromMapped));
+    formData.append("newTo", JSON.stringify(toMapped));
+
     formData.append("settings", JSON.stringify(invoiceData.settings));
     formData.append("items", JSON.stringify(invoiceData.items));
     updateInvoice({
@@ -140,15 +169,41 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       formData.append("invoiceDate", invoiceData.invoiceDate);
       formData.append("dueDate", invoiceData.dueDate);
       formData.append("notes", invoiceData.notes);
+
+      // Map the `from` object to the expected API format
+      const fromMapped = {
+        name: invoiceData.from.name,
+        company_name: invoiceData.from.companyName,
+        email: invoiceData.from.email,
+        phone_number: invoiceData.from.phoneNumber || "", // Assuming null or undefined should be an empty string
+        city: invoiceData.from.city,
+        state: invoiceData.from.state,
+        address: invoiceData.from.address,
+        countryCode: invoiceData.from.countryCode || "", // Add if countryCode is used
+      };
+
+      // Map the `to` object to the expected API format similarly
+      const toMapped = {
+        name: invoiceData.to.name,
+        company_name: invoiceData.to.companyName,
+        email: invoiceData.to.email,
+        phone_number: invoiceData.to.phoneNumber || "", // Assuming null or undefined should be an empty string
+        city: invoiceData.to.city,
+        state: invoiceData.to.state,
+        address: invoiceData.to.address,
+        countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
+      };
+
       // Convert objects to JSON strings and append
-      // formData.append("from", "");
-      // formData.append("to", "");
-      // formData.append("newFrom", JSON.stringify(invoiceData.from));
-      // formData.append("newTo", JSON.stringify(invoiceData.to));
-      formData.append("from", JSON.stringify(invoiceData.from));
-      formData.append("to", JSON.stringify(invoiceData.to));
+
+      formData.append("newFrom", JSON.stringify(fromMapped));
+      formData.append("newTo", JSON.stringify(toMapped));
+
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
+      console.log(invoiceData, "invoiceData");
+      console.log(formData, "formData");
+
       createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
         .then((res) => {
           router.push("/invoices");
@@ -224,11 +279,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       </Stack>
       <Stack
         justifyContent={"space-between"}
-        spacing={2}
+        // spacing={2}
         sx={{
           flexDirection: { sm: "row", xs: "column-reverse" },
-          gap: { sm: 0, xs: 2 },
+          gap: 2,
           width: { sm: "auto", xs: "100%" },
+
+          mt: { xs: 3, sm: 0 },
         }}
       >
         <Button
@@ -238,6 +295,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             borderRadius: "4px",
             p: "0px !important",
             border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
+            // mt: 2
           }}
           variant="outlined"
           disabled={!validateButton}
@@ -271,17 +329,23 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             //     </Button>
             //   </Tooltip>
             // </PdfDownloadLink>
-            <Box sx={{ width: { sm: "73px", xs: "100%" } }}>
+            <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
               <Button
                 variant="contained"
                 sx={{
                   height: "36px !important",
                   borderRadius: "4px",
                   py: "0px !important",
+                  width: "100%",
+                  fontFamily: "Product Sans, sans-serif !important",
+                  fontSize: "14px !important",
+                  fontWeight: "400 !important",
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 }}
                 onClick={() => generatePDFDocument()}
               >
-                Download
+                Download PDF
               </Button>
             </Box>
           ) : (
@@ -307,7 +371,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               width: { sm: "138px", xs: "100%" },
               borderRadius: "4px",
               py: "0px !important",
-              height: "36px !important",  
+              height: "36px !important",
             }}
           >
             Download PDF

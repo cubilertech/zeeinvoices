@@ -73,7 +73,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           flexDirection: { sm: "row", xs: "column" },
           alignItems: { sm: "center", xs: "flex-start" },
           justifyContent: { sm: "center", xs: "start" },
-          border: "1px solid #0000001A"
+          border: "1px solid #0000001A",
         }}
       >
         <TextField
@@ -112,7 +112,11 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
             variant="contained"
             onClick={handleClientAddModel}
             endIcon={<Icon icon="plusIcon" width={15} />}
-            sx={{ height: `36px`, width: { sm: "140px", xs: "100%" } }}
+            sx={{
+              height: `36px`,
+              borderRadius: "4px",
+              width: { sm: "140px", xs: "100%" },
+            }}
           >
             Create New
           </Button>

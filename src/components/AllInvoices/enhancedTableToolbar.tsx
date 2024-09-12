@@ -133,7 +133,11 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
             variant="contained"
             onClick={handleCreate}
             endIcon={<Icon icon="plusIcon" width={15} />}
-            sx={{ height: `36px`, width: { sm: "140px", xs: "100%" } }}
+            sx={{
+              height: `36px`,
+              borderRadius: "4px",
+              width: { sm: "140px", xs: "100%" },
+            }}
           >
             Create New
           </Button>

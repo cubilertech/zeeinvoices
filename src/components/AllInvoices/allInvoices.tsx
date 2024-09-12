@@ -316,8 +316,18 @@ export default function AllInvoices() {
         id: record?.id,
         logo: record?.image,
         invoiceType: record?.type,
-        from: record?.from,
-        to: record?.to,
+        // from: record?.from,
+        from: {
+          ...record?.fromDetails,
+          phoneNumber: record?.fromDetails?.phone_number,
+          companyName: record?.fromDetails?.company_name,
+        },
+        // to: record?.to,
+        to: {
+          ...record?.toDetails,
+          phoneNumber: record?.toDetails?.phone_number,
+          companyName: record?.toDetails?.company_name,
+        },
         invoiceDate: record?.invoiceDate,
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
@@ -348,8 +358,18 @@ export default function AllInvoices() {
         id: record?.id,
         logo: record?.image,
         invoiceType: record?.type,
-        from: record?.from,
-        to: record?.to,
+        // from: record?.from,
+        from: {
+          ...record?.fromDetails,
+          phoneNumber: record?.fromDetails?.phone_number,
+          companyName: record?.fromDetails?.company_name,
+        },
+        // to: record?.to,
+        to: {
+          ...record?.toDetails,
+          phoneNumber: record?.toDetails?.phone_number,
+          companyName: record?.toDetails?.company_name,
+        },
         invoiceDate: record?.invoiceDate,
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
@@ -479,7 +499,7 @@ export default function AllInvoices() {
                                       justifyContent: "center",
                                     }}
                                   >
-                                    {row.to.name.charAt(0).toUpperCase()}
+                                    {row.to.name?.charAt(0).toUpperCase()}
                                   </Avatar>
                                   <Stack direction={"column"}>
                                     <Typography variant="text-sm-medium">

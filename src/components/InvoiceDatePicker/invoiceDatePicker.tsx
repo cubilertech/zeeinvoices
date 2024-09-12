@@ -42,9 +42,9 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
       }}
     >
       <Typography
-        variant="body1"
+        variant="text-xs0-semibold"
         color={"black"}
-        sx={{ fontSize: 10, fontWeight: 600 }}
+        sx={{ fontSize: 12, fontWeight: 600 }}
       >
         {title}:
       </Typography>

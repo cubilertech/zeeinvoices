@@ -504,6 +504,14 @@ export const CustomTypography = {
     letterSpacing: "",
     fontFamily: "Inter",
   },
+  "text-xs0-semibold": {
+    fontSize: "12px",
+    lineHeight: "12px",
+    fontKerning: "0%",
+    fontWeight: 600,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
   "text-xs-semibold": {
     fontSize: "12px",
     lineHeight: "15.6px",

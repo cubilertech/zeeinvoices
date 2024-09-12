@@ -1,5 +1,5 @@
 import { Button, IconButton, Popover, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import ReactToPrint from "react-to-print";
@@ -7,6 +7,14 @@ import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
 import { setFullInvoice } from "@/redux/features/invoiceSlice";
 import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
 import { useDispatch } from "react-redux";
+import PdfView from "@/appPages/PdfView/pdfView";
+import { saveAs } from "file-saver";
+import { pdf } from "@react-pdf/renderer";
+import { useSession } from "next-auth/react";
+import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
+import { backendURL } from "@/utils/constants";
+import { useParams } from "next/navigation";
+import { PhoneNumber } from "libphonenumber-js";
 
 interface CustomPopOverProps {
   record: any; // Assuming id is of type number
@@ -33,7 +41,8 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   InvDetails,
   summaryDetail,
 }) => {
-  const dispatch = useDispatch()
+  const { data: session } = useSession();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleClose = () => {
     setAnchorEl(null);
@@ -46,8 +55,16 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         id: record?.id,
         logo: record?.image,
         invoiceType: record?.type,
-        from: record?.from,
-        to: record?.to,
+        from: {
+          ...record?.fromDetails,
+          phoneNumber: record?.fromDetails?.phone_number,
+          companyName: record?.fromDetails?.company_name,
+        },
+        to: {
+          ...record?.toDetails,
+          phoneNumber: record.toDetails?.phone_number,
+          companyName: record.toDetails?.company_name,
+        },
         invoiceDate: record?.invoiceDate,
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
@@ -63,6 +80,24 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         detail: record?.settings?.detail,
       })
     );
+  };
+
+  const generatePDFDocument = async () => {
+    const itemDetail = InvDetails?.invoiceItem;
+    console.log(InvDetails, "InvDetails21");
+    const doc = (
+      <PdfView
+        invSetting={{ ...InvSetting }}
+        invDetails={{ ...InvDetails }}
+        Summary={summaryDetail}
+        user={session?.user}
+        itemDetail={itemDetail}
+      />
+    );
+    const blobPdf = await pdf(doc);
+    blobPdf.updateContainer(doc);
+    const result = await blobPdf.toBlob();
+    saveAs(result, "ZeeInvoice");
   };
   return (
     <>
@@ -141,7 +176,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           >
             Share
           </Button>
-          <PdfDownloadLink
+          {/* <PdfDownloadLink
             InvSetting={InvSetting}
             InvDetails={InvDetails}
             summaryDetail={summaryDetail}
@@ -165,7 +200,28 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             >
               Download
             </Button>
-          </PdfDownloadLink>
+          </PdfDownloadLink> */}
+
+          <Button
+            variant="outlined"
+            startIcon={<Icon icon="printIconIcon" />}
+            sx={{
+              width: "100%",
+              border: "none",
+              justifyContent: "start",
+              color: "#4B5563",
+              "&:hover": {
+                border: "none",
+                color: "#4B5563",
+                backgroundColor: palette.color.gray[10],
+                borderRadius: 0,
+              },
+            }}
+            onClick={() => generatePDFDocument()}
+          >
+            Download
+          </Button>
+
           {/* <ReactToPrint
             trigger={() => (
               <Button

@@ -9,6 +9,8 @@ import { useDeleteDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { saveAs } from "file-saver";
+import { pdf } from "@react-pdf/renderer";
 
 interface InvoiceDetailProps {
   InvSetting: any;
@@ -45,6 +47,25 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
   const handleOpenDeleteModal = () => {
     setIsModalOpen(true);
   };
+
+  const generatePDFDocument = async () => {
+    const itemDetail = InvDetails?.invoiceItem;
+    console.log(InvDetails, "InvDetails212")
+    const doc = (
+      <PdfView
+        invSetting={{ ...InvSetting }}
+        invDetails={{ ...InvDetails }}
+        Summary={summaryDetail}
+        user={session?.user}
+        itemDetail={itemDetail}
+      />
+    );
+    const blobPdf = await pdf(doc);
+    blobPdf.updateContainer(doc);
+    const result = await blobPdf.toBlob();
+    saveAs(result, "ZeeInvoice");
+  };
+
   return (
     <Box
       borderRadius={3}
@@ -58,11 +79,11 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
         border: `1px solid #E7EAEE`,
       }}
     >
-      <PDFDownloadLink
+      {/* <PDFDownloadLink
         document={
           <PdfView
-            invSetting={{...InvSetting}}
-            invDetails={{...InvDetails}}
+            invSetting={{ ...InvSetting }}
+            invDetails={{ ...InvDetails }}
             Summary={summaryDetail}
             user={session?.user}
           />
@@ -76,13 +97,30 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
             </Button>
           ) : (
             <Tooltip title="Download PDF">
-              <Button variant="contained" sx={{ width: "100%" }}>
+              <Button
+                variant="contained"
+                sx={{ width: "100%" }}
+                onClick={() => generatePDFDocument()}
+              >
                 Download PDF
               </Button>
             </Tooltip>
           )
         }
-      </PDFDownloadLink>
+      </PDFDownloadLink> */}
+
+      <Button
+        variant="contained"
+        sx={{
+          height: "36px !important",
+          width: "100%",
+          py: "0px !important",
+        }}
+        onClick={() => generatePDFDocument()}
+      >
+        Download PDF
+      </Button>
+
       <Tooltip title="Delete invoice">
         <Button
           onClick={() => handleOpenDeleteModal()}

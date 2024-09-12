@@ -143,6 +143,7 @@ declare module "@mui/material/Typography" {
     "display-md1-medium": true;
     "display-xs1-regular": true;
     "display-xs1-bold": true;
+    "text-xs0-semibold": true;
   }
 }
 declare module "@mui/material/styles" {
