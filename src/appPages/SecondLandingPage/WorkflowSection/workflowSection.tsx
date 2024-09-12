@@ -43,7 +43,7 @@ const WorkflowSection = () => {
       gap={3}
       sx={{
         width: "100%",
-        pt: 3,
+        pt: { sm: 3, xs: 1 },
         pb: 7,
         backgroundColor: palette.base.white,
         justifyContent: "center",

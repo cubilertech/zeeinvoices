@@ -103,7 +103,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 color: palette.text.expandableTextGreyColor,
                 fontSize: { md: "24px !important", xs: "14px !important" },
                 lineHeight: { md: "34px !important", xs: "18px !important" },
-                fontWeight: { md: 700 },
+                fontWeight: 700,
               }}
             >
               {title1}{" "}

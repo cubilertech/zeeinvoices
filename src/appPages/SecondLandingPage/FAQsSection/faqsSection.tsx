@@ -95,7 +95,14 @@ const FAQsSection = () => {
         Everything you need to know about the product and billing. about the
         product and billing and billing
       </Typography>
-      <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          overflowY: "auto",
+          height: "100%",
+          width: { sm: "auto", xs: "90%" },
+        }}
+      >
         <Stack
           direction={"column"}
           gap={0}

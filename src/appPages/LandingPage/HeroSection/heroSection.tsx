@@ -23,7 +23,7 @@ const HeroSection = () => {
       sx={{
         width: "100%",
         py: 9,
-        pt: 19,
+        pt: { sm: 19, xs: 8 },
       }}
     >
       <Stack
