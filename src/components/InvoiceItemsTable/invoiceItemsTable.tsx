@@ -76,7 +76,7 @@ const InvoiceItemsTable: FC = () => {
                 alignItems: "center",
               }}
               item
-              xs={selectedTax ? 1.6 : 2}
+              xs={selectedTax ? 1.8 : 2.2}
               // xs={1.8}
             >
               <Typography
@@ -96,7 +96,7 @@ const InvoiceItemsTable: FC = () => {
                 alignItems: "center",
               }}
               item
-              xs={selectedTax ? 1.6 : 2}
+              xs={selectedTax ? 1.8 : 2.2}
               // xs={1.6}
             >
               <Typography
@@ -145,7 +145,7 @@ const InvoiceItemsTable: FC = () => {
                 alignItems: "center",
               }}
               item
-              xs={selectedTax ? 2.4 : 3.2}
+              xs={selectedTax ? 2.15 : 2.95}
               // xs={2.2}
             >
               <Typography

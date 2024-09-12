@@ -689,19 +689,76 @@ const PdfView: FC<PdfViewProps> = ({
 
         <View
           style={{
-            marginLeft: "40px",
-            marginRight: "40px",
+            // marginLeft: "40px",
+            // marginRight: "40px",
             marginTop: "1px",
             left: 0,
             right: 0,
-            padding: "10px",
-            borderTop: "1px solid #E0E0E0",
+            // padding: "10px",
+            // borderTop: "1px solid #E0E0E0",
             position: "absolute",
             bottom: "0px !important",
           }}
           fixed
         >
-          <Text
+          <View
+            style={{
+              height: "30px",
+              marginLeft: "0px",
+              marginRight: "0px",
+              backgroundColor: "#4F35DF",
+              display: "flex",
+              flexDirection: "row",
+              padding: "5px 10px",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                marginLeft: "50px",
+                width: 90,
+                height: 13,
+                position: "absolute",
+              }}
+            >
+              <Image src={"/Images/logos/white-logo.png"} />
+            </View>
+          </View>
+          <View
+            style={{
+              height: "30px",
+              marginLeft: "0px",
+              marginRight: "0px",
+              backgroundColor: "#E4E4E7",
+              display: "flex",
+              flexDirection: "row",
+              padding: "5px 0px",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: "9px",
+                color: "#5E5E62",
+                margin: "0px 0px 0px 50px",
+                fontWeight: "bold",
+              }}
+            >
+              Contact: +14809201123
+            </Text>
+
+            <Text
+              style={{
+                fontSize: "9px",
+                color: "#5E5E62",
+                margin: "0px 0px 0px 200px",
+                fontWeight: "bold",
+              }}
+            >
+              © Copyrights 2024, All rights Reserved by ZeeInvoices
+            </Text>
+          </View>
+          {/* <Text
             style={{
               fontSize: "9px",
               color: "#5E5E62",
@@ -710,7 +767,7 @@ const PdfView: FC<PdfViewProps> = ({
             }}
           >
             © Copyrights 2024, All rights Reserved by ZeeInvoices
-          </Text>
+          </Text> */}
         </View>
       </Page>
     </Document>

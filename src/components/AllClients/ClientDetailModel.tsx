@@ -166,6 +166,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
           onClose={handleModelClose}
           disableAutoFocus
           sx={{
+            overflow: "auto",
             "& .MuiModal-backdrop": {
               backgroundColor: "rgba(35, 35, 35, 0.1)",
             },
@@ -344,7 +345,8 @@ const ClientDetailModel: FC<ClientDetail> = ({
               <Stack
                 // direction={"row"}
                 justifyContent={"space-between"}
-                // spacing={2}  
+                // spacing={2}
+                gap={2}
                 sx={{
                   marginTop: "20px",
                   flexDirection: { sm: "row", xs: "column" },
@@ -365,7 +367,11 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ width: { sm: "243px", xs: "100%" }, height: "40px", m: 0 }}
+                  sx={{
+                    width: { sm: "243px", xs: "100%" },
+                    height: "40px",
+                    m: 0,
+                  }}
                 >
                   {type === "add" ? "Add " : "Update"}
                 </Button>

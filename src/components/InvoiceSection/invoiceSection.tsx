@@ -231,7 +231,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       </Box>
       <hr
         style={{
-          margin: "20px 10px 10px 10px",
+          margin: "25px 0px 5px 0px",
           height: "0.5px",
           backgroundColor: "rgba(156, 163, 175, 1)",
           color: "rgba(156, 163, 175, 1)",
@@ -242,7 +242,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         sx={{
           height: "33px",
           width: "100%",
-          marginTop: "20px",
+          marginTop: "10px",
           border: `1px dashed ${palette.base.borderColor}`,
           borderRadius: 1,
           backgroundColor: "#F9F9F9",
