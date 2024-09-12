@@ -255,7 +255,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
       )}
       {session?.accessToken && type != "edit" && (
         <SelectSenderReceiver
-          width={isMobile ? "100%" :359}
+          width={isMobile ? "100%" :345}
           placeholder={`Add existing ${detailsOf}`}
           borderRadius={"4px"}
           type={`${detailsOf}`}
@@ -270,7 +270,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             borderRadius={1}
             sx={{
               // width: 292,
-              width: {sm:359,xs: "100%"},
+              width: {sm:345,xs: "100%"},
               height: 192,
               marginTop: 1.5,
               padding: 2,
@@ -314,7 +314,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           borderRadius={1}
           sx={{
             // width: 292,
-            width: 359,
+            width: 345,
             height: 222,
             marginTop: 1.5,
             padding: 2,
