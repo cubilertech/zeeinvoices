@@ -176,7 +176,8 @@ const textColor = {
 export const palette = {
   // mode: "dark" as PaletteMode,
   primary: {
-    main: "#3F4DE1",
+    // main: "#3F4DE1",
+    main: "#4F35DF",
     light: "#54A6FF",
   },
   brand: {

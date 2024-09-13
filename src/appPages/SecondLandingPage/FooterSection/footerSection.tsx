@@ -179,6 +179,7 @@ const FooterSection = () => {
                 <Typography
                   variant="text-md-regular"
                   sx={{
+                    fontFamily: "Product Sans, sans-serif",
                     fontSize: { md: "16px", xs: "12px" },
                     lineHeight: { md: "20px", xs: "15px" },
                     fontWeight: { md: 400 },
@@ -195,6 +196,7 @@ const FooterSection = () => {
                 <Typography
                   variant="text-md-regular"
                   sx={{
+                    fontFamily: "Product Sans, sans-serif",
                     fontSize: { md: "16px", xs: "12px" },
                     lineHeight: { md: "20px", xs: "15px" },
                     fontWeight: { md: 400 },
@@ -211,6 +213,7 @@ const FooterSection = () => {
                 <Typography
                   variant="text-md-regular"
                   sx={{
+                    fontFamily: "Product Sans, sans-serif",
                     fontSize: { md: "16px", xs: "12px" },
                     lineHeight: { md: "20px", xs: "15px" },
                     fontWeight: { md: 400 },
@@ -227,6 +230,7 @@ const FooterSection = () => {
                 <Typography
                   variant="text-md-regular"
                   sx={{
+                    fontFamily: "Product Sans, sans-serif",
                     fontSize: { md: "16px", xs: "12px" },
                     lineHeight: { md: "20px", xs: "15px" },
                     fontWeight: { md: 400 },
@@ -244,6 +248,7 @@ const FooterSection = () => {
                 <Typography
                   variant="text-md-regular"
                   sx={{
+                    fontFamily: "Product Sans, sans-serif",
                     fontSize: { md: "16px", xs: "12px" },
                     lineHeight: { md: "20px", xs: "15px" },
                     fontWeight: { md: 400 },
@@ -282,6 +287,7 @@ const FooterSection = () => {
               <Typography
                 variant="text-md-regular"
                 sx={{
+                  fontFamily: "Product Sans, sans-serif",
                   color: palette.color.gray[731],
                   fontSize: { md: "16px", xs: "12px" },
                   lineHeight: { md: "20px", xs: "15px" },
@@ -293,6 +299,7 @@ const FooterSection = () => {
               <Typography
                 variant="text-md-regular"
                 sx={{
+                  fontFamily: "Product Sans, sans-serif",
                   color: palette.color.gray[731],
                   fontSize: { md: "16px", xs: "12px" },
                   lineHeight: { md: "20px", xs: "15px" },
@@ -304,6 +311,7 @@ const FooterSection = () => {
               <Typography
                 variant="text-md-regular"
                 sx={{
+                  fontFamily: "Product Sans, sans-serif",
                   color: palette.color.gray[731],
                   fontSize: { md: "16px", xs: "12px" },
                   lineHeight: { md: "20px", xs: "15px" },
