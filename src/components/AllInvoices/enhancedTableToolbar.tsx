@@ -75,11 +75,11 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
       <Stack
         direction={"row"}
         sx={{
+          height: "36px",
           backgroundColor: "#FAFAFA",
           borderRadius: "4px",
           width: { sm: "272px", xs: "100%" },
-          py:"1px",
-          px:"24px",
+          px: "24px",
           flexDirection: { sm: "row", xs: "column" },
           alignItems: { sm: "center", xs: "flex-start" },
           justifyContent: { sm: "center", xs: "start" },
