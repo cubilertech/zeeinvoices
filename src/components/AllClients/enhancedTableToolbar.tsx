@@ -70,6 +70,8 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           borderRadius: "4px",
           width: { sm: "272px", xs: "100%" },
           paddingLeft: "15px",
+          py:"2px",
+          px:"24px",
           flexDirection: { sm: "row", xs: "column" },
           alignItems: { sm: "center", xs: "flex-start" },
           justifyContent: { sm: "center", xs: "start" },

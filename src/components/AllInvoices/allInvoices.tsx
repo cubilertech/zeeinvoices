@@ -421,7 +421,6 @@ export default function AllInvoices() {
                 sx={{
                   width: "100%",
                   px: "20px",
-                  mb: 2,
                   pb: 1,
                   border: "none",
                   borderRadius: "8px",
@@ -584,6 +583,7 @@ export default function AllInvoices() {
                   setPage={setPage}
                 />
               </Paper>
+              <Box sx={{ height: 20 }}></Box>
               <DeleteModal
                 open={isModalOpen}
                 onDelete={handleDelete}
