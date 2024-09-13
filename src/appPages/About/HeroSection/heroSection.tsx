@@ -25,7 +25,7 @@ const HeroSection = () => {
           >
             <Typography
               variant={isModile ? "h4" : "display-3xl-bold"}
-              sx={{ color: palette.base.black, fontSize: {} }}
+              sx={{ color: palette.base.black }}
             >
               About{" "}
               <span style={{ color: palette.text.contactEmailColor }}>Us</span>
