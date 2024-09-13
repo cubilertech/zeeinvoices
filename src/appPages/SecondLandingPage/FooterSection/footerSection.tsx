@@ -24,7 +24,7 @@ const FooterSection = () => {
     >
       <Stack
         direction={{ md: "row", xs: "column" }}
-        gap={8}
+        gap={5}
         justifyContent={"space-between"}
         sx={{ mx: "6%" }}
       >
@@ -64,7 +64,7 @@ const FooterSection = () => {
             direction={"row"}
             gap={{ md: 4, xs: 3 }}
             sx={{
-              width: {sm:"396px", xs:"100%"},
+              width: { sm: "396px", xs: "100%" },
               mt: "3%",
               justifyContent: { sm: "start", xs: "center" },
               alignItems: { sm: "center", xs: "center" },
@@ -76,6 +76,9 @@ const FooterSection = () => {
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.base.black,
+                fontSize: { md: "24px", xs: "14px" },
+                lineHeight: { md: "36px", xs: "21px" },
+                fontWeight: { md: 400 },
               }}
             >
               Follow us
@@ -137,15 +140,18 @@ const FooterSection = () => {
         </Stack>
         <Stack
           direction={{ md: "row", xs: "column" }}
-          sx={{ justifyContent: {sm:"start", xs: "center"}, alignItems: {sm:"start", xs: "center"} }}
-          gap={{ md: 15, xs: 5 }}
+          sx={{
+            justifyContent: { sm: "start", xs: "center" },
+            alignItems: { sm: "start", xs: "center" },
+          }}
+          gap={{ md: 15, xs: 3 }}
         >
           {/* Pages */}
           <Stack
             direction={"column"}
-            gap={2}
+            gap={3}
             sx={{
-              width: {sm:"70px", xs: "100%"},
+              width: { sm: "70px", xs: "100%" },
               justifyContent: { sm: "start", xs: "center" },
               alignItems: { sm: "start", xs: "center" },
               textAlign: { sm: "start", xs: "center" },
@@ -156,39 +162,78 @@ const FooterSection = () => {
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.base.black,
+                fontSize: { md: "24px", xs: "14px" },
+                lineHeight: { md: "29px", xs: "17px" },
+                fontWeight: { md: 400 },
               }}
             >
               Pages
             </Typography>
-            <Stack direction={"column"} gap={1}>
+            <Stack direction={"column"} gap={2}>
               <Link
                 underline="hover"
                 variant="text-md-regular"
                 sx={{ color: palette.color.gray[731], cursor: "pointer" }}
                 onClick={handleHomeButton}
               >
-                Home
+                <Typography
+                  variant="text-md-regular"
+                  sx={{
+                    fontSize: { md: "16px", xs: "12px" },
+                    lineHeight: { md: "20px", xs: "15px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  Home
+                </Typography>
               </Link>
               <Link
                 underline="hover"
                 variant="text-md-regular"
                 sx={{ color: palette.color.gray[731], cursor: "pointer" }}
               >
-                About
+                <Typography
+                  variant="text-md-regular"
+                  sx={{
+                    fontSize: { md: "16px", xs: "12px" },
+                    lineHeight: { md: "20px", xs: "15px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  About
+                </Typography>
               </Link>
               <Link
                 underline="hover"
                 variant="text-md-regular"
                 sx={{ color: palette.color.gray[731], cursor: "pointer" }}
               >
-                Learn
+                <Typography
+                  variant="text-md-regular"
+                  sx={{
+                    fontSize: { md: "16px", xs: "12px" },
+                    lineHeight: { md: "20px", xs: "15px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  Learn
+                </Typography>
               </Link>
               <Link
                 underline="hover"
                 variant="text-md-regular"
                 sx={{ color: palette.color.gray[731], cursor: "pointer" }}
               >
-                Privacy
+                <Typography
+                  variant="text-md-regular"
+                  sx={{
+                    fontSize: { md: "16px", xs: "12px" },
+                    lineHeight: { md: "20px", xs: "15px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  Privacy
+                </Typography>
               </Link>
               <Link
                 underline="hover"
@@ -196,7 +241,16 @@ const FooterSection = () => {
                 sx={{ color: palette.color.gray[731], cursor: "pointer" }}
                 onClick={handleTermsButton}
               >
-                Terms
+                <Typography
+                  variant="text-md-regular"
+                  sx={{
+                    fontSize: { md: "16px", xs: "12px" },
+                    lineHeight: { md: "20px", xs: "15px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  Terms
+                </Typography>
               </Link>
             </Stack>
           </Stack>
@@ -204,9 +258,9 @@ const FooterSection = () => {
           {/* Contact us */}
           <Stack
             direction={"column"}
-            gap={2}
+            gap={3}
             sx={{
-              width: {sm:"232px", xs:"100%"},
+              width: { sm: "232px", xs: "100%" },
               justifyContent: { sm: "start", xs: "center" },
               alignItems: { sm: "start", xs: "center" },
               textAlign: { sm: "start", xs: "center" },
@@ -217,26 +271,44 @@ const FooterSection = () => {
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.base.black,
+                fontSize: { md: "24px", xs: "14px" },
+                lineHeight: { md: "29px", xs: "17px" },
+                fontWeight: { md: 400 },
               }}
             >
               Contact Us
             </Typography>
-            <Stack direction={"column"} gap={1}>
+            <Stack direction={"column"} gap={2}>
               <Typography
                 variant="text-md-regular"
-                sx={{ color: palette.color.gray[731] }}
+                sx={{
+                  color: palette.color.gray[731],
+                  fontSize: { md: "16px", xs: "12px" },
+                  lineHeight: { md: "20px", xs: "15px" },
+                  fontWeight: { md: 400 },
+                }}
               >
                 Phone: +14809201123
               </Typography>
               <Typography
                 variant="text-md-regular"
-                sx={{ color: palette.color.gray[731] }}
+                sx={{
+                  color: palette.color.gray[731],
+                  fontSize: { md: "16px", xs: "12px" },
+                  lineHeight: { md: "20px", xs: "15px" },
+                  fontWeight: { md: 400 },
+                }}
               >
                 Email: info@zeeinvoice.com
               </Typography>
               <Typography
                 variant="text-md-regular"
-                sx={{ color: palette.color.gray[731] }}
+                sx={{
+                  color: palette.color.gray[731],
+                  fontSize: { md: "16px", xs: "12px" },
+                  lineHeight: { md: "20px", xs: "15px" },
+                  fontWeight: { md: 400 },
+                }}
               >
                 Address: 11133 Shady Trail PMB 205 Dallas, TX 75229
               </Typography>
@@ -278,7 +350,11 @@ const FooterSection = () => {
           sx={{
             fontFamily: "Product Sans, sans-serif",
             color: palette.color.gray[745],
-            my: "1.5%",
+            mt: "0.5%",
+            mb: "1%",
+            fontSize: { md: "14px", xs: "12px" },
+            lineHeight: { md: "28px", xs: "28px" },
+            fontWeight: { md: 400 },
           }}
         >
           © 2024 All Rights Reserved ZeeInvoices
