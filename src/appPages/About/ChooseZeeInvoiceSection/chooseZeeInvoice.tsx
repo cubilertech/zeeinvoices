@@ -6,15 +6,15 @@ import { useState } from "react";
 
 const expandableTextData = [
   {
-    title1: "Efficiency:",
+    title1: "Efficiency",
     desc: "Save time by automating your invoicing process. Send invoices in just a few clicks and track payments effortlessly.",
   },
   {
-    title1: "Customization:",
+    title1: "Customization",
     desc: "Tailor your invoices to match your brand’s identity. Our templates are fully customizable to reflect your business’s unique style.",
   },
   {
-    title1: "Support:",
+    title1: "Support",
     desc: "We’re here to help whenever you need it. Our dedicated support team is available to assist you with any questions or issues you may encounter.",
   },
 ];

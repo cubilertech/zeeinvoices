@@ -25,9 +25,10 @@ const HeroSection = () => {
           >
             <Typography
               variant={isModile ? "h4" : "display-3xl-bold"}
-              sx={{ color: palette.color.gray[755], fontSize: {} }}
+              sx={{ color: palette.base.black, fontSize: {} }}
             >
-              About <span style={{ color: palette.color.gray[830] }}>Us</span>
+              About{" "}
+              <span style={{ color: palette.text.contactEmailColor }}>Us</span>
             </Typography>
 
             <Typography
@@ -39,11 +40,9 @@ const HeroSection = () => {
                 lineHeight: { sm: "29px !important", xs: "21px !important" },
               }}
             >
-              Welcome to ZEE Invoices, where we simplify the way you manage your
-              billing and invoicing processes. We understand that invoicing can
-              be time-consuming and complex, so we’ve built a platform that
-              takes the hassle out of it, allowing you to focus on growing your
-              business.
+              Welcome to ZEE Invoices, where we simplify billing and invoicing,
+              so you can focus on growing your business. Our platform
+              streamlines the process, saving you time and effort.
             </Typography>
           </Box>
           <Box sx={{ width: "100%", m: "auto" }}>
