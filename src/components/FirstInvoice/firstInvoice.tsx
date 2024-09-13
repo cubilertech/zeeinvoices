@@ -33,7 +33,7 @@ const FirstInvoice: FC = () => {
       <Container
         sx={{
           width: "460px",
-          marginTop: "57px",
+          marginTop: "70px",
           marginBottom: "9px",
           py: { sm: "3%", xs: "7%" },
           justifyContent: "center",
