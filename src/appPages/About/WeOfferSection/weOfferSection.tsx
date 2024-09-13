@@ -37,6 +37,7 @@ const WeOfferSection = () => {
               <OfferCard
                 description={item.description}
                 icon={item.icon as IconTypes}
+                whiteIcon={item.whiteIcon as IconTypes}
                 title={item.title}
               />
             </Grid>
