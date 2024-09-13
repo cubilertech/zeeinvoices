@@ -69,8 +69,9 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             sx={{
               color: palette.color.gray[700],
               width: "100%",
-              height: "32px",
+
               "& .MuiOutlinedInput-root": {
+                height: "32px !important",
                 borderRadius: "2px !important",
               },
               "& .MuiInputBase-input::placeholder": {
@@ -101,6 +102,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               borderRadius: "3px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
+                height: "32px !important",
                 borderRadius: "2px !important",
               },
               "& .MuiInputBase-input::placeholder": {
@@ -154,6 +156,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               borderRadius: "3px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
+                height: "32px !important",
                 borderRadius: "2px !important",
               },
               "& .MuiInputBase-input::placeholder": {
@@ -214,6 +217,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   borderRadius: "3px",
                   color: palette.color.gray[700],
                   "& .MuiOutlinedInput-root": {
+                    height: "32px !important",
                     borderRadius: "2px !important",
                   },
                   "& .MuiInputBase-input::placeholder": {
