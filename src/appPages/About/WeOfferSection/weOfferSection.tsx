@@ -32,8 +32,8 @@ const WeOfferSection = () => {
         </Box>
 
         <Grid container gap={2} p={2} mx="auto" mt={4}>
-          {weOfferData.map((item) => (
-            <Grid item sm={5.9} xs={12}>
+          {weOfferData.map((item,index) => (
+            <Grid item sm={5.9} xs={12} key={index}>
               <OfferCard
                 description={item.description}
                 icon={item.icon as IconTypes}
