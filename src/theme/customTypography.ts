@@ -308,19 +308,18 @@ export const CustomTypography = {
     fontFamily: "Inter",
   },
 
+  "display-xs-response-bold": {
+    fontSize: "20px",
+    lineHeight: "32px",
+    fontWeight: 600,
+    letterSpacing: "",
+    fontFamily: "Inter",
+  },
   "text-xl-regular": {
     fontSize: "20px",
     lineHeight: "30px",
     fontKerning: "0%",
     fontWeight: 400,
-    letterSpacing: "",
-    fontFamily: "Inter",
-  },
-
-  "display-xs-response-bold": {
-    fontSize: "20px",
-    lineHeight: "32px",
-    fontWeight: 600,
     letterSpacing: "",
     fontFamily: "Inter",
   },

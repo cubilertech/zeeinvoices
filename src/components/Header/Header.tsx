@@ -93,7 +93,7 @@ const Header = () => {
   ];
   const headerLandingData = [
     { title: "Home", url: "/" },
-    { title: "About Us", url: "" },
+    { title: "About Us", url: "/about" },
     // { title: "Learn", url: "" },
   ];
   const handleButton = (data: any) => {
@@ -265,7 +265,8 @@ const Header = () => {
                 <Stack gap={1.5} mt={1}>
                   {pathname == "/" ||
                   pathname == "/termsAndCondition" ||
-                  pathname == "/contact-us" ? (
+                  pathname == "/contact-us" ||
+                  pathname == "/about" ? (
                     <Button
                       onClick={handleCrtInvButton}
                       variant="outlined"
@@ -428,7 +429,8 @@ const Header = () => {
             <Stack direction={"row"} gap={1.5}>
               {pathname == "/" ||
               pathname == "/termsAndCondition" ||
-              pathname == "/contact-us" ? (
+              pathname == "/contact-us" ||
+              pathname == "/about" ? (
                 <Button
                   onClick={handleCrtInvButton}
                   variant="outlined"

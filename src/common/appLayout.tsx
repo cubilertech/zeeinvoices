@@ -11,12 +11,11 @@ import { ReactNode } from "react";
 const AppLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const isModile = useMediaQuery("(max-width: 500px)");
-  console.log(pathname, "current route");
   return (
     <>
       {/* <Box sx={{ background: palette.color.lightWhite, height: "100vh" }}> */}
       <Header />
-      <Box sx={{backgroundColor:palette.color.lightWhite}}>{children}</Box>
+      <Box sx={{ backgroundColor: palette.color.lightWhite }}>{children}</Box>
       {pathname == "/" ||
       pathname == "/termsAndCondition" ||
       pathname == "/contact-us" ? (

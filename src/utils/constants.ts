@@ -83,6 +83,11 @@ export const icons = {
   contactWhiteLocationIcon: "/Images/icons/contact-location-white-icon.svg",
   contactPhoneIcon: "/Images/icons/contact-phone-icon.svg",
   contactWhitePhoneIcon: "/Images/icons/contact-phone-white-icon.svg",
+
+  tickBageIcon: "/Images/about/icons/tick-bage.svg",
+  tickPersonIcon: "/Images/about/icons/tick-person-icon.svg",
+  searchBoxIcon: "/Images/about/icons/search-box-icon.svg",
+  perpleWorldLinedIcon: "/Images/about/icons/perple-world-lined-icon.svg",
 };
 
 export const backendURL =

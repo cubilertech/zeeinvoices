@@ -27,14 +27,15 @@ export const MuiTextField = () => {
           },
 
           "& .MuiInputBase-input": {
-            height: "32px",
+            height: "44px",
             padding: "0px 10px",
             width: "100%",
             borderRadius: 2,
             color: palette.base.black,
             "&:hover": {},
             "&::placeholder": {
-              color: palette.color.gray[10],
+              color: palette.base.black, // Update this to your desired color
+              opacity: 0.5, // Ensures the color displays as expected
             },
             "&:-webkit-autofill": {
               // change input field color on auto fill
