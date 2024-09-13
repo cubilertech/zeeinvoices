@@ -115,14 +115,20 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
       sx={{
         width: 357,
         height: { sm: "auto", xs: "100%" },
-        marginBottom: 3,
+        marginBottom: { sm: 3, xs: 0 },
         backgroundColor: palette.base.white,
         padding: 2,
         boxShadow: palette.boxShadows[100],
       }}
     >
       <Stack direction={"column"}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", textAlign: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            textAlign: "center",
+          }}
+        >
           <Typography variant="h6" sx={{ paddingBottom: 2, paddingTop: 1 }}>
             Customize Your Invoice
           </Typography>
@@ -215,7 +221,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
           <SelectInput
             width={"100%"}
             type="currency"
-            menuData={["$ Usd", "Rs", "Aed"]}
+            menuData={["$ USD", "RS", "AED"]}
           ></SelectInput>
         </Box>
         <Typography

@@ -415,6 +415,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             width: { sm: 200, xs: "100%" },
             height: 56,
             cursor: "pointer",
+            backgroundColor: palette.color.gray[30],
             borderColor: palette.base.dashedBorderColor,
           }}
           onClick={handleClick}

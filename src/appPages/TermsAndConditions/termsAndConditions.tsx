@@ -162,7 +162,9 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               sx={{
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.color.gray[745],
-                fontSize: { sm: "20px !important", xs: "18px !important" },
+                fontSize: { sm: "20px !important", xs: "12px !important" },
+                lineHeight: { sm: "24px", xs: "18px" },
+                fontWeight: { sm: 400 },
               }}
             >
               See our terms of Use
@@ -217,12 +219,12 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               border: `1.06px solid #0000001A`,
               alignItems: "center",
               backgroundColor: palette.base.white,
-              transition: "all 0.3s ease",
+              transition: "all 0.9s ease",
               gap: { md: 13, xs: "22px" }, // Add transition for smooth animation
               "&:hover": {
                 color: palette.base.white,
                 backgroundColor: palette.primary.main,
-                transform: "scale(1.05)", // Scale the component up by 10% on hover
+                transform: "scale(1.03)", // Scale the component up by 10% on hover
               },
               "&:hover .text-md-regular": {
                 color: palette.base.white, // Change the color of the specific Typography on hover
@@ -242,7 +244,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
             >
               {hoveredBox !== 0 ? (
                 <Image
-                style={{}}
+                  style={{}}
                   src="/Images/contact-email-image.svg"
                   width={isModile ? 72 : 243}
                   height={isModile ? 58 : 243}
@@ -296,7 +298,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
           {/* bottom section */}
           <Stack
             // direction={"row"}
-            gap={3}
+            gap={{ sm: 3, xs: 1 }}
             sx={{ flexDirection: { md: "row", xs: "column" } }}
           >
             <Stack
@@ -310,7 +312,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
                 backgroundColor: palette.base.white,
-                transition: "all 0.3s ease",
+                transition: "all 0.9s ease",
                 gap: { md: 5, xs: 1.5 }, // Add transition for smooth animation
                 "&:hover": {
                   color: palette.base.white,
@@ -391,7 +393,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   hoveredBox === 1 || hoveredBox === 0
                     ? palette.base.white
                     : palette.primary.main,
-                transition: "all 0.3s ease", // Add transition for smooth animation
+                transition: "all 0.9s ease", // Add transition for smooth animation
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.primary.main,

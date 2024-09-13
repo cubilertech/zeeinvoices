@@ -90,7 +90,7 @@ const EveryBusinessSection = () => {
             border: `1.06px solid #0000001A`,
             alignItems: "center",
             backgroundColor: palette.base.white,
-            transition: "all 0.3s ease", // Add transition for smooth animation
+            transition: "all 0.9s ease", // Add transition for smooth animation
             "&:hover": {
               color: palette.base.white,
               backgroundColor: palette.text.contactEmailColor,
@@ -182,7 +182,7 @@ const EveryBusinessSection = () => {
               border: `1.06px solid #0000001A`,
               alignItems: "center",
               backgroundColor: palette.base.white,
-              transition: "all 0.3s ease", // Add transition for smooth animation
+              transition: "all 0.9s ease", // Add transition for smooth animation
               "&:hover": {
                 color: palette.base.white,
                 backgroundColor: palette.text.contactEmailColor,
@@ -255,7 +255,7 @@ const EveryBusinessSection = () => {
               backgroundColor: isUpperHover
                 ? palette.base.white
                 : palette.text.contactEmailColor,
-              transition: "all 0.3s ease", // Add transition for smooth animation
+              transition: "all 0.9s ease", // Add transition for smooth animation
               "&:hover": {
                 color: palette.base.white,
                 backgroundColor: palette.text.contactEmailColor,

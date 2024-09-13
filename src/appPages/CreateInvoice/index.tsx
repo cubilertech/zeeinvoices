@@ -95,8 +95,16 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
               vertical: "bottom",
               horizontal: "left",
             }}
+            sx={{
+              "& .MuiPaper-root": {
+                borderRadius: "12px",
+              },
+            }}
           >
-            <InvoiceSettings InvSetting={{ ...invoiceSetting }} handleClose={handleClose} />
+            <InvoiceSettings
+              InvSetting={{ ...invoiceSetting }}
+              handleClose={handleClose}
+            />
           </Popover>
         ) : (
           <InvoiceSettings InvSetting={{ ...invoiceSetting }} />

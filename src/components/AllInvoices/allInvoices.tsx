@@ -421,7 +421,6 @@ export default function AllInvoices() {
                 sx={{
                   width: "100%",
                   px: "20px",
-                  mb: 2,
                   pb: 1,
                   border: "none",
                   borderRadius: "8px",
@@ -499,7 +498,7 @@ export default function AllInvoices() {
                                       justifyContent: "center",
                                     }}
                                   >
-                                    {row.to.name?.charAt(0).toUpperCase()}
+                                    {row.toDetails?.name?.charAt(0).toUpperCase()}
                                   </Avatar>
                                   <Stack direction={"column"}>
                                     <Typography variant="text-sm-medium">
@@ -584,6 +583,7 @@ export default function AllInvoices() {
                   setPage={setPage}
                 />
               </Paper>
+              <Box sx={{ height: 20 }}></Box>
               <DeleteModal
                 open={isModalOpen}
                 onDelete={handleDelete}

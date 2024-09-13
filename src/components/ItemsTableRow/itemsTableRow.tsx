@@ -1,6 +1,13 @@
 "use client";
 import { palette } from "@/theme/palette";
-import { Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { ChangeEvent, FC } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,6 +73,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               "& .MuiOutlinedInput-root": {
                 borderRadius: "2px !important",
               },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[800],
+                opacity: 0.7,
+              },
             }}
             id="outlined-basic"
             name="name"
@@ -82,7 +93,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // paddingLeft: "16px !important",
           }}
           item
-          xs={selectedTax ? 1.6 : 2}
+          xs={selectedTax ? 1.8 : 2.2}
         >
           <TextField
             // size="small"
@@ -91,6 +102,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
                 borderRadius: "2px !important",
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[800],
+                opacity: 0.7,
               },
               "& input[type=number]": {
                 MozAppearance: "textfield",
@@ -102,7 +117,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   WebkitAppearance: "none",
                   margin: 0,
                 },
-                textAlign: "right",
+                textAlign: "left",
               },
             }}
             id="outlined-basic"
@@ -112,13 +127,23 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             variant="outlined"
             value={data.quantity > 0 ? data.quantity : ""}
             inputProps={{ min: 0, style: { textAlign: "right" } }}
-            onChange={handleChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              const value = parseInt(e.target.value, 10);
+              if (value >= 0 || e.target.value === "") {
+                handleChange(e); // Now the type should match
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "-" || e.key === "e") {
+                e.preventDefault(); // Prevent entering the minus sign or 'e'
+              }
+            }}
           />
         </Grid>
         <Grid
           sx={{ padding: "4px", paddingTop: "4px !important" }}
           item
-          xs={selectedTax ? 1.6 : 2}
+          xs={selectedTax ? 1.8 : 2.2}
         >
           <TextField
             sx={{
@@ -126,6 +151,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
                 borderRadius: "2px !important",
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[800],
+                opacity: 0.7,
               },
               "& input[type=number]": {
                 MozAppearance: "textfield",
@@ -143,10 +172,22 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             id="outlined-basic"
             name="rate"
             type="number"
-            placeholder="$       0.0"
+            placeholder={
+              selectedTax ? "0.0          $" : "0.0                $"
+            }
             variant="outlined"
             value={data.rate > 0 ? data.rate : ""}
-            onChange={handleChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              const value = parseInt(e.target.value, 10);
+              if (value >= 0 || e.target.value === "") {
+                handleChange(e); // Now the type should match
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "-" || e.key === "e") {
+                e.preventDefault(); // Prevent entering the minus sign or 'e'
+              }
+            }}
           />
         </Grid>
 
@@ -154,7 +195,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           <Grid
             sx={{ padding: "4px", paddingTop: "4px !important" }}
             item
-            xs={1.6}
+            xs={1.8}
           >
             {selectedTax ? (
               <TextField
@@ -166,6 +207,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   color: palette.color.gray[700],
                   "& .MuiOutlinedInput-root": {
                     borderRadius: "2px !important",
+                  },
+                  "& .MuiInputBase-input::placeholder": {
+                    color: palette.color.gray[800],
+                    opacity: 0.7,
                   },
                   "& input[type=number]": {
                     MozAppearance: "textfield",
@@ -182,10 +227,20 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 }}
                 name="tax"
                 type="number"
-                placeholder="%      0.0"
+                placeholder="0.0        %"
                 variant="outlined"
                 value={data.tax > 0 ? data.tax : ""}
-                onChange={handleChange}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const value = parseInt(e.target.value, 10);
+                  if (value >= 0 || e.target.value === "") {
+                    handleChange(e); // Now the type should match
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "-" || e.key === "e") {
+                    e.preventDefault(); // Prevent entering the minus sign or 'e'
+                  }
+                }}
               />
             ) : (
               ""
@@ -196,26 +251,32 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         )}
 
         <Grid
-          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          sx={{
+            padding: "4px",
+            paddingTop: "4px !important",
+            justifyContent: "end",
+          }}
           item
-          xs={selectedTax ? 2.2 : 3}
+          xs={selectedTax ? 1.8 : 2.8}
         >
           <Typography
+            variant="text-xs1-semibold"
             sx={{
-              width: "100%", // Set width to ensure there's space to scroll
+              ml: "20%",
+              width: "85px", // Set width to ensure there's space to scroll
               color: palette.base.black,
-              display: "flex",
-              justifyContent: "flex-end",
-              margin: "7px 7px 7px 7px",
+              display: "block",
+              // justifyContent: "flex-end",
+              margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 67px",
               whiteSpace: "nowrap", // Prevent line break
-              overflowX: "auto", // Enable horizontal scrolling
-              overflowY: "hidden", // Hide vertical overflow
+              overflow: "hidden", // Hide vertical overflow
               textOverflow: "ellipsis", // Add ellipsis if text overflows
               // scrollbarWidth: "none", // Hide scrollbar in Firefox
               // "&::-webkit-scrollbar": {
               //   display: "none", // Hide scrollbar in WebKit browsers (Chrome, Safari)
               // },
               cursor: "pointer",
+              textAlign: "end",
             }}
             title={`${
               selectedCurrency === "$ USD" ? "$" : selectedCurrency

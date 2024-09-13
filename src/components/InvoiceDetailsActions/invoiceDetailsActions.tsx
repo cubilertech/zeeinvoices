@@ -50,7 +50,7 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
 
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;
-    console.log(InvDetails, "InvDetails212")
+    console.log(InvDetails, "InvDetails212");
     const doc = (
       <PdfView
         invSetting={{ ...InvSetting }}
@@ -115,6 +115,11 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
           height: "36px !important",
           width: "100%",
           py: "0px !important",
+          borderRadius: "4px",
+          fontFamily: "Product Sans, sans-serif !important",
+          fontSize: "14px !important",
+          fontWeight: "500 !important",
+          background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
         }}
         onClick={() => generatePDFDocument()}
       >
@@ -129,6 +134,7 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
             width: "100%",
             backgroundColor: "#DD3409",
             marginTop: "15px",
+            borderRadius: "4px",
             "&:hover": {
               backgroundColor: "#BB3409",
             },

@@ -100,7 +100,10 @@ const gray = {
   120: "#D0D5DD",
   110: "#9CA3AF",
   100: "#90919b",
+  60: "#8F97A2",
   50: "#8f8f94",
+  30: "#F9F9F9",
+  20: "#F5F6F7",
   10: "#E0E0E0",
   5: "#EAECF0",
   3: "#EDECEF",
@@ -173,7 +176,8 @@ const textColor = {
 export const palette = {
   // mode: "dark" as PaletteMode,
   primary: {
-    main: "#3F4DE1",
+    // main: "#3F4DE1",
+    main: "#4F35DF",
     light: "#54A6FF",
   },
   brand: {
