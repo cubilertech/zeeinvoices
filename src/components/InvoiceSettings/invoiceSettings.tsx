@@ -221,7 +221,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
           <SelectInput
             width={"100%"}
             type="currency"
-            menuData={["$ USD", "RS", "AED"]}
+            menuData={["USD", "RS", "AED"]}
           ></SelectInput>
         </Box>
         <Typography

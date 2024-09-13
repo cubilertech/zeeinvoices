@@ -132,7 +132,11 @@ const Header = () => {
           }}
         >
           <Box sx={{ display: { sm: "none", xs: "block" } }}>
-            <IconButton aria-haspopup="true" onClick={handleClickMenu}>
+            <IconButton
+              sx={{ pl: 0 }}
+              aria-haspopup="true"
+              onClick={handleClickMenu}
+            >
               <MenuIcon sx={{ width: 24, height: 24 }} />
             </IconButton>
             <Popover
@@ -220,7 +224,12 @@ const Header = () => {
                       handleCloseMenu();
                       handleButton(data);
                     }}
-                    sx={{ py: 2, color: "black", fontSize: "12px" }}
+                    sx={{
+                      py: 2,
+                      color: "black",
+                      fontSize: "12px",
+                      fontFamily: "Product Sans, sans-serif !important",
+                    }}
                   >
                     {data.title}
                   </Typography>
@@ -245,7 +254,12 @@ const Header = () => {
                         handleCloseMenu();
                         handleButton(data);
                       }}
-                      sx={{ py: 2, color: "black", fontSize: "12px" }}
+                      sx={{
+                        py: 2,
+                        color: "black",
+                        fontSize: "12px",
+                        fontFamily: "Product Sans, sans-serif !important",
+                      }}
                     >
                       {data.title}
                     </Typography>

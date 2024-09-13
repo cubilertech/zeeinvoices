@@ -92,7 +92,7 @@ const SelectInput: FC<SelectInput> = ({
                   color: palette.base.black,
                   backgroundColor: palette.base.white,
                   "&.Mui-selected": {
-                    bgcolor: "lightgrey", // Change background color of selected item
+                    bgcolor: palette.color.gray[5], // Change background color of selected item
                     color: "darkblue", // Change text color of selected item
                     "&:hover": {
                       bgcolor: "lightgrey", // Keep background color on hover for selected item

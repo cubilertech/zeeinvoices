@@ -87,7 +87,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
       >
         <ShowDetails
           title="From"
-          companyName={singleInvoice?.from?.name}
+          companyName={singleInvoice?.from?.companyName}
           address={singleInvoice?.from?.address}
           state={singleInvoice?.from?.state}
           email={singleInvoice?.from?.email}
@@ -95,7 +95,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         />
         <ShowDetails
           title="To"
-          companyName={singleInvoice?.to?.name}
+          companyName={singleInvoice?.to?.companyName}
           address={singleInvoice?.to?.address}
           state={singleInvoice?.to?.state}
           email={singleInvoice?.to?.email}
@@ -225,7 +225,11 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
                 xs={1.8}
               >
                 <Typography variant="text-xs-regular" sx={{}}>
-                  {invoiceSetting.currency} {data.rate}
+                  {/* {invoiceSetting.currency}  */}
+                  {invoiceSetting?.currency === "USD"
+                    ? "$"
+                    : invoiceSetting?.currency}{" "}
+                  {data.rate}
                 </Typography>
               </Grid>
 

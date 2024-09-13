@@ -90,7 +90,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           sx={{
             padding: "4px",
             paddingTop: "4px !important",
-            // paddingLeft: "16px !important",
+            paddingLeft: "8px !important",
           }}
           item
           xs={selectedTax ? 1.8 : 2.2}
@@ -123,10 +123,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             id="outlined-basic"
             name="quantity"
             type="number"
-            placeholder="1"
+            placeholder="1                 "
             variant="outlined"
             value={data.quantity > 0 ? data.quantity : ""}
-            inputProps={{ min: 0, style: { textAlign: "right" } }}
+            inputProps={{ min: 0 }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const value = parseInt(e.target.value, 10);
               if (value >= 0 || e.target.value === "") {
@@ -141,7 +141,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           />
         </Grid>
         <Grid
-          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          sx={{
+            padding: "4px",
+            paddingTop: "4px !important",
+            paddingLeft: "8px !important",
+          }}
           item
           xs={selectedTax ? 1.8 : 2.2}
         >
@@ -166,7 +170,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   WebkitAppearance: "none",
                   margin: 0,
                 },
-                textAlign: "right",
+                textAlign: "left",
               },
             }}
             id="outlined-basic"
@@ -193,15 +197,19 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
 
         {selectedTax ? (
           <Grid
-            sx={{ padding: "4px", paddingTop: "4px !important" }}
+            sx={{
+              padding: "4px",
+              paddingTop: "4px !important",
+              paddingLeft: "8px !important",
+            }}
             item
             xs={1.8}
           >
             {selectedTax ? (
               <TextField
-                InputProps={{
-                  inputProps: { min: 0, max: 100 },
-                }}
+                // InputProps={{
+                //   inputProps: { min: 0, max: 100 },
+                // }}
                 sx={{
                   borderRadius: "3px",
                   color: palette.color.gray[700],
@@ -222,7 +230,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                       WebkitAppearance: "none",
                       margin: 0,
                     },
-                    textAlign: "right",
+                    textAlign: "left",
                   },
                 }}
                 name="tax"
@@ -254,6 +262,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           sx={{
             padding: "4px",
             paddingTop: "4px !important",
+            paddingLeft: "8px !important",
             justifyContent: "end",
           }}
           item
@@ -263,11 +272,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             variant="text-xs1-semibold"
             sx={{
               ml: "20%",
-              width: "85px", // Set width to ensure there's space to scroll
+              width: selectedTax ? "95px" : "140px", // Set width to ensure there's space to scroll
               color: palette.base.black,
               display: "block",
               // justifyContent: "flex-end",
-              margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 67px",
+              margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 22px",
               whiteSpace: "nowrap", // Prevent line break
               overflow: "hidden", // Hide vertical overflow
               textOverflow: "ellipsis", // Add ellipsis if text overflows
@@ -279,13 +288,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               textAlign: "end",
             }}
             title={`${
-              selectedCurrency === "$ USD" ? "$" : selectedCurrency
+              selectedCurrency === "USD" ? "$" : selectedCurrency
             } ${(selectedTax
               ? data?.subTotal
               : data?.subTotal - data?.taxAmount
             ).toFixed(2)}`} // Optional: Show full value on hover
           >
-            {selectedCurrency === "$ USD" ? "$" : selectedCurrency}{" "}
+            {selectedCurrency === "USD" ? "$" : selectedCurrency}{" "}
             {(selectedTax
               ? data?.subTotal
               : data?.subTotal - data?.taxAmount

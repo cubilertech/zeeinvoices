@@ -22,7 +22,7 @@ const ShowDetails: FC<ShowDetails> = ({ title, companyName, name, address, state
       borderRadius={1}
       sx={{
         width: 347,
-        height: 176,
+        // height: 176,
         marginTop: 2,
         py: 1,
         px: 3,
@@ -33,8 +33,9 @@ const ShowDetails: FC<ShowDetails> = ({ title, companyName, name, address, state
       <Typography variant="text-sm-medium" color={palette.color.gray[760]}>
         {title}
       </Typography>
-      <Stack spacing={1} sx={{ marginTop: 1 }}>
+      <Stack spacing={1.5} sx={{ marginTop: 1 }}>
         <Typography variant="text-xs-bold">{companyName}</Typography>
+        <Box sx={{height:"1px"}}></Box>
         <Stack direction={"column"}>
           <Typography variant="text-xs-regular" color={palette.color.gray[720]}>
             {name}

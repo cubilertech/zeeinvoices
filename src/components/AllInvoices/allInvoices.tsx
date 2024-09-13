@@ -480,7 +480,12 @@ export default function AllInvoices() {
                                 className="tableCell"
                                 sx={{ paddingLeft: "20px" }}
                               >
-                                {row.id}
+                                <Typography
+                                  variant="text-sm-medium"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
+                                  {row.id}
+                                </Typography>
                               </TableCell>
                               <TableCell align="left" className="tableCell">
                                 <Stack
@@ -498,10 +503,15 @@ export default function AllInvoices() {
                                       justifyContent: "center",
                                     }}
                                   >
-                                    {row.toDetails?.name?.charAt(0).toUpperCase()}
+                                    {row.toDetails?.name
+                                      ?.charAt(0)
+                                      .toUpperCase()}
                                   </Avatar>
                                   <Stack direction={"column"}>
-                                    <Typography variant="text-sm-medium">
+                                    <Typography
+                                      variant="text-sm-medium"
+                                      sx={{ color: palette.color.gray[130] }}
+                                    >
                                       {row.to?.name || row.toDetails?.name}
                                     </Typography>
                                     {/* <Typography variant="text-xs-regular">
@@ -540,8 +550,15 @@ export default function AllInvoices() {
                               </TableCell> */}
 
                               <TableCell align="left" className="tableCell">
-                                {row.settings.currency}{" "}
-                                {calculateAmount(row.items).toFixed(2)}
+                                <Typography
+                                  variant="text-sm-medium"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
+                                  {row.settings.currency == "USD"
+                                    ? "$"
+                                    : row.settings.currency}{" "}
+                                  {calculateAmount(row.items).toFixed(2)}
+                                </Typography>
                               </TableCell>
                               <TableCell align="left" className="tableCell">
                                 <CustomPopOver

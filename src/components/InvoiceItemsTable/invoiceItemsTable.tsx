@@ -57,7 +57,7 @@ const InvoiceItemsTable: FC = () => {
             <Grid
               sx={{ padding: "0px", paddingTop: "2px !important" }}
               item
-              xs={4.5}
+              xs={4.37}
             >
               <Typography
                 variant="text-xs-semibold"
@@ -145,7 +145,7 @@ const InvoiceItemsTable: FC = () => {
                 alignItems: "center",
               }}
               item
-              xs={selectedTax ? 2.15 : 2.95}
+              xs={selectedTax ? 2.25 : 3.05}
               // xs={2.2}
             >
               <Typography

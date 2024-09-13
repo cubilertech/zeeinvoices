@@ -68,7 +68,7 @@ const InvoiceSummary: FC = () => {
           sx={{ color: palette.base.black, lineHeight: "14px" }}
         >
           {" "}
-          {selectedCurrency === "$ USD" ? "USD" : selectedCurrency}{" "}
+          {selectedCurrency === "USD" ? "USD" : selectedCurrency}{" "}
           <span style={{ fontSize: 12, fontWeight: 600 }}>
             {(total - taxAmount).toFixed(2)}
           </span>
@@ -94,7 +94,7 @@ const InvoiceSummary: FC = () => {
               sx={{ color: palette.base.black, fontWeight: 300 }}
             >
               {taxAmount > 0
-                ? (selectedCurrency === "$ USD" ? "USD" : selectedCurrency) +
+                ? (selectedCurrency === "USD" ? "USD" : selectedCurrency) +
                   " " +
                   taxAmount.toFixed(2)
                 : "--"}
@@ -121,7 +121,7 @@ const InvoiceSummary: FC = () => {
           variant="text-xs0-semibold"
           sx={{ color: palette.base.black }}
         >
-          {selectedCurrency === "$ USD" ? "USD" : selectedCurrency}{" "}
+          {selectedCurrency === "USD" ? "USD" : selectedCurrency}{" "}
           <span style={{ fontSize: 12, fontWeight: 600 }}>
             {/* {total.toFixed(2)} */}
             {(selectedTax ? total : total - taxAmount).toFixed(2)}

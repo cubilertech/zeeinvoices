@@ -93,9 +93,9 @@ const PdfView: FC<PdfViewProps> = ({
   const dueDate = invSetting?.dueDate;
   const tax = invSetting?.tax;
   const currency =
-    invSetting?.currency === "$ USD" ? "$" : invSetting?.currency;
+    invSetting?.currency === "USD" ? "$" : invSetting?.currency;
   const currencyText =
-    invSetting?.currency === "$ USD" ? "USD" : invSetting?.currency;
+    invSetting?.currency === "USD" ? "USD" : invSetting?.currency;
 
   const summarySubTotal = (Summary?.total - Summary?.taxAmount).toFixed(2);
 
