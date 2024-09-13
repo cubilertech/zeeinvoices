@@ -1,9 +1,9 @@
-import { ChooseZeeInvoiceSection } from "@/components/About/ChooseZeeInvoiceSection";
-import { GetInTouchSection } from "@/components/About/GetInTouchSection";
-import { HeroSection } from "@/components/About/HeroSection";
-import { JoinUsSection } from "@/components/About/JoinUsSection";
-import { OurMissionSection } from "@/components/About/OurMissionSection";
-import { WeOfferSection } from "@/components/About/WeOfferSection";
+import { ChooseZeeInvoiceSection } from "@/appPages/About/ChooseZeeInvoiceSection";
+import { GetInTouchSection } from "@/appPages/About/GetInTouchSection";
+import { HeroSection } from "@/appPages/About/HeroSection";
+import { JoinUsSection } from "@/appPages/About/JoinUsSection";
+import { OurMissionSection } from "@/appPages/About/OurMissionSection";
+import { WeOfferSection } from "@/appPages/About/WeOfferSection";
 import { Box } from "@mui/material";
 
 const AboutPage = () => {
