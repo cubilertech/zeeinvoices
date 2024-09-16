@@ -79,7 +79,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           backgroundColor: "#FAFAFA",
           borderRadius: "4px",
           width: { sm: "272px", xs: "100%" },
-          px: "24px",
+          pl: "24px",
           flexDirection: { sm: "row", xs: "column" },
           alignItems: { sm: "center", xs: "flex-start" },
           justifyContent: { sm: "center", xs: "start" },
@@ -95,7 +95,12 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           sx={{
             border: "none",
             textUnderlinePosition: "unset",
-            "& .MuiInputBase-input": { border: "none" },
+            "& .MuiInputBase-input": {
+              border: "none",
+              height: "30px",
+              pl: "0px",
+              pr: "10px",
+            },
             "& .MuiInputBase-input::placeholder": {
               color: "#8F97A2",
             },

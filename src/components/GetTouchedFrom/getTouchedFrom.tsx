@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
+import { toast } from "react-toastify";
 import { Formik, Form, Field, FieldProps } from "formik";
 import { PhoneInput } from "react-international-phone";
 import * as Yup from "yup";
@@ -47,7 +48,7 @@ const GetTouchForm: React.FC = () => {
         })
           .then((response) => {
             if (response.status === 200) {
-              alert("Message sent successfully!");
+              toast.success("Message sent successfully!");
               resetForm();
             } else {
               alert("Failed to send message.");
