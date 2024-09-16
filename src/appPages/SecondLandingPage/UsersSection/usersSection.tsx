@@ -50,7 +50,7 @@ const commentTextData = [
     title2: "",
     rating: 5,
     desc1:
-      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
+      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
     desc2:
       "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
   },
@@ -61,7 +61,7 @@ const commentTextData = [
     desc1:
       "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
     desc2:
-      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
+      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
   },
 ];
 

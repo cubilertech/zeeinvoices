@@ -51,6 +51,10 @@ const JoinUsSection = () => {
               fontWeight: "400 !important",
               background: "white",
               color: "#4F35DF",
+              "&:hover": {
+                backgroundColor: palette.color.gray[10],
+                color: "#4F35DF",
+              },
             }}
           >
             Join Us Now

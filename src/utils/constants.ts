@@ -85,9 +85,17 @@ export const icons = {
   contactWhitePhoneIcon: "/Images/icons/contact-phone-white-icon.svg",
 
   tickBageIcon: "/Images/about/icons/tick-bage.svg",
+  tickBageWhiteIcon: "/Images/about/icons/tick-bage-white-icon.svg",
+
+
   tickPersonIcon: "/Images/about/icons/tick-person-icon.svg",
+  tickPersonWhiteIcon: "/Images/about/icons/tick-person-white-icon.svg",
+
   searchBoxIcon: "/Images/about/icons/search-box-icon.svg",
+  searchBoxWhiteIcon: "/Images/about/icons/search-box-white-icon.svg",
+
   perpleWorldLinedIcon: "/Images/about/icons/perple-world-lined-icon.svg",
+  whiteWorldLinedIcon: "/Images/about/icons/white-world-lined-icon.svg",
 };
 
 export const backendURL =
