@@ -37,7 +37,7 @@ const GetTouchForm: React.FC = () => {
         agreement: false,
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
+      onSubmit={(values, { resetForm }) => {
         fetch("/api/send-email", {
           method: "POST",
           headers: {
@@ -48,6 +48,7 @@ const GetTouchForm: React.FC = () => {
           .then((response) => {
             if (response.status === 200) {
               alert("Message sent successfully!");
+              resetForm();
             } else {
               alert("Failed to send message.");
             }
