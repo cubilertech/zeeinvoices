@@ -89,7 +89,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         <TextField
           variant="standard"
           placeholder="Search"
-          type="number"
+          // type="number"
           value={search}
           onChange={(e) => handleChangeSearch(e)}
           sx={{
