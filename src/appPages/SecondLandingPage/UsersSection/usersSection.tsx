@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const expandableTextData = [
   {
@@ -67,17 +67,40 @@ const commentTextData = [
 
 const UsersSection = () => {
   const [openIndex, setOpenIndex] = useState<number>(0); // for expanding the text description.
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // const handleToggle = (index: number) => {
+  //   setOpenIndex(openIndex === index ? index : index);
+  // };
+
   const handleToggle = (index: number) => {
-    setOpenIndex(openIndex === index ? index : index);
+    // Start the fade-out transition
+    setIsTransitioning(true);
+
+    setTimeout(() => {
+      // Once the transition is complete, update the openIndex and fade back in
+      setOpenIndex(index);
+      setIsTransitioning(false);
+    }, 250); // This should match the CSS transition duration
   };
+
   const route = useRouter();
 
+
   const handleComplete = () => {
-    setOpenIndex((prevIndex) => {
-      const nextIndex = (openIndex as number) + 1;
-      return nextIndex >= expandableTextData.length ? 0 : nextIndex;
-    });
+    const nextIndex = (openIndex + 1) % expandableTextData.length;
+    handleToggle(nextIndex); // Use handleToggle to ensure fade effect
   };
+
+  useEffect(() => {
+    setIsTransitioning(true);
+    const timeout = setTimeout(() => {
+      setIsTransitioning(false);
+    }, 200); // 200ms matches the CSS transition duration
+
+    return () => clearTimeout(timeout);
+  }, [openIndex]);
+
   return (
     <Stack
       direction={"column"}
@@ -166,7 +189,14 @@ const UsersSection = () => {
         </Stack>
 
         {/* right section */}
-        <Stack direction={"column"} gap={1}>
+        <Stack
+          direction={"column"}
+          gap={1}
+          sx={{
+            opacity: isTransitioning ? 0 : 1,
+            transition: "opacity 0.3s ease-in-out",
+          }}
+        >
           <Typography
             variant="display-md1-medium"
             sx={{

@@ -17,6 +17,7 @@ interface SelectSenderReceiver {
   type?: string;
   filteredData?: any;
   menuData?: string[];
+  onItemSelected?: (type: any) => void;
 }
 const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   type,
@@ -26,6 +27,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   height = 36,
   filteredData,
   borderRadius = 2,
+  onItemSelected,
 }) => {
   const dispatch = useDispatch();
   const [selectedSender, setSelectedSender] = useState("");
@@ -123,6 +125,9 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                   console.log(item, "values12");
                   handleSelectedItem(item);
                   setSelectedIndex(index);
+                  if (onItemSelected) {
+                    onItemSelected(type);
+                  }
                 }}
                 sx={{
                   color: palette.base.black,

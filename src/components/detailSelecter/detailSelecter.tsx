@@ -76,10 +76,30 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const apiRouteClient = `${backendURL}/clients/getAll`;
 
   const [open, setOpen] = React.useState(false);
+  const [isSelectedList, setIsSelectedList] = React.useState({
+    isSender: false,
+    isRecipient: false,
+  });
+
+  const handleItemSelected = (item: any) => {
+    if (item === "Sender") {
+      setIsSelectedList((prev) => ({
+        ...prev,
+        isSender: true,
+      }));
+    } else {
+      setIsSelectedList((prev) => ({
+        ...prev,
+        isRecipient: true,
+      }));
+    }
+    
+  };
   const handleOpen = () => {
     setOpen(true), setOpenBd(true);
   };
-  console.log(InvDetails, "121a");
+
+  // console.log(InvDetails, "121a");
   const initialValues = {
     name: InvDetails?.name || "",
     companyName: InvDetails?.companyName || "",
@@ -238,6 +258,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
   console.log(filteredSenderData, "filteredSenderData");
   const isMobile = useMediaQuery("(max-width: 500px)");
 
+  console.log(isSelectedList, "is1");
   return (
     <Box
       borderRadius={1}
@@ -260,6 +281,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           filteredData={
             detailsOf === `Sender` ? filteredSenderData : filteredClientData
           }
+          onItemSelected={handleItemSelected}
         />
       )}
       {!showData ? (
