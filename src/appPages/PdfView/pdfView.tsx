@@ -92,8 +92,7 @@ const PdfView: FC<PdfViewProps> = ({
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
   const tax = invSetting?.tax;
-  const currency =
-    invSetting?.currency === "USD" ? "$" : invSetting?.currency;
+  const currency = invSetting?.currency === "USD" ? "$" : invSetting?.currency;
   const currencyText =
     invSetting?.currency === "USD" ? "USD" : invSetting?.currency;
 
@@ -706,7 +705,7 @@ const PdfView: FC<PdfViewProps> = ({
               height: "30px",
               marginLeft: "0px",
               marginRight: "0px",
-              backgroundColor: "#4F35DF",
+              backgroundColor: bgColor,
               display: "flex",
               flexDirection: "row",
               padding: "5px 10px",
