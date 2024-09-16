@@ -191,6 +191,7 @@ const FooterSection = () => {
               <Link
                 underline="hover"
                 variant="text-md-regular"
+                href="/about"
                 sx={{ color: palette.color.gray[731], cursor: "pointer" }}
               >
                 <Typography

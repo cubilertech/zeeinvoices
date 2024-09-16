@@ -262,120 +262,138 @@ export default function AllClients() {
               search={search}
               handleChangeSearch={handleChangeSearch}
             />
-            <TableContainer
-              sx={{
-                border: `1px solid ${palette.border.invoicesBorderColor}`,
-                borderTopLeftRadius: "8px",
-                borderTopRightRadius: "8px",
-              }}
-            >
-              <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-                <EnhancedTableHead
-                  numSelected={selected.length}
-                  order={order}
-                  orderBy={orderBy}
-                  onRequestSort={handleRequestSort}
-                  rowCount={clientList?.clients?.length}
+            {filteredData.length <= 0 ? (
+              <Box
+                sx={{
+                  height: "300px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  textAlign: "center",
+                }}
+              >
+                <Typography>No Recipients Found</Typography>
+              </Box>
+            ) : (
+              <>
+                <TableContainer
+                  sx={{
+                    border: `1px solid ${palette.border.invoicesBorderColor}`,
+                    borderTopLeftRadius: "8px",
+                    borderTopRightRadius: "8px",
+                  }}
+                >
+                  <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+                    <EnhancedTableHead
+                      numSelected={selected.length}
+                      order={order}
+                      orderBy={orderBy}
+                      onRequestSort={handleRequestSort}
+                      rowCount={clientList?.clients?.length}
+                    />
+                    {fetchingClientList ? (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          padding: "20px",
+                          alignItems: "center",
+                          height: "400px",
+                        }}
+                      >
+                        <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+                      </Box>
+                    ) : (
+                      <TableBody>
+                        {filteredData?.map((row: any, index: number) => {
+                          const labelId = `enhanced-table-checkbox-${index}`;
+                          return (
+                            <TableRow
+                              hover
+                              role="checkbox"
+                              tabIndex={-1}
+                              key={row.id}
+                              sx={{ cursor: "pointer" }}
+                            >
+                              <TableCell
+                                component="th"
+                                id={labelId}
+                                scope="row"
+                                padding="none"
+                                className="tableCell"
+                                sx={{ paddingLeft: "20px" }}
+                              >
+                                <Typography variant="text-sm-regular">
+                                  {row?.name}
+                                </Typography>
+                              </TableCell>
+                              <TableCell align="left" className="tableCell">
+                                <Typography variant="text-sm-regular">
+                                  {row?.email}
+                                </Typography>
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                className="tableCell"
+                                sx={{ paddingLeft: "17px" }}
+                              >
+                                <Typography variant="text-sm-regular">
+                                  {row?.company_name}
+                                </Typography>
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                className="tableCell"
+                                sx={{ paddingLeft: "17px" }}
+                              >
+                                <Typography variant="text-sm-regular">
+                                  {row?.phone_number}
+                                </Typography>
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                className="tableCell"
+                                sx={{ paddingLeft: "17px" }}
+                              >
+                                <Typography variant="text-sm-regular">
+                                  {row?.city}
+                                </Typography>
+                              </TableCell>
+                              <TableCell align="left" className="tableCell">
+                                <Typography variant="text-sm-regular">
+                                  {row?.state}
+                                </Typography>
+                              </TableCell>
+                              <TableCell align="left" className="tableCell">
+                                {row?.address}
+                              </TableCell>
+                              <TableCell align="left" className="tableCell">
+                                <ClientPopOver
+                                  handleOpenDeleteModal={handleOpenDeleteModal}
+                                  record={row}
+                                  handleViewClient={handleViewClient}
+                                  handleEditClient={handleEditClient}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    )}
+                  </Table>
+                </TableContainer>
+
+                <Pagination
+                  totalRecords={
+                    clientList?.totalRecords ? clientList?.totalRecords : 0
+                  }
+                  itemsPerPage={rowsPerPage}
+                  page={page}
+                  setPage={setPage}
                 />
-                {fetchingClientList ? (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      padding: "20px",
-                      alignItems: "center",
-                      height: "400px",
-                    }}
-                  >
-                    <CircularProgress size={24} sx={{ color: "#8477DA" }} />
-                  </Box>
-                ) : (
-                  <TableBody>
-                    {filteredData?.map((row: any, index: number) => {
-                      const labelId = `enhanced-table-checkbox-${index}`;
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row.id}
-                          sx={{ cursor: "pointer" }}
-                        >
-                          <TableCell
-                            component="th"
-                            id={labelId}
-                            scope="row"
-                            padding="none"
-                            className="tableCell"
-                            sx={{ paddingLeft: "20px" }}
-                          >
-                            <Typography variant="text-sm-regular">
-                              {row?.name}
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="left" className="tableCell">
-                            <Typography variant="text-sm-regular">
-                              {row?.email}
-                            </Typography>
-                          </TableCell>
-                          <TableCell
-                            align="left"
-                            className="tableCell"
-                            sx={{ paddingLeft: "17px" }}
-                          >
-                            <Typography variant="text-sm-regular">
-                              {row?.company_name}
-                            </Typography>
-                          </TableCell>
-                          <TableCell
-                            align="left"
-                            className="tableCell"
-                            sx={{ paddingLeft: "17px" }}
-                          >
-                            <Typography variant="text-sm-regular">
-                              {row?.phone_number}
-                            </Typography>
-                          </TableCell>
-                          <TableCell
-                            align="left"
-                            className="tableCell"
-                            sx={{ paddingLeft: "17px" }}
-                          >
-                            <Typography variant="text-sm-regular">
-                              {row?.city}
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="left" className="tableCell">
-                            <Typography variant="text-sm-regular">
-                              {row?.state}
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="left" className="tableCell">
-                            {row?.address}
-                          </TableCell>
-                          <TableCell align="left" className="tableCell">
-                            <ClientPopOver
-                              handleOpenDeleteModal={handleOpenDeleteModal}
-                              record={row}
-                              handleViewClient={handleViewClient}
-                              handleEditClient={handleEditClient}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                )}
-              </Table>
-            </TableContainer>
-            <Pagination
-              totalRecords={
-                clientList?.totalRecords ? clientList?.totalRecords : 0
-              }
-              itemsPerPage={rowsPerPage}
-              page={page}
-              setPage={setPage}
-            />
+              </>
+            )}
           </Paper>
           <Box sx={{ height: 20 }}></Box>
           <DeleteModal

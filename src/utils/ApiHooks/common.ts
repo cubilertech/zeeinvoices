@@ -125,6 +125,7 @@ export const useDeleteDocument = () => {
         toast.error("An error occurred while deleting record.");
       }
     } catch (error: any) {
+      toast.error(error.response.data.message);
       throw new Error(`${error.response?.data?.message}`);
     }
   };

@@ -12,6 +12,7 @@ import { PhoneInput } from "react-international-phone";
 import * as Yup from "yup";
 import "react-international-phone/style.css";
 import "@/Styles/contactPhoneNoStyle.css";
+import "./getTouchedFrom.css";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First name is required"),
@@ -37,7 +38,23 @@ const GetTouchForm: React.FC = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log(values);
+        fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              alert("Message sent successfully!");
+            } else {
+              alert("Failed to send message.");
+            }
+          })
+          .catch((error) => {
+            alert("An error occurred while sending the message.");
+          });
       }}
     >
       {({ errors, touched, handleChange, handleBlur }) => (
@@ -118,7 +135,7 @@ const GetTouchForm: React.FC = () => {
                 {({ field }: FieldProps) => (
                   <PhoneInput
                     {...field}
-                    style={{ width: "100%" }}
+                    style={{ width: "100% !important" }}
                     className="custom-phone-input"
                     defaultCountry="pk"
                     onChange={(value: string) =>
