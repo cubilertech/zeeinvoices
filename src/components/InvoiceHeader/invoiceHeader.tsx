@@ -28,6 +28,7 @@ import { palette } from "@/theme/palette";
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
+import { setResetSelectedList } from "@/redux/features/listSelected";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -156,6 +157,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
+    dispatch(setResetSelectedList());
+
     if (!session) {
       setLoginModel(true);
     } else {

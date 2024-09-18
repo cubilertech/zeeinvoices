@@ -145,6 +145,14 @@ export const invoiceSlice = createSlice({
       state.addtionalNotes = action.payload.addtionalNotes;
       state.invoiceItem = action.payload.invoiceItem;
     },
+    setResetFromDetails: (state) => {
+      state.from = initialValue.from;
+    },
+
+    setResetToDetails: (state) => {
+      state.to = initialValue.to;
+    },
+
     setResetInvoice: (state) => {
       return initialValue;
     },
@@ -175,6 +183,8 @@ export const {
   setInvoiceItem,
   setAddtionalNotes,
   setFullInvoice,
+  setResetFromDetails,
+  setResetToDetails,
   setResetInvoice,
 } = invoiceSlice.actions;
 export default invoiceSlice.reducer;

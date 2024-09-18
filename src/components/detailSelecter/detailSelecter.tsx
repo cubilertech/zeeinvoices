@@ -24,8 +24,10 @@ import "@/Styles/phoneNoStyle.css";
 import {
   getSenderDetail,
   getRecipientDetail,
+  setResetFromDetails,
+  setResetToDetails,
 } from "@/redux/features/invoiceSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SelectInput } from "../SelectInput";
 import { SelectSenderReceiver } from "../SelectSenderReceiver";
 import {
@@ -33,6 +35,13 @@ import {
   useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
 import { useSession } from "next-auth/react";
+import {
+  getIsRecipientSelected,
+  getIsSenderSelected,
+  setRecipientSelected,
+  setResetSelectedList,
+  setSenderSelected,
+} from "@/redux/features/listSelected";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -62,6 +71,7 @@ interface DetailSelecter {
   InvDetails?: any;
   handleSubmitForm?: any;
   type?: any;
+  isListSelected?: boolean;
 }
 const DetailSelecter: FC<DetailSelecter> = ({
   title,
@@ -70,9 +80,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
   InvDetails,
   handleSubmitForm,
   type,
+  isListSelected,
 }) => {
+  const dispatch = useDispatch();
+  // dispatch(setResetSelectedList());
   const apiRouteSender = `${backendURL}/senders/getAll`;
-
   const apiRouteClient = `${backendURL}/clients/getAll`;
 
   const [open, setOpen] = React.useState(false);
@@ -80,20 +92,26 @@ const DetailSelecter: FC<DetailSelecter> = ({
     isSender: false,
     isRecipient: false,
   });
+  const [isSenderList, setIsSenderList] = useState("");
+  const [isRecipientList, setIsRecipientList] = useState("");
 
   const handleItemSelected = (item: any) => {
+    console.log(item, "item", isSelectedList);
     if (item === "Sender") {
+      setIsSenderList(item);
+      // dispatch(setSenderSelected(true));
       setIsSelectedList((prev) => ({
         ...prev,
         isSender: true,
       }));
     } else {
+      setIsRecipientList(item);
+      // dispatch(setRecipientSelected(true));
       setIsSelectedList((prev) => ({
         ...prev,
         isRecipient: true,
       }));
     }
-    
   };
   const handleOpen = () => {
     setOpen(true), setOpenBd(true);
@@ -121,6 +139,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
   }
   const senderDetail = useSelector(getSenderDetail);
   const recipientDetail = useSelector(getRecipientDetail);
+
+  const fromSelected = useSelector(getIsSenderSelected);
+  const toSelected = useSelector(getIsRecipientSelected);
+
   const { data: session } = useSession();
   const {
     data: senderList,
@@ -258,7 +280,19 @@ const DetailSelecter: FC<DetailSelecter> = ({
   console.log(filteredSenderData, "filteredSenderData");
   const isMobile = useMediaQuery("(max-width: 500px)");
 
-  console.log(isSelectedList, "is1");
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      // Dispatch the reset action
+      dispatch(setResetSelectedList());
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [dispatch]);
+
   return (
     <Box
       borderRadius={1}
@@ -274,6 +308,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
       )}
       {session?.accessToken && type != "edit" && (
         <SelectSenderReceiver
+          name={
+            fromSelected ? InvDetails?.name : toSelected ? InvDetails?.name : ""
+          }
           width={isMobile ? "100%" : 345}
           placeholder={`Add existing ${detailsOf}`}
           borderRadius={"4px"}
@@ -339,11 +376,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
             marginTop: 1.5,
             padding: 2,
             borderRadius: 2,
-            cursor: type != "edit" ? "pointer" : "default",
+            cursor: type != "edit" && !isListSelected ? "pointer" : "default",
             border: `1px solid ${palette.color.gray[120]}`,
           }}
           onClick={() => {
-            if (type != "edit") {
+            if (type != "edit" && !isListSelected) {
               handleOpen();
             }
           }}
@@ -359,9 +396,32 @@ const DetailSelecter: FC<DetailSelecter> = ({
             >
               {title === "From" ? "Sender Details" : "Recipient Details"}
             </Typography>
-            {type != "edit" && (
+            {type != "edit" && !isListSelected && (
               <IconButton sx={{ padding: 0 }}>
                 <Icon icon="editIcon" width={20} height={20} />
+              </IconButton>
+            )}
+            {isListSelected && (
+              <IconButton
+                sx={{ padding: 0 }}
+                onClick={() => {
+                  console.log(detailsOf, "detailsof");
+                  if (detailsOf == "Sender") {
+                    dispatch(setResetFromDetails());
+                    dispatch(setSenderSelected(false));
+                  } else {
+                    dispatch(setResetToDetails());
+                    dispatch(setRecipientSelected(false));
+                  }
+                }}
+              >
+                <CloseIcon
+                  sx={{
+                    width: "20px",
+                    height: "20px",
+                    color: palette.color.gray[300],
+                  }}
+                />
               </IconButton>
             )}
           </Stack>

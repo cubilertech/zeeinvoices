@@ -139,7 +139,7 @@ const GetTouchForm: React.FC = () => {
                     {...field}
                     style={{ width: "100% !important" }}
                     className="custom-phone-input"
-                    defaultCountry="pk"
+                    defaultCountry="us"
                     onChange={(value: string) =>
                       handleChange({
                         target: {

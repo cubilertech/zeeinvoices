@@ -392,7 +392,7 @@ const Profile: FC<Profile> = ({}) => {
                         style={{ width: isModile ? "100%" : "333px" }}
                         name="phoneNumber"
                         className="custom-phone-input"
-                        defaultCountry="pk"
+                        defaultCountry="us"
                         value={values.phoneNumber || ""}
                         onChange={(value) => {
                           handleChange({

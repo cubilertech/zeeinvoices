@@ -5,6 +5,7 @@ import InvoiceSettingReducer from "./features/invoiceSetting";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { thunk } from "redux-thunk";
+import listSelected from "./features/listSelected";
 
 // Persist config
 const persistConfig = {
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   counter: CountReducer,
   invoice: InvoiceReducer,
   invoiceSetting: InvoiceSettingReducer,
+  listSelected: listSelected,
 });
 
 // Persisted reducer
