@@ -307,7 +307,7 @@ const FooterSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Email: info@zeeinvoice.com
+                Email: info@zeeinvoices.com
               </Typography>
               <Typography
                 variant="text-md-regular"
