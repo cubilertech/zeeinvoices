@@ -149,7 +149,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
             width={isModile ? "100%" : 240}
             borderRadius={"4px"}
             type="Invoice type"
-            menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
+            menuData={["Bill", "Sales Invoice", "Expense Invoice", "Other"]}
           />
         </Box>
         {/* <Box sx={{ width: 92, height: 40 }}>
