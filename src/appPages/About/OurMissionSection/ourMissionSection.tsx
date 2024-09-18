@@ -13,7 +13,10 @@ const OurMissionSection = () => {
   const isModile = useMediaQuery("(max-width: 600px)");
   return (
     <>
-      <Container maxWidth="lg" sx={{ py: { sm: 9, xs: 3 } }}>
+      <Container
+        maxWidth="lg"
+        sx={{ py: { sm: 9, xs: 3 }, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
+      >
         <Box
           sx={{
             display: "flex",

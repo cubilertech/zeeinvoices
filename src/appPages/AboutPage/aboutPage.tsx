@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 const AboutPage = () => {
   return (
     <>
-      <Box sx={{ mt: 8 }}>
+      <Box sx={{ mt: 8, px: { sm: "0px", xs: "30px" } }}>
         <HeroSection />
         <OurMissionSection />
         <WeOfferSection />

@@ -53,7 +53,12 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
   return (
     <Container
       maxWidth="lg"
-      sx={{ overflowY: "auto", height: "100%", mt: { sm: 0, xs: 6 } }}
+      sx={{
+        overflowY: "auto",
+        height: "100%",
+        mt: { sm: 0, xs: 6 },
+        px: { md: "0.1%", lg: "0.1%", xs: "0%" },
+      }}
     >
       <Box sx={{ pt: 3, pb: 2 }}>
         <InvoiceHeader

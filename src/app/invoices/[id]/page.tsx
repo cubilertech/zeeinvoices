@@ -126,7 +126,14 @@ const InvoiceDetail = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
+    <Container
+      maxWidth="lg"
+      sx={{
+        overflowY: "auto",
+        height: "100%",
+        px: { md: "0.1%", lg: "0.1%", xs: "0%" },
+      }}
+    >
       <Stack
         direction={"row"}
         justifyContent={"space-between"}

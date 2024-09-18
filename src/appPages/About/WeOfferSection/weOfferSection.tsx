@@ -17,7 +17,10 @@ const WeOfferSection = () => {
 
   return (
     <>
-      <Container maxWidth="lg" sx={{ py: { sm: 7, xs: 4 } }}>
+      <Container
+        maxWidth="lg"
+        sx={{ py: { sm: 7, xs: 4 }, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
+      >
         <Box textAlign={"center"}>
           <Typography
             variant={isModile ? "h5" : "display-lg-bold"}
@@ -38,7 +41,7 @@ const WeOfferSection = () => {
           </Typography>
         </Box>
 
-        <Grid container gap={2} p={2} mx="auto" mt={4}>
+        <Grid container gap={2} pt={2} mx="auto" mt={4}>
           {weOfferData.map((item, index) => (
             <Grid item sm={5.9} xs={12} key={index}>
               <OfferCard

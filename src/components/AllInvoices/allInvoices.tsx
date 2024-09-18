@@ -409,7 +409,10 @@ export default function AllInvoices() {
   return (
     <>
       <hr />
-      <Container maxWidth="lg">
+      <Container
+        maxWidth="lg"
+        sx={{ px: { md: "0.1%", lg: "0.1%", xs: "3%" } }}
+      >
         {!isInvoiceLoading &&
         invoiceList?.invoices?.length === 0 &&
         search === "" ? (

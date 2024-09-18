@@ -5,6 +5,7 @@ import {
   Avatar,
   Box,
   Button,
+  Container,
   Rating,
   Stack,
   styled,
@@ -86,7 +87,6 @@ const UsersSection = () => {
 
   const route = useRouter();
 
-
   const handleComplete = () => {
     const nextIndex = (openIndex + 1) % expandableTextData.length;
     handleToggle(nextIndex); // Use handleToggle to ensure fade effect
@@ -107,144 +107,160 @@ const UsersSection = () => {
       gap={3}
       sx={{
         width: "100%",
-        pt: 3,
-        pb: { sm: 7, xs: 4 },
+        // pt: 3,
+        // pb: { sm: 7, xs: 4 },
         backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <Stack direction={"row"} gap={2}>
-        <Typography
-          variant="display-lg-bold"
-          sx={{
-            fontFamily: "Product Sans, sans-serif",
-            color: palette.color.gray[805],
-            fontSize: { md: "48px", xs: "24px" },
-            lineHeight: { md: "64px", xs: "29px" },
-            fontWeight: { md: 700 },
-          }}
-        >
-          What Our{" "}
-          <Box
-            component="span"
-            sx={{
-              fontFamily: "Product Sans, sans-serif",
-              fontSize: { md: "48px", xs: "24px" },
-              lineHeight: { md: "64px", xs: "29px" },
-              fontWeight: { md: 700 },
-              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              display: "inline-block",
-            }}
-          >
-            Users Say
-          </Box>
-        </Typography>
-      </Stack>
-      <Typography
-        variant="text-xl-regular"
-        sx={{
-          width: { md: "100%", xs: "335px" },
-          fontFamily: "Product Sans, sans-serif",
-          color: palette.color.gray[745],
-          fontSize: { md: "20px", xs: "12px" },
-          lineHeight: { md: "24px", xs: "18px" },
-          fontWeight: { md: 400 },
-          textAlign: { xs: "center" },
-        }}
-      >
-        Thousands of businesses trust Zeeinvoices to get paid faster.ZeeInvoices
-        to get paid faster faster.
-      </Typography>
-      <Stack
-        direction={{ md: "row", xs: "column" }}
-        gap={8}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          mt: "3%",
-          alignItems: { xs: "center" },
-        }}
-      >
-        {/* left section */}
+      <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "0%" } }}>
         <Stack
           direction={"column"}
           gap={3}
-          sx={{ width: { md: "560px", xs: "335px" } }}
-        >
-          {expandableTextData.map((item, index) => (
-            <SelectableComment
-              key={index}
-              imgSrc={item.imgSrc}
-              title1={item.title1}
-              title2={item.title2}
-              desc={item.desc}
-              isOpen={openIndex === index}
-              onToggle={() => handleToggle(index)}
-              onComplete={handleComplete} // Pass the completion handler
-            />
-          ))}
-        </Stack>
-
-        {/* right section */}
-        <Stack
-          direction={"column"}
-          gap={1}
           sx={{
-            opacity: isTransitioning ? 0 : 1,
-            transition: "opacity 0.3s ease-in-out",
+            width: "100%",
+            pt: 5,
+            pb: { sm: 7, xs: 4 },
+            backgroundColor: palette.base.white,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Typography
-            variant="display-md1-medium"
-            sx={{
-              fontFamily: "Product Sans, sans-serif",
-              color: palette.base.black,
-              fontSize: { md: "28px", xs: "14px" },
-              lineHeight: { md: "32px", xs: "32px" },
-              fontWeight: { md: 400 },
-            }}
-          >
-            {commentTextData[openIndex].title1}
-          </Typography>
-          <Rating
-            name="half-rating-read"
-            defaultValue={5}
-            precision={0.5}
-            size="small"
-            readOnly
-            sx={{ color: "#FCC214" }}
-          />
+          <Stack direction={"row"} gap={2}>
+            <Typography
+              variant="display-lg-bold"
+              sx={{
+                fontFamily: "Product Sans, sans-serif",
+                color: palette.color.gray[805],
+                fontSize: { md: "48px", xs: "24px" },
+                lineHeight: { md: "64px", xs: "29px" },
+                fontWeight: { md: 700 },
+              }}
+            >
+              What Our{" "}
+              <Box
+                component="span"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  fontSize: { md: "48px", xs: "24px" },
+                  lineHeight: { md: "64px", xs: "29px" },
+                  fontWeight: { md: 700 },
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  display: "inline-block",
+                }}
+              >
+                Users Say
+              </Box>
+            </Typography>
+          </Stack>
           <Typography
             variant="text-xl-regular"
             sx={{
-              width: { md: "560px", xs: "335px" },
+              width: { md: "100%", xs: "335px" },
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[745],
               fontSize: { md: "20px", xs: "12px" },
               lineHeight: { md: "24px", xs: "18px" },
               fontWeight: { md: 400 },
+              textAlign: { xs: "center" },
             }}
           >
-            {commentTextData[openIndex].desc1}
+            Thousands of businesses trust Zeeinvoices to get paid
+            faster.ZeeInvoices to get paid faster faster.
           </Typography>
-          <Typography
-            variant="text-xl-regular"
+          <Stack
+            direction={{ md: "row", xs: "column" }}
+            gap={9}
             sx={{
-              width: { md: "560px", xs: "335px" },
-              fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
-              fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "24px", xs: "18px" },
-              fontWeight: { md: 400 },
+              display: "flex",
+              justifyContent: "center",
+              mt: "3%",
+              alignItems: { xs: "center" },
             }}
           >
-            {commentTextData[openIndex].desc2}
-          </Typography>
+            {/* left section */}
+            <Stack
+              direction={"column"}
+              gap={3}
+              sx={{ width: { md: "560px", xs: "335px" } }}
+            >
+              {expandableTextData.map((item, index) => (
+                <SelectableComment
+                  key={index}
+                  imgSrc={item.imgSrc}
+                  title1={item.title1}
+                  title2={item.title2}
+                  desc={item.desc}
+                  isOpen={openIndex === index}
+                  onToggle={() => handleToggle(index)}
+                  onComplete={handleComplete} // Pass the completion handler
+                />
+              ))}
+            </Stack>
+
+            {/* right section */}
+            <Stack
+              direction={"column"}
+              gap={1}
+              sx={{
+                opacity: isTransitioning ? 0 : 1,
+                transition: "opacity 0.3s ease-in-out",
+              }}
+            >
+              <Typography
+                variant="display-md1-medium"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.base.black,
+                  fontSize: { md: "28px", xs: "14px" },
+                  lineHeight: { md: "32px", xs: "32px" },
+                  fontWeight: { md: 400 },
+                }}
+              >
+                {commentTextData[openIndex].title1}
+              </Typography>
+              <Rating
+                name="half-rating-read"
+                defaultValue={5}
+                precision={0.5}
+                size="small"
+                readOnly
+                sx={{ color: "#FCC214" }}
+              />
+              <Typography
+                variant="text-xl-regular"
+                sx={{
+                  width: { md: "560px", xs: "335px" },
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.color.gray[745],
+                  fontSize: { md: "20px", xs: "12px" },
+                  lineHeight: { md: "24px", xs: "18px" },
+                  fontWeight: { md: 400 },
+                }}
+              >
+                {commentTextData[openIndex].desc1}
+              </Typography>
+              <Typography
+                variant="text-xl-regular"
+                sx={{
+                  width: { md: "560px", xs: "335px" },
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.color.gray[745],
+                  fontSize: { md: "20px", xs: "12px" },
+                  lineHeight: { md: "24px", xs: "18px" },
+                  fontWeight: { md: 400 },
+                }}
+              >
+                {commentTextData[openIndex].desc2}
+              </Typography>
+            </Stack>
+          </Stack>
         </Stack>
-      </Stack>
+      </Container>
     </Stack>
   );
 };

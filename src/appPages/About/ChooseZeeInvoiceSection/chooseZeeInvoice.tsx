@@ -41,7 +41,10 @@ const ChooseZeeInvoiceSection = () => {
           py: { sm: "50px", xs: 3 },
         }}
       >
-        <Container maxWidth="lg">
+        <Container
+          maxWidth="lg"
+          sx={{ px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
+        >
           <Box textAlign={"center"}>
             <Typography
               variant={isModile ? "h5" : "display-lg-bold"}

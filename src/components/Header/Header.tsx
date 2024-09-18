@@ -113,14 +113,19 @@ const Header = () => {
         left: 0,
         background: palette.base.white,
         py: { sm: "14px", xs: "10px" },
-        px: { sm: "40px", xs: "5px" },
+        px: { sm: "0px", xs: "5px" },
         borderBottom: `1px solid #00000033`,
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 0px 0px",
       }}
     >
       <Container
         maxWidth="lg"
-        sx={{ display: "flex", justifyContent: "space-between" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          // px: "0px !important",
+          px: { md: "0.1%", lg: "0.1%", xs: "5%" },
+        }}
       >
         <Stack
           direction={"row"}

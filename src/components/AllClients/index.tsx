@@ -233,7 +233,10 @@ export default function AllClients() {
   return (
     <>
       <hr />
-      <Container maxWidth="lg">
+      <Container
+        maxWidth="lg"
+        sx={{ px: { md: "0.1%", lg: "0.1%", xs: "3%" } }}
+      >
         <Box
           sx={{
             minHeight: { xl: "83vh", lg: "73vh" },

@@ -42,7 +42,10 @@ const GetInTouchSection = () => {
   };
   return (
     <>
-      <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Container
+        maxWidth="lg"
+        sx={{ py: 6, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
+      >
         <Box sx={{ textAlign: "center" }}>
           <Typography
             variant={isModile ? "h5" : "display-lg-bold"}
@@ -80,7 +83,7 @@ const GetInTouchSection = () => {
             alignItems: "center",
           }}
         >
-          <Box sx={{ width: {sm:"45%",xs: "100%"} }}>
+          <Box sx={{ width: { sm: "45%", xs: "100%" } }}>
             {accordionData.map((item, index) => (
               <AccordionCardRightIcon
                 key={index}
@@ -92,7 +95,7 @@ const GetInTouchSection = () => {
             ))}
           </Box>
           <Divider variant="fullWidth" orientation="vertical" flexItem />
-          <Box sx={{ width: {sm:"40%",xs: "100%"} }}>
+          <Box sx={{ width: { sm: "40%", xs: "100%" } }}>
             <GetTouchForm />
           </Box>
         </Box>

@@ -97,7 +97,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
         gap={0.5}
         sx={{
           width: "100%",
-          pl: "5px",
+          // pl: "5px",
           //   borderLeftWidth: "4px",
           //   borderLeftStyle: "solid",
           //   borderImageSource: isOpen

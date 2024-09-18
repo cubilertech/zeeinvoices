@@ -1,5 +1,6 @@
 "use client";
 import { palette } from "@/theme/palette";
+import { handleLogin } from "@/utils/common";
 import {
   Box,
   Button,
@@ -7,8 +8,10 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { usePathname } from "next/navigation";
 
 const JoinUsSection = () => {
+  const pathname = usePathname();
   const isModile = useMediaQuery("(max-width: 600px)");
   return (
     <>
@@ -20,7 +23,10 @@ const JoinUsSection = () => {
       >
         <Container
           maxWidth="md"
-          sx={{ py: { sm: 12, xs: 8 }, textAlign: "center" }}
+          sx={{
+            py: { sm: 12, xs: 8 },
+            textAlign: "center",
+          }}
         >
           <Typography
             variant={isModile ? "h5" : "display-lg-bold"}
@@ -51,10 +57,15 @@ const JoinUsSection = () => {
               fontWeight: "400 !important",
               background: "white",
               color: "#4F35DF",
+              transition: "all 0.5s ease", // Add transition for smooth animation
               "&:hover": {
+                transform: "scale(1.1)", // Scale the component up by 10% on hover
                 backgroundColor: palette.color.gray[10],
                 color: "#4F35DF",
               },
+            }}
+            onClick={() => {
+              handleLogin(pathname);
             }}
           >
             Join Us Now

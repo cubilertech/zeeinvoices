@@ -101,6 +101,7 @@ const FAQsSection = () => {
           overflowY: "auto",
           height: "100%",
           width: { sm: "auto", xs: "90%" },
+          px: { md: "0%", lg: "0%", xs: "0%" },
         }}
       >
         <Stack
