@@ -2,7 +2,7 @@
 import { ExpandableText } from "@/components/ExpandableText";
 import { palette } from "@/theme/palette";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const expandableTextData = [
   {
@@ -20,6 +20,7 @@ const expandableTextData = [
 ];
 
 const ChooseZeeInvoiceSection = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
   const isModile = useMediaQuery("(max-width: 600px)");
   const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
   const handleToggle = (index: number) => {
@@ -32,9 +33,33 @@ const ChooseZeeInvoiceSection = () => {
       return nextIndex >= expandableTextData.length ? 0 : nextIndex;
     });
   };
+
+  useEffect(() => {
+    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+        }
+      },
+      { threshold: 0.5 } // Adjust the threshold as needed
+    );
+
+    if (sectionElement) {
+      observer.observe(sectionElement);
+    }
+
+    return () => {
+      if (sectionElement) {
+        observer.unobserve(sectionElement); // Clean up the observer
+      }
+    };
+  }, []);
+
   return (
     <>
       <Box
+        ref={sectionRef}
         sx={{
           backgroundColor: "#F7F8F9",
           width: "100%",
