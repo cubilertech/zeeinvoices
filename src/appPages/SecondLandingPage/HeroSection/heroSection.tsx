@@ -114,9 +114,9 @@ const HeroSection = () => {
                 fontWeight: "400 !important",
                 background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
 
-                transition: "all 0.5s ease", // Add transition for smooth animation
+                transition: "all 0.2s ease", // Add transition for smooth animation
                 "&:hover": {
-                  transform: "scale(1.1)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", // Scale the component up by 10% on hover
                 },
               }}
               onClick={handleCrtInvButton}
