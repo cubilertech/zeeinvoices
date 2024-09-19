@@ -1,17 +1,10 @@
 "use client";
 import { ExpandableText } from "@/components/ExpandableText";
 import { palette } from "@/theme/palette";
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const expandableTextData = [
   {
@@ -21,7 +14,7 @@ const expandableTextData = [
   },
   {
     title1: "Stay",
-    title2: "Organazied",
+    title2: "Organized",
     desc: "Reduce manual work with automation.",
   },
   {
@@ -33,10 +26,11 @@ const expandableTextData = [
 
 const WorkflowSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
+  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
+
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
   };
-  const route = useRouter();
 
   const handleComplete = () => {
     setOpenIndex((prevIndex) => {
@@ -44,14 +38,36 @@ const WorkflowSection = () => {
       return nextIndex >= expandableTextData.length ? 0 : nextIndex;
     });
   };
+
+  useEffect(() => {
+    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+        }
+      },
+      { threshold: 0.5 } // Adjust the threshold as needed
+    );
+
+    if (sectionElement) {
+      observer.observe(sectionElement);
+    }
+
+    return () => {
+      if (sectionElement) {
+        observer.unobserve(sectionElement);
+      }
+    };
+  }, []);
+
   return (
     <Stack
+      ref={sectionRef}
       direction={"column"}
       gap={3}
       sx={{
         width: "100%",
-        // pt: { sm: 3, xs: 1 },
-        // pb: 7,
         backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",
@@ -90,7 +106,7 @@ const WorkflowSection = () => {
                 fontWeight: { md: 700 },
               }}
             >
-              Invoicing{" "}
+              Streamline{" "}
               <Box
                 component="span"
                 sx={{
@@ -105,7 +121,7 @@ const WorkflowSection = () => {
                   display: "inline-block",
                 }}
               >
-                Made Simple
+                Your Workflow
               </Box>
             </Typography>
           </Stack>
@@ -121,8 +137,8 @@ const WorkflowSection = () => {
               textAlign: { xs: "center" },
             }}
           >
-            Get paid faster with a tool that’s designed for simplicity and
-            speed.designed for simplicity and speed.
+            Less time invoicing, more time growing your business, Less time
+            invoicing, more time growing your business.
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column-reverse" }}

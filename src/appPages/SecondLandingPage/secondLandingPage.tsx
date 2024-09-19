@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { lazy, useRef } from "react";
 import { Box } from "@mui/material";
 import { Herosection } from "./HeroSection";
 import { HelpSection } from "./HelpSection";

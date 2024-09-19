@@ -1,17 +1,10 @@
 "use client";
 import { ExpandableText } from "@/components/ExpandableText";
 import { palette } from "@/theme/palette";
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const expandableTextData = [
   {
@@ -21,7 +14,7 @@ const expandableTextData = [
   },
   {
     title1: "Stay",
-    title2: "Organazied",
+    title2: "Organized",
     desc: "Reduce manual work with automation.",
   },
   {
@@ -32,11 +25,13 @@ const expandableTextData = [
 ];
 
 const MadeSimpleSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // For expanding the text description.
+  const sectionRef = useRef<HTMLDivElement | null>(null); // To reference the section element
+  const route = useRouter();
+
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
   };
-  const route = useRouter();
 
   const handleComplete = () => {
     setOpenIndex((prevIndex) => {
@@ -44,14 +39,37 @@ const MadeSimpleSection = () => {
       return nextIndex >= expandableTextData.length ? 0 : nextIndex;
     });
   };
+
+  // Detect when the section is in view
+  useEffect(() => {
+    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+        }
+      },
+      { threshold: 0.5 } // Trigger when at least 50% of the section is visible
+    );
+
+    if (sectionElement) {
+      observer.observe(sectionElement);
+    }
+
+    return () => {
+      if (sectionElement) {
+        observer.unobserve(sectionElement);
+      }
+    };
+  }, []);
+
   return (
     <Stack
+      ref={sectionRef} // Attach the section ref here
       direction={"column"}
       gap={3}
       sx={{
         width: "100%",
-        // pt: 3,
-        // pb: 7,
         backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",
@@ -90,7 +108,7 @@ const MadeSimpleSection = () => {
                 fontWeight: { md: 700 },
               }}
             >
-              Streamline{" "}
+              Invoicing{" "}
               <Box
                 component="span"
                 sx={{
@@ -105,7 +123,7 @@ const MadeSimpleSection = () => {
                   display: "inline-block",
                 }}
               >
-                Your Workflow
+                Made Simple
               </Box>
             </Typography>
           </Stack>
@@ -121,8 +139,8 @@ const MadeSimpleSection = () => {
               textAlign: { xs: "center" },
             }}
           >
-            Less time invoicing, more time growing your business, Less time
-            invoicing, more time growing your business.
+            Get paid faster with a tool that’s designed for simplicity and
+            speed.
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column-reverse" }}
@@ -140,7 +158,7 @@ const MadeSimpleSection = () => {
                 src="/Images/simple-mobile-image.svg"
                 width={437}
                 height={462}
-                alt="rectangle iaptop bg"
+                alt="mobile"
               />
             </Box>
 
@@ -168,4 +186,5 @@ const MadeSimpleSection = () => {
     </Stack>
   );
 };
+
 export default MadeSimpleSection;

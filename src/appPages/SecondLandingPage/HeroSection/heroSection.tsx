@@ -116,7 +116,7 @@ const HeroSection = () => {
 
                 transition: "all 0.5s ease", // Add transition for smooth animation
                 "&:hover": {
-                  transform: "scale(1.03)", // Scale the component up by 10% on hover
+                  transform: "scale(1.1)", // Scale the component up by 10% on hover
                 },
               }}
               onClick={handleCrtInvButton}

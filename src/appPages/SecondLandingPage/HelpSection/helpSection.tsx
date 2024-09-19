@@ -1,17 +1,10 @@
 "use client";
 import { ExpandableText } from "@/components/ExpandableText";
 import { palette } from "@/theme/palette";
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const expandableTextData = [
   {
@@ -21,7 +14,7 @@ const expandableTextData = [
   },
   {
     title1: "Stay",
-    title2: "Organazied",
+    title2: "Organized",
     desc: "Reduce manual work with automation.",
   },
   {
@@ -33,6 +26,7 @@ const expandableTextData = [
 
 const HelpSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
+  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
   };
@@ -45,10 +39,33 @@ const HelpSection = () => {
     });
   };
 
-  const resetProgress = () => {};
+  // const resetProgress = () => {};
+
+  useEffect(() => {
+    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+        }
+      },
+      { threshold: 0.5 } // Adjust the threshold as needed
+    );
+
+    if (sectionElement) {
+      observer.observe(sectionElement);
+    }
+
+    return () => {
+      if (sectionElement) {
+        observer.unobserve(sectionElement); // Clean up the observer
+      }
+    };
+  }, []);
 
   return (
     <Stack
+      ref={sectionRef}
       direction={"column"}
       gap={3}
       sx={{

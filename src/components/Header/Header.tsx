@@ -323,7 +323,14 @@ const Header = () => {
                         "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                     }}
                   >
-                    {loading ? <CircularProgress size={18} /> : "Sign In"}
+                    {loading ? (
+                      <CircularProgress
+                        size={18}
+                        sx={{ color: palette.color.gray[5] }}
+                      />
+                    ) : (
+                      "Sign In"
+                    )}
                   </Button>
                 </Stack>
               ) : (
@@ -370,7 +377,14 @@ const Header = () => {
                       color: "white",
                     }}
                   >
-                    {loading ? <CircularProgress size={18} /> : "Logout"}
+                    {loading ? (
+                      <CircularProgress
+                        size={18}
+                        sx={{ color: palette.color.gray[5] }}
+                      />
+                    ) : (
+                      "Logout"
+                    )}
                   </Button>
                 </Box>
               )}
@@ -487,7 +501,14 @@ const Header = () => {
                     "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 }}
               >
-                {loading ? <CircularProgress size={18} /> : "Sign In"}
+                {loading ? (
+                  <CircularProgress
+                    size={18}
+                    sx={{ color: palette.color.gray[5] }}
+                  />
+                ) : (
+                  "Sign In"
+                )}
               </Button>
             </Stack>
           ) : (

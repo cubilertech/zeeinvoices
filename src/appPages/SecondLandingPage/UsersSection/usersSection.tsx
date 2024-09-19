@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const expandableTextData = [
   {
@@ -67,6 +67,7 @@ const commentTextData = [
 ];
 
 const UsersSection = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
   const [openIndex, setOpenIndex] = useState<number>(0); // for expanding the text description.
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -101,8 +102,31 @@ const UsersSection = () => {
     return () => clearTimeout(timeout);
   }, [openIndex]);
 
+  useEffect(() => {
+    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+        }
+      },
+      { threshold: 0.5 } // Adjust the threshold as needed
+    );
+
+    if (sectionElement) {
+      observer.observe(sectionElement);
+    }
+
+    return () => {
+      if (sectionElement) {
+        observer.unobserve(sectionElement);
+      }
+    };
+  }, []);
+
   return (
     <Stack
+      ref={sectionRef}
       direction={"column"}
       gap={3}
       sx={{

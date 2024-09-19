@@ -17,6 +17,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { useEffect } from "react";
 
 const FooterSection = () => {
   const route = useRouter();
@@ -26,6 +27,14 @@ const FooterSection = () => {
   const handleTermsButton = (data: any) => {
     route.push("/termsAndCondition");
   };
+
+  useEffect(() => {
+    const facebookimg = new Image();
+    const instagramimg = new Image();
+    facebookimg.src = "/Images/icons/facebook1-colored-icon.svg"; // Preload hover image
+    instagramimg.src = "/Images/icons/instagram-colored-icon.svg"; // Preload hover image
+  }, []);
+
   return (
     <Box
       sx={{
