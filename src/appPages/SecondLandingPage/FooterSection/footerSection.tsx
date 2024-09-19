@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import InstagramIcon from '@mui/icons-material/Instagram';
+import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -79,7 +79,7 @@ const FooterSection = () => {
               direction={"row"}
               gap={{ md: 4, xs: 3 }}
               sx={{
-                width: { sm: "396px", xs: "100%" },
+                width: { sm: "410px", xs: "100%" },
                 mt: "3%",
                 justifyContent: { sm: "start", xs: "center" },
                 alignItems: { sm: "center", xs: "center" },
@@ -104,7 +104,22 @@ const FooterSection = () => {
                 sx={{ alignItems: "center" }}
               >
                 <Box
-                  sx={{ cursor: "pointer" }}
+                  sx={{
+                    cursor: "pointer",
+                    width: { sm: "24px", xs: "24px" },
+                    height: { sm: "25px", xs: "25px" },
+                    overflow: "hidden",
+                    backgroundImage: "url(/Images/icons/facebook1-icon.svg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "100% 100%",
+                    "&:hover": {
+                      width: { sm: "24px", xs: "24px" },
+                      height: { sm: "21px", xs: "21px" },
+                      backgroundImage:
+                        "url(/Images/icons/facebook1-colored-icon.svg)",
+                      backgroundSize: "100% 100%",
+                    },
+                  }}
                   onClick={() =>
                     window.open(
                       "https://www.facebook.com/zeeinvoices/",
@@ -112,10 +127,22 @@ const FooterSection = () => {
                     )
                   }
                 >
-                  <Icon icon="facebook1Icon" height={13} width={13} />
+                  {/* <Icon icon="facebook1Icon" height={13} width={13} /> */}
                 </Box>
                 <Box
-                  sx={{ cursor: "pointer" }}
+                  sx={{
+                    cursor: "pointer",
+                    width: { sm: "25px", xs: "25px" },
+                    height: { sm: "25px", xs: "25px" },
+                    overflow: "hidden",
+                    backgroundImage: "url(/Images/icons/instagram1-icon.svg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "100% 100%",
+                    "&:hover": {
+                      backgroundImage:
+                        "url(/Images/icons/instagram-colored-icon.svg)",
+                    },
+                  }}
                   onClick={() =>
                     window.open(
                       "https://www.instagram.com/zeeinvoices/",
@@ -124,7 +151,8 @@ const FooterSection = () => {
                   }
                 >
                   {/* <Icon icon="instagram1Icon" height={25} width={25} /> */}
-                  <InstagramIcon sx={{
+                  {/* <InstagramIcon
+                    sx={{
                       p: "0px",
                       width: "30px",
                       height: "30px",
@@ -132,7 +160,8 @@ const FooterSection = () => {
                       "&:hover": {
                         color: "#000000",
                       },
-                    }}/>
+                    }}
+                  /> */}
                 </Box>
                 <Box
                   sx={{ cursor: "pointer" }}
