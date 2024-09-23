@@ -250,7 +250,7 @@ const FooterSection = () => {
             {/* Pages */}
             <Stack
               direction={{ sm: "column", xs: "row" }}
-              gap={{sm:3, xs:2}}
+              gap={{ sm: 3, xs: 2 }}
               sx={{
                 width: { sm: "70px", xs: "100%" },
                 justifyContent: { sm: "start", xs: "center" },
@@ -415,11 +415,13 @@ const FooterSection = () => {
               <Stack
                 direction={"column"}
                 gap={2}
-                sx={{ alignItems: { sm: "start", xs: "center" } }}
+                sx={{
+                  alignItems: { sm: "start", xs: "center" },
+                }}
               >
                 <Stack // stack for phone and email
                   direction={{ sm: "column", xs: "row" }}
-                  gap={2}
+                  gap={1}
                   sx={{ alignItems: { sm: "start", xs: "center" } }}
                 >
                   <Stack

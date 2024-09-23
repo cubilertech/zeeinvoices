@@ -159,6 +159,7 @@ const Header = () => {
                   borderRadius: "8px",
                   p: "8px 12px 8px 12px",
                   width: "189px",
+                  marginLeft: "-7px", // Move 5px to the left
                 },
               }}
             >
