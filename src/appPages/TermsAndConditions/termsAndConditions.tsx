@@ -15,57 +15,147 @@ import { ExpandableText } from "@/components/ExpandableText";
 import Image from "next/image";
 import { Icon } from "@/components/Icon";
 import { FooterSection } from "../SecondLandingPage/FooterSection";
+import { ExpandableTextWithSubheadings } from "@/components/ExpandableTextWithSubheadings";
 
 const expandableTextData = [
   {
     title1: "",
-    title2: "Introduction",
-    desc: "Please read these Terms and Conditions carefully before using ZEE Invoices. By using the service, you agree to these terms. If you don’t agree, please don’t use the service.",
+    title2: "1. Acceptance of Terms",
+    desc: "By registering, accessing, or using our Services, you acknowledge that you have read, understood, and agree to be bound by these Terms, our Privacy Policy, and any other agreements or policies referenced herein.",
   },
   {
     title1: "",
-    title2: "Account Registration",
-    desc: "When you create an account, ensure that the information you provide is accurate. You are responsible for keeping your account details secure.",
+    title2: "2. User Eligibility",
+    desc: "You must be at least 18 years old or the age of majority in your jurisdiction to use our Services. By using ZeeInvoices, you represent that you have the legal capacity to enter into a binding agreement.",
   },
   {
     title1: "",
-    title2: "Use Of Service",
-    desc: "ZeeInvoices is intended for generating and managing invoices. You may only use the service for lawful purposes.",
+    title2: "3. Account Registration",
+    desc: "To use our Services, you must create an account. You agree to:",
+    sections: [
+      {
+        heading: "",
+        subheadings: [
+          "•	Provide accurate and complete information during registration.",
+          "•	Keep your login credentials confidential and secure.",
+          "•	Immediately notify us of any unauthorized use of your account.",
+          "We reserve the right to suspend or terminate your account if any information is found to be inaccurate, misleading, or in violation of these Terms.",
+        ],
+      },
+    ],
   },
   {
     title1: "",
-    title2: "Subscription & Payment",
-    desc: "Certain features of ZEE Invoices may require a subscription. By subscribing, you agree to pay the associated fees.",
+    title2: "4. Free Software and Service Availability",
+    desc: "",
+    sections: [
+      {
+        heading: "a. Free Access:",
+        subheadings: [
+          "ZeeInvoices is a free software that allows users to create, customize, and manage invoices without any charges or subscription fees. All features available on our platform are accessible without any cost.",
+        ],
+      },
+      {
+        heading: "b. Availability:",
+        subheadings: [
+          "Our Services are available to users worldwide. As a cloud-based platform, ZeeInvoices can be accessed from any location with an internet connection.",
+        ],
+      },
+    ],
   },
   {
     title1: "",
-    title2: "Data Privacy",
-    desc: "We respect your privacy. Please refer to our Privacy Policy to understand how we collect, use, and protect your data.",
+    title2: "5. Use of Services",
+    desc: "You agree to use our Services solely for lawful purposes and in compliance with these Terms and all applicable laws and regulations. You agree not to:",
+    sections: [
+      {
+        heading: "",
+        subheadings: [
+          "•	Use our Services in any way that could harm, disable, or impair them.",
+          "•	Engage in unauthorized access or tampering with the platform, its servers, or any connected networks.",
+          "•	Transmit any harmful code, viruses, or other malicious software.",
+          "•	Upload or share any data that is illegal, defamatory, obscene, or infringes on the rights of others.",
+          "We reserve the right to monitor your use of the Services and to terminate your access if we suspect any misuse or violation of these Terms.",
+        ],
+      },
+    ],
   },
   {
     title1: "",
-    title2: "Intellectual Property",
-    desc: "All content and software related to ZEE Invoices are owned by us or our licensors. You are granted a limited, non-exclusive license to use the service.",
+    title2: "6. User Content",
+    desc: "You retain ownership of any data, content, or invoices you create using our Services ('User Content'). By using our Services, you grant us a limited, non-exclusive, royalty-free license to use, store, and process your User Content solely for the purpose of providing and improving our Services. You are responsible for ensuring that your User Content does not violate any laws, infringe on third-party rights, or contain any harmful content.",
   },
   {
     title1: "",
-    title2: "Limitations Of Liability",
-    desc: "ZeeInvoices is provided 'as is' without any warranties. We are not responsible for any losses or damages that may result from using the service.",
+    title2: "7. Intellectual Property Rights",
+    desc: "ZeeInvoices retains all intellectual property rights in the Services, including but not limited to the software, website design, trademarks, logos, and other proprietary content. You agree not to:",
+    sections: [
+      {
+        heading: "",
+        subheadings: [
+          "•	Copy, modify, distribute, or create derivative works based on our Services.",
+          "•	Reverse-engineer, decompile, or attempt to extract the source code of any software used in the Services.",
+          "•	Use our trademarks, logos, or branding without our explicit written consent.",
+        ],
+      },
+    ],
   },
   {
     title1: "",
-    title2: "Termination",
-    desc: "We reserve the right to suspend or terminate your account if you violate these terms.",
+    title2: "8. Third-Party Integrations",
+    desc: "Our Services may integrate with third-party tools, websites, or services. These integrations are provided for your convenience, and we do not endorse or assume responsibility for the privacy practices or content of such third parties. Your use of any third-party services is governed by their terms and policies.",
   },
   {
     title1: "",
-    title2: "Modifications",
-    desc: "We may update these Terms and Conditions from time to time. Continued use of the service constitutes acceptance of the updated terms.",
+    title2: "9. Disclaimer of Warranties",
+    desc: "Our Services are provided 'as is' and 'as available' without warranties of any kind, whether express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement. We do not guarantee that the Services will be uninterrupted, error-free, or secure.",
   },
   {
     title1: "",
-    title2: "Contact Information",
-    desc: "For any questions or concerns about these Terms and Conditions, please contact us at:",
+    title2: "10. Limitation of Liability",
+    desc: "To the fullest extent permitted by law, ZeeInvoices, its affiliates, and their respective officers, directors, employees, or agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, or business opportunities, arising out of or in connection with your use of the Services.",
+    sections: [
+      {
+        heading:
+          "Our total liability for any claims related to the Services shall not exceed the amount you have paid to us (which, as a free service, is zero).",
+        subheadings: [""],
+      },
+    ],
+  },
+  {
+    title1: "",
+    title2: "11. Indemnification",
+    desc: "You agree to indemnify, defend, and hold harmless ZeeInvoices and its affiliates from and against any claims, liabilities, damages, losses, and expenses, including legal fees, arising out of or in connection with:",
+    sections: [
+      {
+        heading: "",
+        subheadings: [
+          "•	Your use of the Services",
+          "•	Your violation of these Terms",
+          "•	Your infringement of any third-party rights",
+        ],
+      },
+    ],
+  },
+  {
+    title1: "",
+    title2: "12. Termination",
+    desc: "We reserve the right to suspend or terminate your access to the Services at any time, with or without notice, for any reason, including but not limited to violations of these Terms. Upon termination, your right to use the Services will immediately cease, and we may delete any data associated with your account.",
+  },
+  {
+    title1: "",
+    title2: "13. Governing Law",
+    desc: "These Terms shall be governed by and construed in accordance with the laws of the State of Texas, without regard to its conflict of law principles. Any legal actions or disputes arising from these Terms or your use of the Services shall be resolved exclusively in the state or federal courts located in Dallas, Texas.",
+  },
+  {
+    title1: "",
+    title2: "14. Changes to Terms & Conditions",
+    desc: "We reserve the right to update or modify these Terms at any time. Any changes will be posted on this page with an updated 'Effective Date.' Your continued use of the Services after such changes indicates your acceptance of the revised Terms.",
+  },
+  {
+    title1: "",
+    title2: "15. Contact Information",
+    desc: "If you have any questions, concerns, or requests regarding these Terms & Conditions, please contact us at:",
   },
 ];
 
@@ -173,23 +263,85 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 See our terms of Use
               </Typography>
             </Stack>
+
+            <Stack>
+              <Typography
+                // variant="display-xs-bold"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.text.expandableTextGreyColor,
+                  fontSize: { md: "24px !important", xs: "14px !important" },
+                  lineHeight: { md: "34px !important", xs: "18px !important" },
+                  fontWeight: 700,
+                }}
+              >
+                Effective Date:{" "}
+                <Box
+                  component="span"
+                  sx={{
+                    fontFamily: "Product Sans, sans-serif",
+                    fontSize: { md: "24px !important", xs: "14px !important" },
+                    lineHeight: {
+                      md: "34px !important",
+                      xs: "18px !important",
+                    },
+                    fontWeight: { md: 700 },
+                    background:
+                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    display: "inline-block",
+                  }}
+                >
+                  01/09/2023
+                </Box>
+              </Typography>
+              <Typography
+                variant="text-xl1-1-regular"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.text.expandableTextGreyColor,
+                  fontSize: { md: "20px", xs: "12px" },
+                  lineHeight: { md: "34px", xs: "18px" },
+                  fontWeight: { md: 400 },
+                }}
+              >
+                Welcome to ZeeInvoices! These Terms & Conditions
+                (&quot;Terms&quot;) govern your use of our website{" "}
+                <a
+                  href="https://www.zeeinvoices.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#4F35DF" }}
+                >
+                  https://www.zeeinvoices.com/
+                </a>{" "}
+                and the invoicing software and services (&quot;Services&quot;)
+                provided by ZeeInvoices (&quot;we,&quot; &quot;us,&quot; or
+                &quot;our&quot;). By accessing or using our Services, you agree
+                to be bound by these Terms. If you do not agree with these
+                Terms, you should not use our Services.
+              </Typography>
+            </Stack>
+
             <Stack
               direction={"column"}
               gap={3}
               sx={{
                 width: "100%",
-                height: { sm: "724px", xs: "590px" },
+                // height: { sm: "724px", xs: "590px" },
                 display: "flex",
                 justifyContent: "center",
                 mt: "1%",
               }}
             >
               {expandableTextData.map((item, index) => (
-                <ExpandableText
+                <ExpandableTextWithSubheadings
                   key={index}
                   title1={item.title1}
                   title2={item.title2}
                   desc={item.desc}
+                  sections={item.sections} // Pass sections here
                   isOpen={openIndex === index}
                   isOneTitle={true}
                   onToggle={() => handleToggle(index)}

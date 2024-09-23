@@ -37,7 +37,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
 
     setProgress(1);
 
-    const duration = 5000;
+    const duration = 10000;
     const increment = 100 / (duration / 100);
 
     const interval = setInterval(() => {
