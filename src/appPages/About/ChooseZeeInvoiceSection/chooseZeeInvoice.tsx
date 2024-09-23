@@ -106,6 +106,7 @@ const ChooseZeeInvoiceSection = () => {
                 flexDirection: "column",
                 gap: 3,
                 width: { sm: "50%", xs: "100%" },
+                height: "204px",
               }}
             >
               {expandableTextData.map((item, index) => (

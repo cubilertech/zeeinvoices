@@ -83,15 +83,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
 
   return (
     <Stack direction={"row"}>
-      {/* <Box
-        sx={{
-          transform: "rotate(90deg)", // Rotate the progress bar to make it vertical
-          display: "inline-block",
-          height: "100%",
-        }}
-      >
-        <BorderLinearProgress variant="determinate" value={50} />
-      </Box> */}
+      
       <Stack
         direction={"row"}
         gap={0.5}
@@ -111,8 +103,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
         {isOpen ? (
           <VerticalProgressBar value={progress} />
         ) : (
-          // <VerticalProgressBar value={0} />
-          <></>
+          <VerticalProgressBar value={0} />
         )}
 
         <Stack

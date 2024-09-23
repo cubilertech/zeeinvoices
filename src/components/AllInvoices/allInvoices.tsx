@@ -434,7 +434,7 @@ export default function AllInvoices() {
               elevation={0}
               sx={{
                 width: "100%",
-                px: "20px",
+                px: { sm: "20px", xs: "10px" },
                 pb: 1,
                 border: "none",
                 borderRadius: "8px",

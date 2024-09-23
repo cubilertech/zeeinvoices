@@ -124,7 +124,7 @@ const Header = () => {
           display: "flex",
           justifyContent: "space-between",
           // px: "0px !important",
-          px: { md: "0.1%", lg: "0.1%", xs: "5%" },
+          px: { md: "0.1%", lg: "0.1%", xs: "1%" },
         }}
       >
         <Stack
@@ -138,7 +138,7 @@ const Header = () => {
         >
           <Box sx={{ display: { sm: "none", xs: "block" } }}>
             <IconButton
-              sx={{ pl: 0 }}
+              sx={{ p: "3px !important" }}
               aria-haspopup="true"
               onClick={handleClickMenu}
             >

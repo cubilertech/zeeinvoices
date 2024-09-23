@@ -142,19 +142,19 @@ const WorkflowSection = () => {
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column-reverse" }}
-            gap={10}
+            gap={{ sm: 10, xs: 3 }}
             sx={{
               display: "flex",
               justifyContent: "center",
               mt: "3%",
-              mx: { md: "0px", xs: "30px" },
+              mx: { md: "0px", xs: "1px" },
             }}
           >
             {/* left section */}
             <Stack
               direction={"column"}
               gap={3}
-              sx={{ width: { md: "540px", xs: "335px" } }}
+              sx={{ width: { md: "540px", xs: "335px" }, height: "230px" }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText
@@ -170,7 +170,7 @@ const WorkflowSection = () => {
             </Stack>
 
             {/* right section */}
-            <Box sx={{ width: { md: "580px", xs: "335px" } }}>
+            <Box sx={{ width: { md: "580px", xs: "350px" } }}>
               <Image
                 src="/Images/workflow-image.svg"
                 width={581}

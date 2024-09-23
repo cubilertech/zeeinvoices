@@ -40,7 +40,7 @@ const FooterSection = () => {
       sx={{
         backgroundColor: "#F7F8F9",
         width: "100%",
-        pt: 7,
+        pt: { sm: 7, xs: 5 },
         // display:"flex",
         // alignItems:"center",
       }}
@@ -48,7 +48,7 @@ const FooterSection = () => {
       <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "0%" } }}>
         <Stack
           direction={{ md: "row", xs: "column" }}
-          gap={5}
+          gap={2}
           justifyContent={"space-between"}
           // sx={{ mx: "6%" }}
         >
@@ -249,8 +249,8 @@ const FooterSection = () => {
           >
             {/* Pages */}
             <Stack
-              direction={"column"}
-              gap={3}
+              direction={{ sm: "column", xs: "row" }}
+              gap={{sm:3, xs:2}}
               sx={{
                 width: { sm: "70px", xs: "100%" },
                 justifyContent: { sm: "start", xs: "center" },
@@ -270,7 +270,16 @@ const FooterSection = () => {
               >
                 Pages
               </Typography>
-              <Stack direction={"column"} gap={2}>
+              <Divider
+                sx={{ display: { sm: "none", xs: "flex" } }}
+                orientation="vertical"
+                variant="middle"
+                flexItem
+              />
+              <Stack
+                direction={{ sm: "column", xs: "row" }}
+                gap={{ sm: 2, xs: 1.5 }}
+              >
                 <Link
                   underline="hover"
                   variant="text-md-regular"
@@ -289,6 +298,12 @@ const FooterSection = () => {
                     Home
                   </Typography>
                 </Link>
+                <Divider
+                  sx={{ display: { sm: "none", xs: "flex" } }}
+                  orientation="vertical"
+                  variant="middle"
+                  flexItem
+                />
                 <Link
                   underline="hover"
                   variant="text-md-regular"
@@ -307,7 +322,13 @@ const FooterSection = () => {
                     About
                   </Typography>
                 </Link>
-                <Link
+                <Divider
+                  sx={{ display: { sm: "none", xs: "flex" } }}
+                  orientation="vertical"
+                  variant="middle"
+                  flexItem
+                />
+                {/* <Link
                   underline="hover"
                   variant="text-md-regular"
                   sx={{ color: palette.color.gray[731], cursor: "pointer" }}
@@ -323,7 +344,7 @@ const FooterSection = () => {
                   >
                     Learn
                   </Typography>
-                </Link>
+                </Link> */}
                 <Link
                   underline="hover"
                   variant="text-md-regular"
@@ -341,6 +362,12 @@ const FooterSection = () => {
                     Privacy
                   </Typography>
                 </Link>
+                <Divider
+                  sx={{ display: { sm: "none", xs: "flex" } }}
+                  orientation="vertical"
+                  variant="middle"
+                  flexItem
+                />
                 <Link
                   underline="hover"
                   variant="text-md-regular"
@@ -390,39 +417,57 @@ const FooterSection = () => {
                 gap={2}
                 sx={{ alignItems: { sm: "start", xs: "center" } }}
               >
-                <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
-                  <PhoneIcon sx={{ color: palette.primary.main }} />
-                  <Typography
-                    variant="text-md-regular"
-                    sx={{
-                      fontFamily: "Product Sans, sans-serif",
-                      color: palette.color.gray[731],
-                      fontSize: { md: "16px", xs: "12px" },
-                      lineHeight: { md: "20px", xs: "15px" },
-                      fontWeight: { md: 400 },
-                    }}
+                <Stack // stack for phone and email
+                  direction={{ sm: "column", xs: "row" }}
+                  gap={2}
+                  sx={{ alignItems: { sm: "start", xs: "center" } }}
+                >
+                  <Stack
+                    direction={"row"}
+                    gap={1}
+                    sx={{ alignItems: "center" }}
                   >
-                    +14809201123
-                  </Typography>
+                    <PhoneIcon sx={{ color: palette.primary.main }} />
+                    <Typography
+                      variant="text-md-regular"
+                      sx={{
+                        fontFamily: "Product Sans, sans-serif",
+                        color: palette.color.gray[731],
+                        fontSize: { md: "16px", xs: "12px" },
+                        lineHeight: { md: "20px", xs: "15px" },
+                        fontWeight: { md: 400 },
+                      }}
+                    >
+                      +14809201123
+                    </Typography>
+                  </Stack>
+
+                  <Stack
+                    direction={"row"}
+                    gap={1}
+                    sx={{ alignItems: "center" }}
+                  >
+                    <EmailIcon sx={{ color: palette.primary.main }} />
+                    <Typography
+                      variant="text-md-regular"
+                      sx={{
+                        fontFamily: "Product Sans, sans-serif",
+                        color: palette.color.gray[731],
+                        fontSize: { md: "16px", xs: "12px" },
+                        lineHeight: { md: "20px", xs: "15px" },
+                        fontWeight: { md: 400 },
+                      }}
+                    >
+                      support@zeeinvoices.com
+                    </Typography>
+                  </Stack>
                 </Stack>
 
-                <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
-                  <EmailIcon sx={{ color: palette.primary.main }} />
-                  <Typography
-                    variant="text-md-regular"
-                    sx={{
-                      fontFamily: "Product Sans, sans-serif",
-                      color: palette.color.gray[731],
-                      fontSize: { md: "16px", xs: "12px" },
-                      lineHeight: { md: "20px", xs: "15px" },
-                      fontWeight: { md: 400 },
-                    }}
-                  >
-                    support@zeeinvoices.com
-                  </Typography>
-                </Stack>
-
-                <Stack direction={"row"} gap={1} sx={{ alignItems: "start" }}>
+                <Stack
+                  direction={"row"}
+                  gap={1}
+                  sx={{ alignItems: { sm: "start", xs: "center" } }}
+                >
                   <LocationOnIcon sx={{ color: palette.primary.main }} />
                   <Typography
                     variant="text-md-regular"

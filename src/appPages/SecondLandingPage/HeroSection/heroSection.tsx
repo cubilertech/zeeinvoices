@@ -33,7 +33,7 @@ const HeroSection = () => {
           direction={{ md: "row", xs: "column" }}
           justifyContent={"space-between"}
           gap={9}
-          sx={{ mx: { md: "0px", xs: "30px" } }}
+          sx={{ mx: { md: "0px", xs: "20px" } }}
         >
           {/* left hero section */}
           <Stack

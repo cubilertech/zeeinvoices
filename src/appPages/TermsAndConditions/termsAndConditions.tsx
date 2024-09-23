@@ -112,7 +112,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
           alignItems: "center",
         }}
       >
-        <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "8%" } }}>
+        <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "5%" } }}>
           <Stack
             direction={"column"}
             gap={4}
@@ -178,6 +178,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               gap={3}
               sx={{
                 width: "100%",
+                height: { sm: "724px", xs: "590px" },
                 display: "flex",
                 justifyContent: "center",
                 mt: "1%",

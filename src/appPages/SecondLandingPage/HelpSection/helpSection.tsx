@@ -15,12 +15,12 @@ const expandableTextData = [
   {
     title1: "Stay",
     title2: "Organized",
-    desc: "Reduce manual work with automation.",
+    desc: "Reduce manual work with automation. Reduce manual work with automation.",
   },
   {
     title1: "Automated",
     title2: "Invoicing",
-    desc: "Reduce manual work with automation.",
+    desc: "Reduce manual work with automation. Reduce manual work with automation.",
   },
 ];
 
@@ -153,7 +153,7 @@ const HelpSection = () => {
               display: "flex",
               justifyContent: "center",
               mt: "3%",
-              mx: { md: "0px", xs: "30px" },
+              mx: { md: "0px", xs: "20px" },
             }}
           >
             {/* left section */}
@@ -169,7 +169,7 @@ const HelpSection = () => {
             <Stack
               direction={"column"}
               gap={3}
-              sx={{ width: { md: "540px", xs: "335px" } }}
+              sx={{ width: { md: "540px", xs: "335px" }, height: "180px" }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText

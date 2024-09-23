@@ -166,7 +166,7 @@ const MadeSimpleSection = () => {
             <Stack
               direction={"column"}
               gap={3}
-              sx={{ width: { md: "540px", xs: "335px" } }}
+              sx={{ width: { md: "540px", xs: "350px" }, height: "230px" }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText
