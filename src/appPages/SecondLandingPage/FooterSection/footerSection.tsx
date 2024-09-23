@@ -28,6 +28,10 @@ const FooterSection = () => {
     route.push("/termsAndCondition");
   };
 
+  const handlePrivacyButton = (data: any) => {
+    route.push("/privacyPolicy");
+  };
+
   useEffect(() => {
     const facebookimg = new Image();
     const instagramimg = new Image();
@@ -349,6 +353,7 @@ const FooterSection = () => {
                   underline="hover"
                   variant="text-md-regular"
                   sx={{ color: palette.color.gray[731], cursor: "pointer" }}
+                  onClick={handlePrivacyButton}
                 >
                   <Typography
                     variant="text-md-regular"
