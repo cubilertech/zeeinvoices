@@ -338,12 +338,12 @@ const DetailSelecter: FC<DetailSelecter> = ({
             onClick={handleOpen}
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography
+              {/* <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[770]}
               >
                 {detailsOf} Details
-              </Typography>
+              </Typography> */}
             </Stack>
             <Stack
               direction={"column"}
