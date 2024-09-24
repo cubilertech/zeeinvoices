@@ -86,7 +86,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         sx={{ marginTop: 2 }}
       >
         <ShowDetails
-          title="From"
+          title="Sender Details"
           companyName={singleInvoice?.from?.companyName}
           name={singleInvoice?.from?.name}
           address={singleInvoice?.from?.address}
@@ -95,7 +95,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
           phone={singleInvoice?.from?.phoneNumber}
         />
         <ShowDetails
-          title="To"
+          title="Recipient Details"
           companyName={singleInvoice?.to?.companyName}
           name={singleInvoice?.to?.name}
           address={singleInvoice?.to?.address}
@@ -206,14 +206,12 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
                 item
                 xs={4.5}
               >
-                <Stack direction={"column"}>
-                  <Typography variant="text-xs-medium" sx={{}}>
-                    {data.name}
-                  </Typography>
-                </Stack>
+                <Typography variant="text-xs-medium" sx={{}}>
+                  {data.name}
+                </Typography>
               </Grid>
               <Grid
-                sx={{ padding: "8px", paddingTop: "1px !important" }}
+                sx={{ padding: "0px", paddingTop: "1px !important" }}
                 item
                 xs={1.3}
               >
@@ -222,7 +220,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
                 </Typography>
               </Grid>
               <Grid
-                sx={{ padding: "8px", paddingTop: "1px !important" }}
+                sx={{ padding: "0px", paddingTop: "1px !important" }}
                 item
                 xs={1.8}
               >
@@ -236,7 +234,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
               </Grid>
 
               <Grid
-                sx={{ padding: "8px", paddingTop: "1px !important" }}
+                sx={{ padding: "0px", paddingTop: "1px !important" }}
                 item
                 xs={2.2}
               >
@@ -250,7 +248,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
                 )}
               </Grid>
               <Grid
-                sx={{ padding: "8px", paddingTop: "1px !important" }}
+                sx={{ padding: "0px", paddingTop: "1px !important" }}
                 item
                 xs={1.8}
               >
@@ -261,6 +259,22 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
                     : data?.subTotal - data?.taxAmount
                   ).toFixed(2)}
                 </Typography>
+              </Grid>
+
+              {/* added for description */}
+              <Grid
+                sx={{ padding: "0px", paddingTop: "1px !important" }}
+                item
+                xs={12}
+              >
+                <Stack direction={"column"}>
+                  <Typography
+                    variant="text-xs-medium"
+                    sx={{ color: palette.color.gray[710] }}
+                  >
+                    {data?.description}
+                  </Typography>
+                </Stack>
               </Grid>
             </Grid>
             <hr style={{ margin: "10px 0px 0px 0px" }}></hr>
