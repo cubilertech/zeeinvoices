@@ -123,6 +123,7 @@ export default function AllClients() {
     data: clientList,
     refetch: refetchClientList,
     isFetching: fetchingClientList,
+    isLoading: isClientLoading,
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   //Delete Client
   const {
@@ -265,7 +266,9 @@ export default function AllClients() {
               search={search}
               handleChangeSearch={handleChangeSearch}
             />
-            {filteredData.length <= 0 ? (
+            {!isClientLoading &&
+            clientList?.clients?.length === 0 &&
+            search === "" ? (
               <Box
                 sx={{
                   height: "300px",

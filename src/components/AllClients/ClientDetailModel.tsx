@@ -23,7 +23,8 @@ const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
-  companyName: Yup.string().required("Company Name is required"),
+  companyName: Yup.string(),
+  // .required("Company Name is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
@@ -38,7 +39,7 @@ const validationSchema = Yup.object({
   address: Yup.string()
     .matches(alphaRegex, "Invalid Address")
     // .min(5, "Too short")
-    .required("Address is required"),
+    // .required("Address is required"),
 });
 
 interface ClientDetail {
@@ -212,7 +213,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="Name"
+                    label="Name *"
                     size="large"
                     name="name"
                     value={values.name}
@@ -246,7 +247,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="Email"
+                    label="Email *"
                     size="large"
                     name="email"
                     onChange={handleChange}
@@ -302,7 +303,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="City"
+                    label="City *"
                     size="large"
                     name="city"
                     onChange={handleChange}
@@ -315,7 +316,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 </FormControl>
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="State"
+                    label="State *"
                     size="large"
                     name="state"
                     onChange={handleChange}

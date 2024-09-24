@@ -21,7 +21,7 @@ const ShowDetails: FC<ShowDetails> = ({ title, companyName, name, address, state
     <Box
       borderRadius={1}
       sx={{
-        width: 347,
+        width: 390,
         // height: 176,
         marginTop: 2,
         py: 1,
@@ -35,9 +35,9 @@ const ShowDetails: FC<ShowDetails> = ({ title, companyName, name, address, state
       </Typography>
       <Stack spacing={1.5} sx={{ marginTop: 1 }}>
         <Typography variant="text-xs-bold">{companyName}</Typography>
-        <Box sx={{height:"1px"}}></Box>
+        {/* <Box sx={{height:"1px"}}></Box> */}
         <Stack direction={"column"}>
-          <Typography variant="text-xs-regular" color={palette.color.gray[720]}>
+          <Typography variant="text-xs-bold" color={palette.color.gray[720]}>
             {name}
           </Typography>
           <Typography variant="text-xs-regular" color={palette.color.gray[720]}>

@@ -234,7 +234,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         <Box sx={{ px: "20px" }}>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>
-          <SwitchInput type="shipping" lable="Shipping details"></SwitchInput>
+          {/* <SwitchInput type="shipping" lable="Shipping details"></SwitchInput> */}
         </Box>
       </Stack>
     </Box>

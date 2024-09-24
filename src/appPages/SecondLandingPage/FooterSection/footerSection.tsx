@@ -254,7 +254,7 @@ const FooterSection = () => {
             {/* Pages */}
             <Stack
               direction={{ sm: "column", xs: "row" }}
-              gap={{ sm: 3, xs: 2 }}
+              gap={{ sm: 3, xs: 4 }}
               sx={{
                 width: { sm: "70px", xs: "100%" },
                 justifyContent: { sm: "start", xs: "center" },
@@ -274,12 +274,12 @@ const FooterSection = () => {
               >
                 Pages
               </Typography>
-              <Divider
+              {/* <Divider
                 sx={{ display: { sm: "none", xs: "flex" } }}
                 orientation="vertical"
                 variant="middle"
                 flexItem
-              />
+              /> */}
               <Stack
                 direction={{ sm: "column", xs: "row" }}
                 gap={{ sm: 2, xs: 1.5 }}
@@ -426,7 +426,7 @@ const FooterSection = () => {
               >
                 <Stack // stack for phone and email
                   direction={{ sm: "column", xs: "row" }}
-                  gap={1}
+                  gap={{ sm: 2, xs: 1 }}
                   sx={{ alignItems: { sm: "start", xs: "center" } }}
                 >
                   <Stack

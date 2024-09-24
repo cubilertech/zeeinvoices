@@ -47,7 +47,8 @@ const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
-  companyName: Yup.string().required("Company Name is required"),
+  companyName: Yup.string(),
+  // .required("Company Name is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
@@ -59,10 +60,9 @@ const validationSchema = Yup.object({
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string()
-    .matches(alphaRegex, "Invalid Address")
-    // .min(5, "Too short")
-    .required("Address is required"),
+  address: Yup.string().matches(alphaRegex, "Invalid Address"),
+  // .min(5, "Too short")
+  // .required("Address is required"),
 });
 interface DetailSelecter {
   title?: string;
@@ -243,10 +243,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
   const validateEmail = (email: string) => {
     if (title === "From") {
-      if (email === recipientDetail.email)
+      if (email === recipientDetail.email && email !== "")
         return "Sender email must be different from recipient email";
     } else {
-      if (email === senderDetail.email)
+      if (email === senderDetail.email && email !== "")
         return "Recipient email must be different from sender email";
     }
 
@@ -302,8 +302,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
       // }}
     >
       {title && (
-        <Typography variant="text-sm-regular" color={palette.color.gray[110]}>
-          {title}
+        <Typography variant="text-sm-regular">
+          {title == "From" ? "Sender Details" : "Recipient Details"}
         </Typography>
       )}
       {session?.accessToken && type != "edit" && (
@@ -311,7 +311,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           name={
             fromSelected ? InvDetails?.name : toSelected ? InvDetails?.name : ""
           }
-          width={isMobile ? "100%" : 345}
+          width={isMobile ? "100%" : 370}
           placeholder={`Add existing ${detailsOf}`}
           borderRadius={"4px"}
           type={`${detailsOf}`}
@@ -327,7 +327,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             borderRadius={1}
             sx={{
               // width: 292,
-              width: { sm: 345, xs: "100%" },
+              width: { sm: 370, xs: "100%" },
               height: 192,
               marginTop: 1.5,
               padding: 2,
@@ -371,7 +371,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           borderRadius={1}
           sx={{
             // width: 292,
-            width: 345,
+            width: { sm: 370, xs: "100%" },
             height: 222,
             marginTop: 1.5,
             padding: 2,
@@ -529,7 +529,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="Name"
+                    label="Name *"
                     size="large"
                     name="name"
                     value={values.name}
@@ -564,7 +564,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="Email"
+                    label="Email *"
                     size="large"
                     name="email"
                     onChange={handleChange}
@@ -621,7 +621,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="City"
+                    label="City *"
                     size="large"
                     name="city"
                     onChange={handleChange}
@@ -634,7 +634,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 </FormControl>
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="State"
+                    label="State *"
                     size="large"
                     name="state"
                     onChange={handleChange}

@@ -6,10 +6,19 @@ import {
   useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
-import { Avatar, Box, Button, Paper, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { FC, useEffect } from "react";
 import ClientDetailModel from "../ClientDetailModel";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 interface ClientSingleProps {
   id: any;
@@ -75,6 +84,10 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     );
   };
 
+  const handleBack = () => {
+    router.push("/clients");
+  };
+
   console.log(singleClient, "singleClient");
   return (
     <Box
@@ -87,6 +100,25 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
         alignSelf: "center",
       }}
     >
+      <Stack
+        direction={"row"}
+        gap={2}
+        sx={{ pl: 0, py: 3, alignItems: "center" }}
+      >
+        <IconButton
+          sx={{ padding: 1, marginRight: "10px" }}
+          onClick={handleBack}
+        >
+          <ArrowBackIosNewIcon />
+        </IconButton>
+
+        <Typography
+          sx={{ flex: "1 1 100%", color: palette.color.gray[805] }}
+          variant="display-xs-medium"
+        >
+          Client Detail
+        </Typography>
+      </Stack>
       <Paper
         elevation={0}
         sx={{
@@ -95,68 +127,78 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
           mb: 2,
           pb: 1,
           border: "none",
-
           py: 2,
           display: "flex",
           justifyContent: "space-between",
         }}
       >
-        <Stack direction={"row"} gap={3} sx={{ pl: 4 }}>
-          <Avatar
-            sx={{
-              bgcolor: palette.primary.main,
-              width: "62px",
-              height: "62px",
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
-              fontSize: "32px",
-            }}
+        <Stack direction={"column"} gap={3} sx={{ width: "100%" }}>
+          <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            sx={{ width: "100%" }}
           >
-            {singleClient?.name?.charAt(0).toUpperCase()}
-          </Avatar>
-          <Stack direction={"column"} gap={1}>
-            <Typography
-              variant="display-xs-semibold"
-              sx={{ lineHeight: "32px !important" }}
-            >
-              {singleClient?.name}
-            </Typography>
-            <Typography variant="text-xs-regular-color">
-              Email: <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
-            </Typography>
-            <Typography variant="text-xs-regular-color">
-              Phone:{" "}
-              <Box sx={{ color: "#9CA3AF" }}>{singleClient?.phone_number}</Box>
-            </Typography>
-            <Typography variant="text-xs-regular-color">
-              Country:{" "}
-              <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
-            </Typography>
-          </Stack>
-        </Stack>
-        <Stack direction={"row"} gap={1} sx={{ alignSelf: "center" }}>
-          <Button
-            variant="outlined"
-            onClick={() => setIsModalOpen(true)}
-            sx={{
-              height: `40px`,
-              width: "114px",
-              borderColor: palette.border.invoicesBorderColor,
-              color: palette.base.black,
-            }}
-          >
-            Delete
-          </Button>
+            <Stack direction={"row"} gap={3} sx={{ pl: 3 }}>
+              <Avatar
+                sx={{
+                  bgcolor: palette.primary.main,
+                  width: "62px",
+                  height: "62px",
+                  display: "flex",
+                  alignItems: "center",
+                  alignSelf: "center",
+                  justifyContent: "center",
+                  fontSize: "32px",
+                }}
+              >
+                {singleClient?.name?.charAt(0).toUpperCase()}
+              </Avatar>
+              <Stack direction={"column"} gap={1}>
+                <Typography
+                  variant="display-xs-semibold"
+                  sx={{ lineHeight: "32px !important" }}
+                >
+                  {singleClient?.name}
+                </Typography>
+                <Typography variant="text-xs-regular-color">
+                  Email:{" "}
+                  <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
+                </Typography>
+                <Typography variant="text-xs-regular-color">
+                  Phone:{" "}
+                  <Box sx={{ color: "#9CA3AF" }}>
+                    {singleClient?.phone_number}
+                  </Box>
+                </Typography>
+                <Typography variant="text-xs-regular-color">
+                  Country:{" "}
+                  <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
+                </Typography>
+              </Stack>
+            </Stack>
+            <Stack direction={"row"} gap={1} sx={{ alignSelf: "center" }}>
+              <Button
+                variant="outlined"
+                onClick={() => setIsModalOpen(true)}
+                sx={{
+                  height: `40px`,
+                  width: "114px",
+                  borderColor: palette.border.invoicesBorderColor,
+                  color: palette.base.black,
+                }}
+              >
+                Delete
+              </Button>
 
-          <Button
-            onClick={() => setClientModel(true)}
-            variant="contained"
-            sx={{ height: `40px`, width: "114px" }}
-          >
-            Edit
-          </Button>
+              <Button
+                onClick={() => setClientModel(true)}
+                variant="contained"
+                sx={{ height: `40px`, width: "114px" }}
+              >
+                Edit
+              </Button>
+            </Stack>
+          </Stack>
         </Stack>
       </Paper>
       <ClientDetailModel

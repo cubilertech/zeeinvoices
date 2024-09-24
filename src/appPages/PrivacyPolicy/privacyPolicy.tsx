@@ -286,7 +286,7 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
           backgroundColor: palette.base.white,
           justifyContent: "center",
           alignItems: "center",
-          pb: "10px",
+          pb: "30px",
         }}
       >
         <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "5%" } }}>

@@ -88,6 +88,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         <ShowDetails
           title="From"
           companyName={singleInvoice?.from?.companyName}
+          name={singleInvoice?.from?.name}
           address={singleInvoice?.from?.address}
           state={singleInvoice?.from?.state}
           email={singleInvoice?.from?.email}
@@ -96,6 +97,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         <ShowDetails
           title="To"
           companyName={singleInvoice?.to?.companyName}
+          name={singleInvoice?.to?.name}
           address={singleInvoice?.to?.address}
           state={singleInvoice?.to?.state}
           email={singleInvoice?.to?.email}

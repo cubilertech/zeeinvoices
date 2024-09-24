@@ -618,7 +618,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                     },
                   }}
                 >
-                  +14809201123
+                  +1 480 920 1123
                 </Typography>
               </Stack>
             </Stack>

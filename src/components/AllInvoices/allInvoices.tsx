@@ -534,8 +534,8 @@ export default function AllInvoices() {
                                         {row.to?.name || row.toDetails?.name}
                                       </Typography>
                                       {/* <Typography variant="text-xs-regular">
-                        {row.to.email}
-                      </Typography> */}
+                                        {row.to.email}
+                                      </Typography> */}
                                     </Stack>
                                   </Stack>
                                 </TableCell>
@@ -554,19 +554,22 @@ export default function AllInvoices() {
                                   </Typography>
                                 </TableCell>
                                 {/* <TableCell align="left">
-                  <Badge
-                    color="primary"
-                    badgeContent={row.status}
-                    sx={{
-                      paddingLeft: "37px",
-                      "& .MuiBadge-colorPrimary": {
-                        background:
-                          palette.color.badgeColors["pending-bg"],
-                        color: palette.color.badgeColors.pending,
-                      },
-                    }}
-                  ></Badge>
-                </TableCell> */}
+                                  <Badge
+                                    color="primary"
+                                    badgeContent={row.status}
+                                    sx={{
+                                      paddingLeft: "37px",
+                                      "& .MuiBadge-colorPrimary": {
+                                        background:
+                                          palette.color.badgeColors[
+                                            "pending-bg"
+                                          ],
+                                        color:
+                                          palette.color.badgeColors.pending,
+                                      },
+                                    }}
+                                  ></Badge>
+                                </TableCell> */}
 
                                 <TableCell align="left" className="tableCell">
                                   <Typography
@@ -622,18 +625,29 @@ export default function AllInvoices() {
                   />
                 </>
               ) : (
-                <Typography
+                // <Typography
+                //   sx={{
+                //     display: "flex",
+                //     alignItems: "center",
+                //     justifyContent: "center",
+                //     width: "100%",
+                //     height: "300px",
+                //     color: palette.color.gray[50],
+                //   }}
+                // >
+                //   No record found
+                // </Typography>
+                <Box
                   sx={{
                     display: "flex",
-                    alignItems: "center",
                     justifyContent: "center",
-                    width: "100%",
-                    height: "300px",
-                    color: palette.color.gray[50],
+                    padding: "20px",
+                    alignItems: "center",
+                    height: "400px",
                   }}
                 >
-                  No recode found
-                </Typography>
+                  <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+                </Box>
               )}
             </Paper>
             <Box sx={{ height: 20 }}></Box>
