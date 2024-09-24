@@ -529,7 +529,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="Name *"
+                    isRequired={true}
+                    label="Name"
                     size="large"
                     name="name"
                     value={values.name}
@@ -564,7 +565,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="Email *"
+                    isRequired={true}
+                    label="Email"
                     size="large"
                     name="email"
                     onChange={handleChange}
@@ -621,7 +623,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="City *"
+                    isRequired={true}
+                    label="City"
                     size="large"
                     name="city"
                     onChange={handleChange}
@@ -634,7 +637,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 </FormControl>
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="State *"
+                    isRequired={true}
+                    label="State"
                     size="large"
                     name="state"
                     onChange={handleChange}

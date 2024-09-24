@@ -36,10 +36,9 @@ const validationSchema = Yup.object({
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string()
-    .matches(alphaRegex, "Invalid Address")
-    // .min(5, "Too short")
-    // .required("Address is required"),
+  address: Yup.string().matches(alphaRegex, "Invalid Address"),
+  // .min(5, "Too short")
+  // .required("Address is required"),
 });
 
 interface ClientDetail {
@@ -213,7 +212,8 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="Name *"
+                    isRequired={true}
+                    label="Name"
                     size="large"
                     name="name"
                     value={values.name}
@@ -247,7 +247,8 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="Email *"
+                    isRequired={true}
+                    label="Email"
                     size="large"
                     name="email"
                     onChange={handleChange}
@@ -303,7 +304,8 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="City *"
+                    isRequired={true}
+                    label="City"
                     size="large"
                     name="city"
                     onChange={handleChange}
@@ -316,7 +318,8 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 </FormControl>
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
-                    label="State *"
+                    isRequired={true}
+                    label="State"
                     size="large"
                     name="state"
                     onChange={handleChange}

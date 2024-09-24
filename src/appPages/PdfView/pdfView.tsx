@@ -213,7 +213,7 @@ const PdfView: FC<PdfViewProps> = ({
                 color: "#767676",
               }}
             >
-              From
+              Sender Details
             </Text>
             <View
               style={{
@@ -280,7 +280,7 @@ const PdfView: FC<PdfViewProps> = ({
                 color: "#767676",
               }}
             >
-              To
+              Recipient Details
             </Text>
             <View
               style={{
