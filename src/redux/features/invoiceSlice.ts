@@ -14,6 +14,7 @@ export interface ContactDetail {
 export interface InvoiceItem {
   id: number;
   name: string;
+  description: string;
   quantity: number;
   rate: number;
   tax: number;
@@ -65,6 +66,7 @@ const initialValue: InvoiceState = {
     {
       id: 1,
       name: "",
+      description: "",
       quantity: 0,
       rate: 0,
       tax: 0,

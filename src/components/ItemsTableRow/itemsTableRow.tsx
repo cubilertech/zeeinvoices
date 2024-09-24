@@ -346,6 +346,35 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             </IconButton>
           </Grid>
         )}
+        {/* for description */}
+        <Grid
+          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          item
+          xs={12}
+        >
+          <TextField
+            // size="small"
+            sx={{
+              color: palette.color.gray[700],
+              width: "100%",
+
+              "& .MuiOutlinedInput-root": {
+                height: "32px !important",
+                borderRadius: "2px !important",
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[800],
+                opacity: 0.7,
+              },
+            }}
+            id="outlined-basic"
+            name="description"
+            placeholder="Description"
+            variant="outlined"
+            value={data.description}
+            onChange={handleChange}
+          />
+        </Grid>
       </Grid>
     </Stack>
   );
