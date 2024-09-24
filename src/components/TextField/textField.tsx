@@ -20,6 +20,7 @@ interface TextField {
   onBlur?: any;
   error?: any;
   disabled?: any;
+  isRequired?: boolean;
 }
 const TextField: FC<TextField> = ({
   label,
@@ -33,16 +34,25 @@ const TextField: FC<TextField> = ({
   onBlur,
   error,
   disabled,
+  isRequired = false,
   ...props
 }) => {
   return (
     <Stack direction={"column"}>
+      <Stack direction={"row"} gap={0.2}>
       <Typography
         variant="text-sm-medium"
         sx={{ marginBottom: "5px", color: `${labelColor}` }}
       >
         {label}
       </Typography>
+      <Typography
+        variant="text-sm-medium"
+        sx={{ marginBottom: "5px", color: "red" }}
+      >
+        {isRequired && "*"}
+      </Typography>
+      </Stack>
       <MuiTextField
         size="small"
         name={name}
