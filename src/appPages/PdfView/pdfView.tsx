@@ -526,6 +526,17 @@ const PdfView: FC<PdfViewProps> = ({
                     ).toFixed(2)}
                   </Text>
                 </View>
+                {/* for description */}
+                <Text
+                  style={{
+                    width: "200px",
+                    fontSize: "12px",
+                    marginTop: "5px",
+                    color: "#4F4F4F",
+                  }}
+                >
+                  {data.description}
+                </Text>
               </View>
             )}
           </>

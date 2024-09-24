@@ -24,6 +24,7 @@ const InvoiceItemsTable: FC = () => {
       addInvoiceItem({
         id: rowId,
         name: "",
+        description: "",
         quantity: 0,
         rate: 0,
         tax: 0,
