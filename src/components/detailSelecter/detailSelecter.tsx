@@ -233,7 +233,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
       validCountryCode
     );
     if (!phoneNumberInstance) {
-      return "Invalid phone number.";
+      // return "Invalid phone number.";
+      return "Enter valid number or clear the field";
     }
     if (!phoneNumberInstance.isValid()) {
       return "Invalid phone number";
