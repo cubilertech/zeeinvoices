@@ -80,7 +80,7 @@ const ChooseZeeInvoiceSection = () => {
             >
               Why Choose{" "}
               <span style={{ color: palette.text.contactEmailColor }}>
-                ZeeInvoice
+                ZeeInvoices
               </span>
             </Typography>
             <Typography

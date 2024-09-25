@@ -71,6 +71,7 @@ const GetInTouchSection = () => {
 
         <Box
           sx={{
+            height: "600px",
             py: 3,
             display: "flex",
             justifyContent: "space-between",

@@ -35,8 +35,10 @@ const FooterSection = () => {
   useEffect(() => {
     const facebookimg = new Image();
     const instagramimg = new Image();
+    const facebookPrimaryimg = new Image();
     facebookimg.src = "/Images/icons/facebook-black-icon.svg"; // Preload hover image
-    instagramimg.src = "/Images/icons/instagram-black-icon.svg"; // Preload hover image
+    facebookPrimaryimg.src = "/Images/icons/facebook-primary-icon.svg"; // Preload hover image
+    instagramimg.src = "/Images/icons/instagram-colored-icon.svg"; // Preload hover image
   }, []);
 
   return (
