@@ -148,7 +148,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
         </Stack>
         <div
           style={{
-            maxHeight: isOpen ? "100px" : "0px",
+            maxHeight: isOpen ? "fit-content" : "0px",
             overflow: "hidden",
             transition: "max-height 0.3s ease",
           }}

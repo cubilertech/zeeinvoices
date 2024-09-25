@@ -20,20 +20,20 @@ const expandableTextData = [
     title1: "James",
     title2: "Collin",
     imgSrc: "/Images/james-image.svg",
-    desc: "Designer, Catalog",
+    desc: "Designer",
   },
   {
     title1: "Jessica",
-    title2: "Collin",
+    title2: "Johnson",
     imgSrc: "/Images/jessica-image.svg",
-    desc: "Designer, Catalog",
+    desc: "COO",
   },
-  {
-    title1: "Jhon",
-    title2: "Jhonson",
-    imgSrc: "/Images/jhon-image.svg",
-    desc: "COO, Sisyphus",
-  },
+  // {
+  //   title1: "Jhon",
+  //   title2: "Jhonson",
+  //   imgSrc: "/Images/jhon-image.svg",
+  //   desc: "COO, Sisyphus",
+  // },
 ];
 
 const commentTextData = [
@@ -42,28 +42,26 @@ const commentTextData = [
     title2: "",
     rating: 5,
     desc1:
-      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
-    desc2:
-      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+      "I love the intuitive interface and the professional templates. ZeeInvoices has made invoicing so much easier for my business.",
+    desc2: "",
   },
   {
     title1: "It was a great tool!",
     title2: "",
     rating: 5,
     desc1:
-      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
-    desc2:
-      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+      "ZeeInvoices is a game-changer. The automated reminders help me get paid faster, and the customization options are perfect for my brand.",
+    desc2: "",
   },
-  {
-    title1: "Great experience!",
-    title2: "",
-    rating: 5,
-    desc1:
-      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
-    desc2:
-      "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
-  },
+  // {
+  //   title1: "Great experience!",
+  //   title2: "",
+  //   rating: 5,
+  //   desc1:
+  //     "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.intuitive and easy to navigate. The available invoice templates are both professional and accurate, which made creating my invoices a breeze.",
+  //   desc2:
+  //     "I recently used Zeeinvoice and was really impressed. The interface is very easy to use and navigate. The invoice templates are professional and accurate, making it simple for me to create my invoices. The invoice templates are professional and accurate, making it simple for me to create my invoices.",
+  // },
 ];
 
 const UsersSection = () => {

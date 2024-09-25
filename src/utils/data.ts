@@ -4,27 +4,27 @@ export const weOfferData = [
     whiteIcon: "tickPersonWhiteIcon",
     title: "User-Friendly Interface",
     description:
-      "Our platform is designed with simplicity in mind. Whether you’re a freelancer or a large enterprise, our intuitive interface ensures that you can create and manage invoices with ease.",
+      "Our easy-to-use invoice maker is designed for everyone, from tech-savvy users to novices, enabling you to create professional invoices in just a few clicks.",
   },
   {
     icon: "searchBoxIcon",
     whiteIcon: "searchBoxWhiteIcon",
     title: "Comprehensive Features",
     description:
-      "From customizable templates to automatic payment reminders, ZEE Invoices offers a wide range of features that cater to your invoicing needs.",
+      "ZeeInvoices provides a robust online invoicing solution with customizable invoice templates, automated payment reminders, and multi-currency support, ensuring you have all the tools needed for efficient billing.",
   },
   {
     icon: "perpleWorldLinedIcon",
     whiteIcon: "whiteWorldLinedIcon",
     title: "Global Reach",
     description:
-      "With support for multiple currencies and languages, ZEE Invoices is built for businesses that operate globally, making it easy to manage your international clients.",
+      "With support for multiple languages and currencies, our AI-powered invoicing tool makes international invoicing effortless, helping businesses seamlessly connect with global clients.",
   },
   {
     icon: "tickBageIcon",
     whiteIcon: "tickBageWhiteIcon",
     title: "Security and Reliability",
     description:
-      " We prioritize the security of your data, ensuring that all your financial information is protected. You can trust ZEE Invoices to handle your invoicing with the utmost care and reliability.",
+      "At ZeeInvoices, the security of your data is our top priority. Our automated invoicing system is built with the highest standards of data protection, ensuring that all financial information remains safe and secure.",
   },
 ];

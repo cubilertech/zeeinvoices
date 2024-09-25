@@ -8,19 +8,19 @@ import { useEffect, useRef, useState } from "react";
 
 const expandableTextData = [
   {
+    title1: "Effortless",
+    title2: "Invoicing",
+    desc: "Streamline your invoicing process with our free invoicing software. simplicity and speed. ZeeInvoices makes it easy to create and manage invoices online, saving you time and effort.",
+  },
+  {
     title1: "Automated",
     title2: "Invoicing",
-    desc: "Reduce manual work with automation, reduce manual work with automation, reduce manual work with automation.",
+    desc: "With our AI-powered invoice generator, you can reduce manual tasks and speed up your invoicing with ease to focus on growing your business.",
   },
   {
     title1: "Stay",
     title2: "Organized",
-    desc: "Reduce manual work with automation. Reduce manual work with automation.",
-  },
-  {
-    title1: "Automated",
-    title2: "Invoicing",
-    desc: "Reduce manual work with automation. Reduce manual work with automation.",
+    desc: "Easily track and manage your invoices with our platform. Our Invoice tracking feature keeps everything in one place, helping you stay on top of payments and never miss a beat.",
   },
 ];
 
@@ -105,14 +105,16 @@ const HelpSection = () => {
             <Typography
               variant="display-lg-bold"
               sx={{
+                textAlign: "center",
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.color.gray[805],
                 fontSize: { md: "48px", xs: "24px" },
                 lineHeight: { md: "64px", xs: "29px" },
                 fontWeight: { md: 700 },
               }}
+              component={"h1"}
             >
-              How{" "}
+              How ZeeInvoices{" "}
               <Box
                 component="span"
                 sx={{
@@ -127,7 +129,7 @@ const HelpSection = () => {
                   display: "inline-block",
                 }}
               >
-                ZeeInvoices Helps?
+                Helps You?
               </Box>
             </Typography>
           </Stack>
@@ -143,8 +145,8 @@ const HelpSection = () => {
               textAlign: { xs: "center" },
             }}
           >
-            Effortless invoicing with essential features, Effortless invoicing
-            with essential features. Effortless
+            ZeeInvoices is a free and easy to use invoice generator and billing
+            software custom designed to meet your business needs.
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column" }}
@@ -162,7 +164,7 @@ const HelpSection = () => {
                 src="/Images/help-image.svg"
                 width={596}
                 height={413}
-                alt="rectangle iaptop bg"
+                alt="ZeeInvoices offers an organized way to process billing and invoices"
               />
             </Box>
             {/* right section */}

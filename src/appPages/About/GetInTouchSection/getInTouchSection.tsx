@@ -13,24 +13,20 @@ import { useState } from "react";
 
 const accordionData = [
   {
-    title:
-      "Can i change my plan later, Can i change my plan later, Can i change my plan later?",
-    desc: "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+    title: "Can I change my plan later?",
+    desc: "Yes, you can easily change your plan whenever you need to.",
   },
   {
-    title:
-      "Is there a free trial availableIs there a free trial availableIs there a free trial available?",
-    desc: "You can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+    title: "Is there a free trial available?",
+    desc: "Yes! Enjoy a 30-day free trial to explore our features without any commitment.",
   },
   {
-    title:
-      "Is there a free trial availableIs there a free trial availableIs there a free trial available?",
-    desc: "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.t, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+    title: "What support do you provide?",
+    desc: "We offer a free personalized onboarding call to help you get started quickly and easily.",
   },
   {
-    title:
-      "Is there a free trial availableIs there a free trial availableIs there a free trial available?",
-    desc: "You can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+    title: "Are there any hidden fees?",
+    desc: "No, we believe in clear pricing. You’ll never encounter hidden fees with us.",
   },
 ];
 const GetInTouchSection = () => {

@@ -40,10 +40,11 @@ const JoinUsSection = () => {
             component={"p"}
             sx={{ mb: 3, color: palette.base.white }}
           >
-            Experience the ease and efficiency of ZEE Invoices. Whether you’re
-            just starting or looking to upgrade your invoicing system, we’re
-            here to help you every step of the way. Sign up today and take the
-            first step toward more efficient invoicing.
+            Experience the ease of <b>free invoicing</b> with ZeeInvoices.
+            Whether you’re a small business owner, a freelancer, or part of a
+            large enterprise, our tool is built to meet your invoicing needs.{" "}
+            <b>Sign up today</b> to start creating custom, professional
+            invoices.
           </Typography>
 
           <Button

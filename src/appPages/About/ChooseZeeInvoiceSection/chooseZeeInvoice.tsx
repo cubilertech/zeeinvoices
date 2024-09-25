@@ -2,20 +2,21 @@
 import { ExpandableText } from "@/components/ExpandableText";
 import { palette } from "@/theme/palette";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const expandableTextData = [
   {
     title1: "Efficiency",
-    desc: "Save time by automating your invoicing process. Send invoices in just a few clicks and track payments effortlessly.",
+    desc: "With our automated invoicing system, you can streamline your billing process and reduce manual tasks leading to enhance productivity for businesses of all sizes.",
   },
   {
     title1: "Customization",
-    desc: "Tailor your invoices to match your brand’s identity. Our templates are fully customizable to reflect your business’s unique style.",
+    desc: "Our customizable invoice templates helps you personalize your invoices ensuring a professional appearance every time.",
   },
   {
     title1: "Support",
-    desc: "We’re here to help whenever you need it. Our dedicated support team is available to assist you with any questions or issues you may encounter.",
+    desc: "With AI-powered invoicing you get exceptional support helping businesses of all sizes navigate our with ease.",
   },
 ];
 
@@ -87,7 +88,9 @@ const ChooseZeeInvoiceSection = () => {
               variant={isModile ? "text-xs-regular" : "text-xl1-regular"}
               color={palette.color.gray[745]}
             >
-              See What Benefits We Are Offing Right Now
+              Choose ZeeInvoices for enhanced efficiency, extensive
+              customization options and exceptional support tailored to your
+              invoicing needs.
             </Typography>
           </Box>
 

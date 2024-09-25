@@ -10,17 +10,17 @@ const expandableTextData = [
   {
     title1: "Mobile",
     title2: "Friendly",
-    desc: "Reduce manual work with automation, reduce manual ands Reduce manual work with automation, reduce manual asdaReduce manual work with automation, reduce manual asda",
+    desc: "Manage invoices on any device, anywhere.",
   },
   {
-    title1: "Stay",
-    title2: "Organized",
-    desc: "Reduce manual work with automation.",
+    title1: "Save",
+    title2: "Time",
+    desc: "Streamline invoicing tasks like billing and payment tracking, allowing you to focus on what matters most.",
   },
   {
-    title1: "Automated",
-    title2: "Invoicing",
-    desc: "Reduce manual work with automation.",
+    title1: "Security ",
+    title2: "First",
+    desc: "Your data is secured with top-tier protection, ensuring privacy and safety for your business transactions.",
   },
 ];
 
@@ -158,7 +158,7 @@ const MadeSimpleSection = () => {
                 src="/Images/simple-mobile-image.svg"
                 width={437}
                 height={462}
-                alt="mobile"
+                alt="mobile-friendly invoice generator with easy to use interface"
               />
             </Box>
 

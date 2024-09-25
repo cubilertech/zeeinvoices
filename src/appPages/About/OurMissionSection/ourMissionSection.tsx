@@ -8,6 +8,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTimeField } from "@mui/x-date-pickers/TimeField/useTimeField";
+import Image from "next/image";
 
 const OurMissionSection = () => {
   const isModile = useMediaQuery("(max-width: 600px)");
@@ -81,7 +82,7 @@ const OurMissionSection = () => {
               variant={isModile ? "h5" : "display-lg-bold"}
               color={palette.color.gray[805]}
               mb={{ sm: 2, xs: 1 }}
-              component={"p"}
+              component={"h1"}
             >
               Our{" "}
               <span style={{ color: palette.text.contactEmailColor }}>
@@ -94,11 +95,12 @@ const OurMissionSection = () => {
               component={"p"}
               color={palette.color.gray[745]}
             >
-              At ZEE Invoices, our mission is to empower businesses of all sizes
-              by providing an easy-to-use invoicing tool that streamlines your
-              financial operations. We believe that efficient invoicing is key
-              to maintaining healthy cash flow and running a successful
-              business.
+              At ZEEinvoices, our mission is to empower small businesses and
+              freelancers by providing an intuitive, AI-powered invoicing tool
+              that simplifies the billing process. We strive to deliver
+              customizable solutions that enhance productivity, ensure accuracy,
+              and foster professional relationships, making invoicing effortless
+              and efficient for everyone.
             </Typography>
           </Box>
         </Box>

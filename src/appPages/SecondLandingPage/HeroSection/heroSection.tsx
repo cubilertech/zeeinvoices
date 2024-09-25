@@ -90,15 +90,17 @@ const HeroSection = () => {
             <Typography
               variant="display-xs1-regular"
               sx={{
-                maxWidth: { md: "531px", xs: "335px" },
+                maxWidth: { md: "600px", xs: "335px" },
                 color: palette.color.gray[745],
                 fontFamily: "Product Sans, sans-serif",
                 fontSize: { sm: "24px !important", xs: "18px !important" },
                 lineHeight: { sm: "29px !important", xs: "21px !important" },
               }}
             >
-              Simplify your invoicing process and focus on what really
-              matters—Let’s grow your business.
+              Simplify invoicing with ZeeInvoices, a free AI-powered invoice
+              generator. Effortlessly create custom invoices that reflect your
+              brand’s unique style. Let our platform handle billing, so you can
+              focus on the critical aspects of your business.
             </Typography>
             <Button
               variant="contained"
@@ -139,7 +141,7 @@ const HeroSection = () => {
                 src="/Images/hero-image.svg"
                 width={650}
                 height={650}
-                alt="inv image"
+                alt="Zeeinvoices: create invoices within minutes"
               />
             </Box>
           </Stack>

@@ -41,7 +41,7 @@ const EveryBusinessSection = () => {
           width: "100%",
           pt: 3,
           pb: 7,
-          backgroundColor: "#F7F8F9",
+          backgroundColor: "transparent",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -87,8 +87,9 @@ const EveryBusinessSection = () => {
             textAlign: { xs: "center" },
           }}
         >
-          No matter your industry, ZeeInvoices is here to help.ZeeInvoices is
-          here to help.ZeeInvoices is here to help.
+          ZeeInvoices simplifies invoicing for everyone, from freelancers to
+          large businesses. Our free software automates invoice creation and
+          streamlines the entire process.
         </Typography>
         <Stack
           direction={"column"}
@@ -171,7 +172,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Professional Services
+                E-commerce & Freelancers
               </Typography>
               <Typography
                 variant="text-md-regular"
@@ -185,9 +186,9 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Our invoice company provides significant benefits for
-                professional services. We offer a streamlined platform for
-                creating
+                Tailored for e-commerce and freelancers, our solution simplifies
+                transaction management and automates payment reminders, helping
+                you grow your business effortlessly.
               </Typography>
             </Stack>
           </Stack>
@@ -244,7 +245,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Professional Services
+                Subscription Services
               </Typography>
               <Typography
                 variant="text-md-regular"
@@ -259,9 +260,9 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Our invoice company provides significant benefits for
-                professional services. We offer a streamlined platform for
-                creating
+                Manage recurring billing effortlessly with automated invoicing,
+                allowing you to track subscriptions and enhance customer
+                satisfaction seamlessly.
               </Typography>
             </Stack>
             {/* bottom right */}
@@ -333,9 +334,9 @@ const EveryBusinessSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  Our invoice company provides significant benefits for
-                  professional services. We offer a streamlined platform for
-                  creating
+                  Our invoicing platform streamlines invoice creation and
+                  tracking, allowing you to focus on delivering exceptional
+                  services to your clients.
                 </Typography>
               ) : (
                 <Typography

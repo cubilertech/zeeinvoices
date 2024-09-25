@@ -8,19 +8,19 @@ import { useEffect, useRef, useState } from "react";
 
 const expandableTextData = [
   {
-    title1: "Automated",
-    title2: "Invoicing",
-    desc: "Reduce manual work with automation, reduce manual ands Reduce manual work with automation, reduce manual asdaReduce manual work with automation, reduce manual asda.",
+    title1: "Less Time",
+    title2: "More Focus",
+    desc: "ZeeInvoices reduces the time spent on paperwork so you can focus on what matters—building your business.",
   },
   {
-    title1: "Stay",
-    title2: "Organized",
-    desc: "Reduce manual work with automation.",
+    title1: "Enhance",
+    title2: "Your Efficiency",
+    desc: "Cut down on invoicing time and focus on expanding your business.",
   },
   {
-    title1: "Automated",
-    title2: "Invoicing",
-    desc: "Reduce manual work with automation.",
+    title1: "Revitalize",
+    title2: "Your Operations",
+    desc: "Reduce the time spent on invoicing, allowing more focus on business growth.",
   },
 ];
 
@@ -137,8 +137,8 @@ const WorkflowSection = () => {
               textAlign: { xs: "center" },
             }}
           >
-            Less time invoicing, more time growing your business, Less time
-            invoicing, more time growing your business.
+            Shift your focus from invoicing to what truly matters—growing your
+            business!
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column-reverse" }}
@@ -175,7 +175,7 @@ const WorkflowSection = () => {
                 src="/Images/workflow-image.svg"
                 width={581}
                 height={384}
-                alt="rectangle iaptop bg"
+                alt="streamline your invoicing process with ZeeInvoices free invoice maker"
               />
             </Box>
           </Stack>

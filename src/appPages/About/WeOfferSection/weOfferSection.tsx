@@ -36,8 +36,8 @@ const WeOfferSection = () => {
             variant={isModile ? "text-xs-regular" : "text-xl1-regular"}
             color={palette.color.gray[745]}
           >
-            Less time invoicing, more time growing your business, Less time
-            invoicing, more time growing your business.
+            Here’s how ZeeInvoices makes your invoicing process simple and
+            efficient
           </Typography>
         </Box>
 

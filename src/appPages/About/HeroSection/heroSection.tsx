@@ -43,9 +43,12 @@ const HeroSection = () => {
                 lineHeight: { sm: "29px !important", xs: "21px !important" },
               }}
             >
-              Welcome to ZEE Invoices, where we simplify billing and invoicing,
-              so you can focus on growing your business. Our platform
-              streamlines the process, saving you time and effort.
+              Welcome to ZeeInvoices, at ZeeInvoices, we make invoicing simple,
+              quick, and completely free. Our platform is designed to streamline
+              the billing process for businesses of all sizes, from freelancers
+              to large enterprises. With ZeeInvoices, you can create
+              professional, custom invoices that align with your brand in just
+              minutes.
             </Typography>
           </Box>
           <Box sx={{ width: "100%", m: "auto" }}>
@@ -54,7 +57,7 @@ const HeroSection = () => {
               height={500}
               //   style={{width: "100%", height: '100%'}}
               src="/Images/about/heroSection-image.svg"
-              alt="hero image"
+              alt="ZeeInvoices comprehensive dashboard for overviewing the billing process"
             />
           </Box>
         </Box>
