@@ -488,7 +488,7 @@ export default function AllInvoices() {
                                 hover
                                 role="checkbox"
                                 tabIndex={-1}
-                                key={row.id}
+                                key={row?.id}
                                 sx={{ cursor: "pointer" }}
                               >
                                 <TableCell
@@ -503,7 +503,7 @@ export default function AllInvoices() {
                                     variant="text-sm-medium"
                                     sx={{ color: palette.color.gray[130] }}
                                   >
-                                    {row.id}
+                                    {row?.id}
                                   </Typography>
                                 </TableCell>
                                 <TableCell align="left" className="tableCell">
@@ -522,7 +522,7 @@ export default function AllInvoices() {
                                         justifyContent: "center",
                                       }}
                                     >
-                                      {row.toDetails?.name
+                                      {row?.toDetails?.name
                                         ?.charAt(0)
                                         .toUpperCase()}
                                     </Avatar>
@@ -531,7 +531,7 @@ export default function AllInvoices() {
                                         variant="text-sm-medium"
                                         sx={{ color: palette.color.gray[130] }}
                                       >
-                                        {row.to?.name || row.toDetails?.name}
+                                        {row?.to?.name || row?.toDetails?.name}
                                       </Typography>
                                       {/* <Typography variant="text-xs-regular">
                                         {row.to.email}
@@ -541,7 +541,7 @@ export default function AllInvoices() {
                                 </TableCell>
                                 <TableCell align="left" className="tableCell">
                                   <Typography variant="text-sm-medium">
-                                    {row.to?.email || row.toDetails?.email}
+                                    {row?.to?.email || row?.toDetails?.email}
                                   </Typography>
                                 </TableCell>
                                 <TableCell
@@ -550,7 +550,7 @@ export default function AllInvoices() {
                                   className="tableCell"
                                 >
                                   <Typography variant="text-sm-regular">
-                                    {tableFormatDate(row.invoiceDate)}
+                                    {tableFormatDate(row?.invoiceDate)}
                                   </Typography>
                                 </TableCell>
                                 {/* <TableCell align="left">
@@ -576,10 +576,10 @@ export default function AllInvoices() {
                                     variant="text-sm-medium"
                                     sx={{ color: palette.color.gray[130] }}
                                   >
-                                    {row.settings.currency == "USD"
+                                    {row?.settings?.currency == "USD"
                                       ? "$"
-                                      : row.settings.currency}{" "}
-                                    {calculateAmount(row.items).toFixed(2)}
+                                      : row?.settings?.currency}{" "}
+                                    {calculateAmount(row?.items).toFixed(2)}
                                   </Typography>
                                 </TableCell>
                                 <TableCell align="left" className="tableCell">
@@ -624,19 +624,20 @@ export default function AllInvoices() {
                     setPage={setPage}
                   />
                 </>
+              ) : filteredData.length <= 0 && search !== "" ? (
+                <Typography
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "300px",
+                    color: palette.color.gray[50],
+                  }}
+                >
+                  No record found
+                </Typography>
               ) : (
-                // <Typography
-                //   sx={{
-                //     display: "flex",
-                //     alignItems: "center",
-                //     justifyContent: "center",
-                //     width: "100%",
-                //     height: "300px",
-                //     color: palette.color.gray[50],
-                //   }}
-                // >
-                //   No record found
-                // </Typography>
                 <Box
                   sx={{
                     display: "flex",
