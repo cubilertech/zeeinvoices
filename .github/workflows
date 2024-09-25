@@ -17,7 +17,7 @@ jobs:
       - name: Create env file
         run: |
           cat > .env << EOF
-          ${{ secrets.DEV_ENV }}
+          ${{ secrets.QA_ENV }}
           EOF
       - name: docker build
         run: docker build -t frontend-qa .
@@ -34,7 +34,7 @@ jobs:
           fi
       
       - name: Docker start 
-        run: docker run -d --name frontend-qa-c -p 5002:5002 frontend-qa
+        run: docker run -d --name frontend-qa-c -p 3001:3000 frontend-qa
 
       - name: Docker show logs 
         run: sleep 50 && docker logs frontend-qa-c
