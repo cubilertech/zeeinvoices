@@ -1,0 +1,43 @@
+name: Deploy dev branch
+
+on:
+  push:
+    branches:
+      - qa
+
+env:
+  API_GATEWAY_STAGE: qa
+
+jobs:
+  deploy:
+    name: build and deploy dev docker image
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create env file
+        run: |
+          cat > .env << EOF
+          ${{ secrets.DEV_ENV }}
+          EOF
+      - name: docker build
+        run: docker build -t frontend-qa .
+        
+      - name: Docker stop and remove
+        run: |
+          CONTAINER_NAME="frontend-qa-c"
+
+          if [[ "$(docker inspect -f '{{.State.Running}}' $CONTAINER_NAME 2>/dev/null)" == "true" ]]; then
+            echo "Stopping Docker container $CONTAINER_NAME"
+            docker stop $CONTAINER_NAME && docker rm $CONTAINER_NAME && sudo docker system prune -f
+          else
+            echo "Docker container $CONTAINER_NAME is not running"
+          fi
+      
+      - name: Docker start 
+        run: docker run -d --name frontend-qa-c -p 5002:5002 frontend-qa
+
+      - name: Docker show logs 
+        run: sleep 50 && docker logs frontend-qa-c
+
+      - name: Clean up interim docker
+        run: docker image prune -f && docker container prune -f
