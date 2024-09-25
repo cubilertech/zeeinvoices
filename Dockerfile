@@ -33,7 +33,6 @@ COPY --from=build /app/node_modules ./node_modules
 # Copy the .env file from the build stage to the final image
 COPY --from=build /app/.env ./.env
 
-# Expose the port Next.js will run on
 EXPOSE 3000
 
 CMD ["npm", "start"]
