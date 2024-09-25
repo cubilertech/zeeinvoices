@@ -10,7 +10,7 @@ const expandableTextData = [
   {
     title1: "Mobile",
     title2: "Friendly",
-    desc: "Manage invoices on any device, anywhere.",
+    desc: "Create and send professional invoices from anywhere with our mobile-friendly invoice generator. ZeeInvoices offers fast invoicing solutions for businesses on the go.",
   },
   {
     title1: "Save",

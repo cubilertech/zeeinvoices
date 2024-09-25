@@ -35,8 +35,8 @@ const FooterSection = () => {
   useEffect(() => {
     const facebookimg = new Image();
     const instagramimg = new Image();
-    facebookimg.src = "/Images/icons/facebook1-colored-icon.svg"; // Preload hover image
-    instagramimg.src = "/Images/icons/instagram-colored-icon.svg"; // Preload hover image
+    facebookimg.src = "/Images/icons/facebook-black-icon.svg"; // Preload hover image
+    instagramimg.src = "/Images/icons/instagram-black-icon.svg"; // Preload hover image
   }, []);
 
   return (
@@ -80,11 +80,13 @@ const FooterSection = () => {
                 fontWeight: { md: 400 },
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst
-              risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in
-              suscipit non. Non commodo volutpat, pharetra, vel.Nisi, risus in
-              suscipit non. Non commodo volutpat, pharetra, vel.
+              ZeeInvoices is a powerful, easy-to-use invoicing solution designed
+              to simplify your business finances. From creating invoices to
+              tracking payments, ZeeInvoices helps you manage your billing
+              effortlessly, giving you more time to focus on growing your
+              business. With seamless integration, customizable templates, and
+              automated processes, we ensure your invoicing is fast, reliable,
+              and secure.
             </Typography>
 
             {/* Follow us */}
@@ -122,14 +124,15 @@ const FooterSection = () => {
                     width: { sm: "24px", xs: "24px" },
                     height: { sm: "25px", xs: "25px" },
                     overflow: "hidden",
-                    backgroundImage: "url(/Images/icons/facebook1-icon.svg)",
+                    backgroundImage:
+                      "url(/Images/icons/facebook-black-icon.svg)",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                     "&:hover": {
-                      width: { sm: "24px", xs: "24px" },
-                      height: { sm: "21px", xs: "21px" },
+                      // width: { sm: "24px", xs: "24px" },
+                      // height: { sm: "21px", xs: "21px" },
                       backgroundImage:
-                        "url(/Images/icons/facebook1-colored-icon.svg)",
+                        "url(/Images/icons/facebook-primary-icon.svg)",
                       backgroundSize: "100% 100%",
                     },
                   }}
@@ -148,7 +151,8 @@ const FooterSection = () => {
                     width: { sm: "25px", xs: "25px" },
                     height: { sm: "25px", xs: "25px" },
                     overflow: "hidden",
-                    backgroundImage: "url(/Images/icons/instagram1-icon.svg)",
+                    backgroundImage:
+                      "url(/Images/icons/instagram-black-icon.svg)",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                     "&:hover": {
@@ -191,7 +195,7 @@ const FooterSection = () => {
                       p: "0px",
                       width: "35px",
                       height: "35px",
-                      color: palette.color.gray[745],
+                      color: palette.base.black,
                       "&:hover": {
                         color: "#FF0000",
                       },
@@ -211,7 +215,7 @@ const FooterSection = () => {
                       p: "0px",
                       width: "25px",
                       height: "25px",
-                      color: palette.color.gray[745],
+                      color: palette.base.black,
                       "&:hover": {
                         color: "#000000",
                       },
@@ -233,7 +237,7 @@ const FooterSection = () => {
                       p: "0px",
                       width: "30px",
                       height: "30px",
-                      color: palette.color.gray[745],
+                      color: palette.base.black,
                       "&:hover": {
                         color: "#0A66C2",
                       },
@@ -445,7 +449,7 @@ const FooterSection = () => {
                         fontWeight: { md: 400 },
                       }}
                     >
-                      +14809201123
+                      +1 480 920 1123
                     </Typography>
                   </Stack>
 
@@ -455,18 +459,28 @@ const FooterSection = () => {
                     sx={{ alignItems: "center" }}
                   >
                     <EmailIcon sx={{ color: palette.primary.main }} />
-                    <Typography
-                      variant="text-md-regular"
-                      sx={{
-                        fontFamily: "Product Sans, sans-serif",
-                        color: palette.color.gray[731],
-                        fontSize: { md: "16px", xs: "12px" },
-                        lineHeight: { md: "20px", xs: "15px" },
-                        fontWeight: { md: 400 },
-                      }}
+                    <a
+                      href="https://mail.google.com/mail/?view=cm&to=support@zeeinvoices.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      support@zeeinvoices.com
-                    </Typography>
+                      <Typography
+                        variant="text-md-regular"
+                        sx={{
+                          fontFamily: "Product Sans, sans-serif",
+                          color: palette.color.gray[731],
+                          fontSize: { md: "16px", xs: "12px" },
+                          lineHeight: { md: "20px", xs: "15px" },
+                          fontWeight: { md: 400 },
+                          textDecoration: "none", // Ensure there's no underline
+                          "&:hover": {
+                            textDecoration: "underline", // Ensure there's no underline
+                          },
+                        }}
+                      >
+                        support@zeeinvoices.com
+                      </Typography>
+                    </a>
                   </Stack>
                 </Stack>
 

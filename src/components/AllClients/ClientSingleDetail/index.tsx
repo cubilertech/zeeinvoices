@@ -116,7 +116,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
           sx={{ flex: "1 1 100%", color: palette.color.gray[805] }}
           variant="display-xs-medium"
         >
-          Client Detail
+          Recipient Detail
         </Typography>
       </Stack>
       <Paper
