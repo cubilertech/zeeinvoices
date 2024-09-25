@@ -240,7 +240,7 @@ export default function AllClients() {
       >
         <Box
           sx={{
-            minHeight: { xl: "83vh", lg: "73vh" },
+            minHeight: { xl: "53vh", lg: "73vh" },
             width: "100%",
             marginTop: "65px",
             justifyContent: "center",
