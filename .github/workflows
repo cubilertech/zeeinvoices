@@ -1,4 +1,4 @@
-name: Deploy dev branch
+name: Deploy qa branch
 
 on:
   push:
