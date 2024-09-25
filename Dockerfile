@@ -36,5 +36,4 @@ COPY --from=build /app/.env ./.env
 # Expose the port Next.js will run on
 EXPOSE 3000
 
-# Start the Next.js application
 CMD ["npm", "start"]
