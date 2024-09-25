@@ -422,7 +422,7 @@ export default function AllInvoices() {
         ) : (
           <Box
             sx={{
-              minHeight: { xl: "83vh", lg: "73vh" },
+              minHeight: { xl: "53vh", lg: "73vh" },
               width: "100%",
               marginTop: "65px",
               justifyContent: "center",
@@ -579,7 +579,7 @@ export default function AllInvoices() {
                                     {row?.settings?.currency == "USD"
                                       ? "$"
                                       : row?.settings?.currency}{" "}
-                                    {calculateAmount(row?.items).toFixed(2)}
+                                    {calculateAmount(row?.items)?.toFixed(2)}
                                   </Typography>
                                 </TableCell>
                                 <TableCell align="left" className="tableCell">
