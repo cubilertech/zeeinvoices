@@ -407,7 +407,7 @@ const PdfView: FC<PdfViewProps> = ({
               color: "white",
             }}
           >
-            QTY/HRS
+            Qty / Hrs
           </Text>
           <Text
             style={{
