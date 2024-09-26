@@ -56,12 +56,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     InvDetails?.invoiceType !== "";
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
-  let InvoiceRendomId = Math.floor(Math.random() * 100) + 1;
-  const [InvoiceId, UpdateInvoiceId] = useState(
-    InvDetails.id
-      ? InvDetails.id
-      : (("ZT-" + InvoiceRendomId.toString()) as string)
+  const InvoiceRendomId = useMemo(
+    () => Math.floor(Math.random() * 100) + 1,
+    []
   );
+  const [InvoiceId, UpdateInvoiceId] = useState(
+    InvDetails.id ? InvDetails.id : `ZT-${InvoiceRendomId}`
+  );
+
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
 
   const {
@@ -251,11 +253,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   useEffect(() => {
     if (type === "add") {
-      if (InvoiceRendomId) {
-        dispatch(setInvoiceId(("ZT-" + InvoiceRendomId.toString()) as string));
-      }
+      dispatch(setInvoiceId(`ZT-${InvoiceRendomId}`));
     }
-  }, [InvoiceRendomId, dispatch, type]);
+  }, [dispatch, type]);
 
   return (
     <Stack
