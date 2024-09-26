@@ -47,8 +47,7 @@ export const useFetchSingleDocument = (apiRoute: string) => {
   const { data: session } = useSession();
   const token = session?.accessToken;
   async function fetch() {
- 
-    console.log(token, "token")
+    console.log(token, "token");
     try {
       const response = await axios.get(apiRoute, {
         headers: {
@@ -157,8 +156,12 @@ export const useEditDocument = (multipart = true) => {
         setResetInvoice();
         setResetInvoiceSetting();
         signOut({ callbackUrl: "/" });
+      } else if (error?.response?.status === 400) {
+        toast.error(error.response?.data?.message);
+        return null; 
+      } else {
+        toast.error("An Error Occured while Update Data");
       }
-      throw new Error("An Error Occured while Update Data");
     }
   };
   return useMutation(handleEdit);

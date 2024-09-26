@@ -22,7 +22,7 @@ export interface InvoiceItem {
   taxAmount: number;
 }
 export interface InvoiceState {
-  id: number;
+  id: number | string;
   logo: string | ArrayBuffer | null;
   invoiceType: string;
   from: ContactDetail;
@@ -81,7 +81,7 @@ export const invoiceSlice = createSlice({
   name: "invoice",
   initialState: initialValue,
   reducers: {
-    setInvoiceId: (state, action: PayloadAction<number>) => {
+    setInvoiceId: (state, action: PayloadAction<number | string>) => {
       state.id = action.payload;
     },
     setInvoiceLogo: (state, action: PayloadAction<string | null>) => {

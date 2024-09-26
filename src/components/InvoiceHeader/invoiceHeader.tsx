@@ -18,7 +18,7 @@ import {
 } from "@/utils/ApiHooks/common";
 import { useDispatch } from "react-redux";
 import { setInvoiceId, setResetInvoice } from "@/redux/features/invoiceSlice";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import SaveModal from "../SaveModal/saveModal";
 import { base64ToFile, handleLogin } from "@/utils/common";
@@ -44,6 +44,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   summaryDetail,
   type,
 }) => {
+  const { id } = useParams<{ id: string }>();
+
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -52,17 +54,15 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     InvDetails.from?.name !== "" &&
     InvDetails.to?.name !== "" &&
     InvDetails?.invoiceType !== "";
-  console.log(InvDetails.id, "InvDetails.id");
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
-  const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
+  let InvoiceRendomId = Math.floor(Math.random() * 100) + 1;
+  const [InvoiceId, UpdateInvoiceId] = useState(
+    InvDetails.id
+      ? InvDetails.id
+      : (("ZT-" + InvoiceRendomId.toString()) as string)
+  );
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
-
-  const {
-    data: record,
-    refetch: refetchRecord,
-    isFetching: getFetching,
-  } = useFetchSingleDocument(`${backendURL}/invoices/last-record`);
 
   const {
     mutateAsync: createInvoice,
@@ -104,6 +104,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     } else {
       formData.append("image", "no-image");
     }
+    formData.append("id", invoiceData.id);
     formData.append("type", invoiceData.type);
     formData.append("invoiceDate", invoiceData.invoiceDate);
     formData.append("dueDate", invoiceData.dueDate);
@@ -143,7 +144,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     formData.append("items", JSON.stringify(invoiceData.items));
     updateInvoice({
       data: formData,
-      apiRoute: `${backendURL}/invoices/${invoiceData.id}`,
+      apiRoute: `${backendURL}/invoices/${id}`,
     })
       .then((res) => {
         router.push("/invoices");
@@ -249,16 +250,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     saveAs(result, "ZeeInvoice");
   };
   useEffect(() => {
-    UpdateInvoiceId(InvDetails.id);
-  }, [InvDetails.id]);
-  useEffect(() => {
     if (type === "add") {
-      refetchRecord();
-      if (record) {
-        dispatch(setInvoiceId(record));
+      if (InvoiceRendomId) {
+        dispatch(setInvoiceId(("ZT-" + InvoiceRendomId.toString()) as string));
       }
     }
-  }, [record, refetchRecord, dispatch, type]);
+  }, [InvoiceRendomId, dispatch, type]);
 
   return (
     <Stack
@@ -285,36 +282,74 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           </IconButton>
         )}
         <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-          <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-            <Typography variant="display-xs-medium">Invoice:</Typography>{" "}
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
+            <Typography variant="display-xs-medium">Invoice#</Typography>{" "}
             {isEditInvoiceId ? (
-              <TextField
-                autoFocus
-                sx={{
-                  backgroundColor: "white",
-                  width: "76px",
-                  fontSize: "24px",
-                  "& .MuiOutlinedInput-root": {
-                    "& input": {
-                      padding: 0,
-                      fontSize: "22px",
+              <>
+                <TextField
+                  autoFocus
+                  sx={{
+                    backgroundColor: "white",
+                    width: "76px",
+                    fontSize: "24px",
+                    "& .MuiOutlinedInput-root": {
+                      "& input": {
+                        padding: 0,
+                        fontSize: "22px",
+                      },
+                      "& fieldset": {
+                        border: "none",
+                        borderRadius: 0,
+                      },
+                      "&:hover fieldset": {
+                        borderBottom: "1px solid black",
+                      },
+                      "&.Mui-focused fieldset": {
+                        border: "none", // focused effect
+                        borderBottom: "1px solid black",
+                      },
                     },
-                    "& fieldset": {
-                      border: "none",
-                      borderRadius: 0,
-                    },
-                    "&:hover fieldset": {
-                      borderBottom: "1px solid black",
-                    },
-                    "&.Mui-focused fieldset": {
-                      border: "none", // focused effect
-                      borderBottom: "1px solid black",
-                    },
-                  },
-                }}
-                value={InvoiceId}
-                onChange={(e) => UpdateInvoiceId(e.target.value)}
-              />
+                  }}
+                  value={InvoiceId}
+                  onChange={(e) => UpdateInvoiceId(e.target.value)}
+                />
+                {InvoiceId.length > 6 ? (
+                  <Typography
+                    sx={{
+                      position: "absolute",
+                      color: "red",
+                      fontSize: "10px",
+                      bottom: -13,
+                      width: "220px",
+                    }}
+                  >
+                    {" "}
+                    Invoice Id can not be greater then 6 letters
+                  </Typography>
+                ) : InvoiceId.length <= 0 ? (
+                  <Typography
+                    sx={{
+                      position: "absolute",
+                      color: "red",
+                      fontSize: "10px",
+                      bottom: -13,
+                      width: "220px",
+                    }}
+                  >
+                    {" "}
+                    Invoice Id is Required
+                  </Typography>
+                ) : (
+                  ""
+                )}
+              </>
             ) : (
               <Typography
                 variant="display-xs-medium"
@@ -326,6 +361,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           </Box>
 
           <IconButton
+            disabled={InvoiceId.length > 6 || InvoiceId.length <= 0}
             onClick={() => setIsEditInvoiceId(!isEditInvoiceId)}
             sx={{
               borderRadius: "100%",
@@ -363,8 +399,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             // mt: 2
           }}
           variant="outlined"
-          disabled={!validateButton}
-          onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
+          disabled={!validateButton || isEditInvoiceId}
+          onClick={
+            // isEditInvoiceId
+            //   ? handleShowAlert()
+            //   :
+            type === "add" ? handleCreateInvoice : handleUpdateInvoice
+          }
         >
           {createInvoiceLoading || updatLoading ? (
             <CircularProgress size={24} sx={{ color: "#8477DA" }} />
