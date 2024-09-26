@@ -191,7 +191,7 @@ const PdfView: FC<PdfViewProps> = ({
             padding: "5px 10px",
             display: "flex",
             flexDirection: "row",
-            gap: 30,
+            gap: 15,
           }}
         >
           {/* from */}
@@ -451,6 +451,7 @@ const PdfView: FC<PdfViewProps> = ({
           <>
             {data.name == "" ? null : (
               <View
+                wrap={false} // Prevents splitting the View across pages
                 key={data.id}
                 style={{
                   marginLeft: "7px",

@@ -21,7 +21,7 @@ const ShowDetails: FC<ShowDetails> = ({ title, companyName, name, address, state
     <Box
       borderRadius={1}
       sx={{
-        width: 390,
+        width: 400,
         // height: 176,
         marginTop: 2,
         py: 1,
