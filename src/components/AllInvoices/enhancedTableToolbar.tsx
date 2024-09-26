@@ -73,49 +73,53 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           All Invoices
         </Typography>
       )}
-      <Stack
-        direction={"row"}
-        sx={{
-          height: "36px",
-          backgroundColor: "#FAFAFA",
-          borderRadius: "4px",
-          width: { sm: "272px", xs: "100%" },
-          pl: "24px",
-          flexDirection: { sm: "row", xs: "column" },
-          alignItems: { sm: "center", xs: "flex-start" },
-          justifyContent: { sm: "center", xs: "start" },
-          border: "1px solid #0000001A",
-        }}
-      >
-        <TextField
-          variant="standard"
-          placeholder="Search"
-          // type="number"
-          value={search}
-          onChange={(e) => handleChangeSearch(e)}
+      {props.type === 2 ? (
+        ""
+      ) : (
+        <Stack
+          direction={"row"}
           sx={{
-            border: "none",
-            textUnderlinePosition: "unset",
-            "& .MuiInputBase-input": {
+            height: "36px",
+            backgroundColor: "#FAFAFA",
+            borderRadius: "4px",
+            width: { sm: "272px", xs: "100%" },
+            pl: "24px",
+            flexDirection: { sm: "row", xs: "column" },
+            alignItems: { sm: "center", xs: "flex-start" },
+            justifyContent: { sm: "center", xs: "start" },
+            border: "1px solid #0000001A",
+          }}
+        >
+          <TextField
+            variant="standard"
+            placeholder="Search"
+            // type="number"
+            value={search}
+            onChange={(e) => handleChangeSearch(e)}
+            sx={{
               border: "none",
-              height: "30px",
-              pl: "0px",
-              pr: "10px",
-            },
-            "& .MuiInputBase-input::placeholder": {
-              color: "#8F97A2",
-            },
-          }}
-          InputProps={{
-            disableUnderline: true,
-            startAdornment: (
-              <InputAdornment position="start">
-                <Icon icon="searchIcon" />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
+              textUnderlinePosition: "unset",
+              "& .MuiInputBase-input": {
+                border: "none",
+                height: "30px",
+                pl: "0px",
+                pr: "10px",
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: "#8F97A2",
+              },
+            }}
+            InputProps={{
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon icon="searchIcon" />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Stack>
+      )}
       <Stack
         direction={"row"}
         sx={{

@@ -97,7 +97,6 @@ function stableSort<T>(
   return stabilizedThis?.map((el) => el[0]);
 }
 
-
 export default function ClientInvoices() {
   const allInvoiceItems = useSelector(getInvoiceItem);
   const { id } = useParams();
@@ -309,138 +308,131 @@ export default function ClientInvoices() {
           minHeight: { xl: "53vh", lg: "73vh" },
         }}
       >
-        {!isInvoiceLoading &&
-        invoiceList?.invoices?.length === 0 &&
-        search === "" ? (
-          <Box sx={{ pt: { sm: 0, xs: 5 } }}>
-            {!fetchingInvoiceList && <CreateFirstInvoice />}
-          </Box>
-        ) : (
-          <Box
+        <Box
+          sx={{
+            minHeight: { xl: "53vh", lg: "73vh" },
+            width: "100%",
+            marginTop: "65px",
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
+          }}
+        >
+          <Paper
+            elevation={0}
             sx={{
-              minHeight: { xl: "53vh", lg: "73vh" },
               width: "100%",
-              marginTop: "65px",
-              justifyContent: "center",
-              alignItems: "center",
-              alignSelf: "center",
+              px: { sm: "20px", xs: "10px" },
+              pb: 1,
+              border: "none",
+              borderRadius: "8px",
+              boxShadow: `0px 0px 2px 0px #0000001A`,
             }}
           >
-            <Paper
-              elevation={0}
-              sx={{
-                width: "100%",
-                px: { sm: "20px", xs: "10px" },
-                pb: 1,
-                border: "none",
-                borderRadius: "8px",
-                boxShadow: `0px 0px 2px 0px #0000001A`,
-              }}
-            >
-              <EnhancedTableToolbar
-                numSelected={0}
-                search={search}
-                handleChangeSearch={handleChangeSearch}
-                type={2}
-              />
-              {filteredData.length > 0 ? (
-                <>
-                  <TableContainer
-                    sx={{
-                      border: `1px solid ${palette.border.invoicesBorderColor}`,
-                      borderTopLeftRadius: "8px",
-                      borderTopRightRadius: "8px",
-                    }}
-                  >
-                    <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-                      <EnhancedTableHead
-                        numSelected={0}
-                        order={order}
-                        orderBy={orderBy}
-                        onRequestSort={handleRequestSort}
-                        rowCount={invoiceList?.invoices?.length}
-                      />
-                        <TableBody>
-                          {filteredData?.map((row: any, index: number) => {
-                            console.log(row, "row12");
-                            const labelId = `enhanced-table-checkbox-${index}`;
-                            return (
-                              <TableRow
-                                hover
-                                role="checkbox"
-                                tabIndex={-1}
-                                key={row?.id}
-                                sx={{ cursor: "pointer" }}
+            <EnhancedTableToolbar
+              numSelected={0}
+              search={search}
+              handleChangeSearch={handleChangeSearch}
+              type={2}
+            />
+            {filteredData.length > 0 ? (
+              <>
+                <TableContainer
+                  sx={{
+                    border: `1px solid ${palette.border.invoicesBorderColor}`,
+                    borderTopLeftRadius: "8px",
+                    borderTopRightRadius: "8px",
+                  }}
+                >
+                  <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+                    <EnhancedTableHead
+                      numSelected={0}
+                      order={order}
+                      orderBy={orderBy}
+                      onRequestSort={handleRequestSort}
+                      rowCount={invoiceList?.invoices?.length}
+                    />
+                    <TableBody>
+                      {filteredData?.map((row: any, index: number) => {
+                        console.log(row, "row12");
+                        const labelId = `enhanced-table-checkbox-${index}`;
+                        return (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={row?.id}
+                            sx={{ cursor: "pointer" }}
+                          >
+                            <TableCell
+                              component="th"
+                              id={labelId}
+                              scope="row"
+                              padding="none"
+                              className="tableCell"
+                              sx={{ paddingLeft: "20px" }}
+                            >
+                              <Typography
+                                variant="text-sm-medium"
+                                sx={{ color: palette.color.gray[130] }}
                               >
-                                <TableCell
-                                  component="th"
-                                  id={labelId}
-                                  scope="row"
-                                  padding="none"
-                                  className="tableCell"
-                                  sx={{ paddingLeft: "20px" }}
+                                {row?.id}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="left" className="tableCell">
+                              <Stack
+                                direction={"row"}
+                                gap={1}
+                                sx={{ alignItems: "center" }}
+                              >
+                                <Avatar
+                                  sx={{
+                                    bgcolor: palette.primary.main,
+                                    width: "32px",
+                                    height: "32px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                  }}
                                 >
+                                  {row?.toDetails?.name
+                                    ?.charAt(0)
+                                    .toUpperCase()}
+                                </Avatar>
+                                <Stack direction={"column"}>
                                   <Typography
                                     variant="text-sm-medium"
                                     sx={{ color: palette.color.gray[130] }}
                                   >
-                                    {row?.id}
+                                    {row?.to?.name || row?.toDetails?.name}
                                   </Typography>
-                                </TableCell>
-                                <TableCell align="left" className="tableCell">
-                                  <Stack
-                                    direction={"row"}
-                                    gap={1}
-                                    sx={{ alignItems: "center" }}
-                                  >
-                                    <Avatar
-                                      sx={{
-                                        bgcolor: palette.primary.main,
-                                        width: "32px",
-                                        height: "32px",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
-                                    >
-                                      {row?.toDetails?.name
-                                        ?.charAt(0)
-                                        .toUpperCase()}
-                                    </Avatar>
-                                    <Stack direction={"column"}>
-                                      <Typography
-                                        variant="text-sm-medium"
-                                        sx={{ color: palette.color.gray[130] }}
-                                      >
-                                        {row?.to?.name || row?.toDetails?.name}
-                                      </Typography>
-                                      {/* <Typography variant="text-xs-regular">
+                                  {/* <Typography variant="text-xs-regular">
                                         {row.to.email}
                                       </Typography> */}
-                                    </Stack>
-                                  </Stack>
-                                </TableCell>
-                                <TableCell align="left" className="tableCell">
-                                  <Typography
-                                    variant="text-sm-medium"
-                                    sx={{ color: palette.color.gray[130] }}
-                                  >
-                                    {row?.to?.email || row?.toDetails?.email}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell
-                                  align="left"
-                                  sx={{ paddingLeft: "17px" }}
-                                  className="tableCell"
-                                >
-                                  <Typography
-                                    variant="text-sm-regular"
-                                    sx={{ color: palette.color.gray[130] }}
-                                  >
-                                    {tableFormatDate(row?.invoiceDate)}
-                                  </Typography>
-                                </TableCell>
-                                {/* <TableCell align="left">
+                                </Stack>
+                              </Stack>
+                            </TableCell>
+                            <TableCell align="left" className="tableCell">
+                              <Typography
+                                variant="text-sm-medium"
+                                sx={{ color: palette.color.gray[130] }}
+                              >
+                                {row?.to?.email || row?.toDetails?.email}
+                              </Typography>
+                            </TableCell>
+                            <TableCell
+                              align="left"
+                              sx={{ paddingLeft: "17px" }}
+                              className="tableCell"
+                            >
+                              <Typography
+                                variant="text-sm-regular"
+                                sx={{ color: palette.color.gray[130] }}
+                              >
+                                {tableFormatDate(row?.invoiceDate)}
+                              </Typography>
+                            </TableCell>
+                            {/* <TableCell align="left">
                                   <Badge
                                     color="primary"
                                     badgeContent={row.status}
@@ -458,102 +450,98 @@ export default function ClientInvoices() {
                                   ></Badge>
                                 </TableCell> */}
 
-                                <TableCell align="left" className="tableCell">
-                                  <Typography
-                                    variant="text-sm-medium"
-                                    sx={{ color: palette.color.gray[130] }}
-                                  >
-                                    {row?.settings?.currency == "USD"
-                                      ? "$"
-                                      : row?.settings?.currency}{" "}
-                                    {calculateAmount(row?.items)?.toFixed(2)}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell align="left" className="tableCell">
-                                  <CustomPopOver
-                                    handleOpenDeleteModal={
-                                      handleOpenDeleteModal
-                                    }
-                                    record={row}
-                                    handleViewInvoice={handleViewInvoice}
-                                    handleEditInvoice={handleEditInvoice}
-                                    handleShareInvoice={handleShareInvoice}
-                                    handlePrintInvoice={handlePrintInvoice}
-                                    componentRef={componentRef}
-                                    InvSetting={{ ...invoiceSetting }}
-                                    InvDetails={{ ...invoiceDetail }}
-                                    summaryDetail={summaryDetail}
-                                  />
-                                  <Box>
-                                    <Box style={{ display: "none" }}>
-                                      <Box ref={componentRef}>
-                                        <InvoiceDetailsSection
-                                          singleInvoice={{ ...invoiceDetail }}
-                                          invoiceSetting={{ ...invoiceSetting }}
-                                        />
-                                      </Box>
-                                    </Box>
+                            <TableCell align="left" className="tableCell">
+                              <Typography
+                                variant="text-sm-medium"
+                                sx={{ color: palette.color.gray[130] }}
+                              >
+                                {row?.settings?.currency == "USD"
+                                  ? "$"
+                                  : row?.settings?.currency}{" "}
+                                {calculateAmount(row?.items)?.toFixed(2)}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="left" className="tableCell">
+                              <CustomPopOver
+                                handleOpenDeleteModal={handleOpenDeleteModal}
+                                record={row}
+                                handleViewInvoice={handleViewInvoice}
+                                handleEditInvoice={handleEditInvoice}
+                                handleShareInvoice={handleShareInvoice}
+                                handlePrintInvoice={handlePrintInvoice}
+                                componentRef={componentRef}
+                                InvSetting={{ ...invoiceSetting }}
+                                InvDetails={{ ...invoiceDetail }}
+                                summaryDetail={summaryDetail}
+                              />
+                              <Box>
+                                <Box style={{ display: "none" }}>
+                                  <Box ref={componentRef}>
+                                    <InvoiceDetailsSection
+                                      singleInvoice={{ ...invoiceDetail }}
+                                      invoiceSetting={{ ...invoiceSetting }}
+                                    />
                                   </Box>
-                                </TableCell>
-                              </TableRow>
-                            );
-                          })}
-                        </TableBody>
-         
-                    </Table>
-                  </TableContainer>
-                  <Pagination
-                    totalRecords={
-                      invoiceList?.totalRecords ? invoiceList?.totalRecords : 0
-                    }
-                    itemsPerPage={rowsPerPage}
-                    page={page}
-                    setPage={setPage}
-                  />
-                </>
-              ) : filteredData.length <= 0 && search !== "" ? (
-                <Typography
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "100%",
-                    height: "300px",
-                    color: palette.color.gray[50],
-                  }}
-                >
-                  No record found
-                </Typography>
-              ) : (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    padding: "20px",
-                    alignItems: "center",
-                    height: "400px",
-                  }}
-                >
-                  <CircularProgress size={24} sx={{ color: "#8477DA" }} />
-                </Box>
-              )}
-            </Paper>
-            <Box sx={{ height: 20 }}></Box>
-            <DeleteModal
-              open={isModalOpen}
-              onDelete={handleDelete}
-              onClose={handleDeleteModalClose}
-              invoiceDelete={invoiceDelete}
-              title="invoice"
-            />
-            <ShareModal
-              open={shareModel}
-              onShare={() => setShareModel(false)}
-              onClose={() => setShareModel(false)}
-              shareUrlId={shareUrl}
-            />
-          </Box>
-        )}
+                                </Box>
+                              </Box>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <Pagination
+                  totalRecords={
+                    invoiceList?.totalRecords ? invoiceList?.totalRecords : 0
+                  }
+                  itemsPerPage={rowsPerPage}
+                  page={page}
+                  setPage={setPage}
+                />
+              </>
+            ) : filteredData.length <= 0 ? (
+              <Typography
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  height: "300px",
+                  color: palette.color.gray[50],
+                }}
+              >
+                No record found
+              </Typography>
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "20px",
+                  alignItems: "center",
+                  height: "400px",
+                }}
+              >
+                <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+              </Box>
+            )}
+          </Paper>
+          <Box sx={{ height: 20 }}></Box>
+          <DeleteModal
+            open={isModalOpen}
+            onDelete={handleDelete}
+            onClose={handleDeleteModalClose}
+            invoiceDelete={invoiceDelete}
+            title="invoice"
+          />
+          <ShareModal
+            open={shareModel}
+            onShare={() => setShareModel(false)}
+            onClose={() => setShareModel(false)}
+            shareUrlId={shareUrl}
+          />
+        </Box>
       </Container>
     </>
   );
