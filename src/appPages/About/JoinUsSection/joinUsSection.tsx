@@ -54,6 +54,7 @@ const JoinUsSection = () => {
               "&:hover": {
                 backgroundColor: palette.color.gray[10],
                 color: "#4F35DF",
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               },
             }}
           >

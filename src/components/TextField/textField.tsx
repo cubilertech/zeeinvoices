@@ -20,6 +20,7 @@ interface TextField {
   onBlur?: any;
   error?: any;
   disabled?: any;
+  autoFocus?: boolean;
 }
 const TextField: FC<TextField> = ({
   label,
@@ -33,6 +34,7 @@ const TextField: FC<TextField> = ({
   onBlur,
   error,
   disabled,
+  autoFocus,
   ...props
 }) => {
   return (
@@ -44,6 +46,7 @@ const TextField: FC<TextField> = ({
         {label}
       </Typography>
       <MuiTextField
+        autoFocus={autoFocus}
         size="small"
         name={name}
         value={value}

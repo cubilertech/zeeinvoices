@@ -28,6 +28,8 @@ import { palette } from "@/theme/palette";
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
+import { DoneOutlined, EditOutlined } from "@mui/icons-material";
+import { TextField } from "../TextField";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -43,6 +45,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
+
   const { data: session } = useSession();
   const validateButton =
     InvDetails.from?.name !== "" &&
@@ -50,19 +53,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     InvDetails?.invoiceType !== "";
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
+  const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
+  const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
   const {
     data: record,
     refetch: refetchRecord,
     isFetching: getFetching,
   } = useFetchSingleDocument(`${backendURL}/invoices/last-record`);
-  useEffect(() => {
-    if (type === "add") {
-      refetchRecord();
-      if (record) {
-        dispatch(setInvoiceId(record));
-      }
-    }
-  }, [record, refetchRecord, dispatch, type]);
 
   const {
     mutateAsync: createInvoice,
@@ -77,7 +74,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   } = useEditDocument();
   const invoiceData = useMemo(() => {
     return {
-      id: InvDetails.id,
+      id: InvoiceId,
       logo: InvDetails.logo,
       type: InvDetails.invoiceType,
       from: InvDetails.from,
@@ -88,7 +85,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       settings: InvSetting,
       notes: InvDetails.addtionalNotes,
     };
-  }, [InvDetails, InvSetting]);
+  }, [InvDetails, InvSetting, InvoiceId]);
   //Update Invoice
   const handleUpdateInvoice = async () => {
     const formData = new FormData();
@@ -247,7 +244,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     saveAs(result, "ZeeInvoice");
   };
 
-  console.log(InvSetting, InvDetails, summaryDetail, "data");
+  useEffect(() => {
+    if (type === "add") {
+      refetchRecord();
+      if (record) {
+        dispatch(setInvoiceId(record));
+      }
+    }
+  }, [record, refetchRecord, dispatch, type]);
 
   return (
     <Stack
@@ -273,9 +277,63 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             <ArrowBackIosNewIcon />
           </IconButton>
         )}
-        <Typography variant="display-xs-medium">
-          Invoice: {InvDetails.id > 0 ? InvDetails.id : ""}
-        </Typography>
+        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+          <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+            <Typography variant="display-xs-medium">Invoice:</Typography>{" "}
+            {isEditInvoiceId ? (
+              <TextField
+                autoFocus 
+                sx={{
+                  backgroundColor: "white",
+                  width: "76px",
+                  fontSize: "24px",
+                  "& .MuiOutlinedInput-root": {
+                    "& input": {
+                      padding: 0,
+                      fontSize: "22px",
+                    },
+                    "& fieldset": {
+                      border: "none",
+                      borderRadius: 0,
+                    },
+                    "&:hover fieldset": {
+                      borderBottom: "1px solid black",
+                    },
+                    "&.Mui-focused fieldset": {
+                      border: "none", // focused effect
+                      borderBottom: "1px solid black",
+                    },
+                  },
+                }}
+                value={InvoiceId}
+                onChange={(e) => UpdateInvoiceId(e.target.value)}
+              />
+            ) : (
+              <Typography
+                variant="display-xs-medium"
+                sx={{ height: "37px", lineHeight: "40px" }}
+              >
+                {InvoiceId}
+              </Typography>
+            )}
+          </Box>
+
+          <IconButton
+            onClick={() => setIsEditInvoiceId(!isEditInvoiceId)}
+            sx={{
+              borderRadius: "100%",
+              width: "28px !important",
+              height: "28px !important",
+              p: 0.5,
+            }}
+          >
+            {isEditInvoiceId ? (
+              <DoneOutlined sx={{ width: "18px", height: "18px" }} />
+            ) : (
+              <EditOutlined sx={{ width: "18px", height: "18px" }} />
+            )}
+          </IconButton>
+        </Box>
       </Stack>
       <Stack
         justifyContent={"space-between"}
