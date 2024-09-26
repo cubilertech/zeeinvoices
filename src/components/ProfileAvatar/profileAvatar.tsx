@@ -45,7 +45,7 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
           borderRadius: "75px",
           position: "absolute",
           top: 170,
-          left: { xl: "22%", lg: "7%", md: "5%", sm: "5%", xs: "32%" },
+          left: { xl: "20.5%", lg: "6%", md: "4%", sm: "5%", xs: "32%" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

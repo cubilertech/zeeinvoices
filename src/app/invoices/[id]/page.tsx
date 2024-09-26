@@ -83,7 +83,6 @@ const InvoiceDetail = () => {
   }, [refetchSingleInvoice, singleInvoice, dispatch]);
   // Edit Invoice
   const handleEditInvoice = (record: any) => {
-    router.push(`/invoices/${id}/edit`);
     dispatch(
       setFullInvoice({
         id: singleInvoice?.id,
@@ -114,6 +113,7 @@ const InvoiceDetail = () => {
         detail: singleInvoice?.settings?.detail,
       })
     );
+    router.push(`/invoices/${id}/edit`);
   };
 
   // Back Handle
@@ -126,7 +126,14 @@ const InvoiceDetail = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ overflowY: "auto", height: "100%" }}>
+    <Container
+      maxWidth="lg"
+      sx={{
+        overflowY: "auto",
+        height: "100%",
+        px: { md: "0.1%", lg: "0.1%", xs: "0%" },
+      }}
+    >
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
@@ -154,9 +161,9 @@ const InvoiceDetail = () => {
           <IconButton sx={{ padding: 1 }} onClick={handleEditInvoice}>
             <Icon icon="editIcon" width={20} height={20} />
           </IconButton>
-          <IconButton sx={{ padding: 1 }} onClick={() => setShareModal(true)}>
+          {/* <IconButton sx={{ padding: 1 }} onClick={() => setShareModal(true)}>
             <Icon icon="sendSqaureIcon" width={20} height={20} />
-          </IconButton>
+          </IconButton> */}
           <Box>
             <Box style={{ display: "none" }}>
               <Box ref={componentRef}>

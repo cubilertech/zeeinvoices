@@ -5,11 +5,19 @@ import { JoinUsSection } from "@/appPages/About/JoinUsSection";
 import { OurMissionSection } from "@/appPages/About/OurMissionSection";
 import { WeOfferSection } from "@/appPages/About/WeOfferSection";
 import { Box } from "@mui/material";
+import Head from "next/head";
 
 const AboutPage = () => {
   return (
     <>
-      <Box sx={{ mt: 8 }}>
+      <Head>
+        <title>ZeeInvoices; your AI-powered invoicing partner</title>
+        <meta
+          name="description"
+          content="Discover how ZeeInvoices empowers businesses with AI-powered invoicing tool and customizable invoice builder."
+        />
+      </Head>
+      <Box sx={{ mt: 8, px: { sm: "0px", xs: "20px" } }}>
         <HeroSection />
         <OurMissionSection />
         <WeOfferSection />

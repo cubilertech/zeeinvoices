@@ -65,11 +65,11 @@ const PreviewPage = () => {
       );
       dispatch(
         setInvoiceSettings({
-          color: singleInvoice?.settings.color,
-          currency: singleInvoice?.settings.currency,
-          dueDate: singleInvoice?.settings.dueDate,
-          tax: singleInvoice?.settings.tax,
-          detail: singleInvoice?.settings.detail,
+          color: singleInvoice?.settings?.color,
+          currency: singleInvoice?.settings?.currency,
+          dueDate: singleInvoice?.settings?.dueDate,
+          tax: singleInvoice?.settings?.tax,
+          detail: singleInvoice?.settings?.detail,
         })
       );
     }

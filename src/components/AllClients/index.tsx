@@ -123,6 +123,7 @@ export default function AllClients() {
     data: clientList,
     refetch: refetchClientList,
     isFetching: fetchingClientList,
+    isLoading: isClientLoading,
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   //Delete Client
   const {
@@ -233,10 +234,13 @@ export default function AllClients() {
   return (
     <>
       <hr />
-      <Container maxWidth="lg">
+      <Container
+        maxWidth="lg"
+        sx={{ px: { md: "0.1%", lg: "0.1%", xs: "3%" } }}
+      >
         <Box
           sx={{
-            minHeight: { xl: "83vh", lg: "73vh" },
+            minHeight: { xl: "53vh", lg: "73vh" },
             width: "100%",
             marginTop: "65px",
             justifyContent: "center",
@@ -248,7 +252,7 @@ export default function AllClients() {
             elevation={0}
             sx={{
               width: "100%",
-              px: "20px",
+              px: { sm: "20px", xs: "10px" },
               // mb: 2,
               pb: 1,
               border: "none",
@@ -262,7 +266,9 @@ export default function AllClients() {
               search={search}
               handleChangeSearch={handleChangeSearch}
             />
-            {filteredData.length <= 0 ? (
+            {!isClientLoading &&
+            clientList?.clients?.length === 0 &&
+            search === "" ? (
               <Box
                 sx={{
                   height: "300px",

@@ -23,7 +23,8 @@ const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
-  companyName: Yup.string().required("Company Name is required"),
+  companyName: Yup.string(),
+  // .required("Company Name is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
@@ -35,10 +36,9 @@ const validationSchema = Yup.object({
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string()
-    .matches(alphaRegex, "Invalid Address")
-    // .min(5, "Too short")
-    .required("Address is required"),
+  address: Yup.string().matches(alphaRegex, "Invalid Address"),
+  // .min(5, "Too short")
+  // .required("Address is required"),
 });
 
 interface ClientDetail {
@@ -212,6 +212,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
+                    isRequired={true}
                     label="Name"
                     size="large"
                     name="name"
@@ -246,6 +247,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
+                    isRequired={true}
                     label="Email"
                     size="large"
                     name="email"
@@ -302,6 +304,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
+                    isRequired={true}
                     label="City"
                     size="large"
                     name="city"
@@ -315,6 +318,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 </FormControl>
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
+                    isRequired={true}
                     label="State"
                     size="large"
                     name="state"

@@ -228,7 +228,7 @@ const ContectSection = () => {
                   style={{ width: "100%" }}
                   name="phoneNumber"
                   className="custom-phone-input"
-                  defaultCountry="pk"
+                  defaultCountry="us"
                   value={""}
                   onChange={(value) => {
                     handleChange({

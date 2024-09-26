@@ -14,6 +14,7 @@ export interface ContactDetail {
 export interface InvoiceItem {
   id: number;
   name: string;
+  description: string;
   quantity: number;
   rate: number;
   tax: number;
@@ -65,6 +66,7 @@ const initialValue: InvoiceState = {
     {
       id: 1,
       name: "",
+      description: "",
       quantity: 0,
       rate: 0,
       tax: 0,
@@ -145,6 +147,14 @@ export const invoiceSlice = createSlice({
       state.addtionalNotes = action.payload.addtionalNotes;
       state.invoiceItem = action.payload.invoiceItem;
     },
+    setResetFromDetails: (state) => {
+      state.from = initialValue.from;
+    },
+
+    setResetToDetails: (state) => {
+      state.to = initialValue.to;
+    },
+
     setResetInvoice: (state) => {
       return initialValue;
     },
@@ -175,6 +185,8 @@ export const {
   setInvoiceItem,
   setAddtionalNotes,
   setFullInvoice,
+  setResetFromDetails,
+  setResetToDetails,
   setResetInvoice,
 } = invoiceSlice.actions;
 export default invoiceSlice.reducer;

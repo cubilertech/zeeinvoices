@@ -32,6 +32,10 @@ import { useRouter } from "next/navigation";
 import DetailSelecter from "../detailSelecter/detailSelecter";
 import ReactToPrint from "react-to-print";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
+import {
+  getIsRecipientSelected,
+  getIsSenderSelected,
+} from "@/redux/features/listSelected";
 
 // for handle refresh button
 
@@ -110,7 +114,10 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const handleSubmitTo = (values: any) => {
     dispatch(setRecipientDetail(values));
   };
+  const senderSelected = useSelector(getIsSenderSelected);
+  const recipientSelected = useSelector(getIsRecipientSelected);
 
+  console.log(senderSelected, "1234", recipientSelected);
   return (
     <Box
       sx={{
@@ -142,7 +149,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
             width={isModile ? "100%" : 240}
             borderRadius={"4px"}
             type="Invoice type"
-            menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
+            menuData={["Bill", "Sales Invoice", "Expense Invoice", "Other"]}
           />
         </Box>
         {/* <Box sx={{ width: 92, height: 40 }}>
@@ -196,6 +203,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           InvDetails={InvDetails.from}
           handleSubmitForm={handleSubmitFrom}
           type={type}
+          isListSelected={senderSelected}
         />
 
         <DetailSelecter
@@ -205,6 +213,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           InvDetails={InvDetails.to}
           handleSubmitForm={handleSubmitTo}
           type={type}
+          isListSelected={recipientSelected}
         />
       </Stack>
       {/* Third section, Date pickers */}

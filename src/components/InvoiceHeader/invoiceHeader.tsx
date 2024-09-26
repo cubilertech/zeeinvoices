@@ -30,6 +30,7 @@ import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
 import { DoneOutlined, EditOutlined } from "@mui/icons-material";
 import { TextField } from "../TextField";
+import { setResetSelectedList } from "@/redux/features/listSelected";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -51,10 +52,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     InvDetails.from?.name !== "" &&
     InvDetails.to?.name !== "" &&
     InvDetails?.invoiceType !== "";
+  console.log(InvDetails.id, "InvDetails.id");
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
+
   const {
     data: record,
     refetch: refetchRecord,
@@ -153,6 +156,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
+    dispatch(setResetSelectedList());
+
     if (!session) {
       setLoginModel(true);
     } else {
@@ -243,7 +248,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     const result = await blobPdf.toBlob();
     saveAs(result, "ZeeInvoice");
   };
-
+  useEffect(() => {
+    UpdateInvoiceId(InvDetails.id);
+  }, [InvDetails.id]);
   useEffect(() => {
     if (type === "add") {
       refetchRecord();
@@ -282,7 +289,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             <Typography variant="display-xs-medium">Invoice:</Typography>{" "}
             {isEditInvoiceId ? (
               <TextField
-                autoFocus 
+                autoFocus
                 sx={{
                   backgroundColor: "white",
                   width: "76px",

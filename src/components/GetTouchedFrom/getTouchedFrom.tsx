@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
+import { toast } from "react-toastify";
 import { Formik, Form, Field, FieldProps } from "formik";
 import { PhoneInput } from "react-international-phone";
 import * as Yup from "yup";
@@ -37,7 +38,7 @@ const GetTouchForm: React.FC = () => {
         agreement: false,
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
+      onSubmit={(values, { resetForm }) => {
         fetch("/api/send-email", {
           method: "POST",
           headers: {
@@ -47,7 +48,8 @@ const GetTouchForm: React.FC = () => {
         })
           .then((response) => {
             if (response.status === 200) {
-              alert("Message sent successfully!");
+              toast.success("Message sent successfully!");
+              resetForm();
             } else {
               alert("Failed to send message.");
             }
@@ -137,7 +139,7 @@ const GetTouchForm: React.FC = () => {
                     {...field}
                     style={{ width: "100% !important" }}
                     className="custom-phone-input"
-                    defaultCountry="pk"
+                    defaultCountry="us"
                     onChange={(value: string) =>
                       handleChange({
                         target: {

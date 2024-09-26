@@ -12,6 +12,11 @@ export const icons = {
   twitterxWhiteIcon: "/Images/icons/twitterx-white-icon.svg",
   linkedinWhiteIcon: "/Images/icons/linkedin-white-icon.svg",
 
+  facebookBlackIcon: "/Images/icons/facebook-black-icon.svg",
+  InstagramWhiteIcon: "/Images/icons/instagram-black-icon.svg",
+
+
+
   twitterlpf: "/Images/logos/twitter-lpf.svg",
   facebooklpf: "/Images/logos/facebook-lpf.svg",
   instagarmlpf: "/Images/logos/instagram-lpf.svg",

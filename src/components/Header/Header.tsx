@@ -113,14 +113,19 @@ const Header = () => {
         left: 0,
         background: palette.base.white,
         py: { sm: "14px", xs: "10px" },
-        px: { sm: "40px", xs: "5px" },
+        px: { sm: "0px", xs: "5px" },
         borderBottom: `1px solid #00000033`,
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 0px 0px",
       }}
     >
       <Container
         maxWidth="lg"
-        sx={{ display: "flex", justifyContent: "space-between" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          // px: "0px !important",
+          px: { md: "0.1%", lg: "0.1%", xs: "1%" },
+        }}
       >
         <Stack
           direction={"row"}
@@ -133,7 +138,7 @@ const Header = () => {
         >
           <Box sx={{ display: { sm: "none", xs: "block" } }}>
             <IconButton
-              sx={{ pl: 0 }}
+              sx={{ p: "3px !important" }}
               aria-haspopup="true"
               onClick={handleClickMenu}
             >
@@ -154,6 +159,7 @@ const Header = () => {
                   borderRadius: "8px",
                   p: "8px 12px 8px 12px",
                   width: "189px",
+                  marginLeft: "-7px", // Move 5px to the left
                 },
               }}
             >
@@ -318,7 +324,14 @@ const Header = () => {
                         "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                     }}
                   >
-                    {loading ? <CircularProgress size={18} /> : "Sign In"}
+                    {loading ? (
+                      <CircularProgress
+                        size={18}
+                        sx={{ color: palette.color.gray[5] }}
+                      />
+                    ) : (
+                      "Sign In"
+                    )}
                   </Button>
                 </Stack>
               ) : (
@@ -365,7 +378,14 @@ const Header = () => {
                       color: "white",
                     }}
                   >
-                    {loading ? <CircularProgress size={18} /> : "Logout"}
+                    {loading ? (
+                      <CircularProgress
+                        size={18}
+                        sx={{ color: palette.color.gray[5] }}
+                      />
+                    ) : (
+                      "Logout"
+                    )}
                   </Button>
                 </Box>
               )}
@@ -482,7 +502,14 @@ const Header = () => {
                     "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 }}
               >
-                {loading ? <CircularProgress size={18} /> : "Sign In"}
+                {loading ? (
+                  <CircularProgress
+                    size={18}
+                    sx={{ color: palette.color.gray[5] }}
+                  />
+                ) : (
+                  "Sign In"
+                )}
               </Button>
             </Stack>
           ) : (

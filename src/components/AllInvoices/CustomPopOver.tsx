@@ -157,7 +157,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           >
             Edit
           </Button>
-          <Button
+          {/* <Button // share option is currently disabled
             onClick={() => handleShareInvoice(record)}
             variant="outlined"
             startIcon={<Icon icon="sendSqaureIcon" />}
@@ -175,7 +175,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             }}
           >
             Share
-          </Button>
+          </Button> */}
           {/* <PdfDownloadLink
             InvSetting={InvSetting}
             InvDetails={InvDetails}

@@ -24,8 +24,10 @@ import "@/Styles/phoneNoStyle.css";
 import {
   getSenderDetail,
   getRecipientDetail,
+  setResetFromDetails,
+  setResetToDetails,
 } from "@/redux/features/invoiceSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SelectInput } from "../SelectInput";
 import { SelectSenderReceiver } from "../SelectSenderReceiver";
 import {
@@ -33,12 +35,252 @@ import {
   useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
 import { useSession } from "next-auth/react";
+import {
+  getIsRecipientSelected,
+  getIsSenderSelected,
+  setRecipientSelected,
+  setResetSelectedList,
+  setSenderSelected,
+} from "@/redux/features/listSelected";
+
+const countryCodes = [
+  "+1",
+  "+7",
+  "+20",
+  "+27",
+  "+30",
+  "+31",
+  "+32",
+  "+33",
+  "+34",
+  "+36",
+  "+39",
+  "+40",
+  "+41",
+  "+43",
+  "+44",
+  "+45",
+  "+46",
+  "+47",
+  "+48",
+  "+49",
+  "+51",
+  "+52",
+  "+53",
+  "+54",
+  "+55",
+  "+56",
+  "+57",
+  "+58",
+  "+60",
+  "+61",
+  "+62",
+  "+63",
+  "+64",
+  "+65",
+  "+66",
+  "+81",
+  "+82",
+  "+84",
+  "+86",
+  "+90",
+  "+91",
+  "+92",
+  "+93",
+  "+94",
+  "+95",
+  "+98",
+  "+211",
+  "+212",
+  "+213",
+  "+216",
+  "+218",
+  "+220",
+  "+221",
+  "+222",
+  "+223",
+  "+224",
+  "+225",
+  "+226",
+  "+227",
+  "+228",
+  "+229",
+  "+230",
+  "+231",
+  "+232",
+  "+233",
+  "+234",
+  "+235",
+  "+236",
+  "+237",
+  "+238",
+  "+239",
+  "+240",
+  "+241",
+  "+242",
+  "+243",
+  "+244",
+  "+245",
+  "+246",
+  "+248",
+  "+249",
+  "+250",
+  "+251",
+  "+252",
+  "+253",
+  "+254",
+  "+255",
+  "+256",
+  "+257",
+  "+258",
+  "+260",
+  "+261",
+  "+262",
+  "+263",
+  "+264",
+  "+265",
+  "+266",
+  "+267",
+  "+268",
+  "+269",
+  "+290",
+  "+291",
+  "+297",
+  "+298",
+  "+299",
+  "+350",
+  "+351",
+  "+352",
+  "+353",
+  "+354",
+  "+355",
+  "+356",
+  "+357",
+  "+358",
+  "+359",
+  "+370",
+  "+371",
+  "+372",
+  "+373",
+  "+374",
+  "+375",
+  "+376",
+  "+377",
+  "+378",
+  "+379",
+  "+380",
+  "+381",
+  "+382",
+  "+383",
+  "+385",
+  "+386",
+  "+387",
+  "+389",
+  "+420",
+  "+421",
+  "+423",
+  "+500",
+  "+501",
+  "+502",
+  "+503",
+  "+504",
+  "+505",
+  "+506",
+  "+507",
+  "+508",
+  "+509",
+  "+590",
+  "+591",
+  "+592",
+  "+593",
+  "+594",
+  "+595",
+  "+596",
+  "+597",
+  "+598",
+  "+599",
+  "+670",
+  "+672",
+  "+673",
+  "+674",
+  "+675",
+  "+676",
+  "+677",
+  "+678",
+  "+679",
+  "+680",
+  "+681",
+  "+682",
+  "+683",
+  "+685",
+  "+686",
+  "+687",
+  "+688",
+  "+689",
+  "+690",
+  "+691",
+  "+692",
+  "+850",
+  "+852",
+  "+853",
+  "+855",
+  "+856",
+  "+880",
+  "+886",
+  "+960",
+  "+961",
+  "+962",
+  "+963",
+  "+964",
+  "+965",
+  "+966",
+  "+967",
+  "+968",
+  "+970",
+  "+971",
+  "+972",
+  "+973",
+  "+974",
+  "+975",
+  "+976",
+  "+977",
+  "+992",
+  "+993",
+  "+994",
+  "+995",
+  "+996",
+  "+998",
+  "+1242",
+  "+1246",
+  "+1264",
+  "+1268",
+  "+1284",
+  "+1340",
+  "+1345",
+  "+1441",
+  "+1473",
+  "+1649",
+  "+1664",
+  "+1670",
+  "+1671",
+  "+1684",
+  "+1721",
+  "+1758",
+  "+1767",
+  "+1784",
+  "+1809",
+  "+1868",
+  "+1869",
+  "+1876",
+  "+1939",
+];
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
-  companyName: Yup.string().required("Company Name is required"),
+  companyName: Yup.string(),
+  // .required("Company Name is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
@@ -50,10 +292,9 @@ const validationSchema = Yup.object({
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string()
-    .matches(alphaRegex, "Invalid Address")
-    // .min(5, "Too short")
-    .required("Address is required"),
+  address: Yup.string().matches(alphaRegex, "Invalid Address"),
+  // .min(5, "Too short")
+  // .required("Address is required"),
 });
 interface DetailSelecter {
   title?: string;
@@ -62,6 +303,7 @@ interface DetailSelecter {
   InvDetails?: any;
   handleSubmitForm?: any;
   type?: any;
+  isListSelected?: boolean;
 }
 const DetailSelecter: FC<DetailSelecter> = ({
   title,
@@ -70,16 +312,44 @@ const DetailSelecter: FC<DetailSelecter> = ({
   InvDetails,
   handleSubmitForm,
   type,
+  isListSelected,
 }) => {
+  const dispatch = useDispatch();
+  // dispatch(setResetSelectedList());
   const apiRouteSender = `${backendURL}/senders/getAll`;
-
   const apiRouteClient = `${backendURL}/clients/getAll`;
 
   const [open, setOpen] = React.useState(false);
+  const [isSelectedList, setIsSelectedList] = React.useState({
+    isSender: false,
+    isRecipient: false,
+  });
+  const [isSenderList, setIsSenderList] = useState("");
+  const [isRecipientList, setIsRecipientList] = useState("");
+
+  const handleItemSelected = (item: any) => {
+    console.log(item, "item", isSelectedList);
+    if (item === "Sender") {
+      setIsSenderList(item);
+      // dispatch(setSenderSelected(true));
+      setIsSelectedList((prev) => ({
+        ...prev,
+        isSender: true,
+      }));
+    } else {
+      setIsRecipientList(item);
+      // dispatch(setRecipientSelected(true));
+      setIsSelectedList((prev) => ({
+        ...prev,
+        isRecipient: true,
+      }));
+    }
+  };
   const handleOpen = () => {
     setOpen(true), setOpenBd(true);
   };
-  console.log(InvDetails, "121a");
+
+  // console.log(InvDetails, "121a");
   const initialValues = {
     name: InvDetails?.name || "",
     companyName: InvDetails?.companyName || "",
@@ -101,6 +371,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
   }
   const senderDetail = useSelector(getSenderDetail);
   const recipientDetail = useSelector(getRecipientDetail);
+
+  const fromSelected = useSelector(getIsSenderSelected);
+  const toSelected = useSelector(getIsRecipientSelected);
+
   const { data: session } = useSession();
   const {
     data: senderList,
@@ -179,32 +453,65 @@ const DetailSelecter: FC<DetailSelecter> = ({
     countryCode: string
   ): string => {
     // Ensure countryCode is a valid CountryCode
-    // const validCountryCode: CountryCode = countryCode as CountryCode;
     const validCountryCode = countryCode as CountryCode;
+
     if (!phoneNumber) {
-      // return "Phone number is required";
-      return "";
+      return ""; // No phone number entered
     }
+
+    // Parse phone number based on the country code
     const phoneNumberInstance = parsePhoneNumberFromString(
-      // This function parses the phone number according to the given country code.
       phoneNumber,
       validCountryCode
     );
-    if (!phoneNumberInstance) {
-      return "Invalid phone number.";
+
+    // Check if only the country code is entered
+    const isCountryCodeOnly =
+      phoneNumber && phoneNumberInstance
+        ? phoneNumberInstance.nationalNumber === ""
+        : false;
+
+    if (isCountryCodeOnly) {
+      return ""; // No number entered, keep the field empty
     }
-    if (!phoneNumberInstance.isValid()) {
-      return "Invalid phone number";
+
+    if (!phoneNumberInstance || !phoneNumberInstance.isValid()) {
+      return "Enter valid number"; // Invalid number
     }
-    return "";
+
+    return ""; // Valid phone number
+  };
+
+  const handlePhoneInputChange = (value: string) => {
+    const isCountryCodeOnly = countryCodes.some(
+      (code) => value === code || value === `${code} `
+    );
+
+    if (isCountryCodeOnly) {
+      // Clear the phone number field if only country code is entered
+      handleChange({
+        target: {
+          name: "phoneNumber",
+          value: "",
+        },
+      });
+    } else {
+      // Otherwise, update with the full value
+      handleChange({
+        target: {
+          name: "phoneNumber",
+          value: value,
+        },
+      });
+    }
   };
 
   const validateEmail = (email: string) => {
     if (title === "From") {
-      if (email === recipientDetail.email)
+      if (email === recipientDetail.email && email !== "")
         return "Sender email must be different from recipient email";
     } else {
-      if (email === senderDetail.email)
+      if (email === senderDetail.email && email !== "")
         return "Recipient email must be different from sender email";
     }
 
@@ -238,6 +545,19 @@ const DetailSelecter: FC<DetailSelecter> = ({
   console.log(filteredSenderData, "filteredSenderData");
   const isMobile = useMediaQuery("(max-width: 500px)");
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      // Dispatch the reset action
+      dispatch(setResetSelectedList());
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [dispatch]);
+
   return (
     <Box
       borderRadius={1}
@@ -247,19 +567,23 @@ const DetailSelecter: FC<DetailSelecter> = ({
       // }}
     >
       {title && (
-        <Typography variant="text-sm-regular" color={palette.color.gray[110]}>
-          {title}
+        <Typography variant="text-sm-regular">
+          {title == "From" ? "Sender Details" : "Recipient Details"}
         </Typography>
       )}
       {session?.accessToken && type != "edit" && (
         <SelectSenderReceiver
-          width={isMobile ? "100%" : 345}
+          name={
+            fromSelected ? InvDetails?.name : toSelected ? InvDetails?.name : ""
+          }
+          width={isMobile ? "100%" : 370}
           placeholder={`Add existing ${detailsOf}`}
           borderRadius={"4px"}
           type={`${detailsOf}`}
           filteredData={
             detailsOf === `Sender` ? filteredSenderData : filteredClientData
           }
+          onItemSelected={handleItemSelected}
         />
       )}
       {!showData ? (
@@ -268,7 +592,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             borderRadius={1}
             sx={{
               // width: 292,
-              width: { sm: 345, xs: "100%" },
+              width: { sm: 370, xs: "100%" },
               height: 192,
               marginTop: 1.5,
               padding: 2,
@@ -279,12 +603,12 @@ const DetailSelecter: FC<DetailSelecter> = ({
             onClick={handleOpen}
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography
+              {/* <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[770]}
               >
                 {detailsOf} Details
-              </Typography>
+              </Typography> */}
             </Stack>
             <Stack
               direction={"column"}
@@ -312,16 +636,16 @@ const DetailSelecter: FC<DetailSelecter> = ({
           borderRadius={1}
           sx={{
             // width: 292,
-            width: 345,
+            width: { sm: 370, xs: "100%" },
             height: 222,
             marginTop: 1.5,
             padding: 2,
             borderRadius: 2,
-            cursor: type != "edit" ? "pointer" : "default",
+            cursor: type != "edit" && !isListSelected ? "pointer" : "default",
             border: `1px solid ${palette.color.gray[120]}`,
           }}
           onClick={() => {
-            if (type != "edit") {
+            if (type != "edit" && !isListSelected) {
               handleOpen();
             }
           }}
@@ -337,9 +661,32 @@ const DetailSelecter: FC<DetailSelecter> = ({
             >
               {title === "From" ? "Sender Details" : "Recipient Details"}
             </Typography>
-            {type != "edit" && (
+            {type != "edit" && !isListSelected && (
               <IconButton sx={{ padding: 0 }}>
                 <Icon icon="editIcon" width={20} height={20} />
+              </IconButton>
+            )}
+            {isListSelected && (
+              <IconButton
+                sx={{ padding: 0 }}
+                onClick={() => {
+                  console.log(detailsOf, "detailsof");
+                  if (detailsOf == "Sender") {
+                    dispatch(setResetFromDetails());
+                    dispatch(setSenderSelected(false));
+                  } else {
+                    dispatch(setResetToDetails());
+                    dispatch(setRecipientSelected(false));
+                  }
+                }}
+              >
+                <CloseIcon
+                  sx={{
+                    width: "20px",
+                    height: "20px",
+                    color: palette.color.gray[300],
+                  }}
+                />
               </IconButton>
             )}
           </Stack>
@@ -447,6 +794,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
+                    isRequired={true}
                     label="Name"
                     size="large"
                     name="name"
@@ -482,6 +830,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
+                    isRequired={true}
                     label="Email"
                     size="large"
                     name="email"
@@ -504,14 +853,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     name="phoneNumber"
                     className="custom-phone-input"
                     value={values.phoneNumber || ""}
-                    onChange={(value) => {
-                      handleChange({
-                        target: {
-                          name: "phoneNumber",
-                          value: value,
-                        },
-                      });
-                    }}
+                    onChange={(value) => handlePhoneInputChange(value)}
                     onBlur={() =>
                       handleBlur({ target: { name: "phoneNumber" } })
                     }
@@ -539,6 +881,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               >
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
+                    isRequired={true}
                     label="City"
                     size="large"
                     name="city"
@@ -552,6 +895,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 </FormControl>
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
+                    isRequired={true}
                     label="State"
                     size="large"
                     name="state"

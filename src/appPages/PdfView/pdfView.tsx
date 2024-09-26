@@ -92,8 +92,7 @@ const PdfView: FC<PdfViewProps> = ({
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
   const tax = invSetting?.tax;
-  const currency =
-    invSetting?.currency === "USD" ? "$" : invSetting?.currency;
+  const currency = invSetting?.currency === "USD" ? "$" : invSetting?.currency;
   const currencyText =
     invSetting?.currency === "USD" ? "USD" : invSetting?.currency;
 
@@ -126,6 +125,7 @@ const PdfView: FC<PdfViewProps> = ({
           flexDirection: "column",
           backgroundColor: "#fff",
           padding: "10px 30px",
+          paddingBottom: 60, // Reserve space for the footer
           gap: 5,
           borderTop: "4px",
           borderColor: bgColor,
@@ -214,7 +214,7 @@ const PdfView: FC<PdfViewProps> = ({
                 color: "#767676",
               }}
             >
-              From
+              Sender Details
             </Text>
             <View
               style={{
@@ -281,7 +281,7 @@ const PdfView: FC<PdfViewProps> = ({
                 color: "#767676",
               }}
             >
-              To
+              Recipient Details
             </Text>
             <View
               style={{
@@ -527,6 +527,16 @@ const PdfView: FC<PdfViewProps> = ({
                     ).toFixed(2)}
                   </Text>
                 </View>
+                {/* for description */}
+                <Text
+                  style={{
+                    fontSize: "12px",
+                    marginTop: "5px",
+                    color: "#4F4F4F",
+                  }}
+                >
+                  {data.description}
+                </Text>
               </View>
             )}
           </>
@@ -706,7 +716,7 @@ const PdfView: FC<PdfViewProps> = ({
               height: "30px",
               marginLeft: "0px",
               marginRight: "0px",
-              backgroundColor: "#4F35DF",
+              backgroundColor: bgColor,
               display: "flex",
               flexDirection: "row",
               padding: "5px 10px",

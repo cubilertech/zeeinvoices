@@ -197,6 +197,7 @@ const Profile: FC<Profile> = ({}) => {
           overflowY: "auto",
           height: "100%",
           mt: { sm: 0, xs: 6 },
+          px: { md: "0.1%", lg: "0.1%", xs: "0%" },
         }}
       >
         <Box
@@ -392,7 +393,7 @@ const Profile: FC<Profile> = ({}) => {
                         style={{ width: isModile ? "100%" : "333px" }}
                         name="phoneNumber"
                         className="custom-phone-input"
-                        defaultCountry="pk"
+                        defaultCountry="us"
                         value={values.phoneNumber || ""}
                         onChange={(value) => {
                           handleChange({

@@ -180,7 +180,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             name="rate"
             type="number"
             placeholder={
-              selectedTax ? "0.0             $" : "0.0                   $"
+              selectedTax
+                ? `0.0         ${
+                    selectedCurrency === "USD" ? "     $" : selectedCurrency
+                  }`
+                : `0.0                ${
+                    selectedCurrency === "USD" ? "     $" : selectedCurrency
+                  }`
             }
             variant="outlined"
             value={data.rate > 0 ? data.rate : ""}
@@ -239,7 +245,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 }}
                 name="tax"
                 type="number"
-                placeholder="0.0            %"
+                placeholder="0.0             %"
                 variant="outlined"
                 value={data.tax > 0 ? data.tax : ""}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -340,6 +346,35 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             </IconButton>
           </Grid>
         )}
+        {/* for description */}
+        <Grid
+          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          item
+          xs={12}
+        >
+          <TextField
+            // size="small"
+            sx={{
+              color: palette.color.gray[700],
+              width: "100%",
+
+              "& .MuiOutlinedInput-root": {
+                height: "32px !important",
+                borderRadius: "2px !important",
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[800],
+                opacity: 0.7,
+              },
+            }}
+            id="outlined-basic"
+            name="description"
+            placeholder="Description"
+            variant="outlined"
+            value={data.description}
+            onChange={handleChange}
+          />
+        </Grid>
       </Grid>
     </Stack>
   );
