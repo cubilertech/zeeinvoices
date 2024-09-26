@@ -161,7 +161,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
           item
           xs={1.8}
         >
-          <Typography sx={{ color: palette.base.white }}>QTY/HRS</Typography>
+          <Typography sx={{ color: palette.base.white }}>Qty / Hrs</Typography>
         </Grid>
         <Grid
           sx={{ padding: "8px", paddingTop: "8px !important" }}

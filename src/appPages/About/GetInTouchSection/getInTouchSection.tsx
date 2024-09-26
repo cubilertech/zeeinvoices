@@ -71,13 +71,13 @@ const GetInTouchSection = () => {
 
         <Box
           sx={{
-            height: { sm: "600px", xs: "800px" },
-            py: 3,
+            // height: { sm: "600px", xs: "800px" },
+            // py: 3,
             display: "flex",
             justifyContent: "space-between",
             gap: { sm: 0, xs: 3 },
             flexDirection: { sm: "row", xs: "column" },
-            alignItems: "center",
+            alignItems: "flex-start",
           }}
         >
           <Box

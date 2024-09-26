@@ -593,7 +593,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             sx={{
               // width: 292,
               width: { sm: 370, xs: "100%" },
-              height: 192,
+              height: 222,
               marginTop: 1.5,
               padding: 2,
               borderRadius: 2,
@@ -614,7 +614,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               direction={"column"}
               spacing={1.5}
               sx={{
-                height: "90%",
+                height: "100%",
                 justifyContent: "center",
                 alignItems: "center",
                 display: "flex",

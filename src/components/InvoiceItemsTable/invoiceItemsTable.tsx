@@ -84,7 +84,7 @@ const InvoiceItemsTable: FC = () => {
                 variant="text-xs-semibold"
                 sx={{ color: palette.base.white }}
               >
-                QTY/HRS
+                Qty / Hrs
               </Typography>
             </Grid>
             <Grid
