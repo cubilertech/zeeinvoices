@@ -85,7 +85,7 @@ const Pagination: FC<PaginationProps> = ({
         sx={{
           border: "1px solid #D0D5DD",
           color: "#344054",
-          borderRadius: "8px",
+          borderRadius: "4px",
           textTransform: "capitalize",
           fontWeight: 500,
           background: "white",
@@ -119,7 +119,7 @@ const Pagination: FC<PaginationProps> = ({
               color: page === pagenumber ? "#445164" : "#445164",
               width: "40px",
               height: "40px",
-              borderRadius: "8px",
+              borderRadius: "4px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -140,7 +140,7 @@ const Pagination: FC<PaginationProps> = ({
         sx={{
           border: "1px solid #D0D5DD",
           color: "#344054",
-          borderRadius: "8px",
+          borderRadius: "4px",
           textTransform: "capitalize",
           fontWeight: 500,
           background: "white",

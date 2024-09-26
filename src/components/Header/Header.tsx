@@ -285,6 +285,7 @@ const Header = () => {
                 <Stack gap={1.5} mt={1}>
                   {pathname == "/" ||
                   pathname == "/termsAndCondition" ||
+                  pathname == "/privacyPolicy" ||
                   pathname == "/contact-us" ||
                   pathname == "/about" ? (
                     <Button
@@ -463,6 +464,7 @@ const Header = () => {
             <Stack direction={"row"} gap={1.5}>
               {pathname == "/" ||
               pathname == "/termsAndCondition" ||
+              pathname == "/privacyPolicy" ||
               pathname == "/contact-us" ||
               pathname == "/about" ? (
                 <Button

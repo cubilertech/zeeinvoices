@@ -39,6 +39,11 @@ const FooterSection = () => {
     facebookimg.src = "/Images/icons/facebook-black-icon.svg"; // Preload hover image
     facebookPrimaryimg.src = "/Images/icons/facebook-primary-icon.svg"; // Preload hover image
     instagramimg.src = "/Images/icons/instagram-colored-icon.svg"; // Preload hover image
+    // Ensuring images are loaded
+    facebookimg.onload = () => console.log("Facebook black icon loaded");
+    facebookPrimaryimg.onload = () =>
+      console.log("Facebook primary icon loaded");
+    instagramimg.onload = () => console.log("Instagram colored icon loaded");
   }, []);
 
   return (

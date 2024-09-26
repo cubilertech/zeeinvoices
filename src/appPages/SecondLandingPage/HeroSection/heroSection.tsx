@@ -97,10 +97,8 @@ const HeroSection = () => {
                 lineHeight: { sm: "29px !important", xs: "21px !important" },
               }}
             >
-              Simplify invoicing with ZeeInvoices, a free AI-powered invoice
-              generator. Effortlessly create custom invoices that reflect your
-              brand’s unique style. Let our platform handle billing, so you can
-              focus on the critical aspects of your business.
+              Simplify your invoicing process and focus on what really
+              matters—Let’s grow your business.
             </Typography>
             <Button
               variant="contained"

@@ -330,12 +330,18 @@ export default function AllClients() {
                                 className="tableCell"
                                 sx={{ paddingLeft: "20px" }}
                               >
-                                <Typography variant="text-sm-regular">
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
                                   {row?.name}
                                 </Typography>
                               </TableCell>
                               <TableCell align="left" className="tableCell">
-                                <Typography variant="text-sm-regular">
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
                                   {row?.email}
                                 </Typography>
                               </TableCell>
@@ -344,7 +350,10 @@ export default function AllClients() {
                                 className="tableCell"
                                 sx={{ paddingLeft: "17px" }}
                               >
-                                <Typography variant="text-sm-regular">
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
                                   {row?.company_name}
                                 </Typography>
                               </TableCell>
@@ -353,8 +362,13 @@ export default function AllClients() {
                                 className="tableCell"
                                 sx={{ paddingLeft: "17px" }}
                               >
-                                <Typography variant="text-sm-regular">
-                                  {row?.phone_number}
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
+                                  {row?.phone_number != ""
+                                    ? row?.phone_number
+                                    : "---"}
                                 </Typography>
                               </TableCell>
                               <TableCell
@@ -362,17 +376,28 @@ export default function AllClients() {
                                 className="tableCell"
                                 sx={{ paddingLeft: "17px" }}
                               >
-                                <Typography variant="text-sm-regular">
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
                                   {row?.city}
                                 </Typography>
                               </TableCell>
                               <TableCell align="left" className="tableCell">
-                                <Typography variant="text-sm-regular">
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
                                   {row?.state}
                                 </Typography>
                               </TableCell>
                               <TableCell align="left" className="tableCell">
-                                {row?.address}
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
+                                  {row?.address}
+                                </Typography>
                               </TableCell>
                               <TableCell align="left" className="tableCell">
                                 <ClientPopOver

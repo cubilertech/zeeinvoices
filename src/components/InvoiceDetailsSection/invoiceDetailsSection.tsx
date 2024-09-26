@@ -58,19 +58,23 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
         )}
 
         <Stack direction={"column"} spacing={1}>
-          <Stack direction={"row"} gap={2}>
-            <Typography variant="text-xxs-medium">Invoice No:</Typography>
+          <Stack direction={"row"} gap={2.5} sx={{ alignItems: "center" }}>
+            <Typography variant="text-xs-bold" sx={{ mt: "2px" }}>
+              Invoice No:
+            </Typography>
             <Typography
-              variant="text-xxs-medium"
+              variant="text-sm-medium"
               sx={{ color: palette.color.gray[710] }}
             >
               {singleInvoice?.id}
             </Typography>
           </Stack>
-          <Stack direction={"row"} gap={1}>
-            <Typography variant="text-xxs-medium">Invoice Type:</Typography>
+          <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
+            <Typography variant="text-xs-bold" sx={{ mt: "2px" }}>
+              Invoice Type:
+            </Typography>
             <Typography
-              variant="text-xxs-medium"
+              variant="text-sm-medium"
               sx={{ color: palette.color.gray[710] }}
             >
               {singleInvoice?.invoiceType}

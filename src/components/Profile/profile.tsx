@@ -210,6 +210,7 @@ const Profile: FC<Profile> = ({}) => {
             width: { sm: "100%", xs: "100%" },
             height: { sm: "928px", xs: "auto" },
             backgroundColor: palette.base.white,
+            px: { md: "0%", lg: "0%", xs: "3%" },
           }}
         >
           {/* top bar */}
@@ -225,12 +226,14 @@ const Profile: FC<Profile> = ({}) => {
           ></Box>
 
           {/* circle avatar */}
-          <ProfileAvatar
-            uploadImage={uploadImage}
-            setUploadImage={setUploadImage}
-            imageUrl={imageUrl}
-            setImageUrl={setImageUrl}
-          />
+          <Box sx={{ marginLeft: {sm:"3%", xs:"30%"} }}>
+            <ProfileAvatar
+              uploadImage={uploadImage}
+              setUploadImage={setUploadImage}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
+            />
+          </Box>
 
           {/* name and email  */}
           <Stack

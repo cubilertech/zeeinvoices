@@ -191,7 +191,7 @@ const PdfView: FC<PdfViewProps> = ({
             padding: "5px 10px",
             display: "flex",
             flexDirection: "row",
-            gap: 30,
+            gap: 15,
           }}
         >
           {/* from */}
@@ -451,6 +451,7 @@ const PdfView: FC<PdfViewProps> = ({
           <>
             {data.name == "" ? null : (
               <View
+                wrap={false} // Prevents splitting the View across pages
                 key={data.id}
                 style={{
                   marginLeft: "7px",
@@ -551,6 +552,7 @@ const PdfView: FC<PdfViewProps> = ({
         )}
         {/* section 5 : summary, terms */}
         <View
+          wrap={false} // Prevents splitting the View across pages
           style={{
             marginTop: "70px",
             padding: "1px 10px",
@@ -754,7 +756,7 @@ const PdfView: FC<PdfViewProps> = ({
                 fontWeight: "bold",
               }}
             >
-              Contact: +14809201123
+              Contact: +1 480 920 1123
             </Text>
 
             <Text

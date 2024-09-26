@@ -108,7 +108,7 @@ const InvoiceDetail = () => {
       setInvoiceSettings({
         color: singleInvoice?.settings?.color,
         currency: singleInvoice?.settings?.currency,
-        dueDate: record?.settings?.dueDate,
+        dueDate: singleInvoice?.settings?.dueDate,
         tax: singleInvoice?.settings?.tax,
         detail: singleInvoice?.settings?.detail,
       })
@@ -141,6 +141,7 @@ const InvoiceDetail = () => {
       >
         <Stack
           direction={"row"}
+          gap={1}
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
           <IconButton
@@ -149,7 +150,7 @@ const InvoiceDetail = () => {
           >
             <ArrowBackIosNewIcon />
           </IconButton>
-          <Typography variant="display-xs-medium">Invoices/</Typography>
+          <Typography variant="display-xs-medium">Invoice#</Typography>
           <Typography
             variant="display-xs-medium"
             sx={{ color: palette.color.gray[770] }}
