@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import React, { FC, useEffect } from "react";
 import ClientDetailModel from "../ClientDetailModel";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ClientInvoices from "./ClientsInvoises";
 
 interface ClientSingleProps {
   id: any;
@@ -34,6 +35,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     refetch: singleFetch,
     isFetching: fetchingClient,
   } = useFetchSingleDocument(`${backendURL}/clients/${id}`);
+
   useEffect(() => {
     singleFetch();
   }, [singleFetch]);
@@ -202,6 +204,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
           </Stack>
         </Stack>
       </Paper>
+      <ClientInvoices />
       <ClientDetailModel
         handleSubmitForm={handleSubmitForm}
         type="edit"

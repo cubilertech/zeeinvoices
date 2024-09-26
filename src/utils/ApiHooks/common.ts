@@ -157,8 +157,8 @@ export const useEditDocument = (multipart = true) => {
         setResetInvoiceSetting();
         signOut({ callbackUrl: "/" });
       } else if (error?.response?.status === 400) {
-        toast.error(error.response?.data?.message);
-        return null; 
+        toast.error(error?.response?.message);
+        return null;
       } else {
         toast.error("An Error Occured while Update Data");
       }

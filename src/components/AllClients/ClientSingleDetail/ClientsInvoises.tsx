@@ -16,7 +16,6 @@ import {
   Container,
   Stack,
 } from "@mui/material";
-import { Pagination } from "../Pagination";
 import { backendURL } from "@/utils/constants";
 import {
   useDeleteDocument,
@@ -27,27 +26,28 @@ import {
   calculateTax,
   tableFormatDate,
 } from "@/common/common";
-import { useRouter } from "next/navigation";
-import DeleteModal from "../DeleteModal/deleteModal";
-import CustomPopOver from "./CustomPopOver";
+import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
 import {
   setInvoiceSettings,
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
-import ShareModal from "../ShareModal/shareModal";
-import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { debounce } from "@/utils/common";
 import { useSession } from "next-auth/react";
-import EnhancedTableToolbar from "./enhancedTableToolbar";
-import EnhancedTableHead from "./enhancedTableHead";
 import { CreateFirstInvoice } from "@/appPages/CreateFirstInvoice";
-import "../../Styles/tableItemRow.css";
+// import "../../Styles/tableItemRow.css";
 import {
   getInvoiceItem,
   getDueDate as date,
 } from "@/redux/features/invoiceSlice";
+import EnhancedTableHead from "@/components/AllInvoices/enhancedTableHead";
+import CustomPopOver from "@/components/AllInvoices/CustomPopOver";
+import InvoiceDetailsSection from "@/components/InvoiceDetailsSection/invoiceDetailsSection";
+import { Pagination } from "@/components/Pagination";
+import DeleteModal from "@/components/DeleteModal/deleteModal";
+import ShareModal from "@/components/ShareModal/shareModal";
+import EnhancedTableToolbar from "@/components/AllInvoices/enhancedTableToolbar";
 
 interface Data {
   id: number;
@@ -57,26 +57,6 @@ interface Data {
   status: string;
   total: number;
   action: any;
-}
-
-function createData(
-  id: number,
-  name: string,
-  email: string,
-  date: string,
-  status: string,
-  total: number,
-  action: any
-): Data {
-  return {
-    id,
-    name,
-    email,
-    date,
-    status,
-    total,
-    action,
-  };
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -117,80 +97,18 @@ function stableSort<T>(
   return stabilizedThis?.map((el) => el[0]);
 }
 
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof Data;
-  label: string;
-  numeric: boolean;
-}
 
-// const headCells: readonly HeadCell[] = [
-//   {
-//     id: "id",
-//     numeric: true,
-//     disablePadding: true,
-//     label: "Invoice #",
-//   },
-//   {
-//     id: "name",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Receipent",
-//   },
-//   {
-//     id: "date",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Created",
-//   },
-//   {
-//     id: "status",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Status",
-//   },
-//   {
-//     id: "total",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Total",
-//   },
-//   {
-//     id: "action",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Actions",
-//   },
-// ];
-
-export default function AllInvoices() {
+export default function ClientInvoices() {
   const allInvoiceItems = useSelector(getInvoiceItem);
-  // const invoiceDetail = useSelector((state: any) => state.invoice);
-  // const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
-  // // Get Total Amount And Tax
-  // const [total, setTotal] = useState(0);
-  // const [taxAmount, setTaxAmount] = useState(0);
-  // useEffect(() => {
-  //   const totalAmount = calculateAmount(allInvoiceItems);
-  //   const totalTax = calculateTax(allInvoiceItems);
-  //   setTotal(totalAmount);
-  //   setTaxAmount(totalTax);
-  // }, [allInvoiceItems]);
-  // const summaryDetail = {
-  //   total: total,
-  //   taxAmount: taxAmount,
-  // };
-
+  const { id } = useParams();
   const route = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
   const invoiceDetail = useSelector((state: any) => state.invoice);
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
   const componentRef = React.useRef();
-  const apiRoute = `${backendURL}/invoices`;
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -207,7 +125,7 @@ export default function AllInvoices() {
     isFetching: fetchingInvoiceList,
     isFetched: invoiceFetched,
     isLoading: isInvoiceLoading,
-  } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
+  } = useFetchAllDocument(`${backendURL}/invoices/by-client/${id}`);
 
   // Get Total Amount And Tax . for down load pdf
   const [total, setTotal] = React.useState(0);
@@ -222,23 +140,7 @@ export default function AllInvoices() {
     total: total,
     taxAmount: taxAmount,
   };
-  // React.useEffect(() => {
-  //   if (session?.accessToken) refetchInvoiceList();
-  //   if (deleteSuccess) {
-  //     setIsModalOpen(false);
-  //   }
-  // }, [refetchInvoiceList, deleteSuccess, page, session?.accessToken]);
 
-  // const debouncedRefetch = React.useCallback(
-  //   debounce(() => {
-  //     if (page === 1) {
-  //       refetchInvoiceList();
-  //     } else {
-  //       setPage(1);
-  //     }
-  //   }, 500),
-  //   [search]
-  // );
   const handleChangeSearch = (e: any) => {
     setPage(1);
     setSearch(e.target.value);
@@ -249,7 +151,6 @@ export default function AllInvoices() {
         setPage(1);
       }
     }, 800);
-    // debouncedRefetch();
   };
 
   React.useEffect(() => {
@@ -291,14 +192,6 @@ export default function AllInvoices() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(invoiceList?.invoices, getComparator(order, orderBy))?.slice(
-        (page - 1) * rowsPerPage,
-        (page - 1) * rowsPerPage + rowsPerPage
-      ),
-    [order, orderBy, page, rowsPerPage, invoiceList?.invoices]
-  );
 
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -445,9 +338,10 @@ export default function AllInvoices() {
               }}
             >
               <EnhancedTableToolbar
-                numSelected={selected.length}
+                numSelected={0}
                 search={search}
                 handleChangeSearch={handleChangeSearch}
+                type={2}
               />
               {filteredData.length > 0 ? (
                 <>
@@ -460,13 +354,12 @@ export default function AllInvoices() {
                   >
                     <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
                       <EnhancedTableHead
-                        numSelected={selected.length}
+                        numSelected={0}
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}
                         rowCount={invoiceList?.invoices?.length}
                       />
-                 
                         <TableBody>
                           {filteredData?.map((row: any, index: number) => {
                             console.log(row, "row12");
@@ -606,7 +499,7 @@ export default function AllInvoices() {
                             );
                           })}
                         </TableBody>
-                   
+         
                     </Table>
                   </TableContainer>
                   <Pagination

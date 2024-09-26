@@ -31,6 +31,7 @@ import PdfView from "@/appPages/PdfView/pdfView";
 import { DoneOutlined, EditOutlined } from "@mui/icons-material";
 import { TextField } from "../TextField";
 import { setResetSelectedList } from "@/redux/features/listSelected";
+import { toast } from "react-toastify";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -216,8 +217,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           dispatch(setResetInvoiceSetting());
         })
         .catch((err) => {
-          console.log(err, "err1");
-          throw new Error("An error occurred");
+          toast.error(err.message);
         });
     }
   };
@@ -253,9 +253,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   useEffect(() => {
     if (type === "add") {
-      dispatch(setInvoiceId(`ZT-${InvoiceRendomId}`));
+      dispatch(setInvoiceId(InvoiceId));
     }
-  }, [dispatch, type]);
+  }, [InvoiceId, dispatch, type]);
 
   return (
     <Stack

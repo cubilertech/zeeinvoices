@@ -266,22 +266,7 @@ export default function AllClients() {
               search={search}
               handleChangeSearch={handleChangeSearch}
             />
-            {!isClientLoading &&
-            clientList?.clients?.length === 0 &&
-            search === "" ? (
-              <Box
-                sx={{
-                  height: "300px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "100%",
-                  textAlign: "center",
-                }}
-              >
-                <Typography>No Recipients Found</Typography>
-              </Box>
-            ) : (
+            {filteredData.length > 0 ? (
               <>
                 <TableContainer
                   sx={{
@@ -298,120 +283,107 @@ export default function AllClients() {
                       onRequestSort={handleRequestSort}
                       rowCount={clientList?.clients?.length}
                     />
-                    {fetchingClientList ? (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          padding: "20px",
-                          alignItems: "center",
-                          height: "400px",
-                        }}
-                      >
-                        <CircularProgress size={24} sx={{ color: "#8477DA" }} />
-                      </Box>
-                    ) : (
-                      <TableBody>
-                        {filteredData?.map((row: any, index: number) => {
-                          const labelId = `enhanced-table-checkbox-${index}`;
-                          return (
-                            <TableRow
-                              hover
-                              role="checkbox"
-                              tabIndex={-1}
-                              key={row.id}
-                              sx={{ cursor: "pointer" }}
+
+                    <TableBody>
+                      {filteredData?.map((row: any, index: number) => {
+                        const labelId = `enhanced-table-checkbox-${index}`;
+                        return (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={row.id}
+                            sx={{ cursor: "pointer" }}
+                          >
+                            <TableCell
+                              component="th"
+                              id={labelId}
+                              scope="row"
+                              padding="none"
+                              className="tableCell"
+                              sx={{ paddingLeft: "20px" }}
                             >
-                              <TableCell
-                                component="th"
-                                id={labelId}
-                                scope="row"
-                                padding="none"
-                                className="tableCell"
-                                sx={{ paddingLeft: "20px" }}
+                              <Typography
+                                variant="text-sm-regular"
+                                sx={{ color: palette.color.gray[130] }}
                               >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{ color: palette.color.gray[130] }}
-                                >
-                                  {row?.name}
-                                </Typography>
-                              </TableCell>
-                              <TableCell align="left" className="tableCell">
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{ color: palette.color.gray[130] }}
-                                >
-                                  {row?.email}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ paddingLeft: "17px" }}
+                                {row?.name}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="left" className="tableCell">
+                              <Typography
+                                variant="text-sm-regular"
+                                sx={{ color: palette.color.gray[130] }}
                               >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{ color: palette.color.gray[130] }}
-                                >
-                                  {row?.company_name}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ paddingLeft: "17px" }}
+                                {row?.email}
+                              </Typography>
+                            </TableCell>
+                            <TableCell
+                              align="left"
+                              className="tableCell"
+                              sx={{ paddingLeft: "17px" }}
+                            >
+                              <Typography
+                                variant="text-sm-regular"
+                                sx={{ color: palette.color.gray[130] }}
                               >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{ color: palette.color.gray[130] }}
-                                >
-                                  {row?.phone_number != ""
-                                    ? row?.phone_number
-                                    : "---"}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ paddingLeft: "17px" }}
+                                {row?.company_name}
+                              </Typography>
+                            </TableCell>
+                            <TableCell
+                              align="left"
+                              className="tableCell"
+                              sx={{ paddingLeft: "17px" }}
+                            >
+                              <Typography
+                                variant="text-sm-regular"
+                                sx={{ color: palette.color.gray[130] }}
                               >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{ color: palette.color.gray[130] }}
-                                >
-                                  {row?.city}
-                                </Typography>
-                              </TableCell>
-                              <TableCell align="left" className="tableCell">
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{ color: palette.color.gray[130] }}
-                                >
-                                  {row?.state}
-                                </Typography>
-                              </TableCell>
-                              <TableCell align="left" className="tableCell">
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{ color: palette.color.gray[130] }}
-                                >
-                                  {row?.address}
-                                </Typography>
-                              </TableCell>
-                              <TableCell align="left" className="tableCell">
-                                <ClientPopOver
-                                  handleOpenDeleteModal={handleOpenDeleteModal}
-                                  record={row}
-                                  handleViewClient={handleViewClient}
-                                  handleEditClient={handleEditClient}
-                                />
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    )}
+                                {row?.phone_number != ""
+                                  ? row?.phone_number
+                                  : "---"}
+                              </Typography>
+                            </TableCell>
+                            <TableCell
+                              align="left"
+                              className="tableCell"
+                              sx={{ paddingLeft: "17px" }}
+                            >
+                              <Typography
+                                variant="text-sm-regular"
+                                sx={{ color: palette.color.gray[130] }}
+                              >
+                                {row?.city}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="left" className="tableCell">
+                              <Typography
+                                variant="text-sm-regular"
+                                sx={{ color: palette.color.gray[130] }}
+                              >
+                                {row?.state}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="left" className="tableCell">
+                              <Typography
+                                variant="text-sm-regular"
+                                sx={{ color: palette.color.gray[130] }}
+                              >
+                                {row?.address}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="left" className="tableCell">
+                              <ClientPopOver
+                                handleOpenDeleteModal={handleOpenDeleteModal}
+                                record={row}
+                                handleViewClient={handleViewClient}
+                                handleEditClient={handleEditClient}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
                   </Table>
                 </TableContainer>
 
@@ -424,6 +396,33 @@ export default function AllClients() {
                   setPage={setPage}
                 />
               </>
+            ) : !isClientLoading &&
+              clientList?.clients?.length === 0 &&
+              search === "" ? (
+              <Box
+                sx={{
+                  height: "300px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  textAlign: "center",
+                }}
+              >
+                <Typography>No Recipients Found</Typography>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "20px",
+                  alignItems: "center",
+                  height: "400px",
+                }}
+              >
+                <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+              </Box>
             )}
           </Paper>
           <Box sx={{ height: 20 }}></Box>

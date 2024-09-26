@@ -20,6 +20,7 @@ interface EnhancedTableToolbarProps {
   numSelected: number;
   search: any;
   handleChangeSearch: any;
+  type?: number;
 }
 
 const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
@@ -134,24 +135,28 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         >
           Filter
         </Button> */}
-        <Tooltip title="Create a new invoice">
-          <Button
-            variant="contained"
-            onClick={handleCreate}
-            endIcon={<Icon icon="plusIcon" width={15} />}
-            sx={{
-              height: `36px`,
-              borderRadius: "4px",
-              width: { sm: "140px", xs: "100%" },
-              fontFamily: "Product Sans, sans-serif !important",
-              fontSize: "14px !important",
-              fontWeight: "500 !important",
-              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-            }}
-          >
-            Create New
-          </Button>
-        </Tooltip>
+        {props.type === 2 ? (
+          ""
+        ) : (
+          <Tooltip title="Create a new invoice">
+            <Button
+              variant="contained"
+              onClick={handleCreate}
+              endIcon={<Icon icon="plusIcon" width={15} />}
+              sx={{
+                height: `36px`,
+                borderRadius: "4px",
+                width: { sm: "140px", xs: "100%" },
+                fontFamily: "Product Sans, sans-serif !important",
+                fontSize: "14px !important",
+                fontWeight: "500 !important",
+                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+              }}
+            >
+              Create New
+            </Button>
+          </Tooltip>
+        )}
       </Stack>
     </Toolbar>
   );
