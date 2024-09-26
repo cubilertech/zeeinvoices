@@ -111,6 +111,7 @@ export default function AllClients() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [clientType, setClientType] = React.useState("add");
   const [clientModel, setClientModel] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [editId, setEditId] = React.useState<any | undefined>(undefined);
 
   const handleClientAddModel = () => {
@@ -124,6 +125,7 @@ export default function AllClients() {
     refetch: refetchClientList,
     isFetching: fetchingClientList,
     isLoading: isClientLoading,
+    isFetched
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   //Delete Client
   const {
@@ -160,6 +162,11 @@ export default function AllClients() {
       }
     }, 800);
   };
+  React.useEffect(() => {
+    if (isFetched) {
+      setIsLoading(false);
+    }
+  }, [isFetched]);
   const filteredData = React.useMemo(() => {
     if (clientList && clientList?.clients?.length) {
       return clientList?.clients;
@@ -175,6 +182,7 @@ export default function AllClients() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
+  console.log(isFetched, "isSuccesClinet");
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);
@@ -266,7 +274,19 @@ export default function AllClients() {
               search={search}
               handleChangeSearch={handleChangeSearch}
             />
-            {filteredData.length > 0 ? (
+            {isLoading || isClientLoading ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "20px",
+                  alignItems: "center",
+                  height: "400px",
+                }}
+              >
+                <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+              </Box>
+            ) : filteredData.length > 0 ? (
               <>
                 <TableContainer
                   sx={{
@@ -396,9 +416,7 @@ export default function AllClients() {
                   setPage={setPage}
                 />
               </>
-            ) : !isClientLoading &&
-              clientList?.clients?.length === 0 &&
-              search === "" ? (
+            ) : (
               <Box
                 sx={{
                   height: "300px",
@@ -409,19 +427,7 @@ export default function AllClients() {
                   textAlign: "center",
                 }}
               >
-                <Typography>No Recipients Found</Typography>
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "20px",
-                  alignItems: "center",
-                  height: "400px",
-                }}
-              >
-                <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+                <Typography>No Recipient Found</Typography>
               </Box>
             )}
           </Paper>
