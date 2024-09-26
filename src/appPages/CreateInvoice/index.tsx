@@ -17,7 +17,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 interface CreateInvoiceProps {
   type: string;
 }

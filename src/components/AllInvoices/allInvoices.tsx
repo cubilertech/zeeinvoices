@@ -349,7 +349,7 @@ export default function AllInvoices() {
         detail: record?.settings.detail,
       })
     );
-    route.push(`/invoices/${record.id}/edit`);
+    route.push(`/invoices/${record._id}/edit`);
   };
   //Share Invoice
   const handleShareInvoice = (record: any) => {
