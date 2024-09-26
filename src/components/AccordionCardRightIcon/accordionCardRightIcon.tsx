@@ -81,7 +81,7 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
             </Typography>
           </div>
         </Stack>
-        <IconButton onClick={onToggle} sx={{ mt: "1.5%" }}>
+        <IconButton onClick={onToggle} sx={{ mt: "0.8%" }}>
           <Icon
             icon={isOpen ? "arrowDownUpIcon" : "arrowDownBlueIcon"}
             width={15}

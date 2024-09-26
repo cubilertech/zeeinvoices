@@ -411,7 +411,10 @@ export default function AllInvoices() {
       <hr />
       <Container
         maxWidth="lg"
-        sx={{ px: { md: "0.1%", lg: "0.1%", xs: "3%" } }}
+        sx={{
+          px: { md: "0.1%", lg: "0.1%", xs: "3%" },
+          minHeight: { xl: "53vh", lg: "73vh" },
+        }}
       >
         {!isInvoiceLoading &&
         invoiceList?.invoices?.length === 0 &&
@@ -540,7 +543,10 @@ export default function AllInvoices() {
                                   </Stack>
                                 </TableCell>
                                 <TableCell align="left" className="tableCell">
-                                  <Typography variant="text-sm-medium">
+                                  <Typography
+                                    variant="text-sm-medium"
+                                    sx={{ color: palette.color.gray[130] }}
+                                  >
                                     {row?.to?.email || row?.toDetails?.email}
                                   </Typography>
                                 </TableCell>
@@ -549,7 +555,10 @@ export default function AllInvoices() {
                                   sx={{ paddingLeft: "17px" }}
                                   className="tableCell"
                                 >
-                                  <Typography variant="text-sm-regular">
+                                  <Typography
+                                    variant="text-sm-regular"
+                                    sx={{ color: palette.color.gray[130] }}
+                                  >
                                     {tableFormatDate(row?.invoiceDate)}
                                   </Typography>
                                 </TableCell>

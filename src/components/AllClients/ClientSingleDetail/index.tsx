@@ -183,6 +183,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
                 sx={{
                   height: `40px`,
                   width: "114px",
+                  borderRadius: "4px",
                   borderColor: palette.border.invoicesBorderColor,
                   color: palette.base.black,
                 }}
@@ -193,7 +194,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
               <Button
                 onClick={() => setClientModel(true)}
                 variant="contained"
-                sx={{ height: `40px`, width: "114px" }}
+                sx={{ height: `40px`, width: "114px", borderRadius: "4px" }}
               >
                 Edit
               </Button>

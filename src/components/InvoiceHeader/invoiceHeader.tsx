@@ -277,7 +277,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           </IconButton>
         )}
         <Typography variant="display-xs-medium">
-          Invoice: {InvDetails.id > 0 ? InvDetails.id : ""}
+          Invoice# {InvDetails.id > 0 ? InvDetails.id : ""}
         </Typography>
       </Stack>
       <Stack
