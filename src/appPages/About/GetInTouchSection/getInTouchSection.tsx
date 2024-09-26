@@ -71,7 +71,7 @@ const GetInTouchSection = () => {
 
         <Box
           sx={{
-            height: "600px",
+            height: { sm: "600px", xs: "800px" },
             py: 3,
             display: "flex",
             justifyContent: "space-between",
@@ -80,7 +80,13 @@ const GetInTouchSection = () => {
             alignItems: "center",
           }}
         >
-          <Box sx={{ width: { sm: "45%", xs: "100%" } }}>
+          <Box
+            sx={{
+              width: { sm: "45%", xs: "100%" },
+              mt: "1%",
+              alignSelf: "self-start",
+            }}
+          >
             {accordionData.map((item, index) => (
               <AccordionCardRightIcon
                 key={index}

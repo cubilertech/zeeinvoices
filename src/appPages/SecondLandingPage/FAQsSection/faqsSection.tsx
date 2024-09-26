@@ -123,7 +123,7 @@ const FAQsSection = () => {
         <Stack
           direction={"column"}
           gap={0}
-          sx={{ display: "flex", mx: "0%", mt: "5%", justifyContent: "center" }}
+          sx={{ display: "flex", mx: "0%", mt: "1%", justifyContent: "center" }}
         >
           {accordionData.map((item, index) => (
             <AccordionCardRightIcon

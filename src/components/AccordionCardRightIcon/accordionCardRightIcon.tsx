@@ -21,11 +21,6 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
       direction={"column"}
       gap={0}
       sx={{
-        // width: "100%",
-        // my: "1%",
-        // background: isOpen ? "#F9FAFB" : "transparent",
-        borderRadius: "16px",
-        // p: isOpen ? "2%" : "2%",
         transition: "background 0.3s, padding 0.3s",
         overflow: "hidden",
       }}
@@ -33,7 +28,7 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
       <Stack
         direction={"row"}
         sx={{
-          py: { md: "32px", xs: "10px" },
+          py: { md: "12px", xs: "10px" },
           borderBottom: "1px solid #0000001A",
         }}
       >
