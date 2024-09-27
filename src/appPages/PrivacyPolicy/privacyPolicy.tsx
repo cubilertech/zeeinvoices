@@ -249,6 +249,7 @@ interface PrivacyPolicy {}
 const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
   const isModile = useMediaQuery("(max-width: 500px)");
   const [hoveredBox, setHoveredBox] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleBoxMouseEnter = useCallback(
     (index: number) => {
@@ -403,9 +404,14 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                   href="https://www.zeeinvoices.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: "#4F35DF" }}
+                  style={{
+                    color: palette.primary.main,
+                    textDecoration: isHovered ? "underline" : "none",
+                  }}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                 >
-                  https://www.zeeinvoices.com/
+                  https://www.zeeinvoices.com
                 </a>{" "}
                 and our invoicing software (&quot;Services&quot;).
               </Typography>
@@ -521,22 +527,35 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                 >
                   Email
                 </Typography>
-                <Typography
-                  variant="display-md1-medium"
+                <a
                   className="text-md-regular"
-                  sx={{
-                    width: { md: "500px", xs: "auto" },
-                    fontFamily: "Product Sans, sans-serif",
-                    color: palette.text.contactEmailColor,
-                    fontSize: { md: "28px !important", xs: "12px !important" },
-                    lineHeight: {
-                      md: "34px !important",
-                      xs: "18px !important",
-                    },
-                  }}
+                  href="https://mail.google.com/mail/?view=cm&to=support@zeeinvoices.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  support@zeeinvoices.com
-                </Typography>
+                  <Typography
+                    variant="display-md1-medium"
+                    className="text-md-regular"
+                    sx={{
+                      width: { md: "500px", xs: "auto" },
+                      fontFamily: "Product Sans, sans-serif",
+                      color: palette.text.contactEmailColor,
+                      fontSize: {
+                        md: "28px !important",
+                        xs: "12px !important",
+                      },
+                      lineHeight: {
+                        md: "34px !important",
+                        xs: "18px !important",
+                      },
+                      "&:hover": {
+                        textDecoration: "underline", // Ensure there's no underline
+                      },
+                    }}
+                  >
+                    support@zeeinvoices.com
+                  </Typography>
+                </a>
               </Stack>
             </Stack>
 

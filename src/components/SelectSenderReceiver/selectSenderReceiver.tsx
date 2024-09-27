@@ -141,7 +141,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
             backgroundColor: palette.base.white,
           }}
         >
-          {filteredData &&
+          {filteredData && filteredData.length > 0 ? (
             filteredData?.map((item: any, index: any) => (
               <MenuItem
                 key={index}
@@ -171,32 +171,12 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
               >
                 {item.name}
               </MenuItem>
-            ))}
-
-          {/* {menuData &&
-            menuData?.map((item, index) => (
-              <MenuItem
-                key={index}
-                onClick={() => handleSelectedItem(item)}
-                sx={{
-                  color: palette.base.black,
-                  backgroundColor: palette.base.white,
-                  "&.Mui-selected": {
-                    bgcolor: "lightgreen", // Change background color of selected item
-                    color: "darkblue", // Change text color of selected item
-                    "&:hover": {
-                      bgcolor: "lightgreen", // Keep background color on hover for selected item
-                    },
-                  },
-                  "&:hover": {
-                    bgcolor: "lightgrey", // Change background color on hover
-                  },
-                }}
-                value={item}
-              >
-                {item}
-              </MenuItem>
-            ))} */}
+            ))
+          ) : (
+            <MenuItem disabled sx={{ color: palette.base.black }}>
+              No {`${type}`} Found
+            </MenuItem>
+          )}
         </Select>
       </Stack>
     </Box>

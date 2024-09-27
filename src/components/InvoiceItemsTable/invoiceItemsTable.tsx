@@ -11,11 +11,12 @@ import {
   getInvoiceItem,
   removeInvoiceItem,
 } from "@/redux/features/invoiceSlice";
-import { getTax } from "@/redux/features/invoiceSetting";
+import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
 
 const InvoiceItemsTable: FC = () => {
   const getAllInvoiceItems = useSelector(getInvoiceItem);
   const selectedColor = useSelectedColor();
+  const selectedCurrency = useSelector(getCurrency);
   const dispatch = useDispatch();
   const selectedTax = useSelector(getTax);
   const handleAddItem = () => {
@@ -84,7 +85,7 @@ const InvoiceItemsTable: FC = () => {
                 variant="text-xs-semibold"
                 sx={{ color: palette.base.white }}
               >
-                Qty / Hrs
+                Qty
               </Typography>
             </Grid>
             <Grid
@@ -104,7 +105,7 @@ const InvoiceItemsTable: FC = () => {
                 variant="text-xs-semibold"
                 sx={{ color: palette.base.white }}
               >
-                Rate
+                Rate <span>{`(${selectedCurrency})`}</span>
               </Typography>
             </Grid>
 
@@ -119,14 +120,14 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={1.6}
+                xs={1.8}
               >
                 {selectedTax ? (
                   <Typography
                     variant="text-xs-semibold"
                     sx={{ color: palette.base.white }}
                   >
-                    Tax
+                    Tax {`(%)`}
                   </Typography>
                 ) : (
                   ""
@@ -146,7 +147,7 @@ const InvoiceItemsTable: FC = () => {
                 alignItems: "center",
               }}
               item
-              xs={selectedTax ? 2.25 : 3.05}
+              xs={selectedTax ? 1.96 : 3.05}
               // xs={2.2}
             >
               <Typography

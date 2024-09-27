@@ -11,7 +11,15 @@ const accordionData = [
   },
   {
     title: "How do I create an account with ZeeInvoices?",
-    desc: "You can create an account by visiting https://www.zeeinvoices.com/ and clicking on the 'Sign Up' button. Follow the registration process by providing your name, email address, and other required information. Once completed, you'll receive a confirmation email to activate your account. It's completely free!",
+    desc: `
+      <style>
+        a:hover {
+          color: #4F35DF;
+          text-decoration: underline;
+        }
+      </style>
+      You can create an account by visiting <a href="https://www.zeeinvoices.com/" target="_blank">https://www.zeeinvoices.com</a> and clicking on the 'Sign Up' button. Follow the registration process by providing your name, email address, and other required information. Once completed, you'll receive a confirmation email to activate your account. It's completely free!
+    `,
   },
   {
     title: "Can I customize my invoices with my company branding?",

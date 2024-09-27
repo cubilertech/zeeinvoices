@@ -18,6 +18,7 @@ interface TextField {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   helperText?: any;
   onBlur?: any;
+  onKeyDown?: any;
   error?: any;
   disabled?: any;
   autoFocus?: boolean;
@@ -33,6 +34,7 @@ const TextField: FC<TextField> = ({
   value,
   helperText,
   onBlur,
+  onKeyDown,
   error,
   disabled,
   autoFocus,
@@ -42,18 +44,18 @@ const TextField: FC<TextField> = ({
   return (
     <Stack direction={"column"}>
       <Stack direction={"row"} gap={0.2}>
-      <Typography
-        variant="text-sm-medium"
-        sx={{ marginBottom: "5px", color: `${labelColor}` }}
-      >
-        {label}
-      </Typography>
-      <Typography
-        variant="text-sm-medium"
-        sx={{ marginBottom: "5px", color: "red" }}
-      >
-        {isRequired && "*"}
-      </Typography>
+        <Typography
+          variant="text-sm-medium"
+          sx={{ marginBottom: "5px", color: `${labelColor}` }}
+        >
+          {label}
+        </Typography>
+        <Typography
+          variant="text-sm-medium"
+          sx={{ marginBottom: "5px", color: "red" }}
+        >
+          {isRequired && "*"}
+        </Typography>
       </Stack>
       <MuiTextField
         autoFocus={autoFocus}
@@ -62,6 +64,7 @@ const TextField: FC<TextField> = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        onKeyDown={onKeyDown}
         error={error}
         disabled={disabled}
         helperText={helperText}

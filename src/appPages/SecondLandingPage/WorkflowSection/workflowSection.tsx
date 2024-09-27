@@ -172,8 +172,8 @@ const WorkflowSection = () => {
             {/* right section */}
             <Box sx={{ width: { md: "580px", xs: "350px" } }}>
               <Image
-                src="/Images/workflow-image.svg"
-                width={581}
+                src="/Images/workflow-image-1.svg"
+                width={580}
                 height={384}
                 alt="streamline your invoicing process with ZeeInvoices free invoice maker"
               />

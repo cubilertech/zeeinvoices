@@ -32,11 +32,10 @@ const FooterSection = () => {
     route.push("/privacyPolicy");
   };
 
-  const facebookimg = new Image();
-  const instagramimg = new Image();
-  const facebookPrimaryimg = new Image();
-
   useEffect(() => {
+    const facebookimg = new Image();
+    const instagramimg = new Image();
+    const facebookPrimaryimg = new Image();
     facebookimg.src = "/Images/icons/facebook-black-icon.svg"; // Preload hover image
     facebookPrimaryimg.src = "/Images/icons/facebook-primary-icon.svg"; // Preload hover image
     instagramimg.src = "/Images/icons/instagram-colored-icon.svg"; // Preload hover image
@@ -46,8 +45,6 @@ const FooterSection = () => {
       console.log("Facebook primary icon loaded");
     instagramimg.onload = () => console.log("Instagram colored icon loaded");
   }, []);
-
-  console.log(facebookPrimaryimg, "facebookPrimaryimg");
 
   return (
     <Box

@@ -14,7 +14,7 @@ import { useState } from "react";
 const accordionData = [
   {
     title: "Can I change my plan later?",
-    desc: "Yes, you can easily change your plan whenever you need to.",
+    desc: "Yes, you can easily change your plan whenever you need to, whether you're upgrading or downgrading, and the process is quick.",
   },
   {
     title: "Is there a free trial available?",
@@ -28,10 +28,19 @@ const accordionData = [
     title: "Are there any hidden fees?",
     desc: "No, we believe in clear pricing. You’ll never encounter hidden fees with us.",
   },
+  {
+    title: "Is my data secure?",
+    desc: "Yes, your data is fully encrypted and stored securely. We prioritize your privacy and ensure your information is protected at all times.",
+  },
+  {
+    title: "Do you offer discounts for annual plans?",
+    desc: "Yes, we offer significant discounts when you choose an annual plan. It's a great way to save while enjoying uninterrupted access to our services.",
+  },
 ];
+
 const GetInTouchSection = () => {
   const isModile = useMediaQuery("(max-width: 600px)");
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -71,13 +80,13 @@ const GetInTouchSection = () => {
 
         <Box
           sx={{
-            // height: { sm: "600px", xs: "800px" },
+            height: { sm: "530px", xs: "800px" },
             // py: 3,
             display: "flex",
             justifyContent: "space-between",
             gap: { sm: 0, xs: 3 },
             flexDirection: { sm: "row", xs: "column" },
-            alignItems: "flex-start",
+            alignItems: "center",
           }}
         >
           <Box

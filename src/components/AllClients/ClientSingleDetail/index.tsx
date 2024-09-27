@@ -136,7 +136,8 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
       >
         <Stack direction={"column"} gap={3} sx={{ width: "100%" }}>
           <Stack
-            direction={"row"}
+            direction={{ sm: "row", xs: "column" }}
+            gap={{sm:0, xs:3}}
             justifyContent={"space-between"}
             sx={{ width: "100%" }}
           >

@@ -4,6 +4,7 @@ import { HeroSection } from "@/appPages/About/HeroSection";
 import { JoinUsSection } from "@/appPages/About/JoinUsSection";
 import { OurMissionSection } from "@/appPages/About/OurMissionSection";
 import { WeOfferSection } from "@/appPages/About/WeOfferSection";
+import { palette } from "@/theme/palette";
 import { Box } from "@mui/material";
 import Head from "next/head";
 
@@ -17,7 +18,13 @@ const AboutPage = () => {
           content="Discover how ZeeInvoices empowers businesses with AI-powered invoicing tool and customizable invoice builder."
         />
       </Head>
-      <Box sx={{ mt: 8, px: { sm: "0px", xs: "20px" } }}>
+      <Box
+        sx={{
+          mt: 8,
+          px: { sm: "0px", xs: "20px" },
+          backgroundColor: palette.base.white,
+        }}
+      >
         <HeroSection />
         <OurMissionSection />
         <WeOfferSection />

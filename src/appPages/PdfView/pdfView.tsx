@@ -407,7 +407,7 @@ const PdfView: FC<PdfViewProps> = ({
               color: "white",
             }}
           >
-            Qty / Hrs
+            Qty
           </Text>
           <Text
             style={{
@@ -583,10 +583,22 @@ const PdfView: FC<PdfViewProps> = ({
             >
               <Text style={{ fontSize: "12px" }}>Terms & Conditions</Text>
               <Text
-                style={{ fontSize: "10px", color: "#444444", lineHeight: 1.4 }}
+                style={{
+                  fontSize: "10px",
+                  color: "#444444",
+                  lineHeight: 1.4,
+                  textAlign: "justify",
+                }}
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in
-                nisi, vel mauris facilisis pellentesque.
+                By using ZeeInvoices, you agree to our Terms & Conditions, which
+                require you to be at least 18 years old and maintain the
+                security of your account. Our services are free and available
+                worldwide, provided you use them lawfully and do not infringe on
+                third-party rights. We reserve the right to terminate your
+                access for violations, and any content you create remains yours,
+                granting us a license to use it for service improvement. These
+                Terms are governed by Texas law, and any updates will be posted
+                on our website.
               </Text>
             </View>
           </View>
@@ -763,11 +775,11 @@ const PdfView: FC<PdfViewProps> = ({
               style={{
                 fontSize: "9px",
                 color: "#5E5E62",
-                margin: "0px 0px 0px 200px",
+                margin: "0px 0px 0px 280px",
                 fontWeight: "bold",
               }}
             >
-              © Copyrights 2024, All rights Reserved by ZeeInvoices
+              Powered by ZeeInvoices.com
             </Text>
           </View>
           {/* <Text

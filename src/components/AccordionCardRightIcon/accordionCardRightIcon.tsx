@@ -72,7 +72,12 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
                 fontWeight: { md: 400 },
               }}
             >
-              {desc}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: desc || "",
+                }}
+                style={{ fontWeight: "lighter" }}
+              />
             </Typography>
           </div>
         </Stack>

@@ -39,7 +39,6 @@ const SelectInput: FC<SelectInput> = ({
           {type === "currency" || type === "Select SR" ? "" : type}
         </Typography>
         <Select
-        
           IconComponent={(props) => (
             <span
               {...props}
@@ -60,6 +59,7 @@ const SelectInput: FC<SelectInput> = ({
           MenuProps={{
             PaperProps: {
               sx: {
+                maxHeight: "30%",
                 bgcolor: palette.base.white, // Change dropdown background color
               },
             },

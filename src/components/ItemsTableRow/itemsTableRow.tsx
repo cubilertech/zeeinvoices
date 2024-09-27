@@ -359,14 +359,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               width: "100%",
 
               "& .MuiOutlinedInput-root": {
-                height: "32px !important",
+                minHeight: "32px !important",
                 borderRadius: "2px !important",
+                padding: "0px !important",
               },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
                 opacity: 0.7,
               },
             }}
+            multiline
+            maxRows={4}
             id="outlined-basic"
             name="description"
             placeholder="Description"

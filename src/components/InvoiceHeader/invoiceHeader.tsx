@@ -228,7 +228,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Edit Back Button
   const handleBack = () => {
-    router.push("/invoices");
+    router.back();
+    // router.push("/invoices");
     setTimeout(() => {
       dispatch(setResetInvoiceSetting());
       dispatch(setResetInvoice());
@@ -319,6 +320,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                   }}
                   value={InvoiceId}
                   onChange={(e) => UpdateInvoiceId(e.target.value)}
+                  onKeyDown={(e: { key: string }) => {
+                    if (e.key === "Enter") {
+                      setIsEditInvoiceId(false);
+                    }
+                  }}
                 />
                 {InvoiceId.length > 6 ? (
                   <Typography

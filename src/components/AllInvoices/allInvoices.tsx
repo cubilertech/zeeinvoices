@@ -59,127 +59,10 @@ interface Data {
   action: any;
 }
 
-function createData(
-  id: number,
-  name: string,
-  email: string,
-  date: string,
-  status: string,
-  total: number,
-  action: any
-): Data {
-  return {
-    id,
-    name,
-    email,
-    date,
-    status,
-    total,
-    action,
-  };
-}
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
 type Order = "asc" | "desc";
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-function stableSort<T>(
-  array: readonly T[],
-  comparator: (a: T, b: T) => number
-) {
-  const stabilizedThis = array?.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis?.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis?.map((el) => el[0]);
-}
-
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof Data;
-  label: string;
-  numeric: boolean;
-}
-
-// const headCells: readonly HeadCell[] = [
-//   {
-//     id: "id",
-//     numeric: true,
-//     disablePadding: true,
-//     label: "Invoice #",
-//   },
-//   {
-//     id: "name",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Receipent",
-//   },
-//   {
-//     id: "date",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Created",
-//   },
-//   {
-//     id: "status",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Status",
-//   },
-//   {
-//     id: "total",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Total",
-//   },
-//   {
-//     id: "action",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "Actions",
-//   },
-// ];
 
 export default function AllInvoices() {
   const allInvoiceItems = useSelector(getInvoiceItem);
-  // const invoiceDetail = useSelector((state: any) => state.invoice);
-  // const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
-  // // Get Total Amount And Tax
-  // const [total, setTotal] = useState(0);
-  // const [taxAmount, setTaxAmount] = useState(0);
-  // useEffect(() => {
-  //   const totalAmount = calculateAmount(allInvoiceItems);
-  //   const totalTax = calculateTax(allInvoiceItems);
-  //   setTotal(totalAmount);
-  //   setTaxAmount(totalTax);
-  // }, [allInvoiceItems]);
-  // const summaryDetail = {
-  //   total: total,
-  //   taxAmount: taxAmount,
-  // };
 
   const route = useRouter();
   const dispatch = useDispatch();
@@ -222,23 +105,7 @@ export default function AllInvoices() {
     total: total,
     taxAmount: taxAmount,
   };
-  // React.useEffect(() => {
-  //   if (session?.accessToken) refetchInvoiceList();
-  //   if (deleteSuccess) {
-  //     setIsModalOpen(false);
-  //   }
-  // }, [refetchInvoiceList, deleteSuccess, page, session?.accessToken]);
 
-  // const debouncedRefetch = React.useCallback(
-  //   debounce(() => {
-  //     if (page === 1) {
-  //       refetchInvoiceList();
-  //     } else {
-  //       setPage(1);
-  //     }
-  //   }, 500),
-  //   [search]
-  // );
   const handleChangeSearch = (e: any) => {
     setPage(1);
     setSearch(e.target.value);
@@ -291,14 +158,6 @@ export default function AllInvoices() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(invoiceList?.invoices, getComparator(order, orderBy))?.slice(
-        (page - 1) * rowsPerPage,
-        (page - 1) * rowsPerPage + rowsPerPage
-      ),
-    [order, orderBy, page, rowsPerPage, invoiceList?.invoices]
-  );
 
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -466,88 +325,88 @@ export default function AllInvoices() {
                         onRequestSort={handleRequestSort}
                         rowCount={invoiceList?.invoices?.length}
                       />
-                 
-                        <TableBody>
-                          {filteredData?.map((row: any, index: number) => {
-                            console.log(row, "row12");
-                            const labelId = `enhanced-table-checkbox-${index}`;
-                            return (
-                              <TableRow
-                                hover
-                                role="checkbox"
-                                tabIndex={-1}
-                                key={row?.id}
-                                sx={{ cursor: "pointer" }}
+
+                      <TableBody>
+                        {filteredData?.map((row: any, index: number) => {
+                          console.log(row, "row12");
+                          const labelId = `enhanced-table-checkbox-${index}`;
+                          return (
+                            <TableRow
+                              hover
+                              role="checkbox"
+                              tabIndex={-1}
+                              key={row?.id}
+                              sx={{ cursor: "pointer" }}
+                            >
+                              <TableCell
+                                component="th"
+                                id={labelId}
+                                scope="row"
+                                padding="none"
+                                className="tableCell"
+                                sx={{ paddingLeft: "20px" }}
                               >
-                                <TableCell
-                                  component="th"
-                                  id={labelId}
-                                  scope="row"
-                                  padding="none"
-                                  className="tableCell"
-                                  sx={{ paddingLeft: "20px" }}
+                                <Typography
+                                  variant="text-sm-medium"
+                                  sx={{ color: palette.color.gray[130] }}
                                 >
-                                  <Typography
-                                    variant="text-sm-medium"
-                                    sx={{ color: palette.color.gray[130] }}
+                                  {row?.id}
+                                </Typography>
+                              </TableCell>
+                              <TableCell align="left" className="tableCell">
+                                <Stack
+                                  direction={"row"}
+                                  gap={1}
+                                  sx={{ alignItems: "center" }}
+                                >
+                                  <Avatar
+                                    sx={{
+                                      bgcolor: palette.primary.main,
+                                      width: "32px",
+                                      height: "32px",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                    }}
                                   >
-                                    {row?.id}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell align="left" className="tableCell">
-                                  <Stack
-                                    direction={"row"}
-                                    gap={1}
-                                    sx={{ alignItems: "center" }}
-                                  >
-                                    <Avatar
-                                      sx={{
-                                        bgcolor: palette.primary.main,
-                                        width: "32px",
-                                        height: "32px",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
+                                    {row?.toDetails?.name
+                                      ?.charAt(0)
+                                      .toUpperCase()}
+                                  </Avatar>
+                                  <Stack direction={"column"}>
+                                    <Typography
+                                      variant="text-sm-medium"
+                                      sx={{ color: palette.color.gray[130] }}
                                     >
-                                      {row?.toDetails?.name
-                                        ?.charAt(0)
-                                        .toUpperCase()}
-                                    </Avatar>
-                                    <Stack direction={"column"}>
-                                      <Typography
-                                        variant="text-sm-medium"
-                                        sx={{ color: palette.color.gray[130] }}
-                                      >
-                                        {row?.to?.name || row?.toDetails?.name}
-                                      </Typography>
-                                      {/* <Typography variant="text-xs-regular">
+                                      {row?.to?.name || row?.toDetails?.name}
+                                    </Typography>
+                                    {/* <Typography variant="text-xs-regular">
                                         {row.to.email}
                                       </Typography> */}
-                                    </Stack>
                                   </Stack>
-                                </TableCell>
-                                <TableCell align="left" className="tableCell">
-                                  <Typography
-                                    variant="text-sm-medium"
-                                    sx={{ color: palette.color.gray[130] }}
-                                  >
-                                    {row?.to?.email || row?.toDetails?.email}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell
-                                  align="left"
-                                  sx={{ paddingLeft: "17px" }}
-                                  className="tableCell"
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="left" className="tableCell">
+                                <Typography
+                                  variant="text-sm-medium"
+                                  sx={{ color: palette.color.gray[130] }}
                                 >
-                                  <Typography
-                                    variant="text-sm-regular"
-                                    sx={{ color: palette.color.gray[130] }}
-                                  >
-                                    {tableFormatDate(row?.invoiceDate)}
-                                  </Typography>
-                                </TableCell>
-                                {/* <TableCell align="left">
+                                  {row?.to?.email || row?.toDetails?.email}
+                                </Typography>
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                sx={{ paddingLeft: "17px" }}
+                                className="tableCell"
+                              >
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
+                                  {tableFormatDate(row?.invoiceDate)}
+                                </Typography>
+                              </TableCell>
+                              {/* <TableCell align="left">
                                   <Badge
                                     color="primary"
                                     badgeContent={row.status}
@@ -565,48 +424,45 @@ export default function AllInvoices() {
                                   ></Badge>
                                 </TableCell> */}
 
-                                <TableCell align="left" className="tableCell">
-                                  <Typography
-                                    variant="text-sm-medium"
-                                    sx={{ color: palette.color.gray[130] }}
-                                  >
-                                    {row?.settings?.currency == "USD"
-                                      ? "$"
-                                      : row?.settings?.currency}{" "}
-                                    {calculateAmount(row?.items)?.toFixed(2)}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell align="left" className="tableCell">
-                                  <CustomPopOver
-                                    handleOpenDeleteModal={
-                                      handleOpenDeleteModal
-                                    }
-                                    record={row}
-                                    handleViewInvoice={handleViewInvoice}
-                                    handleEditInvoice={handleEditInvoice}
-                                    handleShareInvoice={handleShareInvoice}
-                                    handlePrintInvoice={handlePrintInvoice}
-                                    componentRef={componentRef}
-                                    InvSetting={{ ...invoiceSetting }}
-                                    InvDetails={{ ...invoiceDetail }}
-                                    summaryDetail={summaryDetail}
-                                  />
-                                  <Box>
-                                    <Box style={{ display: "none" }}>
-                                      <Box ref={componentRef}>
-                                        <InvoiceDetailsSection
-                                          singleInvoice={{ ...invoiceDetail }}
-                                          invoiceSetting={{ ...invoiceSetting }}
-                                        />
-                                      </Box>
+                              <TableCell align="left" className="tableCell">
+                                <Typography
+                                  variant="text-sm-medium"
+                                  sx={{ color: palette.color.gray[130] }}
+                                >
+                                  {row?.settings?.currency == "USD"
+                                    ? "$"
+                                    : row?.settings?.currency}{" "}
+                                  {calculateAmount(row?.items)?.toFixed(2)}
+                                </Typography>
+                              </TableCell>
+                              <TableCell align="left" className="tableCell">
+                                <CustomPopOver
+                                  handleOpenDeleteModal={handleOpenDeleteModal}
+                                  record={row}
+                                  handleViewInvoice={handleViewInvoice}
+                                  handleEditInvoice={handleEditInvoice}
+                                  handleShareInvoice={handleShareInvoice}
+                                  handlePrintInvoice={handlePrintInvoice}
+                                  componentRef={componentRef}
+                                  InvSetting={{ ...invoiceSetting }}
+                                  InvDetails={{ ...invoiceDetail }}
+                                  summaryDetail={summaryDetail}
+                                />
+                                <Box>
+                                  <Box style={{ display: "none" }}>
+                                    <Box ref={componentRef}>
+                                      <InvoiceDetailsSection
+                                        singleInvoice={{ ...invoiceDetail }}
+                                        invoiceSetting={{ ...invoiceSetting }}
+                                      />
                                     </Box>
                                   </Box>
-                                </TableCell>
-                              </TableRow>
-                            );
-                          })}
-                        </TableBody>
-                   
+                                </Box>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
                     </Table>
                   </TableContainer>
                   <Pagination

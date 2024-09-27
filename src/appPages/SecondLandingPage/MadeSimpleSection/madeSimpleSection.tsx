@@ -155,7 +155,7 @@ const MadeSimpleSection = () => {
             {/* left section */}
             <Box sx={{ px: "3%", width: { md: "437px", xs: "335px" } }}>
               <Image
-                src="/Images/simple-mobile-image.svg"
+                src="/Images/simple-mobile-image-1.svg"
                 width={437}
                 height={462}
                 alt="mobile-friendly invoice generator with easy to use interface"
