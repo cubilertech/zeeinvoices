@@ -20,6 +20,7 @@ import React, { FC, useEffect } from "react";
 import ClientDetailModel from "../ClientDetailModel";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ClientInvoices from "./ClientsInvoises";
+import { useSession } from "next-auth/react";
 
 interface ClientSingleProps {
   id: any;
@@ -29,6 +30,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [clientModel, setClientModel] = React.useState(false);
+  const { data: session } = useSession();
   //Edit Client
   const {
     data: singleClient,
@@ -37,8 +39,8 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
   } = useFetchSingleDocument(`${backendURL}/clients/${id}`);
 
   useEffect(() => {
-    singleFetch();
-  }, [singleFetch]);
+    if (session?.accessToken) singleFetch();
+  }, [singleFetch, session?.accessToken]);
 
   // Update Client
   const {
@@ -132,12 +134,13 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
           py: 2,
           display: "flex",
           justifyContent: "space-between",
+          boxShadow: `0px 0px 2px 0px #0000001A`,
         }}
       >
         <Stack direction={"column"} gap={3} sx={{ width: "100%" }}>
           <Stack
             direction={{ sm: "row", xs: "column" }}
-            gap={{sm:0, xs:3}}
+            gap={{ sm: 0, xs: 3 }}
             justifyContent={"space-between"}
             sx={{ width: "100%" }}
           >

@@ -77,6 +77,7 @@ export default function ClientInvoices() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [shareModel, setShareModel] = React.useState(false);
   const [shareUrl, setShareUrl] = React.useState(0);
+  const [showText, setShowText] = React.useState(false);
   const {
     mutate: deleteInvoice,
     isLoading: deleteInvoiceLoading,
@@ -118,6 +119,12 @@ export default function ClientInvoices() {
 
   React.useEffect(() => {
     if (session?.accessToken) refetchInvoiceList();
+
+    const timer = setTimeout(() => {
+      setShowText(true);
+    }, 1500); // 1 second delay
+
+    return () => clearTimeout(timer); // Cleanup the timer on component unmount
   }, [refetchInvoiceList, search, session?.accessToken]);
 
   const filteredData = React.useMemo(() => {
@@ -262,13 +269,13 @@ export default function ClientInvoices() {
     deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
   };
   console.log(invoiceList?.invoices, "invoices in all invoices");
+
   return (
     <>
-      <hr />
       <Container
         maxWidth="lg"
         sx={{
-          px: { md: "0.1%", lg: "0.1%", xs: "3%" },
+          px: { md: "0%", lg: "0%", xs: "3%" },
           minHeight: { xl: "53vh", lg: "73vh" },
         }}
       >
@@ -289,7 +296,7 @@ export default function ClientInvoices() {
               px: { sm: "20px", xs: "10px" },
               pb: 1,
               border: "none",
-              borderRadius: "8px",
+              borderRadius: "4px",
               boxShadow: `0px 0px 2px 0px #0000001A`,
             }}
           >
@@ -464,7 +471,7 @@ export default function ClientInvoices() {
                   setPage={setPage}
                 />
               </>
-            ) : filteredData.length <= 0 ? (
+            ) : filteredData.length <= 0 && showText ? (
               <Typography
                 sx={{
                   display: "flex",
@@ -484,7 +491,7 @@ export default function ClientInvoices() {
                   justifyContent: "center",
                   padding: "20px",
                   alignItems: "center",
-                  height: "400px",
+                  height: "200px",
                 }}
               >
                 <CircularProgress size={24} sx={{ color: "#8477DA" }} />

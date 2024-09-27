@@ -39,6 +39,7 @@ export const useFetchAllDocument = (
     queryFn: fetch,
     enabled: false,
     placeholderData: [],
+    keepPreviousData: true,
   });
 };
 // Fetch Single Recods

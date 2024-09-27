@@ -590,15 +590,12 @@ const PdfView: FC<PdfViewProps> = ({
                   textAlign: "justify",
                 }}
               >
-                By using ZeeInvoices, you agree to our Terms & Conditions, which
-                require you to be at least 18 years old and maintain the
-                security of your account. Our services are free and available
-                worldwide, provided you use them lawfully and do not infringe on
-                third-party rights. We reserve the right to terminate your
-                access for violations, and any content you create remains yours,
-                granting us a license to use it for service improvement. These
-                Terms are governed by Texas law, and any updates will be posted
-                on our website.
+                Our services are free and available globally, as long as you
+                follow the law and respect others rights. We may terminate your
+                access for violations. Any content you create is yours, but you
+                give us permission to use it to improve our services. Texas law
+                governs these Terms, and any changes will be posted on our
+                website.
               </Text>
             </View>
           </View>
