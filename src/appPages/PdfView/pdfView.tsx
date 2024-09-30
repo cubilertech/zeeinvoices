@@ -391,7 +391,7 @@ const PdfView: FC<PdfViewProps> = ({
         >
           <Text
             style={{
-              width: "220px",
+              width: "233px",
               fontSize: "10px",
               fontWeight: "bold",
               color: "white",
@@ -401,7 +401,7 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "50px",
+              width: "37px",
               fontSize: "10px",
               fontWeight: "bold",
               color: "white",
