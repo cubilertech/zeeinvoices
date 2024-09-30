@@ -21,7 +21,6 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
   const invoiceDate = useSelector(getInvoiceDate);
   const dueDate = useSelector(getDueDate);
   const handleDateChange = (newDate: Dayjs | null) => {
-    console.log(newDate, "newDte");
     if (newDate) {
       const date = newDate?.toISOString();
       title === "Invoice Date"

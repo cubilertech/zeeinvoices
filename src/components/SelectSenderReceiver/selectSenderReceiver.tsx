@@ -76,7 +76,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
     const bottom =
       event.target.scrollHeight ===
       event.target.scrollTop + event.target.clientHeight;
-    console.log(bottom, "bottom");
     if (bottom) {
       //   loadMoreData();
     }
@@ -124,7 +123,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
           }}
           renderValue={(selected) => {
             if (!selected) {
-              console.log(selected, "Select");
               return <span style={{ color: "grey" }}>{`${placeholder}`}</span>; // Placeholder text styling
             }
             return <span style={{ color: "black" }}>{selected}</span>;
@@ -146,7 +144,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
               <MenuItem
                 key={index}
                 onClick={() => {
-                  console.log(item, "values12");
                   handleSelectedItem(item);
                   setSelectedIndex(index);
                   if (onItemSelected) {

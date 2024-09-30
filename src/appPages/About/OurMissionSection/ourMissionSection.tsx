@@ -59,7 +59,7 @@ const OurMissionSection = () => {
                   height: "50%",
                   overflow: "hidden",
                   borderRadius: "8px",
-                  backgroundImage: "url(/Images/about/ourMission-image-1.svg)",
+                  backgroundImage: "url(/Images/about/ourMission-image-2.svg)",
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "100% 100%",
                 }}
@@ -70,7 +70,7 @@ const OurMissionSection = () => {
                   height: "50%",
                   overflow: "hidden",
                   borderRadius: "8px",
-                  backgroundImage: "url(/Images/about/ourMission-image-1.svg)",
+                  backgroundImage: "url(/Images/about/ourMission-image-3.svg)",
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "100% 100%",
                 }}
@@ -95,7 +95,7 @@ const OurMissionSection = () => {
               component={"p"}
               color={palette.color.gray[745]}
             >
-              At ZEEinvoices, our mission is to empower small businesses and
+              At ZeeInvoices, our mission is to empower small businesses and
               freelancers by providing an intuitive, AI-powered invoicing tool
               that simplifies the billing process. We strive to deliver
               customizable solutions that enhance productivity, ensure accuracy,

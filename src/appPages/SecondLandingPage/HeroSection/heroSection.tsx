@@ -136,7 +136,7 @@ const HeroSection = () => {
           </Box> */}
             <Box sx={{ zIndex: 1 }}>
               <Image
-                src="/Images/hero-image-1.svg"
+                src="/Images/hero-image-2.svg"
                 width={590}
                 height={487}
                 alt="Zeeinvoices: create invoices within minutes"

@@ -84,7 +84,6 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
 
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;
-    console.log(InvDetails, "InvDetails21");
     const doc = (
       <PdfView
         invSetting={{ ...InvSetting }}

@@ -28,15 +28,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   data,
   showRemoveButton,
 }) => {
-  // const [data, setData] = useState({
-  //   id: id,
-  //   name: "",
-  //   quantity: null,
-  //   rate: null,
-  //   tax: null,
-  //   subTotal: 0,
-  // });
-
   const dispatch = useDispatch();
   const selectedCurrency = useSelector(getCurrency);
   const selectedTax = useSelector(getTax);
@@ -44,7 +35,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
     const { name, value } = event.target;
     // setData((prev) => ({ ...prev, [name]: value }));
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
-    console.log(name, "Name and Value", value);
   };
 
   return (
@@ -369,7 +359,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               },
             }}
             multiline
-            maxRows={4}
+            maxRows={3}
             id="outlined-basic"
             name="description"
             placeholder="Description"

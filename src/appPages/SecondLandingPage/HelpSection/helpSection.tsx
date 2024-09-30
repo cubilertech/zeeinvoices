@@ -161,7 +161,7 @@ const HelpSection = () => {
             {/* left section */}
             <Box>
               <Image
-                src="/Images/help-image.svg"
+                src="/Images/help-image-1.svg"
                 width={596}
                 height={413}
                 alt="ZeeInvoices offers an organized way to process billing and invoices"

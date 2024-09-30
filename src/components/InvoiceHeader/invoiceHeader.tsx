@@ -207,8 +207,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
-      console.log(invoiceData, "invoiceData");
-      console.log(formData, "formData");
 
       createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
         .then((res) => {

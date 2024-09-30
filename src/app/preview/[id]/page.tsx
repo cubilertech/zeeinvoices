@@ -73,27 +73,25 @@ const PreviewPage = () => {
         })
       );
     }
-  }, [refetchSingleInvoice,singleInvoice,dispatch]);
-
-  console.log(invoiceDetail,'invoiceDetail',singleInvoice);
+  }, [refetchSingleInvoice, singleInvoice, dispatch]);
 
   return (
     <>
-    {singleInvoice && (
-      <PDFViewer
-        style={{ width: "100%", height: "76vh", marginTop: "50px" }}
-        showToolbar={false}
-      >
-        <PdfView
-          invDetails={{ ...invoiceDetail }}
-          invSetting={{ ...invoiceSetting }}
-          Summary={summaryDetail}
-          user={session?.user}
-        />
-      </PDFViewer>
-    )}
-    {!singleInvoice && <p>Loading...</p>}
-  </>
+      {singleInvoice && (
+        <PDFViewer
+          style={{ width: "100%", height: "76vh", marginTop: "50px" }}
+          showToolbar={false}
+        >
+          <PdfView
+            invDetails={{ ...invoiceDetail }}
+            invSetting={{ ...invoiceSetting }}
+            Summary={summaryDetail}
+            user={session?.user}
+          />
+        </PDFViewer>
+      )}
+      {!singleInvoice && <p>Loading...</p>}
+    </>
   );
 };
 

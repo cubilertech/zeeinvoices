@@ -85,7 +85,6 @@ const PdfView: FC<PdfViewProps> = ({
   user,
   itemDetail,
 }) => {
-  console.log(invDetails, "InvDetails in PDF view");
   const [isClient, setIsClient] = useState(false);
   const [itemsLength, setItemsLength] = useState(false);
 
@@ -109,7 +108,6 @@ const PdfView: FC<PdfViewProps> = ({
       invDetails?.invoiceItem[0].quantity !== 0
         ? true
         : false;
-    // console.log(invoiceItems, "Invoice Items", invDetails?.invoiceItem[0]);
     setItemsLength(invoiceItems);
   }, [invDetails?.invoiceItem]);
 

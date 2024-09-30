@@ -131,7 +131,7 @@ const ChooseZeeInvoiceSection = () => {
                 height: { sm: "483px", xs: "310px" },
                 overflow: "hidden",
                 borderRadius: "8px",
-                backgroundImage: "url(/Images/about/Why-Choose-US.svg)",
+                backgroundImage: "url(/Images/about/Why-Choose-US-1.svg)",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% 100%",
               }}

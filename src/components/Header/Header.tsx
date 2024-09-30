@@ -33,7 +33,6 @@ import { BorderRight, Menu as MenuIcon } from "@mui/icons-material";
 
 const Header = () => {
   const pathname = usePathname();
-  console.log(`Path Name: >>> : ${pathname}`);
   const route = useRouter();
   const dispatch = useDispatch();
   const counter = useSelector(getCountValue);

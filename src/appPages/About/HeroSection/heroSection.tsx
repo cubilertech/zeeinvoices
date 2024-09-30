@@ -14,7 +14,7 @@ const HeroSection = () => {
         <Box
           sx={{
             display: "flex",
-            gap: { sm: 14, xs: 6 },
+            gap: { sm: 10, xs: 6 },
             flexDirection: "column",
           }}
         >
@@ -56,7 +56,7 @@ const HeroSection = () => {
               width={1200}
               height={500}
               //   style={{width: "100%", height: '100%'}}
-              src="/Images/about/heroSection-image.svg"
+              src="/Images/about/about-hero-image.svg"
               alt="ZeeInvoices comprehensive dashboard for overviewing the billing process"
             />
           </Box>

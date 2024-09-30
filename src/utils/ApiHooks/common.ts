@@ -44,11 +44,9 @@ export const useFetchAllDocument = (
 };
 // Fetch Single Recods
 export const useFetchSingleDocument = (apiRoute: string) => {
-  console.log(apiRoute, "api");
   const { data: session } = useSession();
   const token = session?.accessToken;
   async function fetch() {
-    console.log(token, "token");
     try {
       const response = await axios.get(apiRoute, {
         headers: {

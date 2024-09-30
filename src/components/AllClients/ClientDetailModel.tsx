@@ -312,7 +312,6 @@ const ClientDetailModel: FC<ClientDetail> = ({
     state?: string;
     address?: string;
   }
-  console.log(editId?.name, "editId");
   const {
     values,
     handleBlur,

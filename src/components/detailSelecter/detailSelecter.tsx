@@ -328,7 +328,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const [isRecipientList, setIsRecipientList] = useState("");
 
   const handleItemSelected = (item: any) => {
-    console.log(item, "item", isSelectedList);
     if (item === "Sender") {
       setIsSenderList(item);
       // dispatch(setSenderSelected(true));
@@ -349,7 +348,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
     setOpen(true), setOpenBd(true);
   };
 
-  // console.log(InvDetails, "121a");
   const initialValues = {
     name: InvDetails?.name || "",
     companyName: InvDetails?.companyName || "",
@@ -432,7 +430,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
       resetForm();
     },
   });
-  console.log(values, "121a67676767");
 
   //close model
   const handleModelClose = () => {
@@ -540,9 +537,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
       refetchSenderList();
     }
   }, [refetchClientList, refetchSenderList, session?.accessToken]);
-  console.log(senderList, "senderList");
-  console.log(filteredClientData, "filteredClientData");
-  console.log(filteredSenderData, "filteredSenderData");
+ 
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   useEffect(() => {
@@ -670,7 +665,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
               <IconButton
                 sx={{ padding: 0 }}
                 onClick={() => {
-                  console.log(detailsOf, "detailsof");
                   if (detailsOf == "Sender") {
                     dispatch(setResetFromDetails());
                     dispatch(setSenderSelected(false));

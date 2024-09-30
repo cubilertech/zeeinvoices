@@ -39,7 +39,7 @@ const EveryBusinessSection = () => {
         gap={3}
         sx={{
           width: "100%",
-          pt: 3,
+          pt: 7,
           pb: 7,
           backgroundColor: "transparent",
           justifyContent: "center",

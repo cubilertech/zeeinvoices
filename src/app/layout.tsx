@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ZeeInvoices: Free AI-powered and custom invoice generator",
+  title: "ZeeInvoices: Custom and Smart Invoices Free and Easy",
   description:
     "Create professional, personalized invoices effortlessly with ZeeInvoices, Free AI-powered Custom invoice generator. Perfect for businesses of all sizes, fast and easy.",
 };

@@ -183,11 +183,6 @@ const Profile: FC<Profile> = ({}) => {
     return "";
   };
 
-  console.log(
-    profileData?.image,
-    ">>>>>>>>>>>>>>>>> profile image >>>>>>>>>>>>>>>>>>>>"
-  );
-
   return (
     <>
       <hr />
@@ -226,7 +221,7 @@ const Profile: FC<Profile> = ({}) => {
           ></Box>
 
           {/* circle avatar */}
-          <Box sx={{ marginLeft: {sm:"3%", xs:"30%"} }}>
+          <Box sx={{ marginLeft: { sm: "3%", xs: "30%" } }}>
             <ProfileAvatar
               uploadImage={uploadImage}
               setUploadImage={setUploadImage}

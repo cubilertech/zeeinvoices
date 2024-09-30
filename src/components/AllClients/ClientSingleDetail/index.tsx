@@ -92,7 +92,6 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     router.push("/clients");
   };
 
-  console.log(singleClient, "singleClient");
   return (
     <Box
       sx={{

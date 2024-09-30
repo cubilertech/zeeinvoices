@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getColors, setInvoiceColor } from "@/redux/features/invoiceSetting";
 import { RootState } from "@/redux/store";
 import { Close } from "@mui/icons-material";
+import { PhoneInputWithCode } from "../PhoneInputWithCode";
 
 interface InvoiceSettings {
   InvSetting?: any;
@@ -26,7 +27,6 @@ interface InvoiceSettings {
 const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
-  console.log(`Invoice Settings, redux colors: ${reduxColors}`);
   const initialColors = [
     { id: 1, color: "#4F35DF", isSelected: true },
     { id: 2, color: "#444444", isSelected: false },
@@ -218,20 +218,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
   };
-  // Custom Color Change
-  // const handleSelectColor = (id: number | string) => {
-  //   setPickColor("");
-  //   const selectedColor = initialColors.filter((data) => data.id === id);
-  //   console.log(selectedColor[0].color);
-  //   setColors((prevColors) =>
-  //     prevColors.map((color) =>
-  //       color.id === id
-  //         ? { ...color, isSelected: true }
-  //         : { ...color, isSelected: false }
-  //     )
-  //   );
-  //   dispatch(setInvoiceColor(selectedColor[0].color));
-  // };
+
   const handleSelectColor = (id: number | string) => {
     setPickColor(""); // Clear any temporary color
 

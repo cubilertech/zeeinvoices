@@ -91,7 +91,7 @@ const MadeSimpleSection = () => {
           sx={{
             width: "100%",
             pt: 3,
-            pb: 7,
+            pb: 0,
             backgroundColor: palette.base.white,
             justifyContent: "center",
             alignItems: "center",

@@ -66,7 +66,6 @@ const SelectInput: FC<SelectInput> = ({
           }}
           renderValue={(selected) => {
             if (!selected) {
-              console.log(selected, "Select");
               return <span style={{ color: "grey" }}>{`${placeholder}`}</span>; // Placeholder text styling
             }
             return <span style={{ color: "black" }}>{selected}</span>;

@@ -20,9 +20,7 @@ const ColorPicker: FC<ColorPicker> = ({
 }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
-  console.log(`Colors: >>> : ${reduxColors}`);
   const entireState = useSelector((state: RootState) => state);
-  console.log("Entire Redux State: >>>", entireState);
   const handleSelectColor = (id: number) => {
     dispatch(updateColorSelection(id));
   };

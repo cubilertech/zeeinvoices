@@ -59,7 +59,6 @@ const useHandleRefresh = (type: string) => {
     if (navigationEntries.length > 0) {
       const navigationEntry = navigationEntries[0];
       const isPageReload = navigationEntry.type === "reload";
-      console.log(isIntentionalRefresh, "Is Page Reload", isPageReload);
       if (
         // resetInvoice &&
         type === "add" &&
@@ -108,7 +107,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const reciptShow = InvDetails.to?.name !== "" ? true : false;
 
   const handleSubmitFrom = (values: any) => {
-    console.log(values, "values123");
     dispatch(setSenderDetail(values));
   };
   const handleSubmitTo = (values: any) => {
@@ -117,7 +115,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const senderSelected = useSelector(getIsSenderSelected);
   const recipientSelected = useSelector(getIsRecipientSelected);
 
-  console.log(senderSelected, "1234", recipientSelected);
   return (
     <Box
       sx={{

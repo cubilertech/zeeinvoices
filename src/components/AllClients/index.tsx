@@ -125,7 +125,7 @@ export default function AllClients() {
     refetch: refetchClientList,
     isFetching: fetchingClientList,
     isLoading: isClientLoading,
-    isFetched
+    isFetched,
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   //Delete Client
   const {
@@ -182,7 +182,7 @@ export default function AllClients() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-  console.log(isFetched, "isSuccesClinet");
+
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);

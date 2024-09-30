@@ -22,7 +22,6 @@ const InvoiceSummary: FC = () => {
     setTotal(totalAmount);
     setTaxAmount(totalTax);
   }, [getAllInvoiceItems]);
-  console.log(total, "total", taxAmount);
 
   return (
     <Stack

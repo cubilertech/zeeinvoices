@@ -175,7 +175,6 @@ export default function AllInvoices() {
   };
   //Edit Invoice
   const handleEditInvoice = (record: any) => {
-    console.log(record, "record");
     dispatch(
       setFullInvoice({
         id: record?.id,
@@ -217,7 +216,6 @@ export default function AllInvoices() {
   };
   //Print Invoice
   const handlePrintInvoice = (record: any): Promise<void> => {
-    console.log(record, "recordss");
     dispatch(
       setFullInvoice({
         id: record?.id,
@@ -264,7 +262,6 @@ export default function AllInvoices() {
   const invoiceDelete = () => {
     deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
   };
-  console.log(invoiceList?.invoices, "invoices in all invoices");
   return (
     <>
       <hr />
@@ -328,7 +325,6 @@ export default function AllInvoices() {
 
                       <TableBody>
                         {filteredData?.map((row: any, index: number) => {
-                          console.log(row, "row12");
                           const labelId = `enhanced-table-checkbox-${index}`;
                           return (
                             <TableRow

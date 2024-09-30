@@ -50,7 +50,6 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
 
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;
-    console.log(InvDetails, "InvDetails212");
     const doc = (
       <PdfView
         invSetting={{ ...InvSetting }}

@@ -33,7 +33,6 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
       setImageUrl(URL.createObjectURL(file));
     }
   };
-  console.log(imageUrl, "ddddd", uploadImage);
   return (
     <>
       {/* circle avatar */}

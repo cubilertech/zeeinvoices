@@ -26,7 +26,6 @@ export const imageConvertion = (image: any) => {
   }
 };
 export const googleImage = (image: string) => {
-  console.log(image, "imageee");
   if (image?.includes("base64,")) {
     return image;
   } else {
