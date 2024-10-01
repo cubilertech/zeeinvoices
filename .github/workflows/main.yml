@@ -49,7 +49,7 @@ jobs:
       - name: Notify in Slack on success
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: testfuse-alerts
+          SLACK_CHANNEL: alerts-deployment
           SLACK_WEBHOOK: https://hooks.slack.com/services/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
           SLACK_COLOR: good
           SLACK_MESSAGE: 'Web prod  deployment successful :tada:'
@@ -63,7 +63,7 @@ jobs:
       - name: Notify in Slack on failure
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: testfuse-alerts
+          SLACK_CHANNEL: alerts-deployment
           SLACK_WEBHOOK: https://hooks.slack.com/services/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
           SLACK_COLOR: danger
           SLACK_MESSAGE: 'Web prod deployment failed :x:'
