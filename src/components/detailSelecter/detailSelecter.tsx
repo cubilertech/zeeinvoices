@@ -353,7 +353,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
     name: InvDetails?.name || "",
     companyName: InvDetails?.companyName || "",
     email: InvDetails?.email || "",
-    phoneNumber: InvDetails?.phoneNumber || "",
+    phoneNumber: InvDetails?.phoneNumber || "+1",
     city: InvDetails?.city || "",
     state: InvDetails?.state || "",
     address: InvDetails?.address || "",
@@ -433,16 +433,19 @@ const DetailSelecter: FC<DetailSelecter> = ({
     },
   });
 
-  //close model
-  const handleModelClose = () => {
-    handleCloseBd();
-    setOpen(false);
-  };
   // backdrop for modal
   const [openBd, setOpenBd] = React.useState(false);
   const handleCloseBd = () => {
     setOpenBd(false);
   };
+
+  //close model
+  const handleModelClose = () => {
+    resetForm();
+    handleCloseBd();
+    setOpen(false);
+  };
+
   function isString(value: any): value is string {
     return typeof value === "string";
   }
@@ -880,7 +883,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     onChange={(value) => {
                       setFieldValue("phoneNumber", value);
                     }} // Use Formik's setFieldValue to update the state
-                    onCountrySelect={(selectedCountry) => {}}
+                    onCountrySelect={(selectedCountry) => {
+                      setFieldValue("countryCode", selectedCountry.code);
+                    }}
                     height="48px"
                   />
 

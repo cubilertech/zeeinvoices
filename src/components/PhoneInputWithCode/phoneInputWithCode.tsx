@@ -113,7 +113,15 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
       }
     }
   };
-
+  React.useEffect(() => {
+    const foundCountry = countries.find((country) =>
+      phoneInput?.startsWith(`+${country.phone}`)
+    );
+    if (foundCountry) {
+      setSelectedCountryCode(foundCountry.code.toLowerCase()); // Update flag based on typed code
+    }
+  }, [phoneInput]);
+  console.log(value, "val");
   return (
     <>
       <Stack direction={"row"} sx={{ width: { width }, height: { height } }}>

@@ -12,7 +12,7 @@ import { Formik, Form, Field, FieldProps } from "formik";
 import { PhoneInput } from "react-international-phone";
 import * as Yup from "yup";
 import "react-international-phone/style.css";
-import "@/Styles/contactPhoneNoStyle.css";
+import "@/Styles/getIntTouchPhoneNoStyle.css";
 import "./getTouchedFrom.css";
 
 const validationSchema = Yup.object({
