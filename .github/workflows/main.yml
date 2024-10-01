@@ -50,7 +50,7 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: alerts-deployment
-          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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
           SLACK_COLOR: good
           SLACK_MESSAGE: 'Web prod  deployment successful :tada:'
           SLACK_AUTHOR: ${{ github.actor }}
@@ -64,7 +64,7 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: alerts-deployment
-          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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
           SLACK_COLOR: danger
           SLACK_MESSAGE: 'Web prod deployment failed :x:'
           SLACK_AUTHOR: ${{ github.actor }}
