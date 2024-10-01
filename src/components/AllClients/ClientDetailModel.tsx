@@ -18,6 +18,7 @@ import "@/Styles/phoneNoStyle.css";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { PhoneInputWithCode } from "../PhoneInputWithCode";
 // import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 
 const countryCodes = [
@@ -317,6 +318,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    setFieldValue,
     touched,
     errors,
     resetForm,
@@ -525,7 +527,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                     error={touched.email && Boolean(errors.email)}
                   ></TextField>
                 </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <Typography
                     variant="text-sm-medium"
                     sx={{ marginBottom: "5px" }}
@@ -550,6 +552,35 @@ const ClientDetailModel: FC<ClientDetail> = ({
                       {isString(errors.phoneNumber)
                         ? errors.phoneNumber
                         : "Invalid phone number"}
+                    </Typography>
+                  )}
+                </FormControl> */}
+                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                  <Typography
+                    variant="text-sm-medium"
+                    sx={{ marginBottom: "5px" }}
+                  >
+                    Phone
+                  </Typography>
+
+                  <PhoneInputWithCode
+                    value={values.phoneNumber} // Bind Formik's phoneNumber value
+                    onChange={(value) => {
+                      setFieldValue("phoneNumber", value);
+                    }} // Use Formik's setFieldValue to update the state
+                    onCountrySelect={(selectedCountry) => {}}
+                    height="48px"
+                  />
+
+                  {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                    <Typography
+                      color="error"
+                      variant="text-xs-regular"
+                      sx={{ marginTop: "5px", marginLeft: "15px" }}
+                    >
+                      {typeof errors.phoneNumber === "string"
+                        ? errors.phoneNumber
+                        : "Invalid phone number"}{" "}
                     </Typography>
                   )}
                 </FormControl>

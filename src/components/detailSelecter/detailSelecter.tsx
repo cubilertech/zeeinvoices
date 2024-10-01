@@ -42,6 +42,7 @@ import {
   setResetSelectedList,
   setSenderSelected,
 } from "@/redux/features/listSelected";
+import { PhoneInputWithCode } from "../PhoneInputWithCode";
 
 const countryCodes = [
   "+1",
@@ -395,6 +396,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
     touched,
     errors,
     resetForm,
+    setFieldValue,
   } = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -537,7 +539,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
       refetchSenderList();
     }
   }, [refetchClientList, refetchSenderList, session?.accessToken]);
- 
+
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   useEffect(() => {
@@ -836,7 +838,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     error={touched.email && Boolean(errors.email)}
                   ></TextField>
                 </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <Typography
                     variant="text-sm-medium"
                     sx={{ marginBottom: "5px" }}
@@ -861,6 +863,37 @@ const DetailSelecter: FC<DetailSelecter> = ({
                       {isString(errors.phoneNumber)
                         ? errors.phoneNumber
                         : "Invalid phone number"}
+                    </Typography>
+                  )}
+                </FormControl> */}
+                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                  <Typography
+                    variant="text-sm-medium"
+                    sx={{ marginBottom: "5px" }}
+                  >
+                    Phone
+                  </Typography>
+
+                  <PhoneInputWithCode
+                    value={values.phoneNumber} // Bind Formik's phoneNumber value
+                    onChange={(value) => {
+                      setFieldValue("phoneNumber", value);
+                    }} // Use Formik's setFieldValue to update the state
+                    onCountrySelect={(selectedCountry) => {}}
+                    height="48px"
+                  />
+
+                  {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                    <Typography
+                      color="error"
+                      variant="text-xs-regular"
+                      sx={{ marginTop: "5px", marginLeft: "15px" }}
+                    >
+                      {/* {errors.phoneNumber || "Invalid phone number"} */}
+                      {typeof errors.phoneNumber === "string"
+                        ? errors.phoneNumber
+                        : "Invalid phone number"}{" "}
+                      {/* Ensure it's a string or fallback */}
                     </Typography>
                   )}
                 </FormControl>

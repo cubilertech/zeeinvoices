@@ -30,6 +30,7 @@ import { imageConvertion } from "@/utils/common";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountValue, increment } from "@/redux/features/counterSlice";
+import { PhoneInputWithCode } from "../PhoneInputWithCode";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -102,57 +103,64 @@ const Profile: FC<Profile> = ({}) => {
     address?: string;
   }
 
-  const { values, handleBlur, handleChange, handleSubmit, touched, errors } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: validationSchema,
-      enableReinitialize: true,
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+    touched,
+    errors,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    enableReinitialize: true,
 
-      validate: (values) => {
-        const errors: FormErrors = {}; // Use FormErrors type here
+    validate: (values) => {
+      const errors: FormErrors = {}; // Use FormErrors type here
 
-        // Validate other fields
-        // ...
+      // Validate other fields
+      // ...
 
-        // Validate phone number
-        const phoneError = validatePhoneNumber(
-          values.phoneNumber,
-          values.countryCode
-        );
-        if (phoneError) {
-          errors.phoneNumber = phoneError;
-        }
+      // Validate phone number
+      const phoneError = validatePhoneNumber(
+        values.phoneNumber,
+        values.countryCode
+      );
+      if (phoneError) {
+        errors.phoneNumber = phoneError;
+      }
 
-        return errors;
-      },
+      return errors;
+    },
 
-      onSubmit: (values) => {
-        const data = {
-          name: values.name,
-          email: values.email,
-          phoneNumber: values.phoneNumber,
-          city: values.city,
-          state: values.state,
-          address: values.address,
-          ...(uploadImage ? { image: uploadImage } : {}),
-          // image: image,
-        };
+    onSubmit: (values) => {
+      const data = {
+        name: values.name,
+        email: values.email,
+        phoneNumber: values.phoneNumber,
+        city: values.city,
+        state: values.state,
+        address: values.address,
+        ...(uploadImage ? { image: uploadImage } : {}),
+        // image: image,
+      };
 
-        profileUpdate({
-          apiRoute: `${backendURL}/users/my-profile`,
-          data: data,
+      profileUpdate({
+        apiRoute: `${backendURL}/users/my-profile`,
+        data: data,
+      })
+        .then((res) => {
+          setUploadImage(null);
+          setImageUrl(res?.image);
+          dispatch(increment());
+          console.log("Updateed Succesfully");
         })
-          .then((res) => {
-            setUploadImage(null);
-            setImageUrl(res?.image);
-            dispatch(increment());
-            console.log("Updateed Succesfully");
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      },
-    });
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  });
 
   function isString(value: any): value is string {
     return typeof value === "string";
@@ -375,7 +383,7 @@ const Profile: FC<Profile> = ({}) => {
                         error={touched.email && Boolean(errors.email)}
                       />
                     </FormControl>
-                    <FormControl
+                    {/* <FormControl
                       sx={{
                         width: { sm: "333px", xs: "100%" },
                         mt: { sm: 0, xs: 1 },
@@ -414,6 +422,40 @@ const Profile: FC<Profile> = ({}) => {
                           {isString(errors.phoneNumber)
                             ? errors.phoneNumber
                             : "Invalid phone number"}
+                        </Typography>
+                      )}
+                    </FormControl> */}
+                    <FormControl
+                      sx={{
+                        width: { sm: "333px", xs: "100%" },
+                        mt: { sm: 0, xs: 1 },
+                      }}
+                    >
+                      <Typography
+                        variant="text-sm-medium"
+                        sx={{ marginBottom: "5px" }}
+                      >
+                        Phone
+                      </Typography>
+
+                      <PhoneInputWithCode
+                        value={values.phoneNumber} // Bind Formik's phoneNumber value
+                        onChange={(value) => {
+                          setFieldValue("phoneNumber", value);
+                        }} // Use Formik's setFieldValue to update the state
+                        onCountrySelect={(selectedCountry) => {}}
+                        height="48px"
+                      />
+
+                      {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                        <Typography
+                          color="error"
+                          variant="text-xs-regular"
+                          sx={{ marginTop: "5px", marginLeft: "15px" }}
+                        >
+                          {typeof errors.phoneNumber === "string"
+                            ? errors.phoneNumber
+                            : "Invalid phone number"}{" "}
                         </Typography>
                       )}
                     </FormControl>

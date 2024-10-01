@@ -4,6 +4,7 @@ import {
   Box,
   Grid,
   IconButton,
+  InputAdornment,
   Stack,
   TextField,
   Typography,
@@ -148,6 +149,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               "& .MuiOutlinedInput-root": {
                 height: "32px !important",
                 borderRadius: "2px !important",
+                pr: "5px",
+              },
+              "& .MuiInputBase-root": {
+                // pr: "0px",
+              },
+              "& .MuiInputBase-input": {
+                pr: "0px",
               },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
@@ -191,6 +199,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 e.preventDefault(); // Prevent entering the minus sign or 'e'
               }
             }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end" sx={{ pl: "0px" }}>
+                  <Typography>{selectedCurrency}</Typography>
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
 
@@ -215,6 +230,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   "& .MuiOutlinedInput-root": {
                     height: "32px !important",
                     borderRadius: "2px !important",
+                    pr: "5px",
+                  },
+                  "& .MuiInputBase-root": {
+                    // pr: "0px",
+                  },
+                  "& .MuiInputBase-input": {
+                    pr: "0px",
                   },
                   "& .MuiInputBase-input::placeholder": {
                     color: palette.color.gray[800],
@@ -248,6 +270,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   if (e.key === "-" || e.key === "e") {
                     e.preventDefault(); // Prevent entering the minus sign or 'e'
                   }
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Typography>%</Typography>
+                    </InputAdornment>
+                  ),
                 }}
               />
             ) : (

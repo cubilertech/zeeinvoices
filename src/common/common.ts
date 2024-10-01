@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 export const calculateAmount = (cartData: any) => {
   let total = 0;
   if (cartData) {
-    cartData?.map((data: any) => (total += data.subTotal));
+    cartData?.map((data: any) => (total += Number(data.subTotal)));
   }
   return total;
 };

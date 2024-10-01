@@ -1,11 +1,13 @@
 "use client";
 import { palette } from "@/theme/palette";
 import {
+  Autocomplete,
   Box,
   Button,
   IconButton,
   Popover,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
@@ -15,10 +17,15 @@ import { ColorPicker } from "../ColorPicker";
 import { ColorPickerMenuButton } from "../ColorPickerMenuButton";
 import { HexColorPicker } from "react-colorful";
 import { useSelector, useDispatch } from "react-redux";
-import { getColors, setInvoiceColor } from "@/redux/features/invoiceSetting";
+import {
+  getColors,
+  getCurrency,
+  setCurrency,
+  setInvoiceColor,
+} from "@/redux/features/invoiceSetting";
 import { RootState } from "@/redux/store";
 import { Close } from "@mui/icons-material";
-import { PhoneInputWithCode } from "../PhoneInputWithCode";
+import { Icon } from "../Icon";
 
 interface InvoiceSettings {
   InvSetting?: any;
@@ -214,6 +221,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const [colors, setColors] = useState(initialColors);
   const [color, setColor] = useState("");
   const [pickColor, setPickColor] = useState("");
+  const selectedCurrency = useSelector(getCurrency);
   // Color Change
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
@@ -261,6 +269,10 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const handleSelectedItem = (item: string) => {
+    dispatch(setCurrency(item));
+  };
 
   return (
     <Box
@@ -371,11 +383,40 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         </Typography>
         <hr style={{ marginTop: -8 }} />
         <Box sx={{ width: "100%", marginTop: 1 }}>
-          <SelectInput
+          {/* <SelectInput
             width={"100%"}
             type="currency"
             menuData={currencies}
-          ></SelectInput>
+          ></SelectInput> */}
+          <Autocomplete
+            disablePortal
+            options={currencies}
+            value={selectedCurrency}
+            popupIcon={<Icon icon="arrowDownIcon" width={16} height={16} />} // Custom dropdown icon
+            sx={{
+              width: "100%",
+              "&.css-1a1xsof-MuiAutocomplete-root .MuiOutlinedInput-root": {
+                py: "0px",
+              },
+            }}
+            onChange={(event, newValue) => {
+              if (newValue) {
+                handleSelectedItem(newValue); // Call your method on selection
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                sx={{
+                  "& .MuiInputBase-input": {
+                    height: "8px",
+                  },
+                }}
+                // label="Currency"
+                placeholder="Currency"
+              />
+            )}
+          />
         </Box>
         <Typography
           variant="text-sm-regular"

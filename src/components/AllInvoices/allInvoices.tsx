@@ -428,7 +428,7 @@ export default function AllInvoices() {
                                   {row?.settings?.currency == "USD"
                                     ? "$"
                                     : row?.settings?.currency}{" "}
-                                  {calculateAmount(row?.items)?.toFixed(2)}
+                                  { row?.items ? calculateAmount(row?.items)?.toFixed(2) : 0}
                                 </Typography>
                               </TableCell>
                               <TableCell align="left" className="tableCell">
