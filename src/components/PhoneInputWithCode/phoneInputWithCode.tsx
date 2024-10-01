@@ -47,7 +47,7 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
   );
   const [searchQuery, setSearchQuery] = React.useState(""); // State for search query
   const [filteredCountries, setFilteredCountries] = React.useState(countries); // State for filtered countries
-  const [phoneInput, setPhoneInput] = React.useState(""); // State for phone input
+  const [phoneInput, setPhoneInput] = React.useState(value); // State for phone input
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -183,7 +183,7 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
         }}
         sx={{
           "& .css-9qdm89-MuiPaper-root-MuiPopover-paper": {
-            width: "270px",
+            // width: "270px",
             borderRadius: { borderRadius },
           },
           "& .MuiInputBase-input": {
@@ -194,54 +194,62 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
           },
         }}
       >
-        <Box
-          sx={{
-            padding: "10px",
-          }}
-        >
-          <TextField
-            placeholder="Search"
-            value={searchQuery} // Search input value
-            onChange={handleSearch} // Handle search input change
-            sx={{ width: "100%" }}
-          />
-        </Box>
-        <Box
-          sx={{ maxHeight: "180px", overflow: "auto", scrollbarWidth: "thin" }}
-        >
-          {filteredCountries.length > 0 ? (
-            filteredCountries.map((country, index) => (
-              <Stack
-                key={index}
-                direction={"row"}
-                gap={1}
-                sx={{
-                  px: "10px",
-                  py: "5px",
-                  alignItems: "center",
-                  cursor: "pointer", // Add pointer cursor for better UX
-                  ":hover": { backgroundColor: "#e0e0e0" },
-                }}
-                onClick={() => handleCountrySelect(country)} // Handle country selection
+        <Box sx={{ width: "270px" }}>
+          <Box
+            sx={{
+              padding: "10px",
+            }}
+          >
+            <TextField
+              placeholder="Search"
+              value={searchQuery} // Search input value
+              onChange={handleSearch} // Handle search input change
+              sx={{ width: "100%" }}
+            />
+          </Box>
+          <Box
+            sx={{
+              maxHeight: "180px",
+              overflow: "auto",
+              scrollbarWidth: "thin",
+            }}
+          >
+            {filteredCountries.length > 0 ? (
+              filteredCountries.map((country, index) => (
+                <Stack
+                  key={index}
+                  direction={"row"}
+                  gap={1}
+                  sx={{
+                    px: "10px",
+                    py: "5px",
+                    alignItems: "center",
+                    cursor: "pointer", // Add pointer cursor for better UX
+                    ":hover": { backgroundColor: "#e0e0e0" },
+                  }}
+                  onClick={() => handleCountrySelect(country)} // Handle country selection
+                >
+                  <Box>
+                    <Image
+                      loading="lazy"
+                      width={20}
+                      height={15}
+                      src={`https://flagcdn.com/w20/${country.code.toLowerCase()}.png`}
+                      alt={`${country.label} flag`}
+                    />
+                  </Box>
+                  <Typography>{country.label}</Typography>
+                  <Typography>+{country.phone}</Typography>
+                </Stack>
+              ))
+            ) : (
+              <Typography
+                sx={{ width: "100%", p: "10px", textAlign: "center" }}
               >
-                <Box>
-                  <Image
-                    loading="lazy"
-                    width={20}
-                    height={15}
-                    src={`https://flagcdn.com/w20/${country.code.toLowerCase()}.png`}
-                    alt={`${country.label} flag`}
-                  />
-                </Box>
-                <Typography>{country.label}</Typography>
-                <Typography>+{country.phone}</Typography>
-              </Stack>
-            ))
-          ) : (
-            <Typography sx={{ width: "100%", p: "10px", textAlign: "center" }}>
-              Not found
-            </Typography>
-          )}
+                Not found
+              </Typography>
+            )}
+          </Box>
         </Box>
       </Popover>
     </>

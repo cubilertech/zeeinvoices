@@ -113,7 +113,7 @@ const InvoiceDetail = () => {
         detail: singleInvoice?.settings?.detail,
       })
     );
-    router.push(`/invoices/${id}/edit`);
+    router.push(`/invoices/${singleInvoice?._id}/edit`);
   };
 
   // Back Handle

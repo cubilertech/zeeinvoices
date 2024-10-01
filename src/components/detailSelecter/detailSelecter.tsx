@@ -876,6 +876,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
                   <PhoneInputWithCode
                     value={values.phoneNumber} // Bind Formik's phoneNumber value
+                    // defaultCountryPhoneCode={values.countryCode}
                     onChange={(value) => {
                       setFieldValue("phoneNumber", value);
                     }} // Use Formik's setFieldValue to update the state
