@@ -13,12 +13,13 @@ const accordionData = [
     title: "How do I create an account with ZeeInvoices?",
     desc: `
       <style>
+        .faqlink {text-decoration: underline;}
         a:hover {
           color: #4F35DF;
           text-decoration: underline;
         }
       </style>
-      You can create an account by visiting <a href="https://www.zeeinvoices.com/" target="_blank">https://www.zeeinvoices.com</a> and clicking on the 'Sign Up' button. Follow the registration process by providing your name, email address, and other required information. Once completed, you'll receive a confirmation email to activate your account. It's completely free!
+      You can create an account by visiting <a class = "faqlink" href="https://www.zeeinvoices.com/" target="_blank">https://www.zeeinvoices.com</a> and clicking on the 'Sign Up' button. Follow the registration process by providing your name, email address, and other required information. Once completed, you'll receive a confirmation email to activate your account. It's completely free!
     `,
   },
   {
@@ -39,7 +40,16 @@ const accordionData = [
   },
   {
     title: "How can I contact customer support if I need help?",
-    desc: "You can reach our customer support team by calling +1 480 920 1123 or by emailing us at support@zeeinvoices.com. Our support team is available to assist you with any questions or issues you may have.",
+    desc: `
+      <style>
+        .faqlink {text-decoration: underline;}
+        a:hover {
+          color: #4F35DF;
+          text-decoration: underline;
+        }
+      </style>
+      You can reach our customer support team by calling +1 480 920 1123 or by emailing us at <a class = "faqlink" href="https://mail.google.com/mail/?view=cm&to=support@zeeinvoices.com" target="_blank">support@zeeinvoices.com</a>. Our support team is available to assist you with any questions or issues you may have.
+    `,
   },
   {
     title:
