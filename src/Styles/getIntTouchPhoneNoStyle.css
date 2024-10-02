@@ -12,11 +12,6 @@
   height: 48px;
 }
 
-.react-international-phone-input-container .react-international-phone-input {
-  height: 48px;
-  width: 100%;
-}
-
 .react-international-phone-input-container
   .react-international-phone-country-selector-button {
   width: 55px;
@@ -26,6 +21,7 @@
 }
 
 .react-international-phone-input-container .react-international-phone-input {
+  height: 48px;
   /* width: 200px; */
   width: 400px;
   border-bottom-right-radius: 8px;
