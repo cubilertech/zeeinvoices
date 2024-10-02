@@ -48,12 +48,13 @@ const HeroSection = () => {
               <Typography
                 variant="display-3xl-bold"
                 sx={{
-                  width: { md: "596px", xs: "335px" },
+                  width: { md: "596px", xs: "100%" },
                   fontSize: { md: "74px", xs: "32px" },
                   lineHeight: { md: "75px", xs: "39px" },
                   fontWeight: { md: 700 },
                   color: palette.color.gray[755],
                   fontFamily: "Product Sans, sans-serif",
+                  textAlign: { sm: "left", xs: "center" },
                 }}
               >
                 AI powered{" "}
@@ -90,11 +91,12 @@ const HeroSection = () => {
             <Typography
               variant="display-xs1-regular"
               sx={{
-                maxWidth: { md: "600px", xs: "335px" },
+                maxWidth: { md: "600px", xs: "100%" },
                 color: palette.color.gray[745],
                 fontFamily: "Product Sans, sans-serif",
                 fontSize: { sm: "24px !important", xs: "18px !important" },
                 lineHeight: { sm: "29px !important", xs: "21px !important" },
+                textAlign: { sm: "left", xs: "center" },
               }}
             >
               Simplify your invoicing process and focus on what really

@@ -216,11 +216,11 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       {/* Third section, Date pickers */}
       <Stack
         direction={"row"}
-        justifyContent={"space-between"}
+        // justifyContent={"space-between"}
         sx={{
           marginTop: { sm: "2%", xs: 2 },
           flexDirection: { sm: "row", xs: "column" },
-          gap: { sm: 0, xs: 2 },
+          gap: { sm: 22, xs: 2 },
         }}
       >
         <InvoiceDatePicker title="Invoice Date" />

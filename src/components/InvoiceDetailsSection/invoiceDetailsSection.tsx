@@ -26,7 +26,7 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
   const itemsLength =
     singleInvoice?.invoiceItem &&
     singleInvoice?.invoiceItem[0]?.name !== "" &&
-    singleInvoice?.invoiceItem[0].quantity !== 0
+    singleInvoice?.invoiceItem[0].quantity >= 0
       ? true
       : false;
 
@@ -111,7 +111,8 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
       {/* Third section, Dates (Invoice  and Due) */}
       <Stack
         direction={"row"}
-        justifyContent={"space-between"}
+        gap={{ sm: 38, xs: 10 }}
+        // justifyContent={"space-between"}
         sx={{ marginTop: 2 }}
       >
         <Stack
@@ -157,7 +158,11 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
           <Typography sx={{ color: palette.base.white }}>Items</Typography>
         </Grid>
         <Grid
-          sx={{ padding: "8px", paddingTop: "8px !important", pl: "45px !important" }}
+          sx={{
+            padding: "8px",
+            paddingTop: "8px !important",
+            pl: "45px !important",
+          }}
           item
           xs={1.8}
         >

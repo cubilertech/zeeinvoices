@@ -35,7 +35,7 @@ const SelectInput: FC<SelectInput> = ({
   return (
     <Box borderRadius={1}>
       <Stack direction={"column"} spacing={0.2}>
-        <Typography variant="text-sm-medium">
+        <Typography variant="text-sm-medium" sx={{ fontWeight: 600 }}>
           {type === "currency" || type === "Select SR" ? "" : type}
         </Typography>
         <Select

@@ -13,7 +13,9 @@ const accordionData = [
     title: "How do I create an account with ZeeInvoices?",
     desc: `
       <style>
-        .faqlink {text-decoration: underline;}
+        .faqlink {
+          color: #4F35DF;
+          }
         a:hover {
           color: #4F35DF;
           text-decoration: underline;
@@ -42,7 +44,9 @@ const accordionData = [
     title: "How can I contact customer support if I need help?",
     desc: `
       <style>
-        .faqlink {text-decoration: underline;}
+        .faqlink {
+          color: #4F35DF;
+          }
         a:hover {
           color: #4F35DF;
           text-decoration: underline;
@@ -126,8 +130,7 @@ const FAQsSection = () => {
           textAlign: { xs: "center" },
         }}
       >
-        Everything you need to know about the product and billing. about the
-        product and billing and billing
+        Everything you need to know about the product and billing.
       </Typography>
       <Container
         maxWidth="lg"

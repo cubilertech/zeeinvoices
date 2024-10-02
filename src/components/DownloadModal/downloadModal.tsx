@@ -42,10 +42,7 @@ const DownloadModal: FC<DownloadModal> = ({
         <Box sx={style}>
           <Stack direction={"column"} gap={2}>
             <Stack direction={"column"} gap={1}>
-              <Typography variant="text-lg-semibold">
-                If you want to Download then watermark will be added, if you
-                want to download without watermark click Login{" "}
-              </Typography>
+              <Typography variant="text-lg-semibold">Download</Typography>
               <Typography variant="text-sm-regular">
                 You can save and keep records of your invoices by just logging
                 in with Google.

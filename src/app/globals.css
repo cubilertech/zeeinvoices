@@ -13,5 +13,6 @@
 body {
   color: var(--black);
   background: var(--white);
-  font-family: Product Sans, sans-serif !important;
+  /* font-family: Product Sans, sans-serif !important; */
+  font-family: Inter !important;
 }

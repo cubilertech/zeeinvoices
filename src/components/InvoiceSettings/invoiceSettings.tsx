@@ -313,7 +313,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         {/* Color palette for color selection */}
         <Typography
           variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2 }}
+          sx={{ paddingBottom: 2, paddingTop: 2, fontWeight: 600 }}
         >
           Color
         </Typography>
@@ -377,7 +377,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         {/* Currency selection */}
         <Typography
           variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2 }}
+          sx={{ paddingBottom: 2, paddingTop: 2, fontWeight: 600 }}
         >
           Currency
         </Typography>
@@ -420,12 +420,12 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         </Box>
         <Typography
           variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2 }}
+          sx={{ paddingBottom: 2, paddingTop: 2, fontWeight: 600 }}
         >
           Invoice Detail
         </Typography>
         <hr style={{ marginTop: -8 }} />
-        <Box sx={{ px: "20px" }}>
+        <Box>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>
           {/* <SwitchInput type="shipping" lable="Shipping details"></SwitchInput> */}

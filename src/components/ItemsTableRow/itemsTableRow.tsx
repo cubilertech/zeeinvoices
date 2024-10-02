@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceItem } from "@/redux/features/invoiceSlice";
@@ -30,6 +30,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   showRemoveButton,
 }) => {
   const dispatch = useDispatch();
+  const [taxValue, setTaxValue] = useState("");
   const selectedCurrency = useSelector(getCurrency);
   const selectedTax = useSelector(getTax);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -116,9 +117,9 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             id="outlined-basic"
             name="quantity"
             type="number"
-            placeholder="00                "
+            placeholder="00"
             variant="outlined"
-            value={data.quantity > 0 ? data.quantity : ""}
+            value={data.quantity >= 0 ? data.quantity : ""}
             inputProps={{ min: 0 }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const value = parseInt(e.target.value, 10);
@@ -221,9 +222,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           >
             {selectedTax ? (
               <TextField
-                // InputProps={{
-                //   inputProps: { min: 0, max: 100 },
-                // }}
                 sx={{
                   borderRadius: "3px",
                   color: palette.color.gray[700],
@@ -261,9 +259,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 variant="outlined"
                 value={data.tax > 0 ? data.tax : ""}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  const value = parseInt(e.target.value, 10);
-                  if (value >= 0 || e.target.value === "") {
-                    handleChange(e); // Now the type should match
+                  const value = e.target.value;
+                  // Ensure that only up to 4 digits can be entered
+                  if (/^\d{0,4}$/.test(value)) {
+                    handleChange(e);
                   }
                 }}
                 onKeyDown={(e) => {
@@ -277,6 +276,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                       <Typography>%</Typography>
                     </InputAdornment>
                   ),
+                }}
+                inputProps={{
+                  maxLength: 4, // Max length of 4 digits
+                  inputMode: "numeric", // For numeric input on mobile
+                  pattern: "[0-9]*", // Restrict to digits
                 }}
               />
             ) : (

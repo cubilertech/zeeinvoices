@@ -62,7 +62,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     []
   );
   const [InvoiceId, UpdateInvoiceId] = useState(
-    InvDetails.id ? InvDetails.id : `ZT-${InvoiceRendomId}`
+    InvDetails.id ? InvDetails.id : `00${InvoiceRendomId}`
   );
 
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);

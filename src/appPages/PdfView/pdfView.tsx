@@ -130,7 +130,7 @@ const PdfView: FC<PdfViewProps> = ({
         }}
       >
         {/* Watermark */}
-        {!user && (
+        {/* {!user && (
           <View
             style={{
               width: 277,
@@ -147,7 +147,7 @@ const PdfView: FC<PdfViewProps> = ({
           >
             <Image src="/Images/icons/watermark-icon.png" />
           </View>
-        )}
+        )} */}
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
@@ -389,8 +389,8 @@ const PdfView: FC<PdfViewProps> = ({
         >
           <Text
             style={{
-              width: "233px",
-              fontSize: "10px",
+              width: "196px",
+              fontSize: "12px",
               fontWeight: "bold",
               color: "white",
             }}
@@ -399,8 +399,8 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "37px",
-              fontSize: "10px",
+              width: "44px",
+              fontSize: "12px",
               fontWeight: "bold",
               color: "white",
             }}
@@ -409,8 +409,8 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "50px",
-              fontSize: "10px",
+              width: "45px",
+              fontSize: "12px",
               fontWeight: "bold",
               color: "white",
               marginLeft: "25",
@@ -422,7 +422,7 @@ const PdfView: FC<PdfViewProps> = ({
             <Text
               style={{
                 width: "50px",
-                fontSize: "10px",
+                fontSize: "12px",
                 fontWeight: "bold",
                 color: "white",
                 marginLeft: "25",
@@ -431,14 +431,23 @@ const PdfView: FC<PdfViewProps> = ({
               Tax
             </Text>
           ) : (
-            ""
+            <Text
+              style={{
+                width: "50px",
+                fontSize: "12px",
+                fontWeight: "bold",
+                color: "white",
+                marginLeft: "25",
+              }}
+            ></Text>
           )}
           <Text
             style={{
-              marginLeft: "35px",
-              fontSize: "10px",
+              marginLeft: "60px",
+              fontSize: "12px",
               fontWeight: "bold",
               color: "white",
+              textAlign: "right",
             }}
           >
             Subtotal
@@ -478,7 +487,7 @@ const PdfView: FC<PdfViewProps> = ({
                       fontSize: "10px",
                       fontWeight: "bold",
                       marginLeft: "1px",
-                      textAlign: "right",
+                      textAlign: "left",
                     }}
                   >
                     {data?.quantity}
@@ -489,7 +498,7 @@ const PdfView: FC<PdfViewProps> = ({
                       fontSize: "10px",
                       fontWeight: "bold",
                       marginLeft: "17px",
-                      textAlign: "right",
+                      textAlign: "left",
                     }}
                   >
                     {currency} {data?.rate}
@@ -501,13 +510,21 @@ const PdfView: FC<PdfViewProps> = ({
                         fontSize: "10px",
                         fontWeight: "bold",
                         marginLeft: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                       }}
                     >
                       {data?.tax} %
                     </Text>
                   ) : (
-                    ""
+                    <Text
+                      style={{
+                        width: "50px",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        marginLeft: "22px",
+                        textAlign: "left",
+                      }}
+                    ></Text>
                   )}
 
                   <Text
@@ -579,7 +596,7 @@ const PdfView: FC<PdfViewProps> = ({
                 gap: 6,
               }}
             >
-              <Text style={{ fontSize: "12px" }}>Terms & Conditions</Text>
+              {/* <Text style={{ fontSize: "12px" }}>Terms & Conditions</Text>
               <Text
                 style={{
                   fontSize: "10px",
@@ -594,7 +611,7 @@ const PdfView: FC<PdfViewProps> = ({
                 give us permission to use it to improve our services. Texas law
                 governs these Terms, and any changes will be posted on our
                 website.
-              </Text>
+              </Text> */}
             </View>
           </View>
           {/* summary */}
@@ -646,11 +663,11 @@ const PdfView: FC<PdfViewProps> = ({
                 borderBottom: "1px solid #E0E0E0",
               }}
             >
-              <Text style={{ fontSize: "12px", color: "#767676" }}>
+              <Text style={{ fontSize: "12px", color: "#000000" }}>
                 Subtotal
               </Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
+                <Text style={{ fontSize: "12px", color: "#000000" }}>
                   {currencyText}
                 </Text>
                 <Text style={{ fontSize: "12px" }}> {summarySubTotal}</Text>
@@ -669,8 +686,8 @@ const PdfView: FC<PdfViewProps> = ({
                   borderBottom: "1px solid #E0E0E0",
                 }}
               >
-                <Text style={{ fontSize: "12px", color: "#767676" }}>Tax</Text>
-                <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
+                <Text style={{ fontSize: "12px", color: "#000000" }}>Tax</Text>
+                <Text style={{ fontSize: "12px", color: "#000000" }}>
                   {Summary?.taxAmount > 0
                     ? currencyText + " " + Summary?.taxAmount.toFixed(2)
                     : "--"}
@@ -688,9 +705,9 @@ const PdfView: FC<PdfViewProps> = ({
                 paddingBottom: "10px",
               }}
             >
-              <Text style={{ fontSize: "12px", color: "#767676" }}>Total</Text>
+              <Text style={{ fontSize: "12px", color: "#000000" }}>Total</Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ fontSize: "12px", color: "#4F4F4F" }}>
+                <Text style={{ fontSize: "12px", color: "#000000" }}>
                   {currencyText}
                 </Text>
                 <Text style={{ fontSize: "12px" }}>

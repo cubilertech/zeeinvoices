@@ -336,7 +336,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
       // }}
     >
       {title && (
-        <Typography variant="text-sm-regular">
+        <Typography variant="text-sm-medium" sx={{ fontWeight: 600 }}>
           {title == "From" ? "Sender Details" : "Recipient Details"}
         </Typography>
       )}
