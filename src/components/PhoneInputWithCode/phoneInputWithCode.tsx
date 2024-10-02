@@ -47,7 +47,7 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
   );
   const [searchQuery, setSearchQuery] = React.useState(""); // State for search query
   const [filteredCountries, setFilteredCountries] = React.useState(countries); // State for filtered countries
-  const [phoneInput, setPhoneInput] = React.useState(value); // State for phone input
+  const [phoneInput, setPhoneInput] = React.useState(value || "+1"); // State for phone input
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -121,7 +121,7 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
       setSelectedCountryCode(foundCountry.code.toLowerCase()); // Update flag based on typed code
     }
   }, [phoneInput]);
-  console.log(value, "val");
+
   return (
     <>
       <Stack direction={"row"} sx={{ width: { width }, height: { height } }}>

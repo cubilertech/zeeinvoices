@@ -15,18 +15,26 @@ const style = {
   p: 3,
 };
 // Capitalize String
-function capitalizeFirstLetter(title?:string) {
+function capitalizeFirstLetter(title?: string) {
   if (!title) return "";
-  return title.charAt(0).toLocaleUpperCase() + title.slice(1).toLocaleLowerCase();
+  return (
+    title.charAt(0).toLocaleUpperCase() + title.slice(1).toLocaleLowerCase()
+  );
 }
 interface DeleteModal {
   onDelete?: () => void;
   onClose: () => void;
   open: boolean;
-  invoiceDelete:any
-  title?:string
+  invoiceDelete: any;
+  title?: string;
 }
-const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete,title }) => {
+const DeleteModal: FC<DeleteModal> = ({
+  onDelete,
+  onClose,
+  open,
+  invoiceDelete,
+  title,
+}) => {
   return (
     <>
       <Modal
@@ -34,7 +42,6 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete,ti
         onClose={onClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        
       >
         <Box sx={style}>
           <Stack direction={"column"} gap={2}>
@@ -52,7 +59,9 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete,ti
               <Icon icon="deleteRedIcon" />
             </Box>
             <Stack direction={"column"} gap={1}>
-              <Typography variant="text-lg-semibold">Delete {capitalizeFirstLetter(title)}</Typography>
+              <Typography variant="text-lg-semibold">
+                Delete {capitalizeFirstLetter(title)}
+              </Typography>
               <Typography variant="text-sm-regular">
                 Are you sure you want to delete this {title}?
               </Typography>
@@ -61,7 +70,7 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete,ti
               <Button
                 variant="outlined"
                 sx={{
-                  height:"40px",
+                  height: "40px",
                   width: "100%",
                   marginTop: "15px",
                   border: `1px solid #DADCE0`,
@@ -74,7 +83,7 @@ const DeleteModal: FC<DeleteModal> = ({ onDelete, onClose, open,invoiceDelete,ti
               <Button
                 variant="contained"
                 sx={{
-                  height:"40px",
+                  height: "40px",
                   width: "100%",
                   backgroundColor: "#DD3409",
                   marginTop: "15px",

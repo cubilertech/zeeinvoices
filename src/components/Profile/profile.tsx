@@ -31,6 +31,7 @@ import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountValue, increment } from "@/redux/features/counterSlice";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
+import { countryCodes } from "@/utils/data";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -189,6 +190,30 @@ const Profile: FC<Profile> = ({}) => {
       return "Invalid phone number";
     }
     return "";
+  };
+  const handlePhoneInputChange = (value: string) => {
+    console.log(value, "val");
+    const isCountryCodeOnly = countryCodes.some(
+      (code) => value === code || value === `${code} `
+    );
+
+    if (isCountryCodeOnly) {
+      // Clear the phone number field if only country code is entered
+      handleChange({
+        target: {
+          name: "phoneNumber",
+          value: "",
+        },
+      });
+    } else {
+      // Otherwise, update with the full value
+      handleChange({
+        target: {
+          name: "phoneNumber",
+          value: value,
+        },
+      });
+    }
   };
 
   return (
@@ -440,9 +465,7 @@ const Profile: FC<Profile> = ({}) => {
 
                       <PhoneInputWithCode
                         value={values.phoneNumber} // Bind Formik's phoneNumber value
-                        onChange={(value) => {
-                          setFieldValue("phoneNumber", value);
-                        }} // Use Formik's setFieldValue to update the state
+                        onChange={(value) => handlePhoneInputChange(value)}
                         onCountrySelect={(selectedCountry) => {}}
                         height="48px"
                       />
