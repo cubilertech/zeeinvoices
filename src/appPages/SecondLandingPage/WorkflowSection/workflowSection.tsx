@@ -89,7 +89,7 @@ const WorkflowSection = () => {
           sx={{
             width: "100%",
             pt: { sm: 3, xs: 1 },
-            pb: 7,
+            pb: { sm: 7, xs: 1 },
             backgroundColor: palette.base.white,
             justifyContent: "center",
             alignItems: "center",
@@ -154,7 +154,7 @@ const WorkflowSection = () => {
             <Stack
               direction={"column"}
               gap={3}
-              sx={{ width: { md: "540px", xs: "335px" }, height: "230px" }}
+              sx={{ width: { md: "540px", xs: "335px" }, height: { md: "230px", xs: "180px" } }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText

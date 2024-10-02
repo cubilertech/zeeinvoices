@@ -196,7 +196,7 @@ const UsersSection = () => {
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column" }}
-            gap={9}
+            gap={{ sm: 9, xs: 1 }}
             sx={{
               display: "flex",
               justifyContent: "center",
