@@ -732,7 +732,7 @@ const PdfView: FC<PdfViewProps> = ({
               alignItems: "center",
             }}
           >
-            <View
+            {/* <View
               style={{
                 marginLeft: "50px",
                 width: 90,
@@ -741,7 +741,7 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Image src={"/Images/logos/white-logo.png"} />
-            </View>
+            </View> */}
           </View>
           <View
             style={{
@@ -755,7 +755,7 @@ const PdfView: FC<PdfViewProps> = ({
               alignItems: "center",
             }}
           >
-            <Text
+            {/* <Text
               style={{
                 fontSize: "9px",
                 color: "#5E5E62",
@@ -764,13 +764,15 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               Contact: +1 480 920 1123
-            </Text>
+            </Text> */}
 
             <Text
               style={{
+                width: "100%",
                 fontSize: "9px",
                 color: "#5E5E62",
-                margin: "0px 0px 0px 280px",
+                textAlign: "center",
+                // margin: "0px 0px 0px 240px",
                 fontWeight: "bold",
               }}
             >
