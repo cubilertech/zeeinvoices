@@ -41,30 +41,30 @@ jobs:
       - name: Clean up interim Docker
         run: docker image prune -f && docker container prune -f
 
-  notify_slack_success:
-    runs-on: ubuntu-latest
-    needs: deploy
-    if: success()
-    steps:
-      - name: Notify in Slack on success
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: devops
-          SLACK_WEBHOOK: https://hooks.slack.com/services/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
-          SLACK_COLOR: good
-          SLACK_MESSAGE: 'Web staging deployment successful :tada:'
-          SLACK_AUTHOR: ${{ github.actor }}
+  # notify_slack_success:
+  #   runs-on: ubuntu-latest
+  #   needs: deploy
+  #   if: success()
+  #   steps:
+  #     - name: Notify in Slack on success
+  #       uses: rtCamp/action-slack-notify@v2
+  #       env:
+  #         SLACK_CHANNEL: devops
+  #         SLACK_WEBHOOK: https://hooks.slack.com/services/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
+  #         SLACK_COLOR: good
+  #         SLACK_MESSAGE: 'Web staging deployment successful :tada:'
+  #         SLACK_AUTHOR: ${{ github.actor }}
 
-  notify_slack_failure:
-    runs-on: ubuntu-latest
-    needs: deploy
-    if: failure()
-    steps:
-      - name: Notify in Slack on failure
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: devops
-          SLACK_WEBHOOK: https://hooks.slack.com/services/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
-          SLACK_COLOR: danger
-          SLACK_MESSAGE: 'Web staging deployment failed :x:'
-          SLACK_AUTHOR: ${{ github.actor }}
+  # notify_slack_failure:
+  #   runs-on: ubuntu-latest
+  #   needs: deploy
+  #   if: failure()
+  #   steps:
+  #     - name: Notify in Slack on failure
+  #       uses: rtCamp/action-slack-notify@v2
+  #       env:
+  #         SLACK_CHANNEL: devops
+  #         SLACK_WEBHOOK: https://hooks.slack.com/services/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
+  #         SLACK_COLOR: danger
+  #         SLACK_MESSAGE: 'Web staging deployment failed :x:'
+  #         SLACK_AUTHOR: ${{ github.actor }}
