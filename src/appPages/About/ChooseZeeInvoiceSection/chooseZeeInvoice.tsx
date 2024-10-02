@@ -64,6 +64,7 @@ const ChooseZeeInvoiceSection = () => {
         sx={{
           backgroundColor: "#F7F8F9",
           width: "100%",
+          px: { sm: "0px", xs: "20px" },
           py: { sm: "50px", xs: 3 },
         }}
       >
@@ -127,7 +128,7 @@ const ChooseZeeInvoiceSection = () => {
             <Box
               sx={{
                 width: { sm: "50%", xs: "100%" },
-                mt: { sm: 0, xs: 4 },
+                mt: { sm: 0, xs: 1 },
                 height: { sm: "483px", xs: "310px" },
                 overflow: "hidden",
                 borderRadius: "8px",

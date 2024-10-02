@@ -28,8 +28,15 @@ const AboutPage = () => {
         <HeroSection />
         <OurMissionSection />
         <WeOfferSection />
-        <ChooseZeeInvoiceSection />
-        <JoinUsSection />
+      </Box>
+      <ChooseZeeInvoiceSection />
+      <JoinUsSection />
+      <Box
+        sx={{
+          px: { sm: "0px", xs: "20px" },
+          backgroundColor: palette.base.white,
+        }}
+      >
         <GetInTouchSection />
       </Box>
     </>
