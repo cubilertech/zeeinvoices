@@ -49,8 +49,8 @@ jobs:
       - name: Notify in Slack on success
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: development_alerts
-          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_CHANNEL: alerts
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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
           SLACK_COLOR: good
           SLACK_MESSAGE: 'Web staging deployment successful :tada:'
           SLACK_AUTHOR: ${{ github.actor }}
@@ -63,8 +63,8 @@ jobs:
       - name: Notify in Slack on failure
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: development_alerts
-          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_CHANNEL: alerts
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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
           SLACK_COLOR: danger
           SLACK_MESSAGE: 'Web staging deployment failed :x:'
           SLACK_AUTHOR: ${{ github.actor }}
