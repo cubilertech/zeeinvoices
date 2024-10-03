@@ -17,7 +17,7 @@ jobs:
       - name: Create env file
         run: |
           cat > .env << EOF
-          ${{ secrets.STG_ENV }}
+          ${{ secrets.PROD_ENV }}
           EOF
       - name: Docker build
         run: docker build -t frontend-stg .
