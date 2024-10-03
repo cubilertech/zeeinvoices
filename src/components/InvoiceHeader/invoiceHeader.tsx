@@ -173,22 +173,32 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
-    dispatch(setResetSelectedList());
-
-    // console.log(InvDetails.from?.name, "name", InvDetails.to?.name);
-    // if (InvDetails?.invoiceType == "") {
-    //   dispatch(setInvoiceTypeError(true));
-    // }
-    // if (InvDetails.from?.name == "") {
-    //   dispatch(setSenderDetailsError(true));
-    // }
-    // if (InvDetails.to?.name == "") {
-    //   dispatch(setRecipientDetailsError(true));
-    // }
-
-    if (!session) {
+    console.log(
+      InvDetails?.invoiceType == "",
+      InvDetails.from?.name == "",
+      InvDetails.to?.name == ""
+    );
+    if (
+      InvDetails?.invoiceType == "" ||
+      InvDetails.from?.name == "" ||
+      InvDetails.to?.name == ""
+    ) {
+      if (InvDetails?.invoiceType == "") {
+        await dispatch(setInvoiceTypeError(true));
+      }
+      if (InvDetails.from?.name == "") {
+        await dispatch(setSenderDetailsError(true));
+      }
+      if (InvDetails.to?.name == "") {
+        await dispatch(setRecipientDetailsError(true));
+      }
+    } else if (!session) {
       setLoginModel(true);
-    } else {
+    } else if (!isInvoiceTypeError && !isSenderError && !isRecipientError) {
+      console.log(InvDetails.from?.name, "insave", InvDetails.to?.name);
+
+      dispatch(setResetSelectedList());
+
       const formData = new FormData();
       if (invoiceData.logo) {
         const imageFile = base64ToFile(invoiceData.logo, "uploaded_image.png");
@@ -252,10 +262,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const handleBack = () => {
     router.back();
     // router.push("/invoices");
-    setTimeout(() => {
-      dispatch(setResetInvoiceSetting());
-      dispatch(setResetInvoice());
-    }, 500);
+    // setTimeout(() => {
+    //   dispatch(setResetInvoiceSetting());
+    //   dispatch(setResetInvoice());
+    // }, 500);
   };
 
   const generatePDFDocument = async () => {
@@ -427,7 +437,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             // mt: 2
           }}
           variant="outlined"
-          disabled={!validateButton || isEditInvoiceId}
+          // disabled={!validateButton || isEditInvoiceId}
           onClick={
             // isEditInvoiceId
             //   ? handleShowAlert()

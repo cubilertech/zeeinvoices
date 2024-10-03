@@ -41,6 +41,7 @@ import {
   getInvoiceTypeError,
   getRecipientDetailsError,
   getSenderDetailsError,
+  setResetValidation,
 } from "@/redux/features/validationSlice";
 
 // for handle refresh button
@@ -126,6 +127,10 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const senderSelected = useSelector(getIsSenderSelected);
   const recipientSelected = useSelector(getIsRecipientSelected);
 
+  useEffect(() => {
+    dispatch(setResetValidation());
+  }, [dispatch]);
+
   return (
     <Box
       sx={{
@@ -159,14 +164,14 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
             type="Invoice type"
             menuData={["Bill", "Sales Invoice", "Expense Invoice", "Other"]}
           />
-          {/* {isInvoiceTypeError && (
+          {isInvoiceTypeError && (
             <Typography
               variant="text-xxs-medium"
               sx={{ color: "red", position: "absolute" }}
             >
               Invoice type is required
             </Typography>
-          )} */}
+          )}
         </Box>
         {/* <Box sx={{ width: 92, height: 40 }}>
           <Stack direction={"row"} spacing={2}>

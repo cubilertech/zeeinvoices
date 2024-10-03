@@ -10,6 +10,7 @@ import {
   Stack,
   styled,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -64,6 +65,7 @@ const commentTextData = [
 ];
 
 const UsersSection = () => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
   const [openIndex, setOpenIndex] = useState<number>(0); // for expanding the text description.
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -205,16 +207,18 @@ const UsersSection = () => {
             {/* left section */}
             <Stack
               direction={"column"}
-              gap={3}
+              gap={{ sm: 3, xs: 1 }}
               sx={{ width: { md: "560px", xs: "335px" } }}
             >
               {expandableTextData.map((item, index) => (
                 <SelectableComment
                   key={index}
+                  openIndex={index}
                   imgSrc={item.imgSrc}
                   title1={item.title1}
                   title2={item.title2}
                   desc={item.desc}
+                  commentTextData={commentTextData}
                   isOpen={openIndex === index}
                   onToggle={() => handleToggle(index)}
                   onComplete={handleComplete} // Pass the completion handler
@@ -223,61 +227,63 @@ const UsersSection = () => {
             </Stack>
 
             {/* right section */}
-            <Stack
-              direction={"column"}
-              gap={1}
-              sx={{
-                opacity: isTransitioning ? 0 : 1,
-                transition: "opacity 0.3s ease-in-out",
-              }}
-            >
-              <Typography
-                variant="display-md1-medium"
+            {!isMobile && (
+              <Stack
+                direction={"column"}
+                gap={1}
                 sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.base.black,
-                  fontSize: { md: "28px", xs: "14px" },
-                  lineHeight: { md: "32px", xs: "32px" },
-                  fontWeight: { md: 400 },
+                  opacity: isTransitioning ? 0 : 1,
+                  transition: "opacity 0.3s ease-in-out",
                 }}
               >
-                {commentTextData[openIndex].title1}
-              </Typography>
-              <Rating
-                name="half-rating-read"
-                defaultValue={commentTextData[openIndex].rating}
-                precision={0.5}
-                size="small"
-                readOnly
-                sx={{ color: "#FCC214" }}
-              />
-              <Typography
-                variant="text-xl-regular"
-                sx={{
-                  width: { md: "560px", xs: "335px" },
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                  fontSize: { md: "20px", xs: "12px" },
-                  lineHeight: { md: "24px", xs: "18px" },
-                  fontWeight: { md: 400 },
-                }}
-              >
-                {commentTextData[openIndex].desc1}
-              </Typography>
-              <Typography
-                variant="text-xl-regular"
-                sx={{
-                  width: { md: "560px", xs: "335px" },
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                  fontSize: { md: "20px", xs: "12px" },
-                  lineHeight: { md: "24px", xs: "18px" },
-                  fontWeight: { md: 400 },
-                }}
-              >
-                {commentTextData[openIndex].desc2}
-              </Typography>
-            </Stack>
+                <Typography
+                  variant="display-md1-medium"
+                  sx={{
+                    fontFamily: "Product Sans, sans-serif",
+                    color: palette.base.black,
+                    fontSize: { md: "28px", xs: "14px" },
+                    lineHeight: { md: "32px", xs: "32px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  {commentTextData[openIndex].title1}
+                </Typography>
+                <Rating
+                  name="half-rating-read"
+                  defaultValue={commentTextData[openIndex].rating}
+                  precision={0.5}
+                  size="small"
+                  readOnly
+                  sx={{ color: "#FCC214" }}
+                />
+                <Typography
+                  variant="text-xl-regular"
+                  sx={{
+                    width: { md: "560px", xs: "335px" },
+                    fontFamily: "Product Sans, sans-serif",
+                    color: palette.color.gray[745],
+                    fontSize: { md: "20px", xs: "12px" },
+                    lineHeight: { md: "24px", xs: "18px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  {commentTextData[openIndex].desc1}
+                </Typography>
+                <Typography
+                  variant="text-xl-regular"
+                  sx={{
+                    width: { md: "560px", xs: "335px" },
+                    fontFamily: "Product Sans, sans-serif",
+                    color: palette.color.gray[745],
+                    fontSize: { md: "20px", xs: "12px" },
+                    lineHeight: { md: "24px", xs: "18px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  {commentTextData[openIndex].desc2}
+                </Typography>
+              </Stack>
+            )}
           </Stack>
         </Stack>
       </Container>

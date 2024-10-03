@@ -47,6 +47,8 @@ import { countryCodes } from "@/utils/data";
 import {
   getRecipientDetailsError,
   getSenderDetailsError,
+  setRecipientDetailsError,
+  setSenderDetailsError,
 } from "@/redux/features/validationSlice";
 
 const alphaRegex = /[a-zA-Z]/;
@@ -327,12 +329,21 @@ const DetailSelecter: FC<DetailSelecter> = ({
       dispatch(setResetSelectedList());
     };
 
+    if (showData) {
+      if (detailsOf == "Sender") {
+        dispatch(setSenderDetailsError(false));
+      }
+      if (detailsOf == "Recipient") {
+        dispatch(setRecipientDetailsError(false));
+      }
+    }
+
     window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [dispatch]);
+  }, [dispatch, showData, detailsOf]);
 
   return (
     <Box
@@ -405,15 +416,14 @@ const DetailSelecter: FC<DetailSelecter> = ({
               </Typography>
             </Stack>
           </Box>
-          {/* {isSenderError ||
-            (isRecipientError && (
-              <Typography
-                variant="text-xxs-medium"
-                sx={{ color: "red", position: "absolute" }}
-              >
-                {detailsOf} details are required
-              </Typography>
-            ))} */}
+          {(isSenderError || isRecipientError) && (
+            <Typography
+              variant="text-xxs-medium"
+              sx={{ color: "red", position: "absolute" }}
+            >
+              {detailsOf} details are required
+            </Typography>
+          )}
         </>
       ) : (
         // After data populate
