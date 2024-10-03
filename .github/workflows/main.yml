@@ -17,14 +17,14 @@ jobs:
       - name: Create env file
         run: |
           cat > .env << EOF
-          ${{ secrets.STG_ENV }}
+          ${{ secrets.PROD_ENV }}
           EOF
       - name: Docker build
-        run: docker build -t frontend-stg .
+        run: docker build -t frontend-prod .
         
       - name: Docker stop and remove
         run: |
-          CONTAINER_NAME="frontend-stg-c"
+          CONTAINER_NAME="frontend-prod-c"
           if [[ "$(docker inspect -f '{{.State.Running}}' $CONTAINER_NAME 2>/dev/null)" == "true" ]]; then
             echo "Stopping Docker container $CONTAINER_NAME"
             docker stop $CONTAINER_NAME && docker rm $CONTAINER_NAME && sudo docker system prune -f
@@ -33,10 +33,10 @@ jobs:
           fi
       
       - name: Docker start 
-        run: docker run -d --name frontend-stg-c -p 3002:3000 frontend-stg
+        run: docker run -d --name frontend-prod-c -p 3002:3000 frontend-prod
 
       - name: Docker show logs 
-        run: sleep 50 && docker logs frontend-stg-c
+        run: sleep 50 && docker logs frontend-prod-c
 
       - name: Clean up interim Docker
         run: docker image prune -f && docker container prune -f
