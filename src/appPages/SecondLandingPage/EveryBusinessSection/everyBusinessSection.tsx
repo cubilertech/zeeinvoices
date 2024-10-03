@@ -172,7 +172,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                E-commerce & Freelancers
+                Freelancers
               </Typography>
               <Typography
                 variant="text-md-regular"
@@ -245,7 +245,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Subscription Services
+                E-commerce
               </Typography>
               <Typography
                 variant="text-md-regular"
@@ -317,7 +317,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Professional Services
+                Businesses
               </Typography>
               {isUpperHover ? (
                 <Typography

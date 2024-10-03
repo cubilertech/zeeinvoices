@@ -16,7 +16,7 @@ import {
   useEditDocument,
   useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceId, setResetInvoice } from "@/redux/features/invoiceSlice";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -32,6 +32,14 @@ import { DoneOutlined, EditOutlined } from "@mui/icons-material";
 import { TextField } from "../TextField";
 import { setResetSelectedList } from "@/redux/features/listSelected";
 import { toast } from "react-toastify";
+import {
+  getInvoiceTypeError,
+  getRecipientDetailsError,
+  getSenderDetailsError,
+  setInvoiceTypeError,
+  setRecipientDetailsError,
+  setSenderDetailsError,
+} from "@/redux/features/validationSlice";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -50,11 +58,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const isInvoiceTypeError = useSelector(getInvoiceTypeError);
+  const isSenderError = useSelector(getSenderDetailsError);
+  const isRecipientError = useSelector(getRecipientDetailsError);
+
   const { data: session } = useSession();
   const validateButton =
     InvDetails.from?.name !== "" &&
     InvDetails.to?.name !== "" &&
     InvDetails?.invoiceType !== "";
+
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
   const InvoiceRendomId = useMemo(
@@ -161,6 +174,17 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   // Create Invoice
   const handleCreateInvoice = async () => {
     dispatch(setResetSelectedList());
+
+    // console.log(InvDetails.from?.name, "name", InvDetails.to?.name);
+    // if (InvDetails?.invoiceType == "") {
+    //   dispatch(setInvoiceTypeError(true));
+    // }
+    // if (InvDetails.from?.name == "") {
+    //   dispatch(setSenderDetailsError(true));
+    // }
+    // if (InvDetails.to?.name == "") {
+    //   dispatch(setRecipientDetailsError(true));
+    // }
 
     if (!session) {
       setLoginModel(true);

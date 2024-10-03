@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Modal, Stack, Typography } from "@mui/material";
+import { Backdrop, Box, Button, Modal, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
 
@@ -33,58 +33,74 @@ const DownloadModal: FC<DownloadModal> = ({
 }) => {
   return (
     <>
-      <Modal
+      <Backdrop
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backdropFilter: "blur(2px)",
+          backgroundColor: "rgba(0, 0, 0, 0)",
+        }}
         open={open}
-        onClose={onClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Stack direction={"column"} gap={2}>
-            <Stack direction={"column"} gap={1}>
-              <Typography variant="text-lg-semibold">Download</Typography>
-              <Typography variant="text-sm-regular">
-                You can save and keep records of your invoices by just logging
-                in with Google.
-              </Typography>
-            </Stack>
-            <Stack direction={"row"} gap={1.5}>
-              <PdfDownloadLink
-                InvSetting={InvSetting}
-                InvDetails={InvDetails}
-                summaryDetail={summaryDetail}
-              >
+        <Modal
+          open={open}
+          onClose={onClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          sx={{
+            overflow: "auto",
+            "& .MuiModal-backdrop": {
+              backgroundColor: "rgba(35, 35, 35, 0.1)",
+            },
+          }}
+        >
+          <Box sx={style}>
+            <Stack direction={"column"} gap={2}>
+              <Stack direction={"column"} gap={1}>
+                <Typography variant="text-lg-semibold">Download</Typography>
+                <Typography variant="text-sm-regular">
+                  You can save and keep records of your invoices by just logging
+                  in with Google.
+                </Typography>
+              </Stack>
+              <Stack direction={"row"} gap={1.5}>
+                <PdfDownloadLink
+                  InvSetting={InvSetting}
+                  InvDetails={InvDetails}
+                  summaryDetail={summaryDetail}
+                >
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      width: "100%",
+                      marginTop: "15px",
+                      border: `1px solid #DADCE0`,
+                      borderRadius: "8px",
+                      color: "#445164",
+                    }}
+                  >
+                    Download
+                  </Button>
+                </PdfDownloadLink>
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   sx={{
                     width: "100%",
-                    marginTop: "15px",
-                    border: `1px solid #DADCE0`,
                     borderRadius: "8px",
-                    color: "#445164",
+                    marginTop: "15px",
+                    "&:hover": {
+                      // backgroundColor: "#BB3409",
+                    },
                   }}
+                  onClick={onLogin}
                 >
-                  Download
+                  Login
                 </Button>
-              </PdfDownloadLink>
-              <Button
-                variant="contained"
-                sx={{
-                  width: "100%",
-                  borderRadius: "8px",
-                  marginTop: "15px",
-                  "&:hover": {
-                    // backgroundColor: "#BB3409",
-                  },
-                }}
-                onClick={onLogin}
-              >
-                Login
-              </Button>
+              </Stack>
             </Stack>
-          </Stack>
-        </Box>
-      </Modal>
+          </Box>
+        </Modal>
+      </Backdrop>
     </>
   );
 };

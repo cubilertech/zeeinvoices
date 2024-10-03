@@ -6,6 +6,7 @@ import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceType, setInvoiceType } from "@/redux/features/invoiceSlice";
 import { getCurrency, setCurrency } from "@/redux/features/invoiceSetting";
+import { setInvoiceTypeError } from "@/redux/features/validationSlice";
 
 interface SelectInput {
   width?: string | number;
@@ -29,7 +30,7 @@ const SelectInput: FC<SelectInput> = ({
   const handleSelectedItem = (item: string) => {
     type === "currency"
       ? dispatch(setCurrency(item))
-      : dispatch(setInvoiceType(item));
+      : (dispatch(setInvoiceType(item)), dispatch(setInvoiceTypeError(false)));
   };
 
   return (

@@ -44,6 +44,10 @@ import {
 } from "@/redux/features/listSelected";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
 import { countryCodes } from "@/utils/data";
+import {
+  getRecipientDetailsError,
+  getSenderDetailsError,
+} from "@/redux/features/validationSlice";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -86,6 +90,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
 }) => {
   const dispatch = useDispatch();
   // dispatch(setResetSelectedList());
+  const isSenderError = useSelector(getSenderDetailsError);
+  const isRecipientError = useSelector(getRecipientDetailsError);
+
   const apiRouteSender = `${backendURL}/senders/getAll`;
   const apiRouteClient = `${backendURL}/clients/getAll`;
 
@@ -398,6 +405,15 @@ const DetailSelecter: FC<DetailSelecter> = ({
               </Typography>
             </Stack>
           </Box>
+          {/* {isSenderError ||
+            (isRecipientError && (
+              <Typography
+                variant="text-xxs-medium"
+                sx={{ color: "red", position: "absolute" }}
+              >
+                {detailsOf} details are required
+              </Typography>
+            ))} */}
         </>
       ) : (
         // After data populate

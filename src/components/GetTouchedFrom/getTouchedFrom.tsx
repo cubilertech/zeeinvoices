@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import "react-international-phone/style.css";
 import "@/Styles/getIntTouchPhoneNoStyle.css";
 import "./getTouchedFrom.css";
+import { PhoneInputWithCode } from "../PhoneInputWithCode";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First name is required"),
@@ -21,7 +22,7 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
-  phoneNumber: Yup.string().required("Phone number is required"),
+  // phoneNumber: Yup.string().required("Phone number is required"),
   message: Yup.string().required("Message is required"),
   agreement: Yup.bool().oneOf([true], "You must accept the privacy policy"),
 });
@@ -129,11 +130,12 @@ const GetTouchForm: React.FC = () => {
             <FormControl sx={{ width: "100%" }}>
               <Typography
                 variant="body2"
-                sx={{ marginBottom: "5px", color: "#344054" }}
+                sx={{ marginBottom: "5px", color: "#000000" }}
               >
                 Phone
               </Typography>
-              <Field name="phoneNumber">
+
+              {/* <Field name="phoneNumber">
                 {({ field }: FieldProps) => (
                   <PhoneInput
                     {...field}
@@ -163,6 +165,36 @@ const GetTouchForm: React.FC = () => {
                   {typeof errors.phoneNumber === "string"
                     ? errors.phoneNumber
                     : "Invalid phone number"}
+                </Typography>
+              )} */}
+
+              <Field name="phoneNumber">
+                {({ field }: FieldProps) => (
+                  <PhoneInputWithCode
+                    // value={}
+                    onChange={(value) =>
+                      handleChange({
+                        target: {
+                          name: "phoneNumber",
+                          value,
+                        },
+                      })
+                    }
+                    height="44px"
+                  />
+                )}
+              </Field>
+              {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                <Typography
+                  color="error"
+                  variant="text-xs-regular"
+                  sx={{ marginTop: "5px", marginLeft: "15px" }}
+                >
+                  {/* {errors.phoneNumber || "Invalid phone number"} */}
+                  {typeof errors.phoneNumber === "string"
+                    ? errors.phoneNumber
+                    : "Invalid phone number"}{" "}
+                  {/* Ensure it's a string or fallback */}
                 </Typography>
               )}
             </FormControl>

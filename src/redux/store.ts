@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { thunk } from "redux-thunk";
 import listSelected from "./features/listSelected";
+import validationSlice from "./features/validationSlice";
 
 // Persist config
 const persistConfig = {
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   invoice: InvoiceReducer,
   invoiceSetting: InvoiceSettingReducer,
   listSelected: listSelected,
+  validation: validationSlice,
 });
 
 // Persisted reducer

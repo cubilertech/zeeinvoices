@@ -5,6 +5,7 @@ import {
   IconButton,
   Stack,
   TextField,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 import { FC, ChangeEvent, useRef, useEffect } from "react";
@@ -36,6 +37,11 @@ import {
   getIsRecipientSelected,
   getIsSenderSelected,
 } from "@/redux/features/listSelected";
+import {
+  getInvoiceTypeError,
+  getRecipientDetailsError,
+  getSenderDetailsError,
+} from "@/redux/features/validationSlice";
 
 // for handle refresh button
 
@@ -97,6 +103,11 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const selectedColor = useSelectedColor();
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
+
+  const isInvoiceTypeError = useSelector(getInvoiceTypeError);
+  const isSenderError = useSelector(getSenderDetailsError);
+  const isRecipientError = useSelector(getRecipientDetailsError);
+
   const handleChangeNotes = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     dispatch(setAddtionalNotes(value));
@@ -141,13 +152,21 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
             menuData={["Bill", "Sales Invoice", "Expense Invoice"]}
           /> */}
         </Stack>
-        <Box sx={{ mt: { sm: 0, xs: 1 } }}>
+        <Box sx={{ mt: { sm: 0, xs: 1 }, position: "relative" }}>
           <SelectInput
             width={isModile ? "100%" : 240}
             borderRadius={"4px"}
             type="Invoice type"
             menuData={["Bill", "Sales Invoice", "Expense Invoice", "Other"]}
           />
+          {/* {isInvoiceTypeError && (
+            <Typography
+              variant="text-xxs-medium"
+              sx={{ color: "red", position: "absolute" }}
+            >
+              Invoice type is required
+            </Typography>
+          )} */}
         </Box>
         {/* <Box sx={{ width: 92, height: 40 }}>
           <Stack direction={"row"} spacing={2}>

@@ -38,7 +38,11 @@ const JoinUsSection = () => {
           <Typography
             variant={isModile ? "text-xs-regular" : "text-xl-regular"}
             component={"p"}
-            sx={{ mb: 3, color: palette.base.white }}
+            sx={{
+              mb: 3,
+              color: palette.base.white,
+              lineHeight: { sm: "30px", xs: "18px" },
+            }}
           >
             Experience the ease of <b>free invoicing</b> with ZeeInvoices.
             Whether you’re a small business owner, a freelancer, or part of a

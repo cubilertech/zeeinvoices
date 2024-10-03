@@ -399,32 +399,33 @@ const Header = () => {
             />
           </Box>
           <Box sx={{ display: { sm: "block", xs: "none" } }}>
-            {headerLandingData.map((data, index) => (
-              <Button
-                key={index}
-                onClick={() => handleButton(data)}
-                variant="text"
-                size="small"
-                sx={{
-                  color:
-                    data.url === pathname
-                      ? palette.primary.main
-                      : palette.base.black,
-                  borderBottom:
-                    data.url === pathname
-                      ? `2px solid ${palette.primary.main}`
-                      : "",
-                  borderRadius: "0px",
-                  px: 1,
-                  mr: 1,
-                  fontFamily: "Product Sans, sans-serif !important",
-                  fontSize: "14px !important",
-                  fontWeight: "400 !important",
-                }}
-              >
-                {data.title}
-              </Button>
-            ))}
+            {!session &&
+              headerLandingData.map((data, index) => (
+                <Button
+                  key={index}
+                  onClick={() => handleButton(data)}
+                  variant="text"
+                  size="small"
+                  sx={{
+                    color:
+                      data.url === pathname
+                        ? palette.primary.main
+                        : palette.base.black,
+                    borderBottom:
+                      data.url === pathname
+                        ? `2px solid ${palette.primary.main}`
+                        : "",
+                    borderRadius: "0px",
+                    px: 1,
+                    mr: 1,
+                    fontFamily: "Product Sans, sans-serif !important",
+                    fontSize: "14px !important",
+                    fontWeight: "400 !important",
+                  }}
+                >
+                  {data.title}
+                </Button>
+              ))}
             {session &&
               headerData.map((data, index) => (
                 <Button
