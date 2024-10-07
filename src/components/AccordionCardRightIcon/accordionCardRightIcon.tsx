@@ -45,8 +45,8 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
               fontFamily: "Product Sans, sans-serif",
               mt: "1%",
               cursor: "pointer",
-              fontSize: { md: "22px", xs: "14px" },
-              lineHeight: { md: "28px", xs: "18px" },
+              fontSize: { md: "22px", xs: "18px" },
+              lineHeight: { md: "28px", xs: "26px" },
               fontWeight: { md: 400 },
             }}
             onClick={onToggle}
@@ -67,8 +67,8 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.color.gray[725],
                 transition: "opacity 0.3s",
-                fontSize: { md: "16px", xs: "12px" },
-                lineHeight: { md: "24px", xs: "18px" },
+                fontSize: { md: "16px", xs: "16px" },
+                lineHeight: { md: "24px", xs: "24px" },
                 fontWeight: { md: 400 },
               }}
             >

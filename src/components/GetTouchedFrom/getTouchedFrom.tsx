@@ -75,7 +75,12 @@ const GetTouchForm: React.FC = () => {
             {/* First Name and Last Name */}
             <Box sx={{ display: "flex", gap: 2 }}>
               <Box width={"50%"}>
-                <Typography variant="body2" component="p" pb={0.5}>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  pb={0.5}
+                  sx={{ fontFamily: "Product Sans, sans-serif" }}
+                >
                   First Name
                 </Typography>
                 <Field name="firstName">
@@ -91,7 +96,12 @@ const GetTouchForm: React.FC = () => {
                 </Field>
               </Box>
               <Box width={"50%"}>
-                <Typography variant="body2" component="p" pb={0.5}>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  pb={0.5}
+                  sx={{ fontFamily: "Product Sans, sans-serif" }}
+                >
                   Last Name
                 </Typography>
                 <Field name="lastName">
@@ -110,7 +120,12 @@ const GetTouchForm: React.FC = () => {
 
             {/* Email */}
             <Box>
-              <Typography variant="body2" component="p" pb={0.5}>
+              <Typography
+                variant="body2"
+                component="p"
+                pb={0.5}
+                sx={{ fontFamily: "Product Sans, sans-serif" }}
+              >
                 Email
               </Typography>
               <Field name="email">
@@ -130,7 +145,11 @@ const GetTouchForm: React.FC = () => {
             <FormControl sx={{ width: "100%" }}>
               <Typography
                 variant="body2"
-                sx={{ marginBottom: "5px", color: "#000000" }}
+                sx={{
+                  marginBottom: "5px",
+                  color: "#000000",
+                  fontFamily: "Product Sans, sans-serif",
+                }}
               >
                 Phone
               </Typography>
@@ -201,7 +220,12 @@ const GetTouchForm: React.FC = () => {
 
             {/* Message */}
             <Box>
-              <Typography variant="body2" component="p" pb={0.5}>
+              <Typography
+                variant="body2"
+                component="p"
+                pb={0.5}
+                sx={{ fontFamily: "Product Sans, sans-serif" }}
+              >
                 Message
               </Typography>
               <Field name="message">
@@ -223,7 +247,10 @@ const GetTouchForm: React.FC = () => {
             <FormControlLabel
               control={<Field as={Checkbox} name="agreement" />}
               label={
-                <Typography variant="body2">
+                <Typography
+                  variant="body2"
+                  sx={{ fontFamily: "Product Sans, sans-serif" }}
+                >
                   You agreed to our friendly <a href="#">privacy policy</a>
                 </Typography>
               }
@@ -236,7 +263,10 @@ const GetTouchForm: React.FC = () => {
 
             {/* Submit Button */}
             <Button
-              sx={{ height: "48px !important" }}
+              sx={{
+                height: "48px !important",
+                fontFamily: "Product Sans, sans-serif",
+              }}
               type="submit"
               variant="contained"
               fullWidth

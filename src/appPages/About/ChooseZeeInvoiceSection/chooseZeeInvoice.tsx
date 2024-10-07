@@ -74,10 +74,11 @@ const ChooseZeeInvoiceSection = () => {
         >
           <Box textAlign={"center"}>
             <Typography
-              variant={isModile ? "h5" : "display-lg-bold"}
+              variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
               color={palette.color.gray[805]}
               mb={{ sm: 3, xs: 1 }}
               component={"p"}
+              sx={{fontFamily: "Product Sans,sans-serif"}}
             >
               Why Choose{" "}
               <span style={{ color: palette.text.contactEmailColor }}>
@@ -86,8 +87,10 @@ const ChooseZeeInvoiceSection = () => {
             </Typography>
             <Typography
               component={"p"}
-              variant={isModile ? "text-xs-regular" : "text-xl1-regular"}
+              variant={isModile ? "text-lg-regular" : "text-xl1-regular"}
               color={palette.color.gray[745]}
+              sx={{fontFamily: "Product Sans,sans-serif", width: {md:"70%"}, textAlign: "center", mx: "auto"}}
+              
             >
               Choose ZeeInvoices for enhanced efficiency, extensive
               customization options and exceptional support tailored to your

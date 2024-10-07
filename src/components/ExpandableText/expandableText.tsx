@@ -102,8 +102,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 opacity: isOpen ? 1 : 0.8,
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.color.gray[900],
-                fontSize: { md: "24px !important", xs: "14px !important" },
-                lineHeight: { md: "34px !important", xs: "18px !important" },
+                fontSize: { md: "24px !important", xs: "18px !important" },
+                lineHeight: { md: "34px !important", xs: "26px !important" },
                 fontWeight: 700,
               }}
             >
@@ -112,8 +112,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 component="span"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  fontSize: { md: "24px !important", xs: "14px !important" },
-                  lineHeight: { md: "34px !important", xs: "18px !important" },
+                  fontSize: { md: "24px !important", xs: "18px !important" },
+                  lineHeight: { md: "34px !important", xs: "26px !important" },
                   fontWeight: { md: 700 },
                   background: isOpen
                     ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
@@ -139,8 +139,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 display: "inline-block",
-                fontSize: { md: "24px !important", xs: "14px !important" },
-                lineHeight: { md: "34px !important", xs: "18px !important" },
+                fontSize: { md: "24px !important", xs: "18px !important" },
+                lineHeight: { md: "34px !important", xs: "26px !important" },
               }}
             >
               {title2}
@@ -159,8 +159,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             sx={{
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[610],
-              fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "30px", xs: "18px" },
+              fontSize: { md: "20px", xs: "14px" },
+              lineHeight: { md: "30px", xs: "20px" },
               fontWeight: { md: 400 },
             }}
           >

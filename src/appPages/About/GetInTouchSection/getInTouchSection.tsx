@@ -53,30 +53,34 @@ const GetInTouchSection = () => {
       >
         <Box sx={{ textAlign: "center" }}>
           <Typography
-            variant={isModile ? "h5" : "display-lg-bold"}
+            variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
             color={palette.color.gray[805]}
             mb={2}
             component={"p"}
+            sx={{ fontFamily: "Product Sans, sans-serif" }}
           >
             Get In{" "}
             <span style={{ color: palette.text.contactEmailColor }}>Touch</span>
           </Typography>
           <Typography
-            variant={isModile ? "text-xs-regular" : "text-xl-regular"}
+            variant={isModile ? "text-lg-regular" : "text-xl-regular"}
             component={"p"}
             color={palette.text.termsdescColor}
+            sx={{ fontFamily: "Product Sans, sans-serif" }}
           >
             Our friendly team would love to hear from you.
           </Typography>
         </Box>
-        <Typography
-          variant={isModile ? "h6" : "h4"}
-          color={palette.color.gray[805]}
-          sx={{ mt: 5 }}
-        >
-          {" "}
-          Why Reach To Us
-        </Typography>
+        {!isModile && (
+          <Typography
+            variant={isModile ? "h6" : "h4"}
+            color={palette.color.gray[805]}
+            sx={{ mt: 5, fontFamily: "Product Sans, sans-serif" }}
+          >
+            {" "}
+            Why Reach To Us
+          </Typography>
+        )}
 
         <Box
           sx={{
@@ -85,7 +89,7 @@ const GetInTouchSection = () => {
             display: "flex",
             justifyContent: "space-between",
             gap: { sm: 0, xs: 2 },
-            flexDirection: { sm: "row", xs: "column" },
+            flexDirection: { sm: "row", xs: "column-reverse" },
             alignItems: "center",
           }}
         >
@@ -96,6 +100,16 @@ const GetInTouchSection = () => {
               alignSelf: "self-start",
             }}
           >
+            {isModile && (
+              <Typography
+                variant={"display-xs-bold"}
+                color={palette.color.gray[805]}
+                sx={{ mt: 5, fontFamily: "Product Sans, sans-serif" }}
+              >
+                {" "}
+                Why Reach To Us
+              </Typography>
+            )}
             {accordionData.map((item, index) => (
               <AccordionCardRightIcon
                 key={index}
@@ -107,7 +121,7 @@ const GetInTouchSection = () => {
             ))}
           </Box>
           <Divider variant="fullWidth" orientation="vertical" flexItem />
-          <Box sx={{ width: { sm: "40%", xs: "100%" } }}>
+          <Box sx={{ width: { sm: "40%", xs: "100%" }, mt: isModile ? 5 : 0 }}>
             <GetTouchForm />
           </Box>
         </Box>

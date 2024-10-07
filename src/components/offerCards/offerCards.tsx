@@ -161,15 +161,15 @@ const OfferCard: FC<Props> = ({
     <Box
       sx={{
         width: "100%",
-        p: "25.42px 40px",
+        p: "32px",
         display: "flex",
         gap: 3,
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: { sm: "337px", xs: "237px" },
+        height: { sm: "278px", xs: "198px" },
         border: "1.06px solid #0000001A",
-        borderRadius: "30px",
+        borderRadius: "16px",
         color: isLastColor ? lastBoxTextColor : palette.base.black,
         backgroundColor: isLastColor ? lastBoxBackgroundColor : palette.base.white,
         transition: "all 0.7s ease",
@@ -195,14 +195,15 @@ const OfferCard: FC<Props> = ({
     >
       <Icon
         icon={isHover ? whiteIcon : isLastColor ? lastBoxIcon : icon} // Icon should turn white on hover for all boxes
-        width={isMobile ? 42 : 62}
-        height={isMobile ? 42 : 62}
+        width={isMobile ? 42 : 52}
+        height={isMobile ? 42 : 52}
       />
       <Box sx={{ textAlign: "center" }}>
         <Typography
-          variant={isMobile ? "text-sm-bold" : "text-lg-bold"}
+          variant={isMobile ? "text-md-bold" : "text-lg-bold"}
           component={"p"}
           mb={1}
+          sx={{fontFamily: "Product Sans,sans-serif"}}
         >
           {title}
         </Typography>
@@ -210,6 +211,7 @@ const OfferCard: FC<Props> = ({
           className="desc"
           variant={isMobile ? "text-xs-regular" : "text-md-regular"}
           component={"p"}
+          sx={{fontFamily: "Product Sans,sans-serif"}}
           color={
             isLastColor
               ? lastBoxTextDescColor
