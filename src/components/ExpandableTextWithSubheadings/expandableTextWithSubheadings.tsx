@@ -120,7 +120,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                 fontFamily: "Product Sans, sans-serif",
                 background: isOpen
                   ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
-                  : palette.text.expandableTextGreyColor,
+                  : palette.color.gray[900],
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 display: "inline-block",
@@ -144,7 +144,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
             variant="text-xl1-1-regular"
             sx={{
               fontFamily: "Product Sans, sans-serif",
-              color: palette.text.expandableTextGreyColor,
+              color: palette.color.gray[610],
               fontSize: { md: "20px", xs: "12px" },
               lineHeight: { md: "34px", xs: "18px" },
               fontWeight: { md: 400 },
@@ -160,7 +160,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                 variant="h6"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  color: palette.text.expandableTextGreyColor,
+                  color: palette.color.gray[610],
                   fontSize: { md: "18px", xs: "14px" },
                   lineHeight: { md: "24px", xs: "20px" },
                   fontWeight: 700,
@@ -175,7 +175,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                     variant="body1"
                     sx={{
                       fontFamily: "Product Sans, sans-serif",
-                      color: palette.text.expandableTextGreyColor,
+                      color: palette.color.gray[610],
                       fontSize: { md: "16px", xs: "12px" },
                       lineHeight: { md: "22px", xs: "18px" },
                       fontWeight: 400,

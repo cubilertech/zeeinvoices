@@ -194,13 +194,15 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
     <>
       <Stack
         direction={"column"}
-        gap={3}
+        // gap={3}
         sx={{
           width: "100%",
           display: "flex",
           backgroundColor: palette.base.white,
           justifyContent: "center",
           alignItems: "center",
+          pt: 15,
+          pb: 8,
         }}
       >
         <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "5%" } }}>
@@ -211,7 +213,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               width: { md: "100%", xs: "100%" },
               alignItems: "center",
               display: "flex",
-              mt: "6%",
+              // mt: 15,
             }}
           >
             <Stack
@@ -270,7 +272,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 // variant="display-xs-bold"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  color: palette.text.expandableTextGreyColor,
+                  color: palette.color.gray[900],
                   fontSize: { md: "24px !important", xs: "14px !important" },
                   lineHeight: { md: "34px !important", xs: "18px !important" },
                   fontWeight: 700,
@@ -301,7 +303,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 variant="text-xl1-1-regular"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  color: palette.text.expandableTextGreyColor,
+                  color: palette.color.gray[610],
                   fontSize: { md: "20px", xs: "12px" },
                   lineHeight: { md: "34px", xs: "18px" },
                   fontWeight: { md: 400 },
@@ -358,35 +360,46 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
           </Stack>
 
           <Stack
-            direction={"column"}
+            direction={{sm:"row", xs:"column"}}
             gap={3}
             sx={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "space-between",
               gap: { md: 3, xs: 1 },
               mt: "5%",
-              width: { md: "fit-content", xs: "100%" },
-              mx: "auto",
+              width: { md: "100%", xs: "100%" },
             }}
           >
-            {/* upper section */}
+            {/* first card */}
             <Stack
-              direction={"row"}
-              // gap={13}
+              direction={"column"}
+              // gap={4}
               sx={{
-                width: { md: "1200px", xs: "100%" },
-                px: "10%",
-                py: "9%",
-                borderRadius: { md: "30px", xs: "9.39px" },
+                width: { xs: "100%" },
+                p: "24px",
+                borderRadius: { md: "16px", xs: "16px" },
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
-                backgroundColor: palette.base.white,
-                transition: "all 0.9s ease",
-                gap: { md: 13, xs: "22px" }, // Add transition for smooth animation
+                gap: { md: 3, xs: 1.5 },
+                color:
+                  hoveredBox === 1 || hoveredBox === 2
+                    ? palette.base.black
+                    : palette.base.white,
+                backgroundColor:
+                  hoveredBox === 1 || hoveredBox === 2
+                    ? palette.base.white
+                    : palette.primary.main,
+                transition: "all 0.7s ease", // Add transition for smooth animation
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.primary.main,
-                  transform: "scale(1.03)", // Scale the component up by 10% on hover
+                  transform: "scale(1.05)", // Scale the component up by 10% on hover
+                },
+                "& .text-md-regular": {
+                  color:
+                    hoveredBox === 1 || hoveredBox === 2
+                      ? palette.text.contactEmailColor
+                      : palette.base.white, // Change the color of the specific Typography on hover
                 },
                 "&:hover .text-md-regular": {
                   color: palette.base.white, // Change the color of the specific Typography on hover
@@ -396,47 +409,34 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 },
               }}
               onMouseEnter={() => handleBoxMouseEnter(0)} // Set hover state to true on mouse enter
-              onMouseLeave={handleBoxMouseLeave}
+              onMouseLeave={handleBoxMouseLeave} // Set hover state to false on mouse leave
             >
-              <Box
-                sx={{
-                  width: { md: "243px", xs: "72px" },
-                  height: { md: "243px", xs: "58px" },
-                }}
-              >
-                {hoveredBox !== 0 ? (
-                  <Image
-                    style={{}}
-                    src="/Images/contact-email-image.svg"
-                    width={isModile ? 72 : 243}
-                    height={isModile ? 58 : 243}
-                    alt="rectangle iaptop bg"
-                  />
-                ) : (
-                  <Image
-                    src="/Images/contact-email-white-image.svg"
-                    width={isModile ? 72 : 243}
-                    height={isModile ? 58 : 243}
-                    alt="rectangle iaptop bg"
-                  />
-                )}
-              </Box>
-
-              <Stack
-                direction={"column"}
-                sx={{ pl: "12%", gap: { md: 2.5, xs: 1 } }}
-              >
+              {hoveredBox === 1 || hoveredBox === 2 ? (
+                <Icon
+                  icon="contactPhoneIcon"
+                  width={isModile ? 32 : 42}
+                  height={isModile ? 32 : 42}
+                />
+              ) : (
+                <Icon
+                  icon="contactWhitePhoneIcon"
+                  width={isModile ? 32 : 42}
+                  height={isModile ? 32 : 42}
+                />
+              )}
+              <Stack direction={"column"} gap={1.5} alignItems={"center"}>
                 <Typography
-                  variant="display-md1-regular"
-                  className="display-sm0-medium"
+                  variant="display-sm0-medium"
                   sx={{
+                    width: "auto",
+                    textAlign: "center",
                     fontFamily: "Product Sans, sans-serif",
-                    color: palette.base.black,
-                    fontSize: { md: "40px !important", xs: "14px !important" },
+                    fontSize: { md: "20px !important", xs: "18px !important" },
                     lineHeight: {
-                      md: "31px  !important",
-                      xs: "9.94px !important",
+                      md: "24px !important",
+                      xs: "21px !important",
                     },
+                    fontWeight: 700,
                   }}
                 >
                   Email
@@ -448,18 +448,17 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   rel="noopener noreferrer"
                 >
                   <Typography
-                    variant="display-md1-medium"
+                    variant="text-md-regular"
                     className="text-md-regular"
                     sx={{
-                      width: { md: "500px", xs: "auto" },
                       fontFamily: "Product Sans, sans-serif",
-                      color: palette.text.contactEmailColor,
+                      textAlign: "center",
                       fontSize: {
-                        md: "28px !important",
-                        xs: "12px !important",
+                        md: "16px !important",
+                        xs: "10px !important",
                       },
                       lineHeight: {
-                        md: "34px !important",
+                        md: "19px !important",
                         xs: "18px !important",
                       },
                       "&:hover": {
@@ -473,64 +472,143 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               </Stack>
             </Stack>
 
-            {/* bottom section */}
+            {/* second card */}
             <Stack
-              // direction={"row"}
-              gap={{ sm: 3, xs: 1 }}
-              sx={{ flexDirection: { md: "row", xs: "column" } }}
+              direction={"column"}
+              sx={{
+                width: { md: "100%", xs: "100%" },
+                p: "24px",
+                alignItems: "center",
+                borderRadius: { md: "16px", xs: "16px" },
+                border: `1.06px solid #0000001A`,
+                backgroundColor: palette.base.white,
+                transition: "all 0.7s ease",
+                gap: { md: 3, xs: "16px" }, // Add transition for smooth animation
+                "&:hover": {
+                  color: palette.base.white,
+                  backgroundColor: palette.primary.main,
+                  transform: "scale(1.05)", // Scale the component up by 10% on hover
+                },
+                "&:hover .text-md-regular": {
+                  color: palette.base.white, // Change the color of the specific Typography on hover
+                },
+                "&:hover .display-sm0-medium": {
+                  color: palette.base.white, // Change the color of the other Typography on hover
+                },
+              }}
+              onMouseEnter={() => handleBoxMouseEnter(1)} // Set hover state to true on mouse enter
+              onMouseLeave={handleBoxMouseLeave}
             >
-              <Stack
-                direction={"column"}
-                // gap={5}
-                sx={{
-                  width: { md: "587px", xs: "100%" },
-                  px: "7%",
-                  py: "5%",
-                  borderRadius: { md: "30px", xs: "9.39px" },
-                  border: `1.06px solid #0000001A`,
-                  alignItems: "center",
-                  backgroundColor: palette.base.white,
-                  transition: "all 0.9s ease",
-                  gap: { md: 5, xs: 1.5 }, // Add transition for smooth animation
-                  "&:hover": {
-                    color: palette.base.white,
-                    backgroundColor: palette.primary.main,
-                    transform: "scale(1.05)", // Scale the component up by 10% on hover
-                  },
-                  "&:hover .text-md-regular": {
-                    color: palette.base.white, // Change the color of the specific Typography on hover
-                  },
-                  "&:hover .display-sm0-medium": {
-                    color: palette.base.white, // Change the color of the other Typography on hover
-                  },
-                }}
-                onMouseEnter={() => handleBoxMouseEnter(1)} // Set hover state to true on mouse enter
-                onMouseLeave={handleBoxMouseLeave}
-              >
-                {hoveredBox === 1 ? (
-                  <Icon
-                    icon="contactWhiteLocationIcon"
-                    width={isModile ? 31 : 42}
-                    height={isModile ? 35 : 42}
-                  />
-                ) : (
-                  <Icon
-                    icon="contactLocationIcon"
-                    width={isModile ? 31 : 42}
-                    height={isModile ? 35 : 2}
-                  />
-                )}
+              {hoveredBox === 1 ? (
+                <Icon
+                  icon="contactWhiteMailIcon"
+                  width={isModile ? 32 : 42}
+                  height={isModile ? 32 : 42}
+                />
+              ) : (
+                <Icon
+                  icon="contactMailIcon"
+                  width={isModile ? 32 : 42}
+                  height={isModile ? 32 : 42}
+                />
+              )}
+
+              <Stack direction={"column"} gap={1.5} alignItems={"center"}>
+                <Typography
+                  variant="display-md1-regular"
+                  className="display-sm0-medium"
+                  sx={{
+                    width: "auto",
+                    textAlign: "center",
+                    fontFamily: "Product Sans, sans-serif",
+                    color: palette.color.gray[900],
+                    fontSize: { md: "20px !important", xs: "18px !important" },
+                    lineHeight: {
+                      md: "24px  !important",
+                      xs: "21px !important",
+                    },
+                    fontWeight: 700,
+                  }}
+                >
+                  Phone
+                </Typography>
+                <Typography
+                  variant="display-md1-medium"
+                  className="text-md-regular"
+                  sx={{
+                    // width: { md: "500px", xs: "auto" },
+                    fontFamily: "Product Sans, sans-serif",
+                    color: palette.text.contactEmailColor,
+                    fontSize: {
+                      md: "16px !important",
+                      xs: "16px !important",
+                    },
+                    lineHeight: {
+                      md: "24px  !important",
+                      xs: "21px !important",
+                    },
+                  }}
+                >
+                  +1 480 920 1123
+                </Typography>
+              </Stack>
+            </Stack>
+
+            {/* thired card */}
+            <Stack
+              direction={"column"}
+              sx={{
+                width: { xs: "100%" },
+                p: "24px",
+                borderRadius: { md: "16px", xs: "16px" },
+                border: `1.06px solid #0000001A`,
+                alignItems: "center",
+                backgroundColor: palette.base.white,
+                transition: "all 0.7s ease",
+                gap: { md: 3, xs: 1.5 }, // Add transition for smooth animation
+                "&:hover": {
+                  color: palette.base.white,
+                  backgroundColor: palette.primary.main,
+                  transform: "scale(1.05)", // Scale the component up by 10% on hover
+                },
+                "&:hover .text-md-regular": {
+                  color: palette.base.white, // Change the color of the specific Typography on hover
+                },
+                "&:hover .display-sm0-medium": {
+                  color: palette.base.white, // Change the color of the other Typography on hover
+                },
+              }}
+              onMouseEnter={() => handleBoxMouseEnter(2)} // Set hover state to true on mouse enter
+              onMouseLeave={handleBoxMouseLeave}
+            >
+              {hoveredBox === 2 ? (
+                <Icon
+                  icon="contactWhiteLocationIcon"
+                  width={isModile ? 32 : 42}
+                  height={isModile ? 32 : 42}
+                />
+              ) : (
+                <Icon
+                  icon="contactLocationIcon"
+                  width={isModile ? 32 : 42}
+                  height={isModile ? 32 : 2}
+                />
+              )}
+              <Stack direction={"column"} gap={1.5} alignItems={"center"}>
                 <Typography
                   variant="display-sm0-medium"
                   className="display-sm0-medium"
                   sx={{
+                    width: "auto",
+                    textAlign: "center",
                     fontFamily: "Product Sans, sans-serif",
-                    color: palette.base.black,
-                    fontSize: { md: "26px !important", xs: "14px !important" },
+                    color: palette.color.gray[900],
+                    fontSize: { md: "20px !important", xs: "18px !important" },
                     lineHeight: {
-                      md: "31px !important",
-                      xs: "7.34px !important",
+                      md: "24px  !important",
+                      xs: "21px !important",
                     },
+                    fontWeight: 700,
                   }}
                 >
                   Address
@@ -539,14 +617,15 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   variant="text-md-regular"
                   className="text-md-regular"
                   sx={{
-                    width: "400px",
+                    // width: "400px",
                     fontFamily: "Product Sans, sans-serif",
                     textAlign: "center",
-                    color: palette.color.gray[745],
+                    color: palette.text.contactEmailColor,
+                    // color: palette.color.gray[745],
                     fontSize: { md: "16px !important", xs: "10px !important" },
                     lineHeight: {
-                      md: "19px !important",
-                      xs: "18px !important",
+                      md: "24px  !important",
+                      xs: "21px !important",
                     },
                     mt: { md: 0, xs: 1 },
                   }}
@@ -554,96 +633,10 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   11133 Shady Trail PMB 205 Dallas, TX 75229
                 </Typography>
               </Stack>
-              {/* right bottom */}
-              <Stack
-                direction={"column"}
-                // gap={4}
-                sx={{
-                  width: { md: "587px", xs: "100%" },
-                  px: "7%",
-                  py: "5%",
-                  borderRadius: { md: "30px", xs: "9.39px" },
-                  border: `1.06px solid #0000001A`,
-                  alignItems: "center",
-                  gap: { md: 5, xs: 1.5 },
-                  color:
-                    hoveredBox === 1 || hoveredBox === 0
-                      ? palette.base.black
-                      : palette.base.white,
-                  backgroundColor:
-                    hoveredBox === 1 || hoveredBox === 0
-                      ? palette.base.white
-                      : palette.primary.main,
-                  transition: "all 0.9s ease", // Add transition for smooth animation
-                  "&:hover": {
-                    color: palette.base.white,
-                    backgroundColor: palette.primary.main,
-                    transform: "scale(1.05)", // Scale the component up by 10% on hover
-                  },
-                  "&:hover .text-md-regular": {
-                    color: palette.base.white, // Change the color of the specific Typography on hover
-                  },
-                  "&:hover .display-sm0-medium": {
-                    color: palette.base.white, // Change the color of the other Typography on hover
-                  },
-                }}
-                onMouseEnter={() => handleBoxMouseEnter(3)} // Set hover state to true on mouse enter
-                onMouseLeave={handleBoxMouseLeave} // Set hover state to false on mouse leave
-              >
-                {hoveredBox === 1 || hoveredBox === 0 ? (
-                  <Icon
-                    icon="contactPhoneIcon"
-                    width={isModile ? 29 : 42}
-                    height={isModile ? 30 : 42}
-                  />
-                ) : (
-                  <Icon
-                    icon="contactWhitePhoneIcon"
-                    width={isModile ? 29 : 42}
-                    height={isModile ? 30 : 42}
-                  />
-                )}
-
-                <Typography
-                  variant="display-sm0-medium"
-                  sx={{
-                    fontFamily: "Product Sans, sans-serif",
-                    // color: palette.base.white,
-                    // Add a class for targeting in the hover state
-                    "&.display-sm0-medium": {},
-                    fontSize: { md: "26px !important", xs: "14px !important" },
-                    lineHeight: {
-                      md: "31px !important",
-                      xs: "7.34px !important",
-                    },
-                  }}
-                >
-                  Phone
-                </Typography>
-                <Typography
-                  variant="text-md-regular"
-                  className="text-md-regular"
-                  sx={{
-                    width: "400px",
-                    fontFamily: "Product Sans, sans-serif",
-                    textAlign: "center",
-                    // color: palette.base.white,
-                    // Add a class for targeting in the hover state
-                    "&.text-md-regular": {},
-                    fontSize: { md: "16px !important", xs: "10px !important" },
-                    lineHeight: {
-                      md: "19px !important",
-                      xs: "18px !important",
-                    },
-                  }}
-                >
-                  +1 480 920 1123
-                </Typography>
-              </Stack>
             </Stack>
           </Stack>
         </Container>
-        <FooterSection />
+        {/* <FooterSection /> */}
       </Stack>
     </>
   );

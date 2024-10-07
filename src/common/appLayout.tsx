@@ -15,10 +15,12 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
     <>
       {/* <Box sx={{ background: palette.color.lightWhite, height: "100vh" }}> */}
       <Header />
-      <Box sx={{ backgroundColor: palette.color.lightWhite , minHeight: "200px"}}>{children}</Box>
-      {pathname == "/" ||
-      pathname == "/termsAndCondition" ||
-      pathname == "/contact-us" ? (
+      <Box
+        sx={{ backgroundColor: palette.color.lightWhite, minHeight: "200px" }}
+      >
+        {children}
+      </Box>
+      {pathname == "/" || pathname == "/contact-us" ? (
         <></>
       ) : isModile ? (
         <FooterSection />

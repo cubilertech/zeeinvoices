@@ -90,6 +90,8 @@ export const icons = {
   contactWhiteLocationIcon: "/Images/icons/contact-location-white-icon.svg",
   contactPhoneIcon: "/Images/icons/contact-phone-icon.svg",
   contactWhitePhoneIcon: "/Images/icons/contact-phone-white-icon.svg",
+  contactMailIcon: "/Images/icons/contact-mail-icon.svg",
+  contactWhiteMailIcon: "/Images/icons/contact-mail-white-icon.svg",
 
   tickBageIcon: "/Images/about/icons/tick-bage.svg",
   tickBageWhiteIcon: "/Images/about/icons/tick-bage-white-icon.svg",
