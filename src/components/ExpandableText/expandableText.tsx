@@ -99,8 +99,9 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             <Typography
               // variant="display-xs-bold"
               sx={{
+                opacity: isOpen ? 1 : 0.8,
                 fontFamily: "Product Sans, sans-serif",
-                color: palette.text.expandableTextGreyColor,
+                color: palette.color.gray[900],
                 fontSize: { md: "24px !important", xs: "14px !important" },
                 lineHeight: { md: "34px !important", xs: "18px !important" },
                 fontWeight: 700,
@@ -116,7 +117,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                   fontWeight: { md: 700 },
                   background: isOpen
                     ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
-                    : palette.text.expandableTextGreyColor,
+                    : palette.color.gray[900],
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   display: "inline-block",
@@ -157,9 +158,9 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             variant="text-xl1-1-regular"
             sx={{
               fontFamily: "Product Sans, sans-serif",
-              color: palette.text.expandableTextGreyColor,
+              color: palette.color.gray[610],
               fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "34px", xs: "18px" },
+              lineHeight: { md: "30px", xs: "18px" },
               fontWeight: { md: 400 },
             }}
           >

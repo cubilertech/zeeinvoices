@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { VerticalProgressBar } from "../VerticalProgressBar";
+import { HorizontalProgressBar } from "../HorizontalProgressBar";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 4, // Set the height to the desired length for the vertical bar
@@ -90,37 +91,27 @@ const SelectableComment: FC<SelectableCommentProps> = ({
 
   return (
     <Stack direction={"column"}>
-      <Stack direction={"row"}>
+      <Stack direction={"column"}>
         <Stack
-          direction={"row"}
+          direction={"column-reverse"}
           gap={0.5}
           sx={{
+            opacity: isOpen ? 1 : 0.6,
             width: "100%",
-            // pl: "5px",
-            //   borderLeftWidth: "4px",
-            //   borderLeftStyle: "solid",
-            //   borderImageSource: isOpen
-            //     ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
-            //     : "",
-            //   borderImageSlice: 1,
             cursor: "pointer",
           }}
           onClick={onToggle}
         >
-          {isOpen ? (
-            <VerticalProgressBar value={progress} />
-          ) : (
-            <VerticalProgressBar value={0} />
-          )}
+          {isOpen ? <HorizontalProgressBar value={progress} /> : ""}
 
           <Stack
             direction={"row"}
             gap={2}
             sx={{
               width: "100%",
-              // py: "5px",
-              // px: "15px",
-              p: "20px",
+              py: "10px",
+              pl: "10px",
+              pr: "52px",
               borderRadius: "8px",
               border: `1px solid #0000001A`,
             }}
@@ -129,7 +120,6 @@ const SelectableComment: FC<SelectableCommentProps> = ({
             <Avatar
               sx={{ width: 61, height: 61 }}
               alt="Cindy Baker"
-              // src="/Images/james-image.svg"
               src={imgSrc}
             />
             <Stack direction={"column"}>
@@ -183,6 +173,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
           <Typography
             variant="display-md1-medium"
             sx={{
+              textAlign: "center",
               fontFamily: "Product Sans, sans-serif",
               color: palette.base.black,
               fontSize: { md: "28px", xs: "14px" },
@@ -198,12 +189,18 @@ const SelectableComment: FC<SelectableCommentProps> = ({
             precision={0.5}
             size="small"
             readOnly
-            sx={{ color: "#FCC214" }}
+            sx={{
+              width: "100%",
+              color: "#FCC214",
+              display: "flex",
+              justifyContent: "center",
+            }}
           />
           <Typography
             variant="text-xl-regular"
             sx={{
               width: { md: "560px", xs: "335px" },
+              textAlign: "center",
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[745],
               fontSize: { md: "20px", xs: "12px" },
@@ -217,6 +214,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
             variant="text-xl-regular"
             sx={{
               width: { md: "560px", xs: "335px" },
+              textAlign: "center",
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[745],
               fontSize: { md: "20px", xs: "12px" },

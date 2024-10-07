@@ -15,8 +15,6 @@ export const icons = {
   facebookBlackIcon: "/Images/icons/facebook-black-icon.svg",
   InstagramWhiteIcon: "/Images/icons/instagram-black-icon.svg",
 
-
-
   twitterlpf: "/Images/logos/twitter-lpf.svg",
   facebooklpf: "/Images/logos/facebook-lpf.svg",
   instagarmlpf: "/Images/logos/instagram-lpf.svg",
@@ -69,11 +67,15 @@ export const icons = {
   emailIcon: "/Images/icons/mail-icon.svg",
   markerPinIcon: "/Images/icons/marker-pin-icon.svg",
   PhoneIcon: "/Images/icons/phone-icon.svg",
+  FooterPhoneIcon: "/Images/icons/footer-phone-icon.svg",
+  FooterMailIcon: "/Images/icons/footer-mail-icon.svg",
+  FooterMarkerIcon: "/Images/icons/footer-marker-icon.svg",
+
   navigationPinterIcon: "/Images/icons/navigation-pointer-icon.svg",
-  handCodingPurpleIcon: "/Images/icons/hand-coding-icon.svg",
-  handCodingWhiteIcon: "/Images/icons/hand-coding-white-icon.svg",
-  gearsWhiteIcon: "/Images/icons/gears-white-icon.svg",
-  gearsPurpoleIcon: "/Images/icons/gears-purple-icon.svg",
+  handShakePurpleIcon: "/Images/icons/business-2-icon.svg",
+  handShakeWhiteIcon: "/Images/icons/business-2-1-icon.svg",
+  ecommerceWhiteIcon: "/Images/icons/business-3-1-icon.svg",
+  ecommercePurpoleIcon: "/Images/icons/business-3-icon.svg",
   arrowDownBlueIcon: "/Images/icons/arrow-down-blue-icon.svg",
   arrowDownUpIcon: "/Images/icons/arrow-up-blue-icon.svg",
   facebook1Icon: "/Images/icons/facebook1-icon.svg",
@@ -91,7 +93,6 @@ export const icons = {
 
   tickBageIcon: "/Images/about/icons/tick-bage.svg",
   tickBageWhiteIcon: "/Images/about/icons/tick-bage-white-icon.svg",
-
 
   tickPersonIcon: "/Images/about/icons/tick-person-icon.svg",
   tickPersonWhiteIcon: "/Images/about/icons/tick-person-white-icon.svg",

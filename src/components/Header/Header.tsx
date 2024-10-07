@@ -123,7 +123,7 @@ const Header = () => {
           display: "flex",
           justifyContent: "space-between",
           // px: "0px !important",
-          px: { md: "0.1%", lg: "0.1%", xs: "1%" },
+          px: { md: "0.1%", lg: "0.1%", xs: "0.2%" },
         }}
       >
         <Stack

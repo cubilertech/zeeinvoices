@@ -8,12 +8,14 @@ import {
   Stack,
   styled,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const EveryBusinessSection = () => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const route = useRouter();
   // const [isHover, setIsHover] = useState(false);
   const [is1Hover, set1IsHover] = useState(false);
@@ -26,12 +28,11 @@ const EveryBusinessSection = () => {
     <Container
       maxWidth="lg"
       sx={{
-        px: { md: "0%", lg: "0%", xs: "0%" },
+        px: { md: "0%", lg: "0%", xs: "16px" },
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#F7F8F9",
       }}
     >
       <Stack
@@ -41,7 +42,6 @@ const EveryBusinessSection = () => {
           width: "100%",
           pt: 7,
           pb: 7,
-          backgroundColor: "transparent",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -92,7 +92,7 @@ const EveryBusinessSection = () => {
           streamlines the entire process.
         </Typography>
         <Stack
-          direction={"column"}
+          direction={{ sm: "row", xs: "column" }}
           gap={3}
           sx={{
             display: "flex",
@@ -101,24 +101,24 @@ const EveryBusinessSection = () => {
             width: { sm: "100%" },
           }}
         >
-          {/* upper section */}
+          {/* upper section, now its left */}
           <Stack
             className="upper-card"
-            direction={"row"}
-            gap={{ md: 13, xs: 0 }}
+            direction={"column"}
+            gap={{ md: 4, xs: 1.5 }}
             sx={{
-              width: { sm: "100%", xs: "335px" },
-              px: { sm: "10%", xs: "7%" },
-              py: "9%",
+              width: { sm: "50%", xs: "100%" },
+              px: { sm: "3%", xs: "7%" },
+              py: "6%",
               borderRadius: { sm: "30px", xs: "6.98px" },
               border: `1.06px solid #0000001A`,
               alignItems: "center",
               backgroundColor: palette.base.white,
-              transition: "all 0.9s ease", // Add transition for smooth animation
+              transition: "all 0.7s ease", // Add transition for smooth animation
               "&:hover": {
                 color: palette.base.white,
                 backgroundColor: palette.text.contactEmailColor,
-                transform: "scale(1.03)", // Scale the component up by 10% on hover
+                transform: "scale(1.05)", // Scale the component up by 10% on hover
                 "& .buttom-right-card": {
                   backgroundColor: `${palette.base.white} !important`,
                 },
@@ -142,29 +142,30 @@ const EveryBusinessSection = () => {
             {is1Hover ? (
               <Box>
                 <Image
-                  src="/Images/pro-business-white-image.svg"
-                  width={243}
-                  height={225}
+                  src="/Images/business-11-image.svg"
+                  width={isMobile ? 57 : 180}
+                  height={isMobile ? 57 : 180}
                   alt="rectangle iaptop bg"
                 />
               </Box>
             ) : (
               <Box>
                 <Image
-                  src="/Images/pro-business-purple-image.svg"
-                  width={243}
-                  height={225}
+                  src="/Images/business-1-image.svg"
+                  width={isMobile ? 57 : 180}
+                  height={isMobile ? 57 : 180}
                   alt="rectangle iaptop bg"
                 />
               </Box>
             )}
 
-            <Stack direction={"column"} gap={2} sx={{ pl: "12%" }}>
+            <Stack direction={"column"} gap={2}>
               <Typography
                 variant="display-md1-regular"
                 className="display-md1-regular"
                 sx={{
-                  width: { md: "500px", xs: "176px" },
+                  textAlign: "center",
+                  width: { md: "500px", xs: "100%" },
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.base.black,
                   fontSize: { md: "40px", xs: "14px" },
@@ -178,7 +179,8 @@ const EveryBusinessSection = () => {
                 variant="text-md-regular"
                 className="text-md-regular"
                 sx={{
-                  width: { md: "500px", xs: "176px" },
+                  textAlign: "center",
+                  width: { md: "100%", xs: "100%" },
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.color.gray[745],
                   fontSize: { md: "16px", xs: "12px" },
@@ -193,21 +195,21 @@ const EveryBusinessSection = () => {
             </Stack>
           </Stack>
 
-          {/* bottom section */}
-          <Stack direction={{ md: "row", xs: "column" }} gap={3}>
+          {/* bottom section, now its right */}
+          <Stack direction={{ xs: "column" }} gap={3}>
             <Stack
               className="buttom-left-card"
               direction={"column"}
-              gap={{ md: 5, xs: 1.5 }}
+              gap={{ md: 2, xs: 1.5 }}
               sx={{
-                width: { md: "48.95%", xs: "335px" },
+                width: { md: "100%", xs: "100%" },
                 px: "7%",
                 py: "5%",
                 borderRadius: { sm: "30px", xs: "6.98px" },
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
                 backgroundColor: palette.base.white,
-                transition: "all 0.9s ease", // Add transition for smooth animation
+                transition: "all 0.7s ease", // Add transition for smooth animation
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.text.contactEmailColor,
@@ -230,9 +232,9 @@ const EveryBusinessSection = () => {
               }}
             >
               {is2Hover ? (
-                <Icon icon="handCodingWhiteIcon" width={42} height={42} />
+                <Icon icon="handShakeWhiteIcon" width={57} height={57} />
               ) : (
-                <Icon icon="handCodingPurpleIcon" width={42} height={42} />
+                <Icon icon="handShakePurpleIcon" width={57} height={57} />
               )}
               <Typography
                 variant="display-sm0-medium"
@@ -251,7 +253,7 @@ const EveryBusinessSection = () => {
                 variant="text-md-regular"
                 className="text-md-regular"
                 sx={{
-                  width: { md: "400px", xs: "263px" },
+                  width: { md: "100%", xs: "263px" },
                   fontFamily: "Product Sans, sans-serif",
                   textAlign: "center",
                   color: palette.color.gray[745],
@@ -269,9 +271,9 @@ const EveryBusinessSection = () => {
             <Stack
               className="buttom-right-card"
               direction={"column"}
-              gap={{ md: 5, xs: 1.5 }}
+              gap={{ md: 2, xs: 1.5 }}
               sx={{
-                width: { md: "48.95%", xs: "335px" },
+                width: { md: "100%", xs: "100%" },
                 px: "7%",
                 py: "5%",
                 borderRadius: { sm: "30px", xs: "6.98px" },
@@ -281,7 +283,7 @@ const EveryBusinessSection = () => {
                 backgroundColor: isUpperHover
                   ? palette.base.white
                   : palette.text.contactEmailColor,
-                transition: "all 0.9s ease", // Add transition for smooth animation
+                transition: "all 0.7s ease", // Add transition for smooth animation
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.text.contactEmailColor,
@@ -300,9 +302,9 @@ const EveryBusinessSection = () => {
               // onMouseLeave={() => setIsHover(false)}
             >
               {isUpperHover ? (
-                <Icon icon="gearsPurpoleIcon" width={42} height={42} />
+                <Icon icon="ecommercePurpoleIcon" width={57} height={57} />
               ) : (
-                <Icon icon="gearsWhiteIcon" width={42} height={42} />
+                <Icon icon="ecommerceWhiteIcon" width={57} height={57} />
               )}
 
               <Typography
@@ -324,7 +326,7 @@ const EveryBusinessSection = () => {
                   variant="text-md-regular"
                   className="text-md-regular-right"
                   sx={{
-                    width: { md: "400px", xs: "263px" },
+                    width: { md: "100%", xs: "263px" },
                     fontFamily: "Product Sans, sans-serif",
                     textAlign: "center",
                     color: palette.color.gray[745],
@@ -343,7 +345,7 @@ const EveryBusinessSection = () => {
                   variant="text-md-regular"
                   className="text-md-regular-right"
                   sx={{
-                    width: { md: "400px", xs: "263px" },
+                    width: { md: "100%", xs: "263px" },
                     fontFamily: "Product Sans, sans-serif",
                     textAlign: "center",
                     // color: palette.base.white,
@@ -354,9 +356,9 @@ const EveryBusinessSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  Our invoice company provides significant benefits for
-                  professional services. We offer a streamlined platform for
-                  creating
+                  Our invoicing platform streamlines invoice creation and
+                  tracking, allowing you to focus on delivering exceptional
+                  services to your clients.
                 </Typography>
               )}
             </Stack>

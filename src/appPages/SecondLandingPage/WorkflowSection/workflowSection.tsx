@@ -76,7 +76,7 @@ const WorkflowSection = () => {
       <Container
         maxWidth="lg"
         sx={{
-          px: { md: "0%", lg: "0%", xs: "0%" },
+          px: { md: "0%", lg: "0%", xs: "16px" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -142,7 +142,7 @@ const WorkflowSection = () => {
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column-reverse" }}
-            gap={{ sm: 10, xs: 3 }}
+            gap={{ sm: 8, xs: 3 }}
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -154,7 +154,10 @@ const WorkflowSection = () => {
             <Stack
               direction={"column"}
               gap={3}
-              sx={{ width: { md: "540px", xs: "335px" }, height: { md: "230px", xs: "180px" } }}
+              sx={{
+                width: { md: "610px", xs: "335px" },
+                height: { md: "230px", xs: "180px" },
+              }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText
@@ -170,11 +173,11 @@ const WorkflowSection = () => {
             </Stack>
 
             {/* right section */}
-            <Box sx={{ width: { md: "580px", xs: "350px" } }}>
+            <Box>
               <Image
                 src="/Images/workflow-image-1.svg"
-                width={580}
-                height={384}
+                width={550}
+                height={320}
                 alt="streamline your invoicing process with ZeeInvoices free invoice maker"
               />
             </Box>

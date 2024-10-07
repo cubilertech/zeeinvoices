@@ -21,7 +21,7 @@ const HeroSection = () => {
       direction={"column"}
       sx={{
         width: "100%",
-        pb: { sm: 9, xs: 4 },
+        pb: { sm: 10, xs: 4 },
         pt: { sm: 15, xs: 8 },
         justifyContent: "center",
         alignItems: "center",
@@ -33,7 +33,7 @@ const HeroSection = () => {
           direction={{ md: "row", xs: "column" }}
           justifyContent={"space-between"}
           gap={9}
-          sx={{ mx: { md: "0px", xs: "20px" } }}
+          sx={{ px: { md: "0px", xs: "16px" } }}
         >
           {/* left hero section */}
           <Stack
@@ -106,7 +106,7 @@ const HeroSection = () => {
               variant="contained"
               size="large"
               sx={{
-                width: "128px",
+                width: { sm: "128px", xs: "100%" },
                 height: "40px",
                 py: "20px !important",
                 px: "0px !important",
@@ -128,14 +128,6 @@ const HeroSection = () => {
           </Stack>
           {/* right hero section */}
           <Stack direction={"row"} sx={{ position: "relative" }}>
-            {/* <Box sx={{ position: "absolute", zIndex: 1, left: 30, top: "-5%" }}>
-            <Image
-              src="/Images/rectangle-laptop-bg.svg"
-              width={500}
-              height={500}
-              alt="rectangle iaptop bg"
-            />
-          </Box> */}
             <Box sx={{ zIndex: 1 }}>
               <Image
                 src="/Images/hero-image-2.svg"

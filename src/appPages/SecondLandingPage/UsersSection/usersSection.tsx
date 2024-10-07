@@ -18,23 +18,29 @@ import { useEffect, useRef, useState } from "react";
 
 const expandableTextData = [
   {
-    title1: "James",
-    title2: "Collin",
-    imgSrc: "/Images/james-image.svg",
-    desc: "Designer",
+    title1: "Omar",
+    title2: "Hassan",
+    imgSrc: "/Images/user-1.svg",
+    desc: "Contractor",
   },
   {
-    title1: "Jessica",
-    title2: "Johnson",
-    imgSrc: "/Images/jessica-image.svg",
-    desc: "COO",
+    title1: "Emily",
+    title2: "Walker",
+    imgSrc: "/Images/user-2.svg",
+    desc: "Freelancer",
   },
-  // {
-  //   title1: "Jhon",
-  //   title2: "William",
-  //   imgSrc: "/Images/jhon-image.svg",
-  //   desc: "COO, Sisyphus",
-  // },
+  {
+    title1: "Kwame",
+    title2: "Okoye",
+    imgSrc: "/Images/user-3.svg",
+    desc: "Software Engineer",
+  },
+  {
+    title1: "Wei",
+    title2: "Chen",
+    imgSrc: "/Images/user-4.svg",
+    desc: "Web Developer",
+  },
 ];
 
 const commentTextData = [
@@ -51,17 +57,24 @@ const commentTextData = [
     title2: "",
     rating: 5,
     desc1:
-      "ZeeInvoices is a game-changer. The automated reminders help me get paid faster, and the customization options are perfect for my brand.",
+      "ZeeInvoices is a game-changer. The customization options are perfect for my brand.",
     desc2: "",
   },
-  // {
-  //   title1: "Great experience!",
-  //   title2: "",
-  //   rating: 5,
-  //   desc1:
-  //     "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. ",
-  //   desc2: "",
-  // },
+  {
+    title1: "Great experience!",
+    title2: "",
+    rating: 5,
+    desc1:
+      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. ",
+    desc2: "",
+  },
+  {
+    title1: "Good tool!",
+    title2: "",
+    rating: 5,
+    desc1: "The user interface is incredibly intuitive and easy to navigate. ",
+    desc2: "",
+  },
 ];
 
 const UsersSection = () => {
@@ -137,7 +150,7 @@ const UsersSection = () => {
         alignItems: "center",
       }}
     >
-      <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "0%" } }}>
+      <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "16px" } }}>
         <Stack
           direction={"column"}
           gap={3}
@@ -195,9 +208,10 @@ const UsersSection = () => {
             Thousands of businesses trust Zeeinvoices to get paid faster.
           </Typography>
           <Stack
-            direction={{ md: "row", xs: "column" }}
-            gap={{ sm: 9, xs: 1 }}
+            direction={{ md: "column-reverse", xs: "column" }}
+            gap={{ sm: 6, xs: 1 }}
             sx={{
+              width: "100%",
               display: "flex",
               justifyContent: "center",
               mt: "3%",
@@ -206,9 +220,9 @@ const UsersSection = () => {
           >
             {/* left section */}
             <Stack
-              direction={"column"}
-              gap={{ sm: 3, xs: 1 }}
-              sx={{ width: { md: "560px", xs: "335px" } }}
+              direction={{ sm: "row", xs: "column" }}
+              gap={{ sm: 1, xs: 1 }}
+              sx={{ width: { md: "100%", xs: "100%" } }}
             >
               {expandableTextData.map((item, index) => (
                 <SelectableComment
@@ -239,6 +253,7 @@ const UsersSection = () => {
                 <Typography
                   variant="display-md1-medium"
                   sx={{
+                    textAlign: "center",
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.base.black,
                     fontSize: { md: "28px", xs: "14px" },
@@ -254,12 +269,18 @@ const UsersSection = () => {
                   precision={0.5}
                   size="small"
                   readOnly
-                  sx={{ color: "#FCC214" }}
+                  sx={{
+                    width: "100%",
+                    color: "#FCC214",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
                 />
                 <Typography
                   variant="text-xl-regular"
                   sx={{
-                    width: { md: "560px", xs: "335px" },
+                    width: { md: "100%", xs: "335px" },
+                    textAlign: "center",
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.color.gray[745],
                     fontSize: { md: "20px", xs: "12px" },
@@ -272,7 +293,8 @@ const UsersSection = () => {
                 <Typography
                   variant="text-xl-regular"
                   sx={{
-                    width: { md: "560px", xs: "335px" },
+                    width: { md: "100%", xs: "335px" },
+                    textAlign: "center",
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.color.gray[745],
                     fontSize: { md: "20px", xs: "12px" },

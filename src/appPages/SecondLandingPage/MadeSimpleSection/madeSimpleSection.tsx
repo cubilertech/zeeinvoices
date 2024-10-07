@@ -78,7 +78,7 @@ const MadeSimpleSection = () => {
       <Container
         maxWidth="lg"
         sx={{
-          px: { md: "0%", lg: "0%", xs: "0%" },
+          px: { md: "0%", lg: "0%", xs: "16px" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -147,13 +147,14 @@ const MadeSimpleSection = () => {
             gap={{ md: 8, xs: 4 }}
             justifyContent={"space-between"}
             sx={{
+              width: "100%",
               display: "flex",
               justifyContent: "center",
               mt: { md: "3%", xs: "1%" },
             }}
           >
             {/* left section */}
-            <Box sx={{ px: "3%", width: { md: "437px", xs: "335px" } }}>
+            <Box>
               <Image
                 src="/Images/simple-mobile-image-1.svg"
                 width={437}
@@ -166,7 +167,7 @@ const MadeSimpleSection = () => {
             <Stack
               direction={"column"}
               gap={3}
-              sx={{ width: { md: "540px", xs: "350px" }, height: "230px" }}
+              sx={{ width: { md: "652px", xs: "350px" }, height: "230px" }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText

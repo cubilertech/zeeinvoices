@@ -70,8 +70,6 @@ const HelpSection = () => {
       gap={3}
       sx={{
         width: "100%",
-        // pt: 3,
-        // pb: 7,
         backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",
@@ -81,7 +79,7 @@ const HelpSection = () => {
       <Container
         maxWidth="lg"
         sx={{
-          px: { md: "0%", lg: "0%", xs: "0%" },
+          px: { md: "0%", lg: "0%", xs: "16px" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -136,9 +134,9 @@ const HelpSection = () => {
           <Typography
             variant="text-xl-regular"
             sx={{
-              width: { md: "100%", xs: "335px" },
+              width: { md: "772px", xs: "335px" },
               fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
+              color: palette.color.gray[610],
               fontSize: { md: "20px", xs: "12px" },
               lineHeight: { md: "24px", xs: "18px" },
               fontWeight: { md: 400 },
@@ -152,6 +150,7 @@ const HelpSection = () => {
             direction={{ md: "row", xs: "column" }}
             gap={{ md: 8, xs: 2 }}
             sx={{
+              width: "100%",
               display: "flex",
               justifyContent: "center",
               mt: "3%",
@@ -162,16 +161,28 @@ const HelpSection = () => {
             <Box>
               <Image
                 src="/Images/help-image-1.svg"
-                width={596}
-                height={413}
+                width={500}
+                height={360}
                 alt="ZeeInvoices offers an organized way to process billing and invoices"
               />
             </Box>
+
+            {/* <Box
+              sx={{
+                width: { sm: "500px", xs: "500px" },
+                height: { sm: "360px", xs: "360px" },
+                overflow: "hidden",
+                backgroundImage: "url(/Images/help-image-1.svg)",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "100% 100%",
+              }}
+            ></Box> */}
+
             {/* right section */}
             <Stack
               direction={"column"}
               gap={3}
-              sx={{ width: { md: "540px", xs: "335px" }, height: "180px" }}
+              sx={{ width: { md: "720px", xs: "335px" }, maxHeight: "180px" }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText
