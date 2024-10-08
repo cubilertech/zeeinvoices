@@ -86,9 +86,9 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
             <Typography
               sx={{
                 fontFamily: "Product Sans, sans-serif",
-                color: palette.text.expandableTextGreyColor,
-                fontSize: { md: "24px !important", xs: "14px !important" },
-                lineHeight: { md: "34px !important", xs: "18px !important" },
+                color: palette.color.gray[900],
+                fontSize: { md: "24px !important", xs: "18px !important" },
+                lineHeight: { md: "34px !important", xs: "26px !important" },
                 fontWeight: 700,
               }}
             >
@@ -97,9 +97,9 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                 component="span"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  fontSize: { md: "24px !important", xs: "14px !important" },
-                  lineHeight: { md: "34px !important", xs: "18px !important" },
-                  fontWeight: { md: 700 },
+                  fontSize: { md: "24px !important", xs: "18px !important" },
+                  lineHeight: { md: "34px !important", xs: "26px !important" },
+                  fontWeight: { xs: 700 },
                   background: isOpen
                     ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
                     : palette.text.expandableTextGreyColor,
@@ -124,8 +124,9 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 display: "inline-block",
-                fontSize: { md: "24px !important", xs: "14px !important" },
-                lineHeight: { md: "34px !important", xs: "18px !important" },
+                fontSize: { md: "24px !important", xs: "18px !important" },
+                lineHeight: { md: "34px !important", xs: "26px !important" },
+                fontWeight: 700,
               }}
             >
               {title2}
@@ -145,8 +146,8 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
             sx={{
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[610],
-              fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "34px", xs: "18px" },
+              fontSize: { md: "20px", xs: "14px" },
+              lineHeight: { md: "34px", xs: "20px" },
               fontWeight: { md: 400 },
             }}
           >
@@ -161,8 +162,8 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.color.gray[610],
-                  fontSize: { md: "18px", xs: "14px" },
-                  lineHeight: { md: "24px", xs: "20px" },
+                  fontSize: { md: "20px", xs: "14px" },
+                  lineHeight: { md: "34px", xs: "20px" },
                   fontWeight: 700,
                 }}
               >
@@ -176,9 +177,9 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                     sx={{
                       fontFamily: "Product Sans, sans-serif",
                       color: palette.color.gray[610],
-                      fontSize: { md: "16px", xs: "12px" },
-                      lineHeight: { md: "22px", xs: "18px" },
-                      fontWeight: 400,
+                      fontSize: { md: "20px", xs: "14px" },
+                      lineHeight: { md: "34px", xs: "20px" },
+                      fontWeight: { md: 400 },
                     }}
                   >
                     {subheading}

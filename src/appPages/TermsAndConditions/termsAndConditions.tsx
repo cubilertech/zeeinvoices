@@ -1,6 +1,4 @@
 "use client";
-import { ContactInfoCard } from "@/components/ContactInfoCard";
-import { TermsConditions } from "@/components/TermsConditions";
 import { palette } from "@/theme/palette";
 import {
   Box,
@@ -10,12 +8,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { FC, useCallback, useState } from "react";
-// import { FooterSection } from "../LandingPage/FooterSection";
-import { ExpandableText } from "@/components/ExpandableText";
-import Image from "next/image";
 import { Icon } from "@/components/Icon";
-import { FooterSection } from "../SecondLandingPage/FooterSection";
 import { ExpandableTextWithSubheadings } from "@/components/ExpandableTextWithSubheadings";
+import "@/Styles/sectionStyle.css";
 
 const expandableTextData = [
   {
@@ -201,11 +196,14 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
           backgroundColor: palette.base.white,
           justifyContent: "center",
           alignItems: "center",
-          pt: 15,
-          pb: 8,
+          pt: { sm: 15, xs: 7 },
+          pb: { sm: 8, xs: 5 },
         }}
       >
-        <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "5%" } }}>
+        <Container
+          className="mainContainer"
+          sx={{ px: { md: "0%", lg: "0%", xs: "0%" } }}
+        >
           <Stack
             direction={"column"}
             gap={4}
@@ -216,120 +214,129 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
               // mt: 15,
             }}
           >
-            <Stack
-              direction={"column"}
-              gap={0.5}
-              sx={{
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                variant="display-lg-bold"
+            <Stack direction={"column"} gap={{ sm: 7.5, xs: 9 }}>
+              <Stack
+                direction={"column"}
+                gap={{ sm: 1.5, xs: 2 }}
                 sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[805],
-                  fontSize: { md: "48px !important", xs: "24px !important" },
-                  lineHeight: {
-                    md: "64px !important",
-                    xs: "29.11px !important",
-                  },
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                Terms &{" "}
-                <span
-                  // variant="display-lg-bold"
-                  // component={"span"}
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  Conditions
-                </span>
-              </Typography>
-
-              <Typography
-                variant="text-xl-regular"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
-                  fontSize: { sm: "20px !important", xs: "12px !important" },
-                  lineHeight: { sm: "24px", xs: "18px" },
-                  fontWeight: { sm: 400 },
-                }}
-              >
-                See our terms of Use
-              </Typography>
-            </Stack>
-
-            <Stack>
-              <Typography
-                // variant="display-xs-bold"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[900],
-                  fontSize: { md: "24px !important", xs: "14px !important" },
-                  lineHeight: { md: "34px !important", xs: "18px !important" },
-                  fontWeight: 700,
-                }}
-              >
-                Effective Date:{" "}
-                <Box
-                  component="span"
+                <Typography
+                  variant="display-lg-bold"
                   sx={{
                     fontFamily: "Product Sans, sans-serif",
-                    fontSize: { md: "24px !important", xs: "14px !important" },
+                    color: palette.color.gray[900],
+                    fontSize: { md: "48px !important", xs: "36px !important" },
                     lineHeight: {
-                      md: "34px !important",
-                      xs: "18px !important",
+                      md: "64px !important",
+                      xs: "44px !important",
                     },
-                    fontWeight: { md: 700 },
-                    background:
-                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    display: "inline-block",
+                    fontWeight: 700,
                   }}
                 >
-                  01/09/2023
-                </Box>
-              </Typography>
-              <Typography
-                variant="text-xl1-1-regular"
-                sx={{
-                  fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[610],
-                  fontSize: { md: "20px", xs: "12px" },
-                  lineHeight: { md: "34px", xs: "18px" },
-                  fontWeight: { md: 400 },
-                }}
-              >
-                Welcome to ZeeInvoices! These Terms & Conditions
-                (&quot;Terms&quot;) govern your use of our website{" "}
-                <a
-                  href="https://www.zeeinvoices.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: palette.primary.main,
-                    textDecoration: isHovered ? "underline" : "none",
+                  Terms &{" "}
+                  <span
+                    // variant="display-lg-bold"
+                    // component={"span"}
+                    style={{
+                      background:
+                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      display: "inline-block",
+                    }}
+                  >
+                    Conditions
+                  </span>
+                </Typography>
+
+                <Typography
+                  variant="text-xl-regular"
+                  sx={{
+                    fontFamily: "Product Sans, sans-serif",
+                    color: palette.color.gray[610],
+                    fontSize: { sm: "20px !important", xs: "18px !important" },
+                    lineHeight: { sm: "28px", xs: "28px" },
+                    fontWeight: { sm: 400 },
                   }}
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
                 >
-                  https://www.zeeinvoices.com/
-                </a>{" "}
-                and the invoicing software and services (&quot;Services&quot;)
-                provided by ZeeInvoices (&quot;we,&quot; &quot;us,&quot; or
-                &quot;our&quot;). By accessing or using our Services, you agree
-                to be bound by these Terms. If you do not agree with these
-                Terms, you should not use our Services.
-              </Typography>
+                  See our terms of Use
+                </Typography>
+              </Stack>
+
+              <Stack direction={"column"} gap={2}>
+                <Typography
+                  // variant="display-xs-bold"
+                  sx={{
+                    fontFamily: "Product Sans, sans-serif",
+                    color: palette.color.gray[900],
+                    fontSize: { md: "30px !important", xs: "20px !important" },
+                    lineHeight: {
+                      md: "40px !important",
+                      xs: "20px !important",
+                    },
+                    fontWeight: 700,
+                  }}
+                >
+                  Effective Date:{" "}
+                  <Box
+                    component="span"
+                    sx={{
+                      fontFamily: "Product Sans, sans-serif",
+                      fontSize: {
+                        md: "30px !important",
+                        xs: "20px !important",
+                      },
+                      lineHeight: {
+                        md: "40px !important",
+                        xs: "20px !important",
+                      },
+                      fontWeight: { md: 700 },
+                      background:
+                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      display: "inline-block",
+                    }}
+                  >
+                    01/09/2023
+                  </Box>
+                </Typography>
+                <Typography
+                  variant="text-xl1-1-regular"
+                  sx={{
+                    fontFamily: "Product Sans, sans-serif",
+                    color: palette.color.gray[610],
+                    fontSize: { md: "20px", xs: "14px" },
+                    lineHeight: { md: "30px", xs: "20px" },
+                    fontWeight: { md: 400 },
+                  }}
+                >
+                  Welcome to ZeeInvoices! These Terms & Conditions
+                  (&quot;Terms&quot;) govern your use of our website{" "}
+                  <a
+                    href="https://www.zeeinvoices.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: palette.primary.main,
+                      textDecoration: isHovered ? "underline" : "none",
+                    }}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    https://www.zeeinvoices.com/
+                  </a>{" "}
+                  and the invoicing software and services (&quot;Services&quot;)
+                  provided by ZeeInvoices (&quot;we,&quot; &quot;us,&quot; or
+                  &quot;our&quot;). By accessing or using our Services, you
+                  agree to be bound by these Terms. If you do not agree with
+                  these Terms, you should not use our Services.
+                </Typography>
+              </Stack>
             </Stack>
 
             <Stack
@@ -360,13 +367,13 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
           </Stack>
 
           <Stack
-            direction={{sm:"row", xs:"column"}}
+            direction={{ sm: "row", xs: "column" }}
             gap={3}
             sx={{
               display: "flex",
               justifyContent: "space-between",
               gap: { md: 3, xs: 1 },
-              mt: "5%",
+              mt: { sm: "48px", xs: "32px" },
               width: { md: "100%", xs: "100%" },
             }}
           >
@@ -380,7 +387,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 borderRadius: { md: "16px", xs: "16px" },
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
-                gap: { md: 3, xs: 1.5 },
+                gap: { md: 3, xs: 2 },
                 color:
                   hoveredBox === 1 || hoveredBox === 2
                     ? palette.base.black
@@ -389,11 +396,11 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   hoveredBox === 1 || hoveredBox === 2
                     ? palette.base.white
                     : palette.primary.main,
-                transition: "all 0.7s ease", // Add transition for smooth animation
+                transition: "all 0.5s ease", // Add transition for smooth animation
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.primary.main,
-                  transform: "scale(1.05)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", // Scale the component up by 10% on hover
                 },
                 "& .text-md-regular": {
                   color:
@@ -413,18 +420,22 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
             >
               {hoveredBox === 1 || hoveredBox === 2 ? (
                 <Icon
-                  icon="contactPhoneIcon"
+                  icon="contactMailIcon"
                   width={isModile ? 32 : 42}
                   height={isModile ? 32 : 42}
                 />
               ) : (
                 <Icon
-                  icon="contactWhitePhoneIcon"
+                  icon="contactWhiteMailIcon"
                   width={isModile ? 32 : 42}
                   height={isModile ? 32 : 42}
                 />
               )}
-              <Stack direction={"column"} gap={1.5} alignItems={"center"}>
+              <Stack
+                direction={"column"}
+                gap={{ sm: 1.5, xs: 1 }}
+                alignItems={"center"}
+              >
                 <Typography
                   variant="display-sm0-medium"
                   sx={{
@@ -455,12 +466,13 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                       textAlign: "center",
                       fontSize: {
                         md: "16px !important",
-                        xs: "10px !important",
+                        xs: "16px !important",
                       },
                       lineHeight: {
-                        md: "19px !important",
-                        xs: "18px !important",
+                        md: "24px !important",
+                        xs: "24px !important",
                       },
+                      fontWeight: 400,
                       "&:hover": {
                         textDecoration: "underline", // Ensure there's no underline
                       },
@@ -482,12 +494,12 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 borderRadius: { md: "16px", xs: "16px" },
                 border: `1.06px solid #0000001A`,
                 backgroundColor: palette.base.white,
-                transition: "all 0.7s ease",
-                gap: { md: 3, xs: "16px" }, // Add transition for smooth animation
+                transition: "all 0.5s ease",
+                gap: { md: 3, xs: 2 }, // Add transition for smooth animation
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.primary.main,
-                  transform: "scale(1.05)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", // Scale the component up by 10% on hover
                 },
                 "&:hover .text-md-regular": {
                   color: palette.base.white, // Change the color of the specific Typography on hover
@@ -501,19 +513,23 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
             >
               {hoveredBox === 1 ? (
                 <Icon
-                  icon="contactWhiteMailIcon"
+                  icon="contactWhitePhoneIcon" // contactWhitePhoneIcon
                   width={isModile ? 32 : 42}
                   height={isModile ? 32 : 42}
                 />
               ) : (
                 <Icon
-                  icon="contactMailIcon"
+                  icon="contactPhoneIcon" //contactPhoneIcon
                   width={isModile ? 32 : 42}
                   height={isModile ? 32 : 42}
                 />
               )}
 
-              <Stack direction={"column"} gap={1.5} alignItems={"center"}>
+              <Stack
+                direction={"column"}
+                gap={{ sm: 1.5, xs: 1 }}
+                alignItems={"center"}
+              >
                 <Typography
                   variant="display-md1-regular"
                   className="display-sm0-medium"
@@ -544,9 +560,10 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                       xs: "16px !important",
                     },
                     lineHeight: {
-                      md: "24px  !important",
-                      xs: "21px !important",
+                      md: "24px !important",
+                      xs: "24px !important",
                     },
+                    fontWeight: 400,
                   }}
                 >
                   +1 480 920 1123
@@ -564,12 +581,12 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
                 backgroundColor: palette.base.white,
-                transition: "all 0.7s ease",
-                gap: { md: 3, xs: 1.5 }, // Add transition for smooth animation
+                transition: "all 0.5s ease",
+                gap: { md: 3, xs: 2 }, // Add transition for smooth animation
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.primary.main,
-                  transform: "scale(1.05)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", // Scale the component up by 10% on hover
                 },
                 "&:hover .text-md-regular": {
                   color: palette.base.white, // Change the color of the specific Typography on hover
@@ -594,7 +611,11 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   height={isModile ? 32 : 2}
                 />
               )}
-              <Stack direction={"column"} gap={1.5} alignItems={"center"}>
+              <Stack
+                direction={"column"}
+                gap={{ sm: 1.5, xs: 1 }}
+                alignItems={"center"}
+              >
                 <Typography
                   variant="display-sm0-medium"
                   className="display-sm0-medium"
@@ -622,11 +643,15 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                     textAlign: "center",
                     color: palette.text.contactEmailColor,
                     // color: palette.color.gray[745],
-                    fontSize: { md: "16px !important", xs: "10px !important" },
-                    lineHeight: {
-                      md: "24px  !important",
-                      xs: "21px !important",
+                    fontSize: {
+                      md: "16px !important",
+                      xs: "16px !important",
                     },
+                    lineHeight: {
+                      md: "24px !important",
+                      xs: "24px !important",
+                    },
+                    fontWeight: 400,
                     mt: { md: 0, xs: 1 },
                   }}
                 >
