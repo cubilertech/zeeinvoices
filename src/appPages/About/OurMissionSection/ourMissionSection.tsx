@@ -31,23 +31,13 @@ const OurMissionSection = () => {
             sx={{
               width: { sm: "48%", xs: "100%" },
               display: "flex",
-              gap: { sm: 1, xs: 0 },
+              gap: { sm: 2, xs: 1 },
               alignItems: "end",
               height: { sm: "562px", xs: "300px" },
               justifyContent: { sm: "", xs: "center" },
             }}
           >
-            <Box
-              sx={{
-                width: { sm: "347px", xs: "162px" },
-                height: { sm: "444px", xs: "247px" },
-                overflow: "hidden",
-                borderRadius: "8px",
-                backgroundImage: "url(/Images/about/ourMission-image-1.svg)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100% 120%",
-              }}
-            ></Box>
+         
             <Stack
               gap={1}
               mb={3}
@@ -76,6 +66,17 @@ const OurMissionSection = () => {
                 }}
               ></Box>
             </Stack>
+            <Box
+              sx={{
+                width: { sm: "347px", xs: "162px" },
+                height: { sm: "444px", xs: "247px" },
+                overflow: "hidden",
+                borderRadius: "8px",
+                backgroundImage: "url(/Images/about/ourMission-image-1.svg)",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "100% 120%",
+              }}
+            ></Box>
           </Box>
           <Box
             sx={{
@@ -85,7 +86,7 @@ const OurMissionSection = () => {
           >
             <Typography
               variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
-              color={palette.color.gray[805]}
+              color={palette.color.gray[900]}
               mb={{ sm: 2, xs: 1 }}
               sx={{ fontFamily: "Product Sans,sans-serif" }}
               component={"h1"}

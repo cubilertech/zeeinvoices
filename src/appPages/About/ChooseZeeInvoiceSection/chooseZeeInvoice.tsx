@@ -75,7 +75,7 @@ const ChooseZeeInvoiceSection = () => {
           <Box textAlign={"center"}>
             <Typography
               variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
-              color={palette.color.gray[805]}
+              color={palette.color.gray[900]}
               mb={{ sm: 3, xs: 1 }}
               component={"p"}
               sx={{fontFamily: "Product Sans,sans-serif"}}

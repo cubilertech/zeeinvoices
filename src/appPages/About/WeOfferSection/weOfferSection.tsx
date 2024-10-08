@@ -19,12 +19,12 @@ const WeOfferSection = () => {
     <>
       <Container
         maxWidth="lg"
-        sx={{ py: { sm: 7, xs: 4 }, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
+        sx={{ py: { sm: 7, xs: 8 }, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
       >
         <Box textAlign={"center"}>
           <Typography
             variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
-            color={palette.color.gray[805]}
+            color={palette.color.gray[900]}
             mb={{ sm: 3, xs: 1 }}
             component={"p"}
             sx={{fontFamily: "Product Sans,sans-serif"}}

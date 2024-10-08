@@ -54,7 +54,7 @@ const GetInTouchSection = () => {
         <Box sx={{ textAlign: "center" }}>
           <Typography
             variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
-            color={palette.color.gray[805]}
+            color={palette.color.gray[900]}
             mb={2}
             component={"p"}
             sx={{ fontFamily: "Product Sans, sans-serif" }}
@@ -74,7 +74,7 @@ const GetInTouchSection = () => {
         {!isModile && (
           <Typography
             variant={isModile ? "h6" : "h4"}
-            color={palette.color.gray[805]}
+            color={palette.color.gray[900]}
             sx={{ mt: 5, fontFamily: "Product Sans, sans-serif" }}
           >
             {" "}
@@ -101,14 +101,21 @@ const GetInTouchSection = () => {
             }}
           >
             {isModile && (
-              <Typography
-                variant={"display-xs-bold"}
-                color={palette.color.gray[805]}
-                sx={{ mt: 5, fontFamily: "Product Sans, sans-serif" }}
-              >
-                {" "}
-                Why Reach To Us
-              </Typography>
+              <Box sx={{display: "flex", flexDirection: "column", width: "100%", gap: 5}}>
+                <Divider
+                  variant="fullWidth"
+                  orientation="horizontal"
+                />
+
+                <Typography
+                  variant={"display-xs-bold"}
+                  color={palette.color.gray[805]}
+                  sx={{ fontFamily: "Product Sans, sans-serif" }}
+                >
+                  {" "}
+                  Why Reach To Us
+                </Typography>
+              </Box>
             )}
             {accordionData.map((item, index) => (
               <AccordionCardRightIcon

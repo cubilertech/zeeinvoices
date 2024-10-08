@@ -28,9 +28,12 @@ const HeroSection = () => {
           >
             <Typography
               variant={isModile ? "display-md-bold" : "display-3xl-bold"}
-              sx={{ color: palette.text.contactEmailColor, fontFamily: "Product Sans,sans-serif" }}
+              sx={{
+                color: palette.text.contactEmailColor,
+                fontFamily: "Product Sans,sans-serif",
+              }}
             >
-              About <span style={{ color: palette.base.black }}>Us</span>
+              About <span style={{ color: palette.color.gray[900] }}>Us</span>
             </Typography>
 
             <Typography
@@ -40,7 +43,7 @@ const HeroSection = () => {
               sx={{
                 fontSize: { sm: "20px !important", xs: "18px !important" },
                 lineHeight: { sm: "28px !important", xs: "21px !important" },
-                fontFamily: "Product Sans,sans-serif"
+                fontFamily: "Product Sans,sans-serif",
               }}
             >
               Welcome to ZeeInvoices, at ZeeInvoices, we make invoicing simple,
