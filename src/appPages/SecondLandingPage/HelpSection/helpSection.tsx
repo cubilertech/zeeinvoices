@@ -102,7 +102,7 @@ const HelpSection = () => {
         >
           <Stack
             direction={"column"}
-            // gap={{ sm: 1.5, xs: 0.5 }}
+            gap={{ sm: 1.5, xs: 0.5 }}
             sx={{ alignItems: "center" }}
           >
             <Stack direction={"row"} gap={2}>
@@ -180,7 +180,7 @@ const HelpSection = () => {
               gap={{ sm: 1.5, xs: 1 }}
               sx={{
                 width: { md: "720px", xs: "335px" },
-                maxHeight: {sm:"359", sx:"246px"},
+                maxHeight: { sm: "359", sx: "246px" },
                 justifyContent: "center",
               }}
             >

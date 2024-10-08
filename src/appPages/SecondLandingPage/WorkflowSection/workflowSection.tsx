@@ -92,11 +92,10 @@ const WorkflowSection = () => {
             pt: { sm: 10, xs: 5 },
             pb: { sm: 10, xs: 5 },
             backgroundColor: palette.base.white,
-            justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Stack direction={"column"} gap={1.5}>
+          <Stack direction={"column"} gap={1.5} sx={{ alignItems: "center" }}>
             <Stack direction={"row"} gap={2}>
               <Typography
                 variant="display-lg-bold"
