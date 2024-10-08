@@ -218,6 +218,13 @@ export const CustomTypography = {
     fontWeight: 600,
     letterSpacing: "",
   },
+  "display-sm2-bold": {
+    fontSize: "26px",
+    lineHeight: "27px",
+    fontKerning: "0%",
+    fontWeight: 700,
+    letterSpacing: "",
+  },
 
   "display-xs-regular": {
     fontSize: "24px",

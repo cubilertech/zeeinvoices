@@ -142,7 +142,7 @@ const FAQsSection = () => {
           height: "100%",
           width: { sm: "900px", xs: "90%" },
           py: 0,
-          px: { md: "0%", lg: "0%", xs: "0%" },
+          px: { md: "0%", lg: "0%", xs: "0px" },
         }}
       >
         <Stack

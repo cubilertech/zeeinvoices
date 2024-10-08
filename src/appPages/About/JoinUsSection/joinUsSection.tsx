@@ -29,19 +29,24 @@ const JoinUsSection = () => {
           }}
         >
           <Typography
-            variant={isModile ? "h5" : "display-lg-bold"}
+            variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
             component={"p"}
-            sx={{ mb: 2, color: palette.base.white }}
+            sx={{
+              mb: 2,
+              color: palette.base.white,
+              fontFamily: "Product Sans, sans-serif",
+            }}
           >
             Join Us Today
           </Typography>
           <Typography
-            variant={isModile ? "text-xs-regular" : "text-xl-regular"}
+            variant={isModile ? "text-sm-regular" : "text-xl-regular"}
             component={"p"}
             sx={{
               mb: 3,
               color: palette.base.white,
               lineHeight: { sm: "30px", xs: "18px" },
+              fontFamily: "Product Sans, sans-serif",
             }}
           >
             Experience the ease of <b>free invoicing</b> with ZeeInvoices.

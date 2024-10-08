@@ -19,22 +19,24 @@ const WeOfferSection = () => {
     <>
       <Container
         maxWidth="lg"
-        sx={{ py: { sm: 7, xs: 4 }, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
+        sx={{ py: { sm: 7, xs: 8 }, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
       >
         <Box textAlign={"center"}>
           <Typography
-            variant={isModile ? "h5" : "display-lg-bold"}
-            color={palette.color.gray[805]}
+            variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
+            color={palette.color.gray[900]}
             mb={{ sm: 3, xs: 1 }}
             component={"p"}
+            sx={{fontFamily: "Product Sans,sans-serif"}}
           >
             What We{" "}
             <span style={{ color: palette.text.contactEmailColor }}>Offer</span>
           </Typography>
           <Typography
             component={"p"}
-            variant={isModile ? "text-xs-regular" : "text-xl1-regular"}
+            variant={isModile ? "text-lg-regular" : "text-xl1-regular"}
             color={palette.color.gray[745]}
+            sx={{fontFamily: "Product Sans,sans-serif"}}
           >
             Here’s how ZeeInvoices makes your invoicing process simple and
             efficient
