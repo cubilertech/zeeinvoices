@@ -6,11 +6,11 @@ on:
       - main
 
 env:
-  API_GATEWAY_STAGE: main
+  API_GATEWAY_STAGE: prod
 
 jobs:
   deploy:
-    name: Build and deploy dev Docker image
+    name: Build and deploy prod Docker image
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
