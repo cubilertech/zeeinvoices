@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  API_GATEWAY_STAGE: main
+  API_GATEWAY_STAGE: prod
 
 jobs:
   deploy:
