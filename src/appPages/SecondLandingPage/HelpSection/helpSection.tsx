@@ -5,6 +5,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import "@/Styles/sectionStyle.css";
 
 const expandableTextData = [
   {
@@ -77,7 +78,7 @@ const HelpSection = () => {
       }}
     >
       <Container
-        maxWidth="lg"
+        className="mainContainer"
         sx={{
           px: { md: "0%", lg: "0%", xs: "16px" },
           display: "flex",
@@ -88,72 +89,78 @@ const HelpSection = () => {
       >
         <Stack
           direction={"column"}
-          gap={3}
+          gap={{ sm: 7.5, xs: 4 }}
           sx={{
             width: "100%",
-            pt: 3,
-            pb: 7,
+            pt: { sm: 10, xs: 5 },
+            pb: { sm: 10, xs: 5 },
             backgroundColor: palette.base.white,
             justifyContent: "center",
             alignItems: "center",
             mx: { md: "0px", xs: "0px" },
           }}
         >
-          <Stack direction={"row"} gap={2}>
-            <Typography
-              variant="display-lg-bold"
-              sx={{
-                textAlign: "center",
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[805],
-                fontSize: { md: "48px", xs: "24px" },
-                lineHeight: { md: "64px", xs: "29px" },
-                fontWeight: { md: 700 },
-              }}
-              component={"h1"}
-            >
-              How ZeeInvoices{" "}
-              <Box
-                component="span"
+          <Stack
+            direction={"column"}
+            // gap={{ sm: 1.5, xs: 0.5 }}
+            sx={{ alignItems: "center" }}
+          >
+            <Stack direction={"row"} gap={2}>
+              <Typography
+                variant="display-lg-bold"
                 sx={{
+                  textAlign: "center",
                   fontFamily: "Product Sans, sans-serif",
-                  fontSize: { md: "48px", xs: "24px" },
-                  lineHeight: { md: "64px", xs: "29px" },
+                  color: palette.color.gray[900],
+                  fontSize: { md: "48px", xs: "26px" },
+                  lineHeight: { md: "64px", xs: "32px" },
                   fontWeight: { md: 700 },
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
                 }}
+                component={"h1"}
               >
-                Helps You?
-              </Box>
+                How{" "}
+                <Box
+                  component="span"
+                  sx={{
+                    fontFamily: "Product Sans, sans-serif",
+                    fontSize: { md: "48px", xs: "26px" },
+                    lineHeight: { md: "64px", xs: "32px" },
+                    fontWeight: { md: 700 },
+                    background:
+                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    display: "inline-block",
+                  }}
+                >
+                  ZeeInvoices Helps You?
+                </Box>
+              </Typography>
+            </Stack>
+            <Typography
+              variant="text-xl-regular"
+              sx={{
+                width: { md: "772px", xs: "335px" },
+                fontFamily: "Product Sans, sans-serif",
+                color: palette.color.gray[610],
+                fontSize: { md: "20px", xs: "16px" },
+                lineHeight: { md: "24px", xs: "24px" },
+                fontWeight: { md: 400 },
+                textAlign: { xs: "center" },
+              }}
+            >
+              ZeeInvoices is a free and easy to use invoice generator and
+              billing software custom designed to meet your business needs.
             </Typography>
           </Stack>
-          <Typography
-            variant="text-xl-regular"
-            sx={{
-              width: { md: "772px", xs: "335px" },
-              fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[610],
-              fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "24px", xs: "18px" },
-              fontWeight: { md: 400 },
-              textAlign: { xs: "center" },
-            }}
-          >
-            ZeeInvoices is a free and easy to use invoice generator and billing
-            software custom designed to meet your business needs.
-          </Typography>
           <Stack
             direction={{ md: "row", xs: "column" }}
-            gap={{ md: 8, xs: 2 }}
+            gap={{ md: 7.5, xs: 2.5 }}
             sx={{
               width: "100%",
+              height: "auto",
               display: "flex",
-              justifyContent: "center",
-              mt: "3%",
+              alignItems: { sm: "center" },
               mx: { md: "0px", xs: "20px" },
             }}
           >
@@ -162,27 +169,20 @@ const HelpSection = () => {
               <Image
                 src="/Images/help-image-1.svg"
                 width={500}
-                height={360}
+                height={359}
                 alt="ZeeInvoices offers an organized way to process billing and invoices"
               />
             </Box>
 
-            {/* <Box
-              sx={{
-                width: { sm: "500px", xs: "500px" },
-                height: { sm: "360px", xs: "360px" },
-                overflow: "hidden",
-                backgroundImage: "url(/Images/help-image-1.svg)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100% 100%",
-              }}
-            ></Box> */}
-
             {/* right section */}
             <Stack
               direction={"column"}
-              gap={3}
-              sx={{ width: { md: "720px", xs: "335px" }, maxHeight: "180px" }}
+              gap={{ sm: 1.5, xs: 1 }}
+              sx={{
+                width: { md: "720px", xs: "335px" },
+                maxHeight: {sm:"359", sx:"246px"},
+                justifyContent: "center",
+              }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText

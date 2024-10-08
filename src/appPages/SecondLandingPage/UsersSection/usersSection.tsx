@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import "@/Styles/sectionStyle.css";
 
 const expandableTextData = [
   {
@@ -143,78 +144,82 @@ const UsersSection = () => {
       gap={3}
       sx={{
         width: "100%",
-        // pt: 3,
-        // pb: { sm: 7, xs: 4 },
+
         backgroundColor: palette.base.white,
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "16px" } }}>
+      <Container className="mainContainer" sx={{ px: { md: "0%", lg: "0%", xs: "16px" } }}>
         <Stack
           direction={"column"}
-          gap={3}
+          gap={{ sm: 7.5, xs: 4 }}
           sx={{
             width: "100%",
-            pt: 5,
-            pb: { sm: 7, xs: 4 },
+            pt: { sm: 10, xs: 5 },
+            pb: { sm: 10, xs: 5 },
             backgroundColor: palette.base.white,
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Stack direction={"row"} gap={2}>
-            <Typography
-              variant="display-lg-bold"
-              sx={{
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[805],
-                fontSize: { md: "48px", xs: "24px" },
-                lineHeight: { md: "64px", xs: "29px" },
-                fontWeight: { md: 700 },
-              }}
-            >
-              What Our{" "}
-              <Box
-                component="span"
+          <Stack
+            direction={"column"}
+            gap={{ sm: 1.5, xs: 1.5 }}
+            sx={{ alignItems: "center" }}
+          >
+            <Stack direction={"row"} gap={2}>
+              <Typography
+                variant="display-lg-bold"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
+                  color: palette.color.gray[900],
                   fontSize: { md: "48px", xs: "24px" },
                   lineHeight: { md: "64px", xs: "29px" },
                   fontWeight: { md: 700 },
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
                 }}
               >
-                Users Say
-              </Box>
+                What Our{" "}
+                <Box
+                  component="span"
+                  sx={{
+                    fontFamily: "Product Sans, sans-serif",
+                    fontSize: { md: "48px", xs: "24px" },
+                    lineHeight: { md: "64px", xs: "29px" },
+                    fontWeight: { md: 700 },
+                    background:
+                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    display: "inline-block",
+                  }}
+                >
+                  Users Say
+                </Box>
+              </Typography>
+            </Stack>
+            <Typography
+              variant="text-xl-regular"
+              sx={{
+                width: { md: "100%", xs: "335px" },
+                fontFamily: "Product Sans, sans-serif",
+                color: palette.color.gray[610],
+                fontSize: { md: "20px", xs: "12px" },
+                lineHeight: { md: "30px", xs: "18px" },
+                fontWeight: { md: 400 },
+                textAlign: { xs: "center" },
+              }}
+            >
+              Thousands of businesses trust Zeeinvoices to get paid faster.
             </Typography>
           </Stack>
-          <Typography
-            variant="text-xl-regular"
-            sx={{
-              width: { md: "100%", xs: "335px" },
-              fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
-              fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "24px", xs: "18px" },
-              fontWeight: { md: 400 },
-              textAlign: { xs: "center" },
-            }}
-          >
-            Thousands of businesses trust Zeeinvoices to get paid faster.
-          </Typography>
           <Stack
             direction={{ md: "column-reverse", xs: "column" }}
-            gap={{ sm: 6, xs: 1 }}
+            gap={{ sm: 7.5, xs: 1 }}
             sx={{
               width: "100%",
               display: "flex",
               justifyContent: "center",
-              mt: "3%",
               alignItems: { xs: "center" },
             }}
           >
@@ -222,6 +227,7 @@ const UsersSection = () => {
             <Stack
               direction={{ sm: "row", xs: "column" }}
               gap={{ sm: 1, xs: 1 }}
+              justifyContent={"space-around"}
               sx={{ width: { md: "100%", xs: "100%" } }}
             >
               {expandableTextData.map((item, index) => (
@@ -244,7 +250,8 @@ const UsersSection = () => {
             {!isMobile && (
               <Stack
                 direction={"column"}
-                gap={1}
+                gap={2}
+                justifyContent={"space-between"}
                 sx={{
                   opacity: isTransitioning ? 0 : 1,
                   transition: "opacity 0.3s ease-in-out",
@@ -255,7 +262,7 @@ const UsersSection = () => {
                   sx={{
                     textAlign: "center",
                     fontFamily: "Product Sans, sans-serif",
-                    color: palette.base.black,
+                    color: palette.color.gray[900],
                     fontSize: { md: "28px", xs: "14px" },
                     lineHeight: { md: "32px", xs: "32px" },
                     fontWeight: { md: 400 },
@@ -282,28 +289,30 @@ const UsersSection = () => {
                     width: { md: "100%", xs: "335px" },
                     textAlign: "center",
                     fontFamily: "Product Sans, sans-serif",
-                    color: palette.color.gray[745],
+                    color: palette.color.gray[610],
                     fontSize: { md: "20px", xs: "12px" },
-                    lineHeight: { md: "24px", xs: "18px" },
+                    lineHeight: { md: "30px", xs: "18px" },
                     fontWeight: { md: 400 },
                   }}
                 >
                   {commentTextData[openIndex].desc1}
                 </Typography>
-                <Typography
-                  variant="text-xl-regular"
-                  sx={{
-                    width: { md: "100%", xs: "335px" },
-                    textAlign: "center",
-                    fontFamily: "Product Sans, sans-serif",
-                    color: palette.color.gray[745],
-                    fontSize: { md: "20px", xs: "12px" },
-                    lineHeight: { md: "24px", xs: "18px" },
-                    fontWeight: { md: 400 },
-                  }}
-                >
-                  {commentTextData[openIndex].desc2}
-                </Typography>
+                {commentTextData[openIndex].desc2 !== "" && (
+                  <Typography
+                    variant="text-xl-regular"
+                    sx={{
+                      width: { md: "100%", xs: "335px" },
+                      textAlign: "center",
+                      fontFamily: "Product Sans, sans-serif",
+                      color: palette.color.gray[610],
+                      fontSize: { md: "20px", xs: "12px" },
+                      lineHeight: { md: "30px", xs: "18px" },
+                      fontWeight: { md: 400 },
+                    }}
+                  >
+                    {commentTextData[openIndex].desc2}
+                  </Typography>
+                )}
               </Stack>
             )}
           </Stack>

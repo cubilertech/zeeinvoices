@@ -30,6 +30,7 @@ import { backendURL } from "@/utils/constants";
 import { getCountValue } from "@/redux/features/counterSlice";
 import { usePathname } from "next/navigation";
 import { BorderRight, Menu as MenuIcon } from "@mui/icons-material";
+import "@/Styles/sectionStyle.css";
 
 const Header = () => {
   const pathname = usePathname();
@@ -112,18 +113,18 @@ const Header = () => {
         left: 0,
         background: palette.base.white,
         py: { sm: "14px", xs: "10px" },
-        px: { sm: "0px", xs: "5px" },
+        px: { sm: "0px", xs: "0px" },
         borderBottom: `1px solid #00000033`,
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 0px 0px",
       }}
     >
       <Container
-        maxWidth="lg"
+        className="mainContainer"
         sx={{
           display: "flex",
           justifyContent: "space-between",
           // px: "0px !important",
-          px: { md: "0.1%", lg: "0.1%", xs: "0.2%" },
+          px: { md: "0%", lg: "0%", xs: "0%" },
         }}
       >
         <Stack

@@ -5,6 +5,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import "@/Styles/sectionStyle.css";
 
 const expandableTextData = [
   {
@@ -74,7 +75,7 @@ const WorkflowSection = () => {
       }}
     >
       <Container
-        maxWidth="lg"
+        className="mainContainer"
         sx={{
           px: { md: "0%", lg: "0%", xs: "16px" },
           display: "flex",
@@ -85,69 +86,71 @@ const WorkflowSection = () => {
       >
         <Stack
           direction={"column"}
-          gap={3}
+          gap={{ sm: 7.5, xs: 4 }}
           sx={{
             width: "100%",
-            pt: { sm: 3, xs: 1 },
-            pb: { sm: 7, xs: 1 },
+            pt: { sm: 10, xs: 5 },
+            pb: { sm: 10, xs: 5 },
             backgroundColor: palette.base.white,
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Stack direction={"row"} gap={2}>
-            <Typography
-              variant="display-lg-bold"
-              sx={{
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[805],
-                fontSize: { md: "48px", xs: "24px" },
-                lineHeight: { md: "64px", xs: "29px" },
-                fontWeight: { md: 700 },
-              }}
-            >
-              Streamline{" "}
-              <Box
-                component="span"
+          <Stack direction={"column"} gap={1.5}>
+            <Stack direction={"row"} gap={2}>
+              <Typography
+                variant="display-lg-bold"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
+                  color: palette.color.gray[900],
                   fontSize: { md: "48px", xs: "24px" },
                   lineHeight: { md: "64px", xs: "29px" },
                   fontWeight: { md: 700 },
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
                 }}
               >
-                Your Workflow
-              </Box>
+                Streamline{" "}
+                <Box
+                  component="span"
+                  sx={{
+                    fontFamily: "Product Sans, sans-serif",
+                    fontSize: { md: "48px", xs: "24px" },
+                    lineHeight: { md: "64px", xs: "29px" },
+                    fontWeight: { md: 700 },
+                    background:
+                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    display: "inline-block",
+                  }}
+                >
+                  Your Workflow
+                </Box>
+              </Typography>
+            </Stack>
+            <Typography
+              variant="text-xl-regular"
+              sx={{
+                width: { md: "100%", xs: "335px" },
+                fontFamily: "Product Sans, sans-serif",
+                color: palette.color.gray[610],
+                fontSize: { md: "20px", xs: "12px" },
+                lineHeight: { md: "24px", xs: "18px" },
+                fontWeight: { md: 400 },
+                textAlign: { xs: "center" },
+              }}
+            >
+              Shift your focus from invoicing to what truly matters—growing your
+              business!
             </Typography>
           </Stack>
-          <Typography
-            variant="text-xl-regular"
-            sx={{
-              width: { md: "100%", xs: "335px" },
-              fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
-              fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "24px", xs: "18px" },
-              fontWeight: { md: 400 },
-              textAlign: { xs: "center" },
-            }}
-          >
-            Shift your focus from invoicing to what truly matters—growing your
-            business!
-          </Typography>
           <Stack
-            direction={{ md: "row", xs: "column-reverse" }}
-            gap={{ sm: 8, xs: 3 }}
+            direction={{ md: "row", xs: "column" }}
+            gap={{ sm: 8, xs: 2.5 }}
             sx={{
+              width: "100%",
               display: "flex",
-              justifyContent: "center",
-              mt: "3%",
-              mx: { md: "0px", xs: "1px" },
+              alignItems: { sm: "center" },
+              mx: { md: "0px", xs: "0px" },
             }}
           >
             {/* left section */}
@@ -156,7 +159,7 @@ const WorkflowSection = () => {
               gap={3}
               sx={{
                 width: { md: "610px", xs: "335px" },
-                height: { md: "230px", xs: "180px" },
+                height: { md: "230px", xs: "234px" },
               }}
             >
               {expandableTextData.map((item, index) => (
@@ -176,8 +179,8 @@ const WorkflowSection = () => {
             <Box>
               <Image
                 src="/Images/workflow-image-1.svg"
-                width={550}
-                height={320}
+                width={610}
+                height={321}
                 alt="streamline your invoicing process with ZeeInvoices free invoice maker"
               />
             </Box>

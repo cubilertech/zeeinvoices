@@ -90,7 +90,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
   };
 
   return (
-    <Stack direction={"column"}>
+    <Stack direction={"column"} sx={{ width: "100%" }}>
       <Stack direction={"column"}>
         <Stack
           direction={"column-reverse"}
@@ -111,7 +111,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
               width: "100%",
               py: "10px",
               pl: "10px",
-              pr: "52px",
+              pr: "10px",
               borderRadius: "8px",
               border: `1px solid #0000001A`,
             }}
@@ -122,19 +122,19 @@ const SelectableComment: FC<SelectableCommentProps> = ({
               alt="Cindy Baker"
               src={imgSrc}
             />
-            <Stack direction={"column"}>
+            <Stack direction={"column"} gap={0.5}>
               <Stack direction={"row"} gap={1}>
                 <Typography
-                  variant="display-xs1-bold"
+                  variant="text-xl-bold"
                   sx={{
                     fontFamily: "Product Sans, sans-serif",
-                    color: palette.color.gray[745],
+                    color: palette.color.gray[900],
                   }}
                 >
                   {title1}
                 </Typography>
                 <Typography
-                  variant="display-xs1-bold"
+                  variant="text-xl-bold"
                   sx={{
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.color.gray[745],
@@ -149,10 +149,10 @@ const SelectableComment: FC<SelectableCommentProps> = ({
                 </Typography>
               </Stack>
               <Typography
-                variant="text-xl-regular"
+                variant="text-lg-regular"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  color: palette.color.gray[745],
+                  color: palette.color.gray[610],
                 }}
               >
                 {desc}
@@ -164,10 +164,12 @@ const SelectableComment: FC<SelectableCommentProps> = ({
       {isMobile && isOpen && (
         <Stack
           direction={"column"}
-          gap={1}
+          gap={1.5}
           sx={{
+            mt: "12px",
             opacity: isOpen ? 1 : 0,
             transition: "opacity 0.3s ease-in-out",
+            alignItems: "center",
           }}
         >
           <Typography
@@ -175,9 +177,9 @@ const SelectableComment: FC<SelectableCommentProps> = ({
             sx={{
               textAlign: "center",
               fontFamily: "Product Sans, sans-serif",
-              color: palette.base.black,
-              fontSize: { md: "28px", xs: "14px" },
-              lineHeight: { md: "32px", xs: "32px" },
+              color: palette.color.gray[900],
+              fontSize: { md: "28px", xs: "18px" },
+              lineHeight: { md: "32px", xs: "22px" },
               fontWeight: { md: 400 },
             }}
           >
@@ -202,7 +204,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
               width: { md: "560px", xs: "335px" },
               textAlign: "center",
               fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
+              color: palette.color.gray[610],
               fontSize: { md: "20px", xs: "12px" },
               lineHeight: { md: "24px", xs: "18px" },
               fontWeight: { md: 400 },
@@ -216,7 +218,7 @@ const SelectableComment: FC<SelectableCommentProps> = ({
               width: { md: "560px", xs: "335px" },
               textAlign: "center",
               fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
+              color: palette.color.gray[610],
               fontSize: { md: "20px", xs: "12px" },
               lineHeight: { md: "24px", xs: "18px" },
               fontWeight: { md: 400 },

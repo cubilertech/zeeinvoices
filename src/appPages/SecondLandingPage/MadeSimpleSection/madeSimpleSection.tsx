@@ -5,6 +5,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
+import "@/Styles/sectionStyle.css";
 
 const expandableTextData = [
   {
@@ -76,7 +77,7 @@ const MadeSimpleSection = () => {
       }}
     >
       <Container
-        maxWidth="lg"
+        className="mainContainer"
         sx={{
           px: { md: "0%", lg: "0%", xs: "16px" },
           display: "flex",
@@ -90,7 +91,7 @@ const MadeSimpleSection = () => {
           gap={3}
           sx={{
             width: "100%",
-            pt: 3,
+            pt: { sm: 10, xs: 5 },
             pb: 0,
             backgroundColor: palette.base.white,
             justifyContent: "center",
@@ -102,7 +103,7 @@ const MadeSimpleSection = () => {
               variant="display-lg-bold"
               sx={{
                 fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[805],
+                color: palette.color.gray[900],
                 fontSize: { md: "48px", xs: "24px" },
                 lineHeight: { md: "64px", xs: "29px" },
                 fontWeight: { md: 700 },
@@ -132,7 +133,7 @@ const MadeSimpleSection = () => {
             sx={{
               width: { md: "100%", xs: "335px" },
               fontFamily: "Product Sans, sans-serif",
-              color: palette.color.gray[745],
+              color: palette.color.gray[610],
               fontSize: { md: "20px", xs: "12px" },
               lineHeight: { md: "24px", xs: "18px" },
               fontWeight: { md: 400 },
@@ -144,12 +145,12 @@ const MadeSimpleSection = () => {
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column-reverse" }}
-            gap={{ md: 8, xs: 4 }}
-            justifyContent={"space-between"}
+            gap={{ md: 7.5, xs: 5 }}
+            // justifyContent={"space-between"}
             sx={{
-              width: "100%",
+              // width: "100%",
               display: "flex",
-              justifyContent: "center",
+              alignItems: { sm: "center" },
               mt: { md: "3%", xs: "1%" },
             }}
           >
@@ -167,7 +168,10 @@ const MadeSimpleSection = () => {
             <Stack
               direction={"column"}
               gap={3}
-              sx={{ width: { md: "652px", xs: "350px" }, height: "230px" }}
+              sx={{
+                width: { md: "652px", xs: "343px" },
+                maxHeight: { sm: "312px", xs: "254px" },
+              }}
             >
               {expandableTextData.map((item, index) => (
                 <ExpandableText

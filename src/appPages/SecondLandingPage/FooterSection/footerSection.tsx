@@ -10,14 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
-import PhoneIcon from "@mui/icons-material/Phone";
-import EmailIcon from "@mui/icons-material/Email";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useEffect } from "react";
+import "@/Styles/sectionStyle.css";
 
 const FooterSection = () => {
   const route = useRouter();
@@ -53,11 +50,12 @@ const FooterSection = () => {
         width: "100%",
         pt: { sm: 8, xs: 5 },
         pb: { sm: 5, xs: 5 },
-        // display:"flex",
-        // alignItems:"center",
       }}
     >
-      <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "16px" } }}>
+      <Container
+        className="mainContainer"
+        sx={{ px: { md: "0%", lg: "0%", xs: "16px" } }}
+      >
         <Stack
           direction={"column"}
           gap={2}
@@ -203,7 +201,7 @@ const FooterSection = () => {
               {/* Follow us */}
               <Stack
                 direction={{ sm: "row", xs: "column" }}
-                gap={{ md: 4, xs: 1 }}
+                gap={{ md: 2, xs: 1 }}
                 sx={{
                   width: { sm: "410px", xs: "100%" },
                   justifyContent: { sm: "start", xs: "center" },
@@ -216,12 +214,12 @@ const FooterSection = () => {
                   sx={{
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.color.gray[610],
-                    fontSize: { md: "24px", xs: "14px" },
-                    lineHeight: { md: "36px", xs: "21px" },
+                    fontSize: { md: "14px", xs: "14px" },
+                    lineHeight: { md: "21px", xs: "21px" },
                     fontWeight: { md: 400 },
                   }}
                 >
-                  Follow us
+                  Follow Us
                 </Typography>
                 <Stack
                   direction={"row"}
@@ -381,7 +379,7 @@ const FooterSection = () => {
                     color: palette.color.gray[610],
                     fontSize: { md: "14px", xs: "14px" },
                     lineHeight: { md: "21px", xs: "21px" },
-                    fontWeight: { md: 400, xs: 700 },
+                    fontWeight: { md: 700, xs: 700 },
                   }}
                 >
                   Contact Us

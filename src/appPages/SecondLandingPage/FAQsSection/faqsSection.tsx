@@ -3,6 +3,7 @@ import { AccordionCardRightIcon } from "@/components/AccordionCardRightIcon";
 import { palette } from "@/theme/palette";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { useState } from "react";
+import "@/Styles/sectionStyle.css";
 
 const accordionData = [
   {
@@ -80,75 +81,79 @@ const FAQsSection = () => {
   return (
     <Stack
       direction={"column"}
-      gap={3}
+      gap={{ sm: 7.5, xs: 4 }}
       sx={{
         width: "100%",
-        py: { md: 9, xs: 2 },
+        py: { md: 10, xs: 2 },
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: palette.base.white,
       }}
     >
-      <Stack direction={"row"} gap={2}>
-        <Typography
-          variant="display-lg-bold"
-          sx={{
-            fontFamily: "Product Sans, sans-serif",
-            color: palette.color.gray[805],
-            fontSize: { md: "48px", xs: "24px" },
-            lineHeight: { md: "64px", xs: "29px" },
-            fontWeight: { md: 700 },
-          }}
-        >
-          Frequently{" "}
-          <Box
-            component="span"
+      <Stack direction={"column"} gap={1.5}>
+        <Stack direction={"row"} gap={2}>
+          <Typography
+            variant="display-lg-bold"
             sx={{
               fontFamily: "Product Sans, sans-serif",
+              color: palette.color.gray[900],
               fontSize: { md: "48px", xs: "24px" },
               lineHeight: { md: "64px", xs: "29px" },
               fontWeight: { md: 700 },
-              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              display: "inline-block",
             }}
           >
-            Asked Questions
-          </Box>
+            Frequently{" "}
+            <Box
+              component="span"
+              sx={{
+                fontFamily: "Product Sans, sans-serif",
+                fontSize: { md: "48px", xs: "24px" },
+                lineHeight: { md: "64px", xs: "29px" },
+                fontWeight: { md: 700 },
+                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                display: "inline-block",
+              }}
+            >
+              Asked Questions
+            </Box>
+          </Typography>
+        </Stack>
+        <Typography
+          variant="text-xl-regular"
+          sx={{
+            width: { md: "100%", xs: "335px" },
+            fontFamily: "Product Sans, sans-serif",
+            color: palette.color.gray[610],
+            fontSize: { md: "20px", xs: "12px" },
+            lineHeight: { md: "24px", xs: "18px" },
+            fontWeight: { md: 400 },
+            textAlign: { xs: "center" },
+          }}
+        >
+          Everything you need to know about the product and billing.
         </Typography>
       </Stack>
-      <Typography
-        variant="text-xl-regular"
-        sx={{
-          width: { md: "100%", xs: "335px" },
-          fontFamily: "Product Sans, sans-serif",
-          color: palette.color.gray[745],
-          fontSize: { md: "20px", xs: "12px" },
-          lineHeight: { md: "24px", xs: "18px" },
-          fontWeight: { md: 400 },
-          textAlign: { xs: "center" },
-        }}
-      >
-        Everything you need to know about the product and billing.
-      </Typography>
       <Container
         maxWidth="lg"
         sx={{
           overflowY: "auto",
           height: "100%",
-          width: { sm: "auto", xs: "90%" },
+          width: { sm: "900px", xs: "90%" },
+          py: 0,
           px: { md: "0%", lg: "0%", xs: "0%" },
         }}
       >
         <Stack
           direction={"column"}
           gap={0}
-          sx={{ display: "flex", mx: "0%", mt: "1%", justifyContent: "center" }}
+          sx={{ display: "flex", mx: "0%", justifyContent: "center" }}
         >
           {accordionData.map((item, index) => (
             <AccordionCardRightIcon
               key={index}
+              qIndex={index}
               title={item.title}
               desc={item.desc}
               isOpen={openIndex === index}

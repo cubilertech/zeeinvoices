@@ -6,6 +6,7 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import "@/Styles/sectionStyle.css";
 
 const HeroSection = () => {
   const route = useRouter();
@@ -21,87 +22,96 @@ const HeroSection = () => {
       direction={"column"}
       sx={{
         width: "100%",
-        pb: { sm: 10, xs: 4 },
-        pt: { sm: 15, xs: 8 },
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: palette.base.white,
       }}
     >
-      <Container maxWidth="lg" sx={{ px: { md: "0%", lg: "0%", xs: "0%" } }}>
+      <Container
+        className="mainContainer"
+        sx={{
+          px: { md: "0%", lg: "0%", xs: "0%" },
+          pt: { sm: 15, xs: 8 },
+          pb: { sm: 10, xs: 5 },
+        }}
+      >
         <Stack
           direction={{ md: "row", xs: "column" }}
           justifyContent={"space-between"}
-          gap={9}
-          sx={{ px: { md: "0px", xs: "16px" } }}
+          gap={8}
+          sx={{ px: { md: "0px", xs: "0px" } }}
         >
           {/* left hero section */}
           <Stack
             direction={"column"}
             sx={{
+              width: { md: "630px", xs: "100%" },
               pl: { md: "0%", lg: "0%", xs: "0%" },
               mt: "4%",
               gap: { sm: 5, xs: 3 },
             }}
           >
-            <Stack direction={"column"} gap={0.5}>
+            <Stack direction={"column"} gap={{ sm: 2.5, xs: 2 }}>
+              <Stack direction={"column"} gap={0.5}>
+                <Typography
+                  variant="display-3xl-bold"
+                  sx={{
+                    width: { md: "596px", xs: "100%" },
+                    fontSize: { md: "74px", xs: "36px" },
+                    lineHeight: { md: "74px", xs: "44px" },
+                    fontWeight: { md: 700 },
+                    color: palette.color.gray[510],
+                    fontFamily: "Product Sans, sans-serif",
+                    textAlign: { sm: "left", xs: "center" },
+                  }}
+                >
+                  AI powered{" "}
+                  <Box
+                    component="span"
+                    sx={{
+                      fontFamily: "Product Sans, sans-serif",
+                      fontSize: { md: "74px", xs: "36px" },
+                      lineHeight: { md: "74px", xs: "44px" },
+                      fontWeight: { md: 700 },
+                      color: palette.color.gray[900],
+                    }}
+                  >
+                    custom invoices{" "}
+                  </Box>
+                  <Box
+                    component="span"
+                    sx={{
+                      fontFamily: "Product Sans, sans-serif",
+                      fontSize: { md: "54px", xs: "28px" },
+                      lineHeight: { md: "74px", xs: "44px" },
+                      fontWeight: { md: 700 },
+                      background:
+                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      display: "inline-block",
+                    }}
+                  >
+                    Free for all
+                  </Box>
+                </Typography>
+              </Stack>
               <Typography
-                variant="display-3xl-bold"
+                variant="display-xs1-regular"
                 sx={{
-                  width: { md: "596px", xs: "100%" },
-                  fontSize: { md: "74px", xs: "32px" },
-                  lineHeight: { md: "75px", xs: "39px" },
-                  fontWeight: { md: 700 },
-                  color: palette.color.gray[755],
+                  maxWidth: { md: "600px", xs: "100%" },
+                  color: palette.color.gray[610],
                   fontFamily: "Product Sans, sans-serif",
+                  fontSize: { sm: "24px !important", xs: "18px !important" },
+                  lineHeight: { sm: "32px !important", xs: "21px !important" },
+                  fontWeight: 400,
                   textAlign: { sm: "left", xs: "center" },
                 }}
               >
-                AI powered{" "}
-                <Box
-                  component="span"
-                  sx={{
-                    fontFamily: "Product Sans, sans-serif",
-                    fontSize: { md: "74px", xs: "32px" },
-                    lineHeight: { md: "75px", xs: "39px" },
-                    fontWeight: { md: 700 },
-                    color: palette.color.gray[830],
-                  }}
-                >
-                  custom invoices{" "}
-                </Box>
-                <Box
-                  component="span"
-                  sx={{
-                    fontFamily: "Product Sans, sans-serif",
-                    fontSize: { md: "54px", xs: "32px" },
-                    lineHeight: { md: "75px", xs: "39px" },
-                    fontWeight: { md: 700 },
-                    background:
-                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  Free for all
-                </Box>
+                Simplify your invoicing process and focus on what really
+                matters—Let’s grow your business.
               </Typography>
             </Stack>
-            <Typography
-              variant="display-xs1-regular"
-              sx={{
-                maxWidth: { md: "600px", xs: "100%" },
-                color: palette.color.gray[745],
-                fontFamily: "Product Sans, sans-serif",
-                fontSize: { sm: "24px !important", xs: "18px !important" },
-                lineHeight: { sm: "29px !important", xs: "21px !important" },
-                textAlign: { sm: "left", xs: "center" },
-              }}
-            >
-              Simplify your invoicing process and focus on what really
-              matters—Let’s grow your business.
-            </Typography>
             <Button
               variant="contained"
               size="large"
@@ -131,8 +141,8 @@ const HeroSection = () => {
             <Box sx={{ zIndex: 1 }}>
               <Image
                 src="/Images/hero-image-2.svg"
-                width={590}
-                height={487}
+                width={586}
+                height={481}
                 alt="Zeeinvoices: create invoices within minutes"
               />
             </Box>
