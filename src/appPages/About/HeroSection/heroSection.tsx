@@ -2,13 +2,14 @@
 import { palette } from "@/theme/palette";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
+import "@/Styles/sectionStyle.css";
 
 const HeroSection = () => {
   const isModile = useMediaQuery("(max-width: 600px)");
   return (
     <>
       <Container
-        maxWidth="lg"
+        className="mainContainer"
         sx={{ py: 5, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
       >
         <Box

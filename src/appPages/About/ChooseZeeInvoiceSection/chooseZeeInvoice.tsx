@@ -4,6 +4,7 @@ import { palette } from "@/theme/palette";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import "@/Styles/sectionStyle.css";
 
 const expandableTextData = [
   {
@@ -64,12 +65,12 @@ const ChooseZeeInvoiceSection = () => {
         sx={{
           backgroundColor: "#F7F8F9",
           width: "100%",
-          px: { sm: "0px", xs: "20px" },
+          px: { sm: "0px", xs: "0px" },
           py: { sm: "50px", xs: 3 },
         }}
       >
         <Container
-          maxWidth="lg"
+          className="mainContainer"
           sx={{ px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
         >
           <Box textAlign={"center"}>
@@ -114,6 +115,7 @@ const ChooseZeeInvoiceSection = () => {
                 gap: 3,
                 width: { sm: "50%", xs: "100%" },
                 height: "204px",
+                justifyContent:"center",
               }}
             >
               {expandableTextData.map((item, index) => (

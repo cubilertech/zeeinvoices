@@ -5,6 +5,7 @@ import { IconTypes } from "@/types/icons";
 import { weOfferData } from "@/utils/data";
 import { Box, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import { useState } from "react";
+import "@/Styles/sectionStyle.css";
 
 const WeOfferSection = () => {
   const isModile = useMediaQuery("(max-width: 600px)");
@@ -18,7 +19,7 @@ const WeOfferSection = () => {
   return (
     <>
       <Container
-        maxWidth="lg"
+        className="mainContainer"
         sx={{ py: { sm: 7, xs: 8 }, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
       >
         <Box textAlign={"center"}>

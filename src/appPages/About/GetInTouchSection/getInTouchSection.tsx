@@ -10,6 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
+import "@/Styles/sectionStyle.css";
 
 const accordionData = [
   {
@@ -48,7 +49,7 @@ const GetInTouchSection = () => {
   return (
     <>
       <Container
-        maxWidth="lg"
+        className="mainContainer"
         sx={{ py: 6, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
       >
         <Box sx={{ textAlign: "center" }}>
@@ -84,7 +85,7 @@ const GetInTouchSection = () => {
 
         <Box
           sx={{
-            height: { sm: "530px", xs: "auto" },
+            height: { sm: "auto", xs: "auto" },
             // py: 3,
             display: "flex",
             justifyContent: "space-between",
@@ -101,11 +102,15 @@ const GetInTouchSection = () => {
             }}
           >
             {isModile && (
-              <Box sx={{display: "flex", flexDirection: "column", width: "100%", gap: 5}}>
-                <Divider
-                  variant="fullWidth"
-                  orientation="horizontal"
-                />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  gap: 5,
+                }}
+              >
+                <Divider variant="fullWidth" orientation="horizontal" />
 
                 <Typography
                   variant={"display-xs-bold"}

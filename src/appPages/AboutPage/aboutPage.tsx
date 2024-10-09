@@ -21,7 +21,7 @@ const AboutPage = () => {
       <Box
         sx={{
           mt: 8,
-          px: { sm: "0px", xs: "20px" },
+          // px: { sm: "0px", xs: "20px" },
           backgroundColor: palette.base.white,
         }}
       >
@@ -33,7 +33,7 @@ const AboutPage = () => {
       <JoinUsSection />
       <Box
         sx={{
-          px: { sm: "0px", xs: "20px" },
+          // px: { sm: "0px", xs: "20px" },
           backgroundColor: palette.base.white,
         }}
       >

@@ -7,15 +7,14 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useTimeField } from "@mui/x-date-pickers/TimeField/useTimeField";
-import Image from "next/image";
+import "@/Styles/sectionStyle.css";
 
 const OurMissionSection = () => {
   const isModile = useMediaQuery("(max-width: 600px)");
   return (
     <>
       <Container
-        maxWidth="lg"
+        className="mainContainer"
         sx={{ py: { sm: 12, xs: 3 }, px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
       >
         <Box

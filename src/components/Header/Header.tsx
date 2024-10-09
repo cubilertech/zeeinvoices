@@ -133,7 +133,7 @@ const Header = () => {
           sx={{
             justifyContent: { sm: "center", xs: "flex-start" },
             alignItems: "center",
-            gap: { sm: 9, xs: 0.8 },
+            gap: { sm: 5, xs: 0.8 },
           }}
         >
           <Box sx={{ display: { sm: "none", xs: "block" } }}>
@@ -293,10 +293,20 @@ const Header = () => {
                       variant="outlined"
                       disabled={loading}
                       sx={{
-                        px: "20px",
-                        py: "8px",
+                        px: "16px !important",
+                        py: "10px !important",
                         borderRadius: "4px",
                         border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
+                        fontFamily: "Product Sans, sans-serif",
+                        fontSize: {
+                          md: "14px !important",
+                          xs: "14px !important",
+                        },
+                        lineHeight: {
+                          md: "18px !important",
+                          xs: "18px !important",
+                        },
+                        fontWeight: "700 !important",
                       }}
                     >
                       Create Invoice
@@ -315,12 +325,16 @@ const Header = () => {
                     disabled={loading}
                     sx={{
                       height: "35px !important",
-                      py: "0px !important",
-                      px: "20px !important",
+                      py: "10px !important",
+                      px: "16px !important",
                       borderRadius: "4px !important",
                       fontFamily: "Product Sans, sans-serif !important",
                       fontSize: "14px !important",
-                      fontWeight: "400 !important",
+                      lineHeight: {
+                        md: "18px !important",
+                        xs: "18px !important",
+                      },
+                      fontWeight: "700 !important",
                       background:
                         "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                     }}
@@ -408,20 +422,26 @@ const Header = () => {
                   variant="text"
                   size="small"
                   sx={{
+                    minWidth: "42px !important",
+                    height: "20px !important",
                     color:
                       data.url === pathname
                         ? palette.primary.main
-                        : palette.base.black,
+                        : palette.color.gray[610],
                     borderBottom:
                       data.url === pathname
                         ? `2px solid ${palette.primary.main}`
                         : "",
                     borderRadius: "0px",
-                    px: 1,
-                    mr: 1,
+                    // px: 1,
+                    mr: 4,
                     fontFamily: "Product Sans, sans-serif !important",
                     fontSize: "14px !important",
-                    fontWeight: "400 !important",
+                    lineHeight: "17px !important",
+                    fontWeight:
+                      data.url === pathname
+                        ? "700 !important"
+                        : "400 !important",
                   }}
                 >
                   {data.title}
@@ -435,20 +455,26 @@ const Header = () => {
                   variant="text"
                   size="small"
                   sx={{
+                    minWidth: "42px !important",
+                    height: "20px !important",
                     color:
                       data.url === pathname
                         ? palette.primary.main
-                        : palette.base.black,
+                        : palette.color.gray[610],
                     borderBottom:
                       data.url === pathname
                         ? `2px solid ${palette.primary.main}`
                         : "",
                     borderRadius: "0px",
-                    px: 1,
-                    mr: 1,
+                    // px: 1,
+                    mr: 4,
                     fontFamily: "Product Sans, sans-serif !important",
                     fontSize: "14px !important",
-                    fontWeight: "400 !important",
+                    lineHeight: "17px !important",
+                    fontWeight:
+                      data.url === pathname
+                        ? "700 !important"
+                        : "400 !important",
                   }}
                 >
                   {data.title}
@@ -473,10 +499,20 @@ const Header = () => {
                   variant="outlined"
                   disabled={loading}
                   sx={{
-                    px: "20px",
-                    py: "8px",
+                    px: "16px !important",
+                    py: "10px !important",
                     borderRadius: "4px",
                     border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
+                    fontFamily: "Product Sans, sans-serif",
+                    fontSize: {
+                      md: "14px !important",
+                      xs: "14px !important",
+                    },
+                    lineHeight: {
+                      md: "18px !important",
+                      xs: "18px !important",
+                    },
+                    fontWeight: "700 !important",
                   }}
                 >
                   Create Invoice
@@ -494,13 +530,17 @@ const Header = () => {
                 }
                 disabled={loading}
                 sx={{
-                  height: "35px !important",
-                  py: "0px !important",
-                  px: "20px !important",
+                  // height: "35px !important",
+                  py: "10px !important",
+                  px: "16px !important",
                   borderRadius: "4px !important",
                   fontFamily: "Product Sans, sans-serif !important",
                   fontSize: "14px !important",
-                  fontWeight: "400 !important",
+                  lineHeight: {
+                    md: "18px !important",
+                    xs: "18px !important",
+                  },
+                  fontWeight: "700 !important",
                   background:
                     "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 }}

@@ -9,6 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { usePathname } from "next/navigation";
+import "@/Styles/sectionStyle.css";
 
 const JoinUsSection = () => {
   const pathname = usePathname();
@@ -22,7 +23,7 @@ const JoinUsSection = () => {
         }}
       >
         <Container
-          maxWidth="md"
+          className="mainContainer"
           sx={{
             py: { sm: 12, xs: 8 },
             textAlign: "center",
