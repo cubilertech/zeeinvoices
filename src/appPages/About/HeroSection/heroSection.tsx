@@ -55,7 +55,8 @@ const HeroSection = () => {
               color={palette.color.gray[610]}
               sx={{
                 fontSize: { sm: "20px !important", xs: "18px !important" },
-                lineHeight: { sm: "28px !important", xs: "21px !important" },
+                lineHeight: { sm: "28px !important", xs: "28px !important" },
+                fontWeight: 400,
                 fontFamily: "Product Sans,sans-serif",
               }}
             >

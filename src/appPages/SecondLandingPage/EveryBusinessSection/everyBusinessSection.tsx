@@ -196,9 +196,9 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Tailored for e-commerce and freelancers, our solution simplifies
-                transaction management and automates payment reminders, helping
-                you grow your business effortlessly.
+                Streamline your freelance work with automated transaction
+                management and payment reminders, so you can focus on growing
+                your business.
               </Typography>
             </Stack>
           </Stack>
@@ -270,9 +270,8 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Manage recurring billing effortlessly with automated invoicing,
-                allowing you to track subscriptions and enhance customer
-                satisfaction seamlessly.
+                Optimize your business with streamlined transaction management
+                and automated payment reminders, helping you scale efficiently.
               </Typography>
             </Stack>
             {/* bottom right */}
@@ -344,9 +343,8 @@ const EveryBusinessSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  Our invoicing platform streamlines invoice creation and
-                  tracking, allowing you to focus on delivering exceptional
-                  services to your clients.
+                  Simplify your e-commerce transactions and automate payment
+                  reminders, giving you more time to grow your online store.
                 </Typography>
               ) : (
                 <Typography
@@ -364,9 +362,8 @@ const EveryBusinessSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  Our invoicing platform streamlines invoice creation and
-                  tracking, allowing you to focus on delivering exceptional
-                  services to your clients.
+                  Simplify your e-commerce transactions and automate payment
+                  reminders, giving you more time to grow your online store.
                 </Typography>
               )}
             </Stack>

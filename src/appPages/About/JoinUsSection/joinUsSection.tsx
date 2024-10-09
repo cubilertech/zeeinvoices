@@ -36,6 +36,9 @@ const JoinUsSection = () => {
               mb: 2,
               color: palette.base.white,
               fontFamily: "Product Sans, sans-serif",
+              fontSize: { md: "48px", xs: "26px" },
+              lineHeight: { md: "64px", xs: "32px" },
+              fontWeight: { xs: 700 },
             }}
           >
             Join Us Today
@@ -46,8 +49,10 @@ const JoinUsSection = () => {
             sx={{
               mb: 3,
               color: palette.base.white,
-              lineHeight: { sm: "30px", xs: "18px" },
               fontFamily: "Product Sans, sans-serif",
+              fontSize: { md: "20px", xs: "14px" },
+              lineHeight: { md: "30px", xs: "20px" },
+              fontWeight: { xs: 400 },
             }}
           >
             Experience the ease of <b>free invoicing</b> with ZeeInvoices.

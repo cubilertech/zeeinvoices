@@ -28,7 +28,12 @@ const WeOfferSection = () => {
             color={palette.color.gray[900]}
             mb={{ sm: 3, xs: 1 }}
             component={"p"}
-            sx={{ fontFamily: "Product Sans,sans-serif" }}
+            sx={{
+              fontFamily: "Product Sans,sans-serif",
+              fontSize: { md: "48px", xs: "26px" },
+              lineHeight: { md: "64px", xs: "32px" },
+              fontWeight: { xs: 700 },
+            }}
           >
             What We{" "}
             <span
@@ -46,7 +51,12 @@ const WeOfferSection = () => {
             component={"p"}
             variant={isModile ? "text-lg-regular" : "text-xl1-regular"}
             color={palette.color.gray[610]}
-            sx={{ fontFamily: "Product Sans,sans-serif" }}
+            sx={{
+              fontFamily: "Product Sans,sans-serif",
+              fontSize: { md: "20px", xs: "18px" },
+              lineHeight: { md: "30px", xs: "28px" },
+              fontWeight: { xs: 400 },
+            }}
           >
             Here’s how ZeeInvoices makes your invoicing process simple and
             efficient

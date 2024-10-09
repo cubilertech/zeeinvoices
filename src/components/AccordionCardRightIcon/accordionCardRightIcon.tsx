@@ -78,14 +78,14 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
                   transition: "opacity 0.3s",
                   fontSize: { md: "16px", xs: "16px" },
                   lineHeight: { md: "24px", xs: "24px" },
-                  fontWeight: { md: 400 },
+                  fontWeight: 400,
                 }}
               >
                 <div
                   dangerouslySetInnerHTML={{
                     __html: desc || "",
                   }}
-                  style={{ fontWeight: "lighter" }}
+                  style={{}}
                 />
               </Typography>
             </div>

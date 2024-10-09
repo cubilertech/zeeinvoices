@@ -58,7 +58,12 @@ const GetInTouchSection = () => {
             color={palette.color.gray[900]}
             mb={2}
             component={"p"}
-            sx={{ fontFamily: "Product Sans, sans-serif" }}
+            sx={{
+              fontFamily: "Product Sans, sans-serif",
+              fontSize: { md: "48px", xs: "26px" },
+              lineHeight: { md: "64px", xs: "32px" },
+              fontWeight: { xs: 700 },
+            }}
           >
             Get In{" "}
             <span
@@ -76,7 +81,12 @@ const GetInTouchSection = () => {
             variant={isModile ? "text-lg-regular" : "text-xl-regular"}
             component={"p"}
             color={palette.color.gray[900]}
-            sx={{ fontFamily: "Product Sans, sans-serif" }}
+            sx={{
+              fontFamily: "Product Sans, sans-serif",
+              fontSize: { md: "20px", xs: "18px" },
+              lineHeight: { md: "30px", xs: "20px" },
+              fontWeight: { xs: 400 },
+            }}
           >
             Our friendly team would love to hear from you.
           </Typography>
@@ -85,7 +95,13 @@ const GetInTouchSection = () => {
           <Typography
             variant={isModile ? "h6" : "h4"}
             color={palette.color.gray[900]}
-            sx={{ mt: 5, fontFamily: "Product Sans, sans-serif" }}
+            sx={{
+              mt: 5,
+              fontFamily: "Product Sans, sans-serif",
+              fontSize: { md: "32px", xs: "24px" },
+              lineHeight: { md: "64px", xs: "30px" },
+              fontWeight: { xs: 700 },
+            }}
           >
             {" "}
             Why Reach To Us

@@ -17,8 +17,14 @@ import "./getTouchedFrom.css";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
 
 const validationSchema = Yup.object({
-  firstName: Yup.string().required("First name is required"),
-  lastName: Yup.string().required("Last name is required"),
+  firstName: Yup.string()
+    .min(3, "First name must be at least 3 characters")
+    .max(100, "First name must be 100 characters or less")
+    .required("First name is required"),
+  lastName: Yup.string()
+    .min(3, "Last name must be at least 3 characters")
+    .max(100, "Last name must be 100 characters or less")
+    .required("Last name is required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
