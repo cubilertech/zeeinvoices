@@ -116,14 +116,15 @@ const HeroSection = () => {
               variant="contained"
               size="large"
               sx={{
-                width: { sm: "128px", xs: "100%" },
-                height: "40px",
-                py: "20px !important",
-                px: "0px !important",
+                width: { sm: "164px", xs: "100%" },
+                // height: "40px",
+                py: "10px !important",
+                px: "20px !important",
                 borderRadius: "4px !important",
                 fontFamily: "Product Sans, sans-serif !important",
-                fontSize: "14px !important",
-                fontWeight: "400 !important",
+                fontSize: { sm: "18px !important", xs: "16px !important" },
+                lineHeight: { sm: "30px !important", xs: "24px !important" },
+                fontWeight: "700 !important",
                 background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
 
                 transition: "all 0.2s ease", // Add transition for smooth animation

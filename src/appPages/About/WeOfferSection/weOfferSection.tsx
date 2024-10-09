@@ -28,16 +28,25 @@ const WeOfferSection = () => {
             color={palette.color.gray[900]}
             mb={{ sm: 3, xs: 1 }}
             component={"p"}
-            sx={{fontFamily: "Product Sans,sans-serif"}}
+            sx={{ fontFamily: "Product Sans,sans-serif" }}
           >
             What We{" "}
-            <span style={{ color: palette.text.contactEmailColor }}>Offer</span>
+            <span
+              style={{
+                // color: palette.text.contactEmailColor,
+                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Offer
+            </span>
           </Typography>
           <Typography
             component={"p"}
             variant={isModile ? "text-lg-regular" : "text-xl1-regular"}
-            color={palette.color.gray[745]}
-            sx={{fontFamily: "Product Sans,sans-serif"}}
+            color={palette.color.gray[610]}
+            sx={{ fontFamily: "Product Sans,sans-serif" }}
           >
             Here’s how ZeeInvoices makes your invoicing process simple and
             efficient

@@ -61,12 +61,21 @@ const GetInTouchSection = () => {
             sx={{ fontFamily: "Product Sans, sans-serif" }}
           >
             Get In{" "}
-            <span style={{ color: palette.text.contactEmailColor }}>Touch</span>
+            <span
+              style={{
+                // color: palette.text.contactEmailColor,
+                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Touch
+            </span>
           </Typography>
           <Typography
             variant={isModile ? "text-lg-regular" : "text-xl-regular"}
             component={"p"}
-            color={palette.text.termsdescColor}
+            color={palette.color.gray[900]}
             sx={{ fontFamily: "Product Sans, sans-serif" }}
           >
             Our friendly team would love to hear from you.
@@ -96,7 +105,7 @@ const GetInTouchSection = () => {
         >
           <Box
             sx={{
-              width: { sm: "45%", xs: "100%" },
+              width: { sm: "600px", xs: "100%" },
               mt: "1%",
               alignSelf: "self-start",
             }}
@@ -114,7 +123,7 @@ const GetInTouchSection = () => {
 
                 <Typography
                   variant={"display-xs-bold"}
-                  color={palette.color.gray[805]}
+                  color={palette.color.gray[900]}
                   sx={{ fontFamily: "Product Sans, sans-serif" }}
                 >
                   {" "}

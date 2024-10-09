@@ -58,7 +58,7 @@ const FooterSection = () => {
       >
         <Stack
           direction={"column"}
-          gap={2}
+          gap={{ sm: 2, xs: 2.5 }}
           sx={{ alignItems: { sm: "start", xs: "center" } }}
         >
           <Box sx={{ cursor: "pointer" }}>
@@ -66,7 +66,7 @@ const FooterSection = () => {
           </Box>
           <Stack
             direction={{ md: "row", xs: "column" }}
-            gap={2}
+            gap={3}
             justifyContent={"space-between"}
             sx={{ width: "100%" }}
           >
@@ -86,8 +86,8 @@ const FooterSection = () => {
                   fontFamily: "Product Sans, sans-serif",
                   width: { md: "847px", xs: "100%" },
                   color: palette.color.gray[610],
-                  fontSize: { md: "16px", xs: "12px" },
-                  lineHeight: { md: "24px", xs: "24px" },
+                  fontSize: { md: "16px", xs: "16px" },
+                  lineHeight: { md: "24px", xs: "20px" },
                   fontWeight: { md: 400 },
                 }}
               >

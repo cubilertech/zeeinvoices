@@ -85,8 +85,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
       <Stack
         direction={"column"}
         sx={{
-          py: "5px",
-          px: { md: "15px", xs: "7px" },
+          py: "0px",
+          pl: { md: "15px", xs: "7px" },
         }}
       >
         <Stack

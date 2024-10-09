@@ -112,7 +112,7 @@ const Header = () => {
         top: 0,
         left: 0,
         background: palette.base.white,
-        py: { sm: "14px", xs: "10px" },
+        py: { sm: "12px", xs: "10px" },
         px: { sm: "0px", xs: "0px" },
         borderBottom: `1px solid #00000033`,
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 0px 0px",
@@ -133,12 +133,19 @@ const Header = () => {
           sx={{
             justifyContent: { sm: "center", xs: "flex-start" },
             alignItems: "center",
-            gap: { sm: 5, xs: 0.8 },
+            gap: { sm: 5, xs: 22 },
           }}
         >
+          <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
+            <Icon
+              icon="logo"
+              height={isModile ? 18 : 24}
+              width={isModile ? 132 : 175}
+            />
+          </Box>
           <Box sx={{ display: { sm: "none", xs: "block" } }}>
             <IconButton
-              sx={{ p: "3px !important" }}
+              sx={{ p: "0px !important" }}
               aria-haspopup="true"
               onClick={handleClickMenu}
             >
@@ -406,13 +413,13 @@ const Header = () => {
               )}
             </Popover>
           </Box>
-          <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
+          {/* <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
             <Icon
               icon="logo"
               height={isModile ? 18 : 24}
               width={isModile ? 132 : 175}
             />
-          </Box>
+          </Box> */}
           <Box sx={{ display: { sm: "block", xs: "none" } }}>
             {!session &&
               headerLandingData.map((data, index) => (
@@ -488,7 +495,7 @@ const Header = () => {
           sx={{ display: { sm: "block", xs: "none" } }}
         >
           {!session?.accessToken ? (
-            <Stack direction={"row"} gap={1.5}>
+            <Stack direction={"row"} gap={2}>
               {pathname == "/" ||
               pathname == "/termsAndCondition" ||
               pathname == "/privacyPolicy" ||

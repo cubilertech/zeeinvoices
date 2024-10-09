@@ -322,7 +322,11 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      color: palette.primary.main,
+                      // color: palette.primary.main,
+                      background:
+                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
                       textDecoration: isHovered ? "underline" : "none",
                     }}
                     onMouseEnter={() => setIsHovered(true)}

@@ -313,11 +313,12 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                   sx={{
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.color.gray[900],
-                    fontSize: { md: "48px !important", xs: "24px !important" },
+                    fontSize: { md: "48px !important", xs: "36px !important" },
                     lineHeight: {
                       md: "64px !important",
-                      xs: "29.11px !important",
+                      xs: "44px !important",
                     },
+                    fontWeight: 700,
                   }}
                 >
                   Privacy{" "}
@@ -341,8 +342,8 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                   sx={{
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.color.gray[610],
-                    fontSize: { sm: "20px !important", xs: "12px !important" },
-                    lineHeight: { sm: "24px", xs: "18px" },
+                    fontSize: { sm: "20px !important", xs: "18px !important" },
+                    lineHeight: { sm: "28px", xs: "28px" },
                     fontWeight: { sm: 400 },
                   }}
                 >
@@ -350,7 +351,7 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                 </Typography>
               </Stack>
 
-              <Stack>
+              <Stack direction={"column"} gap={2}>
                 <Typography
                   // variant="display-xs-bold"
                   sx={{
@@ -409,7 +410,11 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      color: palette.primary.main,
+                      // color: palette.primary.main,
+                      background:
+                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
                       textDecoration: isHovered ? "underline" : "none",
                     }}
                     onMouseEnter={() => setIsHovered(true)}

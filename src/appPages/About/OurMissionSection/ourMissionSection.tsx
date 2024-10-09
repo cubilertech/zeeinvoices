@@ -36,7 +36,6 @@ const OurMissionSection = () => {
               justifyContent: { sm: "", xs: "center" },
             }}
           >
-         
             <Stack
               gap={1}
               mb={3}
@@ -91,7 +90,15 @@ const OurMissionSection = () => {
               component={"h1"}
             >
               Our{" "}
-              <span style={{ color: palette.text.contactEmailColor }}>
+              <span
+                style={{
+                  // color: palette.text.contactEmailColor,
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
                 Mission
               </span>
             </Typography>
@@ -99,7 +106,7 @@ const OurMissionSection = () => {
             <Typography
               variant={isModile ? "text-lg-regular" : "text-xl-regular"}
               component={"p"}
-              color={palette.color.gray[745]}
+              color={palette.color.gray[610]}
               sx={{ fontFamily: "Product Sans,sans-serif" }}
             >
               At ZeeInvoices, our mission is to empower small businesses and

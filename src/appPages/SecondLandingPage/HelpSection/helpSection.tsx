@@ -144,7 +144,7 @@ const HelpSection = () => {
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.color.gray[610],
                 fontSize: { md: "20px", xs: "16px" },
-                lineHeight: { md: "24px", xs: "24px" },
+                lineHeight: { md: "30px", xs: "24px" },
                 fontWeight: { md: 400 },
                 textAlign: { xs: "center" },
               }}

@@ -66,19 +66,19 @@ const GetTouchForm: React.FC = () => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: 2,
+              gap: 3,
               width: "100%",
-              maxWidth: 400,
+              maxWidth: 600,
               margin: "0 auto",
             }}
           >
             {/* First Name and Last Name */}
-            <Box sx={{ display: "flex", gap: 2 }}>
+            <Box sx={{ display: "flex", gap: 4 }}>
               <Box width={"50%"}>
                 <Typography
                   variant="body2"
                   component="p"
-                  pb={0.5}
+                  pb={"6px"}
                   sx={{ fontFamily: "Product Sans, sans-serif" }}
                 >
                   First Name
@@ -99,7 +99,7 @@ const GetTouchForm: React.FC = () => {
                 <Typography
                   variant="body2"
                   component="p"
-                  pb={0.5}
+                  pb={"6px"}
                   sx={{ fontFamily: "Product Sans, sans-serif" }}
                 >
                   Last Name
@@ -123,7 +123,7 @@ const GetTouchForm: React.FC = () => {
               <Typography
                 variant="body2"
                 component="p"
-                pb={0.5}
+                pb={"6px"}
                 sx={{ fontFamily: "Product Sans, sans-serif" }}
               >
                 Email
@@ -146,7 +146,7 @@ const GetTouchForm: React.FC = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  marginBottom: "5px",
+                  marginBottom: "6px",
                   color: "#000000",
                   fontFamily: "Product Sans, sans-serif",
                 }}
@@ -223,7 +223,7 @@ const GetTouchForm: React.FC = () => {
               <Typography
                 variant="body2"
                 component="p"
-                pb={0.5}
+                pb={"6px"}
                 sx={{ fontFamily: "Product Sans, sans-serif" }}
               >
                 Message
@@ -234,7 +234,7 @@ const GetTouchForm: React.FC = () => {
                     {...field}
                     placeholder="Leave us a message..."
                     multiline
-                    rows={4}
+                    rows={5}
                     fullWidth
                     error={touched.message && Boolean(errors.message)}
                     helperText={touched.message && errors.message}
@@ -264,6 +264,7 @@ const GetTouchForm: React.FC = () => {
             {/* Submit Button */}
             <Button
               sx={{
+                mt: 1,
                 height: "48px !important",
                 fontFamily: "Product Sans, sans-serif",
               }}

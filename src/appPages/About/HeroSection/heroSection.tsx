@@ -31,16 +31,28 @@ const HeroSection = () => {
               variant={isModile ? "display-md-bold" : "display-3xl-bold"}
               sx={{
                 color: palette.text.contactEmailColor,
+                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
                 fontFamily: "Product Sans,sans-serif",
               }}
             >
-              About <span style={{ color: palette.color.gray[900] }}>Us</span>
+              About{" "}
+              <span
+                style={{
+                  background: `${palette.color.gray[900]}`,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Us
+              </span>
             </Typography>
 
             <Typography
               variant={"display-xs1-regular"}
               textAlign={"center"}
-              color={palette.color.gray[745]}
+              color={palette.color.gray[610]}
               sx={{
                 fontSize: { sm: "20px !important", xs: "18px !important" },
                 lineHeight: { sm: "28px !important", xs: "21px !important" },

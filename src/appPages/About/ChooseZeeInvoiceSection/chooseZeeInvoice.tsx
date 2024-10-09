@@ -79,19 +79,31 @@ const ChooseZeeInvoiceSection = () => {
               color={palette.color.gray[900]}
               mb={{ sm: 3, xs: 1 }}
               component={"p"}
-              sx={{fontFamily: "Product Sans,sans-serif"}}
+              sx={{ fontFamily: "Product Sans,sans-serif" }}
             >
               Why Choose{" "}
-              <span style={{ color: palette.text.contactEmailColor }}>
+              <span
+                style={{
+                  // color: palette.text.contactEmailColor,
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
                 ZeeInvoices
               </span>
             </Typography>
             <Typography
               component={"p"}
               variant={isModile ? "text-lg-regular" : "text-xl1-regular"}
-              color={palette.color.gray[745]}
-              sx={{fontFamily: "Product Sans,sans-serif", width: {md:"70%"}, textAlign: "center", mx: "auto"}}
-              
+              color={palette.color.gray[610]}
+              sx={{
+                fontFamily: "Product Sans,sans-serif",
+                width: { md: "70%" },
+                textAlign: "center",
+                mx: "auto",
+              }}
             >
               Choose ZeeInvoices for enhanced efficiency, extensive
               customization options and exceptional support tailored to your
@@ -115,7 +127,7 @@ const ChooseZeeInvoiceSection = () => {
                 gap: 3,
                 width: { sm: "50%", xs: "100%" },
                 height: "204px",
-                justifyContent:"center",
+                justifyContent: "center",
               }}
             >
               {expandableTextData.map((item, index) => (
