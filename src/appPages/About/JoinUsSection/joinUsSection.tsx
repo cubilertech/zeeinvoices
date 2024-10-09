@@ -59,13 +59,14 @@ const JoinUsSection = () => {
 
           <Button
             sx={{
-              height: "35px !important",
-              py: "0px !important",
+              height: "50px !important",
+              py: "10px !important",
               px: "20px !important",
               borderRadius: "4px !important",
               fontFamily: "Product Sans, sans-serif !important",
-              fontSize: "14px !important",
-              fontWeight: "400 !important",
+              fontSize: "18px !important",
+              lineHeight: "30px !important",
+              fontWeight: "700 !important",
               background: "white",
               color: "#4F35DF",
               transition: "all 0.5s ease", // Add transition for smooth animation

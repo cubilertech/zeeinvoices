@@ -323,7 +323,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               position: "relative",
             }}
           >
-            <Typography variant="display-xs-medium">Invoice#</Typography>{" "}
+            <Typography variant="display-xs-medium">Sr.No:</Typography>{" "}
             {isEditInvoiceId ? (
               <>
                 <TextField

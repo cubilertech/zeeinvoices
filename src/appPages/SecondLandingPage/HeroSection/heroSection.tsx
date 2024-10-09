@@ -76,7 +76,7 @@ const HeroSection = () => {
                       color: palette.color.gray[900],
                     }}
                   >
-                    custom invoices{" "}
+                    Custom Invoices{" "}
                   </Box>
                   <Box
                     component="span"

@@ -267,6 +267,9 @@ const GetTouchForm: React.FC = () => {
                 mt: 1,
                 height: "48px !important",
                 fontFamily: "Product Sans, sans-serif",
+                fontSize: "16px !important",
+                lineHeight: "24px !important",
+                fontWeight: "700 !important",
               }}
               type="submit"
               variant="contained"
