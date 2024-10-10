@@ -164,7 +164,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           <Stack direction={"row"} spacing={3}>
             <UploadLogo logoDesc="Add your bussiness logo" />
           </Stack>
-          <Box sx={{ mt: { sm: 0, xs: 1 }, position: "relative" }}>
+          <Box sx={{ mt: { sm: 0, xs: "16px" }, position: "relative" }}>
             <SelectInput
               width={isModile ? "100%" : 385}
               height={44}
@@ -225,7 +225,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
           justifyContent={"space-between"}
           gap={3}
-          sx={{ marginTop: 3 }}
+          sx={{ marginTop: "24px" }}
         >
           <DetailSelecter
             title="From"

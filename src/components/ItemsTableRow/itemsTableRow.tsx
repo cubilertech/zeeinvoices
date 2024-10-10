@@ -330,7 +330,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             variant="text-md-semibold"
             sx={{
               // ml: "20%",
-              width: selectedTax ? "62px" : "100px", // Set width to ensure there's space to scroll
+              width: selectedTax ? {sm:"62px",xs: "52px"} : {sm:"100px", xs: "90px"}, // Set width to ensure there's space to scroll
               color: palette.base.black,
               display: "block",
               // justifyContent: "flex-end",
@@ -368,7 +368,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               alignSelf: "center",
             }}
             item
-            xs={0.4}
+            sm={0.4}
+            xs={0.2}
           >
             <IconButton
               className="deleteIconButton"

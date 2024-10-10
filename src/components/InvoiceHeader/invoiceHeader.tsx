@@ -2,6 +2,7 @@
 import {
   Box,
   Button,
+  ButtonBase,
   CircularProgress,
   IconButton,
   Stack,
@@ -28,7 +29,14 @@ import { palette } from "@/theme/palette";
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
-import { DoneOutlined, EditOutlined } from "@mui/icons-material";
+import {
+  DoneOutlined,
+  EditOutlined,
+  KeyboardArrowDown,
+  SaveAlt,
+  SettingsOutlined,
+  VisibilityOutlined,
+} from "@mui/icons-material";
 import { TextField } from "../TextField";
 import { setResetSelectedList } from "@/redux/features/listSelected";
 import { toast } from "react-toastify";
@@ -50,12 +58,14 @@ interface InvoiceHeaderProps {
   InvDetails: any;
   summaryDetail: any;
   type: string;
+  handleColorPickerClick: (event: any) => void;
 }
 const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   InvSetting,
   InvDetails,
   summaryDetail,
   type,
+  handleColorPickerClick,
 }) => {
   const { id } = useParams<{ id: string }>();
 
@@ -232,7 +242,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           }
 
           if (item.rate == 0 || item.rate === "") {
-            validationObj.rate = { isESubtotalrror: true, message: "required" };
+            validationObj.rate = { isError: true, message: "Required" };
           } else {
             validationObj.rate = { isError: false, message: "" };
           }
@@ -360,11 +370,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         marginTop: "5%",
         flexDirection: { sm: "row", xs: "column" },
         alignItems: "start",
+        p: { sm: "", xs: 0 },
       }}
     >
       <Stack
         direction={"row"}
-        sx={{ justifyContent: "center", alignItems: "center" }}
+        sx={{
+          justifyContent: { sm: "center", xs: "space-between" },
+          alignItems: "center",
+          width: { sm: "auto", xs: "100%" },
+        }}
       >
         {type === "add" ? (
           ""
@@ -376,13 +391,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             <ArrowBackIosNewIcon />
           </IconButton>
         )}
-        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+        <Box
+          sx={{ display: "flex", gap: { sm: 2, xs: 1 }, alignItems: "center" }}
+        >
           <Box
             sx={{
               display: "flex",
               gap: 2,
               alignItems: "center",
               position: "relative",
+              mt: "7px",
             }}
           >
             <Typography variant="display-xs-medium">Sr.No:</Typography>{" "}
@@ -468,6 +486,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               width: "28px !important",
               height: "28px !important",
               p: 0.5,
+              mt: "6px",
             }}
           >
             {isEditInvoiceId ? (
@@ -477,11 +496,58 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             )}
           </IconButton>
         </Box>
+        <Box
+          sx={{
+            display: { sm: "none", xs: "flex" },
+            gap: 1,
+            alignItems: "center",
+          }}
+        >
+          <ButtonBase
+            disabled={showPreview}
+            sx={{
+              opacity: showPreview ? 0.5 : 1,
+            }}
+            onClick={() => router.push("/preview")}
+          >
+            <VisibilityOutlined sx={{ width: 19, height: 19 }} />
+          </ButtonBase>
+
+          {validateButton ? (
+            session ? (
+              <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
+                <ButtonBase onClick={() => generatePDFDocument()}>
+                  <Icon icon="pdfPriviewIcon" width={15} height={15} />
+                </ButtonBase>
+              </Box>
+            ) : (
+              <Tooltip title="Download PDF" placement="bottom">
+                <Button onClick={() => setDownloadModel(true)}>
+                  <Icon icon="pdfPriviewIcon" width={15} height={15} />
+                </Button>
+              </Tooltip>
+            )
+          ) : (
+            <ButtonBase disabled={true}>
+              <Icon icon="pdfPriviewIcon" width={15} height={15} />
+            </ButtonBase>
+          )}
+          <ButtonBase
+            onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
+          >
+            <SaveAlt sx={{ width: 19, height: 19 }} />
+          </ButtonBase>
+
+          <ButtonBase onClick={handleColorPickerClick}>
+            <SettingsOutlined sx={{ width: 19, height: 19 }} />
+          </ButtonBase>
+        </Box>
       </Stack>
       <Stack
         justifyContent={"space-between"}
         // spacing={2}
         sx={{
+          display: { sm: "flex", xs: "none" },
           flexDirection: { sm: "row", xs: "column-reverse" },
           gap: 2,
           width: { sm: "auto", xs: "100%" },
@@ -551,24 +617,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         </Box>
         {validateButton ? (
           session ? (
-            // <PdfDownloadLink
-            //   InvSetting={InvSetting}
-            //   InvDetails={InvDetails}
-            //   summaryDetail={summaryDetail}
-            // >
-            //   <Tooltip title="Download PDF" placement="bottom">
-            //     <Button
-            //       variant="contained"
-            //       sx={{
-            //         height: "36px !important",
-            //         borderRadius: "4px",
-            //         py: "0px !important",
-            //       }}
-            //     >
-            //       Download PDF
-            //     </Button>
-            //   </Tooltip>
-            // </PdfDownloadLink>
             <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
               <Button
                 variant="contained"
@@ -612,7 +660,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             variant="contained"
             disabled={true}
             sx={{
-              width: { sm: "138px", xs: "100%" },
+              width: { xs: "100%" },
               height: "44px",
               borderRadius: "4px",
               fontWeight: "bold !important",

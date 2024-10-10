@@ -40,6 +40,7 @@ export const icons = {
   profileIcon: "/Images/icons/profile-icon.svg",
   logoutIcon: "/Images/icons/logout-icon.svg",
   viewIcon: "/Images/icons/view-icon.svg",
+  pdfPriviewIcon: "/Images/icons/pdg-priview-icon.svg",
   deleteIcon: "/Images/icons/delete-icon.svg",
   deleteRedIcon: "/Images/icons/delete-red-icon.svg",
   watermarkIcon: "/Images/icons/watermark-icon.svg",
