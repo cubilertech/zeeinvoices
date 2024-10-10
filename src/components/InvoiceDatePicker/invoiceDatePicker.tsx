@@ -12,6 +12,7 @@ import {
   setDueDate,
   setInvoiceDate,
 } from "@/redux/features/invoiceSlice";
+import { palette } from "@/theme/palette";
 
 interface InvoiceDatePicker {
   title: string;
@@ -31,26 +32,26 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
   return (
     <Stack
       direction={"row"}
-      spacing={1}
       sx={{
-        // width: 205,
-        height: 25,
+        width: "100%",
         justifyContent: { sm: "center", xs: "space-between" },
-        alignItems: "center",
+        alignItems: "start",
         display: "flex",
+        flexDirection: "column",
+        gap: "6px",
       }}
     >
       <Typography
         variant="text-xs0-semibold"
         color={"black"}
-        sx={{ fontSize: 12, fontWeight: 600 }}
+        sx={{ fontSize: 14, fontWeight: 500, color: palette.color.gray[610] }}
       >
         {title}:
       </Typography>
       <Box
         sx={{
-          width: "134px !important",
-          height: 24,
+          width: "100% !important",
+          height: "44px",
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -62,36 +63,30 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
             minDate={title === "Due Date" ? dayjs(invoiceDate) : undefined}
             format="MMM Do, YYYY"
             sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                // border: `1px solid ${palette.borderColor.borderColor}`,
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                {
-                  // border: `1px solid ${palette.color.gray[100]}`,
-                },
+              width: "100%",
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
                 {
-                  // border: `1px solid ${palette.color.gray[500]}`,
-                  borderRadius: 1,
-                  width: "144px !important",
+                  // border: `1px solid ${palette.color.graey[500]}`,
+                  borderRadius: "4px",
+                  width: "100% !important",
                 },
               "& .MuiOutlinedInput-input": {
-                padding: "1px !important",
-                paddingLeft: "7px !important",
+                padding: "0px !important",
+                // paddingLeft: "7px !important",
                 fontSize: 12,
               },
-              "& .MuiInputBase-input": {
-                height: "20px !important",
-                width: "134px !important",
-              },
+
               padding: "0px !important",
               "& .MuiOutlinedInput-root": {
-                border: "0.5px !important",
-                borderRadius: "5px",
-                width: "134px !important",
-                paddingRight: 0,
-                px: "4px",
-                py: "2px",
+                height: "44px",
+                borderRadius: "4px",
+                width: "100% !important",
+                // paddingRight: 0,
+                px: "14px",
+                py: "10px",
+              },
+              "& .MuiOutlinedInput-root fieldset": {
+                borderColor: palette.color.gray[200],
               },
             }}
           />

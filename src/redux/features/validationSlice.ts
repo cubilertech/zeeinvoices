@@ -6,6 +6,21 @@ export interface ValidationObject {
   message: string;
 }
 
+interface itemsType {
+  id: string;
+  name: {
+    isError: boolean;
+    message: string;
+  };
+  quantity: {
+    isError: boolean;
+    message: string;
+  };
+  rate: {
+    isError: boolean;
+    message: string;
+  };
+}
 interface ValidationState {
   invoiceType: {
     isError: boolean;
@@ -18,6 +33,9 @@ interface ValidationState {
   recipientDetails: {
     isError: boolean;
     message: string;
+  };
+  invoiceRowItem: {
+    items: itemsType[] | null;
   };
 }
 
@@ -34,6 +52,9 @@ const initialValue: ValidationState = {
     isError: false,
     message: "Recipient details are required.",
   },
+  invoiceRowItem: {
+    items: null,
+  },
 };
 
 export const validationSlice = createSlice({
@@ -49,6 +70,12 @@ export const validationSlice = createSlice({
     setRecipientDetailsError: (state, action: PayloadAction<boolean>) => {
       state.recipientDetails.isError = action.payload;
     },
+    setInvoiceRowItemValidation: (
+      state,
+      action: PayloadAction<itemsType[] | null>
+    ) => {
+      state.invoiceRowItem.items = action.payload;
+    },
     setInvoiceTypeValidation: (
       state,
       action: PayloadAction<ValidationObject>
@@ -62,6 +89,8 @@ export const validationSlice = createSlice({
 });
 
 // Selectors
+export const getInvoiceItemsValidation = (state: RootState) =>
+  state.validation.invoiceRowItem?.items;
 export const getInvoiceTypeError = (state: RootState) =>
   state.validation.invoiceType.isError;
 export const getSenderDetailsError = (state: RootState) =>
@@ -82,5 +111,6 @@ export const {
   setRecipientDetailsError,
   setInvoiceTypeValidation,
   setResetValidation,
+  setInvoiceRowItemValidation,
 } = validationSlice.actions;
 export default validationSlice.reducer;

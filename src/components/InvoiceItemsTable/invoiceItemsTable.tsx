@@ -1,6 +1,13 @@
 "use client";
 import { palette } from "@/theme/palette";
-import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  ButtonBase,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { FC, useState } from "react";
 import { Icon } from "../Icon";
 import { ItemsTableRow } from "../ItemsTableRow";
@@ -49,17 +56,25 @@ const InvoiceItemsTable: FC = () => {
             sx={{
               width: "100%",
               backgroundColor: selectedColor,
-              borderRadius: "2px",
+              borderRadius: "4px",
               marginTop: 2,
               ml: "0px",
-              height: "30px",
+              height: "42px",
+              alignItems: "center",
             }}
             spacing={2}
           >
             <Grid
-              sx={{ padding: "0px", paddingTop: "2px !important" }}
+              sx={{
+                padding: "8px",
+                paddingTop: "8px !important",
+                paddingLeft: "8px !important",
+                display: "flex",
+                // justifyContent: "center",
+                alignItems: "center",
+              }}
               item
-              xs={4.37}
+              xs={4.6}
             >
               <Typography
                 variant="text-xs-semibold"
@@ -98,14 +113,17 @@ const InvoiceItemsTable: FC = () => {
                 alignItems: "center",
               }}
               item
-              xs={selectedTax ? 1.8 : 2.2}
+              xs={selectedTax ? 1.98 : 2.2}
               // xs={1.6}
             >
               <Typography
                 variant="text-xs-semibold"
                 sx={{ color: palette.base.white }}
               >
-                Rate <span>{`(${selectedCurrency})`}</span>
+                Rate{" "}
+                <span>{`(${
+                  selectedCurrency === "USD" ? "$" : selectedCurrency
+                })`}</span>
               </Typography>
             </Grid>
 
@@ -120,7 +138,7 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={1.8}
+                xs={2}
               >
                 {selectedTax ? (
                   <Typography
@@ -147,7 +165,7 @@ const InvoiceItemsTable: FC = () => {
                 alignItems: "center",
               }}
               item
-              xs={selectedTax ? 1.96 : 3.05}
+              xs={selectedTax ? 1.6 : 2}
               // xs={2.2}
             >
               <Typography
@@ -173,20 +191,23 @@ const InvoiceItemsTable: FC = () => {
         </Box>
       </Box>
       {/* add items button */}
-      <Box
+      <ButtonBase
         onClick={handleAddItem}
         sx={{
+          mx: "auto",
           height: "40px",
-          width: "100%",
+          width: "98%",
           marginTop: "15px",
-          border: `1px dashed ${palette.color.gray[10]}`,
+          border: "1px dashed",
+          // border: `1px dashed ${palette.color.gray[10]}`,
           borderRadius: 1,
           cursor: "pointer",
-          backgroundColor: palette.color.gray[3],
+          backgroundColor: "#F8FAFC",
           marginBottom: "70px",
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
+          borderColor: palette.primary.main,
         }}
       >
         <Stack
@@ -198,16 +219,16 @@ const InvoiceItemsTable: FC = () => {
           }}
         >
           <Box sx={{ padding: 1 }}>
-            <Icon icon="addCircleOutlinedIcon" width={20} height={20} />
+            <Icon icon="addBlueCircleIcon" width={15} height={15} />
           </Box>
           <Typography
             variant="text-xs-regular"
-            sx={{ color: palette.base.black }}
+            sx={{ color: palette.primary.main }}
           >
             Add New Invoice Item
           </Typography>
         </Stack>
-      </Box>
+      </ButtonBase>
     </Stack>
   );
 };

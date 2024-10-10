@@ -1,7 +1,6 @@
 "use client";
 import { palette } from "@/theme/palette";
 import {
-  Box,
   Grid,
   IconButton,
   InputAdornment,
@@ -9,12 +8,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useMemo } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceItem } from "@/redux/features/invoiceSlice";
 import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
 import "../../Styles/tableItemRow.css";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { getInvoiceItemsValidation } from "@/redux/features/validationSlice";
 
 interface ItemsTableRowProps {
   id: number;
@@ -30,7 +31,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   showRemoveButton,
 }) => {
   const dispatch = useDispatch();
-  const [taxValue, setTaxValue] = useState("");
+  const InvoiceItemValidation = useSelector(getInvoiceItemsValidation);
+  // const [taxValue, setTaxValue] = useState("");
   const selectedCurrency = useSelector(getCurrency);
   const selectedTax = useSelector(getTax);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +40,14 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
     // setData((prev) => ({ ...prev, [name]: value }));
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
   };
+
+  const itemValidation = useMemo(() => {
+    return (
+      InvoiceItemValidation?.find((item) => item.id === id.toString()) || null
+    );
+  }, [InvoiceItemValidation, id]);
+
+  console.log(InvoiceItemValidation, "InvoiceItemValidation");
 
   return (
     <Stack className="tableItemRow" direction={"column"}>
@@ -48,11 +58,16 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           backgroundColor: palette.base.white,
           borderRadius: 1,
           marginTop: 2,
+          px: 1,
+          gap: "8px",
         }}
-        spacing={2}
+        // spacing={2}
       >
         <Grid
-          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          sx={{
+            // padding: "4px",
+            paddingTop: "4px !important",
+          }}
           item
           xs={4.5}
         >
@@ -61,19 +76,20 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             sx={{
               color: palette.color.gray[700],
               width: "100%",
-
               "& .MuiOutlinedInput-root": {
-                height: "32px !important",
-                borderRadius: "2px !important",
+                height: "40px !important",
+                borderRadius: "4px !important",
               },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
                 opacity: 0.7,
               },
             }}
+            error={itemValidation?.name?.isError}
+            helperText={itemValidation?.name?.message ?? ""}
             id="outlined-basic"
             name="name"
-            placeholder="Name of your product or service"
+            placeholder="Name"
             variant="outlined"
             value={data.name}
             onChange={handleChange}
@@ -81,9 +97,9 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         </Grid>
         <Grid
           sx={{
-            padding: "4px",
+            // padding: "4px",
             paddingTop: "4px !important",
-            paddingLeft: "8px !important",
+            // paddingLeft: "8px !important",
           }}
           item
           xs={selectedTax ? 1.8 : 2.2}
@@ -94,8 +110,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               borderRadius: "3px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
-                height: "32px !important",
-                borderRadius: "2px !important",
+                height: "40px !important",
+                borderRadius: "4px !important",
               },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
@@ -118,6 +134,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             name="quantity"
             type="number"
             placeholder="00"
+            error={itemValidation?.quantity?.isError}
+            helperText={itemValidation?.quantity?.message ?? ""}
             variant="outlined"
             value={data.quantity >= 0 ? data.quantity : ""}
             inputProps={{ min: 0 }}
@@ -126,6 +144,18 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               if (value >= 0 || e.target.value === "") {
                 handleChange(e); // Now the type should match
               }
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Typography sx={{ display: "flex", flexDirection: "column" }}>
+                    <KeyboardArrowUp sx={{ width: "12px", height: "12px" }} />
+                    <KeyboardArrowDown
+                      sx={{ width: "12px", height: "12px", mt: -0.8 }}
+                    />
+                  </Typography>
+                </InputAdornment>
+              ),
             }}
             onKeyDown={(e) => {
               if (e.key === "-" || e.key === "e") {
@@ -136,20 +166,20 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         </Grid>
         <Grid
           sx={{
-            padding: "4px",
+            // padding: "4px",
             paddingTop: "4px !important",
-            paddingLeft: "8px !important",
+            // paddingLeft: "8px !important",
           }}
           item
           xs={selectedTax ? 1.8 : 2.2}
         >
           <TextField
             sx={{
-              borderRadius: "3px",
+              borderRadius: "4px",
               color: palette.color.gray[700],
               "& .MuiOutlinedInput-root": {
-                height: "32px !important",
-                borderRadius: "2px !important",
+                height: "40px !important",
+                borderRadius: "4px !important",
                 pr: "5px",
               },
               "& .MuiInputBase-root": {
@@ -177,12 +207,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             }}
             id="outlined-basic"
             name="rate"
+            error={itemValidation?.rate?.isError}
+            helperText={itemValidation?.rate?.message ?? ""}
             type="number"
-            placeholder={
-              selectedTax
-                ? `0.0`
-                : `0.0`
-            }
+            placeholder={selectedTax ? `0.0` : `0.0`}
             variant="outlined"
             value={data.rate > 0 ? data.rate : ""}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -199,7 +227,9 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end" sx={{ pl: "0px" }}>
-                  <Typography>{selectedCurrency}</Typography>
+                  <Typography>
+                    {selectedCurrency === "USD" ? "$" : selectedCurrency}
+                  </Typography>
                 </InputAdornment>
               ),
             }}
@@ -209,9 +239,9 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         {selectedTax ? (
           <Grid
             sx={{
-              padding: "4px",
+              // padding: "4px",
               paddingTop: "4px !important",
-              paddingLeft: "8px !important",
+              // paddingLeft: "8px !important",
             }}
             item
             xs={1.8}
@@ -219,11 +249,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             {selectedTax ? (
               <TextField
                 sx={{
-                  borderRadius: "3px",
                   color: palette.color.gray[700],
                   "& .MuiOutlinedInput-root": {
-                    height: "32px !important",
-                    borderRadius: "2px !important",
+                    height: "40px !important",
+                    borderRadius: "4px !important",
                     pr: "5px",
                   },
                   "& .MuiInputBase-root": {
@@ -289,19 +318,19 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
 
         <Grid
           sx={{
-            padding: "4px",
+            // padding: "4px",
             paddingTop: "4px !important",
-            paddingLeft: "8px !important",
+            // paddingLeft: "8px !important",
             justifyContent: "end",
           }}
           item
-          xs={selectedTax ? 1.8 : 2.8}
+          xs={selectedTax ? 1 : 2}
         >
           <Typography
-            variant="text-xs1-semibold"
+            variant="text-md-semibold"
             sx={{
-              ml: "20%",
-              width: selectedTax ? "95px" : "140px", // Set width to ensure there's space to scroll
+              // ml: "20%",
+              width: selectedTax ? "62px" : "100px", // Set width to ensure there's space to scroll
               color: palette.base.black,
               display: "block",
               // justifyContent: "flex-end",
@@ -339,7 +368,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               alignSelf: "center",
             }}
             item
-            xs={0.3}
+            xs={0.4}
           >
             <IconButton
               className="deleteIconButton"
@@ -367,7 +396,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         )}
         {/* for description */}
         <Grid
-          sx={{ padding: "4px", paddingTop: "4px !important" }}
+          sx={{
+            // padding: "4px",
+            paddingTop: "8px !important",
+          }}
           item
           xs={12}
         >
@@ -378,8 +410,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               width: "100%",
 
               "& .MuiOutlinedInput-root": {
-                minHeight: "32px !important",
-                borderRadius: "2px !important",
+                minHeight: "40px !important",
+                borderRadius: "4px !important",
                 padding: "0px !important",
               },
               "& .MuiInputBase-input::placeholder": {

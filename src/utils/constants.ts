@@ -24,6 +24,7 @@ export const icons = {
   sendSqaureIcon: "/Images/icons/send-sqaure.svg",
   printIconIcon: "/Images/icons/printer-icon.svg",
   addCircleIcon: "/Images/icons/add-circle.svg",
+  addBlueCircleIcon: "/Images/icons/add-circle-blue.svg",
   addCircleOutlinedIcon: "/Images/icons/add-circle-outlined.svg",
   tickIcon: "/Images/icons/tick-icon.svg",
   colorPickerPaletteIcon: "/Images/icons/color-picker-palette-icon.svg",

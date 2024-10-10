@@ -36,6 +36,7 @@ import {
   getInvoiceTypeError,
   getRecipientDetailsError,
   getSenderDetailsError,
+  setInvoiceRowItemValidation,
   setInvoiceTypeError,
   setRecipientDetailsError,
   setSenderDetailsError,
@@ -173,24 +174,80 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
-    console.log(
-      InvDetails?.invoiceType == "",
-      InvDetails.from?.name == "",
-      InvDetails.to?.name == ""
-    );
+    
     if (
-      InvDetails?.invoiceType == "" ||
-      InvDetails.from?.name == "" ||
-      InvDetails.to?.name == ""
+      InvDetails?.invoiceType === "" ||
+      InvDetails.from?.name === "" ||
+      InvDetails.to?.name === "" ||
+      InvDetails.invoiceItem.some(
+        (item: any) =>
+          !item.name ||
+          item.rate == 0 ||
+          item.rate === "" ||
+          item.quantity == 0 ||
+          item.quantity === ""
+      )
     ) {
-      if (InvDetails?.invoiceType == "") {
+      // Dispatch relevant error actions for invoiceType, sender, and recipient
+      if (InvDetails?.invoiceType === "") {
         await dispatch(setInvoiceTypeError(true));
       }
-      if (InvDetails.from?.name == "") {
+      if (InvDetails.from?.name === "") {
         await dispatch(setSenderDetailsError(true));
       }
-      if (InvDetails.to?.name == "") {
+      if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+
+      // Invoice item validation
+      if (InvDetails.invoiceItem) {
+        let itemsValidation: any[] | null = [];
+
+        InvDetails.invoiceItem.forEach((item: any) => {
+          let validationObj: any = {
+            id: item.id.toString(),
+            name: {},
+            quantity: {},
+            rate: {},
+          };
+
+          if (!item.name) {
+            validationObj.name = { isError: true, message: "Name is required" };
+          } else {
+            validationObj.name = { isError: false, message: "" };
+          }
+
+          if (item.quantity == 0 || item.quantity === "") {
+            validationObj.quantity = {
+              isError: true,
+              message: "Required",
+            };
+          } else {
+            validationObj.quantity = { isError: false, message: "" };
+          }
+
+          if (item.rate == 0 || item.rate === "") {
+            validationObj.rate = { isESubtotalrror: true, message: "required" };
+          } else {
+            validationObj.rate = { isError: false, message: "" };
+          }
+
+          // Only push validationObj if any error exists
+          if (
+            validationObj.name.isError ||
+            validationObj.quantity.isError ||
+            validationObj.rate.isError
+          ) {
+            itemsValidation?.push(validationObj);
+          }
+        });
+
+        // If no errors, set validation to null
+        if (itemsValidation.length === 0) {
+          itemsValidation = null;
+        }
+
+        await dispatch(setInvoiceRowItemValidation(itemsValidation));
       }
     } else if (!session) {
       setLoginModel(true);

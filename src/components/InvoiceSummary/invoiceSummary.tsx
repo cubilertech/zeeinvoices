@@ -27,7 +27,7 @@ const InvoiceSummary: FC = () => {
     <Stack
       direction={"column"}
       sx={{
-        borderRadius: "3px",
+        borderRadius: "4px",
         width: { sm: "240px", xs: "100%" },
         border: `1px solid ${palette.base.borderColor}`,
       }}
@@ -36,15 +36,18 @@ const InvoiceSummary: FC = () => {
       <Box
         sx={{
           width: { sm: "239px", xs: "100%" },
-          height: "30px",
-          borderRadius: "2px 2px 0px 0px",
+          height: "42px",
+          borderRadius: "4px 4px 0px 0px",
           backgroundColor: selectedColor,
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
         }}
       >
-        <Typography variant="text-xs-bold" sx={{ color: palette.base.white }}>
+        <Typography
+          variant="text-sm-semibold"
+          sx={{ color: palette.base.white }}
+        >
           Invoice Summary
         </Typography>
       </Box>
@@ -54,43 +57,53 @@ const InvoiceSummary: FC = () => {
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
-        sx={{ padding: "20px 10px 0px 10px" }}
+        sx={{
+          height: "54px",
+          borderBottom: `1px solid ${palette.base.borderColor}`,
+          alignItems: "center",
+          px: "16px",
+        }}
       >
         <Typography
-          variant="text-xs-regular"
-          sx={{ color: palette.base.black, fontWeight: 600 }}
+          variant="text-sm-regular"
+          sx={{ color: palette.color.gray[610], fontWeight: 600 }}
         >
           Subtotal
         </Typography>
         <Typography
-          variant="text-xs0-semibold"
-          sx={{ color: palette.base.black, lineHeight: "14px" }}
+          variant="text-sm-semibold"
+          sx={{ color: palette.color.gray[900], lineHeight: "14px" }}
         >
           {" "}
           {selectedCurrency === "USD" ? "USD" : selectedCurrency}{" "}
-          <span style={{ fontSize: 12, fontWeight: 600 }}>
+          <span style={{ fontSize: 14, fontWeight: 600 }}>
             {(total - taxAmount).toFixed(2)}
           </span>
         </Typography>
       </Stack>
-      <hr style={{ margin: "10px" }}></hr>
+      {/* <hr style={{ margin: "10px" }}></hr> */}
 
       {selectedTax ? (
         <>
           <Stack
             direction={"row"}
             justifyContent={"space-between"}
-            sx={{ padding: "5px 10px 0px 10px" }}
+            sx={{
+              height: "54px",
+              borderBottom: `1px solid ${palette.base.borderColor}`,
+              alignItems: "center",
+              px: "16px",
+            }}
           >
             <Typography
-              variant="text-xs-regular"
-              sx={{ color: palette.base.black, fontWeight: 600 }}
+              variant="text-sm-regular"
+              sx={{ color: palette.color.gray[610], fontWeight: 600 }}
             >
               Tax
             </Typography>
             <Typography
-              variant="text-xs0-semibold"
-              sx={{ color: palette.base.black, fontWeight: 300 }}
+              variant="text-sm-semibold"
+              sx={{ color: palette.color.gray[900] }}
             >
               {taxAmount > 0
                 ? (selectedCurrency === "USD" ? "USD" : selectedCurrency) +
@@ -99,7 +112,7 @@ const InvoiceSummary: FC = () => {
                 : "--"}
             </Typography>
           </Stack>
-          <hr style={{ margin: "10px" }}></hr>
+          {/* <hr style={{ margin: "10px" }}></hr> */}
         </>
       ) : (
         ""
@@ -108,20 +121,20 @@ const InvoiceSummary: FC = () => {
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
-        sx={{ padding: "5px 10px 15px 10px" }}
+        sx={{ height: "54px", alignItems: "center", px: "16px" }}
       >
         <Typography
-          variant="text-xs-regular"
-          sx={{ color: palette.base.black, fontWeight: 600 }}
+          variant="text-sm-regular"
+          sx={{ color: palette.color.gray[610], fontWeight: 600 }}
         >
           Total
         </Typography>
         <Typography
-          variant="text-xs0-semibold"
-          sx={{ color: palette.base.black }}
+          variant="text-sm-semibold"
+          sx={{ color: palette.color.gray[900] }}
         >
           {selectedCurrency === "USD" ? "USD" : selectedCurrency}{" "}
-          <span style={{ fontSize: 12, fontWeight: 600 }}>
+          <span style={{ fontSize: 14, fontWeight: 600 }}>
             {/* {total.toFixed(2)} */}
             {(selectedTax ? total : total - taxAmount).toFixed(2)}
           </span>

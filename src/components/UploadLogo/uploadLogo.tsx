@@ -390,7 +390,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
               backgroundColor: palette.base.transparent,
               width: "5px !important",
               height: "5px !important",
-              borderRadius: 3,
+              borderRadius: "4px",
             }}
             onClick={handleCancelLogoClick}
           >
@@ -415,7 +415,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             py: "14px",
             width: { sm: "auto", xs: "100%" },
             cursor: "pointer",
-            borderRadius: "12px",
+            borderRadius: "4px",
             borderColor: palette.color.gray[310],
           }}
           onClick={handleClick}

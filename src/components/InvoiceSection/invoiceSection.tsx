@@ -169,7 +169,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
               width={isModile ? "100%" : 385}
               height={44}
               placeholder="Select type"
-              borderRadius={"8px"}
+              borderRadius={"4px"}
               type="Invoice type"
               menuData={["Bill", "Sales Invoice", "Quotation", "Other"]}
             />
@@ -252,9 +252,9 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           direction={"row"}
           // justifyContent={"space-between"}
           sx={{
-            marginTop: { sm: "2%", xs: 2 },
+            marginTop: "24px",
             flexDirection: { sm: "row", xs: "column" },
-            gap: { sm: 22, xs: 2 },
+            gap: { sm: "24px", xs: 2 },
           }}
         >
           <InvoiceDatePicker title="Invoice Date" />
