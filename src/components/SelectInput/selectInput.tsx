@@ -22,7 +22,7 @@ const SelectInput: FC<SelectInput> = ({
   placeholder = "Select",
   width = 200,
   height = 36,
-  borderRadius = 2,
+  borderRadius = 1,
 }) => {
   const dispatch = useDispatch();
   const selectedInvoiceType = useSelector(getInvoiceType);
@@ -35,8 +35,16 @@ const SelectInput: FC<SelectInput> = ({
 
   return (
     <Box borderRadius={1}>
-      <Stack direction={"column"} spacing={0.2}>
-        <Typography variant="text-sm-medium" sx={{ fontWeight: 600 }}>
+      <Stack direction={"column"} gap={"6px"}>
+        <Typography
+          variant="text-sm-medium"
+          sx={{
+            fontSize: { sm: "14px", xs: "14px" },
+            lineHeight: { sm: "20px", xs: "20px" },
+            fontWeight: { xs: 500 },
+            color: palette.color.gray[610],
+          }}
+        >
           {type === "currency" || type === "Select SR" ? "" : type}
         </Typography>
         <Select
@@ -67,20 +75,29 @@ const SelectInput: FC<SelectInput> = ({
           }}
           renderValue={(selected) => {
             if (!selected) {
-              return <span style={{ color: "grey" }}>{`${placeholder}`}</span>; // Placeholder text styling
+              return (
+                <span
+                  style={{ color: palette.color.gray[510] }}
+                >{`${placeholder}`}</span>
+              ); // Placeholder text styling
             }
             return <span style={{ color: "black" }}>{selected}</span>;
           }}
           sx={{
+            boxShadow: palette.boxShadows.shadowxs,
             width: { width },
             height: { height },
             "& fieldset": {
-              borderColor: "#D6DAE1",
+              borderColor: palette.color.gray[200],
               ":hover": { borderColor: "black !important" },
             },
             borderRadius: borderRadius,
             marginTop: 0,
             backgroundColor: palette.base.white,
+            "& .MuiInputBase-input": {
+              px: "14px !important",
+              py: "10px !important",
+            },
           }}
         >
           {menuData &&

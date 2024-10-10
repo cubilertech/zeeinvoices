@@ -346,15 +346,16 @@ const DetailSelecter: FC<DetailSelecter> = ({
   }, [dispatch, showData, detailsOf]);
 
   return (
-    <Box
-      borderRadius={1}
-      // sx={{
-      //   width: 316,
-      //   height: 242,
-      // }}
-    >
+    <Box sx={{ width: "100%" }}>
       {title && (
-        <Typography variant="text-sm-medium" sx={{ fontWeight: 600 }}>
+        <Typography
+          variant="text-sm-medium"
+          sx={{
+            fontSize: { sm: "14px", xs: "14px" },
+            lineHeight: { sm: "20px", xs: "20px" },
+            fontWeight: { xs: 500 },
+          }}
+        >
           {title == "From" ? "Sender Details" : "Recipient Details"}
         </Typography>
       )}
@@ -363,9 +364,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
           name={
             fromSelected ? InvDetails?.name : toSelected ? InvDetails?.name : ""
           }
-          width={isMobile ? "100%" : 370}
+          width={isMobile ? "100%" : "100%"}
           placeholder={`Add existing ${detailsOf}`}
-          borderRadius={"4px"}
+          borderRadius={"8px"}
           type={`${detailsOf}`}
           filteredData={
             detailsOf === `Sender` ? filteredSenderData : filteredClientData
@@ -378,14 +379,15 @@ const DetailSelecter: FC<DetailSelecter> = ({
           <Box
             borderRadius={1}
             sx={{
-              // width: 292,
-              width: { sm: 370, xs: "100%" },
+              width: { sm: "100%", xs: "100%" },
               height: 222,
-              marginTop: 1.5,
-              padding: 2,
+              marginTop: 2,
+              py: "10px",
+              px: "14px",
               borderRadius: 2,
               cursor: "pointer",
-              border: `1px solid ${palette.color.gray[120]}`,
+              border: `1px solid ${palette.color.gray[200]}`,
+              boxShadow: palette.boxShadows.shadowxs,
             }}
             onClick={handleOpen}
           >
@@ -430,7 +432,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
         <Box
           borderRadius={1}
           sx={{
-            // width: 292,
             width: { sm: 370, xs: "100%" },
             height: 222,
             marginTop: 1.5,

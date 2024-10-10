@@ -18,6 +18,8 @@ import {
 } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import "@/Styles/sectionStyle.css";
+
 interface CreateInvoiceProps {
   type: string;
 }
@@ -52,7 +54,7 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
   const id = open ? "simple-popover" : undefined;
   return (
     <Container
-      maxWidth="lg"
+      className="mainContainer"
       sx={{
         overflowY: "auto",
         height: "100%",

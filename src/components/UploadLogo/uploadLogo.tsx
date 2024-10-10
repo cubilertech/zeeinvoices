@@ -411,12 +411,12 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
           borderRadius={1}
           sx={{
             border: "1px dashed",
-            padding: 1,
-            width: { sm: 200, xs: "100%" },
-            height: 56,
+            px: 3,
+            py: "14px",
+            width: { sm: "auto", xs: "100%" },
             cursor: "pointer",
-            backgroundColor: palette.color.gray[30],
-            borderColor: palette.base.dashedBorderColor,
+            borderRadius: "12px",
+            borderColor: palette.color.gray[310],
           }}
           onClick={handleClick}
         >
@@ -427,18 +427,34 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             onChange={handleFileChange}
             accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
           />
-          <Stack direction={"row"} spacing={1}>
-            <Icon icon="uploadLogo" height={31} width={34} />
-            <Stack direction={"column"} spacing={1}>
-              <Typography variant="text-xs-regular" color={"gray"}>
+          <Stack direction={"row"} gap={1.5}>
+            <Icon icon="uploadLogo" height={40} width={40} />
+            <Stack direction={"column"} gap={0.5}>
+              <Typography
+                variant="text-xs-regular-color"
+                sx={{
+                  fontSize: { sm: "12px", xs: "12px" },
+                  lineHeight: { sm: "18px", xs: "18px" },
+                  fontWeight: { xs: 400 },
+                  color: palette.color.gray[610],
+                }}
+              >
                 {logoDesc}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={"black"}
-                sx={{ textDecoration: "underline" }}
+                sx={{
+                  fontSize: { sm: "14px", xs: "14px" },
+                  lineHeight: { sm: "20px", xs: "20px" },
+                  fontWeight: { xs: 600 },
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
               >
-                Select a file
+                Click to upload
               </Typography>
             </Stack>
           </Stack>

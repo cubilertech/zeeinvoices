@@ -35,8 +35,8 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   type,
   menuData,
   placeholder = "Select",
-  width = 200,
-  height = 36,
+  width = 385,
+  height = 44,
   filteredData,
   borderRadius = 2,
   onItemSelected,
@@ -123,20 +123,29 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
           }}
           renderValue={(selected) => {
             if (!selected) {
-              return <span style={{ color: "grey" }}>{`${placeholder}`}</span>; // Placeholder text styling
+              return (
+                <span
+                  style={{ color: palette.color.gray[510] }}
+                >{`${placeholder}`}</span>
+              ); // Placeholder text styling
             }
             return <span style={{ color: "black" }}>{selected}</span>;
           }}
           sx={{
+            boxShadow: palette.boxShadows.shadowxs,
             width: { width },
             height: { height },
             "& fieldset": {
-              borderColor: "#D6DAE1",
+              borderColor: palette.color.gray[200],
               ":hover": { borderColor: "black !important" },
             },
             borderRadius: borderRadius,
             marginTop: 0,
             backgroundColor: palette.base.white,
+            "& .MuiInputBase-input": {
+              px: "14px !important",
+              py: "10px !important",
+            },
           }}
         >
           {filteredData && filteredData.length > 0 ? (

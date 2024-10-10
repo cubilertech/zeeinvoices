@@ -180,12 +180,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             type="number"
             placeholder={
               selectedTax
-                ? `0.0         ${
-                    selectedCurrency === "USD" ? "     $" : selectedCurrency
-                  }`
-                : `0.0                ${
-                    selectedCurrency === "USD" ? "     $" : selectedCurrency
-                  }`
+                ? `0.0`
+                : `0.0`
             }
             variant="outlined"
             value={data.rate > 0 ? data.rate : ""}
@@ -255,7 +251,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 }}
                 name="tax"
                 type="number"
-                placeholder="0.0             %"
+                placeholder="0.0             "
                 variant="outlined"
                 value={data.tax > 0 ? data.tax : ""}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
