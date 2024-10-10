@@ -49,7 +49,13 @@ const InvoiceItemsTable: FC = () => {
   return (
     <Stack direction={"column"}>
       {/* Table header */}
-      <Box sx={{ width: "100%", overflow: { sm: "visible", xs: "auto" } }}>
+      <Box
+        sx={{
+          width: "100%",
+          overflow: { sm: "visible", xs: "auto" },
+          // pb: { sm: 0, xs: 2 },
+        }}
+      >
         <Box sx={{ width: { sm: "100%", xs: "650px" } }}>
           <Grid
             container
@@ -165,7 +171,7 @@ const InvoiceItemsTable: FC = () => {
                 alignItems: "center",
               }}
               item
-              xs={selectedTax ? 1.6 : 2}
+              xs={selectedTax ? 1.1 : 2}
               // xs={2.2}
             >
               <Typography

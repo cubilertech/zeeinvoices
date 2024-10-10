@@ -62,32 +62,14 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
         px: { md: "0.1%", lg: "0.1%", xs: "0%" },
       }}
     >
-      <Box sx={{ pt: 3, pb: 2, px: { sm: 0, xs: 2 } }}>
+      <Box sx={{ pt: 3, pb: {sm:2, xs: 1}, px: 0 }}>
         <InvoiceHeader
           InvSetting={{ ...invoiceSetting }}
           InvDetails={{ ...invoiceDetail }}
           summaryDetail={summaryDetail}
+          handleColorPickerClick={handleColorPickerClick}
           type={type}
         />
-      </Box>
-      <Box sx={{ px: { sm: 0, xs: 2 } }}>
-        <Button
-          sx={{
-            pl: { sm: 0, xs: "14px !important" },
-            pr: { sm: 0, xs: "10px !important" },
-            display: { sm: "none", xs: "flex" },
-            border: "1px solid #4F35DF",
-            color: "#4F35DF",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-          variant="outlined"
-          onClick={handleColorPickerClick}
-          // endIcon={<KeyboardArrowDown sx={{ color: "#4F35DF" }} />}
-        >
-          Invoice Settings
-          <KeyboardArrowDown sx={{ color: "#4F35DF" }} />
-        </Button>
       </Box>
 
       <Stack direction={"row"} gap={3} sx={{ mt: { sm: 0, xs: 2 } }}>
