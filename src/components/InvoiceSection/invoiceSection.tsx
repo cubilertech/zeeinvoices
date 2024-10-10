@@ -113,8 +113,8 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
     const value = event.target.value;
     dispatch(setAddtionalNotes(value));
   };
-  const showPreview =
-    InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
+  // const showPreview =
+  //   InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
   const senderShow = InvDetails.from?.name !== "" ? true : false;
   const reciptShow = InvDetails.to?.name !== "" ? true : false;
 

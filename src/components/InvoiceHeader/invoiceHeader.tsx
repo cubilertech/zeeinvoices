@@ -8,7 +8,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { backendURL } from "@/utils/constants";
 import {
@@ -41,6 +41,9 @@ import {
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
+import ReactToPrint from "react-to-print";
+import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
+import { Icon } from "../Icon";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -58,6 +61,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   const dispatch = useDispatch();
   const router = useRouter();
+  const componentRef = useRef();
+  const showPreview =
+    InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
 
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
@@ -174,7 +180,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
-    
     if (
       InvDetails?.invoiceType === "" ||
       InvDetails.from?.name === "" ||
@@ -486,9 +491,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       >
         <Button
           sx={{
-            height: "36px",
-            width: { sm: "73px", xs: "100%" },
+            height: "44px",
             borderRadius: "4px",
+            fontSize: "16px",
+            width: { sm: "73px", xs: "100%" },
+            fontWeight: "bold !important",
             p: "0px !important",
             border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
             // mt: 2
@@ -510,6 +517,38 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             "Update"
           )}
         </Button>
+        <Box>
+          <Button
+            disabled={showPreview}
+            variant="contained"
+            sx={{
+              opacity: showPreview ? 0.4 : 1,
+              color: palette.primary.main,
+              background: "rgba(79, 53, 223, 0.2)",
+              height: "44px",
+              borderRadius: "4px",
+              fontWeight: "bold !important",
+              fontSize: "16px",
+              ":hover": {
+                color: palette.primary.main,
+                backgroundColor: "rgba(79, 53, 223, 0.2)",
+              },
+            }}
+            onClick={() => router.push("/preview")}
+          >
+            Preview
+          </Button>
+          <Box>
+            <Box style={{ display: "none" }}>
+              <Box ref={componentRef}>
+                <InvoiceDetailsSection
+                  singleInvoice={{ ...InvDetails }}
+                  invoiceSetting={{ ...InvSetting }}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
         {validateButton ? (
           session ? (
             // <PdfDownloadLink
@@ -534,13 +573,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               <Button
                 variant="contained"
                 sx={{
-                  height: "36px !important",
+                  height: "44px",
                   borderRadius: "4px",
+                  fontWeight: "bold !important",
+                  fontSize: "16px",
                   py: "0px !important",
                   width: "100%",
                   fontFamily: "Product Sans, sans-serif !important",
-                  fontSize: "14px !important",
-                  fontWeight: "400 !important",
+
                   background:
                     "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 }}
@@ -555,8 +595,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 onClick={() => setDownloadModel(true)}
                 variant="contained"
                 sx={{
-                  height: "36px !important",
+                  height: "44px",
                   borderRadius: "4px",
+                  fontWeight: "bold !important",
+                  fontSize: "16px",
+
                   py: "0px !important",
                 }}
               >
@@ -570,9 +613,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             disabled={true}
             sx={{
               width: { sm: "138px", xs: "100%" },
+              height: "44px",
               borderRadius: "4px",
+              fontWeight: "bold !important",
+              fontSize: "16px",
               py: "0px !important",
-              height: "36px !important",
             }}
           >
             Download PDF
