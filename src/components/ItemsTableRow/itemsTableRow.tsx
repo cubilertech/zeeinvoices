@@ -219,7 +219,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             error={itemValidation?.rate?.isError}
             helperText={itemValidation?.rate?.message ?? ""}
             type="number"
-            placeholder={selectedTax ? `rate` : `rate`}
+            placeholder={selectedTax ? `Rate` : `Rate`}
             variant="outlined"
             value={data.rate > 0 ? data.rate : ""}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
