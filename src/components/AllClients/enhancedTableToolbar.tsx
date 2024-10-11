@@ -129,7 +129,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           direction={"row"}
           gap={1}
           sx={{
-            marginLeft: { sm: "10px", xs: "0px" },
+            marginLeft: { sm: "12px", xs: "0px" },
             width: { sm: "auto", xs: "100%" },
           }}
         >

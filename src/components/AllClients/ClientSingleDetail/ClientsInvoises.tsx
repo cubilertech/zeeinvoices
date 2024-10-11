@@ -310,6 +310,9 @@ export default function ClientInvoices() {
                     border: `1px solid ${palette.border.invoicesBorderColor}`,
                     borderTopLeftRadius: "8px",
                     borderTopRightRadius: "8px",
+
+                    borderBottomLeftRadius: "8px",
+                    borderBottomRightRadius: "8px",
                   }}
                 >
                   <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
