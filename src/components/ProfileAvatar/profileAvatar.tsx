@@ -38,12 +38,13 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
       {/* circle avatar */}
       <Box
         sx={{
+          mt: { sm: "-64px", xs: "-84px" },
           height: "150px",
           width: "150px",
           background: palette.base.white,
           borderRadius: "75px",
           position: "absolute",
-          top: 170,
+          // top: 190,
           // left: { xl: "20.5%", lg: "6%", md: "4%", sm: "5%", xs: "32%" },
           display: "flex",
           alignItems: "center",

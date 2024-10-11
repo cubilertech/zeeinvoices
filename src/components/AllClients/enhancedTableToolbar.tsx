@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import React, { FC } from "react";
 import { Icon } from "../Icon";
+import { palette } from "@/theme/palette";
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
@@ -28,13 +29,15 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
   return (
     <Toolbar
       sx={{
+        minHeight: "44px !important",
         px: "0px",
         pl: "0px !important",
         pr: "0px !important",
         alignItems: { sm: "center", xs: "flex-start" },
+        justifyContent: "space-between",
         flexDirection: { sm: "row", xs: "column" },
         gap: { sm: 0, xs: 2 },
-        py: { sm: 0, xs: 3 },
+        py: { sm: 0, xs: 0 },
         ...(numSelected > 0 && {
           bgcolor: (theme) =>
             alpha(
@@ -55,82 +58,102 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: "1 1 100%", color: "#1B2533" }}
+          sx={{
+            flex: "1 1 100%",
+            color: palette.color.gray[900],
+            fontSize: { md: "24px !important", xs: "24px !important" },
+            lineHeight: {
+              md: "29px !important",
+              xs: "29px !important",
+            },
+            fontWeight: 600,
+          }}
           variant="text-lg-semibold"
           id="tableTitle"
           component="div"
         >
-          All Recipients
+          Recipients
         </Typography>
       )}
       <Stack
-        direction={"row"}
-        sx={{
-          height: "36px",
-          backgroundColor: "#FAFAFA",
-          borderRadius: "4px",
-          width: { sm: "272px", xs: "100%" },
-          pl: "24px",
-          flexDirection: { sm: "row", xs: "column" },
-          alignItems: { sm: "center", xs: "flex-start" },
-          justifyContent: { sm: "center", xs: "start" },
-          border: "1px solid #0000001A",
-        }}
+        direction={{ sm: "row", xs: "column" }}
+        gap={{ sm: 0, xs: 1.5 }}
+        sx={{ width: { sm: "auto", xs: "100%" } }}
       >
-        <TextField
-          variant="standard"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => handleChangeSearch(e)}
+        <Stack
+          direction={"row"}
           sx={{
-            border: "none",
-            textUnderlinePosition: "unset",
-            "& .MuiInputBase-input": {
-              border: "none",
-              height: "30px",
-              pl: "0px",
-              pr: "10px",
-            },
-            "& .MuiInputBase-input::placeholder": {
-              color: "#8F97A2",
-            },
+            height: "44px",
+            backgroundColor: palette.base.white,
+            borderRadius: "4px",
+            width: { sm: "451px", xs: "100%" },
+            px: "14px",
+            py: "10px",
+            flexDirection: { sm: "row", xs: "column" },
+            alignItems: { sm: "center", xs: "flex-start" },
+            justifyContent: { sm: "start", xs: "center" },
+            border: "1px solid #0000001A",
+            boxShadow: palette.boxShadows.shadowxs,
           }}
-          InputProps={{
-            disableUnderline: true,
-            startAdornment: (
-              <InputAdornment position="start">
-                <Icon icon="searchIcon" />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
-      <Stack
-        direction={"row"}
-        gap={1}
-        sx={{
-          marginLeft: { sm: "10px", xs: "0px" },
-          width: { sm: "auto", xs: "100%" },
-        }}
-      >
-        <Tooltip title="Create a new client">
-          <Button
-            variant="contained"
-            onClick={handleClientAddModel}
-            endIcon={<Icon icon="plusIcon" width={15} />}
+        >
+          <TextField
+            variant="standard"
+            placeholder="Search"
+            value={search}
+            onChange={(e) => handleChangeSearch(e)}
             sx={{
-              height: `36px`,
-              borderRadius: "4px",
-              width: { sm: "140px", xs: "100%" },
-              fontFamily: "Product Sans, sans-serif !important",
-              fontSize: "14px !important",
-              fontWeight: "500 !important",
-              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+              width:"100%",
+              border: "none",
+              textUnderlinePosition: "unset",
+              "& .MuiInputBase-input": {
+                border: "none",
+                height: "30px",
+                pl: "0px",
+                pr: "10px",
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: "#8F97A2",
+              },
             }}
-          >
-            Create New
-          </Button>
-        </Tooltip>
+            InputProps={{
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon icon="searchIcon" />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Stack>
+        <Stack
+          direction={"row"}
+          gap={1}
+          sx={{
+            marginLeft: { sm: "10px", xs: "0px" },
+            width: { sm: "auto", xs: "100%" },
+          }}
+        >
+          <Tooltip title="Create a new client">
+            <Button
+              variant="contained"
+              onClick={handleClientAddModel}
+              startIcon={<Icon icon="plusIcon" width={15} />}
+              sx={{
+                height: `44px`,
+                px: "18px !important",
+                py: "12px !important",
+                borderRadius: "4px",
+                width: { sm: "157px", xs: "100%" },
+                fontSize: "16px !important",
+                lineHeight: "24px !important",
+                fontWeight: "600 !important",
+                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+              }}
+            >
+              Create New
+            </Button>
+          </Tooltip>
+        </Stack>
       </Stack>
     </Toolbar>
   );

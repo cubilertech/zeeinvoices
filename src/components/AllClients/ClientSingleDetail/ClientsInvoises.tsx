@@ -475,7 +475,7 @@ export default function ClientInvoices() {
                   justifyContent: "center",
                   width: "100%",
                   height: "300px",
-                  color: palette.color.gray[50],
+                  color: palette.color.gray[60],
                 }}
               >
                 No record found

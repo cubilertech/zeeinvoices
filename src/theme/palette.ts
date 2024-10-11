@@ -106,7 +106,7 @@ const gray = {
   110: "#9CA3AF",
   100: "#90919b",
   60: "#8F97A2",
-  50: "#8f8f94",
+  50: "#F8FAFC",
   30: "#F9F9F9",
   20: "#F5F6F7",
   10: "#E0E0E0",
@@ -161,6 +161,7 @@ const borderColor = {
   contactInfoBorderColor: "#3F4DE14D",
   contactUsBorderColor: "#E1E1E1",
   outlinedBtnBorderColor: "#D6D8DC",
+  borderPrimary: "#D0D5DD",
 };
 
 const tableColor = {
@@ -176,6 +177,7 @@ const textColor = {
   termsdescColor: "#464646",
   contactInfoDescColor: "#1F1F1F",
   contactEmailColor: "#4F35DF",
+  textSecondary: "#344054",
 };
 
 export const palette = {
