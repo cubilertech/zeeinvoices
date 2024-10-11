@@ -12,6 +12,7 @@ interface TextField {
   label?: string;
   labelColor?: string;
   size?: "small" | "medium" | "large";
+  borderRadius?: string;
   sx?: SxProps;
   name?: string;
   value?: string;
@@ -29,6 +30,7 @@ const TextField: FC<TextField> = ({
   labelColor,
   name,
   size = "medium",
+  borderRadius = "8px",
   sx,
   onChange,
   value,

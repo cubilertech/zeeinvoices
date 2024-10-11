@@ -24,7 +24,7 @@ import {
   useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
-import { useFormik } from "formik";
+import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { imageConvertion } from "@/utils/common";
 import { useSession } from "next-auth/react";
@@ -33,6 +33,7 @@ import { getCountValue, increment } from "@/redux/features/counterSlice";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
 import { countryCodes } from "@/utils/data";
 import "@/Styles/sectionStyle.css";
+import { UserProfileDetails } from "../UserProfileDetails";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -63,6 +64,7 @@ const Profile: FC<Profile> = ({}) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const dispatch = useDispatch();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const [isEdit, setIsEdit] = React.useState(false);
 
   // Get Data Of Login User
   const {
@@ -137,30 +139,37 @@ const Profile: FC<Profile> = ({}) => {
     },
 
     onSubmit: (values) => {
-      const data = {
-        name: values.name,
-        email: values.email,
-        phoneNumber: values.phoneNumber,
-        city: values.city,
-        state: values.state,
-        address: values.address,
-        ...(uploadImage ? { image: uploadImage } : {}),
-        // image: image,
-      };
+      console.log(isEdit, "iseditSub");
+      if (isEdit) {
+        const data = {
+          name: values.name,
+          email: values.email,
+          phoneNumber: values.phoneNumber,
+          city: values.city,
+          state: values.state,
+          address: values.address,
+          ...(uploadImage ? { image: uploadImage } : {}),
+          // image: image,
+        };
 
-      profileUpdate({
-        apiRoute: `${backendURL}/users/my-profile`,
-        data: data,
-      })
-        .then((res) => {
-          setUploadImage(null);
-          setImageUrl(res?.image);
-          dispatch(increment());
-          console.log("Updateed Succesfully");
+        profileUpdate({
+          apiRoute: `${backendURL}/users/my-profile`,
+          data: data,
         })
-        .catch((err) => {
-          console.error(err);
-        });
+          .then((res) => {
+            setUploadImage(null);
+            setImageUrl(res?.image);
+            dispatch(increment());
+            console.log("Updateed Succesfully");
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+
+        setIsEdit(false);
+      } else {
+        setIsEdit(true);
+      }
     },
   });
 
@@ -217,8 +226,15 @@ const Profile: FC<Profile> = ({}) => {
     }
   };
 
+  const handleEditClick = () => {
+    console.log(isEdit, "isedithdledit");
+    setIsEdit(true);
+  };
+
+  console.log(isEdit, "isedit");
   return (
     <>
+      {/* <form onSubmit={handleSubmit}> */}
       <Box sx={{ width: "100%", backgroundColor: palette.base.white }}>
         <Container
           className="mainContainer"
@@ -240,11 +256,11 @@ const Profile: FC<Profile> = ({}) => {
               height: { sm: "auto", xs: "auto" },
               backgroundColor: palette.base.white,
               px: { md: "0%", lg: "0%", xs: "0%" },
-              pb: "24px",
+              pb: { sm: "24px", xs: "16px" },
             }}
           >
             {/* top bar */}
-            <Box
+            {/* <Box
               sx={{
                 height: "156px",
                 background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
@@ -252,6 +268,18 @@ const Profile: FC<Profile> = ({}) => {
                 borderTopRightRadius: "12px",
                 position: "relative",
                 width: "100%",
+              }}
+            ></Box> */}
+            <Box
+              sx={{
+                height: "156px",
+                width: "100%",
+                overflow: "hidden",
+                borderTopLeftRadius: "12px",
+                borderTopRightRadius: "12px",
+                backgroundImage: "url(/Images/profile-bg.svg)",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "contained",
               }}
             ></Box>
 
@@ -308,66 +336,18 @@ const Profile: FC<Profile> = ({}) => {
                   {profileData ? profileData.email : "---"}
                 </Typography>
               </Stack>
-              <Button
-                disabled={profileLoading}
-                type="submit"
-                variant="contained"
-                sx={{
-                  height: "40px",
-                  gap: "7px",
-                  borderRadius: { sm: "4px", xs: "4px" },
-                  fontFamily: "Product Sans, sans-serif !important",
-                  fontSize: "14px !important",
-                  fontWeight: "400 !important",
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                }}
-              >
-                {profileLoading ? (
-                  <CircularProgress size={18} sx={{ color: "#8477DA" }} />
-                ) : (
-                  "Edit Profile"
-                )}
-                {profileLoading ? (
-                  ""
-                ) : (
-                  <Icon icon="editWhiteIcon" width={12} height={14} />
-                )}
-              </Button>
-            </Stack>
-          </Box>
-          <Box>
-            {/* profile detail section */}
-            <form onSubmit={handleSubmit}>
-              <Stack
-                direction={"column"}
-                sx={{
-                  width: "100%",
-                  mt: "16px",
-                  mb: "40px",
-                  mx: { sm: "0px", xs: "0px" },
-                  p: "20px",
-                  border: `1px solid ${palette.color.gray[5]}`,
-                  boxShadow: palette.boxShadows.shadowxs,
-                  borderRadius: "12px",
-                }}
-              >
-                <Stack
-                  // direction={"row"}
-                  justifyContent={"space-between"}
-                  sx={{
-                    flexDirection: { sm: "row", xs: "column" },
-                    gap: { sm: 0, xs: 3 },
-                  }}
-                >
-                  <Typography variant="text-xl-semibold">
-                    Profile Details
-                  </Typography>
+
+              {isEdit ? (
+                // <Box sx={{ width: "100%" }}>
+                <form onSubmit={handleSubmit}>
                   <Button
-                    disabled={profileLoading}
+                    disabled={profileLoading || !isEdit}
                     type="submit"
                     variant="contained"
+                    // onClick={handleSubmit}
                     sx={{
+                      width: "100%",
+                      height: "40px",
                       gap: "7px",
                       borderRadius: { sm: "4px", xs: "4px" },
                       fontFamily: "Product Sans, sans-serif !important",
@@ -380,7 +360,7 @@ const Profile: FC<Profile> = ({}) => {
                     {profileLoading ? (
                       <CircularProgress size={18} sx={{ color: "#8477DA" }} />
                     ) : (
-                      "Edit Profile"
+                      "Update Profile"
                     )}
                     {profileLoading ? (
                       ""
@@ -388,6 +368,78 @@ const Profile: FC<Profile> = ({}) => {
                       <Icon icon="editWhiteIcon" width={12} height={14} />
                     )}
                   </Button>
+                </form>
+              ) : (
+                // </Box>
+                <Button
+                  // disabled={profileLoading}
+                  type="button"
+                  variant="contained"
+                  onClick={handleEditClick}
+                  sx={{
+                    height: "40px",
+                    gap: "7px",
+                    borderRadius: { sm: "4px", xs: "4px" },
+                    fontFamily: "Product Sans, sans-serif !important",
+                    fontSize: "14px !important",
+                    fontWeight: "400 !important",
+                    background:
+                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  }}
+                >
+                  {profileLoading ? (
+                    <CircularProgress size={18} sx={{ color: "#8477DA" }} />
+                  ) : (
+                    "Edit Profile"
+                  )}
+                  <Icon icon="editWhiteIcon" width={12} height={14} />
+                </Button>
+              )}
+            </Stack>
+          </Box>
+
+          {/* profile detail section */}
+          {isEdit ? (
+            <Box>
+              {/* <form onSubmit={handleSubmit}> */}
+              <Stack
+                direction={"column"}
+                sx={{
+                  width: "100%",
+                  mt: "16px",
+                  mb: "40px",
+                  mx: { sm: "0px", xs: "0px" },
+                  px: { sm: "20px", xs: "16px" },
+                  py: { sm: "20px", xs: "24px" },
+                  border: `1px solid ${palette.color.gray[5]}`,
+                  boxShadow: palette.boxShadows.shadowxs,
+                  borderRadius: "12px",
+                }}
+              >
+                <Stack
+                  justifyContent={"space-between"}
+                  sx={{
+                    flexDirection: { sm: "row", xs: "column" },
+                    gap: { sm: 0, xs: 3 },
+                  }}
+                >
+                  <Typography
+                    variant="text-xl-semibold"
+                    sx={{
+                      color: palette.color.gray[900],
+                      fontSize: {
+                        md: "20px !important",
+                        xs: "16px !important",
+                      },
+                      lineHeight: {
+                        md: "30px !important",
+                        xs: "24px !important",
+                      },
+                      fontWeight: 600,
+                    }}
+                  >
+                    Account Details
+                  </Typography>
                 </Stack>
 
                 {/* section for text fields */}
@@ -405,15 +457,21 @@ const Profile: FC<Profile> = ({}) => {
                       md: "column",
                       lg: "row",
                     }}
+                    gap={2}
                     justifyContent={"space-between"}
-                    sx={{ mt: "30px" }}
+                    sx={{ mt: "24px" }}
                   >
-                    <FormControl sx={{ width: { sm: "333px", xs: "100%" } }}>
+                    <FormControl sx={{ width: { sm: "100%", xs: "100%" } }}>
                       <TextField
                         label="Name/Company Name"
                         size="large"
                         name="name"
-                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        borderRadius="4px"
+                        labelColor={"#344054"}
+                        sx={{
+                          width: { sm: "100%", xs: "100%" },
+                          "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                        }}
                         value={values.name}
                         onChange={handleChange}
                         helperText={touched.name && errors.name}
@@ -423,15 +481,19 @@ const Profile: FC<Profile> = ({}) => {
                     </FormControl>
                     <FormControl
                       sx={{
-                        width: { sm: "333px", xs: "100%" },
-                        mt: { sm: 0, xs: 1 },
+                        width: { sm: "100%", xs: "100%" },
+                        mt: { sm: 0, xs: 0 },
                       }}
                     >
                       <TextField
                         label="Email"
                         size="large"
                         name="email"
-                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        labelColor={"#344054"}
+                        sx={{
+                          width: { sm: "100%", xs: "100%" },
+                          "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                        }}
                         disabled={true}
                         onChange={handleChange}
                         value={values.email}
@@ -440,57 +502,19 @@ const Profile: FC<Profile> = ({}) => {
                         error={touched.email && Boolean(errors.email)}
                       />
                     </FormControl>
-                    {/* <FormControl
-                      sx={{
-                        width: { sm: "333px", xs: "100%" },
-                        mt: { sm: 0, xs: 1 },
-                      }}
-                    >
-                      <Typography
-                        variant="text-sm-medium"
-                        sx={{ marginBottom: "5px" }}
-                      >
-                        Phone
-                      </Typography>
-                      <PhoneInput
-                        style={{ width: isModile ? "100%" : "333px" }}
-                        name="phoneNumber"
-                        className="custom-phone-input"
-                        defaultCountry="us"
-                        value={values.phoneNumber || ""}
-                        onChange={(value) => {
-                          handleChange({
-                            target: {
-                              name: "phoneNumber",
-                              value: value,
-                            },
-                          });
-                        }}
-                        onBlur={() =>
-                          handleBlur({ target: { name: "phoneNumber" } })
-                        }
-                      />
-                      {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                        <Typography
-                          color="error"
-                          variant="text-xs-regular"
-                          sx={{ marginTop: "5px", marginLeft: "15px" }}
-                        >
-                          {isString(errors.phoneNumber)
-                            ? errors.phoneNumber
-                            : "Invalid phone number"}
-                        </Typography>
-                      )}
-                    </FormControl> */}
+
                     <FormControl
                       sx={{
-                        width: { sm: "333px", xs: "100%" },
-                        mt: { sm: 0, xs: 1 },
+                        width: { sm: "100%", xs: "100%" },
+                        mt: { sm: 0, xs: 0 },
                       }}
                     >
                       <Typography
                         variant="text-sm-medium"
-                        sx={{ marginBottom: "5px" }}
+                        sx={{
+                          marginBottom: "5px",
+                          color: palette.text.textSecondary,
+                        }}
                       >
                         Phone
                       </Typography>
@@ -500,6 +524,7 @@ const Profile: FC<Profile> = ({}) => {
                         onChange={(value) => handlePhoneInputChange(value)}
                         onCountrySelect={(selectedCountry) => {}}
                         height="48px"
+                        borderRadius="4px"
                       />
 
                       {touched.phoneNumber && Boolean(errors.phoneNumber) && (
@@ -524,15 +549,20 @@ const Profile: FC<Profile> = ({}) => {
                       md: "column",
                       lg: "row",
                     }}
+                    gap={2}
                     justifyContent={"space-between"}
-                    sx={{ mt: "20px" }}
+                    sx={{ mt: "16px" }}
                   >
-                    <FormControl sx={{ width: { sm: "333px", xs: "100%" } }}>
+                    <FormControl sx={{ width: { sm: "100%", xs: "100%" } }}>
                       <TextField
                         label="City"
                         size="large"
                         name="city"
-                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        labelColor={"#344054"}
+                        sx={{
+                          width: { sm: "100%", xs: "100%" },
+                          "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                        }}
                         onChange={handleChange}
                         value={values.city}
                         helperText={touched.city && errors.city}
@@ -542,15 +572,19 @@ const Profile: FC<Profile> = ({}) => {
                     </FormControl>
                     <FormControl
                       sx={{
-                        width: { sm: "333px", xs: "100%" },
-                        mt: { sm: 0, xs: 1 },
+                        width: { sm: "100%", xs: "100%" },
+                        mt: { sm: 0, xs: 0 },
                       }}
                     >
                       <TextField
                         label="State"
                         size="large"
                         name="state"
-                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        labelColor={"#344054"}
+                        sx={{
+                          width: { sm: "100%", xs: "100%" },
+                          "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                        }}
                         onChange={handleChange}
                         value={values.state}
                         helperText={touched.state && errors.state}
@@ -560,15 +594,19 @@ const Profile: FC<Profile> = ({}) => {
                     </FormControl>
                     <FormControl
                       sx={{
-                        width: { sm: "333px", xs: "100%" },
-                        mt: { sm: 0, xs: 1 },
+                        width: { sm: "100%", xs: "100%" },
+                        mt: { sm: 0, xs: 0 },
                       }}
                     >
                       <TextField
                         label="Address"
                         size="large"
                         name="address"
-                        sx={{ width: { sm: "333px", xs: "100%" } }}
+                        labelColor={"#344054"}
+                        sx={{
+                          width: { sm: "100%", xs: "100%" },
+                          "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                        }}
                         onChange={handleChange}
                         value={values.address}
                         helperText={touched.address && errors.address}
@@ -579,10 +617,14 @@ const Profile: FC<Profile> = ({}) => {
                   </Stack>
                 </Stack>
               </Stack>
-            </form>
-          </Box>
+              {/* </form> */}
+            </Box>
+          ) : (
+            <UserProfileDetails profileData={profileData} />
+          )}
         </Container>
       </Box>
+      {/* </form> */}
     </>
   );
 };
