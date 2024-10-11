@@ -105,7 +105,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     >
       <Stack
         direction={"row"}
-        gap={2}
+        gap={"16px"}
         sx={{ pl: 0, py: 3, alignItems: "center" }}
       >
         <IconButton
@@ -117,7 +117,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
 
         <Typography
           sx={{ flex: "1 1 100%", color: palette.color.gray[805] }}
-          variant="display-xs-medium"
+          variant="display-xs-bold"
         >
           Recipient Detail
         </Typography>

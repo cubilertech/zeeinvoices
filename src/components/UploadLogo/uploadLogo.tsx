@@ -283,7 +283,7 @@
 // export default UploadLogo;
 
 "use client";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, ButtonBase, IconButton, Stack, Typography } from "@mui/material";
 import { FC, useRef } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
@@ -294,6 +294,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Image from "next/image";
 import ColorThief from "colorthief";
 import { googleImage } from "@/utils/common";
+import { Close } from "@mui/icons-material";
 
 interface UploadLogoProps {
   logoDesc: string;
@@ -367,44 +368,46 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     <>
       {invoiceLogo ? (
         <Box
+          borderRadius={1}
           sx={{
-            position: "relative",
-            alignItems: "center",
-            display: "flex",
+            border: "1px dashed",
+            px: "10px",
+            py: "10px",
             width: { sm: "auto", xs: "100%" },
+            cursor: "pointer",
+            borderRadius: "4px",
+            borderColor: palette.color.gray[310],
+            position: "relative",
           }}
+          onClick={handleClick}
         >
-          <Image
-            src={googleImage(invoiceLogo as string)}
-            alt="Selected Logo"
-            width={70}
-            height={70}
-            style={{ objectFit: "contain" }}
-            unoptimized
-          />
-          <IconButton
-            sx={{
-              position: "absolute",
-              top: "-5px",
-              right: "55px",
-              backgroundColor: palette.base.transparent,
-              width: "5px !important",
-              height: "5px !important",
-              borderRadius: "4px",
-            }}
+          <ButtonBase
             onClick={handleCancelLogoClick}
+            sx={{
+              border: "1px solid #E3E8EF",
+              borderRadius: "100%",
+              width: "16px",
+              height: "16px",
+              position: "absolute",
+              top: "-8px",
+              right: "-8px",
+              background: "white",
+            }}
           >
-            <CancelIcon
-              sx={{
-                width: "20px",
-                height: "20px",
-                color: palette.color.gray[300],
-                ":hover": {
-                  color: palette.base.blueButtonColor,
-                },
-              }}
+            <Close sx={{ color: "#4B5565", width: "10px", height: "10px" }} />
+          </ButtonBase>
+          <Box
+            sx={{ maxWidth: "120px", maxHeight: "70px", overflow: "hidden" }}
+          >
+            <Image
+              src={googleImage(invoiceLogo as string)}
+              alt="Selected Logo"
+              width={120}
+              height={34}
+              style={{ objectFit: "contain" }}
+              unoptimized
             />
-          </IconButton>
+          </Box>
         </Box>
       ) : (
         <Box

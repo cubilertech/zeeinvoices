@@ -589,80 +589,87 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 />
               </IconButton>
             </Stack>
+
             <form onSubmit={handleSubmit}>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
+              <Box
                 sx={{
-                  marginTop: "32px",
-                  flexDirection: { sm: "row", xs: "column" },
-                  gap: "16px",
+                  overflow: { sm: "initial", xs: "auto" },
+                  height: { sm: "auto", xs: "400px" },
                 }}
               >
-                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                  <TextField
-                    isRequired={true}
-                    label="Name"
-                    size="large"
-                    name="name"
-                    borderRadius="4px"
-                    value={values.name}
-                    onChange={handleChange}
-                    sx={{
-                      width: { sm: "100%", xs: "100%" },
-                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                    }}
-                    helperText={touched.name && errors.name}
-                    onBlur={handleBlur}
-                    error={touched.name && Boolean(errors.name)}
-                  />
-                </FormControl>
-                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                  <TextField
-                    label="Company Name"
-                    size="large"
-                    name="companyName"
-                    borderRadius="4px"
-                    onChange={handleChange}
-                    value={values.companyName}
-                    sx={{
-                      width: { sm: "100%", xs: "100%" },
-                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                    }}
-                    helperText={touched.companyName && errors.companyName}
-                    onBlur={handleBlur}
-                    error={touched.companyName && Boolean(errors.companyName)}
-                  ></TextField>
-                </FormControl>
-              </Stack>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
-                  gap: "16px",
-                }}
-              >
-                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                  <TextField
-                    isRequired={true}
-                    label="Email"
-                    size="large"
-                    name="email"
-                    borderRadius="4px"
-                    onChange={handleChange}
-                    value={values.email}
-                    sx={{
-                      width: "100%",
-                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                    }}
-                    helperText={touched.email && errors.email}
-                    onBlur={handleBlur}
-                    error={touched.email && Boolean(errors.email)}
-                  ></TextField>
-                </FormControl>
-                {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "32px",
+                    flexDirection: { sm: "row", xs: "column" },
+                    gap: "16px",
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Name"
+                      size="large"
+                      name="name"
+                      borderRadius="4px"
+                      value={values.name}
+                      onChange={handleChange}
+                      sx={{
+                        width: { sm: "100%", xs: "100%" },
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.name && errors.name}
+                      onBlur={handleBlur}
+                      error={touched.name && Boolean(errors.name)}
+                    />
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      label="Company Name"
+                      size="large"
+                      name="companyName"
+                      borderRadius="4px"
+                      onChange={handleChange}
+                      value={values.companyName}
+                      sx={{
+                        width: { sm: "100%", xs: "100%" },
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.companyName && errors.companyName}
+                      onBlur={handleBlur}
+                      error={touched.companyName && Boolean(errors.companyName)}
+                    ></TextField>
+                  </FormControl>
+                </Stack>
+                <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                    gap: "16px",
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Email"
+                      size="large"
+                      name="email"
+                      borderRadius="4px"
+                      onChange={handleChange}
+                      value={values.email}
+                      sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.email && errors.email}
+                      onBlur={handleBlur}
+                      error={touched.email && Boolean(errors.email)}
+                    ></TextField>
+                  </FormControl>
+                  {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <Typography
                     variant="text-sm-medium"
                     sx={{ marginBottom: "5px" }}
@@ -690,103 +697,105 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     </Typography>
                   )}
                 </FormControl> */}
-                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                  <Typography
-                    variant="text-sm-medium"
-                    sx={{ marginBottom: "5px" }}
-                  >
-                    Phone
-                  </Typography>
-
-                  <PhoneInputWithCode
-                    borderRadius="4px"
-                    value={values.phoneNumber} // Bind Formik's phoneNumber value
-                    // defaultCountryPhoneCode={values.countryCode}
-                    onChange={(value) => handlePhoneInputChange(value)} // Use Formik's setFieldValue to update the state
-                    onCountrySelect={(selectedCountry) => {
-                      setFieldValue("countryCode", selectedCountry.code);
-                    }}
-                    height="48px"
-                  />
-
-                  {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                     <Typography
-                      color="error"
-                      variant="text-xs-regular"
-                      sx={{ marginTop: "5px", marginLeft: "15px" }}
+                      variant="text-sm-medium"
+                      sx={{ marginBottom: "5px" }}
                     >
-                      {/* {errors.phoneNumber || "Invalid phone number"} */}
-                      {typeof errors.phoneNumber === "string"
-                        ? errors.phoneNumber
-                        : "Invalid phone number"}{" "}
-                      {/* Ensure it's a string or fallback */}
+                      Phone
                     </Typography>
-                  )}
-                </FormControl>
-              </Stack>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
-                  gap: "16px",
-                }}
-              >
-                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                  <TextField
-                    isRequired={true}
-                    label="City"
-                    size="large"
-                    borderRadius="4px"
-                    name="city"
-                    onChange={handleChange}
-                    value={values.city}
-                    sx={{
-                      width: "100%",
-                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                    }}
-                    helperText={touched.city && errors.city}
-                    onBlur={handleBlur}
-                    error={touched.city && Boolean(errors.city)}
-                  ></TextField>
-                </FormControl>
-                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                  <TextField
-                    isRequired={true}
-                    label="Country/State"
-                    size="large"
-                    name="state"
-                    borderRadius="4px"
-                    onChange={handleChange}
-                    value={values.state}
-                    sx={{
-                      width: "100%",
-                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                    }}
-                    helperText={touched.state && errors.state}
-                    onBlur={handleBlur}
-                    error={touched.state && Boolean(errors.state)}
-                  ></TextField>
-                </FormControl>
-              </Stack>
-              <Box sx={{ marginTop: "10px" }}>
-                <FormControl fullWidth>
-                  <TextField
-                    label="Address"
-                    size="large"
-                    name="address"
-                    borderRadius="4px"
-                    onChange={handleChange}
-                    sx={{ "& .MuiOutlinedInput-root": { borderRadius: "4px" } }}
-                    value={values.address}
-                    helperText={touched.address && errors.address}
-                    onBlur={handleBlur}
-                    error={touched.address && Boolean(errors.address)}
-                  ></TextField>
-                </FormControl>
-              </Box>
 
+                    <PhoneInputWithCode
+                      borderRadius="4px"
+                      value={values.phoneNumber} // Bind Formik's phoneNumber value
+                      // defaultCountryPhoneCode={values.countryCode}
+                      onChange={(value) => handlePhoneInputChange(value)} // Use Formik's setFieldValue to update the state
+                      onCountrySelect={(selectedCountry) => {
+                        setFieldValue("countryCode", selectedCountry.code);
+                      }}
+                      height="48px"
+                    />
+
+                    {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                      <Typography
+                        color="error"
+                        variant="text-xs-regular"
+                        sx={{ marginTop: "5px", marginLeft: "15px" }}
+                      >
+                        {/* {errors.phoneNumber || "Invalid phone number"} */}
+                        {typeof errors.phoneNumber === "string"
+                          ? errors.phoneNumber
+                          : "Invalid phone number"}{" "}
+                        {/* Ensure it's a string or fallback */}
+                      </Typography>
+                    )}
+                  </FormControl>
+                </Stack>
+                <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                    gap: "16px",
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="City"
+                      size="large"
+                      borderRadius="4px"
+                      name="city"
+                      onChange={handleChange}
+                      value={values.city}
+                      sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
+                    ></TextField>
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Country/State"
+                      size="large"
+                      name="state"
+                      borderRadius="4px"
+                      onChange={handleChange}
+                      value={values.state}
+                      sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.state && errors.state}
+                      onBlur={handleBlur}
+                      error={touched.state && Boolean(errors.state)}
+                    ></TextField>
+                  </FormControl>
+                </Stack>
+                <Box sx={{ marginTop: "10px" }}>
+                  <FormControl fullWidth>
+                    <TextField
+                      label="Address"
+                      size="large"
+                      name="address"
+                      borderRadius="4px"
+                      onChange={handleChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      value={values.address}
+                      helperText={touched.address && errors.address}
+                      onBlur={handleBlur}
+                      error={touched.address && Boolean(errors.address)}
+                    ></TextField>
+                  </FormControl>
+                </Box>
+              </Box>
               <Stack
                 direction={"row"}
                 justifyContent={"space-between"}
