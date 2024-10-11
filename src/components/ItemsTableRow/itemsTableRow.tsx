@@ -82,7 +82,9 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 borderRadius: "4px !important",
                 height: "40px !important",
               },
-
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "4px !important",
+              },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
                 opacity: 0.7,
@@ -117,7 +119,9 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 borderRadius: "4px !important",
                 height: "40px !important",
               },
-
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "4px !important",
+              },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
                 opacity: 0.7,
@@ -190,10 +194,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 pr: "0px",
               },
               "& .MuiOutlinedInput-root": {
+                borderRadius: "4px !important",
                 pr: "5px",
-              },
-              "& .MuiInputBase-root": {
-                // pr: "0px",
               },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
@@ -266,11 +268,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   },
                   "& .MuiOutlinedInput-root": {
                     pr: "5px",
+                    borderRadius: "4px !important",
                   },
-                  "& .MuiInputBase-root": {
-                    // pr: "0px",
-                  },
-
                   "& .MuiInputBase-input::placeholder": {
                     color: palette.color.gray[800],
                     opacity: 0.7,
@@ -447,6 +446,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 py: "10px",
               },
               "& .MuiOutlinedInput-root": {
+                borderRadius: "4px !important",
                 padding: "0px !important",
               },
               "& .MuiInputBase-input::placeholder": {

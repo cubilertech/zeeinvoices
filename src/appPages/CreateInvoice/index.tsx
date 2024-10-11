@@ -72,7 +72,7 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
         />
       </Box>
 
-      <Stack direction={"row"} gap={3} sx={{ mt: { sm: 0, xs: 2 } }}>
+      <Stack direction={"row"} gap={3} sx={{ mt: { sm: 0, xs: 2 }, mb: "40px" }}>
         <InvoiceSection
           InvDetails={invoiceDetail}
           type={type}

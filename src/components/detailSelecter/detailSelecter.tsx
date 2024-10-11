@@ -409,7 +409,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 justifyContent: "center",
                 alignItems: "center",
                 display: "flex",
-                gap: "8px"
+                gap: "8px",
               }}
             >
               <Icon icon="addCircleIcon" height={32} width={32}></Icon>
@@ -726,7 +726,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
                     isRequired={true}
-                    label="State"
+                    label="Country/State"
                     size="large"
                     name="state"
                     onChange={handleChange}

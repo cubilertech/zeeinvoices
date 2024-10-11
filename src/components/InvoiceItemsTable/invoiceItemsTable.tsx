@@ -258,7 +258,7 @@ const InvoiceItemsTable: FC = () => {
             <Icon icon="addBlueCircleIcon" width={15} height={15} />
           </Box>
           <Typography
-            variant="text-xs-regular"
+            variant="text-md-semibold"
             sx={{ color: palette.primary.main }}
           >
             Add New Invoice Item

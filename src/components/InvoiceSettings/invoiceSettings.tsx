@@ -113,11 +113,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
 
   return (
     <Box
-      borderRadius={3}
+      borderRadius={"4px"}
       sx={{
         width: {sm:"411px", xs: "100%"},
         height: { sm: "auto", xs: "100%" },
-        marginBottom: { sm: 3, xs: 0 },
+        marginBottom: { sm: 0, xs: 0 },
         backgroundColor: palette.base.white,
         padding: "24px",
         boxShadow: palette.boxShadows[100],

@@ -153,7 +153,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           pt: { sm: "22px", xs: 2 },
           pb: { sm: 3, xs: 2 },
           px: { sm: 3, xs: 2 },
-          marginBottom: 3,
         }}
       >
         {/* First section, add logo, invoice type, print */}
@@ -272,24 +271,15 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         >
           <InvoiceSummary />
         </Box>
-        <hr
-          style={{
-            margin: "25px 0px 5px 0px",
-            height: "0.5px",
-            backgroundColor: "rgba(156, 163, 175, 1)",
-            color: "rgba(156, 163, 175, 1)",
-          }}
-        ></hr>
         {/* Sixth section, additional notes */}
         <Box
           sx={{
             height: "33px",
             width: "100%",
-            marginTop: "10px",
+            marginTop: "24px",
             border: `1px dashed ${palette.base.borderColor}`,
             borderRadius: 1,
             backgroundColor: "#F9F9F9",
-            marginBottom: "10px",
           }}
         >
           <TextField

@@ -46,7 +46,7 @@ const InvoiceSummary: FC = () => {
       >
         <Typography
           variant="text-sm-semibold"
-          sx={{ color: palette.base.white }}
+          sx={{ color: palette.base.white, lineHeight: "18px" }}
         >
           Invoice Summary
         </Typography>
@@ -66,7 +66,7 @@ const InvoiceSummary: FC = () => {
       >
         <Typography
           variant="text-sm-regular"
-          sx={{ color: palette.color.gray[610], fontWeight: 600 }}
+          sx={{ color: palette.color.gray[610] }}
         >
           Subtotal
         </Typography>
@@ -97,7 +97,7 @@ const InvoiceSummary: FC = () => {
           >
             <Typography
               variant="text-sm-regular"
-              sx={{ color: palette.color.gray[610], fontWeight: 600 }}
+              sx={{ color: palette.color.gray[610]}}
             >
               Tax
             </Typography>
@@ -125,7 +125,7 @@ const InvoiceSummary: FC = () => {
       >
         <Typography
           variant="text-sm-regular"
-          sx={{ color: palette.color.gray[610], fontWeight: 600 }}
+          sx={{ color: palette.color.gray[610]}}
         >
           Total
         </Typography>
