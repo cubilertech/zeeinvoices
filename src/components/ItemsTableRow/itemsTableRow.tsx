@@ -94,7 +94,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             helperText={itemValidation?.name?.message ?? ""}
             id="outlined-basic"
             name="name"
-            placeholder="Name"
+            placeholder="Item name"
             variant="outlined"
             value={data.name}
             onChange={handleChange}
@@ -142,7 +142,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             id="outlined-basic"
             name="quantity"
             type="number"
-            placeholder="00"
+            placeholder="Qty"
             error={itemValidation?.quantity?.isError}
             helperText={itemValidation?.quantity?.message ?? ""}
             variant="outlined"
@@ -215,7 +215,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               },
             }}
             id="outlined-basic"
-            name="rate"
+            name="Rate"
             error={itemValidation?.rate?.isError}
             helperText={itemValidation?.rate?.message ?? ""}
             type="number"
@@ -289,7 +289,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 }}
                 name="tax"
                 type="number"
-                placeholder="0.0             "
+                placeholder="Tax             "
                 variant="outlined"
                 value={data.tax > 0 ? data.tax : ""}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -458,7 +458,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             maxRows={3}
             id="outlined-basic"
             name="description"
-            placeholder="Description"
+            placeholder="Enter Description"
             variant="outlined"
             value={data.description}
             onChange={handleChange}
