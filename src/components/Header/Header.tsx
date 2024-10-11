@@ -201,6 +201,7 @@ const Header = () => {
                       alignSelf: "center",
                       mt: 2,
                       fontSize: "14px",
+                      fontWeight: 500,
                     }}
                   >
                     Hi, {profileData?.name}
@@ -571,7 +572,9 @@ const Header = () => {
             </Stack>
           ) : (
             <Stack direction={"row"} gap={2}>
-              <Typography sx={{ color: "black", alignSelf: "center" }}>
+              <Typography
+                sx={{ color: "black", alignSelf: "center", fontWeight: 500 }}
+              >
                 Hi, {profileData?.name}
               </Typography>
               <Box>
@@ -583,13 +586,13 @@ const Header = () => {
                 >
                   {profileData?.image ? (
                     <Avatar
-                      sx={{ width: "32px", height: "32px" }}
+                      sx={{ width: "40px", height: "40px" }}
                       alt="Avatar"
                       src={imageConvertion(profileData?.image)}
                     />
                   ) : (
                     <Avatar
-                      sx={{ width: "32px", height: "32px" }}
+                      sx={{ width: "40px", height: "40px" }}
                       alt="Bvatar"
                     />
                   )}
