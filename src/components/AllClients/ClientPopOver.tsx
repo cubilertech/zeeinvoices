@@ -27,7 +27,7 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   return (
     <>
       <IconButton onClick={handleClick}>
-        <Icon icon="threeDotsIcon" width={5} height={5} />
+        <Icon icon="threeDotsIcon" width={16} height={16} />
       </IconButton>
       <Popover
         id={record?.id} 

@@ -15,6 +15,9 @@ export const icons = {
   facebookBlackIcon: "/Images/icons/facebook-black-icon.svg",
   InstagramWhiteIcon: "/Images/icons/instagram-black-icon.svg",
 
+  homeIcon: "/Images/icons/home-line-icon.svg",
+  rightArrowIcon: "/Images/icons/right-arrow-icon.svg",
+
   twitterlpf: "/Images/logos/twitter-lpf.svg",
   facebooklpf: "/Images/logos/facebook-lpf.svg",
   instagarmlpf: "/Images/logos/instagram-lpf.svg",

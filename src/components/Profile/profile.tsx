@@ -32,6 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCountValue, increment } from "@/redux/features/counterSlice";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
 import { countryCodes } from "@/utils/data";
+import "@/Styles/sectionStyle.css";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -218,106 +219,137 @@ const Profile: FC<Profile> = ({}) => {
 
   return (
     <>
-      <hr />
-      <Container
-        maxWidth="lg"
-        sx={{
-          overflowY: "auto",
-          height: "100%",
-          mt: { sm: 0, xs: 6 },
-          px: { md: "0.1%", lg: "0.1%", xs: "0%" },
-        }}
-      >
-        <Box
-          borderRadius={3}
+      <Box sx={{ width: "100%", backgroundColor: palette.base.white }}>
+        <Container
+          className="mainContainer"
           sx={{
-            alignSelf: "center",
-            // margin: "20px",
-            marginTop: "70px",
-            mb: "2%",
-            width: { sm: "100%", xs: "100%" },
-            height: { sm: "928px", xs: "auto" },
-            backgroundColor: palette.base.white,
-            px: { md: "0%", lg: "0%", xs: "3%" },
+            overflowY: "auto",
+            height: "100%",
+            mt: { sm: 0, xs: 0 },
+            px: { md: "0%", lg: "0%", xs: "0%" },
           }}
         >
-          {/* top bar */}
           <Box
             sx={{
-              height: "156px",
-              background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-              borderTopLeftRadius: "8px",
-              borderTopRightRadius: "8px",
-              position: "relative",
-              width: "100%",
-            }}
-          ></Box>
-
-          {/* circle avatar */}
-          <Box sx={{ marginLeft: { sm: "3%", xs: "30%" } }}>
-            <ProfileAvatar
-              uploadImage={uploadImage}
-              setUploadImage={setUploadImage}
-              imageUrl={imageUrl}
-              setImageUrl={setImageUrl}
-            />
-          </Box>
-
-          {/* name and email  */}
-          <Stack
-            direction={"column"}
-            sx={{
-              ml: { sm: "210px", xs: "auto" },
-              mt: { sm: "5px", xs: "140px" },
-              mr: { sm: 0, xs: "auto" },
-              textAlign: { sm: "start", xs: "center" },
+              border: `1px solid ${palette.color.gray[5]}`,
+              boxShadow: palette.boxShadows.shadowxs,
+              borderRadius: "12px",
+              alignSelf: "center",
+              marginTop: { sm: "104px", xs: "104px" },
+              width: { sm: "100%", xs: "100%" },
+              height: { sm: "auto", xs: "auto" },
+              backgroundColor: palette.base.white,
+              px: { md: "0%", lg: "0%", xs: "0%" },
+              pb: "24px",
             }}
           >
-            <Typography variant="display-xs-semibold">
-              {profileData ? profileData.name : "---"}
-            </Typography>
-            <Typography
-              variant="text-md-regular"
-              sx={{ color: palette.color.gray[735] }}
-            >
-              {profileData ? profileData.email : "---"}
-            </Typography>
-          </Stack>
-
-          {/* profile detail section */}
-          <form onSubmit={handleSubmit}>
-            <Container
-              maxWidth="lg"
+            {/* top bar */}
+            <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
+                height: "156px",
+                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                borderTopLeftRadius: "12px",
+                borderTopRightRadius: "12px",
+                position: "relative",
+                width: "100%",
+              }}
+            ></Box>
 
-                // Optional: additional styling for responsiveness
-                // "@media (max-width: 600px)": {
-                //   maxWidth: "xs", // Set maxWidth for small screens
-                // },
-                // "@media (min-width: 600px) and (max-width: 960px)": {
-                //   maxWidth: "sm", // Set maxWidth for medium screens
-                // },
-                // "@media (min-width: 960px) and (max-width: 1280px)": {
-                //   maxWidth: "md", // Set maxWidth for medium-large screens
-                // },
-                px: { sm: 2, xs: 0 },
-                "@media (min-width: 1200px)": {
-                  maxWidth: "lg", // Set maxWidth for large screens and above
-                },
+            {/* circle avatar */}
+            <Box sx={{ marginLeft: { sm: "24px", xs: "29%" } }}>
+              <ProfileAvatar
+                uploadImage={uploadImage}
+                setUploadImage={setUploadImage}
+                imageUrl={imageUrl}
+                setImageUrl={setImageUrl}
+              />
+            </Box>
+            <Stack
+              direction={{ sm: "row", xs: "column" }}
+              justifyContent={"space-between"}
+              gap={"20px"}
+              sx={{
+                mx: { sm: "0px", xs: "24px" },
+                pr: { sm: "24px", xs: "0px" },
+                pt: { sm: "16px", xs: "0px" },
+                minHeight: "78px",
               }}
             >
+              {/* name and email  */}
+              <Stack
+                direction={"column"}
+                sx={{
+                  ml: { sm: "200px", xs: "auto" },
+                  mt: { sm: "0px", xs: "90px" },
+                  mr: { sm: 0, xs: "auto" },
+                  textAlign: { sm: "start", xs: "center" },
+                }}
+              >
+                <Typography
+                  variant="display-xs-semibold"
+                  sx={{
+                    color: palette.color.gray[900],
+                    fontSize: "30px",
+                    lineHeight: "38px",
+                    fontWeight: 600,
+                  }}
+                >
+                  {profileData ? profileData.name : "---"}
+                </Typography>
+                <Typography
+                  variant="text-md-regular"
+                  sx={{
+                    color: palette.color.gray[725],
+                    fontSize: "16px",
+                    lineHeight: "24px",
+                    fontWeight: 400,
+                  }}
+                >
+                  {profileData ? profileData.email : "---"}
+                </Typography>
+              </Stack>
+              <Button
+                disabled={profileLoading}
+                type="submit"
+                variant="contained"
+                sx={{
+                  height: "40px",
+                  gap: "7px",
+                  borderRadius: { sm: "4px", xs: "4px" },
+                  fontFamily: "Product Sans, sans-serif !important",
+                  fontSize: "14px !important",
+                  fontWeight: "400 !important",
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                }}
+              >
+                {profileLoading ? (
+                  <CircularProgress size={18} sx={{ color: "#8477DA" }} />
+                ) : (
+                  "Edit Profile"
+                )}
+                {profileLoading ? (
+                  ""
+                ) : (
+                  <Icon icon="editWhiteIcon" width={12} height={14} />
+                )}
+              </Button>
+            </Stack>
+          </Box>
+          <Box>
+            {/* profile detail section */}
+            <form onSubmit={handleSubmit}>
               <Stack
                 direction={"column"}
                 sx={{
                   width: "100%",
-                  mt: "50px",
-                  mx: { sm: "20px", xs: "0px" },
+                  mt: "16px",
+                  mb: "40px",
+                  mx: { sm: "0px", xs: "0px" },
                   p: "20px",
                   border: `1px solid ${palette.color.gray[5]}`,
-                  borderRadius: "10px",
+                  boxShadow: palette.boxShadows.shadowxs,
+                  borderRadius: "12px",
                 }}
               >
                 <Stack
@@ -547,10 +579,10 @@ const Profile: FC<Profile> = ({}) => {
                   </Stack>
                 </Stack>
               </Stack>
-            </Container>
-          </form>
-        </Box>
-      </Container>
+            </form>
+          </Box>
+        </Container>
+      </Box>
     </>
   );
 };
