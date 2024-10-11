@@ -1,7 +1,16 @@
 "use client";
-import { Backdrop, Box, Button, Modal, Stack, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Button,
+  ButtonBase,
+  Modal,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { FC } from "react";
 import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
+import { Close, SaveAlt } from "@mui/icons-material";
 
 const style = {
   position: "absolute" as "absolute",
@@ -56,6 +65,44 @@ const DownloadModal: FC<DownloadModal> = ({
         >
           <Box sx={style}>
             <Stack direction={"column"} gap={2}>
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "10px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    border: "1px solid #EAECF0",
+                  }}
+                >
+                  <SaveAlt sx={{ width: 22, height: 22, color: "#5E5E62" }} />
+                </Box>
+
+                <ButtonBase
+                  onClick={onClose}
+                  sx={{
+                    width: "44px",
+                    height: "44px",
+                    borderRadius: "4px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    border: "1px solid EAECF0",
+                  }}
+                >
+                  <Close sx={{ width: 22, height: 22, color: "#98A2B3" }} />
+                </ButtonBase>
+              </Box>
+
               <Stack direction={"column"} gap={1}>
                 <Typography variant="text-lg-semibold">Download</Typography>
                 <Typography variant="text-sm-regular">
@@ -64,30 +111,38 @@ const DownloadModal: FC<DownloadModal> = ({
                 </Typography>
               </Stack>
               <Stack direction={"row"} gap={1.5}>
-                <PdfDownloadLink
-                  InvSetting={InvSetting}
-                  InvDetails={InvDetails}
-                  summaryDetail={summaryDetail}
-                >
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      width: "100%",
-                      marginTop: "15px",
-                      border: `1px solid #DADCE0`,
-                      borderRadius: "8px",
-                      color: "#445164",
-                    }}
+                <Box sx={{ width: "50%" }}>
+                  <PdfDownloadLink
+                    InvSetting={InvSetting}
+                    InvDetails={InvDetails}
+                    summaryDetail={summaryDetail}
                   >
-                    Download
-                  </Button>
-                </PdfDownloadLink>
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        width: "100%",
+                        marginTop: "15px",
+                        border: `1px solid #D0D5DD`,
+                        borderRadius: "8px",
+                        color: "#344054",
+                        height: "44px",
+                        fontSize: "16px !important",
+                        fontWeight: "600 !important",
+                      }}
+                    >
+                      Download
+                    </Button>
+                  </PdfDownloadLink>
+                </Box>
                 <Button
                   variant="contained"
                   sx={{
-                    width: "100%",
+                    width: "50%",
                     borderRadius: "8px",
                     marginTop: "15px",
+                    height: "44px",
+                    fontSize: "16px !important",
+                    fontWeight: "600 !important",
                     "&:hover": {
                       // backgroundColor: "#BB3409",
                     },

@@ -54,7 +54,7 @@ import {
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
+  name: Yup.string().min(3).max(100).required("Name is required"),
   companyName: Yup.string(),
   // .required("Company Name is required"),
   email: Yup.string()
@@ -62,13 +62,17 @@ const validationSchema = Yup.object({
     .required("Email is required"),
   // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
+    .min(3)
+    .max(100)
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
   state: Yup.string()
+    .min(3)
+    .max(100)
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string().matches(alphaRegex, "Invalid Address"),
+  address: Yup.string().min(3).max(400).matches(alphaRegex, "Invalid Address"),
   // .min(5, "Too short")
   // .required("Address is required"),
 });
@@ -203,9 +207,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
     },
 
     onSubmit: (values) => {
+      const data = {
+        ...values,
+        email: values.email.toLowerCase(),
+      };
       handleCloseBd();
       setOpen(false);
-      handleSubmitForm(values);
+      handleSubmitForm(data);
       // Reset the form fields
       resetForm();
     },
