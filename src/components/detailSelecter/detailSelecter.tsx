@@ -55,7 +55,7 @@ const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(100).required("Name is required"),
-  companyName: Yup.string(),
+  companyName: Yup.string().min(3).max(100),
   // .required("Company Name is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
