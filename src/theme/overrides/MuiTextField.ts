@@ -12,17 +12,17 @@ export const MuiTextField = () => {
 
           "&.MuiTextField-sizeLarge:hover": {
             height: "42px",
-            borderRadius: "8px !important",
+            borderRadius: "4px !important",
           },
 
           "& .MuiOutlinedInput-root": {
             borderRadius: "8px ",
 
             "& fieldset": {
-              borderColor: palette.color.gray[120],
+              borderColor: palette.color.gray[200],
             },
             "& .Mui-focused fieldset": {
-              borderRadius: "8px !important",
+              borderRadius: "4px !important",
             },
           },
 

@@ -115,11 +115,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
     <Box
       borderRadius={3}
       sx={{
-        width: 357,
+        width: {sm:"411px", xs: "100%"},
         height: { sm: "auto", xs: "100%" },
         marginBottom: { sm: 3, xs: 0 },
         backgroundColor: palette.base.white,
-        padding: 2,
+        padding: "24px",
         boxShadow: palette.boxShadows[100],
       }}
     >
@@ -131,8 +131,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
             textAlign: "center",
           }}
         >
-          <Typography variant="h6" sx={{ paddingBottom: 2, paddingTop: 1 }}>
-            Customize Your Invoice
+          <Typography
+            variant="text-xl-semibold"
+            color={palette.color.gray[900]}
+          >
+            Invoice Settings
           </Typography>
           <IconButton
             sx={{
@@ -149,16 +152,18 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
 
         {/* Color palette for color selection */}
         <Typography
-          variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2, fontWeight: 600 }}
+          variant="text-sm-semibold"
+          sx={{
+            paddingTop: 2,
+            color: palette.color.gray[610],
+          }}
         >
           Color
         </Typography>
-        <hr style={{ marginTop: -8 }} />
         <Box
           sx={{
             marginTop: "10px",
-            width: "317px",
+            width: "100%",
           }}
         >
           <ColorPicker
@@ -213,47 +218,13 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         </Box>
         {/* Currency selection */}
         <Typography
-          variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2, fontWeight: 600 }}
+          variant="text-sm-semibold"
+          sx={{ paddingTop: 2,  color: palette.color.gray[610], }}
         >
           Currency
         </Typography>
-        <hr style={{ marginTop: -8 }} />
+  
         <Box sx={{ width: "100%", marginTop: 1 }}>
-          {/* <SelectInput
-            width={"100%"}
-            type="currency"
-            menuData={currencies}
-          ></SelectInput> */}
-          {/* <Autocomplete
-            disablePortal
-            options={currencies}
-            value={selectedCurrency}
-            popupIcon={<Icon icon="arrowDownIcon" width={16} height={16} />} // Custom dropdown icon
-            sx={{
-              width: "100%",
-              "&.css-1a1xsof-MuiAutocomplete-root .MuiOutlinedInput-root": {
-                py: "0px",
-              },
-            }}
-            onChange={(event, newValue) => {
-              if (newValue) {
-                handleSelectedItem(newValue); // Call your method on selection
-              }
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                sx={{
-                  "& .MuiInputBase-input": {
-                    height: "8px",
-                  },
-                }}
-                // label="Currency"
-                placeholder="Currency"
-              />
-            )}
-          /> */}
 
           <SelectInputWithSearch
             onChange={(value) => handleSelectedItem(value)}
@@ -262,12 +233,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
           />
         </Box>
         <Typography
-          variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2, fontWeight: 600 }}
+          variant="text-sm-semibold"
+          sx={{ paddingTop: 2,  color: palette.color.gray[610],}}
         >
           Invoice Detail
         </Typography>
-        <hr style={{ marginTop: -8 }} />
         <Box>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>

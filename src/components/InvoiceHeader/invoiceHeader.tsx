@@ -2,13 +2,14 @@
 import {
   Box,
   Button,
+  ButtonBase,
   CircularProgress,
   IconButton,
   Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { backendURL } from "@/utils/constants";
 import {
@@ -28,7 +29,14 @@ import { palette } from "@/theme/palette";
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
-import { DoneOutlined, EditOutlined } from "@mui/icons-material";
+import {
+  DoneOutlined,
+  EditOutlined,
+  KeyboardArrowDown,
+  SaveAlt,
+  SettingsOutlined,
+  VisibilityOutlined,
+} from "@mui/icons-material";
 import { TextField } from "../TextField";
 import { setResetSelectedList } from "@/redux/features/listSelected";
 import { toast } from "react-toastify";
@@ -36,27 +44,36 @@ import {
   getInvoiceTypeError,
   getRecipientDetailsError,
   getSenderDetailsError,
+  setInvoiceRowItemValidation,
   setInvoiceTypeError,
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
+import ReactToPrint from "react-to-print";
+import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
+import { Icon } from "../Icon";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
   InvDetails: any;
   summaryDetail: any;
   type: string;
+  handleColorPickerClick: (event: any) => void;
 }
 const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   InvSetting,
   InvDetails,
   summaryDetail,
   type,
+  handleColorPickerClick,
 }) => {
   const { id } = useParams<{ id: string }>();
 
   const dispatch = useDispatch();
   const router = useRouter();
+  const componentRef = useRef();
+  const showPreview =
+    InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
 
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
@@ -173,24 +190,79 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
-    console.log(
-      InvDetails?.invoiceType == "",
-      InvDetails.from?.name == "",
-      InvDetails.to?.name == ""
-    );
     if (
-      InvDetails?.invoiceType == "" ||
-      InvDetails.from?.name == "" ||
-      InvDetails.to?.name == ""
+      InvDetails?.invoiceType === "" ||
+      InvDetails.from?.name === "" ||
+      InvDetails.to?.name === "" ||
+      InvDetails.invoiceItem.some(
+        (item: any) =>
+          !item.name ||
+          item.rate == 0 ||
+          item.rate === "" ||
+          item.quantity == 0 ||
+          item.quantity === ""
+      )
     ) {
-      if (InvDetails?.invoiceType == "") {
+      // Dispatch relevant error actions for invoiceType, sender, and recipient
+      if (InvDetails?.invoiceType === "") {
         await dispatch(setInvoiceTypeError(true));
       }
-      if (InvDetails.from?.name == "") {
+      if (InvDetails.from?.name === "") {
         await dispatch(setSenderDetailsError(true));
       }
-      if (InvDetails.to?.name == "") {
+      if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+
+      // Invoice item validation
+      if (InvDetails.invoiceItem) {
+        let itemsValidation: any[] | null = [];
+
+        InvDetails.invoiceItem.forEach((item: any) => {
+          let validationObj: any = {
+            id: item.id.toString(),
+            name: {},
+            quantity: {},
+            rate: {},
+          };
+
+          if (!item.name) {
+            validationObj.name = { isError: true, message: "Name is required" };
+          } else {
+            validationObj.name = { isError: false, message: "" };
+          }
+
+          if (item.quantity == 0 || item.quantity === "") {
+            validationObj.quantity = {
+              isError: true,
+              message: "Required",
+            };
+          } else {
+            validationObj.quantity = { isError: false, message: "" };
+          }
+
+          if (item.rate == 0 || item.rate === "") {
+            validationObj.rate = { isError: true, message: "Required" };
+          } else {
+            validationObj.rate = { isError: false, message: "" };
+          }
+
+          // Only push validationObj if any error exists
+          if (
+            validationObj.name.isError ||
+            validationObj.quantity.isError ||
+            validationObj.rate.isError
+          ) {
+            itemsValidation?.push(validationObj);
+          }
+        });
+
+        // If no errors, set validation to null
+        if (itemsValidation.length === 0) {
+          itemsValidation = null;
+        }
+
+        await dispatch(setInvoiceRowItemValidation(itemsValidation));
       }
     } else if (!session) {
       setLoginModel(true);
@@ -298,11 +370,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         marginTop: "5%",
         flexDirection: { sm: "row", xs: "column" },
         alignItems: "start",
+        p: { sm: "", xs: 0 },
       }}
     >
       <Stack
         direction={"row"}
-        sx={{ justifyContent: "center", alignItems: "center" }}
+        sx={{
+          justifyContent: { sm: "center", xs: "space-between" },
+          alignItems: "center",
+          width: { sm: "auto", xs: "100%" },
+        }}
       >
         {type === "add" ? (
           ""
@@ -314,13 +391,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             <ArrowBackIosNewIcon />
           </IconButton>
         )}
-        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+        <Box
+          sx={{ display: "flex", gap: { sm: 2, xs: 1 }, alignItems: "center" }}
+        >
           <Box
             sx={{
               display: "flex",
               gap: 2,
               alignItems: "center",
               position: "relative",
+              mt: "7px",
             }}
           >
             <Typography variant="display-xs-medium">Sr.No:</Typography>{" "}
@@ -406,6 +486,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               width: "28px !important",
               height: "28px !important",
               p: 0.5,
+              mt: "6px",
             }}
           >
             {isEditInvoiceId ? (
@@ -415,11 +496,58 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             )}
           </IconButton>
         </Box>
+        <Box
+          sx={{
+            display: { sm: "none", xs: "flex" },
+            gap: 1,
+            alignItems: "center",
+          }}
+        >
+          <ButtonBase
+            disabled={showPreview}
+            sx={{
+              opacity: showPreview ? 0.5 : 1,
+            }}
+            onClick={() => router.push("/preview")}
+          >
+            <VisibilityOutlined sx={{ width: 19, height: 19 }} />
+          </ButtonBase>
+
+          {validateButton ? (
+            session ? (
+              <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
+                <ButtonBase onClick={() => generatePDFDocument()}>
+                  <Icon icon="pdfPriviewIcon" width={15} height={15} />
+                </ButtonBase>
+              </Box>
+            ) : (
+              <Tooltip title="Download PDF" placement="bottom">
+                <Button onClick={() => setDownloadModel(true)}>
+                  <Icon icon="pdfPriviewIcon" width={15} height={15} />
+                </Button>
+              </Tooltip>
+            )
+          ) : (
+            <ButtonBase disabled={true}>
+              <Icon icon="pdfPriviewIcon" width={15} height={15} />
+            </ButtonBase>
+          )}
+          <ButtonBase
+            onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
+          >
+            <SaveAlt sx={{ width: 19, height: 19 }} />
+          </ButtonBase>
+
+          <ButtonBase onClick={handleColorPickerClick}>
+            <SettingsOutlined sx={{ width: 19, height: 19 }} />
+          </ButtonBase>
+        </Box>
       </Stack>
       <Stack
         justifyContent={"space-between"}
         // spacing={2}
         sx={{
+          display: { sm: "flex", xs: "none" },
           flexDirection: { sm: "row", xs: "column-reverse" },
           gap: 2,
           width: { sm: "auto", xs: "100%" },
@@ -429,9 +557,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       >
         <Button
           sx={{
-            height: "36px",
-            width: { sm: "73px", xs: "100%" },
+            height: "44px",
             borderRadius: "4px",
+            fontSize: "16px",
+            width: { sm: "73px", xs: "100%" },
+            fontWeight: "bold !important",
             p: "0px !important",
             border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
             // mt: 2
@@ -453,37 +583,52 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             "Update"
           )}
         </Button>
+        <Box>
+          <Button
+            disabled={showPreview}
+            variant="contained"
+            sx={{
+              opacity: showPreview ? 0.4 : 1,
+              color: palette.primary.main,
+              background: "rgba(79, 53, 223, 0.2)",
+              height: "44px",
+              borderRadius: "4px",
+              fontWeight: "bold !important",
+              fontSize: "16px",
+              ":hover": {
+                color: palette.primary.main,
+                backgroundColor: "rgba(79, 53, 223, 0.2)",
+              },
+            }}
+            onClick={() => router.push("/preview")}
+          >
+            Preview
+          </Button>
+          <Box>
+            <Box style={{ display: "none" }}>
+              <Box ref={componentRef}>
+                <InvoiceDetailsSection
+                  singleInvoice={{ ...InvDetails }}
+                  invoiceSetting={{ ...InvSetting }}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
         {validateButton ? (
           session ? (
-            // <PdfDownloadLink
-            //   InvSetting={InvSetting}
-            //   InvDetails={InvDetails}
-            //   summaryDetail={summaryDetail}
-            // >
-            //   <Tooltip title="Download PDF" placement="bottom">
-            //     <Button
-            //       variant="contained"
-            //       sx={{
-            //         height: "36px !important",
-            //         borderRadius: "4px",
-            //         py: "0px !important",
-            //       }}
-            //     >
-            //       Download PDF
-            //     </Button>
-            //   </Tooltip>
-            // </PdfDownloadLink>
             <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
               <Button
                 variant="contained"
                 sx={{
-                  height: "36px !important",
+                  height: "44px",
                   borderRadius: "4px",
+                  fontWeight: "bold !important",
+                  fontSize: "16px",
                   py: "0px !important",
                   width: "100%",
                   fontFamily: "Product Sans, sans-serif !important",
-                  fontSize: "14px !important",
-                  fontWeight: "400 !important",
+
                   background:
                     "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 }}
@@ -498,8 +643,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 onClick={() => setDownloadModel(true)}
                 variant="contained"
                 sx={{
-                  height: "36px !important",
+                  height: "44px",
                   borderRadius: "4px",
+                  fontWeight: "bold !important",
+                  fontSize: "16px",
+
                   py: "0px !important",
                 }}
               >
@@ -512,10 +660,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             variant="contained"
             disabled={true}
             sx={{
-              width: { sm: "138px", xs: "100%" },
+              width: { xs: "100%" },
+              height: "44px",
               borderRadius: "4px",
+              fontWeight: "bold !important",
+              fontSize: "16px",
               py: "0px !important",
-              height: "36px !important",
             }}
           >
             Download PDF

@@ -7,6 +7,7 @@ import {
   setDueDate,
   setTax,
 } from "@/redux/features/invoiceSetting";
+import { palette } from "@/theme/palette";
 import {
   Box,
   FormControlLabel,
@@ -56,7 +57,10 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       }}
     >
       <Stack direction={"row"} justifyContent={"space-between"}>
-        <Typography variant="text-xs-regular" sx={{ marginTop: 1 }}>
+        <Typography
+          variant="text-md-regular"
+          sx={{ marginTop: 1, color: palette.color.gray[610] }}
+        >
           {lable}
         </Typography>
         <FormControlLabel

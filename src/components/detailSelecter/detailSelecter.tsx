@@ -354,6 +354,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
             fontSize: { sm: "14px", xs: "14px" },
             lineHeight: { sm: "20px", xs: "20px" },
             fontWeight: { xs: 500 },
+            pb: "6px",
+            color: "#4B5565",
           }}
         >
           {title == "From" ? "Sender Details" : "Recipient Details"}
@@ -366,7 +368,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           }
           width={isMobile ? "100%" : "100%"}
           placeholder={`Add existing ${detailsOf}`}
-          borderRadius={"8px"}
+          borderRadius={"4px"}
           type={`${detailsOf}`}
           filteredData={
             detailsOf === `Sender` ? filteredSenderData : filteredClientData
@@ -381,10 +383,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
             sx={{
               width: { sm: "100%", xs: "100%" },
               height: 222,
-              marginTop: 2,
+              marginTop: "16px",
               py: "10px",
               px: "14px",
-              borderRadius: 2,
+              borderRadius: "4px",
               cursor: "pointer",
               border: `1px solid ${palette.color.gray[200]}`,
               boxShadow: palette.boxShadows.shadowxs,
@@ -401,18 +403,19 @@ const DetailSelecter: FC<DetailSelecter> = ({
             </Stack>
             <Stack
               direction={"column"}
-              spacing={1.5}
+              // spacing={1.5}
               sx={{
                 height: "100%",
                 justifyContent: "center",
                 alignItems: "center",
                 display: "flex",
+                gap: "8px"
               }}
             >
               <Icon icon="addCircleIcon" height={32} width={32}></Icon>
               <Typography
-                variant="text-xs-regular"
-                color={palette.color.gray[810]}
+                variant="text-sm-medium"
+                color={palette.color.gray[610]}
               >
                 Add New {detailsOf}
               </Typography>
@@ -432,11 +435,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
         <Box
           borderRadius={1}
           sx={{
-            width: { sm: 370, xs: "100%" },
+            width: "100%",
             height: 222,
-            marginTop: 1.5,
+            marginTop: "16px",
             padding: 2,
-            borderRadius: 2,
+            borderRadius: "4px",
             cursor: type != "edit" && !isListSelected ? "pointer" : "default",
             border: `1px solid ${palette.color.gray[120]}`,
           }}

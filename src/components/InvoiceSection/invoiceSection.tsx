@@ -113,8 +113,8 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
     const value = event.target.value;
     dispatch(setAddtionalNotes(value));
   };
-  const showPreview =
-    InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
+  // const showPreview =
+  //   InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
   const senderShow = InvDetails.from?.name !== "" ? true : false;
   const reciptShow = InvDetails.to?.name !== "" ? true : false;
 
@@ -164,12 +164,12 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           <Stack direction={"row"} spacing={3}>
             <UploadLogo logoDesc="Add your bussiness logo" />
           </Stack>
-          <Box sx={{ mt: { sm: 0, xs: 1 }, position: "relative" }}>
+          <Box sx={{ mt: { sm: 0, xs: "16px" }, position: "relative" }}>
             <SelectInput
               width={isModile ? "100%" : 385}
               height={44}
               placeholder="Select type"
-              borderRadius={"8px"}
+              borderRadius={"4px"}
               type="Invoice type"
               menuData={["Bill", "Sales Invoice", "Quotation", "Other"]}
             />
@@ -225,7 +225,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
           justifyContent={"space-between"}
           gap={3}
-          sx={{ marginTop: 3 }}
+          sx={{ marginTop: "24px" }}
         >
           <DetailSelecter
             title="From"
@@ -252,9 +252,9 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           direction={"row"}
           // justifyContent={"space-between"}
           sx={{
-            marginTop: { sm: "2%", xs: 2 },
+            marginTop: "24px",
             flexDirection: { sm: "row", xs: "column" },
-            gap: { sm: 22, xs: 2 },
+            gap: { sm: "24px", xs: 2 },
           }}
         >
           <InvoiceDatePicker title="Invoice Date" />
