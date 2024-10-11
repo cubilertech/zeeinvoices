@@ -790,7 +790,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               <Stack
                 direction={"row"}
                 justifyContent={"space-between"}
-                gap={'12px'}
+                gap={"12px"}
                 sx={{
                   marginTop: "32px",
                   flexDirection: { sm: "row", xs: "column" },
