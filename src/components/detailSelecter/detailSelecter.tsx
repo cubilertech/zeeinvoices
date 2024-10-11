@@ -54,7 +54,7 @@ import {
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
+  name: Yup.string().min(3).max(100).required("Name is required"),
   companyName: Yup.string(),
   // .required("Company Name is required"),
   email: Yup.string()
@@ -62,13 +62,17 @@ const validationSchema = Yup.object({
     .required("Email is required"),
   // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
+    .min(3)
+    .max(100)
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
   state: Yup.string()
+    .min(3)
+    .max(100)
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string().matches(alphaRegex, "Invalid Address"),
+  address: Yup.string().min(3).max(400).matches(alphaRegex, "Invalid Address"),
   // .min(5, "Too short")
   // .required("Address is required"),
 });
@@ -203,9 +207,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
     },
 
     onSubmit: (values) => {
+      const data = {
+        ...values,
+        email: values.email.toLowerCase(),
+      };
       handleCloseBd();
       setOpen(false);
-      handleSubmitForm(values);
+      handleSubmitForm(data);
       // Reset the form fields
       resetForm();
     },
@@ -409,7 +417,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 justifyContent: "center",
                 alignItems: "center",
                 display: "flex",
-                gap: "8px"
+                gap: "8px",
               }}
             >
               <Icon icon="addCircleIcon" height={32} width={32}></Icon>
@@ -563,11 +571,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
               bgcolor: palette.base.white,
               boxShadow: 1,
               p: "24px",
-              borderRadius: "12px",
+              borderRadius: "8px",
             }}
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography variant="text-lg-semibold">
+              <Typography variant="display-xs-semibold">
                 {type === "add" ? "Add" : "Edit"}{" "}
                 {detailsOf === "Recipient" ? "Receiver" : detailsOf} Details
               </Typography>
@@ -586,32 +594,41 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 direction={"row"}
                 justifyContent={"space-between"}
                 sx={{
-                  marginTop: "10px",
+                  marginTop: "32px",
                   flexDirection: { sm: "row", xs: "column" },
+                  gap: "16px",
                 }}
               >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                   <TextField
                     isRequired={true}
                     label="Name"
                     size="large"
                     name="name"
+                    borderRadius="4px"
                     value={values.name}
                     onChange={handleChange}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
+                    sx={{
+                      width: { sm: "100%", xs: "100%" },
+                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                    }}
                     helperText={touched.name && errors.name}
                     onBlur={handleBlur}
                     error={touched.name && Boolean(errors.name)}
                   />
                 </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                   <TextField
                     label="Company Name"
                     size="large"
                     name="companyName"
+                    borderRadius="4px"
                     onChange={handleChange}
                     value={values.companyName}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
+                    sx={{
+                      width: { sm: "100%", xs: "100%" },
+                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                    }}
                     helperText={touched.companyName && errors.companyName}
                     onBlur={handleBlur}
                     error={touched.companyName && Boolean(errors.companyName)}
@@ -624,17 +641,22 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 sx={{
                   marginTop: "10px",
                   flexDirection: { sm: "row", xs: "column" },
+                  gap: "16px",
                 }}
               >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                   <TextField
                     isRequired={true}
                     label="Email"
                     size="large"
                     name="email"
+                    borderRadius="4px"
                     onChange={handleChange}
                     value={values.email}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
+                    sx={{
+                      width: "100%",
+                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                    }}
                     helperText={touched.email && errors.email}
                     onBlur={handleBlur}
                     error={touched.email && Boolean(errors.email)}
@@ -668,7 +690,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     </Typography>
                   )}
                 </FormControl> */}
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                   <Typography
                     variant="text-sm-medium"
                     sx={{ marginBottom: "5px" }}
@@ -677,6 +699,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   </Typography>
 
                   <PhoneInputWithCode
+                    borderRadius="4px"
                     value={values.phoneNumber} // Bind Formik's phoneNumber value
                     // defaultCountryPhoneCode={values.countryCode}
                     onChange={(value) => handlePhoneInputChange(value)} // Use Formik's setFieldValue to update the state
@@ -707,31 +730,40 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 sx={{
                   marginTop: "10px",
                   flexDirection: { sm: "row", xs: "column" },
+                  gap: "16px",
                 }}
               >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                   <TextField
                     isRequired={true}
                     label="City"
                     size="large"
+                    borderRadius="4px"
                     name="city"
                     onChange={handleChange}
                     value={values.city}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
+                    sx={{
+                      width: "100%",
+                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                    }}
                     helperText={touched.city && errors.city}
                     onBlur={handleBlur}
                     error={touched.city && Boolean(errors.city)}
                   ></TextField>
                 </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                   <TextField
                     isRequired={true}
-                    label="State"
+                    label="Country/State"
                     size="large"
                     name="state"
+                    borderRadius="4px"
                     onChange={handleChange}
                     value={values.state}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
+                    sx={{
+                      width: "100%",
+                      "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                    }}
                     helperText={touched.state && errors.state}
                     onBlur={handleBlur}
                     error={touched.state && Boolean(errors.state)}
@@ -744,7 +776,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     label="Address"
                     size="large"
                     name="address"
+                    borderRadius="4px"
                     onChange={handleChange}
+                    sx={{ "& .MuiOutlinedInput-root": { borderRadius: "4px" } }}
                     value={values.address}
                     helperText={touched.address && errors.address}
                     onBlur={handleBlur}
@@ -758,7 +792,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 justifyContent={"space-between"}
                 gap={2}
                 sx={{
-                  marginTop: "20px",
+                  marginTop: "32px",
                   flexDirection: { sm: "row", xs: "column" },
                 }}
               >

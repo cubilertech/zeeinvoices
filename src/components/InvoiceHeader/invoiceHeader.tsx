@@ -83,7 +83,15 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const validateButton =
     InvDetails.from?.name !== "" &&
     InvDetails.to?.name !== "" &&
-    InvDetails?.invoiceType !== "";
+    InvDetails?.invoiceType !== "" &&
+    !InvDetails?.invoiceItem.some(
+      (item: any) =>
+        !item.name ||
+        item.rate == 0 ||
+        item.rate === "" ||
+        item.quantity == 0 ||
+        item.quantity === ""
+    );
 
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
@@ -590,7 +598,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         </Button>
         <Box>
           <Button
-            disabled={showPreview}
+            disabled={!validateButton}
             variant="contained"
             sx={{
               color: palette.primary.main,

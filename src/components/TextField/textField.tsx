@@ -79,7 +79,9 @@ const TextField: FC<TextField> = ({
                   "&::placeholder": {
                     color: palette.color.gray[740], // Change this to your desired placeholder color
                   },
+                  
                 },
+                
                 ...sx,
               }
             : size === "medium"
