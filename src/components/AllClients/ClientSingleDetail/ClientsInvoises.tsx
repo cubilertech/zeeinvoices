@@ -48,6 +48,7 @@ import { Pagination } from "@/components/Pagination";
 import DeleteModal from "@/components/DeleteModal/deleteModal";
 import ShareModal from "@/components/ShareModal/shareModal";
 import EnhancedTableToolbar from "@/components/AllInvoices/enhancedTableToolbar";
+import "@/Styles/sectionStyle.css";
 
 interface Data {
   id: number;
@@ -269,140 +270,137 @@ export default function ClientInvoices() {
 
   return (
     <>
-      <Container
-        maxWidth="lg"
+      {/* <Container
         sx={{
           px: { md: "0%", lg: "0%", xs: "3%" },
           minHeight: { xl: "53vh", lg: "73vh" },
         }}
+      > */}
+      <Box
+        sx={{
+          minHeight: { xl: "53vh", lg: "73vh" },
+          width: "100%",
+          marginTop: "15px",
+          justifyContent: "center",
+          alignItems: "center",
+          alignSelf: "center",
+        }}
       >
-        <Box
+        <Paper
+          elevation={0}
           sx={{
-            minHeight: { xl: "53vh", lg: "73vh" },
             width: "100%",
-            marginTop: "15px",
-            justifyContent: "center",
-            alignItems: "center",
-            alignSelf: "center",
+            px: { sm: "20px", xs: "10px" },
+            pb: 1,
+            border: "none",
+            borderRadius: "4px",
+            boxShadow: `0px 0px 2px 0px #0000001A`,
           }}
         >
-          <Paper
-            elevation={0}
-            sx={{
-              width: "100%",
-              px: { sm: "20px", xs: "10px" },
-              pb: 1,
-              border: "none",
-              borderRadius: "4px",
-              boxShadow: `0px 0px 2px 0px #0000001A`,
-            }}
-          >
-            <EnhancedTableToolbar
-              numSelected={0}
-              search={search}
-              handleChangeSearch={handleChangeSearch}
-              type={2}
-            />
-            {filteredData.length > 0 ? (
-              <>
-                <TableContainer
-                  sx={{
-                    border: `1px solid ${palette.border.invoicesBorderColor}`,
-                    borderTopLeftRadius: "8px",
-                    borderTopRightRadius: "8px",
+          <EnhancedTableToolbar
+            numSelected={0}
+            search={search}
+            handleChangeSearch={handleChangeSearch}
+            type={2}
+          />
+          {filteredData.length > 0 ? (
+            <>
+              <TableContainer
+                sx={{
+                  border: `1px solid ${palette.border.invoicesBorderColor}`,
+                  borderTopLeftRadius: "8px",
+                  borderTopRightRadius: "8px",
 
-                    borderBottomLeftRadius: "8px",
-                    borderBottomRightRadius: "8px",
-                  }}
-                >
-                  <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-                    <EnhancedTableHead
-                      numSelected={0}
-                      order={order}
-                      orderBy={orderBy}
-                      onRequestSort={handleRequestSort}
-                      rowCount={invoiceList?.invoices?.length}
-                    />
-                    <TableBody>
-                      {filteredData?.map((row: any, index: number) => {
-                        const labelId = `enhanced-table-checkbox-${index}`;
-                        return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={row?.id}
-                            sx={{ cursor: "pointer" }}
+                  borderBottomLeftRadius: "8px",
+                  borderBottomRightRadius: "8px",
+                }}
+              >
+                <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+                  <EnhancedTableHead
+                    numSelected={0}
+                    order={order}
+                    orderBy={orderBy}
+                    onRequestSort={handleRequestSort}
+                    rowCount={invoiceList?.invoices?.length}
+                  />
+                  <TableBody>
+                    {filteredData?.map((row: any, index: number) => {
+                      const labelId = `enhanced-table-checkbox-${index}`;
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row?.id}
+                          sx={{ cursor: "pointer" }}
+                        >
+                          <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                            className="tableCell"
+                            sx={{ paddingLeft: "20px" }}
                           >
-                            <TableCell
-                              component="th"
-                              id={labelId}
-                              scope="row"
-                              padding="none"
-                              className="tableCell"
-                              sx={{ paddingLeft: "20px" }}
+                            <Typography
+                              variant="text-sm-medium"
+                              sx={{ color: palette.color.gray[130] }}
                             >
-                              <Typography
-                                variant="text-sm-medium"
-                                sx={{ color: palette.color.gray[130] }}
+                              {row?.id}
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="left" className="tableCell">
+                            <Stack
+                              direction={"row"}
+                              gap={1}
+                              sx={{ alignItems: "center" }}
+                            >
+                              <Avatar
+                                sx={{
+                                  bgcolor: palette.primary.main,
+                                  width: "32px",
+                                  height: "32px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
                               >
-                                {row?.id}
-                              </Typography>
-                            </TableCell>
-                            <TableCell align="left" className="tableCell">
-                              <Stack
-                                direction={"row"}
-                                gap={1}
-                                sx={{ alignItems: "center" }}
-                              >
-                                <Avatar
-                                  sx={{
-                                    bgcolor: palette.primary.main,
-                                    width: "32px",
-                                    height: "32px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                  }}
+                                {row?.toDetails?.name?.charAt(0).toUpperCase()}
+                              </Avatar>
+                              <Stack direction={"column"}>
+                                <Typography
+                                  variant="text-sm-medium"
+                                  sx={{ color: palette.color.gray[130] }}
                                 >
-                                  {row?.toDetails?.name
-                                    ?.charAt(0)
-                                    .toUpperCase()}
-                                </Avatar>
-                                <Stack direction={"column"}>
-                                  <Typography
-                                    variant="text-sm-medium"
-                                    sx={{ color: palette.color.gray[130] }}
-                                  >
-                                    {row?.to?.name || row?.toDetails?.name}
-                                  </Typography>
-                                  {/* <Typography variant="text-xs-regular">
+                                  {row?.to?.name || row?.toDetails?.name}
+                                </Typography>
+                                {/* <Typography variant="text-xs-regular">
                                         {row.to.email}
                                       </Typography> */}
-                                </Stack>
                               </Stack>
-                            </TableCell>
-                            <TableCell align="left" className="tableCell">
-                              <Typography
-                                variant="text-sm-medium"
-                                sx={{ color: palette.color.gray[130] }}
-                              >
-                                {row?.to?.email || row?.toDetails?.email}
-                              </Typography>
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              sx={{ paddingLeft: "17px" }}
-                              className="tableCell"
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="left" className="tableCell">
+                            <Typography
+                              variant="text-sm-medium"
+                              sx={{ color: palette.color.gray[130] }}
                             >
-                              <Typography
-                                variant="text-sm-regular"
-                                sx={{ color: palette.color.gray[130] }}
-                              >
-                                {tableFormatDate(row?.invoiceDate)}
-                              </Typography>
-                            </TableCell>
-                            {/* <TableCell align="left">
+                              {row?.to?.email || row?.toDetails?.email}
+                            </Typography>
+                          </TableCell>
+                          <TableCell
+                            align="left"
+                            sx={{ paddingLeft: "17px" }}
+                            className="tableCell"
+                          >
+                            <Typography
+                              variant="text-sm-regular"
+                              sx={{ color: palette.color.gray[130] }}
+                            >
+                              {tableFormatDate(row?.invoiceDate)}
+                            </Typography>
+                          </TableCell>
+                          {/* <TableCell align="left">
                                   <Badge
                                     color="primary"
                                     badgeContent={row.status}
@@ -420,99 +418,99 @@ export default function ClientInvoices() {
                                   ></Badge>
                                 </TableCell> */}
 
-                            <TableCell align="left" className="tableCell">
-                              <Typography
-                                variant="text-sm-medium"
-                                sx={{ color: palette.color.gray[130] }}
-                              >
-                                {row?.settings?.currency == "USD"
-                                  ? "$"
-                                  : row?.settings?.currency}{" "}
-                                {calculateAmount(row?.items)?.toFixed(2)}
-                              </Typography>
-                            </TableCell>
-                            <TableCell align="left" className="tableCell">
-                              <CustomPopOver
-                                handleOpenDeleteModal={handleOpenDeleteModal}
-                                record={row}
-                                handleViewInvoice={handleViewInvoice}
-                                handleEditInvoice={handleEditInvoice}
-                                handleShareInvoice={handleShareInvoice}
-                                handlePrintInvoice={handlePrintInvoice}
-                                componentRef={componentRef}
-                                InvSetting={{ ...invoiceSetting }}
-                                InvDetails={{ ...invoiceDetail }}
-                                summaryDetail={summaryDetail}
-                              />
-                              <Box>
-                                <Box style={{ display: "none" }}>
-                                  <Box ref={componentRef}>
-                                    <InvoiceDetailsSection
-                                      singleInvoice={{ ...invoiceDetail }}
-                                      invoiceSetting={{ ...invoiceSetting }}
-                                    />
-                                  </Box>
+                          <TableCell align="left" className="tableCell">
+                            <Typography
+                              variant="text-sm-medium"
+                              sx={{ color: palette.color.gray[130] }}
+                            >
+                              {row?.settings?.currency == "USD"
+                                ? "$"
+                                : row?.settings?.currency}{" "}
+                              {calculateAmount(row?.items)?.toFixed(2)}
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="left" className="tableCell">
+                            <CustomPopOver
+                              handleOpenDeleteModal={handleOpenDeleteModal}
+                              record={row}
+                              handleViewInvoice={handleViewInvoice}
+                              handleEditInvoice={handleEditInvoice}
+                              handleShareInvoice={handleShareInvoice}
+                              handlePrintInvoice={handlePrintInvoice}
+                              componentRef={componentRef}
+                              InvSetting={{ ...invoiceSetting }}
+                              InvDetails={{ ...invoiceDetail }}
+                              summaryDetail={summaryDetail}
+                            />
+                            <Box>
+                              <Box style={{ display: "none" }}>
+                                <Box ref={componentRef}>
+                                  <InvoiceDetailsSection
+                                    singleInvoice={{ ...invoiceDetail }}
+                                    invoiceSetting={{ ...invoiceSetting }}
+                                  />
                                 </Box>
                               </Box>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-                <Pagination
-                  totalRecords={
-                    invoiceList?.totalRecords ? invoiceList?.totalRecords : 0
-                  }
-                  itemsPerPage={rowsPerPage}
-                  page={page}
-                  setPage={setPage}
-                />
-              </>
-            ) : filteredData.length <= 0 && showText ? (
-              <Typography
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "100%",
-                  height: "300px",
-                  color: palette.color.gray[60],
-                }}
-              >
-                No record found
-              </Typography>
-            ) : (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "20px",
-                  alignItems: "center",
-                  height: "200px",
-                }}
-              >
-                <CircularProgress size={24} sx={{ color: "#8477DA" }} />
-              </Box>
-            )}
-          </Paper>
-          <Box sx={{ height: 20 }}></Box>
-          <DeleteModal
-            open={isModalOpen}
-            onDelete={handleDelete}
-            onClose={handleDeleteModalClose}
-            invoiceDelete={invoiceDelete}
-            title="invoice"
-          />
-          <ShareModal
-            open={shareModel}
-            onShare={() => setShareModel(false)}
-            onClose={() => setShareModel(false)}
-            shareUrlId={shareUrl}
-          />
-        </Box>
-      </Container>
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Pagination
+                totalRecords={
+                  invoiceList?.totalRecords ? invoiceList?.totalRecords : 0
+                }
+                itemsPerPage={rowsPerPage}
+                page={page}
+                setPage={setPage}
+              />
+            </>
+          ) : filteredData.length <= 0 && showText ? (
+            <Typography
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "300px",
+                color: palette.color.gray[60],
+              }}
+            >
+              No record found
+            </Typography>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "20px",
+                alignItems: "center",
+                height: "200px",
+              }}
+            >
+              <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+            </Box>
+          )}
+        </Paper>
+        <Box sx={{ height: 20 }}></Box>
+        <DeleteModal
+          open={isModalOpen}
+          onDelete={handleDelete}
+          onClose={handleDeleteModalClose}
+          invoiceDelete={invoiceDelete}
+          title="invoice"
+        />
+        <ShareModal
+          open={shareModel}
+          onShare={() => setShareModel(false)}
+          onClose={() => setShareModel(false)}
+          shareUrlId={shareUrl}
+        />
+      </Box>
+      {/* </Container> */}
     </>
   );
 }

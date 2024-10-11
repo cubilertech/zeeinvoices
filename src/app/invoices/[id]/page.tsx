@@ -1,12 +1,24 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { palette } from "@/theme/palette";
 import { Icon } from "@/components/Icon";
 import InvoiceDetailsSection from "@/components/InvoiceDetailsSection/invoiceDetailsSection";
 import InvoiceDetailsActions from "@/components/InvoiceDetailsActions/invoiceDetailsActions";
-import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
+import {
+  useDeleteDocument,
+  useFetchSingleDocument,
+} from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
@@ -19,9 +31,44 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ReactToPrint from "react-to-print";
 import ShareModal from "@/components/ShareModal/shareModal";
 import "@/Styles/sectionStyle.css";
+import { pdf } from "@react-pdf/renderer";
+import PdfView from "@/appPages/PdfView/pdfView";
+import { useSession } from "next-auth/react";
+import { saveAs } from "file-saver";
+import DeleteModal from "@/components/DeleteModal/deleteModal";
+import dynamic from "next/dynamic";
+
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+  {
+    ssr: false,
+    loading: () => (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "90vh",
+          fontSize: 20,
+          borderRadius: "4px",
+        }}
+      >
+        Loading...
+      </Box>
+    ),
+  }
+);
 
 const InvoiceDetail = () => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+  const route = useRouter();
+  const { data: session } = useSession();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { id } = useParams<{ id: string }>();
+  const params = useSearchParams();
+  const typeParam = params.get('type')
+  
   const componentRef = useRef();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -117,13 +164,64 @@ const InvoiceDetail = () => {
     router.push(`/invoices/${singleInvoice?._id}/edit`);
   };
 
+  const {
+    mutateAsync: deleteInvoice,
+    isLoading: deleteInvoiceLoading,
+    isSuccess: deleteSuccess,
+  } = useDeleteDocument();
+
   // Back Handle
+  console.log(singleInvoice, "singleInvoice")
   const handleBack = () => {
-    router.back();
-    setTimeout(() => {
-      dispatch(setResetInvoiceSetting());
-      dispatch(setResetInvoice());
-    }, 500);
+    // router.back();
+    if(typeParam === "edit") {
+      router.push(`/invoices/${singleInvoice?._id}/edit`);
+    } else {
+      router.push(`/invoices`);
+       setTimeout(() => {
+        dispatch(setResetInvoiceSetting());
+        dispatch(setResetInvoice());
+      }, 500);
+    }
+   
+   
+  };
+
+  const handleOpenDeleteModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const invoiceDelete = async () => {
+    await deleteInvoice({
+      apiRoute: `${backendURL}/invoices/${invoiceDetail.id}`,
+    }).then((res) => {
+      route.push("/invoices");
+    });
+  };
+
+  const generatePDFDocument = async () => {
+    const itemDetail = invoiceDetail?.invoiceItem;
+    const doc = (
+      <PdfView
+        invSetting={{ ...invoiceSettings }}
+        invDetails={{ ...invoiceDetail }}
+        Summary={summaryDetail}
+        user={session?.user}
+        itemDetail={itemDetail}
+      />
+    );
+    const blobPdf = await pdf(doc);
+    blobPdf.updateContainer(doc);
+    const result = await blobPdf.toBlob();
+    saveAs(result, "ZeeInvoice");
   };
 
   return (
@@ -138,7 +236,7 @@ const InvoiceDetail = () => {
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
-        sx={{ py: 3, marginTop: "60px" }}
+        sx={{ pt: { sm: 5, xs: 2 }, pb: { sm: 3, xs: 2 }, marginTop: "65px" }}
       >
         <Stack
           direction={"row"}
@@ -146,27 +244,152 @@ const InvoiceDetail = () => {
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
           <IconButton
-            sx={{ padding: 1, marginRight: "10px" }}
+            sx={{ padding: 0, marginRight: "10px" }}
             onClick={handleBack}
           >
-            <ArrowBackIosNewIcon />
+            <ArrowBackIosNewIcon sx={{ width: "16px", height: "16px" }} />
           </IconButton>
-          <Typography variant="display-xs-medium">Invoice#</Typography>
           <Typography
             variant="display-xs-medium"
-            sx={{ color: palette.color.gray[770] }}
+            sx={{
+              color: palette.color.gray[610],
+              fontSize: {
+                md: "24px !important",
+                xs: "20px !important",
+              },
+              lineHeight: {
+                md: "29px !important",
+                xs: "24px !important",
+              },
+              fontWeight: { sm: "600 !important", xs: "500 !important" },
+            }}
+          >
+            Sr.No:
+          </Typography>
+          <Typography
+            variant="display-xs-medium"
+            sx={{
+              color: palette.color.gray[610],
+              fontSize: {
+                md: "24px !important",
+                xs: "20px !important",
+              },
+              lineHeight: {
+                md: "29px !important",
+                xs: "24px !important",
+              },
+              fontWeight: { sm: "400 !important", xs: "400 !important" },
+            }}
           >
             {invoiceDetail?.id}
           </Typography>
         </Stack>
-        <Stack direction={"row"}>
-          <IconButton sx={{ padding: 1 }} onClick={handleEditInvoice}>
-            <Icon icon="editIcon" width={20} height={20} />
-          </IconButton>
+        <Stack
+          direction={"row"}
+          gap={{ sm: 2, xs: 0 }}
+          sx={{ alignItems: "center" }}
+        >
+          {isMobile ? (
+            <>
+              <IconButton
+                sx={{ padding: 0 }}
+                onClick={() => handleOpenDeleteModal()}
+              >
+                <Icon icon="trashIcon" width={20} height={20} />
+              </IconButton>
+              <IconButton sx={{ padding: 0 }} onClick={handleEditInvoice}>
+                <Icon icon="editIcon1" width={20} height={20} />
+              </IconButton>
+              <IconButton
+                sx={{ padding: 0 }}
+                onClick={() => generatePDFDocument()}
+              >
+                <Icon icon="downloadIcon" width={20} height={20} />
+              </IconButton>
+            </>
+          ) : (
+            <>
+              <Tooltip title="Delete invoice">
+                <Button
+                  onClick={() => handleOpenDeleteModal()}
+                  variant="outlined"
+                  sx={{
+                    // width: "100%",
+                    borderRadius: "4px",
+                    color: "#EF4444",
+                    borderColor: "#EF4444",
+                    px: "16px !important",
+                    py: "10px !important",
+                    fontSize: {
+                      md: "16px !important",
+                      xs: "16px !important",
+                    },
+                    lineHeight: {
+                      md: "24px !important",
+                      xs: "24px !important",
+                    },
+                    fontWeight: "700 !important",
+                    "&:hover": {},
+                  }}
+                >
+                  Delete
+                </Button>
+              </Tooltip>
+              <Button
+                onClick={handleEditInvoice}
+                variant="outlined"
+                sx={{
+                  // width: "100%",
+                  borderRadius: "4px",
+                  color: palette.primary.main,
+                  borderColor: "#CDD5DF",
+                  px: "16px !important",
+                  py: "10px !important",
+                  fontSize: {
+                    md: "16px !important",
+                    xs: "16px !important",
+                  },
+                  lineHeight: {
+                    md: "24px !important",
+                    xs: "24px !important",
+                  },
+                  fontWeight: "700 !important",
+                  "&:hover": {},
+                }}
+              >
+                Edit
+              </Button>
+
+              <Button
+                variant="contained"
+                sx={{
+                  // width: "100%",
+                  px: "16px !important",
+                  py: "10px !important",
+                  fontSize: {
+                    md: "16px !important",
+                    xs: "16px !important",
+                  },
+                  lineHeight: {
+                    md: "24px !important",
+                    xs: "24px !important",
+                  },
+                  fontWeight: "700 !important",
+                  borderRadius: "4px",
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                }}
+                onClick={() => generatePDFDocument()}
+              >
+                Download PDF
+              </Button>
+            </>
+          )}
+
           {/* <IconButton sx={{ padding: 1 }} onClick={() => setShareModal(true)}>
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton> */}
-          <Box>
+          {/* <Box>
             <Box style={{ display: "none" }}>
               <Box ref={componentRef}>
                 <InvoiceDetailsSection
@@ -175,7 +398,7 @@ const InvoiceDetail = () => {
                 />
               </Box>
             </Box>
-            {/* <ReactToPrint
+            <ReactToPrint
               trigger={() => (
                 <IconButton sx={{ padding: 1 }} onClick={() => window.print()}>
                   <Icon icon="printIconIcon" width={20} height={20} />
@@ -184,26 +407,52 @@ const InvoiceDetail = () => {
               content={() =>
                 componentRef.current ? componentRef.current : null
               }
-            /> */}
-          </Box>
+            />
+          </Box> */}
         </Stack>
       </Stack>
-      <Stack direction={"row"} gap={3}>
-        <InvoiceDetailsSection
+      <Stack direction={"row"} gap={3} sx={{ mb: 5 }}>
+        {/* <InvoiceDetailsSection
           singleInvoice={{ ...invoiceDetail }}
           invoiceSetting={{ ...invoiceSettings }}
-        />
-        <InvoiceDetailsActions
+        /> */}
+        <PDFViewer
+          style={{
+            width: "100%",
+            height: "90vh",
+            borderRadius: "4px",
+            backgroundColor: "#EAECF0",
+            // paddingTop: "56px",
+            // paddingBottom: "56px"
+          }}
+          showToolbar={false}
+        >
+          <PdfView
+            invDetails={{ ...invoiceDetail }}
+            invSetting={{ ...invoiceSettings }}
+            Summary={summaryDetail}
+            user={session?.user}
+          />
+        </PDFViewer>
+        {/* <InvoiceDetailsActions
           InvSetting={{ ...invoiceSettings }}
           InvDetails={{ ...invoiceDetail }}
           summaryDetail={summaryDetail}
-        />
+        /> */}
       </Stack>
+
       <ShareModal
         open={shareModal}
         onShare={() => setShareModal(false)}
         onClose={() => setShareModal(false)}
         shareUrlId={invoiceDetail?.id}
+      />
+      <DeleteModal
+        open={isModalOpen}
+        onDelete={handleDelete}
+        onClose={handleDeleteModalClose}
+        invoiceDelete={invoiceDelete}
+        title="invoice"
       />
     </Container>
   );

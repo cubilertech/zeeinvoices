@@ -21,6 +21,7 @@ import ClientDetailModel from "../ClientDetailModel";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ClientInvoices from "./ClientsInvoises";
 import { useSession } from "next-auth/react";
+import "@/Styles/sectionStyle.css";
 
 interface ClientSingleProps {
   id: any;

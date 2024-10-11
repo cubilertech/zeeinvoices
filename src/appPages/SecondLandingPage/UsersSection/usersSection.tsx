@@ -204,9 +204,9 @@ const UsersSection = () => {
                 width: { md: "100%", xs: "335px" },
                 fontFamily: "Product Sans, sans-serif",
                 color: palette.color.gray[610],
-                fontSize: { md: "20px", xs: "12px" },
-                lineHeight: { md: "30px", xs: "18px" },
-                fontWeight: { md: 400 },
+                fontSize: { md: "20px", xs: "16px" },
+                lineHeight: { md: "30px", xs: "24px" },
+                fontWeight: { xs: 400 },
                 textAlign: { xs: "center" },
               }}
             >

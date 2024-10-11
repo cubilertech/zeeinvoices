@@ -109,6 +109,7 @@ const HelpSection = () => {
               <Typography
                 variant="display-lg-bold"
                 sx={{
+                  width: { sm: "auto", xs: "359px" },
                   textAlign: "center",
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.color.gray[900],
@@ -145,7 +146,7 @@ const HelpSection = () => {
                 color: palette.color.gray[610],
                 fontSize: { md: "20px", xs: "16px" },
                 lineHeight: { md: "30px", xs: "24px" },
-                fontWeight: { md: 400 },
+                fontWeight: { xs: 400 },
                 textAlign: { xs: "center" },
               }}
             >

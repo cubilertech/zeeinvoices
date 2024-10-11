@@ -41,6 +41,11 @@ export const icons = {
   plusIcon: "/Images/icons/plus-icon.svg",
   threeDotsIcon: "/Images/icons/three-dots-icon.svg",
   editIcon: "/Images/icons/edit-icon.svg",
+
+  editIcon1: "/Images/icons/edit-icon-1.svg",
+  trashIcon: "/Images/icons/trash-icon.svg",
+  downloadIcon: "/Images/icons/download-icon.svg",
+
   profileIcon: "/Images/icons/profile-icon.svg",
   logoutIcon: "/Images/icons/logout-icon.svg",
   viewIcon: "/Images/icons/view-icon.svg",

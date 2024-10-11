@@ -554,14 +554,15 @@ const Header = () => {
                     xs: "18px !important",
                   },
                   fontWeight: "700 !important",
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  // background:
+                  //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  backgroundColor: palette.primary.main,
                 }}
               >
                 {loading ? (
                   <CircularProgress
                     size={18}
-                    sx={{ color: palette.color.gray[5] }}
+                    sx={{ color: palette.primary.main }}
                   />
                 ) : (
                   "Sign In"
