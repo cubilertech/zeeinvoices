@@ -76,7 +76,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         </Typography>
       )}
       <Stack
-        direction={{ sm: "row", xs: "column" }}
+        direction={{ sm: "row", xs: "column-reverse" }}
         gap={{ sm: 0, xs: 1.5 }}
         sx={{ width: { sm: "auto", xs: "100%" } }}
       >
@@ -92,7 +92,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
             flexDirection: { sm: "row", xs: "column" },
             alignItems: { sm: "center", xs: "flex-start" },
             justifyContent: { sm: "start", xs: "center" },
-            border: "1px solid #0000001A",
+            border: "1px solid #CDD5DF",
             boxShadow: palette.boxShadows.shadowxs,
           }}
         >
@@ -102,7 +102,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
             value={search}
             onChange={(e) => handleChangeSearch(e)}
             sx={{
-              width:"100%",
+              width: "100%",
               border: "none",
               textUnderlinePosition: "unset",
               "& .MuiInputBase-input": {
@@ -119,7 +119,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
               disableUnderline: true,
               startAdornment: (
                 <InputAdornment position="start">
-                  <Icon icon="searchIcon" />
+                  <Icon icon="searchIcon" width={20} height={20} />
                 </InputAdornment>
               ),
             }}

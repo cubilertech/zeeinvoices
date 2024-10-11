@@ -98,7 +98,7 @@ const UserProfileDetails: FC<UserProfileDetails> = ({
           sx={{ mt: "16px" }}
         >
           <ProfileDetailsCard label="City" description={profileData.city} />
-          <ProfileDetailsCard label="State" description={profileData.state} />
+          <ProfileDetailsCard label="Country/State" description={profileData.state} />
           <ProfileDetailsCard
             label="Address"
             description={profileData.address}

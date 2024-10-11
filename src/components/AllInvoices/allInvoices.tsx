@@ -310,7 +310,7 @@ export default function AllInvoices() {
                 elevation={0}
                 sx={{
                   width: "100%",
-                  pb: 1,
+                  // pb: 1,
                   border: "none",
                 }}
               >
@@ -365,6 +365,8 @@ export default function AllInvoices() {
                         border: `1px solid ${palette.color.gray[200]}`,
                         borderTopLeftRadius: "8px",
                         borderTopRightRadius: "8px",
+                        borderBottomLeftRadius: "8px",
+                        borderBottomRightRadius: "8px",
                       }}
                     >
                       <Table
@@ -427,7 +429,7 @@ export default function AllInvoices() {
                                 >
                                   <Stack
                                     direction={"row"}
-                                    gap={1}
+                                    gap={1.5}
                                     sx={{
                                       alignItems: "center",
                                       // justifyContent: "center",
@@ -637,7 +639,7 @@ export default function AllInvoices() {
                   </Box>
                 )}
               </Paper>
-              <Box sx={{ height: 20 }}></Box>
+              <Box sx={{ height: 40 }}></Box>
               <DeleteModal
                 open={isModalOpen}
                 onDelete={handleDelete}
