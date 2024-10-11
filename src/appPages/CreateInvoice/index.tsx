@@ -62,7 +62,7 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
         px: { md: "0.1%", lg: "0.1%", xs: "0%" },
       }}
     >
-      <Box sx={{ pt: 3, pb: {sm:2, xs: 1}, px: 0 }}>
+      <Box sx={{ pt: { sm: 3, xs: 0 }, pb: { sm: 2, xs: 1 }, px: 0 }}>
         <InvoiceHeader
           InvSetting={{ ...invoiceSetting }}
           InvDetails={{ ...invoiceDetail }}

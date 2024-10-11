@@ -397,13 +397,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           <Box
             sx={{
               display: "flex",
-              gap: 2,
+              gap: 0.6,
               alignItems: "center",
               position: "relative",
               mt: "7px",
+              color: palette.color.gray[610],
             }}
           >
-            <Typography variant="display-xs-medium">Sr.No:</Typography>{" "}
+            <Typography variant="display-xs-semibold">Sr.No:</Typography>{" "}
             {isEditInvoiceId ? (
               <>
                 <TextField
@@ -412,21 +413,25 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                     backgroundColor: "white",
                     width: "76px",
                     fontSize: "24px",
+                    height: "32px",
                     "& .MuiOutlinedInput-root": {
                       "& input": {
                         padding: 0,
                         fontSize: "22px",
+                        color: palette.color.gray[610],
+                        fontWeight: 600,
                       },
                       "& fieldset": {
                         border: "none",
                         borderRadius: 0,
+                        padding: 0,
                       },
                       "&:hover fieldset": {
-                        borderBottom: "1px solid black",
+                        borderBottom: `1px solid ${palette.primary.main}`,
                       },
                       "&.Mui-focused fieldset": {
                         border: "none", // focused effect
-                        borderBottom: "1px solid black",
+                        borderBottom: `1px solid ${palette.primary.main}`,
                       },
                     },
                   }}
@@ -470,7 +475,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               </>
             ) : (
               <Typography
-                variant="display-xs-medium"
+                variant="display-xs-semibold"
                 sx={{ height: "37px", lineHeight: "40px" }}
               >
                 {InvoiceId}
@@ -486,13 +491,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               width: "28px !important",
               height: "28px !important",
               p: 0.5,
-              mt: "6px",
+              mt: "7px",
             }}
           >
             {isEditInvoiceId ? (
               <DoneOutlined sx={{ width: "18px", height: "18px" }} />
             ) : (
-              <EditOutlined sx={{ width: "18px", height: "18px" }} />
+              <Icon icon="editInvoiceNumberIcon" width={18} height={18} />
             )}
           </IconButton>
         </Box>
@@ -588,7 +593,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             disabled={showPreview}
             variant="contained"
             sx={{
-              opacity: showPreview ? 0.4 : 1,
               color: palette.primary.main,
               background: "rgba(79, 53, 223, 0.2)",
               height: "44px",

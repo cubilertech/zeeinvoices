@@ -430,25 +430,28 @@ const Header = () => {
                   size="small"
                   sx={{
                     minWidth: "42px !important",
-                    height: "20px !important",
+                    height: "40px !important",
+                    px: "16px",
                     color:
                       data.url === pathname
                         ? palette.primary.main
                         : palette.color.gray[610],
-                    borderBottom:
-                      data.url === pathname
-                        ? `2px solid ${palette.primary.main}`
-                        : "",
-                    borderRadius: "0px",
+                    backgroundColor:
+                      data.url === pathname ? "rgba(79, 53, 223, 0.1)" : "",
+                    borderRadius: "8px",
                     // px: 1,
-                    mr: 4,
+                    mr: "8px",
                     fontFamily: "Product Sans, sans-serif !important",
-                    fontSize: "14px !important",
-                    lineHeight: "17px !important",
+                    fontSize: "16px !important",
+                    lineHeight: "24px !important",
                     fontWeight:
                       data.url === pathname
                         ? "700 !important"
-                        : "400 !important",
+                        : "600 !important",
+                    ":hover": {
+                      color: palette.primary.main,
+                      backgroundColor: "rgba(79, 53, 223, 0.2)",
+                    },
                   }}
                 >
                   {data.title}
@@ -463,25 +466,28 @@ const Header = () => {
                   size="small"
                   sx={{
                     minWidth: "42px !important",
-                    height: "20px !important",
+                    height: "40px !important",
+                    px: "12px",
                     color:
                       data.url === pathname
                         ? palette.primary.main
                         : palette.color.gray[610],
-                    borderBottom:
-                      data.url === pathname
-                        ? `2px solid ${palette.primary.main}`
-                        : "",
-                    borderRadius: "0px",
+                    backgroundColor:
+                      data.url === pathname ? "rgba(79, 53, 223, 0.1)" : "",
+                    borderRadius: "8px",
                     // px: 1,
-                    mr: 4,
+                    mr: "8px",
                     fontFamily: "Product Sans, sans-serif !important",
-                    fontSize: "14px !important",
-                    lineHeight: "17px !important",
+                    fontSize: "16px !important",
+                    lineHeight: "24px !important",
                     fontWeight:
                       data.url === pathname
                         ? "700 !important"
-                        : "400 !important",
+                        : "600 !important",
+                    ":hover": {
+                      color: palette.primary.main,
+                      backgroundColor: "rgba(79, 53, 223, 0.2)",
+                    },
                   }}
                 >
                   {data.title}
