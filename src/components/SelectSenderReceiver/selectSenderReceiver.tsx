@@ -14,6 +14,7 @@ import {
   setRecipientSelected,
   setSenderSelected,
 } from "@/redux/features/listSelected";
+import { Check } from "@mui/icons-material";
 // import {
 //   // setRecipientSelected,
 //   setSenderSelected,
@@ -49,9 +50,10 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   const toSelected = useSelector(getIsRecipientSelected);
 
   const handleSelectedItem = (item: any) => {
+    console.log(item, "item");
     if (type === "Sender") {
       dispatch(setSenderSelected(true));
-      setSelectedSender(item.name);
+      setSelectedSender(item._id);
       dispatch(
         setSenderDetail({
           ...item,
@@ -61,7 +63,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
       );
     } else {
       dispatch(setRecipientSelected(true));
-      setSelectedReceiver(item.name);
+      setSelectedReceiver(item._id);
       dispatch(
         setRecipientDetail({
           ...item,
@@ -124,12 +126,24 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
           renderValue={(selected) => {
             if (!selected) {
               return (
-                <span
+                <Typography
+                  variant="text-md-medium"
                   style={{ color: palette.color.gray[510] }}
-                >{`${placeholder}`}</span>
+                >{`${placeholder}`}</Typography>
               ); // Placeholder text styling
             }
-            return <span style={{ color: "black" }}>{selected}</span>;
+            return (
+              <Box
+                sx={{
+                  color: "black",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="text-md-medium">{selected}</Typography>{" "}
+              </Box>
+            );
           }}
           sx={{
             boxShadow: palette.boxShadows.shadowxs,
@@ -162,20 +176,42 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                 sx={{
                   color: palette.base.black,
                   backgroundColor: palette.base.white,
+                  px: "20px",
+                  py: "10px",
                   "&.Mui-selected": {
-                    bgcolor: palette.color.gray[5], // Change background color of selected item
+                    bgcolor: "#F9FAFB", // Change background color of selected item
                     color: "darkblue", // Change text color of selected item
                     "&:hover": {
-                      bgcolor: "lightgrey", // Keep background color on hover for selected item
+                      bgcolor: "#F9FAFB", // Keep background color on hover for selected item
                     },
                   },
                   "&:hover": {
-                    bgcolor: "lightgrey", // Change background color on hover
+                    bgcolor: "#F9FAFB", // Change background color on hover
                   },
                 }}
                 value={item.name}
               >
-                {item.name}
+                <Box
+                  sx={{
+                    color: "black",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Typography variant="text-md-medium">{item.name}</Typography>{" "}
+                  {selectedReceiver === item._id && type === "Recipient" && (
+                    <Check
+                      sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
+                    />
+                  )}
+                  {selectedSender === item._id && type === "Sender" && (
+                    <Check
+                      sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
+                    />
+                  )}
+                </Box>
               </MenuItem>
             ))
           ) : (
