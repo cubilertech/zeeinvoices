@@ -576,8 +576,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="display-xs-semibold">
-                {type === "add" ? "Add" : "Edit"}{" "}
-                {detailsOf === "Recipient" ? "Receiver" : detailsOf} Details
+                {type === "add" ? "Add New" : "Edit"}{" "}
+                {detailsOf === "Recipient" ? "Receiver" : detailsOf}
               </Typography>
               <IconButton onClick={handleModelClose}>
                 <CloseIcon
@@ -790,7 +790,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               <Stack
                 direction={"row"}
                 justifyContent={"space-between"}
-                gap={2}
+                gap={'12px'}
                 sx={{
                   marginTop: "32px",
                   flexDirection: { sm: "row", xs: "column" },
@@ -800,10 +800,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   onClick={handleModelClose}
                   variant="outlined"
                   sx={{
-                    width: { sm: "243px", xs: "100%" },
+                    width: { sm: "50%", xs: "100%" },
                     height: "40px",
                     borderColor: palette.base.borderColor,
                     color: "#445164",
+                    borderRadius: "4px",
                   }}
                 >
                   Cancel
@@ -812,9 +813,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   type="submit"
                   variant="contained"
                   sx={{
-                    width: { sm: "243px", xs: "100%" },
+                    width: { sm: "50%", xs: "100%" },
                     height: "40px",
                     px: "24px !important",
+                    borderRadius: "4px",
                   }}
                 >
                   Add
