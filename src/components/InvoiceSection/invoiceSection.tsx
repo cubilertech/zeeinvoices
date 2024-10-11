@@ -136,10 +136,11 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       sx={{
         width: "843px",
         boxShadow: palette.boxShadows[200],
-        borderRadius: "12px",
+        borderRadius: { sm: "4px", xs: "12px" },
         overflow: "hidden",
         border: "1px solid",
         borderColor: palette.color.gray[200],
+        mb: { sm: 0, xs: "16px" },
       }}
     >
       <Box
@@ -166,7 +167,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           </Stack>
           <Box sx={{ mt: { sm: 0, xs: "16px" }, position: "relative" }}>
             <SelectInput
-              width={isModile ? "100%" : 385}
+              width={isModile ? "100%" : 380}
               height={44}
               placeholder="Select type"
               borderRadius={"4px"}

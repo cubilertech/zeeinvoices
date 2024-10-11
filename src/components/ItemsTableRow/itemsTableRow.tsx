@@ -1,6 +1,7 @@
 "use client";
 import { palette } from "@/theme/palette";
 import {
+  Box,
   Grid,
   IconButton,
   InputAdornment,
@@ -69,17 +70,19 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             paddingTop: "4px !important",
           }}
           item
-          xs={4.5}
+          sm={4.5}
+          xs={12}
         >
           <TextField
             // size="small"
             sx={{
               color: palette.color.gray[700],
               width: "100%",
-              "& .MuiOutlinedInput-root": {
-                height: "40px !important",
+              "& .MuiInputBase-input": {
                 borderRadius: "4px !important",
+                height: "40px !important",
               },
+
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
                 opacity: 0.7,
@@ -102,17 +105,19 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // paddingLeft: "8px !important",
           }}
           item
-          xs={selectedTax ? 1.8 : 2.2}
+          sm={selectedTax ? 1.8 : 2.2}
+          xs={12}
         >
           <TextField
             // size="small"
             sx={{
-              borderRadius: "3px",
+              width: "100%",
               color: palette.color.gray[700],
-              "& .MuiOutlinedInput-root": {
-                height: "40px !important",
+              "& .MuiInputBase-input": {
                 borderRadius: "4px !important",
+                height: "40px !important",
               },
+
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
                 opacity: 0.7,
@@ -171,22 +176,24 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // paddingLeft: "8px !important",
           }}
           item
-          xs={selectedTax ? 1.8 : 2.2}
+          sm={selectedTax ? 1.8 : 2.2}
+          xs={12}
         >
           <TextField
             sx={{
               borderRadius: "4px",
+              width: "100%",
               color: palette.color.gray[700],
-              "& .MuiOutlinedInput-root": {
-                height: "40px !important",
+              "& .MuiInputBase-input": {
                 borderRadius: "4px !important",
+                height: "40px !important",
+                pr: "0px",
+              },
+              "& .MuiOutlinedInput-root": {
                 pr: "5px",
               },
               "& .MuiInputBase-root": {
                 // pr: "0px",
-              },
-              "& .MuiInputBase-input": {
-                pr: "0px",
               },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
@@ -227,7 +234,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end" sx={{ pl: "0px" }}>
-                  <Typography>
+                  <Typography pr={1.2}>
                     {selectedCurrency === "USD" ? "$" : selectedCurrency}
                   </Typography>
                 </InputAdornment>
@@ -244,23 +251,26 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               // paddingLeft: "8px !important",
             }}
             item
-            xs={1.8}
+            xs={12}
+            sm={1.8}
           >
             {selectedTax ? (
               <TextField
                 sx={{
+                  width: "100%",
                   color: palette.color.gray[700],
-                  "& .MuiOutlinedInput-root": {
-                    height: "40px !important",
+                  "& .MuiInputBase-input": {
                     borderRadius: "4px !important",
+                    height: "40px !important",
+                    pr: "0px",
+                  },
+                  "& .MuiOutlinedInput-root": {
                     pr: "5px",
                   },
                   "& .MuiInputBase-root": {
                     // pr: "0px",
                   },
-                  "& .MuiInputBase-input": {
-                    pr: "0px",
-                  },
+
                   "& .MuiInputBase-input::placeholder": {
                     color: palette.color.gray[800],
                     opacity: 0.7,
@@ -298,7 +308,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Typography>%</Typography>
+                      <Typography pr={1.2}>%</Typography>
                     </InputAdornment>
                   ),
                 }}
@@ -321,44 +331,64 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // padding: "4px",
             paddingTop: "4px !important",
             // paddingLeft: "8px !important",
-            justifyContent: "end",
+            justifyContent: { sm: "end", xs: "space-between" },
           }}
           item
-          xs={selectedTax ? 1 : 2}
+          sm={selectedTax ? 1 : 2}
+          xs={11}
         >
-          <Typography
-            variant="text-md-semibold"
+          <Box
             sx={{
-              // ml: "20%",
-              width: selectedTax ? {sm:"62px",xs: "52px"} : {sm:"100px", xs: "90px"}, // Set width to ensure there's space to scroll
-              color: palette.base.black,
-              display: "block",
-              // justifyContent: "flex-end",
-              margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 22px",
-              whiteSpace: "nowrap", // Prevent line break
-              overflow: "hidden", // Hide vertical overflow
-              textOverflow: "ellipsis", // Add ellipsis if text overflows
-              // scrollbarWidth: "none", // Hide scrollbar in Firefox
-              // "&::-webkit-scrollbar": {
-              //   display: "none", // Hide scrollbar in WebKit browsers (Chrome, Safari)
-              // },
-              cursor: "pointer",
-              textAlign: "end",
+              display: { sm: "initial", xs: "flex" },
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
-            title={`${
-              selectedCurrency === "USD" ? "$" : selectedCurrency
-            } ${(selectedTax
-              ? data?.subTotal
-              : data?.subTotal - data?.taxAmount
-            ).toFixed(2)}`} // Optional: Show full value on hover
           >
-            {selectedCurrency === "USD" ? "$" : selectedCurrency}{" "}
-            {(selectedTax
-              ? data?.subTotal
-              : data?.subTotal - data?.taxAmount
-            ).toFixed(2)}
-            {/* {id} */}
-          </Typography>
+            <Typography
+              variant="text-md-regular"
+              sx={{
+                display: { sm: "none", xs: "initial" },
+                color: palette.color.gray[610],
+              }}
+            >
+              SubTotal
+            </Typography>
+            <Typography
+              variant="text-md-semibold"
+              sx={{
+                // ml: "20%",
+                width: selectedTax
+                  ? { sm: "62px", xs: "100px" }
+                  : { sm: "100px", xs: "100px" }, // Set width to ensure there's space to scroll
+                color: palette.base.black,
+                display: "block",
+                // justifyContent: "flex-end",
+                margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 22px",
+                whiteSpace: "nowrap", // Prevent line break
+                overflow: "hidden", // Hide vertical overflow
+                textOverflow: "ellipsis", // Add ellipsis if text overflows
+                // scrollbarWidth: "none", // Hide scrollbar in Firefox
+                // "&::-webkit-scrollbar": {
+                //   display: "none", // Hide scrollbar in WebKit browsers (Chrome, Safari)
+                // },
+                cursor: "pointer",
+                textAlign: "end",
+              }}
+              title={`${
+                selectedCurrency === "USD" ? "$" : selectedCurrency
+              } ${(selectedTax
+                ? data?.subTotal
+                : data?.subTotal - data?.taxAmount
+              ).toFixed(2)}`} // Optional: Show full value on hover
+            >
+              {selectedCurrency === "USD" ? "$" : selectedCurrency}{" "}
+              {(selectedTax
+                ? data?.subTotal
+                : data?.subTotal - data?.taxAmount
+              ).toFixed(2)}
+              {/* {id} */}
+            </Typography>
+          </Box>
         </Grid>
         {showRemoveButton && (
           <Grid
@@ -369,7 +399,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             }}
             item
             sm={0.4}
-            xs={0.2}
+            xs={0.5}
           >
             <IconButton
               className="deleteIconButton"
@@ -409,10 +439,14 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             sx={{
               color: palette.color.gray[700],
               width: "100%",
-
-              "& .MuiOutlinedInput-root": {
-                minHeight: "40px !important",
+              height: "40px !important",
+              "& .MuiInputBase-input": {
                 borderRadius: "4px !important",
+                height: "20px !important",
+                // p: 2,
+                py: "10px",
+              },
+              "& .MuiOutlinedInput-root": {
                 padding: "0px !important",
               },
               "& .MuiInputBase-input::placeholder": {

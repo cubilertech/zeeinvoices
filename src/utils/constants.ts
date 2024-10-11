@@ -30,6 +30,7 @@ export const icons = {
   addBlueCircleIcon: "/Images/icons/add-circle-blue.svg",
   addCircleOutlinedIcon: "/Images/icons/add-circle-outlined.svg",
   tickIcon: "/Images/icons/tick-icon.svg",
+  editInvoiceNumberIcon: "/Images/icons/edit-invoice-number-icon.svg",
   colorPickerPaletteIcon: "/Images/icons/color-picker-palette-icon.svg",
   invoiceIcon: "/Images/icons/invoice-icon.svg",
   clientsIcon: "/Images/icons/clients-icon.svg",

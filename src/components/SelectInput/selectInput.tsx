@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceType, setInvoiceType } from "@/redux/features/invoiceSlice";
 import { getCurrency, setCurrency } from "@/redux/features/invoiceSetting";
 import { setInvoiceTypeError } from "@/redux/features/validationSlice";
+import { Check } from "@mui/icons-material";
 
 interface SelectInput {
   width?: string | number;
@@ -69,6 +70,7 @@ const SelectInput: FC<SelectInput> = ({
             PaperProps: {
               sx: {
                 maxHeight: "30%",
+                py: "20px",
                 bgcolor: palette.base.white, // Change dropdown background color
               },
             },
@@ -76,12 +78,24 @@ const SelectInput: FC<SelectInput> = ({
           renderValue={(selected) => {
             if (!selected) {
               return (
-                <span
+                <Typography
+                  variant="text-md-medium"
                   style={{ color: palette.color.gray[510] }}
-                >{`${placeholder}`}</span>
+                >{`${placeholder}`}</Typography>
               ); // Placeholder text styling
             }
-            return <span style={{ color: "black" }}>{selected}</span>;
+            return (
+              <Box
+                sx={{
+                  color: "black",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="text-md-medium">{selected}</Typography>{" "}
+              </Box>
+            );
           }}
           sx={{
             boxShadow: palette.boxShadows.shadowxs,
@@ -107,21 +121,38 @@ const SelectInput: FC<SelectInput> = ({
                 onClick={() => handleSelectedItem(item)}
                 sx={{
                   color: palette.base.black,
+                  px: "20px",
+                  py: "10px",
                   backgroundColor: palette.base.white,
                   "&.Mui-selected": {
-                    bgcolor: palette.color.gray[5], // Change background color of selected item
+                    bgcolor: "#F9FAFB", // Change background color of selected item
                     color: "darkblue", // Change text color of selected item
                     "&:hover": {
-                      bgcolor: "lightgrey", // Keep background color on hover for selected item
+                      bgcolor: "#F9FAFB", // Keep background color on hover for selected item
                     },
                   },
                   "&:hover": {
-                    bgcolor: "lightgrey", // Change background color on hover
+                    bgcolor: "#F9FAFB", // Change background color on hover
                   },
                 }}
                 value={item}
               >
-                {item}
+                <Box
+                  sx={{
+                    color: "black",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Typography variant="text-md-medium">{item}</Typography>{" "}
+                  {selectedInvoiceType === item && (
+                    <Check
+                      sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
+                    />
+                  )}
+                </Box>
               </MenuItem>
             ))}
         </Select>
