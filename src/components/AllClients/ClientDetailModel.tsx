@@ -376,7 +376,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <TextField
                     isRequired={true}
-                    label="State"
+                    label="Country/State"
                     size="large"
                     name="state"
                     onChange={handleChange}

@@ -46,7 +46,12 @@ const InvoiceSummary: FC = () => {
       >
         <Typography
           variant="text-sm-semibold"
-          sx={{ color: palette.base.white, lineHeight: "18px" }}
+          sx={{
+            color: palette.base.white,
+            fontSize: "14px",
+            lineHeight: "18px",
+            fontWeight: 600,
+          }}
         >
           Invoice Summary
         </Typography>
@@ -66,13 +71,23 @@ const InvoiceSummary: FC = () => {
       >
         <Typography
           variant="text-sm-regular"
-          sx={{ color: palette.color.gray[610] }}
+          sx={{
+            color: palette.color.gray[610],
+            fontSize: "14px",
+            lineHeight: "20px",
+            fontWeight: 400,
+          }}
         >
           Subtotal
         </Typography>
         <Typography
           variant="text-sm-semibold"
-          sx={{ color: palette.color.gray[900], lineHeight: "14px" }}
+          sx={{
+            color: palette.color.gray[900],
+            fontSize: "14px",
+            lineHeight: "20px",
+            fontWeight: 600,
+          }}
         >
           {" "}
           {selectedCurrency === "USD" ? "USD" : selectedCurrency}{" "}
@@ -97,13 +112,23 @@ const InvoiceSummary: FC = () => {
           >
             <Typography
               variant="text-sm-regular"
-              sx={{ color: palette.color.gray[610]}}
+              sx={{
+                color: palette.color.gray[610],
+                fontSize: "14px",
+                lineHeight: "20px",
+                fontWeight: 400,
+              }}
             >
               Tax
             </Typography>
             <Typography
               variant="text-sm-semibold"
-              sx={{ color: palette.color.gray[900] }}
+              sx={{
+                color: palette.color.gray[900],
+                fontSize: "14px",
+                lineHeight: "20px",
+                fontWeight: 600,
+              }}
             >
               {taxAmount > 0
                 ? (selectedCurrency === "USD" ? "USD" : selectedCurrency) +
@@ -125,13 +150,23 @@ const InvoiceSummary: FC = () => {
       >
         <Typography
           variant="text-sm-regular"
-          sx={{ color: palette.color.gray[610]}}
+          sx={{
+            color: palette.color.gray[610],
+            fontSize: "14px",
+            lineHeight: "20px",
+            fontWeight: 400,
+          }}
         >
           Total
         </Typography>
         <Typography
           variant="text-sm-semibold"
-          sx={{ color: palette.color.gray[900] }}
+          sx={{
+            color: palette.color.gray[900],
+            fontSize: "14px",
+            lineHeight: "20px",
+            fontWeight: 600,
+          }}
         >
           {selectedCurrency === "USD" ? "USD" : selectedCurrency}{" "}
           <span style={{ fontSize: 14, fontWeight: 600 }}>

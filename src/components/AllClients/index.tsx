@@ -282,7 +282,7 @@ export default function AllClients() {
               elevation={0}
               sx={{
                 width: "100%",
-                pb: 1,
+                // pb: 1,
                 border: "none",
               }}
             >
@@ -349,6 +349,8 @@ export default function AllClients() {
                       border: `1px solid ${palette.color.gray[200]}`,
                       borderTopLeftRadius: "8px",
                       borderTopRightRadius: "8px",
+                      borderBottomLeftRadius: "8px",
+                      borderBottomRightRadius: "8px",
                     }}
                   >
                     <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
@@ -580,7 +582,7 @@ export default function AllClients() {
                 </Box>
               )}
             </Paper>
-            <Box sx={{ height: 20 }}></Box>
+            <Box sx={{ height: 40 }}></Box>
             <DeleteModal
               open={isModalOpen}
               onClose={handleDeleteModalClose}

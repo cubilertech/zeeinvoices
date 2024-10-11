@@ -346,6 +346,8 @@ const Profile: FC<Profile> = ({}) => {
                     variant="contained"
                     // onClick={handleSubmit}
                     sx={{
+                      px: "14px !important",
+                      py: "10px !important",
                       width: "100%",
                       height: "40px",
                       gap: "7px",
@@ -358,14 +360,14 @@ const Profile: FC<Profile> = ({}) => {
                     }}
                   >
                     {profileLoading ? (
-                      <CircularProgress size={18} sx={{ color: "#8477DA" }} />
-                    ) : (
-                      "Update Profile"
-                    )}
-                    {profileLoading ? (
                       ""
                     ) : (
                       <Icon icon="editWhiteIcon" width={12} height={14} />
+                    )}
+                    {profileLoading ? (
+                      <CircularProgress size={18} sx={{ color: "#8477DA" }} />
+                    ) : (
+                      "Update Profile"
                     )}
                   </Button>
                 </form>
@@ -377,6 +379,8 @@ const Profile: FC<Profile> = ({}) => {
                   variant="contained"
                   onClick={handleEditClick}
                   sx={{
+                    px: "14px !important",
+                    py: "10px !important",
                     height: "40px",
                     gap: "7px",
                     borderRadius: { sm: "4px", xs: "4px" },
@@ -387,12 +391,12 @@ const Profile: FC<Profile> = ({}) => {
                       "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   }}
                 >
+                  <Icon icon="editWhiteIcon" width={12} height={14} />
                   {profileLoading ? (
                     <CircularProgress size={18} sx={{ color: "#8477DA" }} />
                   ) : (
                     "Edit Profile"
                   )}
-                  <Icon icon="editWhiteIcon" width={12} height={14} />
                 </Button>
               )}
             </Stack>
@@ -471,6 +475,12 @@ const Profile: FC<Profile> = ({}) => {
                         sx={{
                           width: { sm: "100%", xs: "100%" },
                           "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                          "& .MuiInputBase-input": {
+                            fontSize: "16px",
+                            lineHeight: "24px",
+                            fontWeight: 400,
+                            color: "#101828",
+                          },
                         }}
                         value={values.name}
                         onChange={handleChange}
@@ -493,6 +503,12 @@ const Profile: FC<Profile> = ({}) => {
                         sx={{
                           width: { sm: "100%", xs: "100%" },
                           "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                          "& .MuiInputBase-input": {
+                            fontSize: "16px",
+                            lineHeight: "24px",
+                            fontWeight: 400,
+                            color: "#101828",
+                          },
                         }}
                         disabled={true}
                         onChange={handleChange}
@@ -562,6 +578,12 @@ const Profile: FC<Profile> = ({}) => {
                         sx={{
                           width: { sm: "100%", xs: "100%" },
                           "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                          "& .MuiInputBase-input": {
+                            fontSize: "16px",
+                            lineHeight: "24px",
+                            fontWeight: 400,
+                            color: "#101828",
+                          },
                         }}
                         onChange={handleChange}
                         value={values.city}
@@ -577,13 +599,19 @@ const Profile: FC<Profile> = ({}) => {
                       }}
                     >
                       <TextField
-                        label="State"
+                        label="Country/State"
                         size="large"
                         name="state"
                         labelColor={"#344054"}
                         sx={{
                           width: { sm: "100%", xs: "100%" },
                           "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                          "& .MuiInputBase-input": {
+                            fontSize: "16px",
+                            lineHeight: "24px",
+                            fontWeight: 400,
+                            color: "#101828",
+                          },
                         }}
                         onChange={handleChange}
                         value={values.state}
@@ -606,6 +634,12 @@ const Profile: FC<Profile> = ({}) => {
                         sx={{
                           width: { sm: "100%", xs: "100%" },
                           "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                          "& .MuiInputBase-input": {
+                            fontSize: "16px",
+                            lineHeight: "24px",
+                            fontWeight: 400,
+                            color: "#101828",
+                          },
                         }}
                         onChange={handleChange}
                         value={values.address}

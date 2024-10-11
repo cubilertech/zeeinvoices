@@ -18,6 +18,7 @@ import { calculateAmount, calculateTax } from "@/common/common";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ReactToPrint from "react-to-print";
 import ShareModal from "@/components/ShareModal/shareModal";
+import "@/Styles/sectionStyle.css";
 
 const InvoiceDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -127,7 +128,7 @@ const InvoiceDetail = () => {
 
   return (
     <Container
-      maxWidth="lg"
+      className="mainContainer"
       sx={{
         overflowY: "auto",
         height: "100%",

@@ -1,6 +1,6 @@
 import { palette } from "@/theme/palette";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { Box, Button, useMediaQuery } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { FC } from "react";
 
 interface PaginationProps {
@@ -71,15 +71,13 @@ const Pagination: FC<PaginationProps> = ({
     <Box
       sx={{
         width: "100%",
-        marginBottom: "10px",
-        border: `1px solid ${palette.border.invoicesBorderColor}`,
+        // border: `1px solid ${palette.border.invoicesBorderColor}`,
         display: "flex",
-        // justifyContent: "space-between",
         justifyContent: "center",
         px: isMobile ? "5px" : "24px",
-        pt: isMobile ? "5px" : "12px",
+        pt: isMobile ? "16px" : "44px",
         pb: isMobile ? "5px" : "16px",
-        borderTop: "1px solid #EAECF0",
+        // borderTop: "1px solid #EAECF0",
         borderBottomLeftRadius: "8px",
         borderBottomRightRadius: "8px",
       }}
@@ -99,7 +97,7 @@ const Pagination: FC<PaginationProps> = ({
               md: "20px !important",
               xs: "20px !important",
             },
-            fontWeight: 600,
+            fontWeight: 400,
             border: `1px solid ${palette.border.borderPrimary}`,
             color: palette.text.textSecondary,
             px: "16px !important",
@@ -135,6 +133,12 @@ const Pagination: FC<PaginationProps> = ({
               key={index}
               onClick={() => handleSetPageNumber(pagenumber)}
               sx={{
+                fontSize: { md: "14px !important", xs: "14px !important" },
+                lineHeight: {
+                  md: "20px !important",
+                  xs: "20px !important",
+                },
+                fontWeight: 400,
                 backgroundColor:
                   page === pagenumber ? palette.primary.main : "white",
                 color:
@@ -177,7 +181,7 @@ const Pagination: FC<PaginationProps> = ({
               md: "20px !important",
               xs: "20px !important",
             },
-            fontWeight: 600,
+            fontWeight: 400,
             border: `1px solid ${palette.border.borderPrimary}`,
             color: palette.text.textSecondary,
             px: "16px !important",
