@@ -4,6 +4,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   IconButton,
   Stack,
@@ -67,8 +68,8 @@ const InvoiceDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { id } = useParams<{ id: string }>();
   const params = useSearchParams();
-  const typeParam = params.get('type')
-  
+  const typeParam = params.get("type");
+
   const componentRef = useRef();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -171,20 +172,18 @@ const InvoiceDetail = () => {
   } = useDeleteDocument();
 
   // Back Handle
-  console.log(singleInvoice, "singleInvoice")
+  console.log(singleInvoice, "singleInvoice");
   const handleBack = () => {
     // router.back();
-    if(typeParam === "edit") {
+    if (typeParam === "edit") {
       router.push(`/invoices/${singleInvoice?._id}/edit`);
     } else {
       router.push(`/invoices`);
-       setTimeout(() => {
+      setTimeout(() => {
         dispatch(setResetInvoiceSetting());
         dispatch(setResetInvoice());
       }, 500);
     }
-   
-   
   };
 
   const handleOpenDeleteModal = () => {
@@ -376,8 +375,9 @@ const InvoiceDetail = () => {
                   },
                   fontWeight: "700 !important",
                   borderRadius: "4px",
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  // background:
+                  //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  backgroundColor: palette.primary.main,
                 }}
                 onClick={() => generatePDFDocument()}
               >
@@ -416,24 +416,37 @@ const InvoiceDetail = () => {
           singleInvoice={{ ...invoiceDetail }}
           invoiceSetting={{ ...invoiceSettings }}
         /> */}
-        <PDFViewer
-          style={{
-            width: "100%",
-            height: "90vh",
-            borderRadius: "4px",
-            backgroundColor: "#EAECF0",
-            // paddingTop: "56px",
-            // paddingBottom: "56px"
-          }}
-          showToolbar={false}
-        >
-          <PdfView
-            invDetails={{ ...invoiceDetail }}
-            invSetting={{ ...invoiceSettings }}
-            Summary={summaryDetail}
-            user={session?.user}
+        {singleInvoice && singleInvoice.lenght !== 0 ? (
+          <PDFViewer
+            style={{
+              width: "100%",
+              height: "90vh",
+              borderRadius: "4px",
+              backgroundColor: "#EAECF0",
+              // paddingTop: "56px",
+              // paddingBottom: "56px"
+            }}
+            showToolbar={false}
+          >
+            <PdfView
+              invDetails={{ ...invoiceDetail }}
+              invSetting={{ ...invoiceSettings }}
+              Summary={summaryDetail}
+              user={session?.user}
+            />
+          </PDFViewer>
+        ) : (
+          <CircularProgress
+            sx={{
+              width: "100%",
+              height: "90vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           />
-        </PDFViewer>
+        )}
+
         {/* <InvoiceDetailsActions
           InvSetting={{ ...invoiceSettings }}
           InvDetails={{ ...invoiceDetail }}

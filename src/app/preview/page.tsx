@@ -1,12 +1,24 @@
 "use client";
 import { calculateAmount, calculateTax } from "@/common/common";
 import PdfView from "@/appPages/PdfView/pdfView";
-import { getInvoiceItem, setInvoiceId, setResetInvoice } from "@/redux/features/invoiceSlice";
+import {
+  getInvoiceItem,
+  setInvoiceId,
+  setResetInvoice,
+} from "@/redux/features/invoiceSlice";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
-import { Box, Button, CircularProgress, IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { palette } from "@/theme/palette";
 import { ArrowBackIosNew } from "@mui/icons-material";
 import { useParams, useRouter } from "next/navigation";
@@ -351,8 +363,9 @@ const Preview = () => {
                     width: "100%",
                     fontFamily: "Product Sans, sans-serif !important",
 
-                    background:
-                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    // background:
+                    //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    backgroundColor: palette.primary.main,
                   }}
                   onClick={() => generatePDFDocument()}
                 >
