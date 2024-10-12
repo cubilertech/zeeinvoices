@@ -106,14 +106,14 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     >
       <Stack
         direction={"row"}
-        gap={"16px"}
+        gap={"8px"}
         sx={{ pl: 0, py: 3, alignItems: "center" }}
       >
         <IconButton
-          sx={{ padding: 1, marginRight: "10px" }}
           onClick={handleBack}
+          sx={{ p: "0px !important", height: "30px !important", width: "30px !important" }}
         >
-          <ArrowBackIosNewIcon />
+          <ArrowBackIosNewIcon sx={{ width: "17px" }} />
         </IconButton>
 
         <Typography
@@ -144,7 +144,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
             justifyContent={"space-between"}
             sx={{ width: "100%" }}
           >
-            <Stack direction={"row"} gap={3} sx={{ pl: 3 }}>
+            <Stack direction={"row"} gap={3}>
               <Avatar
                 sx={{
                   bgcolor: palette.primary.main,
@@ -166,20 +166,26 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
                 >
                   {singleClient?.name}
                 </Typography>
-                <Typography variant="text-xs-regular-color">
-                  Email:{" "}
-                  <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
-                </Typography>
-                <Typography variant="text-xs-regular-color">
-                  Phone:{" "}
-                  <Box sx={{ color: "#9CA3AF" }}>
-                    {singleClient?.phone_number}
-                  </Box>
-                </Typography>
-                <Typography variant="text-xs-regular-color">
-                  Country:{" "}
-                  <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
-                </Typography>
+                <Stack direction={"row"} gap={2}>
+                  <Typography variant="text-xs-regular-color">
+                    Email:{" "}
+                    <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
+                  </Typography>
+                  {singleClient?.phone_number && (
+                    <Typography variant="text-xs-regular-color">
+                      Phone:{" "}
+                      <Box sx={{ color: "#9CA3AF" }}>
+                        {singleClient?.phone_number}
+                      </Box>
+                    </Typography>
+                  )}
+                  {singleClient?.state && (
+                    <Typography variant="text-xs-regular-color">
+                      Country:{" "}
+                      <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
+                    </Typography>
+                  )}
+                </Stack>
               </Stack>
             </Stack>
             <Stack direction={"row"} gap={1} sx={{ alignSelf: "center" }}>
