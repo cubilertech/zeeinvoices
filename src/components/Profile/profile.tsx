@@ -140,32 +140,41 @@ const Profile: FC<Profile> = ({}) => {
 
     onSubmit: (values) => {
       console.log(isEdit, "iseditSub");
+      const isChange =
+        values.name !== profileData?.name ||
+        values.address !== profileData?.address ||
+        values.email !== profileData?.email ||
+        values.city !== profileData?.city ||
+        values.state !== profileData?.state ||
+        values.phoneNumber !== profileData?.phoneNumber;
+      console.log(isChange, "isChange");
       if (isEdit) {
-        const data = {
-          name: values.name,
-          email: values.email,
-          phoneNumber: values.phoneNumber,
-          city: values.city,
-          state: values.state,
-          address: values.address,
-          ...(uploadImage ? { image: uploadImage } : {}),
-          // image: image,
-        };
+        if (isChange) {
+          const data = {
+            name: values.name,
+            email: values.email,
+            phoneNumber: values.phoneNumber,
+            city: values.city,
+            state: values.state,
+            address: values.address,
+            ...(uploadImage ? { image: uploadImage } : {}),
+            // image: image,
+          };
 
-        profileUpdate({
-          apiRoute: `${backendURL}/users/my-profile`,
-          data: data,
-        })
-          .then((res) => {
-            setUploadImage(null);
-            setImageUrl(res?.image);
-            dispatch(increment());
-            console.log("Updateed Succesfully");
+          profileUpdate({
+            apiRoute: `${backendURL}/users/my-profile`,
+            data: data,
           })
-          .catch((err) => {
-            console.error(err);
-          });
-
+            .then((res) => {
+              setUploadImage(null);
+              setImageUrl(res?.image);
+              dispatch(increment());
+              console.log("Updateed Succesfully");
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
         setIsEdit(false);
       } else {
         setIsEdit(true);

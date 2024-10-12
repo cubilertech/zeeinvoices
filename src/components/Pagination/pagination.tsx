@@ -109,6 +109,7 @@ const Pagination: FC<PaginationProps> = ({
             background: "white",
             minWidth: isMobile ? "0px" : "auto",
             padding: isMobile ? "6px" : "5px 15px",
+            mr: "5px",
             ":hover": {
               border: "1px solid #D0D5DD",
               color: "#344054",
@@ -181,6 +182,7 @@ const Pagination: FC<PaginationProps> = ({
               md: "20px !important",
               xs: "20px !important",
             },
+            ml: "5px",
             fontWeight: 400,
             border: `1px solid ${palette.border.borderPrimary}`,
             color: palette.text.textSecondary,

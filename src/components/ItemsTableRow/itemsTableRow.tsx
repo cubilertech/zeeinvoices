@@ -150,7 +150,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             inputProps={{ min: 0 }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const value = parseInt(e.target.value, 10);
-              if (e.target.value === "") {
+              if (value >= 0 || e.target.value === "") {
                 handleChange(e); // Now the type should match
               }
             }}
@@ -353,8 +353,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               SubTotal
             </Typography>
             <Typography
-              variant="text-md-semibold"
+              // variant="text-md-semibold"
               sx={{
+                fontSize: "13px !important",
+                fontWeight: "600 !important",
+                pt: "4px",
                 // ml: "20%",
                 width: selectedTax
                   ? { sm: "62px", xs: "100px" }
