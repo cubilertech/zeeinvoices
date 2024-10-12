@@ -95,6 +95,34 @@ const InvoiceDetail = () => {
     isFetching: refetchingSingleInvoice,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
+  const invoiceDetailsPDF = {
+    id: singleInvoice?.id,
+    logo: singleInvoice?.image,
+    invoiceType: singleInvoice?.type,
+    from: {
+      ...singleInvoice?.fromDetails,
+      phoneNumber: singleInvoice?.fromDetails?.phone_number,
+      companyName: singleInvoice?.fromDetails?.company_name,
+    },
+    to: {
+      ...singleInvoice?.toDetails,
+      phoneNumber: singleInvoice?.toDetails?.phone_number,
+      companyName: singleInvoice?.toDetails?.company_name,
+    },
+    invoiceDate: singleInvoice?.invoiceDate,
+    dueDate: singleInvoice?.dueDate,
+    addtionalNotes: singleInvoice?.notes,
+    invoiceItem: singleInvoice?.items,
+  };
+
+  const invoiceSettingsPDF = {
+    color: singleInvoice?.settings?.color,
+    currency: singleInvoice?.settings?.currency,
+    dueDate: singleInvoice?.settings?.dueDate,
+    tax: singleInvoice?.settings?.tax,
+    detail: singleInvoice?.settings?.detail,
+  };
+
   useEffect(() => {
     refetchSingleInvoice();
     if (singleInvoice) {
@@ -429,8 +457,8 @@ const InvoiceDetail = () => {
             showToolbar={false}
           >
             <PdfView
-              invDetails={{ ...invoiceDetail }}
-              invSetting={{ ...invoiceSettings }}
+              invDetails={{ ...invoiceDetailsPDF }}
+              invSetting={{ ...invoiceSettingsPDF }}
               Summary={summaryDetail}
               user={session?.user}
             />
