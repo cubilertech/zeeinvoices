@@ -118,7 +118,8 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
           fontFamily: "Product Sans, sans-serif !important",
           fontSize: "14px !important",
           fontWeight: "500 !important",
-          background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+          // background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+          backgroundColor: palette.primary.main,
         }}
         onClick={() => generatePDFDocument()}
       >

@@ -125,8 +125,8 @@ const HeroSection = () => {
                 fontSize: { sm: "18px !important", xs: "16px !important" },
                 lineHeight: { sm: "30px !important", xs: "24px !important" },
                 fontWeight: "700 !important",
-                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-
+                // background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                backgroundColor: palette.primary.main,
                 transition: "all 0.2s ease", // Add transition for smooth animation
                 "&:hover": {
                   transform: "scale(1.03)", // Scale the component up by 10% on hover
