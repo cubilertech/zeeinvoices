@@ -239,64 +239,70 @@ const ClientDetailModel: FC<ClientDetail> = ({
               </IconButton>
             </Stack>
             <form onSubmit={handleSubmit}>
-              <Stack
-                // direction={"row"}
-                justifyContent={"space-between"}
+              <Box
                 sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
+                  height: { sm: "auto", xs: "400px" },
+                  overflow: { sm: "inherit", xs: "auto" },
                 }}
               >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    isRequired={true}
-                    label="Name"
-                    size="large"
-                    name="name"
-                    value={values.name}
-                    onChange={handleChange}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.name && errors.name}
-                    onBlur={handleBlur}
-                    error={touched.name && Boolean(errors.name)}
-                  />
-                </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="Company Name"
-                    size="large"
-                    name="companyName"
-                    onChange={handleChange}
-                    value={values.companyName}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.companyName && errors.companyName}
-                    onBlur={handleBlur}
-                    error={touched.companyName && Boolean(errors.companyName)}
-                  ></TextField>
-                </FormControl>
-              </Stack>
-              <Stack
-                justifyContent={"space-between"}
-                sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
-                }}
-              >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    isRequired={true}
-                    label="Email"
-                    size="large"
-                    name="email"
-                    onChange={handleChange}
-                    value={values.email}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.email && errors.email}
-                    onBlur={handleBlur}
-                    error={touched.email && Boolean(errors.email)}
-                  ></TextField>
-                </FormControl>
-                {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <Stack
+                  // direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Name"
+                      size="large"
+                      name="name"
+                      value={values.name}
+                      onChange={handleChange}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.name && errors.name}
+                      onBlur={handleBlur}
+                      error={touched.name && Boolean(errors.name)}
+                    />
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      label="Company Name"
+                      size="large"
+                      name="companyName"
+                      onChange={handleChange}
+                      value={values.companyName}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.companyName && errors.companyName}
+                      onBlur={handleBlur}
+                      error={touched.companyName && Boolean(errors.companyName)}
+                    ></TextField>
+                  </FormControl>
+                </Stack>
+                <Stack
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Email"
+                      size="large"
+                      name="email"
+                      onChange={handleChange}
+                      value={values.email}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.email && errors.email}
+                      onBlur={handleBlur}
+                      error={touched.email && Boolean(errors.email)}
+                    ></TextField>
+                  </FormControl>
+                  {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <Typography
                     variant="text-sm-medium"
                     sx={{ marginBottom: "5px" }}
@@ -324,85 +330,85 @@ const ClientDetailModel: FC<ClientDetail> = ({
                     </Typography>
                   )}
                 </FormControl> */}
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <Typography
-                    variant="text-sm-medium"
-                    sx={{ marginBottom: "5px" }}
-                  >
-                    Phone
-                  </Typography>
-
-                  <PhoneInputWithCode
-                    value={values.phoneNumber} // Bind Formik's phoneNumber value
-                    onChange={(value) => handlePhoneInputChange(value)}
-                    onCountrySelect={(selectedCountry) => {}}
-                    height="48px"
-                  />
-
-                  {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                     <Typography
-                      color="error"
-                      variant="text-xs-regular"
-                      sx={{ marginTop: "5px", marginLeft: "15px" }}
+                      variant="text-sm-medium"
+                      sx={{ marginBottom: "5px" }}
                     >
-                      {typeof errors.phoneNumber === "string"
-                        ? errors.phoneNumber
-                        : "Invalid phone number"}{" "}
+                      Phone
                     </Typography>
-                  )}
-                </FormControl>
-              </Stack>
-              <Stack
-                justifyContent={"space-between"}
-                sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
-                }}
-              >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    isRequired={true}
-                    label="City"
-                    size="large"
-                    name="city"
-                    onChange={handleChange}
-                    value={values.city}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.city && errors.city}
-                    onBlur={handleBlur}
-                    error={touched.city && Boolean(errors.city)}
-                  ></TextField>
-                </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    isRequired={true}
-                    label="Country/State"
-                    size="large"
-                    name="state"
-                    onChange={handleChange}
-                    value={values.state}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.state && errors.state}
-                    onBlur={handleBlur}
-                    error={touched.state && Boolean(errors.state)}
-                  ></TextField>
-                </FormControl>
-              </Stack>
-              <Box sx={{ marginTop: "10px" }}>
-                <FormControl fullWidth>
-                  <TextField
-                    label="Address"
-                    size="large"
-                    name="address"
-                    onChange={handleChange}
-                    value={values.address}
-                    helperText={touched.address && errors.address}
-                    onBlur={handleBlur}
-                    error={touched.address && Boolean(errors.address)}
-                  ></TextField>
-                </FormControl>
-              </Box>
 
+                    <PhoneInputWithCode
+                      value={values.phoneNumber} // Bind Formik's phoneNumber value
+                      onChange={(value) => handlePhoneInputChange(value)}
+                      onCountrySelect={(selectedCountry) => {}}
+                      height="48px"
+                    />
+
+                    {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                      <Typography
+                        color="error"
+                        variant="text-xs-regular"
+                        sx={{ marginTop: "5px", marginLeft: "15px" }}
+                      >
+                        {typeof errors.phoneNumber === "string"
+                          ? errors.phoneNumber
+                          : "Invalid phone number"}{" "}
+                      </Typography>
+                    )}
+                  </FormControl>
+                </Stack>
+                <Stack
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="City"
+                      size="large"
+                      name="city"
+                      onChange={handleChange}
+                      value={values.city}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
+                    ></TextField>
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Country/State"
+                      size="large"
+                      name="state"
+                      onChange={handleChange}
+                      value={values.state}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.state && errors.state}
+                      onBlur={handleBlur}
+                      error={touched.state && Boolean(errors.state)}
+                    ></TextField>
+                  </FormControl>
+                </Stack>
+                <Box sx={{ marginTop: "10px" }}>
+                  <FormControl fullWidth>
+                    <TextField
+                      label="Address"
+                      size="large"
+                      name="address"
+                      onChange={handleChange}
+                      value={values.address}
+                      helperText={touched.address && errors.address}
+                      onBlur={handleBlur}
+                      error={touched.address && Boolean(errors.address)}
+                    ></TextField>
+                  </FormControl>
+                </Box>
+              </Box>
               <Stack
                 // direction={"row"}
                 justifyContent={"space-between"}
