@@ -396,7 +396,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
           >
             <Close sx={{ color: "#4B5565", width: "10px", height: "10px" }} />
           </ButtonBase>
-          <Box
+          {/* <Box
             sx={{ maxWidth: "120px", maxHeight: "70px", overflow: "hidden" }}
           >
             <Image
@@ -405,6 +405,29 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
               width={120}
               height={34}
               style={{ objectFit: "contain" }}
+              unoptimized
+            />
+          </Box> */}
+          <Box
+            sx={{
+              width: "120px", // Specified width
+              height: "70px", // Specified height
+              display: "flex",
+              justifyContent: "center", // Center the image horizontally
+              alignItems: "center", // Center the image vertically
+              overflow: "hidden", // Hide any overflow
+            }}
+          >
+            <Image
+              src={googleImage(invoiceLogo as string)}
+              alt="Selected Logo"
+              width={120}
+              height={70}
+              style={{
+                objectFit: "contain", // Fit the image within the box without cropping
+                maxWidth: "100%", // Make sure the image shrinks if it's larger than the box width
+                maxHeight: "100%", // Make sure the image shrinks if it's taller than the box height
+              }}
               unoptimized
             />
           </Box>
