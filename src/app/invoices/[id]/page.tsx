@@ -468,15 +468,17 @@ const InvoiceDetail = () => {
             />
           </PDFViewer>
         ) : (
-          <CircularProgress
+          <Box
             sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               width: "100%",
               height: "90vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
             }}
-          />
+          >
+            <CircularProgress />
+          </Box>
         )}
 
         {/* <InvoiceDetailsActions

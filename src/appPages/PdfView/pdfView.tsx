@@ -448,7 +448,7 @@ const PdfView: FC<PdfViewProps> = ({
                 fontSize: "12px",
                 fontWeight: "bold",
                 color: "white",
-                marginLeft: "25",
+                // marginLeft: "25",
               }}
             >
               Tax 
@@ -460,7 +460,7 @@ const PdfView: FC<PdfViewProps> = ({
                 fontSize: "12px",
                 fontWeight: "bold",
                 color: "white",
-                marginLeft: "25",
+                // marginLeft: "25",
               }}
             ></Text>
           )}
@@ -550,7 +550,7 @@ const PdfView: FC<PdfViewProps> = ({
                         width: "50px",
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginLeft: "22px",
+                        marginLeft: "30px",
                         textAlign: "left",
                         color: "#4B5565",
                       }}
@@ -563,7 +563,7 @@ const PdfView: FC<PdfViewProps> = ({
                         width: "50px",
                         fontSize: "10px",
                         fontWeight: "bold",
-                        marginLeft: "22px",
+                        marginLeft: "30px",
                         textAlign: "left",
                       }}
                     ></Text>
@@ -577,6 +577,7 @@ const PdfView: FC<PdfViewProps> = ({
                       marginLeft: "33px",
                       textAlign: "right",
                       color: "#4B5565",
+                      marginRight: "6px"
                     }}
                   >
                     {/* {currency}{" "} */}
