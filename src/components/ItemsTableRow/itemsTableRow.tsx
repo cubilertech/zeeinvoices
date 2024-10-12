@@ -180,7 +180,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // paddingLeft: "8px !important",
           }}
           item
-          sm={selectedTax ? 1.8 : 2.2}
+          sm={selectedTax ? 1.4 : 2.0}
           xs={12}
         >
           <TextField
@@ -254,7 +254,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             }}
             item
             xs={12}
-            sm={1.8}
+            sm={1.4}
           >
             {selectedTax ? (
               <TextField
@@ -333,7 +333,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             justifyContent: { sm: "end", xs: "space-between" },
           }}
           item
-          sm={selectedTax ? 1 : 2}
+          sm={selectedTax ? 1.7 : 2.4}
           xs={11}
         >
           <Box
@@ -355,17 +355,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             <Typography
               // variant="text-md-semibold"
               sx={{
-                fontSize: "13px !important",
+                fontSize: "14px !important",
                 fontWeight: "600 !important",
                 pt: "4px",
                 // ml: "20%",
                 width: selectedTax
-                  ? { sm: "62px", xs: "100px" }
-                  : { sm: "100px", xs: "100px" }, // Set width to ensure there's space to scroll
+                  ? { sm: "100%", xs: "100px" }
+                  : { sm: "100%", xs: "100px" }, // Set width to ensure there's space to scroll
                 color: palette.base.black,
                 display: "block",
                 // justifyContent: "flex-end",
-                margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 22px",
+                margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 7px",
                 whiteSpace: "nowrap", // Prevent line break
                 overflow: "hidden", // Hide vertical overflow
                 textOverflow: "ellipsis", // Add ellipsis if text overflows
@@ -400,7 +400,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               alignSelf: "center",
             }}
             item
-            sm={0.4}
+            sm={0.5}
             xs={0.5}
           >
             <IconButton

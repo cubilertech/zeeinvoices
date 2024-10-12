@@ -122,7 +122,7 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={selectedTax ? 1.98 : 2.2}
+                xs={selectedTax ? 1.6 : 2.2}
                 // xs={1.6}
               >
                 <Typography
