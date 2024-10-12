@@ -93,6 +93,7 @@ const InvoiceDetail = () => {
     data: singleInvoice,
     refetch: refetchSingleInvoice,
     isFetching: refetchingSingleInvoice,
+    isFetched,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
   const invoiceDetailsPDF = {
@@ -125,7 +126,7 @@ const InvoiceDetail = () => {
 
   useEffect(() => {
     refetchSingleInvoice();
-    if (singleInvoice) {
+    if (singleInvoice?.id) {
       dispatch(
         setFullInvoice({
           id: singleInvoice?.id,
@@ -157,7 +158,7 @@ const InvoiceDetail = () => {
         })
       );
     }
-  }, [refetchSingleInvoice, singleInvoice, dispatch]);
+  }, [refetchSingleInvoice, singleInvoice?.id, singleInvoice, dispatch]);
   // Edit Invoice
   const handleEditInvoice = (record: any) => {
     dispatch(
@@ -444,7 +445,10 @@ const InvoiceDetail = () => {
           singleInvoice={{ ...invoiceDetail }}
           invoiceSetting={{ ...invoiceSettings }}
         /> */}
-        {singleInvoice && singleInvoice.lenght !== 0 ? (
+        {invoiceDetailsPDF.id &&
+        invoiceSettingsPDF.color &&
+        singleInvoice &&
+        singleInvoice.lenght !== 0 ? (
           <PDFViewer
             style={{
               width: "100%",
