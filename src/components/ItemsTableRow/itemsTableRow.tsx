@@ -353,8 +353,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               SubTotal
             </Typography>
             <Typography
-              variant="text-md-semibold"
+              // variant="text-md-semibold"
               sx={{
+                fontSize: "13px !important",
+                fontWeight: "600 !important",
+                pt: "4px",
                 // ml: "20%",
                 width: selectedTax
                   ? { sm: "62px", xs: "100px" }
