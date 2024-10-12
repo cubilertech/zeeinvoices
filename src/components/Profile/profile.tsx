@@ -355,8 +355,9 @@ const Profile: FC<Profile> = ({}) => {
                       fontFamily: "Product Sans, sans-serif !important",
                       fontSize: "14px !important",
                       fontWeight: "400 !important",
-                      background:
-                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      // background:
+                      //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      backgroundColor: palette.primary.main,
                     }}
                   >
                     {profileLoading ? (
@@ -387,8 +388,9 @@ const Profile: FC<Profile> = ({}) => {
                     fontFamily: "Product Sans, sans-serif !important",
                     fontSize: "14px !important",
                     fontWeight: "400 !important",
-                    background:
-                      "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    // background:
+                    //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                    backgroundColor: palette.primary.main,
                   }}
                 >
                   <Icon icon="editWhiteIcon" width={12} height={14} />

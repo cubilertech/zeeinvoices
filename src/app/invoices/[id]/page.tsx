@@ -389,7 +389,7 @@ const InvoiceDetail = () => {
           {/* <IconButton sx={{ padding: 1 }} onClick={() => setShareModal(true)}>
             <Icon icon="sendSqaureIcon" width={20} height={20} />
           </IconButton> */}
-          {/* <Box>
+          <Box>
             <Box style={{ display: "none" }}>
               <Box ref={componentRef}>
                 <InvoiceDetailsSection
@@ -398,7 +398,7 @@ const InvoiceDetail = () => {
                 />
               </Box>
             </Box>
-            <ReactToPrint
+            {/* <ReactToPrint
               trigger={() => (
                 <IconButton sx={{ padding: 1 }} onClick={() => window.print()}>
                   <Icon icon="printIconIcon" width={20} height={20} />
@@ -407,8 +407,8 @@ const InvoiceDetail = () => {
               content={() =>
                 componentRef.current ? componentRef.current : null
               }
-            />
-          </Box> */}
+            /> */}
+          </Box>
         </Stack>
       </Stack>
       <Stack direction={"row"} gap={3} sx={{ mb: 5 }}>
