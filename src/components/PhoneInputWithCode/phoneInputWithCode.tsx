@@ -89,42 +89,50 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
     }
   };
 
-  const handlePhoneInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const input = event.target.value;
-  
+
     // Ensure the input always starts with the current country code
-    const countryCode = `+${countries.find((country) => country.code.toLowerCase() === selectedCountryCode)?.phone}`;
-  
+    const countryCode = `+${
+      countries.find(
+        (country) => country.code.toLowerCase() === selectedCountryCode
+      )?.phone
+    }`;
+
     // Allow only numbers and "+" in the input
     if (/^\+?\d*$/.test(input)) {
       // Ensure the country code remains intact
       if (!input.startsWith(countryCode)) {
         // If the user tries to delete or modify the country code, restore it
-        const correctedInput = countryCode + input.slice(countryCode.length);
+        const correctedInput =
+          countryCode + input.slice(countryCode.length - 1);
+        // console.log(correctedInput, "correct");
         setPhoneInput(correctedInput); // Update the state with valid input
         if (onChange) {
           onChange(correctedInput); // Call onChange with the corrected value
         }
       } else {
+        // console.log(input, "-correct");
         // Update the input if the country code is intact
         setPhoneInput(input); // Update the state with valid input
         if (onChange) {
           onChange(input); // Call onChange with the valid input
         }
       }
-  
+
       // Optional: Update the selected country flag based on the input (if needed)
-      const foundCountry = countries.find((country) => input.startsWith(`+${country.phone}`));
-      if (foundCountry) {
-        setSelectedCountryCode(foundCountry.code.toLowerCase());
-        if (onCountrySelect) {
-          onCountrySelect(foundCountry); // Call the callback function with the detected country
-        }
-      }
+      // const foundCountry = countries.find((country) => input.startsWith(`+${country.phone}`));
+      // if (foundCountry) {
+      //   setSelectedCountryCode(foundCountry.code.toLowerCase());
+      //   if (onCountrySelect) {
+      //     onCountrySelect(foundCountry); // Call the callback function with the detected country
+      //   }
+      // }
     }
   };
-  
-  
+
   React.useEffect(() => {
     const foundCountry = countries.find((country) =>
       phoneInput?.startsWith(`+${country.phone}`)

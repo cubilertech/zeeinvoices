@@ -179,6 +179,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
     errors,
     resetForm,
     setFieldValue,
+    setFieldError,
   } = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -194,6 +195,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
         values.phoneNumber,
         values.countryCode
       );
+      // console.log(phoneError, values.phoneNumber, "phoneError");
       if (phoneError) {
         errors.phoneNumber = phoneError;
       }
@@ -277,6 +279,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
     if (isCountryCodeOnly) {
       // Clear the phone number field if only country code is entered
+
       handleChange({
         target: {
           name: "phoneNumber",
@@ -284,6 +287,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
         },
       });
     } else {
+      // const err = validatePhoneNumber(value, values.countryCode)
+      // console.log(value, "handlePhoneInputChange");
+      // setFieldError('phoneNumber',err );
       // Otherwise, update with the full value
       handleChange({
         target: {
@@ -353,6 +359,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
     };
   }, [dispatch, showData, detailsOf]);
 
+  // console.log(errors, 'errors');
   return (
     <Box sx={{ width: "100%" }}>
       {title && (
