@@ -412,7 +412,7 @@ const PdfView: FC<PdfViewProps> = ({
         >
           <Text
             style={{
-              width: "196px",
+              width: "216px",
               fontSize: "12px",
               fontWeight: "bold",
               color: "white",
@@ -432,14 +432,14 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "45px",
+              width: "75px",
               fontSize: "12px",
               fontWeight: "bold",
               color: "white",
               marginLeft: "25",
             }}
           >
-            Rate
+            Rate {`(${currency})`}
           </Text>
           {tax && Summary?.taxAmount > 0 ? (
             <Text
@@ -451,7 +451,7 @@ const PdfView: FC<PdfViewProps> = ({
                 marginLeft: "25",
               }}
             >
-              Tax
+              Tax 
             </Text>
           ) : (
             <Text
@@ -466,14 +466,14 @@ const PdfView: FC<PdfViewProps> = ({
           )}
           <Text
             style={{
-              marginLeft: "60px",
+              marginLeft: "20px",
               fontSize: "12px",
               fontWeight: "bold",
               color: "white",
               textAlign: "right",
             }}
           >
-            Subtotal
+            Subtotal {`(${currency})`}
           </Text>
         </View>
 
@@ -504,7 +504,7 @@ const PdfView: FC<PdfViewProps> = ({
                   <View>
                     <Text
                       style={{
-                        width: "200px",
+                        width: "190px",
                         fontSize: "14px",
                         fontWeight: "extrabold",
                       }}
@@ -523,7 +523,7 @@ const PdfView: FC<PdfViewProps> = ({
                   </View>
                   <Text
                     style={{
-                      width: "50px",
+                      width: "55px",
                       fontSize: "14px",
                       fontWeight: "bold",
                       textAlign: "left",
@@ -542,7 +542,7 @@ const PdfView: FC<PdfViewProps> = ({
                       color: "#4B5565",
                     }}
                   >
-                    {currency} {data?.rate}
+                     {data?.rate}
                   </Text>
                   {tax && Summary?.taxAmount > 0 ? (
                     <Text
@@ -579,7 +579,7 @@ const PdfView: FC<PdfViewProps> = ({
                       color: "#4B5565",
                     }}
                   >
-                    {currency}{" "}
+                    {/* {currency}{" "} */}
                     {(tax
                       ? data?.subTotal
                       : data?.subTotal - data?.taxAmount

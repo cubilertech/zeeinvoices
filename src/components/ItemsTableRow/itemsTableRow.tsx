@@ -146,11 +146,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             error={itemValidation?.quantity?.isError}
             helperText={itemValidation?.quantity?.message ?? ""}
             variant="outlined"
-            value={data.quantity >= 0 ? data.quantity : ""}
+            value={data.quantity > 0 ? data.quantity : ""}
             inputProps={{ min: 0 }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const value = parseInt(e.target.value, 10);
-              if (value >= 0 || e.target.value === "") {
+              if (e.target.value === "") {
                 handleChange(e); // Now the type should match
               }
             }}
