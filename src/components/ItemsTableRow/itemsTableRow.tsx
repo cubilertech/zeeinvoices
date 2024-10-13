@@ -400,7 +400,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               alignSelf: "center",
             }}
             item
-            sm={0.5}
+            sm={0.4}
             xs={0.5}
           >
             <IconButton
