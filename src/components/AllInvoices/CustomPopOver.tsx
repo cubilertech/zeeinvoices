@@ -104,8 +104,8 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         <Icon icon="threeDotsIcon" width={16} height={16} />
       </IconButton>
       <Popover
-        id={record.id.toString()}
-        open={open}
+        id={record?.id?.toString()}
+        open={true}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
@@ -119,17 +119,17 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           sx={{ display: "flex", alignItems: "start" }}
         >
           <Button
-            onClick={() => handleViewInvoice(record.id)}
+            onClick={() => handleViewInvoice(record?.id)}
             variant="outlined"
             startIcon={<Icon icon="viewIcon" />}
             sx={{
               justifyContent: "start",
               width: "100%",
               border: "none",
-              color: "#4B5563",
+              color: "#121926",
               "&:hover": {
                 border: "none",
-                color: "#4B5563",
+                color: "#121926",
                 backgroundColor: palette.color.gray[10],
                 borderRadius: 0,
               },
@@ -145,10 +145,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
               width: "100%",
               border: "none",
               justifyContent: "start",
-              color: "#4B5563",
+              color: "#121926",
               "&:hover": {
                 border: "none",
-                color: "#4B5563",
+                color: "#121926",
                 backgroundColor: palette.color.gray[10],
                 borderRadius: 0,
               },
@@ -164,10 +164,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
               width: "100%",
               border: "none",
               justifyContent: "start",
-              color: "#4B5563",
+              color: "#121926",
               "&:hover": {
                 border: "none",
-                color: "#4B5563",
+                color: "#121926",
                 backgroundColor: palette.color.gray[10],
                 borderRadius: 0,
               },
@@ -187,10 +187,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
                 width: "100%",
                 border: "none",
                 justifyContent: "start",
-                color: "#4B5563",
+                color: "#121926",
                 "&:hover": {
                   border: "none",
-                  color: "#4B5563",
+                  color: "#121926",
                   backgroundColor: palette.color.gray[10],
                   borderRadius: 0,
                 },
@@ -203,15 +203,15 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
 
           <Button
             variant="outlined"
-            startIcon={<Icon icon="printIconIcon" />}
+            startIcon={<Icon icon="downloadIcon" />}
             sx={{
               width: "100%",
               border: "none",
               justifyContent: "start",
-              color: "#4B5563",
+              color: "#121926",
               "&:hover": {
                 border: "none",
-                color: "#4B5563",
+                color: "#121926",
                 backgroundColor: palette.color.gray[10],
                 borderRadius: 0,
               },
@@ -230,10 +230,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
                   width: "100%",
                   border: "none",
                   justifyContent: "start",
-                  color: "#4B5563",
+                  color: "#121926",
                   "&:hover": {
                     border: "none",
-                    color: "#4B5563",
+                    color: "#121926",
                     backgroundColor: palette.color.gray[10],
                     borderRadius: 0,
                   },
@@ -247,20 +247,20 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           /> */}
           <Button
             variant="outlined"
-            startIcon={<Icon icon="deleteIcon" />}
+            startIcon={<Icon icon="deleteRedIcon" />}
             sx={{
               width: "100%",
               border: "none",
               justifyContent: "start",
-              color: "#4B5563",
+              color: "#EF4444",
               "&:hover": {
                 border: "none",
-                color: "#4B5563",
+                color: "#EF4444",
                 backgroundColor: palette.color.gray[10],
                 borderRadius: 0,
               },
             }}
-            onClick={() => handleOpenDeleteModal(record.id)}
+            onClick={() => handleOpenDeleteModal(record?.id)}
           >
             Delete
           </Button>

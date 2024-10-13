@@ -121,6 +121,7 @@ const PdfView: FC<PdfViewProps> = ({
     <Document style={{ overflow: "hidden", paddingBottom: "100px" }}>
       <Page
         size="A4"
+        // scale={0.6}
         style={{
           ...styles.page,
           borderColor: bgColor,
@@ -412,7 +413,7 @@ const PdfView: FC<PdfViewProps> = ({
         >
           <Text
             style={{
-              width: "192px",
+              width: "190px",
               fontSize: "12px",
               fontWeight: "bold",
               color: "white",
@@ -422,7 +423,7 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "44px",
+              width: "40px",
               fontSize: "12px",
               fontWeight: "bold",
               color: "white",
@@ -432,7 +433,7 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "75px",
+              width: "80px",
               fontSize: "12px",
               fontWeight: "bold",
               color: "white",
@@ -444,7 +445,7 @@ const PdfView: FC<PdfViewProps> = ({
           {tax && Summary?.taxAmount > 0 ? (
             <Text
               style={{
-                width: "50px",
+                width: "55px",
                 fontSize: "12px",
                 fontWeight: "bold",
                 color: "white",
@@ -456,7 +457,7 @@ const PdfView: FC<PdfViewProps> = ({
           ) : (
             <Text
               style={{
-                width: "50px",
+                width: "55px",
                 fontSize: "12px",
                 fontWeight: "bold",
                 color: "white",

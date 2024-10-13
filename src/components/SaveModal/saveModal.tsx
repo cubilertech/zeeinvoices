@@ -37,7 +37,7 @@ const SaveModal: FC<SaveModal> = ({ onSave, onClose, open }) => {
         aria-describedby="modal-modal-description"
         onClose={onClose}
       >
-        <Box sx={style}>
+        <Box sx={{ ...style, width: { sm: 400, xs: "90%" } }}>
           <Stack direction={"column"} gap={2}>
             <Box
               sx={{

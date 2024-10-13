@@ -77,13 +77,13 @@ const InvoiceItemsTable: FC = () => {
                 sx={{
                   padding: "8px",
                   paddingTop: "8px !important",
-                  paddingLeft: "8px !important",
+                  paddingLeft: "12px !important",
                   display: "flex",
                   // justifyContent: "center",
                   alignItems: "center",
                 }}
                 item
-                xs={4.6}
+                xs={4.56}
               >
                 <Typography
                   variant="text-xs-semibold"
@@ -102,7 +102,7 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={selectedTax ? 1.8 : 2.2}
+                xs={selectedTax ? 1.86 : 2.3}
                 // xs={1.8}
               >
                 <Typography
@@ -122,7 +122,7 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={selectedTax ? 1.6 : 2.2}
+                xs={selectedTax ? 1.55 : 2.5}
                 // xs={1.6}
               >
                 <Typography
@@ -147,7 +147,7 @@ const InvoiceItemsTable: FC = () => {
                     alignItems: "center",
                   }}
                   item
-                  xs={2}
+                  xs={2.4}
                 >
                   {selectedTax ? (
                     <Typography

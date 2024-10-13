@@ -166,7 +166,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
                 >
                   {singleClient?.name}
                 </Typography>
-                <Stack direction={"row"} gap={2}>
+                <Stack sx={{flexDirection: {sm: "row", xs: "column"}}} gap={2}>
                   <Typography variant="text-xs-regular-color">
                     Email:{" "}
                     <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
