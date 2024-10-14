@@ -107,7 +107,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // paddingLeft: "8px !important",
           }}
           item
-          sm={selectedTax ? 1.8 : 2.2}
+          sm={selectedTax ? 1.4 : 2.2}
           xs={12}
         >
           <TextField
@@ -362,7 +362,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             justifyContent: { sm: "end", xs: "space-between" },
           }}
           item
-          sm={selectedTax ? 1.7 : 2.4}
+          sm={selectedTax ? 2.3 : 2.4}
           xs={11}
         >
           <Box
@@ -386,7 +386,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               sx={{
                 fontSize: "14px !important",
                 fontWeight: "600 !important",
-                pt: "4px",
+                pt: "2px",
                 // ml: "20%",
                 width: selectedTax
                   ? { sm: "100%", xs: "100px" }
@@ -430,7 +430,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               alignSelf: "center",
             }}
             item
-            sm={0.4}
+            sm={0.3}
             xs={0.5}
           >
             <IconButton

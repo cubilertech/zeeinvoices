@@ -738,7 +738,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                   fontSize: "16px",
                   py: "0px !important",
                   width: "100%",
-                  fontFamily: "Product Sans, sans-serif !important",
                   // background:
                   //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   backgroundColor: palette.primary.main,
