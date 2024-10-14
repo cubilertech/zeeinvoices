@@ -164,7 +164,13 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           <Stack direction={"row"} spacing={3}>
             <UploadLogo logoDesc="Add your bussiness logo" />
           </Stack>
-          <Box sx={{ mt: { sm: 0, xs: "16px" }, position: "relative", width: "48.6%" }}>
+          <Box
+            sx={{
+              mt: { sm: 0, xs: "16px" },
+              position: "relative",
+              width: { sm: "48.6%", xs: "100%" },
+            }}
+          >
             <SelectInput
               width={isModile ? "100%" : "100%"}
               height={44}
