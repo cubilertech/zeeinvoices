@@ -57,6 +57,8 @@ const validationSchema = Yup.object({
   companyName: Yup.string().min(3).max(35),
   // .required("Company Name is required"),
   email: Yup.string()
+    .min(3)
+    .max(50)
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
   // phoneNumber: Yup.string().required("Phone number is required"),
