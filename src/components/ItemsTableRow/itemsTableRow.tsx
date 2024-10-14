@@ -174,7 +174,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                     />
                     <KeyboardArrowDown
                       onClick={() => {
-                        if (data.quantity >= 0 || data.quantity === "") {
+                        if (data.quantity >= 0 || data.quantity !== "") {
                           dispatch(
                             setInvoiceItem({
                               id: id,
