@@ -105,7 +105,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
       </IconButton>
       <Popover
         id={record?.id?.toString()}
-        open={true}
+        open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
