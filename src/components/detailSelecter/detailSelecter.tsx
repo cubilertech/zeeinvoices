@@ -53,8 +53,8 @@ import {
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
-  name: Yup.string().min(3).max(100).required("Name is required"),
-  companyName: Yup.string().min(3).max(100),
+  name: Yup.string().min(3).max(35).required("Name is required"),
+  companyName: Yup.string().min(3).max(35),
   // .required("Company Name is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
@@ -62,16 +62,16 @@ const validationSchema = Yup.object({
   // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
     .min(3)
-    .max(100)
+    .max(20)
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
   state: Yup.string()
     .min(3)
-    .max(100)
+    .max(20)
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string().min(3).max(400).matches(alphaRegex, "Invalid Address"),
+  address: Yup.string().min(3).max(255).matches(alphaRegex, "Invalid Address"),
   // .min(5, "Too short")
   // .required("Address is required"),
 });

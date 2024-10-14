@@ -149,15 +149,13 @@ const PdfView: FC<PdfViewProps> = ({
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
-            <Image
-              // style={styles.logo}
-              style={invDetails?.logo ? styles.image : styles.logo}
-              src={
-                invDetails?.logo
-                  ? googleImage(invDetails.logo)
-                  : "/Images/logos/zee-logo.png"
-              }
-            />
+            {invDetails?.logo && (
+              <Image
+                // style={styles.logo}
+                style={invDetails?.logo ? styles.image : styles.logo}
+                src={googleImage(invDetails.logo)}
+              />
+            )}
           </View>
           <View style={styles.top_view_2}>
             <View style={styles.top_view_2_container}>
@@ -580,6 +578,8 @@ const PdfView: FC<PdfViewProps> = ({
                       textAlign: "right",
                       color: "#4B5565",
                       marginRight: "6px",
+                      overflow: "hidden", // Hide overflowing text
+                      textOverflow: "ellipsis",
                     }}
                   >
                     {/* {currency}{" "} */}

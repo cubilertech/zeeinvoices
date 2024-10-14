@@ -2,7 +2,6 @@
 import { palette } from "@/theme/palette";
 import {
   Box,
-  ButtonBase,
   Grid,
   IconButton,
   InputAdornment,
@@ -39,17 +38,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   const selectedTax = useSelector(getTax);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    // setData((prev) => ({ ...prev, [name]: value }));
-    dispatch(setInvoiceItem({ id: id, type: name, value: value }));
-  };
-
-  const handleQtyUpChange = (props: { name: string; value: number }) => {
-    const { name, value } = props;
-    // setData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleQtyDownChange = (props: { name: string; value: number }) => {
-    const { name, value } = props;
     // setData((prev) => ({ ...prev, [name]: value }));
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
   };
@@ -416,6 +404,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 // },
                 cursor: "pointer",
                 textAlign: "end",
+                mr: showRemoveButton ? "" :  "-23px",
               }}
               title={`${
                 selectedCurrency === "USD" ? "$" : selectedCurrency
@@ -453,6 +442,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 width: "15px !important",
                 height: "15px !important",
                 borderRadius: 1,
+                mt: { sm: 0, xs: 1 },
               }}
             >
               <CloseIcon
