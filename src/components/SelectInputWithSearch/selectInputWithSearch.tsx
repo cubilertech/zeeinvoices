@@ -130,7 +130,7 @@ const SelectInputWithSearch: React.FC<SelectInputWithSearchProps> = ({
           },
         }}
       >
-        <Box sx={{ width: { sm: "360px", xs: "293px" }, pb: "10px" }}>
+        <Box sx={{ width: { sm: "356px", xs: "293px" }, pb: "10px" }}>
           <Box
             sx={{
               padding: "10px",
