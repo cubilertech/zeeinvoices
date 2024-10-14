@@ -149,15 +149,13 @@ const PdfView: FC<PdfViewProps> = ({
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
-            <Image
-              // style={styles.logo}
-              style={invDetails?.logo ? styles.image : styles.logo}
-              src={
-                invDetails?.logo
-                  ? googleImage(invDetails.logo)
-                  : "/Images/logos/zee-logo.png"
-              }
-            />
+            {invDetails?.logo && (
+              <Image
+                // style={styles.logo}
+                style={invDetails?.logo ? styles.image : styles.logo}
+                src={googleImage(invDetails.logo)}
+              />
+            )}
           </View>
           <View style={styles.top_view_2}>
             <View style={styles.top_view_2_container}>
@@ -423,7 +421,7 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "40px",
+              width: "42px",
               fontSize: "12px",
               fontWeight: "bold",
               color: "white",
@@ -573,7 +571,7 @@ const PdfView: FC<PdfViewProps> = ({
 
                   <Text
                     style={{
-                      width: "70px",
+                      width: "72px",
                       fontSize: "14px",
                       fontWeight: "bold",
                       marginLeft: "33px",
@@ -598,7 +596,8 @@ const PdfView: FC<PdfViewProps> = ({
           <Text
             style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
           >
-            Note: {invDetails?.addtionalNotes}
+            <Text style={{ fontSize: "10px", color: "#000" }}> Note: </Text>{" "}
+            {invDetails?.addtionalNotes}
           </Text>
         )}
         {/* section 5 : summary, terms */}

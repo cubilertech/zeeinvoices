@@ -447,7 +447,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     if (type === "add") {
       dispatch(setInvoiceId(InvoiceId));
     }
-  }, [InvoiceId, dispatch, type]);
+  }, [InvoiceId, dispatch, type, InvoiceRendomId]);
 
   return (
     <Stack
@@ -472,7 +472,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           ""
         ) : (
           <IconButton
-            sx={{ padding: 1, marginRight: "10px" }}
+            sx={{
+              p: "0px !important",
+              marginRight: { sm: "10px", xs: "0px" },
+              height: "32px !important",
+              width: "32px !important",
+            }}
             onClick={handleBack}
           >
             <ArrowBackIosNewIcon />
@@ -491,7 +496,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               color: palette.color.gray[610],
             }}
           >
-            <Typography variant="display-xs-semibold">Sr.No:</Typography>{" "}
+            <Typography variant="display-xs-semibold">Sr. No:</Typography>{" "}
             {isEditInvoiceId ? (
               <>
                 <TextField
@@ -590,6 +595,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         </Box>
         <Box
           sx={{
+            width: "100px",
             display: { sm: "none", xs: "flex" },
             gap: 1,
             alignItems: "center",
@@ -609,30 +615,36 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             <VisibilityOutlined sx={{ width: 19, height: 19 }} />
           </ButtonBase>
 
+          <ButtonBase
+            onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
+          >
+            <Icon icon="pdfPriviewIcon" width={19} height={19} />
+          </ButtonBase>
           {validateButton ? (
             session ? (
-              <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
-                <ButtonBase onClick={() => generatePDFDocument()}>
-                  <Icon icon="pdfPriviewIcon" width={15} height={15} />
-                </ButtonBase>
-              </Box>
+              // <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
+              <ButtonBase
+                sx={{ p: "0px !important" }}
+                onClick={() => generatePDFDocument()}
+              >
+                <SaveAlt sx={{ width: 19, height: 19 }} />
+              </ButtonBase>
             ) : (
+              // </Box>
               <Tooltip title="Download PDF" placement="bottom">
-                <Button onClick={() => setDownloadModel(true)}>
-                  <Icon icon="pdfPriviewIcon" width={15} height={15} />
+                <Button
+                  sx={{ p: "0px !important" }}
+                  onClick={() => setDownloadModel(true)}
+                >
+                  <SaveAlt sx={{ width: 19, height: 19 }} />
                 </Button>
               </Tooltip>
             )
           ) : (
             <ButtonBase disabled={true}>
-              <Icon icon="pdfPriviewIcon" width={15} height={15} />
+              <SaveAlt sx={{ width: 19, height: 19 }} />
             </ButtonBase>
           )}
-          <ButtonBase
-            onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
-          >
-            <SaveAlt sx={{ width: 19, height: 19 }} />
-          </ButtonBase>
 
           <ButtonBase onClick={handleColorPickerClick}>
             <SettingsOutlined sx={{ width: 19, height: 19 }} />
@@ -726,7 +738,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                   fontSize: "16px",
                   py: "0px !important",
                   width: "100%",
-                  fontFamily: "Product Sans, sans-serif !important",
                   // background:
                   //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   backgroundColor: palette.primary.main,

@@ -19,15 +19,15 @@ const ColorPicker: FC<ColorPicker> = ({
   InvSetting,
 }) => {
   const dispatch = useDispatch();
-  const reduxColors = useSelector((state: RootState) => getColors(state));
-  const entireState = useSelector((state: RootState) => state);
-  const handleSelectColor = (id: number) => {
-    dispatch(updateColorSelection(id));
-  };
+  // const reduxColors = useSelector((state: RootState) => getColors(state));
+  // const entireState = useSelector((state: RootState) => state);
+  // const handleSelectColor = (id: number) => {
+  //   dispatch(updateColorSelection(id));
+  // };
   return (
     <Grid container spacing={1}>
       {colors?.map((color) => (
-        <Grid item xs={1.5} key={color.id}>
+        <Grid item xs={1.5} key={color.id} sx={{ position: "relative" }}>
           <Color
             color={color.color}
             isSelected={InvSetting.color}
@@ -35,6 +35,7 @@ const ColorPicker: FC<ColorPicker> = ({
             onClick={() => onSelectColor(color.id)}
             // onClick={() => handleSelectColor(color.id)}
           />
+
         </Grid>
       ))}
     </Grid>

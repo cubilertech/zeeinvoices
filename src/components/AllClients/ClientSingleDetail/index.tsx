@@ -179,22 +179,50 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
                   sx={{ flexDirection: { sm: "row", xs: "column" } }}
                   gap={2}
                 >
-                  <Typography variant="text-xs-regular-color">
+                  <Typography
+                    variant="text-xs-regular-color"
+                    sx={{ color: palette.color.gray[900], fontWeight: 700 }}
+                  >
                     Email:{" "}
-                    <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
+                    <Box
+                      sx={{
+                        color: palette.color.gray[900],
+                        fontWeight: 500,
+                      }}
+                    >
+                      {singleClient?.email}
+                    </Box>
                   </Typography>
                   {singleClient?.phone_number && (
-                    <Typography variant="text-xs-regular-color">
+                    <Typography
+                      variant="text-xs-regular-color"
+                      sx={{ color: palette.color.gray[900], fontWeight: 700 }}
+                    >
                       Phone:{" "}
-                      <Box sx={{ color: "#9CA3AF" }}>
+                      <Box
+                        sx={{
+                          color: palette.color.gray[900],
+                          fontWeight: 500,
+                        }}
+                      >
                         {singleClient?.phone_number}
                       </Box>
                     </Typography>
                   )}
                   {singleClient?.state && (
-                    <Typography variant="text-xs-regular-color">
+                    <Typography
+                      variant="text-xs-regular-color"
+                      sx={{ color: palette.color.gray[900], fontWeight: 700 }}
+                    >
                       Country:{" "}
-                      <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
+                      <Box
+                        sx={{
+                          color: palette.color.gray[900],
+                          fontWeight: 500,
+                        }}
+                      >
+                        {singleClient?.state}
+                      </Box>
                     </Typography>
                   )}
                 </Stack>

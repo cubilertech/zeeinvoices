@@ -7,6 +7,7 @@ const authOptions: NextAuthOptions = ({
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+      authorization: `https://accounts.google.com/o/oauth2/auth/authorize?response_type=code&prompt=login`,
     }),
   ],
   callbacks: {

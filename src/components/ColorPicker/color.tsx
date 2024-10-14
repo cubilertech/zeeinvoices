@@ -25,13 +25,19 @@ const Color: FC<Color> = ({ color, isSelected, onClick }) => {
       {isSelected === color && (
         <Box
           sx={{
+            border: "2px solid black",
+            borderRadius: "4px",
+            height: "38px",
+            width: "38px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            left: "-3px",
+            top: "-3px",
           }}
         >
-          <Icon icon="tickIcon" width={20} height={20} />
+          {" "}
         </Box>
       )}
     </Box>

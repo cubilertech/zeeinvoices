@@ -107,7 +107,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             // paddingLeft: "8px !important",
           }}
           item
-          sm={selectedTax ? 1.8 : 2.2}
+          sm={selectedTax ? 1.4 : 2.2}
           xs={12}
         >
           <TextField
@@ -157,10 +157,39 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Typography sx={{ display: "flex", flexDirection: "column" }}>
-                    <KeyboardArrowUp sx={{ width: "12px", height: "12px" }} />
+                  <Typography
+                    sx={{ display: "flex", flexDirection: "column", gap: 0.4 }}
+                  >
+                    <KeyboardArrowUp
+                      onClick={() =>
+                        dispatch(
+                          setInvoiceItem({
+                            id: id,
+                            type: "quantity",
+                            value: parseInt(data.quantity, 10) + 1,
+                          })
+                        )
+                      }
+                      sx={{ width: "12px", height: "12px", cursor: "pointer" }}
+                    />
                     <KeyboardArrowDown
-                      sx={{ width: "12px", height: "12px", mt: -0.8 }}
+                      onClick={() => {
+                        if (data.quantity >= 0 || data.quantity !== "") {
+                          dispatch(
+                            setInvoiceItem({
+                              id: id,
+                              type: "quantity",
+                              value: parseInt(data.quantity, 10) - 1,
+                            })
+                          );
+                        }
+                      }}
+                      sx={{
+                        width: "12px",
+                        height: "12px",
+                        mt: -0.8,
+                        cursor: "pointer",
+                      }}
                     />
                   </Typography>
                 </InputAdornment>
@@ -333,7 +362,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             justifyContent: { sm: "end", xs: "space-between" },
           }}
           item
-          sm={selectedTax ? 1.7 : 2.4}
+          sm={selectedTax ? 2.3 : 2.4}
           xs={11}
         >
           <Box
@@ -357,7 +386,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               sx={{
                 fontSize: "14px !important",
                 fontWeight: "600 !important",
-                pt: "4px",
+                pt: "2px",
                 // ml: "20%",
                 width: selectedTax
                   ? { sm: "100%", xs: "100px" }
@@ -375,19 +404,20 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 // },
                 cursor: "pointer",
                 textAlign: "end",
+                mr: showRemoveButton ? "" :  "-23px",
               }}
               title={`${
                 selectedCurrency === "USD" ? "$" : selectedCurrency
               } ${(selectedTax
                 ? data?.subTotal
                 : data?.subTotal - data?.taxAmount
-              ).toFixed(2)}`} // Optional: Show full value on hover
+              )?.toFixed(2)}`} // Optional: Show full value on hover
             >
               {selectedCurrency === "USD" ? "$" : selectedCurrency}{" "}
               {(selectedTax
                 ? data?.subTotal
                 : data?.subTotal - data?.taxAmount
-              ).toFixed(2)}
+              )?.toFixed(2)}
               {/* {id} */}
             </Typography>
           </Box>
@@ -400,7 +430,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               alignSelf: "center",
             }}
             item
-            sm={0.4}
+            sm={0.3}
             xs={0.5}
           >
             <IconButton
@@ -412,6 +442,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 width: "15px !important",
                 height: "15px !important",
                 borderRadius: 1,
+                mt: { sm: 0, xs: 1 },
               }}
             >
               <CloseIcon

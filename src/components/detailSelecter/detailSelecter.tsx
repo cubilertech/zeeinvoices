@@ -53,25 +53,27 @@ import {
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
-  name: Yup.string().min(3).max(100).required("Name is required"),
-  companyName: Yup.string().min(3).max(100),
+  name: Yup.string().min(3).max(35).required("Name is required"),
+  companyName: Yup.string().min(3).max(35),
   // .required("Company Name is required"),
   email: Yup.string()
+    .min(3)
+    .max(50)
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
   // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
     .min(3)
-    .max(100)
+    .max(20)
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
   state: Yup.string()
     .min(3)
-    .max(100)
+    .max(20)
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string().min(3).max(400).matches(alphaRegex, "Invalid Address"),
+  address: Yup.string().min(3).max(255).matches(alphaRegex, "Invalid Address"),
   // .min(5, "Too short")
   // .required("Address is required"),
 });
@@ -396,7 +398,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             borderRadius={1}
             sx={{
               width: { sm: "100%", xs: "100%" },
-              height: 222,
+              height: 184,
               marginTop: "16px",
               py: "10px",
               px: "14px",
@@ -450,7 +452,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           borderRadius={1}
           sx={{
             width: "100%",
-            height: 222,
+            height: 184,
             marginTop: "16px",
             padding: 2,
             borderRadius: "4px",
@@ -470,18 +472,34 @@ const DetailSelecter: FC<DetailSelecter> = ({
           >
             <Typography
               variant="text-sm-medium"
-              color={palette.color.gray[750]}
+              sx={{
+                mt: "8px",
+                fontSize: "14px",
+                lineHeight: "17px",
+                fontWeight: 400,
+                color: palette.color.gray[510],
+              }}
             >
               {title === "From" ? "Sender Details" : "Recipient Details"}
             </Typography>
             {type != "edit" && !isListSelected && (
-              <IconButton sx={{ padding: 0 }}>
+              <IconButton
+                sx={{
+                  padding: "0px !important",
+                  height: "25px !important",
+                  width: "25px !important",
+                }}
+              >
                 <Icon icon="editIcon" width={20} height={20} />
               </IconButton>
             )}
             {isListSelected && (
               <IconButton
-                sx={{ padding: 0 }}
+                sx={{
+                  padding: "0px !important",
+                  height: "20px !important",
+                  width: "20px !important",
+                }}
                 onClick={() => {
                   if (detailsOf == "Sender") {
                     dispatch(setResetFromDetails());
@@ -502,26 +520,50 @@ const DetailSelecter: FC<DetailSelecter> = ({
               </IconButton>
             )}
           </Stack>
-          <Stack spacing={2} sx={{ marginTop: 2 }}>
-            <Typography variant="text-xs-bold">
+          <Stack sx={{ marginTop: 1 }}>
+            <Typography
+              variant="text-xs-bold"
+              sx={{
+                fontSize: "14px",
+                lineHeight: "17px",
+                fontWeight: 600,
+                color: palette.color.gray[900],
+              }}
+            >
               {InvDetails?.companyName}
             </Typography>
             <Stack direction={"column"}>
               <Typography
                 variant="text-xs-regular"
-                color={palette.color.gray[720]}
+                sx={{
+                  mt: "8px",
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  fontWeight: 500,
+                  color: palette.color.gray[610],
+                }}
               >
                 {InvDetails?.name}
               </Typography>
               <Typography
                 variant="text-xs-regular"
-                color={palette.color.gray[720]}
+                sx={{
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  fontWeight: 400,
+                  color: palette.color.gray[610],
+                }}
               >
                 {InvDetails?.address}, {InvDetails?.city}
               </Typography>
               <Typography
                 variant="text-xs-regular"
-                color={palette.color.gray[720]}
+                sx={{
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  fontWeight: 500,
+                  color: palette.color.gray[610],
+                }}
               >
                 {InvDetails?.state}
               </Typography>
@@ -529,13 +571,23 @@ const DetailSelecter: FC<DetailSelecter> = ({
             <Stack direction={"column"}>
               <Typography
                 variant="text-xs-regular"
-                color={palette.color.gray[720]}
+                sx={{
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  fontWeight: 500,
+                  color: palette.color.gray[610],
+                }}
               >
                 {InvDetails?.email}
               </Typography>
               <Typography
                 variant="text-xs-regular"
-                color={palette.color.gray[720]}
+                sx={{
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  fontWeight: 500,
+                  color: palette.color.gray[610],
+                }}
               >
                 {InvDetails?.phoneNumber}
               </Typography>
