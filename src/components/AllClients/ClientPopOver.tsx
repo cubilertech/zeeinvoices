@@ -84,15 +84,15 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Icon icon="deleteIcon" />}
+            startIcon={<Icon icon="deleteRedIcon" />}
             sx={{
               width: "100%",
               border: "none",
               justifyContent: "start",
-              color: "#4B5563",
+              color: "#EF4444",
               "&:hover": {
                 border: "none",
-                color: "#4B5563",
+                color: "#EF4444",
                 backgroundColor: palette.color.gray[10],
                 borderRadius: 0,
               },
