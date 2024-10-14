@@ -292,7 +292,7 @@ const InvoiceDetail = () => {
               fontWeight: { sm: "600 !important", xs: "500 !important" },
             }}
           >
-            Sr.No:
+            Sr. No:
           </Typography>
           <Typography
             variant="display-xs-medium"
