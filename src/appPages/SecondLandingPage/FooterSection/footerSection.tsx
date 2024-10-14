@@ -14,6 +14,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useEffect } from "react";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import "@/Styles/sectionStyle.css";
 
 const FooterSection = () => {
@@ -229,19 +230,19 @@ const FooterSection = () => {
                   <Box
                     sx={{
                       cursor: "pointer",
-                      width: { sm: "27px", xs: "27px" },
-                      height: { sm: "27px", xs: "27px" },
-                      overflow: "hidden",
-                      backgroundImage: "url(/Images/icons/facebook2-icon.svg)",
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100% 100%",
-                      "&:hover": {
-                        // width: { sm: "22px", xs: "24px" },
-                        // height: { sm: "20px", xs: "21px" },
-                        backgroundImage:
-                          "url(/Images/icons/facebook2-colored-icon.svg)",
-                        backgroundSize: "100% 100%",
-                      },
+                      // width: { sm: "27px", xs: "27px" },
+                      // height: { sm: "27px", xs: "27px" },
+                      // overflow: "hidden",
+                      // backgroundImage: "url(/Images/icons/facebook2-icon.svg)",
+                      // backgroundRepeat: "no-repeat",
+                      // backgroundSize: "100% 100%",
+                      // "&:hover": {
+                      //   // width: { sm: "22px", xs: "24px" },
+                      //   // height: { sm: "20px", xs: "21px" },
+                      //   backgroundImage:
+                      //     "url(/Images/icons/facebook2-colored-icon.svg)",
+                      //   backgroundSize: "100% 100%",
+                      // },
                     }}
                     onClick={() =>
                       window.open(
@@ -250,7 +251,17 @@ const FooterSection = () => {
                       )
                     }
                   >
-                    {/* <Icon icon="facebook1Icon" height={13} width={13} /> */}
+                    <FacebookIcon
+                      sx={{
+                        p: "0px",
+                        width: "30px",
+                        height: "30px",
+                        color: palette.color.gray[610],
+                        "&:hover": {
+                          color: "#1976d2",
+                        },
+                      }}
+                    />
                   </Box>
                   <Box
                     sx={{
@@ -272,20 +283,7 @@ const FooterSection = () => {
                         "_blank"
                       )
                     }
-                  >
-                    {/* <Icon icon="instagram1Icon" height={25} width={25} /> */}
-                    {/* <InstagramIcon
-                    sx={{
-                      p: "0px",
-                      width: "30px",
-                      height: "30px",
-                      color: palette.color.gray[745],
-                      "&:hover": {
-                        color: "#000000",
-                      },
-                    }}
-                  /> */}
-                  </Box>
+                  ></Box>
                   <Box
                     sx={{ cursor: "pointer" }}
                     onClick={() =>
@@ -295,7 +293,6 @@ const FooterSection = () => {
                       )
                     }
                   >
-                    {/* <Icon icon="youtube1Icon" height={28} width={28} /> */}
                     <YouTubeIcon
                       sx={{
                         p: "0px",
@@ -315,7 +312,6 @@ const FooterSection = () => {
                       window.open("https://twitter.com/zeeinvoices", "_blank")
                     }
                   >
-                    {/* <Icon icon="twitterxIcon" height={20} width={25} /> */}
                     <XIcon
                       sx={{
                         p: "0px",
@@ -337,7 +333,6 @@ const FooterSection = () => {
                       )
                     }
                   >
-                    {/* <Icon icon="linkedin1Icon" height={25} width={25} /> */}
                     <LinkedInIcon
                       sx={{
                         p: "0px",
