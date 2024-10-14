@@ -357,7 +357,10 @@ const InvoiceDetail = () => {
                       xs: "24px !important",
                     },
                     fontWeight: "700 !important",
-                    "&:hover": {},
+                    "&:hover": {
+                      color: "#EF4444",
+                      borderColor: "#EF4444",
+                    },
                   }}
                 >
                   Delete
