@@ -75,8 +75,9 @@ const Header = () => {
     setAnchorEl(null);
   };
   const handleProfile = () => {
-    route.push("/profile");
     setAnchorEl(null);
+    setAnchorElMenu(null);
+    route.push("/profile");
   };
   const handleLoginButton = () => {
     setLoading(true);
