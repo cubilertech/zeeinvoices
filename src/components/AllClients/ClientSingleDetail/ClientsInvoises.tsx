@@ -290,12 +290,13 @@ export default function ClientInvoices() {
           elevation={0}
           sx={{
             width: "100%",
-            // px: { sm: "20px", xs: "10px" },
-            // pb: 1,
             padding: "20px",
-            border: "none",
-            borderRadius: "4px",
-            boxShadow: `0px 0px 2px 0px #0000001A`,
+            // border: "none",
+            // borderRadius: "4px",
+            // boxShadow: `0px 0px 2px 0px #0000001A`,
+            borderRadius: "12px",
+            border: "1px solid #EAECF0",
+            boxShadow: `0px 1px 2px 0px #1018280D`,
           }}
         >
           <EnhancedTableToolbar

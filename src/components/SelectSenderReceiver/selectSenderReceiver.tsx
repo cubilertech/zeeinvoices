@@ -114,7 +114,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
           MenuProps={{
             PaperProps: {
               sx: {
-                bgcolor: palette.base.white, // Change dropdown background color
+                bgcolor: palette.base.white, // dropdown background color
               },
             },
           }}
@@ -125,7 +125,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                   variant="text-md-medium"
                   style={{ color: palette.color.gray[510] }}
                 >{`${placeholder}`}</Typography>
-              ); // Placeholder text styling
+              ); // Placeholder text
             }
             return (
               <Box

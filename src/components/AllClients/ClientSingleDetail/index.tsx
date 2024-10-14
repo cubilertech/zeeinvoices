@@ -111,13 +111,17 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
       >
         <IconButton
           onClick={handleBack}
-          sx={{ p: "0px !important", height: "30px !important", width: "30px !important" }}
+          sx={{
+            p: "0px !important",
+            height: "30px !important",
+            width: "30px !important",
+          }}
         >
           <ArrowBackIosNewIcon sx={{ width: "17px" }} />
         </IconButton>
 
         <Typography
-          sx={{ flex: "1 1 100%", color: palette.color.gray[805] }}
+          sx={{ flex: "1 1 100%", color: palette.color.gray[900] }}
           variant="display-xs-bold"
         >
           Recipient Detail
@@ -130,11 +134,13 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
           px: 2,
           mb: 2,
           pb: 1,
-          border: "none",
           py: 2,
           display: "flex",
           justifyContent: "space-between",
-          boxShadow: `0px 0px 2px 0px #0000001A`,
+          // boxShadow: `0px 0px 2px 0px #0000001A`,
+          borderRadius: "12px",
+          border: "1px solid #EAECF0",
+          boxShadow: `0px 1px 2px 0px #1018280D`,
         }}
       >
         <Stack direction={"column"} gap={3} sx={{ width: "100%" }}>
@@ -162,11 +168,17 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
               <Stack direction={"column"} gap={1}>
                 <Typography
                   variant="display-xs-semibold"
-                  sx={{ lineHeight: "32px !important" }}
+                  sx={{
+                    lineHeight: "32px !important",
+                    color: palette.color.gray[900],
+                  }}
                 >
                   {singleClient?.name}
                 </Typography>
-                <Stack sx={{flexDirection: {sm: "row", xs: "column"}}} gap={2}>
+                <Stack
+                  sx={{ flexDirection: { sm: "row", xs: "column" } }}
+                  gap={2}
+                >
                   <Typography variant="text-xs-regular-color">
                     Email:{" "}
                     <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
