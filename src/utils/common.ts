@@ -47,7 +47,7 @@ export const handleLogin = (pathname = "/") => {
       `${
         process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL
       }${"/create-new-invoice"}` ||
-      "https://main.d33zziho5sqnl9.amplifyapp.com",
+      "https://zeeinvoices.com/create-new-invoice",
   });
 };
 //Image Base 64 Convertion
