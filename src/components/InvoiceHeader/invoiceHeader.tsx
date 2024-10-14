@@ -447,7 +447,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     if (type === "add") {
       dispatch(setInvoiceId(InvoiceId));
     }
-  }, [InvoiceId, dispatch, type]);
+  }, [InvoiceId, dispatch, type, InvoiceRendomId]);
 
   return (
     <Stack
