@@ -586,8 +586,6 @@ const Header = () => {
                   gap={1}
                   sx={{ cursor: "pointer" }}
                   onClick={handleClick}
-                  onMouseEnter={handleClick}
-                  onMouseLeave={handleClose}
                 >
                   {profileData?.image ? (
                     <Avatar
