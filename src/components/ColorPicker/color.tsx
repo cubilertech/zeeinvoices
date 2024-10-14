@@ -25,16 +25,16 @@ const Color: FC<Color> = ({ color, isSelected, onClick }) => {
       {isSelected === color && (
         <Box
           sx={{
-            border: "1px solid black",
-            borderRadius: "3px",
-            height: "36px",
-            width: "36px",
+            border: "2px solid black",
+            borderRadius: "4px",
+            height: "38px",
+            width: "38px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             position: "absolute",
-            left: "-2px",
-            top: "-2px",
+            left: "-3px",
+            top: "-3px",
           }}
         >
           {" "}
