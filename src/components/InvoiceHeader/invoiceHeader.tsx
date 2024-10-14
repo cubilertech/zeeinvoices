@@ -207,69 +207,72 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         await dispatch(setInvoiceRowItemValidation(itemsValidation));
       }
     } else {
-    const formData = new FormData();
-    if (invoiceData.logo) {
-      try {
-        // const blob = await fetchBlobData(invoiceData.logo);
-        // const file = new File([blob], "filename.jpg", { type: blob.type });
-        const imageFile = base64ToFile(invoiceData.logo, "uploaded_image.png");
-        formData.append("image", imageFile);
-      } catch (error) {
-        console.error("Error fetching image:", error);
+      const formData = new FormData();
+      if (invoiceData.logo) {
+        try {
+          // const blob = await fetchBlobData(invoiceData.logo);
+          // const file = new File([blob], "filename.jpg", { type: blob.type });
+          const imageFile = base64ToFile(
+            invoiceData.logo,
+            "uploaded_image.png"
+          );
+          formData.append("image", imageFile);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      } else {
+        formData.append("image", "no-image");
       }
-    } else {
-      formData.append("image", "no-image");
-    }
-    formData.append("id", invoiceData.id);
-    formData.append("type", invoiceData.type);
-    formData.append("invoiceDate", invoiceData.invoiceDate);
-    formData.append("dueDate", invoiceData.dueDate);
-    formData.append("notes", invoiceData.notes);
+      formData.append("id", invoiceData.id);
+      formData.append("type", invoiceData.type);
+      formData.append("invoiceDate", invoiceData.invoiceDate);
+      formData.append("dueDate", invoiceData.dueDate);
+      formData.append("notes", invoiceData.notes);
 
-    // Map the `from` object to the expected API format
-    const fromMapped = {
-      name: invoiceData.from.name,
-      company_name: invoiceData.from.companyName,
-      email: invoiceData.from.email,
-      phone_number: invoiceData.from.phoneNumber || "", // Assuming null or undefined should be an empty string
-      city: invoiceData.from.city,
-      state: invoiceData.from.state,
-      address: invoiceData.from.address,
-      countryCode: invoiceData.from.countryCode || "", // Add if countryCode is used
-    };
+      // Map the `from` object to the expected API format
+      const fromMapped = {
+        name: invoiceData.from.name,
+        company_name: invoiceData.from.companyName,
+        email: invoiceData.from.email,
+        phone_number: invoiceData.from.phoneNumber || "", // Assuming null or undefined should be an empty string
+        city: invoiceData.from.city,
+        state: invoiceData.from.state,
+        address: invoiceData.from.address,
+        countryCode: invoiceData.from.countryCode || "", // Add if countryCode is used
+      };
 
-    // Map the `to` object to the expected API format similarly
-    const toMapped = {
-      name: invoiceData.to.name,
-      company_name: invoiceData.to.companyName,
-      email: invoiceData.to.email,
-      phone_number: invoiceData.to.phoneNumber || "", // Assuming null or undefined should be an empty string
-      city: invoiceData.to.city,
-      state: invoiceData.to.state,
-      address: invoiceData.to.address,
-      countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
-    };
+      // Map the `to` object to the expected API format similarly
+      const toMapped = {
+        name: invoiceData.to.name,
+        company_name: invoiceData.to.companyName,
+        email: invoiceData.to.email,
+        phone_number: invoiceData.to.phoneNumber || "", // Assuming null or undefined should be an empty string
+        city: invoiceData.to.city,
+        state: invoiceData.to.state,
+        address: invoiceData.to.address,
+        countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
+      };
 
-    // formData.append("from", JSON.stringify(invoiceData.from));
-    // formData.append("to", JSON.stringify(invoiceData.to));
+      // formData.append("from", JSON.stringify(invoiceData.from));
+      // formData.append("to", JSON.stringify(invoiceData.to));
 
-    formData.append("newFrom", JSON.stringify(fromMapped));
-    formData.append("newTo", JSON.stringify(toMapped));
+      formData.append("newFrom", JSON.stringify(fromMapped));
+      formData.append("newTo", JSON.stringify(toMapped));
 
-    formData.append("settings", JSON.stringify(invoiceData.settings));
-    formData.append("items", JSON.stringify(invoiceData.items));
-    updateInvoice({
-      data: formData,
-      apiRoute: `${backendURL}/invoices/${id}`,
-    })
-      .then((res) => {
-        router.push("/invoices");
-        dispatch(setResetInvoice());
-        dispatch(setResetInvoiceSetting());
+      formData.append("settings", JSON.stringify(invoiceData.settings));
+      formData.append("items", JSON.stringify(invoiceData.items));
+      updateInvoice({
+        data: formData,
+        apiRoute: `${backendURL}/invoices/${id}`,
       })
-      .catch((err) => {
-        throw new Error(`${err.response?.data?.message}`);
-      });
+        .then((res) => {
+          router.push("/invoices");
+          dispatch(setResetInvoice());
+          dispatch(setResetInvoiceSetting());
+        })
+        .catch((err) => {
+          throw new Error(`${err.response?.data?.message}`);
+        });
     }
   };
   // Create Invoice
@@ -497,7 +500,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                     backgroundColor: "white",
                     width: "76px",
                     fontSize: "24px",
-                    height: "32px",
+                    // height: "32px",
                     "& .MuiOutlinedInput-root": {
                       "& input": {
                         padding: 0,
@@ -560,7 +563,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             ) : (
               <Typography
                 variant="display-xs-semibold"
-                sx={{ height: "37px", lineHeight: "40px" }}
+                sx={{ height: "40px", lineHeight: "40px" }}
               >
                 {InvoiceId}
               </Typography>
@@ -597,7 +600,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             sx={{
               opacity: showPreview ? 0.5 : 1,
             }}
-            onClick={() => type === "add"  ? router.push("/preview"): router.push(`/invoices/${invoiceData.id}?type=edit`)}
+            onClick={() =>
+              type === "add"
+                ? router.push("/preview")
+                : router.push(`/invoices/${invoiceData.id}?type=edit`)
+            }
           >
             <VisibilityOutlined sx={{ width: 19, height: 19 }} />
           </ButtonBase>
@@ -688,7 +695,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 backgroundColor: "rgba(79, 53, 223, 0.2)",
               },
             }}
-            onClick={() => type === "add"  ? router.push("/preview"): router.push(`/invoices/${invoiceData.id}?type=edit`)}
+            onClick={() =>
+              type === "add"
+                ? router.push("/preview")
+                : router.push(`/invoices/${invoiceData.id}?type=edit`)
+            }
           >
             Preview
           </Button>
