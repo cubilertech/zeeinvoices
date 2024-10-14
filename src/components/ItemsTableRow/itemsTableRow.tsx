@@ -2,6 +2,7 @@
 import { palette } from "@/theme/palette";
 import {
   Box,
+  ButtonBase,
   Grid,
   IconButton,
   InputAdornment,
@@ -38,6 +39,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   const selectedTax = useSelector(getTax);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    // setData((prev) => ({ ...prev, [name]: value }));
+    dispatch(setInvoiceItem({ id: id, type: name, value: value }));
+  };
+
+  const handleQtyUpChange = (props: { name: string; value: number }) => {
+    const { name, value } = props;
+    // setData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleQtyDownChange = (props: { name: string; value: number }) => {
+    const { name, value } = props;
     // setData((prev) => ({ ...prev, [name]: value }));
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
   };
@@ -157,10 +169,39 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Typography sx={{ display: "flex", flexDirection: "column" }}>
-                    <KeyboardArrowUp sx={{ width: "12px", height: "12px" }} />
+                  <Typography
+                    sx={{ display: "flex", flexDirection: "column", gap: 0.4 }}
+                  >
+                    <KeyboardArrowUp
+                      onClick={() =>
+                        dispatch(
+                          setInvoiceItem({
+                            id: id,
+                            type: "quantity",
+                            value: parseInt(data.quantity, 10) + 1,
+                          })
+                        )
+                      }
+                      sx={{ width: "12px", height: "12px", cursor: "pointer" }}
+                    />
                     <KeyboardArrowDown
-                      sx={{ width: "12px", height: "12px", mt: -0.8 }}
+                      onClick={() => {
+                        if (data.quantity >= 0 || data.quantity === "") {
+                          dispatch(
+                            setInvoiceItem({
+                              id: id,
+                              type: "quantity",
+                              value: parseInt(data.quantity, 10) - 1,
+                            })
+                          );
+                        }
+                      }}
+                      sx={{
+                        width: "12px",
+                        height: "12px",
+                        mt: -0.8,
+                        cursor: "pointer",
+                      }}
                     />
                   </Typography>
                 </InputAdornment>
@@ -381,13 +422,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               } ${(selectedTax
                 ? data?.subTotal
                 : data?.subTotal - data?.taxAmount
-              ).toFixed(2)}`} // Optional: Show full value on hover
+              )?.toFixed(2)}`} // Optional: Show full value on hover
             >
               {selectedCurrency === "USD" ? "$" : selectedCurrency}{" "}
               {(selectedTax
                 ? data?.subTotal
                 : data?.subTotal - data?.taxAmount
-              ).toFixed(2)}
+              )?.toFixed(2)}
               {/* {id} */}
             </Typography>
           </Box>
