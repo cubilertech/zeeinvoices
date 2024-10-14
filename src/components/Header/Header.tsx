@@ -101,6 +101,7 @@ const Header = () => {
     route.push(data.url);
   };
   const handleCrtInvButton = (data: any) => {
+    handleCloseMenu();
     route.push("/create-new-invoice");
   };
   const open = Boolean(anchorEl);
