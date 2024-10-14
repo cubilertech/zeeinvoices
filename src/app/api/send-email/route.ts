@@ -27,6 +27,7 @@ export async function POST(request: Request) {
         "aadilyusuf99@gmail.com",
         "ateeqasif1168@gmail.com",
         "alizaman8383@gmail.com",
+        "support@zeeinvoices.com",
         "u.raufshahzad@gmail.com",
       ],
       subject: `Contact Us Form Submission from ${firstName} ${lastName}`,

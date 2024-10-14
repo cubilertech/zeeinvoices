@@ -1,6 +1,15 @@
 "use client";
-import { Box, Button, Modal, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonBase,
+  Modal,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { FC } from "react";
+import { Close, SaveAlt } from "@mui/icons-material";
+import { Icon } from "../Icon";
 
 const style = {
   position: "absolute" as "absolute",
@@ -28,8 +37,45 @@ const SaveModal: FC<SaveModal> = ({ onSave, onClose, open }) => {
         aria-describedby="modal-modal-description"
         onClose={onClose}
       >
-        <Box sx={style}>
+        <Box sx={{ ...style, width: { sm: 400, xs: "90%" } }}>
           <Stack direction={"column"} gap={2}>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "48px",
+                  height: "48px",
+                  borderRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "1px solid #EAECF0",
+                }}
+              >
+                <Icon icon="pdfPriviewIcon" width={18} height={18} />
+              </Box>
+
+              <ButtonBase
+                onClick={onClose}
+                sx={{
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "4px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "1px solid EAECF0",
+                }}
+              >
+                <Close sx={{ width: 22, height: 22, color: "#98A2B3" }} />
+              </ButtonBase>
+            </Box>
             <Stack direction={"column"} gap={1}>
               <Typography variant="text-lg-semibold">
                 Please Login to save invoice.
@@ -46,9 +92,11 @@ const SaveModal: FC<SaveModal> = ({ onSave, onClose, open }) => {
                 sx={{
                   borderRadius: "8px",
                   width: "100%",
+                  height: "44px",
                   marginTop: "15px",
-                  "&:hover": {
-                  },
+                  fontSize: "16px !important",
+                  fontWeight: "600 !important",
+                  "&:hover": {},
                 }}
                 onClick={onSave}
               >

@@ -6,10 +6,22 @@ import {
   useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
-import { Avatar, Box, Button, Paper, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { FC, useEffect } from "react";
 import ClientDetailModel from "../ClientDetailModel";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ClientInvoices from "./ClientsInvoises";
+import { useSession } from "next-auth/react";
+import "@/Styles/sectionStyle.css";
 
 interface ClientSingleProps {
   id: any;
@@ -19,15 +31,17 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [clientModel, setClientModel] = React.useState(false);
+  const { data: session } = useSession();
   //Edit Client
   const {
     data: singleClient,
     refetch: singleFetch,
     isFetching: fetchingClient,
   } = useFetchSingleDocument(`${backendURL}/clients/${id}`);
+
   useEffect(() => {
-    singleFetch();
-  }, [singleFetch]);
+    if (session?.accessToken) singleFetch();
+  }, [singleFetch, session?.accessToken]);
 
   // Update Client
   const {
@@ -75,7 +89,10 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     );
   };
 
-  console.log(singleClient, "singleClient");
+  const handleBack = () => {
+    router.push("/clients");
+  };
+
   return (
     <Box
       sx={{
@@ -87,6 +104,29 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
         alignSelf: "center",
       }}
     >
+      <Stack
+        direction={"row"}
+        gap={"8px"}
+        sx={{ pl: 0, py: 3, alignItems: "center" }}
+      >
+        <IconButton
+          onClick={handleBack}
+          sx={{
+            p: "0px !important",
+            height: "30px !important",
+            width: "30px !important",
+          }}
+        >
+          <ArrowBackIosNewIcon sx={{ width: "17px" }} />
+        </IconButton>
+
+        <Typography
+          sx={{ flex: "1 1 100%", color: palette.color.gray[900] }}
+          variant="display-xs-bold"
+        >
+          Recipient Detail
+        </Typography>
+      </Stack>
       <Paper
         elevation={0}
         sx={{
@@ -94,71 +134,99 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
           px: 2,
           mb: 2,
           pb: 1,
-          border: "none",
-
           py: 2,
           display: "flex",
           justifyContent: "space-between",
+          // boxShadow: `0px 0px 2px 0px #0000001A`,
+          borderRadius: "12px",
+          border: "1px solid #EAECF0",
+          boxShadow: `0px 1px 2px 0px #1018280D`,
         }}
       >
-        <Stack direction={"row"} gap={3} sx={{ pl: 4 }}>
-          <Avatar
-            sx={{
-              bgcolor: palette.primary.main,
-              width: "62px",
-              height: "62px",
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
-              fontSize: "32px",
-            }}
+        <Stack direction={"column"} gap={3} sx={{ width: "100%" }}>
+          <Stack
+            direction={{ sm: "row", xs: "column" }}
+            gap={{ sm: 0, xs: 3 }}
+            justifyContent={"space-between"}
+            sx={{ width: "100%" }}
           >
-            {singleClient?.name?.charAt(0).toUpperCase()}
-          </Avatar>
-          <Stack direction={"column"} gap={1}>
-            <Typography
-              variant="display-xs-semibold"
-              sx={{ lineHeight: "32px !important" }}
-            >
-              {singleClient?.name}
-            </Typography>
-            <Typography variant="text-xs-regular-color">
-              Email: <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
-            </Typography>
-            <Typography variant="text-xs-regular-color">
-              Phone:{" "}
-              <Box sx={{ color: "#9CA3AF" }}>{singleClient?.phone_number}</Box>
-            </Typography>
-            <Typography variant="text-xs-regular-color">
-              Country:{" "}
-              <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
-            </Typography>
+            <Stack direction={"row"} gap={3}>
+              <Avatar
+                sx={{
+                  bgcolor: palette.primary.main,
+                  width: "62px",
+                  height: "62px",
+                  display: "flex",
+                  alignItems: "center",
+                  alignSelf: "center",
+                  justifyContent: "center",
+                  fontSize: "32px",
+                }}
+              >
+                {singleClient?.name?.charAt(0).toUpperCase()}
+              </Avatar>
+              <Stack direction={"column"} gap={1}>
+                <Typography
+                  variant="display-xs-semibold"
+                  sx={{
+                    lineHeight: "32px !important",
+                    color: palette.color.gray[900],
+                  }}
+                >
+                  {singleClient?.name}
+                </Typography>
+                <Stack
+                  sx={{ flexDirection: { sm: "row", xs: "column" } }}
+                  gap={2}
+                >
+                  <Typography variant="text-xs-regular-color">
+                    Email:{" "}
+                    <Box sx={{ color: "#9CA3AF" }}>{singleClient?.email}</Box>
+                  </Typography>
+                  {singleClient?.phone_number && (
+                    <Typography variant="text-xs-regular-color">
+                      Phone:{" "}
+                      <Box sx={{ color: "#9CA3AF" }}>
+                        {singleClient?.phone_number}
+                      </Box>
+                    </Typography>
+                  )}
+                  {singleClient?.state && (
+                    <Typography variant="text-xs-regular-color">
+                      Country:{" "}
+                      <Box sx={{ color: "#9CA3AF" }}>{singleClient?.state}</Box>
+                    </Typography>
+                  )}
+                </Stack>
+              </Stack>
+            </Stack>
+            <Stack direction={"row"} gap={1} sx={{ alignSelf: "center" }}>
+              <Button
+                variant="outlined"
+                onClick={() => setIsModalOpen(true)}
+                sx={{
+                  height: `40px`,
+                  width: "114px",
+                  borderRadius: "4px",
+                  borderColor: palette.border.invoicesBorderColor,
+                  color: palette.base.black,
+                }}
+              >
+                Delete
+              </Button>
+
+              <Button
+                onClick={() => setClientModel(true)}
+                variant="contained"
+                sx={{ height: `40px`, width: "114px", borderRadius: "4px" }}
+              >
+                Edit
+              </Button>
+            </Stack>
           </Stack>
         </Stack>
-        <Stack direction={"row"} gap={1} sx={{ alignSelf: "center" }}>
-          <Button
-            variant="outlined"
-            onClick={() => setIsModalOpen(true)}
-            sx={{
-              height: `40px`,
-              width: "114px",
-              borderColor: palette.border.invoicesBorderColor,
-              color: palette.base.black,
-            }}
-          >
-            Delete
-          </Button>
-
-          <Button
-            onClick={() => setClientModel(true)}
-            variant="contained"
-            sx={{ height: `40px`, width: "114px" }}
-          >
-            Edit
-          </Button>
-        </Stack>
       </Paper>
+      <ClientInvoices />
       <ClientDetailModel
         handleSubmitForm={handleSubmitForm}
         type="edit"
@@ -170,7 +238,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
         open={isModalOpen}
         onClose={handleDeleteModalClose}
         invoiceDelete={clientDelete}
-        title="client"
+        title="recipient"
       />
     </Box>
   );

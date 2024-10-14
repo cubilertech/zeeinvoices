@@ -85,8 +85,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
       <Stack
         direction={"column"}
         sx={{
-          py: "5px",
-          px: { md: "15px", xs: "7px" },
+          py: "0px",
+          pl: { md: "15px", xs: "7px" },
         }}
       >
         <Stack
@@ -99,10 +99,13 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             <Typography
               // variant="display-xs-bold"
               sx={{
+                // opacity: isOpen ? 1 : 0.8,
                 fontFamily: "Product Sans, sans-serif",
-                color: palette.text.expandableTextGreyColor,
-                fontSize: { md: "24px !important", xs: "14px !important" },
-                lineHeight: { md: "34px !important", xs: "18px !important" },
+                color: isOpen
+                  ? palette.color.gray[900]
+                  : palette.color.gray[610],
+                fontSize: { md: "24px !important", xs: "18px !important" },
+                lineHeight: { md: "34px !important", xs: "26px !important" },
                 fontWeight: 700,
               }}
             >
@@ -111,12 +114,12 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 component="span"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  fontSize: { md: "24px !important", xs: "14px !important" },
-                  lineHeight: { md: "34px !important", xs: "18px !important" },
+                  fontSize: { md: "24px !important", xs: "18px !important" },
+                  lineHeight: { md: "34px !important", xs: "26px !important" },
                   fontWeight: { md: 700 },
                   background: isOpen
                     ? "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)"
-                    : palette.text.expandableTextGreyColor,
+                    : palette.color.gray[610],
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   display: "inline-block",
@@ -138,8 +141,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 display: "inline-block",
-                fontSize: { md: "24px !important", xs: "14px !important" },
-                lineHeight: { md: "34px !important", xs: "18px !important" },
+                fontSize: { md: "24px !important", xs: "18px !important" },
+                lineHeight: { md: "34px !important", xs: "26px !important" },
               }}
             >
               {title2}
@@ -148,7 +151,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
         </Stack>
         <div
           style={{
-            maxHeight: isOpen ? "100px" : "0px",
+            maxHeight: isOpen ? "fit-content" : "0px",
             overflow: "hidden",
             transition: "max-height 0.3s ease",
           }}
@@ -157,9 +160,9 @@ const ExpandableText: FC<ExpandableTextProps> = ({
             variant="text-xl1-1-regular"
             sx={{
               fontFamily: "Product Sans, sans-serif",
-              color: palette.text.expandableTextGreyColor,
-              fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "34px", xs: "18px" },
+              color: palette.color.gray[610],
+              fontSize: { md: "20px", xs: "14px" },
+              lineHeight: { md: "30px", xs: "20px" },
               fontWeight: { md: 400 },
             }}
           >

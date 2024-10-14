@@ -33,19 +33,19 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
       setImageUrl(URL.createObjectURL(file));
     }
   };
-  console.log(imageUrl, "ddddd", uploadImage);
   return (
     <>
       {/* circle avatar */}
       <Box
         sx={{
+          mt: { sm: "-68px", xs: "-84px" },
           height: "150px",
           width: "150px",
           background: palette.base.white,
           borderRadius: "75px",
           position: "absolute",
-          top: 170,
-          left: { xl: "22%", lg: "7%", md: "5%", sm: "5%", xs: "32%" },
+          // top: 190,
+          // left: { xl: "20.5%", lg: "6%", md: "4%", sm: "5%", xs: "32%" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -55,7 +55,7 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
           sx={{
             height: "144px",
             width: "144px",
-            border: `3px solid ${palette.primary.main}`,
+            border: `1px solid ${palette.base.white}`,
             backgroundColor: "#D9DBF9",
             borderRadius: "90px",
             display: "flex",
@@ -82,7 +82,7 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
               unoptimized
             />
           )}
-          <IconButton
+          {/* <IconButton
             sx={{
               height: "32px !important",
               width: "32px !important",
@@ -104,7 +104,7 @@ const ProfileAvatar: FC<ProfileAvatar> = ({
               accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
             />
             <Icon icon="cameraIcon" width={18} height={16} />
-          </IconButton>
+          </IconButton> */}
         </Box>
       </Box>
     </>

@@ -145,40 +145,45 @@ const OfferCard: FC<Props> = ({
     ? palette.base.white // Turn last box white when any other box is hovered
     : palette.text.contactEmailColor; // Keep the last box purple initially
 
-  const lastBoxTextColor = isHover || !anyBoxHovered
-    ? palette.base.white // Keep the text white when the last box is hovered or no other box is hovered
-    : palette.base.black; // Turn text black when any other box is hovered
+  const lastBoxTextColor =
+    isHover || !anyBoxHovered
+      ? palette.base.white // Keep the text white when the last box is hovered or no other box is hovered
+      : palette.color.gray[900]; // Turn text black when any other box is hovered
 
-    const lastBoxTextDescColor = isHover || !anyBoxHovered
-    ? palette.base.white // Keep the text white when the last box is hovered or no other box is hovered
-    : palette.text.expandableTextGreyColor; // Turn text black when any other box is hovered
+  const lastBoxTextDescColor =
+    isHover || !anyBoxHovered
+      ? palette.base.white // Keep the text white when the last box is hovered or no other box is hovered
+      : palette.color.gray[610]; // Turn text black when any other box is hovered
 
-  const lastBoxIcon = isHover || !anyBoxHovered
-    ? whiteIcon // Keep white icon when last box is hovered or no other box is hovered
-    : icon; // Change icon to purple when any other box is hovered
+  const lastBoxIcon =
+    isHover || !anyBoxHovered
+      ? whiteIcon // Keep white icon when last box is hovered or no other box is hovered
+      : icon; // Change icon to purple when any other box is hovered
 
   return (
     <Box
       sx={{
         width: "100%",
-        p: "25.42px 40px",
+        p: "32px",
         display: "flex",
         gap: 3,
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: { sm: "337px", xs: "237px" },
+        height: { sm: "278px", xs: "198px" },
         border: "1.06px solid #0000001A",
-        borderRadius: "30px",
-        color: isLastColor ? lastBoxTextColor : palette.base.black,
-        backgroundColor: isLastColor ? lastBoxBackgroundColor : palette.base.white,
-        transition: "all 0.7s ease",
+        borderRadius: "16px",
+        color: isLastColor ? lastBoxTextColor : palette.color.gray[900],
+        backgroundColor: isLastColor
+          ? lastBoxBackgroundColor
+          : palette.base.white,
+        transition: "all 0.5s ease",
         transform: isLastColor && isHover ? "scale(1.1)" : "none", // Expand the last box on hover
         "&:hover": {
           color: isLastColor ? palette.base.white : palette.base.white,
           backgroundColor: isLastColor
-            ? palette.text.contactEmailColor // Keep last box purple on hover
-            : palette.text.contactEmailColor, // Change other boxes to purple on hover
+            ? palette.primary.main // Keep last box purple on hover
+            : palette.primary.main, // Change other boxes to purple on hover
           transform: isLastColor ? "scale(1.03)" : "scale(1.03)", // Disable scaling for other boxes
           "& .buttom-right-card": {
             backgroundColor: isLastColor
@@ -195,14 +200,17 @@ const OfferCard: FC<Props> = ({
     >
       <Icon
         icon={isHover ? whiteIcon : isLastColor ? lastBoxIcon : icon} // Icon should turn white on hover for all boxes
-        width={isMobile ? 42 : 62}
-        height={isMobile ? 42 : 62}
+        width={isMobile ? 42 : 52}
+        height={isMobile ? 42 : 52}
       />
       <Box sx={{ textAlign: "center" }}>
         <Typography
-          variant={isMobile ? "text-sm-bold" : "text-lg-bold"}
+          variant={isMobile ? "text-md-bold" : "text-lg-bold"}
           component={"p"}
           mb={1}
+          sx={{
+            fontFamily: "Product Sans,sans-serif",
+          }}
         >
           {title}
         </Typography>
@@ -210,11 +218,8 @@ const OfferCard: FC<Props> = ({
           className="desc"
           variant={isMobile ? "text-xs-regular" : "text-md-regular"}
           component={"p"}
-          color={
-            isLastColor
-              ? lastBoxTextDescColor
-              : palette.text.expandableTextGreyColor
-          }
+          sx={{ fontFamily: "Product Sans,sans-serif" }}
+          color={isLastColor ? lastBoxTextDescColor : palette.color.gray[610]}
         >
           {description}
         </Typography>

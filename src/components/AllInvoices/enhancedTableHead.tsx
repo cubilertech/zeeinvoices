@@ -44,7 +44,7 @@ const headCells: readonly HeadCell[] = [
     id: "name",
     numeric: true,
     disablePadding: false,
-    label: "Receipent",
+    label: "Receipents",
   },
   {
     id: "email",
@@ -75,7 +75,7 @@ const headCells: readonly HeadCell[] = [
     id: "action",
     numeric: true,
     disablePadding: false,
-    label: "Actions",
+    label: "Action",
   },
 ];
 
@@ -103,12 +103,12 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
   return (
     <TableHead
       sx={{
-        backgroundColor: palette.color.gray[20],
+        backgroundColor: palette.color.gray[50],
         height: "40px !important",
-        borderTopRightRadius: 9,
+        borderTopRightRadius: 8,
       }}
     >
-      <TableRow sx={{ height: "40px !important", borderTopRightRadius: 9 }}>
+      <TableRow sx={{ height: "40px !important", borderTopRightRadius: 8 }}>
         {headCells.map((headCell) => (
           <TableCell
             sx={{ height: `40px !important`, py: "0px" }}
@@ -135,8 +135,16 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
               // IconComponent={orderBy === headCell.id && order === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon}
             >
               <Typography
-                variant="text-xs-medium"
-                sx={{ color: palette.color.gray[840] }}
+                variant="text-xs1-semibold"
+                sx={{
+                  color: palette.color.gray[610],
+                  fontSize: { md: "12px !important", xs: "12px !important" },
+                  lineHeight: {
+                    md: "18px !important",
+                    xs: "18px !important",
+                  },
+                  fontWeight: 600,
+                }}
               >
                 {headCell.label}
               </Typography>

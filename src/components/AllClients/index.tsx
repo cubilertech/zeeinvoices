@@ -6,11 +6,19 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
-
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { palette } from "@/theme/palette";
-import { CircularProgress, Container } from "@mui/material";
+import {
+  Button,
+  ButtonBase,
+  CircularProgress,
+  Container,
+  IconButton,
+  Link,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
 import { Pagination } from "../Pagination";
 import { backendURL } from "@/utils/constants";
 import {
@@ -29,6 +37,10 @@ import { useSession } from "next-auth/react";
 import EnhancedTableToolbar from "./enhancedTableToolbar";
 import EnhancedTableHead from "./enhancedTableHead";
 import { toast } from "react-toastify";
+import "@/Styles/sectionStyle.css";
+import { Icon } from "../Icon";
+import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import { setResetInvoice } from "@/redux/features/invoiceSlice";
 
 interface Data {
   name: string;
@@ -94,7 +106,7 @@ const headCells: readonly HeadCell[] = [
     id: "action",
     numeric: true,
     disablePadding: false,
-    label: "Actions",
+    label: "Action",
   },
 ];
 
@@ -111,7 +123,9 @@ export default function AllClients() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [clientType, setClientType] = React.useState("add");
   const [clientModel, setClientModel] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [editId, setEditId] = React.useState<any | undefined>(undefined);
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   const handleClientAddModel = () => {
     setClientType("add");
@@ -123,6 +137,8 @@ export default function AllClients() {
     data: clientList,
     refetch: refetchClientList,
     isFetching: fetchingClientList,
+    isLoading: isClientLoading,
+    isFetched,
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
   //Delete Client
   const {
@@ -159,6 +175,11 @@ export default function AllClients() {
       }
     }, 800);
   };
+  React.useEffect(() => {
+    if (isFetched) {
+      setIsLoading(false);
+    }
+  }, [isFetched]);
   const filteredData = React.useMemo(() => {
     if (clientList && clientList?.clients?.length) {
       return clientList?.clients;
@@ -174,6 +195,7 @@ export default function AllClients() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
+
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);
@@ -230,81 +252,115 @@ export default function AllClients() {
     console.log(itemToDelete, "id");
     deleteClient({ apiRoute: `${backendURL}/clients/${itemToDelete}` });
   };
+
+  const handleHomeBtn = () => {
+    dispatch(setResetInvoiceSetting());
+    dispatch(setResetInvoice());
+    route.push("/create-new-invoice");
+  };
+
   return (
     <>
-      <hr />
-      <Container maxWidth="lg">
-        <Box
-          sx={{
-            minHeight: { xl: "83vh", lg: "73vh" },
-            width: "100%",
-            marginTop: "65px",
-            justifyContent: "center",
-            alignItems: "center",
-            alignSelf: "center",
-          }}
+      <Box sx={{ width: "100%", backgroundColor: palette.base.white }}>
+        <Container
+          className="mainContainer"
+          sx={{ px: { md: "0.1%", lg: "0.1%", xs: "3%" } }}
         >
-          <Paper
-            elevation={0}
+          <Box
             sx={{
+              minHeight: { xl: "53vh", lg: "73vh" },
               width: "100%",
-              px: "20px",
-              // mb: 2,
-              pb: 1,
-              border: "none",
-              borderRadius: "8px",
-              boxShadow: { sm: `0px 0px 2px 0px #0000001A` },
+              marginTop: "57px",
+              pt: "40px",
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
             }}
           >
-            <EnhancedTableToolbar
-              handleClientAddModel={handleClientAddModel}
-              numSelected={selected.length}
-              search={search}
-              handleChangeSearch={handleChangeSearch}
-            />
-            {filteredData.length <= 0 ? (
-              <Box
-                sx={{
-                  height: "300px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "100%",
-                  textAlign: "center",
-                }}
-              >
-                <Typography>No Recipients Found</Typography>
-              </Box>
-            ) : (
-              <>
-                <TableContainer
+            <Paper
+              elevation={0}
+              sx={{
+                width: "100%",
+                // pb: 1,
+                border: "none",
+              }}
+            >
+              {!isMobile && (
+                <Stack
+                  direction={"row"}
+                  gap={1.5}
+                  sx={{ alignItems: "center", mb: "24px" }}
+                >
+                  <IconButton
+                    size="small"
+                    sx={{ p: "0px !important" }}
+                    onClick={handleHomeBtn}
+                  >
+                    <Icon icon="homeIcon" width={20} height={20} />
+                  </IconButton>
+                  <Icon icon="rightArrowIcon" width={16} height={16} />
+                  <ButtonBase>
+                    <Link
+                      sx={{
+                        textDecoration: "none",
+                        minWidth: "60px !important",
+                        height: "20px !important",
+                        color: palette.primary.main,
+                        fontSize: {
+                          md: "14px !important",
+                          xs: "14px !important",
+                        },
+                        lineHeight: {
+                          md: "20px !important",
+                          xs: "20px !important",
+                        },
+                        fontWeight: 600,
+                      }}
+                    >
+                      Recipients
+                    </Link>
+                  </ButtonBase>
+                </Stack>
+              )}
+              <EnhancedTableToolbar
+                handleClientAddModel={handleClientAddModel}
+                numSelected={selected.length}
+                search={search}
+                handleChangeSearch={handleChangeSearch}
+              />
+              {isLoading || isClientLoading ? (
+                <Box
                   sx={{
-                    border: `1px solid ${palette.border.invoicesBorderColor}`,
-                    borderTopLeftRadius: "8px",
-                    borderTopRightRadius: "8px",
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: "20px",
+                    alignItems: "center",
+                    height: "400px",
                   }}
                 >
-                  <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-                    <EnhancedTableHead
-                      numSelected={selected.length}
-                      order={order}
-                      orderBy={orderBy}
-                      onRequestSort={handleRequestSort}
-                      rowCount={clientList?.clients?.length}
-                    />
-                    {fetchingClientList ? (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          padding: "20px",
-                          alignItems: "center",
-                          height: "400px",
-                        }}
-                      >
-                        <CircularProgress size={24} sx={{ color: "#8477DA" }} />
-                      </Box>
-                    ) : (
+                  <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+                </Box>
+              ) : filteredData.length > 0 ? (
+                <>
+                  <TableContainer
+                    sx={{
+                      mt: "32px",
+                      border: `1px solid ${palette.color.gray[200]}`,
+                      borderTopLeftRadius: "8px",
+                      borderTopRightRadius: "8px",
+                      borderBottomLeftRadius: "8px",
+                      borderBottomRightRadius: "8px",
+                    }}
+                  >
+                    <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+                      <EnhancedTableHead
+                        numSelected={selected.length}
+                        order={order}
+                        orderBy={orderBy}
+                        onRequestSort={handleRequestSort}
+                        rowCount={clientList?.clients?.length}
+                      />
+
                       <TableBody>
                         {filteredData?.map((row: any, index: number) => {
                           const labelId = `enhanced-table-checkbox-${index}`;
@@ -322,53 +378,171 @@ export default function AllClients() {
                                 scope="row"
                                 padding="none"
                                 className="tableCell"
-                                sx={{ paddingLeft: "20px" }}
+                                sx={{ py: "8px", px: "16px" }}
                               >
-                                <Typography variant="text-sm-regular">
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{
+                                    color: palette.color.gray[900],
+                                    fontSize: {
+                                      md: "14px !important",
+                                      xs: "14px !important",
+                                    },
+                                    lineHeight: {
+                                      md: "20px !important",
+                                      xs: "20px !important",
+                                    },
+                                    fontWeight: 500,
+                                  }}
+                                >
                                   {row?.name}
                                 </Typography>
                               </TableCell>
-                              <TableCell align="left" className="tableCell">
-                                <Typography variant="text-sm-regular">
+                              <TableCell
+                                align="left"
+                                className="tableCell"
+                                sx={{ py: "8px", px: "16px" }}
+                              >
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{
+                                    color: palette.color.gray[610],
+                                    fontSize: {
+                                      md: "14px !important",
+                                      xs: "14px !important",
+                                    },
+                                    lineHeight: {
+                                      md: "20px !important",
+                                      xs: "20px !important",
+                                    },
+                                    fontWeight: 400,
+                                  }}
+                                >
                                   {row?.email}
                                 </Typography>
                               </TableCell>
                               <TableCell
                                 align="left"
                                 className="tableCell"
-                                sx={{ paddingLeft: "17px" }}
+                                sx={{ py: "8px", px: "16px" }}
                               >
-                                <Typography variant="text-sm-regular">
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{
+                                    color: palette.color.gray[610],
+                                    fontSize: {
+                                      md: "14px !important",
+                                      xs: "14px !important",
+                                    },
+                                    lineHeight: {
+                                      md: "20px !important",
+                                      xs: "20px !important",
+                                    },
+                                    fontWeight: 400,
+                                  }}
+                                >
                                   {row?.company_name}
                                 </Typography>
                               </TableCell>
                               <TableCell
                                 align="left"
                                 className="tableCell"
-                                sx={{ paddingLeft: "17px" }}
+                                sx={{ py: "8px", px: "16px" }}
                               >
-                                <Typography variant="text-sm-regular">
-                                  {row?.phone_number}
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{
+                                    color: palette.color.gray[610],
+                                    fontSize: {
+                                      md: "14px !important",
+                                      xs: "14px !important",
+                                    },
+                                    lineHeight: {
+                                      md: "20px !important",
+                                      xs: "20px !important",
+                                    },
+                                    fontWeight: 400,
+                                  }}
+                                >
+                                  {row?.phone_number != ""
+                                    ? row?.phone_number
+                                    : "---"}
                                 </Typography>
                               </TableCell>
                               <TableCell
                                 align="left"
                                 className="tableCell"
-                                sx={{ paddingLeft: "17px" }}
+                                sx={{ py: "8px", px: "16px" }}
                               >
-                                <Typography variant="text-sm-regular">
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{
+                                    color: palette.color.gray[610],
+                                    fontSize: {
+                                      md: "14px !important",
+                                      xs: "14px !important",
+                                    },
+                                    lineHeight: {
+                                      md: "20px !important",
+                                      xs: "20px !important",
+                                    },
+                                    fontWeight: 400,
+                                  }}
+                                >
                                   {row?.city}
                                 </Typography>
                               </TableCell>
-                              <TableCell align="left" className="tableCell">
-                                <Typography variant="text-sm-regular">
+                              <TableCell
+                                align="left"
+                                className="tableCell"
+                                sx={{ py: "8px", px: "16px" }}
+                              >
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{
+                                    color: palette.color.gray[610],
+                                    fontSize: {
+                                      md: "14px !important",
+                                      xs: "14px !important",
+                                    },
+                                    lineHeight: {
+                                      md: "20px !important",
+                                      xs: "20px !important",
+                                    },
+                                    fontWeight: 400,
+                                  }}
+                                >
                                   {row?.state}
                                 </Typography>
                               </TableCell>
-                              <TableCell align="left" className="tableCell">
-                                {row?.address}
+                              <TableCell
+                                align="left"
+                                className="tableCell"
+                                sx={{ py: "8px", px: "16px" }}
+                              >
+                                <Typography
+                                  variant="text-sm-regular"
+                                  sx={{
+                                    color: palette.color.gray[610],
+                                    fontSize: {
+                                      md: "14px !important",
+                                      xs: "14px !important",
+                                    },
+                                    lineHeight: {
+                                      md: "20px !important",
+                                      xs: "20px !important",
+                                    },
+                                    fontWeight: 400,
+                                  }}
+                                >
+                                  {row?.address}
+                                </Typography>
                               </TableCell>
-                              <TableCell align="left" className="tableCell">
+                              <TableCell
+                                align="left"
+                                className="tableCell"
+                                sx={{ py: "8px", px: "16px" }}
+                              >
                                 <ClientPopOver
                                   handleOpenDeleteModal={handleOpenDeleteModal}
                                   record={row}
@@ -380,37 +554,50 @@ export default function AllClients() {
                           );
                         })}
                       </TableBody>
-                    )}
-                  </Table>
-                </TableContainer>
+                    </Table>
+                  </TableContainer>
 
-                <Pagination
-                  totalRecords={
-                    clientList?.totalRecords ? clientList?.totalRecords : 0
-                  }
-                  itemsPerPage={rowsPerPage}
-                  page={page}
-                  setPage={setPage}
-                />
-              </>
-            )}
-          </Paper>
-          <Box sx={{ height: 20 }}></Box>
-          <DeleteModal
-            open={isModalOpen}
-            onClose={handleDeleteModalClose}
-            invoiceDelete={clientDelete}
-            title="client"
-          />
-          <ClientDetailModel
-            handleSubmitForm={handleSubmitForm}
-            type={clientType}
-            clientModel={clientModel}
-            setClientModel={setClientModel}
-            editId={editId}
-          />
-        </Box>
-      </Container>
+                  <Pagination
+                    totalRecords={
+                      clientList?.totalRecords ? clientList?.totalRecords : 0
+                    }
+                    itemsPerPage={rowsPerPage}
+                    page={page}
+                    setPage={setPage}
+                  />
+                </>
+              ) : (
+                <Box
+                  sx={{
+                    height: "300px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  <Typography>No Recipient Found</Typography>
+                </Box>
+              )}
+            </Paper>
+            <Box sx={{ height: 40 }}></Box>
+            <DeleteModal
+              open={isModalOpen}
+              onClose={handleDeleteModalClose}
+              invoiceDelete={clientDelete}
+              title="recipient"
+            />
+            <ClientDetailModel
+              handleSubmitForm={handleSubmitForm}
+              type={clientType}
+              clientModel={clientModel}
+              setClientModel={setClientModel}
+              editId={editId}
+            />
+          </Box>
+        </Container>
+      </Box>
     </>
   );
 }

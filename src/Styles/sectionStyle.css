@@ -1,0 +1,13 @@
+.mainContainer {
+  max-width: 1440px !important;
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+@media only screen and (max-width: 414px) {
+  .mainContainer {
+    max-width: 375px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}

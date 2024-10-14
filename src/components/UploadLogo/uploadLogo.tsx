@@ -283,7 +283,7 @@
 // export default UploadLogo;
 
 "use client";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, ButtonBase, IconButton, Stack, Typography } from "@mui/material";
 import { FC, useRef } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
@@ -294,6 +294,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Image from "next/image";
 import ColorThief from "colorthief";
 import { googleImage } from "@/utils/common";
+import { Close } from "@mui/icons-material";
 
 interface UploadLogoProps {
   logoDesc: string;
@@ -367,56 +368,81 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     <>
       {invoiceLogo ? (
         <Box
+          borderRadius={1}
           sx={{
-            position: "relative",
-            alignItems: "center",
-            display: "flex",
+            border: "1px dashed",
+            px: "10px",
+            py: "10px",
             width: { sm: "auto", xs: "100%" },
+            cursor: "pointer",
+            borderRadius: "4px",
+            borderColor: palette.color.gray[310],
+            position: "relative",
           }}
+          onClick={handleClick}
         >
-          <Image
-            src={googleImage(invoiceLogo as string)}
-            alt="Selected Logo"
-            width={70}
-            height={70}
-            style={{ objectFit: "contain" }}
-            unoptimized
-          />
-          <IconButton
-            sx={{
-              position: "absolute",
-              top: "-5px",
-              right: "55px",
-              backgroundColor: palette.base.transparent,
-              width: "5px !important",
-              height: "5px !important",
-              borderRadius: 3,
-            }}
+          <ButtonBase
             onClick={handleCancelLogoClick}
+            sx={{
+              border: "1px solid #E3E8EF",
+              borderRadius: "100%",
+              width: "16px",
+              height: "16px",
+              position: "absolute",
+              top: "-8px",
+              right: "-8px",
+              background: "white",
+            }}
           >
-            <CancelIcon
-              sx={{
-                width: "20px",
-                height: "20px",
-                color: palette.color.gray[300],
-                ":hover": {
-                  color: palette.base.blueButtonColor,
-                },
-              }}
+            <Close sx={{ color: "#4B5565", width: "10px", height: "10px" }} />
+          </ButtonBase>
+          {/* <Box
+            sx={{ maxWidth: "120px", maxHeight: "70px", overflow: "hidden" }}
+          >
+            <Image
+              src={googleImage(invoiceLogo as string)}
+              alt="Selected Logo"
+              width={120}
+              height={34}
+              style={{ objectFit: "contain" }}
+              unoptimized
             />
-          </IconButton>
+          </Box> */}
+          <Box
+            sx={{
+              width: "120px", // Specified width
+              height: "70px", // Specified height
+              display: "flex",
+              justifyContent: "center", // Center the image horizontally
+              alignItems: "center", // Center the image vertically
+              overflow: "hidden", // Hide any overflow
+            }}
+          >
+            <Image
+              src={googleImage(invoiceLogo as string)}
+              alt="Selected Logo"
+              width={120}
+              height={70}
+              style={{
+                objectFit: "contain", // Fit the image within the box without cropping
+                maxWidth: "100%", // Make sure the image shrinks if it's larger than the box width
+                maxHeight: "100%", // Make sure the image shrinks if it's taller than the box height
+              }}
+              unoptimized
+            />
+          </Box>
         </Box>
       ) : (
         <Box
           borderRadius={1}
           sx={{
             border: "1px dashed",
-            padding: 1,
-            width: { sm: 200, xs: "100%" },
-            height: 56,
+            px: 3,
+            py: "14px",
+            width: { sm: "auto", xs: "100%" },
             cursor: "pointer",
-            backgroundColor: palette.color.gray[30],
-            borderColor: palette.base.dashedBorderColor,
+            borderRadius: "4px",
+            borderColor: palette.color.gray[310],
           }}
           onClick={handleClick}
         >
@@ -427,18 +453,34 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             onChange={handleFileChange}
             accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
           />
-          <Stack direction={"row"} spacing={1}>
-            <Icon icon="uploadLogo" height={31} width={34} />
-            <Stack direction={"column"} spacing={1}>
-              <Typography variant="text-xs-regular" color={"gray"}>
+          <Stack direction={"row"} gap={1.5}>
+            <Icon icon="uploadLogo" height={40} width={40} />
+            <Stack direction={"column"} gap={0.5}>
+              <Typography
+                variant="text-xs-regular-color"
+                sx={{
+                  fontSize: { sm: "12px", xs: "12px" },
+                  lineHeight: { sm: "18px", xs: "18px" },
+                  fontWeight: { xs: 400 },
+                  color: palette.color.gray[610],
+                }}
+              >
                 {logoDesc}
               </Typography>
               <Typography
                 variant="text-xs-regular"
                 color={"black"}
-                sx={{ textDecoration: "underline" }}
+                sx={{
+                  fontSize: { sm: "14px", xs: "14px" },
+                  lineHeight: { sm: "20px", xs: "20px" },
+                  fontWeight: { xs: 600 },
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
               >
-                Select a file
+                Click to upload
               </Typography>
             </Stack>
           </Stack>

@@ -50,6 +50,7 @@ const invoiceSetting = createSlice({
     setInvoiceColor: (state, action) => {
       state.color = action.payload;
     },
+  
     setCurrency: (state, action) => {
       state.currency = action.payload;
     },
@@ -82,6 +83,9 @@ const invoiceSetting = createSlice({
         isSelected: false,
       }));
     },
+    setColorsArray: (state, action: PayloadAction<ColorOption[]>) => {
+      state.colors = action.payload
+    },
     updateColorSelection: (state, action: PayloadAction<number>) => {
       state.colors = state.colors.map((color) =>
         color.id === action.payload
@@ -108,6 +112,7 @@ export const {
   setInvoiceSettings,
   setResetInvoiceSetting,
   setColors,
+  setColorsArray,
   updateColorSelection,
 } = invoiceSetting.actions;
 

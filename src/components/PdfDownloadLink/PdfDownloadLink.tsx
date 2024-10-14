@@ -22,7 +22,6 @@ const PdfDownloadLink: FC<PdfDownloadLinkProps> = ({
 }) => {
   const allInvoiceItems = useSelector(getInvoiceItem);
   const invoiceDetail = useSelector((state: any) => state.invoice);
-  console.log(invoiceDetail, ">>> Invoice Details <<<");
   const invoiceSetting = useSelector((state: any) => state.invoiceSetting);
   // Get Total Amount And Tax
   const [total, setTotal] = useState(0);

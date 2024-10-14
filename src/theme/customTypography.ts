@@ -1,5 +1,5 @@
 export const CustomTypography = {
-  fontFamily: "Product Sans, sans-serif",
+  fontFamily: "Inter",
   "display-3xl-bold": {
     fontSize: "74px",
     lineHeight: "75px",
@@ -216,6 +216,13 @@ export const CustomTypography = {
     lineHeight: "27px",
     fontKerning: "0%",
     fontWeight: 600,
+    letterSpacing: "",
+  },
+  "display-sm2-bold": {
+    fontSize: "26px",
+    lineHeight: "27px",
+    fontKerning: "0%",
+    fontWeight: 700,
     letterSpacing: "",
   },
 

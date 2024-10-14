@@ -32,3 +32,7 @@
   border-top-right-radius: 8px;
   border-color: #d6dae1;
 }
+
+.react-international-phone-country-selector-button__dropdown-arrow {
+  margin-left: 4px;
+}

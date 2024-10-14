@@ -18,12 +18,16 @@ import "@/Styles/phoneNoStyle.css";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { PhoneInputWithCode } from "../PhoneInputWithCode";
+import { countryCodes } from "@/utils/data";
 // import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
+
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
-  companyName: Yup.string().required("Company Name is required"),
+  companyName: Yup.string(),
+  // .required("Company Name is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
@@ -35,10 +39,9 @@ const validationSchema = Yup.object({
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string()
-    .matches(alphaRegex, "Invalid Address")
-    // .min(5, "Too short")
-    .required("Address is required"),
+  address: Yup.string().matches(alphaRegex, "Invalid Address"),
+  // .min(5, "Too short")
+  // .required("Address is required"),
 });
 
 interface ClientDetail {
@@ -79,12 +82,12 @@ const ClientDetailModel: FC<ClientDetail> = ({
     state?: string;
     address?: string;
   }
-  console.log(editId?.name, "editId");
   const {
     values,
     handleBlur,
     handleChange,
     handleSubmit,
+    setFieldValue,
     touched,
     errors,
     resetForm,
@@ -124,25 +127,59 @@ const ClientDetailModel: FC<ClientDetail> = ({
     countryCode: string
   ): string => {
     // Ensure countryCode is a valid CountryCode
-    // const validCountryCode: CountryCode = countryCode as CountryCode;
     const validCountryCode = countryCode as CountryCode;
+
     if (!phoneNumber) {
-      // return "Phone number is required";
-      return "";
+      return ""; // No phone number entered
     }
+
+    // Parse phone number based on the country code
     const phoneNumberInstance = parsePhoneNumberFromString(
-      // This function parses the phone number according to the given country code.
       phoneNumber,
       validCountryCode
     );
-    if (!phoneNumberInstance) {
-      return "Invalid phone number.";
+
+    // Check if only the country code is entered
+    const isCountryCodeOnly =
+      phoneNumber && phoneNumberInstance
+        ? phoneNumberInstance.nationalNumber === ""
+        : false;
+
+    if (isCountryCodeOnly) {
+      return ""; // No number entered, keep the field empty
     }
-    if (!phoneNumberInstance.isValid()) {
-      return "Invalid phone number";
+
+    if (!phoneNumberInstance || !phoneNumberInstance.isValid()) {
+      return "Enter valid number"; // Invalid number
     }
-    return "";
+
+    return ""; // Valid phone number
   };
+
+  const handlePhoneInputChange = (value: string) => {
+    const isCountryCodeOnly = countryCodes.some(
+      (code) => value === code || value === `${code} `
+    );
+
+    if (isCountryCodeOnly) {
+      // Clear the phone number field if only country code is entered
+      handleChange({
+        target: {
+          name: "phoneNumber",
+          value: "",
+        },
+      });
+    } else {
+      // Otherwise, update with the full value
+      handleChange({
+        target: {
+          name: "phoneNumber",
+          value: value,
+        },
+      });
+    }
+  };
+
   return (
     <Box
       borderRadius={1}
@@ -189,7 +226,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="text-lg-semibold">
-                {type === "add" ? "Add New" : "Edit"} Client
+                {type === "add" ? "Add New" : "Edit"} Recipient
               </Typography>
               <IconButton onClick={handleModelClose}>
                 <CloseIcon
@@ -202,62 +239,70 @@ const ClientDetailModel: FC<ClientDetail> = ({
               </IconButton>
             </Stack>
             <form onSubmit={handleSubmit}>
-              <Stack
-                // direction={"row"}
-                justifyContent={"space-between"}
+              <Box
                 sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
+                  height: { sm: "auto", xs: "400px" },
+                  overflow: { sm: "inherit", xs: "auto" },
                 }}
               >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="Name"
-                    size="large"
-                    name="name"
-                    value={values.name}
-                    onChange={handleChange}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.name && errors.name}
-                    onBlur={handleBlur}
-                    error={touched.name && Boolean(errors.name)}
-                  />
-                </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="Company Name"
-                    size="large"
-                    name="companyName"
-                    onChange={handleChange}
-                    value={values.companyName}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.companyName && errors.companyName}
-                    onBlur={handleBlur}
-                    error={touched.companyName && Boolean(errors.companyName)}
-                  ></TextField>
-                </FormControl>
-              </Stack>
-              <Stack
-                justifyContent={"space-between"}
-                sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
-                }}
-              >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="Email"
-                    size="large"
-                    name="email"
-                    onChange={handleChange}
-                    value={values.email}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.email && errors.email}
-                    onBlur={handleBlur}
-                    error={touched.email && Boolean(errors.email)}
-                  ></TextField>
-                </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <Stack
+                  // direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Name"
+                      size="large"
+                      name="name"
+                      value={values.name}
+                      onChange={handleChange}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.name && errors.name}
+                      onBlur={handleBlur}
+                      error={touched.name && Boolean(errors.name)}
+                    />
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      label="Company Name"
+                      size="large"
+                      name="companyName"
+                      onChange={handleChange}
+                      value={values.companyName}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.companyName && errors.companyName}
+                      onBlur={handleBlur}
+                      error={touched.companyName && Boolean(errors.companyName)}
+                    ></TextField>
+                  </FormControl>
+                </Stack>
+                <Stack
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Email"
+                      size="large"
+                      name="email"
+                      onChange={handleChange}
+                      value={values.email}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.email && errors.email}
+                      onBlur={handleBlur}
+                      error={touched.email && Boolean(errors.email)}
+                    ></TextField>
+                  </FormControl>
+                  {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <Typography
                     variant="text-sm-medium"
                     sx={{ marginBottom: "5px" }}
@@ -268,14 +313,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                     name="phoneNumber"
                     className="custom-phone-input"
                     value={values.phoneNumber || ""}
-                    onChange={(value) => {
-                      handleChange({
-                        target: {
-                          name: "phoneNumber",
-                          value: value,
-                        },
-                      });
-                    }}
+                    onChange={(value) => handlePhoneInputChange(value)}
                     onBlur={() =>
                       handleBlur({ target: { name: "phoneNumber" } })
                     }
@@ -291,57 +329,86 @@ const ClientDetailModel: FC<ClientDetail> = ({
                         : "Invalid phone number"}
                     </Typography>
                   )}
-                </FormControl>
-              </Stack>
-              <Stack
-                justifyContent={"space-between"}
-                sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
-                }}
-              >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="City"
-                    size="large"
-                    name="city"
-                    onChange={handleChange}
-                    value={values.city}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.city && errors.city}
-                    onBlur={handleBlur}
-                    error={touched.city && Boolean(errors.city)}
-                  ></TextField>
-                </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="State"
-                    size="large"
-                    name="state"
-                    onChange={handleChange}
-                    value={values.state}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.state && errors.state}
-                    onBlur={handleBlur}
-                    error={touched.state && Boolean(errors.state)}
-                  ></TextField>
-                </FormControl>
-              </Stack>
-              <Box sx={{ marginTop: "10px" }}>
-                <FormControl fullWidth>
-                  <TextField
-                    label="Address"
-                    size="large"
-                    name="address"
-                    onChange={handleChange}
-                    value={values.address}
-                    helperText={touched.address && errors.address}
-                    onBlur={handleBlur}
-                    error={touched.address && Boolean(errors.address)}
-                  ></TextField>
-                </FormControl>
-              </Box>
+                </FormControl> */}
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <Typography
+                      variant="text-sm-medium"
+                      sx={{ marginBottom: "5px" }}
+                    >
+                      Phone
+                    </Typography>
 
+                    <PhoneInputWithCode
+                      value={values.phoneNumber} // Bind Formik's phoneNumber value
+                      onChange={(value) => handlePhoneInputChange(value)}
+                      onCountrySelect={(selectedCountry) => {}}
+                      height="48px"
+                    />
+
+                    {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                      <Typography
+                        color="error"
+                        variant="text-xs-regular"
+                        sx={{ marginTop: "5px", marginLeft: "15px" }}
+                      >
+                        {typeof errors.phoneNumber === "string"
+                          ? errors.phoneNumber
+                          : "Invalid phone number"}{" "}
+                      </Typography>
+                    )}
+                  </FormControl>
+                </Stack>
+                <Stack
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="City"
+                      size="large"
+                      name="city"
+                      onChange={handleChange}
+                      value={values.city}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
+                    ></TextField>
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Country/State"
+                      size="large"
+                      name="state"
+                      onChange={handleChange}
+                      value={values.state}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.state && errors.state}
+                      onBlur={handleBlur}
+                      error={touched.state && Boolean(errors.state)}
+                    ></TextField>
+                  </FormControl>
+                </Stack>
+                <Box sx={{ marginTop: "10px" }}>
+                  <FormControl fullWidth>
+                    <TextField
+                      label="Address"
+                      size="large"
+                      name="address"
+                      onChange={handleChange}
+                      value={values.address}
+                      helperText={touched.address && errors.address}
+                      onBlur={handleBlur}
+                      error={touched.address && Boolean(errors.address)}
+                    ></TextField>
+                  </FormControl>
+                </Box>
+              </Box>
               <Stack
                 // direction={"row"}
                 justifyContent={"space-between"}

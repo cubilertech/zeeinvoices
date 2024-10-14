@@ -12,16 +12,23 @@ import { Formik, Form, Field, FieldProps } from "formik";
 import { PhoneInput } from "react-international-phone";
 import * as Yup from "yup";
 import "react-international-phone/style.css";
-import "@/Styles/contactPhoneNoStyle.css";
+import "@/Styles/getIntTouchPhoneNoStyle.css";
 import "./getTouchedFrom.css";
+import { PhoneInputWithCode } from "../PhoneInputWithCode";
 
 const validationSchema = Yup.object({
-  firstName: Yup.string().required("First name is required"),
-  lastName: Yup.string().required("Last name is required"),
+  firstName: Yup.string()
+    .min(3, "First name must be at least 3 characters")
+    .max(100, "First name must be 100 characters or less")
+    .required("First name is required"),
+  lastName: Yup.string()
+    .min(3, "Last name must be at least 3 characters")
+    .max(100, "Last name must be 100 characters or less")
+    .required("Last name is required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
-  phoneNumber: Yup.string().required("Phone number is required"),
+  // phoneNumber: Yup.string().required("Phone number is required"),
   message: Yup.string().required("Message is required"),
   agreement: Yup.bool().oneOf([true], "You must accept the privacy policy"),
 });
@@ -65,16 +72,21 @@ const GetTouchForm: React.FC = () => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: 2,
+              gap: 3,
               width: "100%",
-              maxWidth: 400,
+              maxWidth: 600,
               margin: "0 auto",
             }}
           >
             {/* First Name and Last Name */}
-            <Box sx={{ display: "flex", gap: 2 }}>
+            <Box sx={{ display: "flex", gap: 4 }}>
               <Box width={"50%"}>
-                <Typography variant="body2" component="p" pb={0.5}>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  pb={"6px"}
+                  sx={{ fontFamily: "Product Sans, sans-serif" }}
+                >
                   First Name
                 </Typography>
                 <Field name="firstName">
@@ -90,7 +102,12 @@ const GetTouchForm: React.FC = () => {
                 </Field>
               </Box>
               <Box width={"50%"}>
-                <Typography variant="body2" component="p" pb={0.5}>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  pb={"6px"}
+                  sx={{ fontFamily: "Product Sans, sans-serif" }}
+                >
                   Last Name
                 </Typography>
                 <Field name="lastName">
@@ -109,7 +126,12 @@ const GetTouchForm: React.FC = () => {
 
             {/* Email */}
             <Box>
-              <Typography variant="body2" component="p" pb={0.5}>
+              <Typography
+                variant="body2"
+                component="p"
+                pb={"6px"}
+                sx={{ fontFamily: "Product Sans, sans-serif" }}
+              >
                 Email
               </Typography>
               <Field name="email">
@@ -129,11 +151,16 @@ const GetTouchForm: React.FC = () => {
             <FormControl sx={{ width: "100%" }}>
               <Typography
                 variant="body2"
-                sx={{ marginBottom: "5px", color: "#344054" }}
+                sx={{
+                  marginBottom: "6px",
+                  color: "#000000",
+                  fontFamily: "Product Sans, sans-serif",
+                }}
               >
                 Phone
               </Typography>
-              <Field name="phoneNumber">
+
+              {/* <Field name="phoneNumber">
                 {({ field }: FieldProps) => (
                   <PhoneInput
                     {...field}
@@ -164,12 +191,47 @@ const GetTouchForm: React.FC = () => {
                     ? errors.phoneNumber
                     : "Invalid phone number"}
                 </Typography>
+              )} */}
+
+              <Field name="phoneNumber">
+                {({ field }: FieldProps) => (
+                  <PhoneInputWithCode
+                    // value={}
+                    onChange={(value) =>
+                      handleChange({
+                        target: {
+                          name: "phoneNumber",
+                          value,
+                        },
+                      })
+                    }
+                    height="44px"
+                  />
+                )}
+              </Field>
+              {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                <Typography
+                  color="error"
+                  variant="text-xs-regular"
+                  sx={{ marginTop: "5px", marginLeft: "15px" }}
+                >
+                  {/* {errors.phoneNumber || "Invalid phone number"} */}
+                  {typeof errors.phoneNumber === "string"
+                    ? errors.phoneNumber
+                    : "Invalid phone number"}{" "}
+                  {/* Ensure it's a string or fallback */}
+                </Typography>
               )}
             </FormControl>
 
             {/* Message */}
             <Box>
-              <Typography variant="body2" component="p" pb={0.5}>
+              <Typography
+                variant="body2"
+                component="p"
+                pb={"6px"}
+                sx={{ fontFamily: "Product Sans, sans-serif" }}
+              >
                 Message
               </Typography>
               <Field name="message">
@@ -178,7 +240,7 @@ const GetTouchForm: React.FC = () => {
                     {...field}
                     placeholder="Leave us a message..."
                     multiline
-                    rows={4}
+                    rows={5}
                     fullWidth
                     error={touched.message && Boolean(errors.message)}
                     helperText={touched.message && errors.message}
@@ -191,7 +253,10 @@ const GetTouchForm: React.FC = () => {
             <FormControlLabel
               control={<Field as={Checkbox} name="agreement" />}
               label={
-                <Typography variant="body2">
+                <Typography
+                  variant="body2"
+                  sx={{ fontFamily: "Product Sans, sans-serif" }}
+                >
                   You agreed to our friendly <a href="#">privacy policy</a>
                 </Typography>
               }
@@ -204,7 +269,14 @@ const GetTouchForm: React.FC = () => {
 
             {/* Submit Button */}
             <Button
-              sx={{ height: "48px !important" }}
+              sx={{
+                mt: 1,
+                height: "48px !important",
+                fontFamily: "Product Sans, sans-serif",
+                fontSize: "16px !important",
+                lineHeight: "24px !important",
+                fontWeight: "700 !important",
+              }}
               type="submit"
               variant="contained"
               fullWidth

@@ -12,6 +12,12 @@ export const icons = {
   twitterxWhiteIcon: "/Images/icons/twitterx-white-icon.svg",
   linkedinWhiteIcon: "/Images/icons/linkedin-white-icon.svg",
 
+  facebookBlackIcon: "/Images/icons/facebook-black-icon.svg",
+  InstagramWhiteIcon: "/Images/icons/instagram-black-icon.svg",
+
+  homeIcon: "/Images/icons/home-line-icon.svg",
+  rightArrowIcon: "/Images/icons/right-arrow-icon.svg",
+
   twitterlpf: "/Images/logos/twitter-lpf.svg",
   facebooklpf: "/Images/logos/facebook-lpf.svg",
   instagarmlpf: "/Images/logos/instagram-lpf.svg",
@@ -21,8 +27,10 @@ export const icons = {
   sendSqaureIcon: "/Images/icons/send-sqaure.svg",
   printIconIcon: "/Images/icons/printer-icon.svg",
   addCircleIcon: "/Images/icons/add-circle.svg",
+  addBlueCircleIcon: "/Images/icons/add-circle-blue.svg",
   addCircleOutlinedIcon: "/Images/icons/add-circle-outlined.svg",
   tickIcon: "/Images/icons/tick-icon.svg",
+  editInvoiceNumberIcon: "/Images/icons/edit-invoice-number-icon.svg",
   colorPickerPaletteIcon: "/Images/icons/color-picker-palette-icon.svg",
   invoiceIcon: "/Images/icons/invoice-icon.svg",
   clientsIcon: "/Images/icons/clients-icon.svg",
@@ -33,9 +41,15 @@ export const icons = {
   plusIcon: "/Images/icons/plus-icon.svg",
   threeDotsIcon: "/Images/icons/three-dots-icon.svg",
   editIcon: "/Images/icons/edit-icon.svg",
+
+  editIcon1: "/Images/icons/edit-icon-1.svg",
+  trashIcon: "/Images/icons/trash-icon.svg",
+  downloadIcon: "/Images/icons/download-icon.svg",
+
   profileIcon: "/Images/icons/profile-icon.svg",
   logoutIcon: "/Images/icons/logout-icon.svg",
   viewIcon: "/Images/icons/view-icon.svg",
+  pdfPriviewIcon: "/Images/icons/pdg-priview-icon.svg",
   deleteIcon: "/Images/icons/delete-icon.svg",
   deleteRedIcon: "/Images/icons/delete-red-icon.svg",
   watermarkIcon: "/Images/icons/watermark-icon.svg",
@@ -64,11 +78,15 @@ export const icons = {
   emailIcon: "/Images/icons/mail-icon.svg",
   markerPinIcon: "/Images/icons/marker-pin-icon.svg",
   PhoneIcon: "/Images/icons/phone-icon.svg",
+  FooterPhoneIcon: "/Images/icons/footer-phone-icon.svg",
+  FooterMailIcon: "/Images/icons/footer-mail-icon.svg",
+  FooterMarkerIcon: "/Images/icons/footer-marker-icon.svg",
+
   navigationPinterIcon: "/Images/icons/navigation-pointer-icon.svg",
-  handCodingPurpleIcon: "/Images/icons/hand-coding-icon.svg",
-  handCodingWhiteIcon: "/Images/icons/hand-coding-white-icon.svg",
-  gearsWhiteIcon: "/Images/icons/gears-white-icon.svg",
-  gearsPurpoleIcon: "/Images/icons/gears-purple-icon.svg",
+  handShakePurpleIcon: "/Images/icons/business-2-icon.svg",
+  handShakeWhiteIcon: "/Images/icons/business-2-1-icon.svg",
+  ecommerceWhiteIcon: "/Images/icons/business-3-1-icon.svg",
+  ecommercePurpoleIcon: "/Images/icons/business-3-icon.svg",
   arrowDownBlueIcon: "/Images/icons/arrow-down-blue-icon.svg",
   arrowDownUpIcon: "/Images/icons/arrow-up-blue-icon.svg",
   facebook1Icon: "/Images/icons/facebook1-icon.svg",
@@ -83,10 +101,11 @@ export const icons = {
   contactWhiteLocationIcon: "/Images/icons/contact-location-white-icon.svg",
   contactPhoneIcon: "/Images/icons/contact-phone-icon.svg",
   contactWhitePhoneIcon: "/Images/icons/contact-phone-white-icon.svg",
+  contactMailIcon: "/Images/icons/contact-mail-icon.svg",
+  contactWhiteMailIcon: "/Images/icons/contact-mail-white-icon.svg",
 
   tickBageIcon: "/Images/about/icons/tick-bage.svg",
   tickBageWhiteIcon: "/Images/about/icons/tick-bage-white-icon.svg",
-
 
   tickPersonIcon: "/Images/about/icons/tick-person-icon.svg",
   tickPersonWhiteIcon: "/Images/about/icons/tick-person-white-icon.svg",

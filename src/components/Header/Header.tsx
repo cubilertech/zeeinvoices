@@ -30,10 +30,10 @@ import { backendURL } from "@/utils/constants";
 import { getCountValue } from "@/redux/features/counterSlice";
 import { usePathname } from "next/navigation";
 import { BorderRight, Menu as MenuIcon } from "@mui/icons-material";
+import "@/Styles/sectionStyle.css";
 
 const Header = () => {
   const pathname = usePathname();
-  console.log(`Path Name: >>> : ${pathname}`);
   const route = useRouter();
   const dispatch = useDispatch();
   const counter = useSelector(getCountValue);
@@ -101,6 +101,7 @@ const Header = () => {
     route.push(data.url);
   };
   const handleCrtInvButton = (data: any) => {
+    handleCloseMenu();
     route.push("/create-new-invoice");
   };
   const open = Boolean(anchorEl);
@@ -112,15 +113,20 @@ const Header = () => {
         top: 0,
         left: 0,
         background: palette.base.white,
-        py: { sm: "14px", xs: "10px" },
-        px: { sm: "40px", xs: "5px" },
+        py: { sm: "12px", xs: "10px" },
+        px: { sm: "0px", xs: "0px" },
         borderBottom: `1px solid #00000033`,
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 0px 0px",
       }}
     >
       <Container
-        maxWidth="lg"
-        sx={{ display: "flex", justifyContent: "space-between" }}
+        className="mainContainer"
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          // px: "0px !important",
+          px: { md: "0%", lg: "0%", xs: "0%" },
+        }}
       >
         <Stack
           direction={"row"}
@@ -128,12 +134,19 @@ const Header = () => {
           sx={{
             justifyContent: { sm: "center", xs: "flex-start" },
             alignItems: "center",
-            gap: { sm: 9, xs: 0.8 },
+            gap: { sm: 5, xs: 22 },
           }}
         >
+          <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
+            <Icon
+              icon="logo"
+              height={isModile ? 18 : 24}
+              width={isModile ? 132 : 175}
+            />
+          </Box>
           <Box sx={{ display: { sm: "none", xs: "block" } }}>
             <IconButton
-              sx={{ pl: 0 }}
+              sx={{ p: "0px !important" }}
               aria-haspopup="true"
               onClick={handleClickMenu}
             >
@@ -154,6 +167,7 @@ const Header = () => {
                   borderRadius: "8px",
                   p: "8px 12px 8px 12px",
                   width: "189px",
+                  marginLeft: "-7px", // Move 5px to the left
                 },
               }}
             >
@@ -188,6 +202,7 @@ const Header = () => {
                       alignSelf: "center",
                       mt: 2,
                       fontSize: "14px",
+                      fontWeight: 500,
                     }}
                   >
                     Hi, {profileData?.name}
@@ -279,6 +294,7 @@ const Header = () => {
                 <Stack gap={1.5} mt={1}>
                   {pathname == "/" ||
                   pathname == "/termsAndCondition" ||
+                  pathname == "/privacyPolicy" ||
                   pathname == "/contact-us" ||
                   pathname == "/about" ? (
                     <Button
@@ -286,10 +302,20 @@ const Header = () => {
                       variant="outlined"
                       disabled={loading}
                       sx={{
-                        px: "20px",
-                        py: "8px",
+                        px: "16px !important",
+                        py: "10px !important",
                         borderRadius: "4px",
                         border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
+                        fontFamily: "Product Sans, sans-serif",
+                        fontSize: {
+                          md: "14px !important",
+                          xs: "14px !important",
+                        },
+                        lineHeight: {
+                          md: "18px !important",
+                          xs: "18px !important",
+                        },
+                        fontWeight: "700 !important",
                       }}
                     >
                       Create Invoice
@@ -308,17 +334,29 @@ const Header = () => {
                     disabled={loading}
                     sx={{
                       height: "35px !important",
-                      py: "0px !important",
-                      px: "20px !important",
+                      py: "10px !important",
+                      px: "16px !important",
                       borderRadius: "4px !important",
                       fontFamily: "Product Sans, sans-serif !important",
                       fontSize: "14px !important",
-                      fontWeight: "400 !important",
-                      background:
-                        "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      lineHeight: {
+                        md: "18px !important",
+                        xs: "18px !important",
+                      },
+                      fontWeight: "700 !important",
+                      // background:
+                      //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                      backgroundColor: palette.primary.main,
                     }}
                   >
-                    {loading ? <CircularProgress size={18} /> : "Sign In"}
+                    {loading ? (
+                      <CircularProgress
+                        size={18}
+                        sx={{ color: palette.color.gray[5] }}
+                      />
+                    ) : (
+                      "Sign In"
+                    )}
                   </Button>
                 </Stack>
               ) : (
@@ -365,46 +403,63 @@ const Header = () => {
                       color: "white",
                     }}
                   >
-                    {loading ? <CircularProgress size={18} /> : "Logout"}
+                    {loading ? (
+                      <CircularProgress
+                        size={18}
+                        sx={{ color: palette.color.gray[5] }}
+                      />
+                    ) : (
+                      "Logout"
+                    )}
                   </Button>
                 </Box>
               )}
             </Popover>
           </Box>
-          <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
+          {/* <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
             <Icon
               icon="logo"
               height={isModile ? 18 : 24}
               width={isModile ? 132 : 175}
             />
-          </Box>
+          </Box> */}
           <Box sx={{ display: { sm: "block", xs: "none" } }}>
-            {headerLandingData.map((data, index) => (
-              <Button
-                key={index}
-                onClick={() => handleButton(data)}
-                variant="text"
-                size="small"
-                sx={{
-                  color:
-                    data.url === pathname
-                      ? palette.primary.main
-                      : palette.base.black,
-                  borderBottom:
-                    data.url === pathname
-                      ? `2px solid ${palette.primary.main}`
-                      : "",
-                  borderRadius: "0px",
-                  px: 1,
-                  mr: 1,
-                  fontFamily: "Product Sans, sans-serif !important",
-                  fontSize: "14px !important",
-                  fontWeight: "400 !important",
-                }}
-              >
-                {data.title}
-              </Button>
-            ))}
+            {!session &&
+              headerLandingData.map((data, index) => (
+                <Button
+                  key={index}
+                  onClick={() => handleButton(data)}
+                  variant="text"
+                  size="small"
+                  sx={{
+                    minWidth: "42px !important",
+                    height: "40px !important",
+                    px: "16px",
+                    color:
+                      data.url === pathname
+                        ? palette.primary.main
+                        : palette.color.gray[610],
+                    backgroundColor:
+                      data.url === pathname ? "rgba(79, 53, 223, 0.1)" : "",
+                    borderRadius: "8px",
+                    // px: 1,
+                    mr: "8px",
+                    fontFamily: "Product Sans, sans-serif !important",
+                    fontSize: "16px !important",
+                    lineHeight: "24px !important",
+                    fontWeight:
+                      data.url === pathname
+                        ? "700 !important"
+                        : "600 !important",
+                    ":hover": {
+                      color: palette.primary.main,
+                      backgroundColor: "rgba(79, 53, 223, 0.2)",
+                    },
+                  }}
+                >
+                  {data.title}
+                </Button>
+              ))}
             {session &&
               headerData.map((data, index) => (
                 <Button
@@ -413,20 +468,29 @@ const Header = () => {
                   variant="text"
                   size="small"
                   sx={{
+                    minWidth: "42px !important",
+                    height: "40px !important",
+                    px: "12px",
                     color:
                       data.url === pathname
                         ? palette.primary.main
-                        : palette.base.black,
-                    borderBottom:
-                      data.url === pathname
-                        ? `2px solid ${palette.primary.main}`
-                        : "",
-                    borderRadius: "0px",
-                    px: 1,
-                    mr: 1,
+                        : palette.color.gray[610],
+                    backgroundColor:
+                      data.url === pathname ? "rgba(79, 53, 223, 0.1)" : "",
+                    borderRadius: "8px",
+                    // px: 1,
+                    mr: "8px",
                     fontFamily: "Product Sans, sans-serif !important",
-                    fontSize: "14px !important",
-                    fontWeight: "400 !important",
+                    fontSize: "16px !important",
+                    lineHeight: "24px !important",
+                    fontWeight:
+                      data.url === pathname
+                        ? "700 !important"
+                        : "600 !important",
+                    ":hover": {
+                      color: palette.primary.main,
+                      backgroundColor: "rgba(79, 53, 223, 0.2)",
+                    },
                   }}
                 >
                   {data.title}
@@ -440,9 +504,10 @@ const Header = () => {
           sx={{ display: { sm: "block", xs: "none" } }}
         >
           {!session?.accessToken ? (
-            <Stack direction={"row"} gap={1.5}>
+            <Stack direction={"row"} gap={2}>
               {pathname == "/" ||
               pathname == "/termsAndCondition" ||
+              pathname == "/privacyPolicy" ||
               pathname == "/contact-us" ||
               pathname == "/about" ? (
                 <Button
@@ -450,10 +515,20 @@ const Header = () => {
                   variant="outlined"
                   disabled={loading}
                   sx={{
-                    px: "20px",
-                    py: "8px",
+                    px: "16px !important",
+                    py: "10px !important",
                     borderRadius: "4px",
                     border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
+                    fontFamily: "Product Sans, sans-serif",
+                    fontSize: {
+                      md: "14px !important",
+                      xs: "14px !important",
+                    },
+                    lineHeight: {
+                      md: "18px !important",
+                      xs: "18px !important",
+                    },
+                    fontWeight: "700 !important",
                   }}
                 >
                   Create Invoice
@@ -471,23 +546,37 @@ const Header = () => {
                 }
                 disabled={loading}
                 sx={{
-                  height: "35px !important",
-                  py: "0px !important",
-                  px: "20px !important",
+                  // height: "35px !important",
+                  py: "10px !important",
+                  px: "16px !important",
                   borderRadius: "4px !important",
                   fontFamily: "Product Sans, sans-serif !important",
                   fontSize: "14px !important",
-                  fontWeight: "400 !important",
-                  background:
-                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  lineHeight: {
+                    md: "18px !important",
+                    xs: "18px !important",
+                  },
+                  fontWeight: "700 !important",
+                  // background:
+                  //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  backgroundColor: palette.primary.main,
                 }}
               >
-                {loading ? <CircularProgress size={18} /> : "Sign In"}
+                {loading ? (
+                  <CircularProgress
+                    size={18}
+                    sx={{ color: palette.primary.main }}
+                  />
+                ) : (
+                  "Sign In"
+                )}
               </Button>
             </Stack>
           ) : (
             <Stack direction={"row"} gap={2}>
-              <Typography sx={{ color: "black", alignSelf: "center" }}>
+              <Typography
+                sx={{ color: "black", alignSelf: "center", fontWeight: 500 }}
+              >
                 Hi, {profileData?.name}
               </Typography>
               <Box>
@@ -499,13 +588,13 @@ const Header = () => {
                 >
                   {profileData?.image ? (
                     <Avatar
-                      sx={{ width: "32px", height: "32px" }}
+                      sx={{ width: "40px", height: "40px" }}
                       alt="Avatar"
                       src={imageConvertion(profileData?.image)}
                     />
                   ) : (
                     <Avatar
-                      sx={{ width: "32px", height: "32px" }}
+                      sx={{ width: "40px", height: "40px" }}
                       alt="Bvatar"
                     />
                   )}

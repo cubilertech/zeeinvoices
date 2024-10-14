@@ -17,7 +17,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import "@/Styles/sectionStyle.css";
+
 interface CreateInvoiceProps {
   type: string;
 }
@@ -52,34 +54,25 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
   const id = open ? "simple-popover" : undefined;
   return (
     <Container
-      maxWidth="lg"
-      sx={{ overflowY: "auto", height: "100%", mt: { sm: 0, xs: 6 } }}
+      className="mainContainer"
+      sx={{
+        overflowY: "auto",
+        height: "100%",
+        mt: { sm: 0, xs: 6 },
+        px: { md: "0.1%", lg: "0.1%", xs: "0%" },
+      }}
     >
-      <Box sx={{ pt: 3, pb: 2 }}>
+      <Box sx={{ pt: { sm: 3, xs: 0 }, pb: { sm: 2, xs: 1 }, px: 0 }}>
         <InvoiceHeader
           InvSetting={{ ...invoiceSetting }}
           InvDetails={{ ...invoiceDetail }}
           summaryDetail={summaryDetail}
+          handleColorPickerClick={handleColorPickerClick}
           type={type}
         />
       </Box>
-      <Button
-        sx={{
-          display: { sm: "none", xs: "flex" },
-          border: "1px solid #4F35DF",
-          color: "#4F35DF",
-          width: "100%",
-          justifyContent: "space-between",
-        }}
-        variant="outlined"
-        onClick={handleColorPickerClick}
-        // endIcon={<KeyboardArrowDown sx={{ color: "#4F35DF" }} />}
-      >
-        Inoive Settings
-        <KeyboardArrowDown sx={{ color: "#4F35DF" }} />
-      </Button>
 
-      <Stack direction={"row"} gap={3} sx={{ mt: { sm: 0, xs: 2 } }}>
+      <Stack direction={"row"} gap={3} sx={{ mt: { sm: 0, xs: 2 }, mb: "40px" }}>
         <InvoiceSection
           InvDetails={invoiceDetail}
           type={type}

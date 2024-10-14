@@ -7,11 +7,12 @@ import {
   setDueDate,
   setTax,
 } from "@/redux/features/invoiceSetting";
+import { palette } from "@/theme/palette";
 import {
   Box,
   FormControlLabel,
   Stack,
-  Switch,  
+  Switch,
   Typography,
 } from "@mui/material";
 import { FC, useState, ChangeEvent } from "react";
@@ -26,7 +27,7 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
   const dispatch = useDispatch();
   const dueDate = useSelector(getDueDate);
   const tax = useSelector(getTax);
-  const details = useSelector(getDetails); 
+  const details = useSelector(getDetails);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     if (type === "due") {
@@ -36,17 +37,16 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
     } else {
       dispatch(setDetails());
     }
-    
   };
-  const checkedValue =()=>{
+  const checkedValue = () => {
     if (type === "due") {
-     return dueDate;
+      return dueDate;
     } else if (type === "tax") {
-   return   tax;
+      return tax;
     } else {
-    return  details;
+      return details;
     }
-  } 
+  };
   return (
     <Box
       borderRadius={1}
@@ -57,13 +57,20 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       }}
     >
       <Stack direction={"row"} justifyContent={"space-between"}>
-        <Typography variant="text-xs-regular" sx={{ marginTop: 1 }}>
+        <Typography
+          variant="text-md-regular"
+          sx={{ marginTop: 1, color: palette.color.gray[610] }}
+        >
           {lable}
         </Typography>
         <FormControlLabel
           sx={{ marginRight: -1 }}
           control={
-            <Switch sx={{ m: 1 }} checked={checkedValue()} onChange={handleChange} />
+            <Switch
+              sx={{ m: 1 }}
+              checked={checkedValue()}
+              onChange={handleChange}
+            />
           }
           label=""
         />

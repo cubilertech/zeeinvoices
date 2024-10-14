@@ -5,31 +5,37 @@ import { FC, MouseEvent } from "react";
 import { Icon } from "../Icon";
 
 interface ColorPickerMenuButton {
-  title:string;
+  title: string;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
-const ColorPickerMenuButton: FC<ColorPickerMenuButton> = ({title,onClick}) => {
+const ColorPickerMenuButton: FC<ColorPickerMenuButton> = ({
+  title,
+  onClick,
+}) => {
   return (
     <Stack
       direction={"row"}
       justifyContent={"space-between"}
       onClick={onClick}
       sx={{
-        border: `1px solid ${palette.base.borderColor}`,
-        height:"40px",
-        borderRadius: 2,
+        border: `1px solid ${palette.color.gray[200]}`,
+        height: "40px",
+        borderRadius: "4px",
         alignItems: "center",
         display: "flex",
         marginTop: "15px",
-        cursor:"pointer"
+        cursor: "pointer",
       }}
     >
       <Stack direction={"row"} justifyContent={"space-between"}>
-        <Box sx={{ margin: "5px", marginLeft:"10px" }}>
+        <Box sx={{ margin: "5px", marginLeft: "10px" }}>
           <Icon icon="colorPickerPaletteIcon" width={24} height={24} />
         </Box>
-        <Typography variant="body1" sx={{alignSelf:"center", color:palette.base.textGreyColor }}>
-       { title  ? title : 'Custom Color'}
+        <Typography
+          variant="body1"
+          sx={{ alignSelf: "center", color: palette.base.textGreyColor }}
+        >
+          {title ? title : "Custom Color"}
         </Typography>
       </Stack>
       <Box sx={{ margin: "15px" }}>

@@ -135,7 +135,18 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
             >
               <Typography
                 variant="text-xs-medium"
-                sx={{ color: palette.color.gray[840] }}
+                sx={{
+                  color: palette.color.gray[610],
+                  fontSize: {
+                    md: "12px !important",
+                    xs: "12px !important",
+                  },
+                  lineHeight: {
+                    md: "18px !important",
+                    xs: "18px !important",
+                  },
+                  fontWeight: 600,
+                }}
               >
                 {headCell.label}
               </Typography>

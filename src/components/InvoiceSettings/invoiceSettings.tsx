@@ -1,11 +1,13 @@
 "use client";
 import { palette } from "@/theme/palette";
 import {
+  Autocomplete,
   Box,
   Button,
   IconButton,
   Popover,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
@@ -15,9 +17,19 @@ import { ColorPicker } from "../ColorPicker";
 import { ColorPickerMenuButton } from "../ColorPickerMenuButton";
 import { HexColorPicker } from "react-colorful";
 import { useSelector, useDispatch } from "react-redux";
-import { getColors, setInvoiceColor } from "@/redux/features/invoiceSetting";
+import {
+  ColorOption,
+  getColors,
+  getCurrency,
+  setColorsArray,
+  setCurrency,
+  setInvoiceColor,
+} from "@/redux/features/invoiceSetting";
 import { RootState } from "@/redux/store";
 import { Close } from "@mui/icons-material";
+import { Icon } from "../Icon";
+import { SelectInputWithSearch } from "../SelectInputWithSearch";
+import { currencies } from "@/utils/data";
 
 interface InvoiceSettings {
   InvSetting?: any;
@@ -26,46 +38,15 @@ interface InvoiceSettings {
 const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
-  console.log(`Invoice Settings, redux colors: ${reduxColors}`);
-  const initialColors = [
-    { id: 1, color: "#4F35DF", isSelected: true },
-    { id: 2, color: "#444444", isSelected: false },
-    { id: 3, color: "#1A1A21", isSelected: false },
-    { id: 4, color: "#6183E4", isSelected: false },
-    { id: 5, color: "#0286FF", isSelected: false },
-    { id: 6, color: "#366AEF", isSelected: false },
-    { id: 7, color: "#9747FF", isSelected: false },
-    { id: 8, color: "#C69ED4", isSelected: false },
-    { id: 9, color: "#70756A", isSelected: false },
-    { id: 10, color: "#446043", isSelected: false },
-    { id: 11, color: "#56607C", isSelected: false },
-    { id: 12, color: "#AB5FB1", isSelected: false },
-    { id: 13, color: "#5F319A", isSelected: false },
-    { id: 14, color: "#E461C7", isSelected: false },
-    { id: 15, color: "#FFCC02", isSelected: false },
-    { id: 16, color: "#B2E461", isSelected: false },
-  ];
-  const [colors, setColors] = useState(initialColors);
+
   const [color, setColor] = useState("");
   const [pickColor, setPickColor] = useState("");
+  const selectedCurrency = useSelector(getCurrency);
   // Color Change
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
   };
-  // Custom Color Change
-  // const handleSelectColor = (id: number | string) => {
-  //   setPickColor("");
-  //   const selectedColor = initialColors.filter((data) => data.id === id);
-  //   console.log(selectedColor[0].color);
-  //   setColors((prevColors) =>
-  //     prevColors.map((color) =>
-  //       color.id === id
-  //         ? { ...color, isSelected: true }
-  //         : { ...color, isSelected: false }
-  //     )
-  //   );
-  //   dispatch(setInvoiceColor(selectedColor[0].color));
-  // };
+
   const handleSelectColor = (id: number | string) => {
     setPickColor(""); // Clear any temporary color
 
@@ -91,11 +72,25 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const handleColoredChanged = () => {
     setPickColor(color);
-    if (color !== "") {
-      setColors((prevColors) =>
-        prevColors.map((color) => ({ ...color, isSelected: false }))
-      );
+    // if (color !== "") {
+    //   setColors((prevColors) =>
+    //     prevColors.map((color) => ({ ...color, isSelected: false }))
+    //   );
+    // }
+    if (!reduxColors.some(c => c.color === color)) {
+      // Create a copy of reduxColors
+      const updatedColors: ColorOption[] = [...reduxColors];
+      
+      // Replace the last color with the new color
+      updatedColors[reduxColors.length - 1] = {
+        ...updatedColors[reduxColors.length - 1],
+        color: color
+      };
+      
+      // Dispatch the updated array
+      dispatch(setColorsArray(updatedColors));
     }
+    
     setAnchorEl(null);
     dispatch(setInvoiceColor(color));
   };
@@ -109,15 +104,19 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  const handleSelectedItem = (item: string) => {
+    dispatch(setCurrency(item));
+  };
+
   return (
     <Box
-      borderRadius={3}
+      borderRadius={"4px"}
       sx={{
-        width: 357,
+        width: { sm: "411px", xs: "100%" },
         height: { sm: "auto", xs: "100%" },
-        marginBottom: { sm: 3, xs: 0 },
+        marginBottom: { sm: 0, xs: 0 },
         backgroundColor: palette.base.white,
-        padding: 2,
+        padding: "24px",
         boxShadow: palette.boxShadows[100],
       }}
     >
@@ -129,8 +128,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
             textAlign: "center",
           }}
         >
-          <Typography variant="h6" sx={{ paddingBottom: 2, paddingTop: 1 }}>
-            Customize Your Invoice
+          <Typography
+            variant="text-xl-semibold"
+            color={palette.color.gray[900]}
+          >
+            Invoice Settings
           </Typography>
           <IconButton
             sx={{
@@ -147,16 +149,18 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
 
         {/* Color palette for color selection */}
         <Typography
-          variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2 }}
+          variant="text-sm-semibold"
+          sx={{
+            paddingTop: 2,
+            color: palette.color.gray[610],
+          }}
         >
           Color
         </Typography>
-        <hr style={{ marginTop: -8 }} />
         <Box
           sx={{
             marginTop: "10px",
-            width: "317px",
+            width: "100%",
           }}
         >
           <ColorPicker
@@ -211,30 +215,29 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         </Box>
         {/* Currency selection */}
         <Typography
-          variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2 }}
+          variant="text-sm-semibold"
+          sx={{ paddingTop: 2, color: palette.color.gray[610] }}
         >
           Currency
         </Typography>
-        <hr style={{ marginTop: -8 }} />
+
         <Box sx={{ width: "100%", marginTop: 1 }}>
-          <SelectInput
-            width={"100%"}
-            type="currency"
-            menuData={["USD", "RS", "AED"]}
-          ></SelectInput>
+          <SelectInputWithSearch
+            onChange={(value) => handleSelectedItem(value)}
+            value={selectedCurrency}
+            height="40px"
+          />
         </Box>
         <Typography
-          variant="text-sm-regular"
-          sx={{ paddingBottom: 2, paddingTop: 2 }}
+          variant="text-sm-semibold"
+          sx={{ paddingTop: 2, color: palette.color.gray[610] }}
         >
           Invoice Detail
         </Typography>
-        <hr style={{ marginTop: -8 }} />
-        <Box sx={{ px: "20px" }}>
+        <Box>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>
-          <SwitchInput type="shipping" lable="Shipping details"></SwitchInput>
+          {/* <SwitchInput type="shipping" lable="Shipping details"></SwitchInput> */}
         </Box>
       </Stack>
     </Box>

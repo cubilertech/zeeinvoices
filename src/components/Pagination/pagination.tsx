@@ -1,6 +1,6 @@
 import { palette } from "@/theme/palette";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { Box, Button, useMediaQuery } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { FC } from "react";
 
 interface PaginationProps {
@@ -71,98 +71,148 @@ const Pagination: FC<PaginationProps> = ({
     <Box
       sx={{
         width: "100%",
-        marginBottom: "10px",
-        border: `1px solid ${palette.border.invoicesBorderColor}`,
+        // border: `1px solid ${palette.border.invoicesBorderColor}`,
         display: "flex",
-        justifyContent: "space-between",
-        padding: isMobile ? "5px" : "10px",
-        borderTop: "1px solid #EAECF0",
+        justifyContent: "center",
+        px: isMobile ? "5px" : "24px",
+        pt: isMobile ? "16px" : "44px",
+        pb: isMobile ? "5px" : "16px",
+        // borderTop: "1px solid #EAECF0",
         borderBottomLeftRadius: "8px",
         borderBottomRightRadius: "8px",
       }}
     >
-      <Button
+      <Box
         sx={{
-          border: "1px solid #D0D5DD",
-          color: "#344054",
-          borderRadius: "8px",
-          textTransform: "capitalize",
-          fontWeight: 500,
-          background: "white",
-          minWidth: isMobile ? "0px" : "auto",
-          padding: isMobile ? "6px" : "5px 15px",
-          ":hover": {
-            border: "1px solid #D0D5DD",
-            color: "#344054",
-          },
+          display: "flex",
+          flexDirection: "row",
+          borderRadius: "4px",
+          // border: `1px solid ${palette.border.borderPrimary}`,
         }}
-        variant="outlined"
-        onClick={handlePreviousPage}
-        disabled={page === 1}
       >
-        {page === 1 ? (
-          <ArrowBack
-            sx={{ color: "#344054", opacity: "0.3", fontSize: 20, mr: 1 }}
-          />
-        ) : (
-          <ArrowBack sx={{ color: "#344054", fontSize: 20, mr: 1 }} />
-        )}
-        {isMobile ? "" : "Previous"}
-      </Button>
-      <Box sx={{ display: "flex", gap: isMobile ? "0px" : 2 }}>
-        {pageNumbersToShow.map((pagenumber, index) => (
-          <Box
-            key={index}
-            onClick={() => handleSetPageNumber(pagenumber)}
-            sx={{
-              backgroundColor: page === pagenumber ? "#F5F6F7" : "white",
-              color: page === pagenumber ? "#445164" : "#445164",
-              width: "40px",
-              height: "40px",
-              borderRadius: "8px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: pagenumber !== placeHolder ? "pointer" : "text",
-              border:
-                page === pagenumber ? "2px solid #EAECF0" : "1px solid #ffffff",
-              ":hover": {
-                backgroundColor:"#6183E4",
-                color:"white",
-              }
-            }}
-          >
-            {pagenumber}
-          </Box>
-        ))}
+        <Button
+          sx={{
+            fontSize: { md: "14px !important", xs: "14px !important" },
+            lineHeight: {
+              md: "20px !important",
+              xs: "20px !important",
+            },
+            fontWeight: 400,
+            border: `1px solid ${palette.border.borderPrimary}`,
+            color: palette.text.textSecondary,
+            px: "16px !important",
+            borderTopLeftRadius: "4px",
+            borderBottomLeftRadius: "4px",
+            borderTopRightRadius: "0px",
+            borderBottomRightRadius: "0px",
+            textTransform: "capitalize",
+            background: "white",
+            minWidth: isMobile ? "0px" : "auto",
+            padding: isMobile ? "6px" : "5px 15px",
+            mr: "5px",
+            ":hover": {
+              border: "1px solid #D0D5DD",
+              color: "#344054",
+            },
+          }}
+          variant="outlined"
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+        >
+          {page === 1 ? (
+            <ArrowBack
+              sx={{ color: "#344054", opacity: "0.3", fontSize: 20, mr: 1 }}
+            />
+          ) : (
+            <ArrowBack sx={{ color: "#344054", fontSize: 20, mr: 1 }} />
+          )}
+          {isMobile ? "" : "Previous"}
+        </Button>
+        <Box sx={{ display: "flex", gap: isMobile ? "0px" : 0 }}>
+          {pageNumbersToShow.map((pagenumber, index) => (
+            <Box
+              key={index}
+              onClick={() => handleSetPageNumber(pagenumber)}
+              sx={{
+                fontSize: { md: "14px !important", xs: "14px !important" },
+                lineHeight: {
+                  md: "20px !important",
+                  xs: "20px !important",
+                },
+                fontWeight: 400,
+                backgroundColor:
+                  page === pagenumber ? palette.primary.main : "white",
+                color:
+                  page === pagenumber
+                    ? palette.base.white
+                    : palette.text.textSecondary,
+                width: "40px",
+                height: "40px",
+                borderRadius: "0px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: pagenumber !== placeHolder ? "pointer" : "text",
+
+                borderTop:
+                  page === pagenumber
+                    ? `1px solid ${palette.border.borderPrimary}`
+                    : `1px solid ${palette.border.borderPrimary}`,
+                borderBottom:
+                  page === pagenumber
+                    ? `1px solid ${palette.border.borderPrimary}`
+                    : `1px solid ${palette.border.borderPrimary}`,
+                borderRight: `0.5px solid ${palette.border.borderPrimary}`,
+                borderLeft: `0.5px solid ${palette.border.borderPrimary}`,
+
+                ":hover": {
+                  backgroundColor: "#8183E4",
+                  color: "white",
+                },
+              }}
+            >
+              {pagenumber}
+            </Box>
+          ))}
+        </Box>
+        <Button
+          sx={{
+            fontSize: { md: "14px !important", xs: "14px !important" },
+            lineHeight: {
+              md: "20px !important",
+              xs: "20px !important",
+            },
+            ml: "5px",
+            fontWeight: 400,
+            border: `1px solid ${palette.border.borderPrimary}`,
+            color: palette.text.textSecondary,
+            px: "16px !important",
+            borderTopLeftRadius: "0px",
+            borderBottomLeftRadius: "0px",
+            borderTopRightRadius: "4px",
+            borderBottomRightRadius: "4px",
+            textTransform: "capitalize",
+            background: "white",
+            minWidth: isMobile ? "0px" : "auto",
+            padding: isMobile ? "6px" : "5px 15px",
+            ":hover": {
+              border: `1px solid #D0D5DD`,
+              color: "#344054",
+            },
+          }}
+          onClick={handleNextPage}
+          disabled={totalPages === page || totalPages === 0}
+        >
+          {isMobile ? "" : "Next"}
+          {totalPages === page || totalPages === 0 ? (
+            <ArrowForward
+              sx={{ color: "#344054", opacity: "0.3", fontSize: 20, ml: 1 }}
+            />
+          ) : (
+            <ArrowForward sx={{ color: "#344054", fontSize: 20, ml: 1 }} />
+          )}
+        </Button>
       </Box>
-      <Button
-        sx={{
-          border: "1px solid #D0D5DD",
-          color: "#344054",
-          borderRadius: "8px",
-          textTransform: "capitalize",
-          fontWeight: 500,
-          background: "white",
-          minWidth: isMobile ? "0px" : "auto",
-          padding: isMobile ? "6px" : "5px 15px",
-          ":hover": {
-            border: "1px solid #D0D5DD",
-            color: "#344054",
-          },
-        }}
-        onClick={handleNextPage}
-        disabled={totalPages === page || totalPages === 0 }
-      >
-        {isMobile ? "" : "Next"}
-        {totalPages === page || totalPages === 0  ? (
-          <ArrowForward
-            sx={{ color: "#344054", opacity: "0.3", fontSize: 20, ml: 1 }}
-          />
-        ) : (
-          <ArrowForward sx={{ color: "#344054", fontSize: 20, ml: 1 }} />
-        )}
-      </Button>
     </Box>
   );
 };

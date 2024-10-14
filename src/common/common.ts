@@ -3,7 +3,9 @@ import dayjs from "dayjs";
 //Calculate Amount
 export const calculateAmount = (cartData: any) => {
   let total = 0;
-  cartData?.map((data: any) => (total += data.subTotal));
+  if (cartData) {
+    cartData?.map((data: any) => (total += Number(data.subTotal)));
+  }
   return total;
 };
 //Calculate Tax

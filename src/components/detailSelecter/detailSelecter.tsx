@@ -15,7 +15,6 @@ import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
-import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
@@ -42,27 +41,39 @@ import {
   setResetSelectedList,
   setSenderSelected,
 } from "@/redux/features/listSelected";
+import { PhoneInputWithCode } from "../PhoneInputWithCode";
+import { countryCodes } from "@/utils/data";
+import {
+  getRecipientDetailsError,
+  getSenderDetailsError,
+  setRecipientDetailsError,
+  setSenderDetailsError,
+} from "@/redux/features/validationSlice";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
-  companyName: Yup.string().required("Company Name is required"),
+  name: Yup.string().min(3).max(100).required("Name is required"),
+  companyName: Yup.string().min(3).max(100),
+  // .required("Company Name is required"),
   email: Yup.string()
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
   // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
+    .min(3)
+    .max(100)
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
   state: Yup.string()
+    .min(3)
+    .max(100)
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
-  address: Yup.string()
-    .matches(alphaRegex, "Invalid Address")
-    // .min(5, "Too short")
-    .required("Address is required"),
+  address: Yup.string().min(3).max(400).matches(alphaRegex, "Invalid Address"),
+  // .min(5, "Too short")
+  // .required("Address is required"),
 });
 interface DetailSelecter {
   title?: string;
@@ -84,6 +95,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
 }) => {
   const dispatch = useDispatch();
   // dispatch(setResetSelectedList());
+  const isSenderError = useSelector(getSenderDetailsError);
+  const isRecipientError = useSelector(getRecipientDetailsError);
+
   const apiRouteSender = `${backendURL}/senders/getAll`;
   const apiRouteClient = `${backendURL}/clients/getAll`;
 
@@ -96,7 +110,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const [isRecipientList, setIsRecipientList] = useState("");
 
   const handleItemSelected = (item: any) => {
-    console.log(item, "item", isSelectedList);
     if (item === "Sender") {
       setIsSenderList(item);
       // dispatch(setSenderSelected(true));
@@ -117,7 +130,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
     setOpen(true), setOpenBd(true);
   };
 
-  // console.log(InvDetails, "121a");
   const initialValues = {
     name: InvDetails?.name || "",
     companyName: InvDetails?.companyName || "",
@@ -165,6 +177,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
     touched,
     errors,
     resetForm,
+    setFieldValue,
+    setFieldError,
   } = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -180,6 +194,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
         values.phoneNumber,
         values.countryCode
       );
+      // console.log(phoneError, values.phoneNumber, "phoneError");
       if (phoneError) {
         errors.phoneNumber = phoneError;
       }
@@ -193,25 +208,31 @@ const DetailSelecter: FC<DetailSelecter> = ({
     },
 
     onSubmit: (values) => {
+      const data = {
+        ...values,
+        email: values.email.toLowerCase(),
+      };
       handleCloseBd();
       setOpen(false);
-      handleSubmitForm(values);
+      handleSubmitForm(data);
       // Reset the form fields
       resetForm();
     },
   });
-  console.log(values, "121a67676767");
 
-  //close model
-  const handleModelClose = () => {
-    handleCloseBd();
-    setOpen(false);
-  };
   // backdrop for modal
   const [openBd, setOpenBd] = React.useState(false);
   const handleCloseBd = () => {
     setOpenBd(false);
   };
+
+  //close model
+  const handleModelClose = () => {
+    resetForm();
+    handleCloseBd();
+    setOpen(false);
+  };
+
   function isString(value: any): value is string {
     return typeof value === "string";
   }
@@ -221,32 +242,69 @@ const DetailSelecter: FC<DetailSelecter> = ({
     countryCode: string
   ): string => {
     // Ensure countryCode is a valid CountryCode
-    // const validCountryCode: CountryCode = countryCode as CountryCode;
     const validCountryCode = countryCode as CountryCode;
+
     if (!phoneNumber) {
-      // return "Phone number is required";
-      return "";
+      return ""; // No phone number entered
     }
+
+    // Parse phone number based on the country code
     const phoneNumberInstance = parsePhoneNumberFromString(
-      // This function parses the phone number according to the given country code.
       phoneNumber,
       validCountryCode
     );
-    if (!phoneNumberInstance) {
-      return "Invalid phone number.";
+
+    // Check if only the country code is entered
+    const isCountryCodeOnly =
+      phoneNumber && phoneNumberInstance
+        ? phoneNumberInstance.nationalNumber === ""
+        : false;
+
+    if (isCountryCodeOnly) {
+      return ""; // No number entered, keep the field empty
     }
-    if (!phoneNumberInstance.isValid()) {
-      return "Invalid phone number";
+
+    if (!phoneNumberInstance || !phoneNumberInstance.isValid()) {
+      return "Enter valid number"; // Invalid number
     }
-    return "";
+
+    return ""; // Valid phone number
+  };
+
+  const handlePhoneInputChange = (value: string) => {
+    const isCountryCodeOnly = countryCodes.some(
+      (code) => value === code || value === `${code} `
+    );
+
+    if (isCountryCodeOnly) {
+      // Clear the phone number field if only country code is entered
+
+      handleChange({
+        target: {
+          name: "phoneNumber",
+          value: "",
+        },
+      });
+    } else {
+      // const err = validatePhoneNumber(value, values.countryCode)
+      // console.log(value, "handlePhoneInputChange");
+      // setFieldError('phoneNumber',err );
+      // Otherwise, update with the full value
+      handleChange({
+        target: {
+          name: "phoneNumber",
+          value: value,
+        },
+      });
+    }
   };
 
   const validateEmail = (email: string) => {
     if (title === "From") {
-      if (email === recipientDetail.email)
+      if (email === recipientDetail.email && email !== "")
         return "Sender email must be different from recipient email";
     } else {
-      if (email === senderDetail.email)
+      if (email === senderDetail.email && email !== "")
         return "Recipient email must be different from sender email";
     }
 
@@ -275,9 +333,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
       refetchSenderList();
     }
   }, [refetchClientList, refetchSenderList, session?.accessToken]);
-  console.log(senderList, "senderList");
-  console.log(filteredClientData, "filteredClientData");
-  console.log(filteredSenderData, "filteredSenderData");
+
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   useEffect(() => {
@@ -286,24 +342,37 @@ const DetailSelecter: FC<DetailSelecter> = ({
       dispatch(setResetSelectedList());
     };
 
+    if (showData) {
+      if (detailsOf == "Sender") {
+        dispatch(setSenderDetailsError(false));
+      }
+      if (detailsOf == "Recipient") {
+        dispatch(setRecipientDetailsError(false));
+      }
+    }
+
     window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [dispatch]);
+  }, [dispatch, showData, detailsOf]);
 
+  // console.log(errors, 'errors');
   return (
-    <Box
-      borderRadius={1}
-      // sx={{
-      //   width: 316,
-      //   height: 242,
-      // }}
-    >
+    <Box sx={{ width: "100%" }}>
       {title && (
-        <Typography variant="text-sm-regular" color={palette.color.gray[110]}>
-          {title}
+        <Typography
+          variant="text-sm-medium"
+          sx={{
+            fontSize: { sm: "14px", xs: "14px" },
+            lineHeight: { sm: "20px", xs: "20px" },
+            fontWeight: { xs: 500 },
+            pb: "6px",
+            color: "#4B5565",
+          }}
+        >
+          {title == "From" ? "Sender Details" : "Recipient Details"}
         </Typography>
       )}
       {session?.accessToken && type != "edit" && (
@@ -311,7 +380,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           name={
             fromSelected ? InvDetails?.name : toSelected ? InvDetails?.name : ""
           }
-          width={isMobile ? "100%" : 345}
+          width={isMobile ? "100%" : "100%"}
           placeholder={`Add existing ${detailsOf}`}
           borderRadius={"4px"}
           type={`${detailsOf}`}
@@ -326,58 +395,67 @@ const DetailSelecter: FC<DetailSelecter> = ({
           <Box
             borderRadius={1}
             sx={{
-              // width: 292,
-              width: { sm: 345, xs: "100%" },
-              height: 192,
-              marginTop: 1.5,
-              padding: 2,
-              borderRadius: 2,
+              width: { sm: "100%", xs: "100%" },
+              height: 222,
+              marginTop: "16px",
+              py: "10px",
+              px: "14px",
+              borderRadius: "4px",
               cursor: "pointer",
-              border: `1px solid ${palette.color.gray[120]}`,
+              border: `1px solid ${palette.color.gray[200]}`,
+              boxShadow: palette.boxShadows.shadowxs,
             }}
             onClick={handleOpen}
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography
+              {/* <Typography
                 variant="text-xs-regular"
                 color={palette.color.gray[770]}
               >
                 {detailsOf} Details
-              </Typography>
+              </Typography> */}
             </Stack>
             <Stack
               direction={"column"}
-              spacing={1.5}
+              // spacing={1.5}
               sx={{
-                height: "90%",
+                height: "100%",
                 justifyContent: "center",
                 alignItems: "center",
                 display: "flex",
+                gap: "8px",
               }}
             >
               <Icon icon="addCircleIcon" height={32} width={32}></Icon>
               <Typography
-                variant="text-xs-regular"
-                color={palette.color.gray[810]}
+                variant="text-sm-medium"
+                color={palette.color.gray[610]}
               >
                 Add New {detailsOf}
               </Typography>
             </Stack>
           </Box>
+          {(isSenderError || isRecipientError) && (
+            <Typography
+              variant="text-xxs-medium"
+              sx={{ color: "red", position: "absolute" }}
+            >
+              {detailsOf} details are required
+            </Typography>
+          )}
         </>
       ) : (
         // After data populate
         <Box
           borderRadius={1}
           sx={{
-            // width: 292,
-            width: 345,
+            width: "100%",
             height: 222,
-            marginTop: 1.5,
+            marginTop: "16px",
             padding: 2,
-            borderRadius: 2,
+            borderRadius: "4px",
             cursor: type != "edit" && !isListSelected ? "pointer" : "default",
-            border: `1px solid ${palette.color.gray[120]}`,
+            border: `1px solid ${palette.color.gray[200]}`,
           }}
           onClick={() => {
             if (type != "edit" && !isListSelected) {
@@ -405,7 +483,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
               <IconButton
                 sx={{ padding: 0 }}
                 onClick={() => {
-                  console.log(detailsOf, "detailsof");
                   if (detailsOf == "Sender") {
                     dispatch(setResetFromDetails());
                     dispatch(setSenderSelected(false));
@@ -500,13 +577,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
               bgcolor: palette.base.white,
               boxShadow: 1,
               p: "24px",
-              borderRadius: "12px",
+              borderRadius: "8px",
             }}
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography variant="text-lg-semibold">
-                {type === "add" ? "Add" : "Edit"}{" "}
-                {detailsOf === "Recipient" ? "Receiver" : detailsOf} Details
+              <Typography variant="display-xs-semibold">
+                {type === "add" ? "Add New" : "Edit"}{" "}
+                {detailsOf === "Recipient" ? "Receiver" : detailsOf}
               </Typography>
               <IconButton onClick={handleModelClose}>
                 <CloseIcon
@@ -518,64 +595,87 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 />
               </IconButton>
             </Stack>
+
             <form onSubmit={handleSubmit}>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
+              <Box
                 sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
+                  overflow: { sm: "initial", xs: "auto" },
+                  height: { sm: "auto", xs: "400px" },
                 }}
               >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="Name"
-                    size="large"
-                    name="name"
-                    value={values.name}
-                    onChange={handleChange}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.name && errors.name}
-                    onBlur={handleBlur}
-                    error={touched.name && Boolean(errors.name)}
-                  />
-                </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="Company Name"
-                    size="large"
-                    name="companyName"
-                    onChange={handleChange}
-                    value={values.companyName}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.companyName && errors.companyName}
-                    onBlur={handleBlur}
-                    error={touched.companyName && Boolean(errors.companyName)}
-                  ></TextField>
-                </FormControl>
-              </Stack>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
-                }}
-              >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="Email"
-                    size="large"
-                    name="email"
-                    onChange={handleChange}
-                    value={values.email}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.email && errors.email}
-                    onBlur={handleBlur}
-                    error={touched.email && Boolean(errors.email)}
-                  ></TextField>
-                </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "32px",
+                    flexDirection: { sm: "row", xs: "column" },
+                    gap: "16px",
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Name"
+                      size="large"
+                      name="name"
+                      borderRadius="4px"
+                      value={values.name}
+                      onChange={handleChange}
+                      sx={{
+                        width: { sm: "100%", xs: "100%" },
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.name && errors.name}
+                      onBlur={handleBlur}
+                      error={touched.name && Boolean(errors.name)}
+                    />
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      label="Company Name"
+                      size="large"
+                      name="companyName"
+                      borderRadius="4px"
+                      onChange={handleChange}
+                      value={values.companyName}
+                      sx={{
+                        width: { sm: "100%", xs: "100%" },
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.companyName && errors.companyName}
+                      onBlur={handleBlur}
+                      error={touched.companyName && Boolean(errors.companyName)}
+                    ></TextField>
+                  </FormControl>
+                </Stack>
+                <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                    gap: "16px",
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Email"
+                      size="large"
+                      name="email"
+                      borderRadius="4px"
+                      onChange={handleChange}
+                      value={values.email}
+                      sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.email && errors.email}
+                      onBlur={handleBlur}
+                      error={touched.email && Boolean(errors.email)}
+                    ></TextField>
+                  </FormControl>
+                  {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                   <Typography
                     variant="text-sm-medium"
                     sx={{ marginBottom: "5px" }}
@@ -586,14 +686,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     name="phoneNumber"
                     className="custom-phone-input"
                     value={values.phoneNumber || ""}
-                    onChange={(value) => {
-                      handleChange({
-                        target: {
-                          name: "phoneNumber",
-                          value: value,
-                        },
-                      });
-                    }}
+                    onChange={(value) => handlePhoneInputChange(value)}
                     onBlur={() =>
                       handleBlur({ target: { name: "phoneNumber" } })
                     }
@@ -609,64 +702,112 @@ const DetailSelecter: FC<DetailSelecter> = ({
                         : "Invalid phone number"}
                     </Typography>
                   )}
-                </FormControl>
-              </Stack>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                sx={{
-                  marginTop: "10px",
-                  flexDirection: { sm: "row", xs: "column" },
-                }}
-              >
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="City"
-                    size="large"
-                    name="city"
-                    onChange={handleChange}
-                    value={values.city}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.city && errors.city}
-                    onBlur={handleBlur}
-                    error={touched.city && Boolean(errors.city)}
-                  ></TextField>
-                </FormControl>
-                <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <TextField
-                    label="State"
-                    size="large"
-                    name="state"
-                    onChange={handleChange}
-                    value={values.state}
-                    sx={{ width: { sm: "240px", xs: "100%" } }}
-                    helperText={touched.state && errors.state}
-                    onBlur={handleBlur}
-                    error={touched.state && Boolean(errors.state)}
-                  ></TextField>
-                </FormControl>
-              </Stack>
-              <Box sx={{ marginTop: "10px" }}>
-                <FormControl fullWidth>
-                  <TextField
-                    label="Address"
-                    size="large"
-                    name="address"
-                    onChange={handleChange}
-                    value={values.address}
-                    helperText={touched.address && errors.address}
-                    onBlur={handleBlur}
-                    error={touched.address && Boolean(errors.address)}
-                  ></TextField>
-                </FormControl>
-              </Box>
+                </FormControl> */}
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <Typography
+                      variant="text-sm-medium"
+                      sx={{ marginBottom: "5px" }}
+                    >
+                      Phone
+                    </Typography>
 
+                    <PhoneInputWithCode
+                      borderRadius="4px"
+                      value={values.phoneNumber} // Bind Formik's phoneNumber value
+                      // defaultCountryPhoneCode={values.countryCode}
+                      onChange={(value) => handlePhoneInputChange(value)} // Use Formik's setFieldValue to update the state
+                      onCountrySelect={(selectedCountry) => {
+                        setFieldValue("countryCode", selectedCountry.code);
+                      }}
+                      height="48px"
+                    />
+
+                    {touched.phoneNumber && Boolean(errors.phoneNumber) && (
+                      <Typography
+                        color="error"
+                        variant="text-xs-regular"
+                        sx={{ marginTop: "5px", marginLeft: "15px" }}
+                      >
+                        {/* {errors.phoneNumber || "Invalid phone number"} */}
+                        {typeof errors.phoneNumber === "string"
+                          ? errors.phoneNumber
+                          : "Invalid phone number"}{" "}
+                        {/* Ensure it's a string or fallback */}
+                      </Typography>
+                    )}
+                  </FormControl>
+                </Stack>
+                <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{
+                    marginTop: "10px",
+                    flexDirection: { sm: "row", xs: "column" },
+                    gap: "16px",
+                  }}
+                >
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="City"
+                      size="large"
+                      borderRadius="4px"
+                      name="city"
+                      onChange={handleChange}
+                      value={values.city}
+                      sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
+                    ></TextField>
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="Country/State"
+                      size="large"
+                      name="state"
+                      borderRadius="4px"
+                      onChange={handleChange}
+                      value={values.state}
+                      sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.state && errors.state}
+                      onBlur={handleBlur}
+                      error={touched.state && Boolean(errors.state)}
+                    ></TextField>
+                  </FormControl>
+                </Stack>
+                <Box sx={{ marginTop: "10px" }}>
+                  <FormControl fullWidth>
+                    <TextField
+                      label="Address"
+                      size="large"
+                      name="address"
+                      borderRadius="4px"
+                      onChange={handleChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      value={values.address}
+                      helperText={touched.address && errors.address}
+                      onBlur={handleBlur}
+                      error={touched.address && Boolean(errors.address)}
+                    ></TextField>
+                  </FormControl>
+                </Box>
+              </Box>
               <Stack
                 direction={"row"}
                 justifyContent={"space-between"}
-                gap={2}
+                gap={"12px"}
                 sx={{
-                  marginTop: "20px",
+                  marginTop: "32px",
                   flexDirection: { sm: "row", xs: "column" },
                 }}
               >
@@ -674,10 +815,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   onClick={handleModelClose}
                   variant="outlined"
                   sx={{
-                    width: { sm: "243px", xs: "100%" },
+                    width: { sm: "50%", xs: "100%" },
                     height: "40px",
                     borderColor: palette.base.borderColor,
                     color: "#445164",
+                    borderRadius: "4px",
                   }}
                 >
                   Cancel
@@ -686,9 +828,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   type="submit"
                   variant="contained"
                   sx={{
-                    width: { sm: "243px", xs: "100%" },
+                    width: { sm: "50%", xs: "100%" },
                     height: "40px",
                     px: "24px !important",
+                    borderRadius: "4px",
                   }}
                 >
                   Add

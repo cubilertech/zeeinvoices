@@ -4,6 +4,7 @@ import { FC } from "react";
 import { Icon } from "../Icon";
 
 interface AccordionCardRightIconProps {
+  qIndex?: number;
   title?: string;
   desc?: string;
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface AccordionCardRightIconProps {
 }
 
 const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
+  qIndex,
   title,
   desc,
   isOpen,
@@ -20,38 +22,39 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
     <Stack
       direction={"column"}
       gap={0}
+      justifyContent={"space-between"}
       sx={{
-        // width: "100%",
-        // my: "1%",
-        // background: isOpen ? "#F9FAFB" : "transparent",
-        borderRadius: "16px",
-        // p: isOpen ? "2%" : "2%",
+        width: "100%",
         transition: "background 0.3s, padding 0.3s",
         overflow: "hidden",
       }}
     >
       <Stack
         direction={"row"}
+        justifyContent={"space-between"}
+        gap={3}
         sx={{
-          py: { md: "32px", xs: "10px" },
+          width: "100%",
+          pt:
+            qIndex == 0 ? { md: "0px", xs: "0px" } : { md: "24px", xs: "24px" },
+          pb: { md: "24px", xs: "24px" },
           borderBottom: "1px solid #0000001A",
         }}
       >
         <Stack
           direction={"column"}
-          justifyContent={isOpen ? "flex-start" : "center"}
-          gap={2}
+          justifyContent={isOpen ? "center" : "center"}
+          gap={1}
           sx={{ width: "100%", transition: "all 0.3s" }}
         >
           <Typography
             variant="display-xs"
             sx={{
-              color: palette.color.gray[820],
+              color: palette.color.gray[900],
               fontFamily: "Product Sans, sans-serif",
-              mt: "1%",
               cursor: "pointer",
-              fontSize: { md: "22px", xs: "14px" },
-              lineHeight: { md: "28px", xs: "18px" },
+              fontSize: { md: "18px", xs: "18px" },
+              lineHeight: { md: "22px", xs: "22px" },
               fontWeight: { md: 400 },
             }}
             onClick={onToggle}
@@ -59,29 +62,36 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
             {title}
           </Typography>
 
-          <div
-            style={{
-              maxHeight: isOpen ? "100px" : "0px",
-              overflow: "hidden",
-              transition: "max-height 0.3s ease",
-            }}
-          >
-            <Typography
-              variant="text-md-regular"
-              sx={{
-                fontFamily: "Product Sans, sans-serif",
-                color: palette.color.gray[725],
-                transition: "opacity 0.3s",
-                fontSize: { md: "16px", xs: "12px" },
-                lineHeight: { md: "24px", xs: "18px" },
-                fontWeight: { md: 400 },
+          {isOpen && (
+            <div
+              style={{
+                maxHeight: isOpen ? "192px" : "0px",
+                overflow: "hidden",
+                transition: "max-height 0.3s ease",
               }}
             >
-              {desc}
-            </Typography>
-          </div>
+              <Typography
+                variant="text-md-regular"
+                sx={{
+                  fontFamily: "Product Sans, sans-serif",
+                  color: palette.color.gray[610],
+                  transition: "opacity 0.3s",
+                  fontSize: { md: "16px", xs: "16px" },
+                  lineHeight: { md: "24px", xs: "24px" },
+                  fontWeight: 400,
+                }}
+              >
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: desc || "",
+                  }}
+                  style={{}}
+                />
+              </Typography>
+            </div>
+          )}
         </Stack>
-        <IconButton onClick={onToggle} sx={{ mt: "1.5%" }}>
+        <IconButton onClick={onToggle} sx={{ mt: "0.8%" }}>
           <Icon
             icon={isOpen ? "arrowDownUpIcon" : "arrowDownBlueIcon"}
             width={15}

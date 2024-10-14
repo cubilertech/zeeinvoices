@@ -68,6 +68,7 @@ const badgeColors = {
 };
 
 const gray = {
+  900: "#121926",
   840: "#445164",
   830: "#18181B",
   820: "#101828",
@@ -86,23 +87,28 @@ const gray = {
   725: "#475467",
   720: "#444444",
   710: "#4F4F4F",
+  705: "#364152",
   700: "#333333",
   650: "#3D4451",
+  610: "#4B5565",
   600: "rgb(91,93,107)",
   550: "rgb(90,93,105)",
+  510: "#697586",
   500: "rgb(112,112,129)",
   400: "rgb(95,112,125)",
+  310: "#CDD5DF",
   300: "rgb(115,130,133)",
   250: "#7a8089",
-  200: "rgb(114,121,129)",
+  200: "#E3E8EF",
   175: "rgb(118,119,124)",
   150: "rgba(255, 255, 255, 0.37)",
   130: "#1B2533",
   120: "#D0D5DD",
   110: "#9CA3AF",
+  105: "#EEF2F6",
   100: "#90919b",
   60: "#8F97A2",
-  50: "#8f8f94",
+  50: "#F8FAFC",
   30: "#F9F9F9",
   20: "#F5F6F7",
   10: "#E0E0E0",
@@ -157,6 +163,7 @@ const borderColor = {
   contactInfoBorderColor: "#3F4DE14D",
   contactUsBorderColor: "#E1E1E1",
   outlinedBtnBorderColor: "#D6D8DC",
+  borderPrimary: "#D0D5DD",
 };
 
 const tableColor = {
@@ -172,6 +179,7 @@ const textColor = {
   termsdescColor: "#464646",
   contactInfoDescColor: "#1F1F1F",
   contactEmailColor: "#4F35DF",
+  textSecondary: "#344054",
 };
 
 export const palette = {
@@ -206,8 +214,10 @@ export const palette = {
     // ...opacity,
   },
   boxShadows: {
+    shadowxs: "0px 1px 2px 0px #1018280D",
     100: "rgba(0, 0, 0, 0.25) 0px 0px 4px 0px",
-    200: "rgba(28, 28, 28, 0.1) 0px 0px 10px 0px",
+    // 200: "rgba(28, 28, 28, 0.1) 0px 0px 10px 0px",
+    200: "0px 1px 3px 0px rgba(16, 24, 40, 0.1)",
     300: "rgba(205, 205, 205, 0.16) 0px 54.48px 64.09px 0px",
   },
 

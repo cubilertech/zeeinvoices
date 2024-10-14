@@ -65,35 +65,33 @@ const PreviewPage = () => {
       );
       dispatch(
         setInvoiceSettings({
-          color: singleInvoice?.settings.color,
-          currency: singleInvoice?.settings.currency,
-          dueDate: singleInvoice?.settings.dueDate,
-          tax: singleInvoice?.settings.tax,
-          detail: singleInvoice?.settings.detail,
+          color: singleInvoice?.settings?.color,
+          currency: singleInvoice?.settings?.currency,
+          dueDate: singleInvoice?.settings?.dueDate,
+          tax: singleInvoice?.settings?.tax,
+          detail: singleInvoice?.settings?.detail,
         })
       );
     }
-  }, [refetchSingleInvoice,singleInvoice,dispatch]);
-
-  console.log(invoiceDetail,'invoiceDetail',singleInvoice);
+  }, [refetchSingleInvoice, singleInvoice, dispatch]);
 
   return (
     <>
-    {singleInvoice && (
-      <PDFViewer
-        style={{ width: "100%", height: "76vh", marginTop: "50px" }}
-        showToolbar={false}
-      >
-        <PdfView
-          invDetails={{ ...invoiceDetail }}
-          invSetting={{ ...invoiceSetting }}
-          Summary={summaryDetail}
-          user={session?.user}
-        />
-      </PDFViewer>
-    )}
-    {!singleInvoice && <p>Loading...</p>}
-  </>
+      {singleInvoice && (
+        <PDFViewer
+          style={{ width: "100%", height: "76vh", marginTop: "50px" }}
+          showToolbar={false}
+        >
+          <PdfView
+            invDetails={{ ...invoiceDetail }}
+            invSetting={{ ...invoiceSetting }}
+            Summary={summaryDetail}
+            user={session?.user}
+          />
+        </PDFViewer>
+      )}
+      {!singleInvoice && <p>Loading...</p>}
+    </>
   );
 };
 

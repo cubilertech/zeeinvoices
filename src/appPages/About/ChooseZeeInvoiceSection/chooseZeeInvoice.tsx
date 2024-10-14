@@ -2,24 +2,27 @@
 import { ExpandableText } from "@/components/ExpandableText";
 import { palette } from "@/theme/palette";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
-import { useState } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import "@/Styles/sectionStyle.css";
 
 const expandableTextData = [
   {
     title1: "Efficiency",
-    desc: "Save time by automating your invoicing process. Send invoices in just a few clicks and track payments effortlessly.",
+    desc: "With our automated invoicing system, you can streamline your billing process and reduce manual tasks leading to enhance productivity for businesses of all sizes.",
   },
   {
     title1: "Customization",
-    desc: "Tailor your invoices to match your brand’s identity. Our templates are fully customizable to reflect your business’s unique style.",
+    desc: "Our customizable invoice templates helps you personalize your invoices ensuring a professional appearance every time.",
   },
   {
     title1: "Support",
-    desc: "We’re here to help whenever you need it. Our dedicated support team is available to assist you with any questions or issues you may encounter.",
+    desc: "With AI-powered invoicing you get exceptional support helping businesses of all sizes navigate our with ease.",
   },
 ];
 
 const ChooseZeeInvoiceSection = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
   const isModile = useMediaQuery("(max-width: 600px)");
   const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
   const handleToggle = (index: number) => {
@@ -32,34 +35,87 @@ const ChooseZeeInvoiceSection = () => {
       return nextIndex >= expandableTextData.length ? 0 : nextIndex;
     });
   };
+
+  useEffect(() => {
+    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+        }
+      },
+      { threshold: 0.5 } // Adjust the threshold as needed
+    );
+
+    if (sectionElement) {
+      observer.observe(sectionElement);
+    }
+
+    return () => {
+      if (sectionElement) {
+        observer.unobserve(sectionElement); // Clean up the observer
+      }
+    };
+  }, []);
+
   return (
     <>
       <Box
+        ref={sectionRef}
         sx={{
           backgroundColor: "#F7F8F9",
           width: "100%",
+          px: { sm: "0px", xs: "0px" },
           py: { sm: "50px", xs: 3 },
         }}
       >
-        <Container maxWidth="lg">
+        <Container
+          className="mainContainer"
+          sx={{ px: { md: "0.1%", lg: "0.1%", xs: "0%" } }}
+        >
           <Box textAlign={"center"}>
             <Typography
-              variant={isModile ? "h5" : "display-lg-bold"}
-              color={palette.color.gray[805]}
+              variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
+              color={palette.color.gray[900]}
               mb={{ sm: 3, xs: 1 }}
               component={"p"}
+              sx={{
+                fontFamily: "Product Sans,sans-serif",
+                fontSize: { md: "48px", xs: "26px" },
+                lineHeight: { md: "64px", xs: "32px" },
+                fontWeight: { xs: 700 },
+              }}
             >
               Why Choose{" "}
-              <span style={{ color: palette.text.contactEmailColor }}>
-                ZeeInvoice
+              <span
+                style={{
+                  // color: palette.text.contactEmailColor,
+                  background:
+                    "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                ZeeInvoices
               </span>
             </Typography>
             <Typography
               component={"p"}
-              variant={isModile ? "text-xs-regular" : "text-xl1-regular"}
-              color={palette.color.gray[745]}
+              variant={isModile ? "text-lg-regular" : "text-xl1-regular"}
+              color={palette.color.gray[610]}
+              sx={{
+                fontFamily: "Product Sans,sans-serif",
+                fontSize: { md: "20px", xs: "18px" },
+                lineHeight: { md: "30px", xs: "28px" },
+                fontWeight: { xs: 400 },
+                width: { md: "70%" },
+                textAlign: "center",
+                mx: "auto",
+              }}
             >
-              See What Benefits We Are Offing Right Now
+              Choose ZeeInvoices for enhanced efficiency, extensive
+              customization options and exceptional support tailored to your
+              invoicing needs.
             </Typography>
           </Box>
 
@@ -78,6 +134,8 @@ const ChooseZeeInvoiceSection = () => {
                 flexDirection: "column",
                 gap: 3,
                 width: { sm: "50%", xs: "100%" },
+                height: "204px",
+                justifyContent: "center",
               }}
             >
               {expandableTextData.map((item, index) => (
@@ -95,11 +153,11 @@ const ChooseZeeInvoiceSection = () => {
             <Box
               sx={{
                 width: { sm: "50%", xs: "100%" },
-                mt: { sm: 0, xs: 4 },
+                mt: { sm: 0, xs: 1 },
                 height: { sm: "483px", xs: "310px" },
                 overflow: "hidden",
                 borderRadius: "8px",
-                backgroundImage: "url(/Images/about/Why-Choose-US.svg)",
+                backgroundImage: "url(/Images/about/Why-Choose-US-1.svg)",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% 100%",
               }}

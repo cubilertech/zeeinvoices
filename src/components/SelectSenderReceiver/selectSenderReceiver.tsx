@@ -1,10 +1,12 @@
 "use client";
 import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getRecipientDetail,
+  getSenderDetail,
   setRecipientDetail,
   setSenderDetail,
 } from "@/redux/features/invoiceSlice";
@@ -14,10 +16,7 @@ import {
   setRecipientSelected,
   setSenderSelected,
 } from "@/redux/features/listSelected";
-// import {
-//   // setRecipientSelected,
-//   setSenderSelected,
-// } from "@/redux/features/listSelected";
+import { Check } from "@mui/icons-material";
 
 interface SelectSenderReceiver {
   name?: string;
@@ -35,23 +34,22 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   type,
   menuData,
   placeholder = "Select",
-  width = 200,
-  height = 36,
+  width = 385,
+  height = 44,
   filteredData,
   borderRadius = 2,
   onItemSelected,
 }) => {
   const dispatch = useDispatch();
-  const [selectedSender, setSelectedSender] = useState("");
-  const [selectedReceiver, setSelectedReceiver] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const SelectedSenderDetail = useSelector(getSenderDetail);
+  const SelectedRecipientDetail = useSelector(getRecipientDetail);
   const fromSelected = useSelector(getIsSenderSelected);
   const toSelected = useSelector(getIsRecipientSelected);
 
   const handleSelectedItem = (item: any) => {
+    console.log(item, "item");
     if (type === "Sender") {
       dispatch(setSenderSelected(true));
-      setSelectedSender(item.name);
       dispatch(
         setSenderDetail({
           ...item,
@@ -61,7 +59,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
       );
     } else {
       dispatch(setRecipientSelected(true));
-      setSelectedReceiver(item.name);
       dispatch(
         setRecipientDetail({
           ...item,
@@ -76,7 +73,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
     const bottom =
       event.target.scrollHeight ===
       event.target.scrollTop + event.target.clientHeight;
-    console.log(bottom, "bottom");
     if (bottom) {
       //   loadMoreData();
     }
@@ -118,37 +114,55 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
           MenuProps={{
             PaperProps: {
               sx: {
-                bgcolor: palette.base.white, // Change dropdown background color
+                bgcolor: palette.base.white, // dropdown background color
               },
             },
           }}
           renderValue={(selected) => {
             if (!selected) {
-              console.log(selected, "Select");
-              return <span style={{ color: "grey" }}>{`${placeholder}`}</span>; // Placeholder text styling
+              return (
+                <Typography
+                  variant="text-md-medium"
+                  style={{ color: palette.color.gray[510] }}
+                >{`${placeholder}`}</Typography>
+              ); // Placeholder text
             }
-            return <span style={{ color: "black" }}>{selected}</span>;
+            return (
+              <Box
+                sx={{
+                  color: "black",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="text-md-medium">{selected}</Typography>{" "}
+              </Box>
+            );
           }}
           sx={{
+            boxShadow: palette.boxShadows.shadowxs,
             width: { width },
             height: { height },
             "& fieldset": {
-              borderColor: "#D6DAE1",
+              borderColor: palette.color.gray[200],
               ":hover": { borderColor: "black !important" },
             },
             borderRadius: borderRadius,
             marginTop: 0,
             backgroundColor: palette.base.white,
+            "& .MuiInputBase-input": {
+              px: "14px !important",
+              py: "10px !important",
+            },
           }}
         >
-          {filteredData &&
+          {filteredData && filteredData.length > 0 ? (
             filteredData?.map((item: any, index: any) => (
               <MenuItem
                 key={index}
                 onClick={() => {
-                  console.log(item, "values12");
                   handleSelectedItem(item);
-                  setSelectedIndex(index);
                   if (onItemSelected) {
                     onItemSelected(type);
                   }
@@ -156,47 +170,51 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                 sx={{
                   color: palette.base.black,
                   backgroundColor: palette.base.white,
+                  px: "20px",
+                  py: "10px",
                   "&.Mui-selected": {
-                    bgcolor: palette.color.gray[5], // Change background color of selected item
+                    bgcolor: "#F9FAFB", // Change background color of selected item
                     color: "darkblue", // Change text color of selected item
                     "&:hover": {
-                      bgcolor: "lightgrey", // Keep background color on hover for selected item
+                      bgcolor: "#F9FAFB", // Keep background color on hover for selected item
                     },
                   },
                   "&:hover": {
-                    bgcolor: "lightgrey", // Change background color on hover
+                    bgcolor: "#F9FAFB", // Change background color on hover
                   },
                 }}
                 value={item.name}
               >
-                {item.name}
+                <Box
+                  sx={{
+                    color: "black",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Typography variant="text-md-medium">{item.name}</Typography>{" "}
+                  {SelectedRecipientDetail?.email === item.email &&
+                    type === "Recipient" && (
+                      <Check
+                        sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
+                      />
+                    )}
+                  {SelectedSenderDetail?.email === item.email &&
+                    type === "Sender" && (
+                      <Check
+                        sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
+                      />
+                    )}
+                </Box>
               </MenuItem>
-            ))}
-
-          {/* {menuData &&
-            menuData?.map((item, index) => (
-              <MenuItem
-                key={index}
-                onClick={() => handleSelectedItem(item)}
-                sx={{
-                  color: palette.base.black,
-                  backgroundColor: palette.base.white,
-                  "&.Mui-selected": {
-                    bgcolor: "lightgreen", // Change background color of selected item
-                    color: "darkblue", // Change text color of selected item
-                    "&:hover": {
-                      bgcolor: "lightgreen", // Keep background color on hover for selected item
-                    },
-                  },
-                  "&:hover": {
-                    bgcolor: "lightgrey", // Change background color on hover
-                  },
-                }}
-                value={item}
-              >
-                {item}
-              </MenuItem>
-            ))} */}
+            ))
+          ) : (
+            <MenuItem disabled sx={{ color: palette.base.black }}>
+              No {`${type}`} Found
+            </MenuItem>
+          )}
         </Select>
       </Stack>
     </Box>
