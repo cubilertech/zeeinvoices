@@ -571,15 +571,13 @@ const PdfView: FC<PdfViewProps> = ({
 
                   <Text
                     style={{
-                      width: "70px",
+                      width: "72px",
                       fontSize: "14px",
                       fontWeight: "bold",
                       marginLeft: "33px",
                       textAlign: "right",
                       color: "#4B5565",
                       marginRight: "6px",
-                      overflow: "hidden", // Hide overflowing text
-                      textOverflow: "ellipsis",
                     }}
                   >
                     {/* {currency}{" "} */}
