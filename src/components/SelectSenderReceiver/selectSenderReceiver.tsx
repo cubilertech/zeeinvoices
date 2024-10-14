@@ -1,10 +1,12 @@
 "use client";
 import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getRecipientDetail,
+  getSenderDetail,
   setRecipientDetail,
   setSenderDetail,
 } from "@/redux/features/invoiceSlice";
@@ -15,10 +17,6 @@ import {
   setSenderSelected,
 } from "@/redux/features/listSelected";
 import { Check } from "@mui/icons-material";
-// import {
-//   // setRecipientSelected,
-//   setSenderSelected,
-// } from "@/redux/features/listSelected";
 
 interface SelectSenderReceiver {
   name?: string;
@@ -43,9 +41,8 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   onItemSelected,
 }) => {
   const dispatch = useDispatch();
-  const [selectedSender, setSelectedSender] = useState("");
-  const [selectedReceiver, setSelectedReceiver] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const SelectedSenderDetail = useSelector(getSenderDetail);
+  const SelectedRecipientDetail = useSelector(getRecipientDetail);
   const fromSelected = useSelector(getIsSenderSelected);
   const toSelected = useSelector(getIsRecipientSelected);
 
@@ -53,7 +50,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
     console.log(item, "item");
     if (type === "Sender") {
       dispatch(setSenderSelected(true));
-      setSelectedSender(item._id);
       dispatch(
         setSenderDetail({
           ...item,
@@ -63,7 +59,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
       );
     } else {
       dispatch(setRecipientSelected(true));
-      setSelectedReceiver(item._id);
       dispatch(
         setRecipientDetail({
           ...item,
@@ -168,7 +163,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                 key={index}
                 onClick={() => {
                   handleSelectedItem(item);
-                  setSelectedIndex(index);
                   if (onItemSelected) {
                     onItemSelected(type);
                   }
@@ -201,16 +195,18 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                   }}
                 >
                   <Typography variant="text-md-medium">{item.name}</Typography>{" "}
-                  {selectedReceiver === item._id && type === "Recipient" && (
-                    <Check
-                      sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
-                    />
-                  )}
-                  {selectedSender === item._id && type === "Sender" && (
-                    <Check
-                      sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
-                    />
-                  )}
+                  {SelectedRecipientDetail?.email === item.email &&
+                    type === "Recipient" && (
+                      <Check
+                        sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
+                      />
+                    )}
+                  {SelectedSenderDetail?.email === item.email &&
+                    type === "Sender" && (
+                      <Check
+                        sx={{ width: "20px", height: "20px", color: "#7F56D9" }}
+                      />
+                    )}
                 </Box>
               </MenuItem>
             ))

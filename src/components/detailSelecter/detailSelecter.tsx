@@ -15,7 +15,6 @@ import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
-import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import { useFormik } from "formik";
@@ -456,7 +455,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             padding: 2,
             borderRadius: "4px",
             cursor: type != "edit" && !isListSelected ? "pointer" : "default",
-            border: `1px solid ${palette.color.gray[120]}`,
+            border: `1px solid ${palette.color.gray[200]}`,
           }}
           onClick={() => {
             if (type != "edit" && !isListSelected) {
