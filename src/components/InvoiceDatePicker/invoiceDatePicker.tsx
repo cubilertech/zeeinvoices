@@ -21,12 +21,33 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
   const dispatch = useDispatch();
   const invoiceDate = useSelector(getInvoiceDate);
   const dueDate = useSelector(getDueDate);
+  // const handleDateChange = (newDate: Dayjs | null) => {
+  //   if (newDate) {
+  //     const date = newDate?.toISOString();
+  //     title === "Invoice Date"
+  //       ? dispatch(setInvoiceDate(date))
+  //       : dispatch(setDueDate(date));
+  //   }
+  // };
   const handleDateChange = (newDate: Dayjs | null) => {
     if (newDate) {
       const date = newDate?.toISOString();
-      title === "Invoice Date"
-        ? dispatch(setInvoiceDate(date))
-        : dispatch(setDueDate(date));
+
+      if (title === "Invoice Date") {
+        dispatch(setInvoiceDate(date));
+
+        // Adjust the due date if it's earlier than the invoice date
+        if (dayjs(date).isAfter(dayjs(dueDate))) {
+          dispatch(setDueDate(date));
+        }
+      } else if (title === "Due Date") {
+        // Ensure the due date is not earlier than the invoice date
+        if (dayjs(date).isBefore(dayjs(invoiceDate))) {
+          dispatch(setDueDate(invoiceDate));
+        } else {
+          dispatch(setDueDate(date));
+        }
+      }
     }
   };
   return (

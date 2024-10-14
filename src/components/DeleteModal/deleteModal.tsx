@@ -1,14 +1,24 @@
 "use client";
-import { Backdrop, Box, Button, Modal, Stack, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Button,
+  Modal,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { FC } from "react";
 import { Icon } from "../Icon";
+
+let isMobile = null;
 
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: isMobile ? 400 : 345,
   bgcolor: "background.paper",
   borderRadius: "12px",
   boxShadow: 24,
@@ -35,6 +45,7 @@ const DeleteModal: FC<DeleteModal> = ({
   invoiceDelete,
   title,
 }) => {
+  isMobile = useMediaQuery("(max-width: 600px)");
   return (
     <>
       <Backdrop

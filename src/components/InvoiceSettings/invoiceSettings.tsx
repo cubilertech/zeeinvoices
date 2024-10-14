@@ -77,20 +77,20 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
     //     prevColors.map((color) => ({ ...color, isSelected: false }))
     //   );
     // }
-    if (!reduxColors.some(c => c.color === color)) {
+    if (!reduxColors.some((c) => c.color === color)) {
       // Create a copy of reduxColors
       const updatedColors: ColorOption[] = [...reduxColors];
-      
+
       // Replace the last color with the new color
       updatedColors[reduxColors.length - 1] = {
         ...updatedColors[reduxColors.length - 1],
-        color: color
+        color: color,
       };
-      
+
       // Dispatch the updated array
       dispatch(setColorsArray(updatedColors));
     }
-    
+
     setAnchorEl(null);
     dispatch(setInvoiceColor(color));
   };
@@ -198,19 +198,22 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
               color={color}
               onChange={handleColorChange}
             />
-            <Button
+            <Box
               sx={{
                 display: "flex",
-                alignSelf: "center",
-                alignItems: "center",
-                margin: "10px",
+                justifyContent: "flex-end", // Align to the right
+                padding: "10px",
+                pr: "20px",
               }}
-              onClick={handleColoredChanged}
-              color="primary"
-              variant="outlined"
             >
-              Done
-            </Button>
+              <Button
+                onClick={handleColoredChanged}
+                color="primary"
+                variant="outlined"
+              >
+                Done
+              </Button>
+            </Box>
           </Popover>
         </Box>
         {/* Currency selection */}
