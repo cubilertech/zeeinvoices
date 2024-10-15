@@ -95,10 +95,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
-  const InvoiceRendomId = useMemo(
-    () => Math.floor(Math.random() * 100) + 1,
-    []
-  );
+  const InvoiceRendomId = Math.floor(Math.random() * 100) + 1;
+  const [errorMessage, setErrorMessage] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(
     InvDetails.id ? InvDetails.id : `00${InvoiceRendomId}`
   );
@@ -131,8 +129,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     };
   }, [InvDetails, InvSetting, InvoiceId]);
   //Update Invoice
+  console.log(isEditInvoiceId, "isEditInvoiceId");
   const handleUpdateInvoice = async () => {
-    if (
+    if (isEditInvoiceId === true) {
+      setErrorMessage(true);
+    } else if (
       InvDetails?.invoiceType === "" ||
       InvDetails.from?.name === "" ||
       InvDetails.to?.name === "" ||
@@ -146,6 +147,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       )
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
+
       if (InvDetails?.invoiceType === "") {
         await dispatch(setInvoiceTypeError(true));
       }
@@ -277,7 +279,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
-    if (
+    if (isEditInvoiceId === true) {
+      setErrorMessage(true);
+    } else if (
       InvDetails?.invoiceType === "" ||
       InvDetails.from?.name === "" ||
       InvDetails.to?.name === "" ||
@@ -444,10 +448,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     saveAs(result, "ZeeInvoice");
   };
   useEffect(() => {
-    if (type === "add") {
-      dispatch(setInvoiceId(InvoiceId));
+    if (!isEditInvoiceId) {
+      setErrorMessage(false);
     }
-  }, [InvoiceId, dispatch, type, InvoiceRendomId]);
+  }, [isEditInvoiceId]);
+
+  useEffect(() => {
+    dispatch(setInvoiceId(InvoiceId));
+  }, [InvoiceId, dispatch, InvoiceRendomId]);
 
   return (
     <Stack
@@ -579,24 +587,31 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 </Typography>
               )}
             </Box>
-
-            <IconButton
-              disabled={InvoiceId.length > 6 || InvoiceId.length <= 0}
-              onClick={() => setIsEditInvoiceId(!isEditInvoiceId)}
-              sx={{
-                borderRadius: "100%",
-                width: "28px !important",
-                height: "28px !important",
-                p: 0.5,
-                mt: "0px",
-              }}
+            <Tooltip
+              security="warning"
+              title={"Please Submit"}
+              placement="top"
+              arrow
+              open={errorMessage}
             >
-              {isEditInvoiceId ? (
-                <DoneOutlined sx={{ width: "18px", height: "18px" }} />
-              ) : (
-                <Icon icon="editInvoiceNumberIcon" width={18} height={18} />
-              )}
-            </IconButton>
+              <IconButton
+                disabled={InvoiceId.length > 6 || InvoiceId.length <= 0}
+                onClick={() => setIsEditInvoiceId(!isEditInvoiceId)}
+                sx={{
+                  borderRadius: "100%",
+                  width: "28px !important",
+                  height: "28px !important",
+                  p: 0.5,
+                  mt: "0px",
+                }}
+              >
+                {isEditInvoiceId ? (
+                  <DoneOutlined sx={{ width: "18px", height: "18px" }} />
+                ) : (
+                  <Icon icon="editInvoiceNumberIcon" width={18} height={18} />
+                )}
+              </IconButton>
+            </Tooltip>
           </Box>
         </Stack>
         <Box
