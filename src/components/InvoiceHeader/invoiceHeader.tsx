@@ -360,8 +360,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     } else if (!isInvoiceTypeError && !isSenderError && !isRecipientError) {
       console.log(InvDetails.from?.name, "insave", InvDetails.to?.name);
 
-      dispatch(setResetSelectedList());
-
       const formData = new FormData();
       if (invoiceData.logo) {
         const imageFile = base64ToFile(invoiceData.logo, "uploaded_image.png");
@@ -410,10 +408,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           router.push("/invoices");
           dispatch(setResetInvoice());
           dispatch(setResetInvoiceSetting());
+          dispatch(setResetSelectedList());
         })
         .catch((err) => {
-          if(err.messsage) {
-           toast.error(err.message);
+          if (err.messsage) {
+            toast.error(err.message);
           }
         });
     }
