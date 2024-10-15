@@ -10,6 +10,10 @@ const authOptions: NextAuthOptions = ({
       authorization: `https://accounts.google.com/o/oauth2/auth/authorize?response_type=code&prompt=login`,
     }),
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 12 * 60 * 60, // 12 hours
+  },
   callbacks: {
     async jwt({ token, account, user }) {
       if (account && user) {
@@ -50,6 +54,10 @@ const authOptions: NextAuthOptions = ({
       // session.backendApiResponse = token.backendApiResponse;
       return session;
     },
+  },
+  pages: {
+    error: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, // Redirect to home or any custom error page
+    signIn: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, // Custom sign-in page (if you have one)
   },
 });
 
