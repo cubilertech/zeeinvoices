@@ -480,7 +480,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             }}
             onClick={handleBack}
           >
-            <ArrowBackIosNewIcon />
+            <ArrowBackIosNewIcon sx={{ width: "16px", height: "16px" }} />
           </IconButton>
         )}
         <Box
@@ -492,7 +492,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               gap: 0.6,
               alignItems: "center",
               position: "relative",
-              mt: "7px",
+              mt: "3px",
               color: palette.color.gray[610],
             }}
           >
@@ -583,7 +583,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               width: "28px !important",
               height: "28px !important",
               p: 0.5,
-              mt: "7px",
+              mt: "0px",
             }}
           >
             {isEditInvoiceId ? (

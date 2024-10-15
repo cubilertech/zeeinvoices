@@ -272,7 +272,7 @@ const InvoiceDetail = () => {
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
           <IconButton
-            sx={{ padding: 0, marginRight: "10px" }}
+            sx={{ padding: 0, marginRight: { sm: "10px", xs: "0px" } }}
             onClick={handleBack}
           >
             <ArrowBackIosNewIcon sx={{ width: "16px", height: "16px" }} />
