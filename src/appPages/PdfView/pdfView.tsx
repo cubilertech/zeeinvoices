@@ -516,6 +516,7 @@ const PdfView: FC<PdfViewProps> = ({
                         fontSize: "12px",
                         marginTop: "4px",
                         color: "#4B5565",
+                        width: "190px",
                       }}
                     >
                       {data.description}
