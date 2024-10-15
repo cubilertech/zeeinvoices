@@ -615,16 +615,15 @@ const Header = () => {
                   onClose={handleClose}
                   anchorOrigin={{
                     vertical: "bottom",
-                    horizontal: "left",
+                    horizontal: "right",
                   }}
-                  // transformOrigin={{
-                  //   vertical: "top",
-                  //   horizontal: "right", // This moves the popover more to the left
-                  // }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
                   sx={{
                     "& .MuiPopover-paper": {
                       borderRadius: "8px",
-                      marginLeft: "-160px",
                     },
                   }}
                 >
@@ -703,7 +702,9 @@ const Header = () => {
                     <Button
                       variant="outlined"
                       onClick={handleProfile}
-                      startIcon={<Icon icon="profileIcon" />}
+                      startIcon={
+                        <Icon icon="profileIcon" width={16} height={16} />
+                      }
                       sx={{
                         justifyContent: "left",
                         border: "none",
@@ -722,7 +723,9 @@ const Header = () => {
                     <Button
                       variant="outlined"
                       onClick={handleLogoutButton}
-                      startIcon={<Icon icon="logoutIcon" />}
+                      startIcon={
+                        <Icon icon="logoutIcon" width={16} height={16} />
+                      }
                       sx={{
                         justifyContent: "left",
                         border: "none",

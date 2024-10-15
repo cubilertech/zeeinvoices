@@ -504,23 +504,24 @@ const PdfView: FC<PdfViewProps> = ({
                   <View>
                     <Text
                       style={{
-                        width: "190px",
+                        width: "170px",
                         fontSize: "14px",
                         fontWeight: "extrabold",
+                        marginRight: "20px",
                       }}
                     >
                       {data.name}
                     </Text>
-                    <Text
+                    {/* <Text
                       style={{
                         fontSize: "12px",
                         marginTop: "4px",
                         color: "#4B5565",
-                        width: "190px",
+                        width: "170px",
                       }}
                     >
                       {data.description}
-                    </Text>
+                    </Text> */}
                   </View>
                   <Text
                     style={{
@@ -588,6 +589,16 @@ const PdfView: FC<PdfViewProps> = ({
                     ).toFixed(2)}
                   </Text>
                 </View>
+                <Text
+                  style={{
+                    fontSize: "12px",
+                    marginTop: "4px",
+                    color: "#4B5565",
+                    // width: "170px",
+                  }}
+                >
+                  {data.description}
+                </Text>
               </View>
             )}
           </>
