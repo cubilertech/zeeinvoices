@@ -411,7 +411,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           dispatch(setResetSelectedList());
         })
         .catch((err) => {
-          if (err.messsage) {
+          if (err) {
             toast.error(err.message);
           }
         });
