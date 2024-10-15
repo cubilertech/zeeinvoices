@@ -468,7 +468,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           width: { sm: "auto", xs: "100%" },
         }}
       >
-        <Stack direction={"row"} sx={{alignItems:"center"}}>
+        <Stack direction={"row"} sx={{ alignItems: "center" }}>
           {type === "add" ? (
             ""
           ) : (
@@ -638,12 +638,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             ) : (
               // </Box>
               <Tooltip title="Download PDF" placement="bottom">
-                <Button
+                <ButtonBase
                   sx={{ p: "0px !important" }}
                   onClick={() => setDownloadModel(true)}
                 >
                   <SaveAlt sx={{ width: 19, height: 19 }} />
-                </Button>
+                </ButtonBase>
               </Tooltip>
             )
           ) : (
