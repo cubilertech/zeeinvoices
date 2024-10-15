@@ -408,7 +408,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           dispatch(setResetInvoiceSetting());
         })
         .catch((err) => {
-          toast.error(err.message);
+          if(err.messsage) {
+           toast.error(err.message);
+          }
         });
     }
   };
