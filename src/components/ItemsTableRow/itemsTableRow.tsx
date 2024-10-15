@@ -147,7 +147,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             helperText={itemValidation?.quantity?.message ?? ""}
             variant="outlined"
             value={data.quantity > 0 ? data.quantity : ""}
-            inputProps={{ min: 0 }}
+            inputProps={{
+              min: 0,
+              inputMode: "numeric", // For numeric input on mobile
+              pattern: "[0-9]*", // Restrict to digits
+            }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const value = parseInt(e.target.value, 10);
               if (value >= 0 || e.target.value === "") {
@@ -270,6 +274,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   </Typography>
                 </InputAdornment>
               ),
+            }}
+            inputProps={{
+              inputMode: "numeric", // For numeric input on mobile
+              pattern: "[0-9]*", // Restrict to digits
             }}
           />
         </Grid>
@@ -404,7 +412,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 // },
                 cursor: "pointer",
                 textAlign: "end",
-                mr: showRemoveButton ? "" :  "-23px",
+                mr: showRemoveButton ? "" : "-23px",
               }}
               title={`${
                 selectedCurrency === "USD" ? "$" : selectedCurrency
