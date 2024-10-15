@@ -82,6 +82,7 @@ const Header = () => {
   const handleLoginButton = () => {
     setLoading(true);
     handleLogin(pathname);
+    setTimeout(() => setLoading(false), 5000);
   };
   const handleLogoutButton = () => {
     dispatch(setResetInvoiceSetting());
