@@ -12,10 +12,7 @@ import {
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { backendURL } from "@/utils/constants";
-import {
-  useCreateDocument,
-  useEditDocument,
-} from "@/utils/ApiHooks/common";
+import { useCreateDocument, useEditDocument } from "@/utils/ApiHooks/common";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceId, setResetInvoice } from "@/redux/features/invoiceSlice";
 import { useParams, useRouter } from "next/navigation";
@@ -603,9 +600,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 }}
               >
                 {isEditInvoiceId ? (
-                  <DoneOutlined sx={{ width: "18px", height: "18px" }} />
+                  <DoneOutlined sx={{ width: "23px", height: "23px" }} />
                 ) : (
-                  <Icon icon="editInvoiceNumberIcon" width={18} height={18} />
+                  <Icon icon="editInvoiceNumberIcon" width={23} height={23} />
                 )}
               </IconButton>
             </Tooltip>
