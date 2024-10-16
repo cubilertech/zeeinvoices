@@ -592,7 +592,7 @@ const Header = () => {
                   gap={1}
                   sx={{ cursor: "pointer" }}
                   onClick={handleClick}
-                  onMouseEnter={handleClick}
+                  // onMouseEnter={handleClick}
                 >
                   {profileData?.image ? (
                     <Avatar
@@ -629,7 +629,7 @@ const Header = () => {
                 >
                   <Stack
                     direction={"column"}
-                    onMouseLeave={handleClose}
+                    // onMouseLeave={handleClose}
                     sx={{
                       justifyContent: "left",
                       border: `1px solid #EAECF0`,
@@ -706,7 +706,7 @@ const Header = () => {
                         <Icon icon="profileIcon" width={16} height={16} />
                       }
                       sx={{
-                        height:"40px",
+                        height: "40px",
                         justifyContent: "left",
                         border: "none",
                         color: "#4B5563",
@@ -728,7 +728,7 @@ const Header = () => {
                         <Icon icon="logoutIcon" width={16} height={16} />
                       }
                       sx={{
-                        height:"40px",
+                        height: "40px",
                         justifyContent: "left",
                         border: "none",
                         color: "#4B5563",
