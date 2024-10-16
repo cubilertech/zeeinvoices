@@ -706,6 +706,7 @@ const Header = () => {
                         <Icon icon="profileIcon" width={16} height={16} />
                       }
                       sx={{
+                        height:"40px",
                         justifyContent: "left",
                         border: "none",
                         color: "#4B5563",
@@ -727,6 +728,7 @@ const Header = () => {
                         <Icon icon="logoutIcon" width={16} height={16} />
                       }
                       sx={{
+                        height:"40px",
                         justifyContent: "left",
                         border: "none",
                         color: "#4B5563",

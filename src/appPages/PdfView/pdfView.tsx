@@ -344,7 +344,7 @@ const PdfView: FC<PdfViewProps> = ({
             display: "flex",
             flexDirection: "row",
             padding: "5px 10px",
-            gap: 30,
+            gap: 27,
           }}
         >
           {/* Invoice date */}
