@@ -68,7 +68,7 @@ const validationSchema = Yup.object({
     .matches(alphaRegex, "Invalid City")
     .required("City is required"),
   state: Yup.string()
-    .min(3)
+    .min(2)
     .max(20)
     .matches(alphaRegex, "Invalid State")
     // .min(3, "City must be at least 3 characters long")
@@ -634,8 +634,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="display-xs-semibold">
-                {type === "add" ? "Add New" : "Edit"}{" "}
-                {detailsOf === "Recipient" ? "Receiver" : detailsOf}
+                {showData ? "Update " : "Add New "}
+                {/* {type === "add" ? "Add New" : "Edit"}{" "} */}
+                {detailsOf === "Recipient" ? "Recipient" : detailsOf}
               </Typography>
               <IconButton onClick={handleModelClose}>
                 <CloseIcon
@@ -886,7 +887,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     borderRadius: "4px",
                   }}
                 >
-                  Add
+                  {showData ? "Update" : "Add"}
                 </Button>
               </Stack>
             </form>
