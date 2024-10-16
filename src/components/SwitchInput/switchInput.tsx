@@ -60,7 +60,7 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
     if (!terms) {
       dispatch(setAddtionalNotes(""));
     }
-  }, [terms]);
+  }, [terms, dispatch]);
 
   return (
     <Box
