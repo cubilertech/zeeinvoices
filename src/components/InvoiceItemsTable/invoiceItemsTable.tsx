@@ -129,10 +129,7 @@ const InvoiceItemsTable: FC = () => {
                   variant="text-xs-semibold"
                   sx={{ color: palette.base.white }}
                 >
-                  Rate{" "}
-                  <span>{`(${
-                    selectedCurrency === "USD" ? "$" : selectedCurrency
-                  })`}</span>
+                  Rate <span>{`(${selectedCurrency})`}</span>
                 </Typography>
               </Grid>
 

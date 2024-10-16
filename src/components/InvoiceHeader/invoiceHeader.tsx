@@ -15,7 +15,6 @@ import { backendURL } from "@/utils/constants";
 import {
   useCreateDocument,
   useEditDocument,
-  useFetchSingleDocument,
 } from "@/utils/ApiHooks/common";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceId, setResetInvoice } from "@/redux/features/invoiceSlice";
@@ -31,8 +30,6 @@ import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
 import {
   DoneOutlined,
-  EditOutlined,
-  KeyboardArrowDown,
   SaveAlt,
   SettingsOutlined,
   VisibilityOutlined,
@@ -49,7 +46,6 @@ import {
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
-import ReactToPrint from "react-to-print";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { Icon } from "../Icon";
 
