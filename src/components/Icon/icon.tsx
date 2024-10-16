@@ -8,6 +8,7 @@ export interface IconProps {
   width?: number;
   height?: number;
   disabled?: boolean;
+  priority?:boolean;
 }
 
 const Icon: FC<IconProps> = ({
@@ -15,11 +16,12 @@ const Icon: FC<IconProps> = ({
   width = 24,
   height = 24,
   disabled,
+  priority,
   ...props
 }) => {
   const iconPath = icons[icon];
   return (
-    <Image {...props} src={iconPath} alt="icon" width={width} height={height} />
+    <Image {...props} src={iconPath} alt="icon" width={width} height={height} priority={priority} />
   );
 };
 

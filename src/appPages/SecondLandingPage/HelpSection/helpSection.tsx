@@ -172,6 +172,8 @@ const HelpSection = () => {
                 width={500}
                 height={359}
                 alt="ZeeInvoices offers an organized way to process billing and invoices"
+                placeholder="blur" 
+                blurDataURL="/Images/help-image-01.png" 
               />
             </Box>
 
