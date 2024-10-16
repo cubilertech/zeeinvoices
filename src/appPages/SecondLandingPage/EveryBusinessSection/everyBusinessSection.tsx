@@ -195,8 +195,8 @@ const EveryBusinessSection = () => {
                   width: { md: "100%", xs: "100%" },
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.color.gray[745],
-                  fontSize: { md: "16px", xs: "16px" },
-                  lineHeight: { md: "24px", xs: "24px" },
+                  fontSize: { md: "16px", xs: "12px" },
+                  lineHeight: { md: "24px", xs: "18px" },
                   fontWeight: { xs: 400 },
                 }}
               >
@@ -361,7 +361,7 @@ const EveryBusinessSection = () => {
                     // color: palette.base.white,
                     // Add a class for targeting in the hover state
                     "&.text-md-regular": {},
-                    fontSize: { md: "16px", xs: "10px" },
+                    fontSize: { md: "16px", xs: "12px" },
                     lineHeight: { md: "24px", xs: "18px" },
                     fontWeight: { md: 400 },
                   }}
