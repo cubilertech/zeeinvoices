@@ -154,6 +154,8 @@ const EveryBusinessSection = () => {
                   width={isMobile ? 57 : 180}
                   height={isMobile ? 57 : 180}
                   alt="rectangle iaptop bg"
+                  placeholder="blur" 
+                  blurDataURL="/Images/business-011-image.png" 
                 />
               </Box>
             ) : (
@@ -163,6 +165,8 @@ const EveryBusinessSection = () => {
                   width={isMobile ? 57 : 180}
                   height={isMobile ? 57 : 180}
                   alt="rectangle iaptop bg"
+                  placeholder="blur" 
+                  blurDataURL="/Images/business-01-image.png" 
                 />
               </Box>
             )}

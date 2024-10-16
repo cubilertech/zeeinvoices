@@ -141,6 +141,7 @@ const Header = () => {
         >
           <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
             <Icon
+              priority
               icon="logo"
               height={isModile ? 18 : 24}
               width={isModile ? 132 : 175}

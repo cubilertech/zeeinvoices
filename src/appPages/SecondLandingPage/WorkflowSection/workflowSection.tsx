@@ -181,6 +181,8 @@ const WorkflowSection = () => {
                 width={610}
                 height={321}
                 alt="streamline your invoicing process with ZeeInvoices free invoice maker"
+                placeholder="blur" 
+                blurDataURL="/Images/workflow-image-01.png" 
               />
             </Box>
           </Stack>

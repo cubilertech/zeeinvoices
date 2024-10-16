@@ -161,6 +161,8 @@ const MadeSimpleSection = () => {
                 width={437}
                 height={462}
                 alt="mobile-friendly invoice generator with easy to use interface"
+                placeholder="blur" 
+                blurDataURL="/Images/simple-mobile-image-01.png" 
               />
             </Box>
 

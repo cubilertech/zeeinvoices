@@ -141,10 +141,13 @@ const HeroSection = () => {
           <Stack direction={"row"} sx={{ position: "relative" }}>
             <Box sx={{ zIndex: 1 }}>
               <Image
+               priority 
                 src="/Images/hero-image-2.svg"
                 width={586}
                 height={481}
                 alt="Zeeinvoices: create invoices within minutes"
+                placeholder="blur" 
+                blurDataURL="/Images/HeroIMG9.png" 
               />
             </Box>
           </Stack>
