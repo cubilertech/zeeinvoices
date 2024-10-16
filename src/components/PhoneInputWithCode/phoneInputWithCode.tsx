@@ -50,6 +50,7 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
   const [phoneInput, setPhoneInput] = React.useState(value || "+1"); // State for phone input
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFilteredCountries(countries.filter((country) => country));
     setAnchorEl(event.currentTarget);
   };
 
@@ -84,6 +85,8 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
     }
     setPhoneInput(`+${country.phone}`); // Pre-fill the input with the selected country code
     setAnchorEl(null);
+    setSearchQuery("");
+
     if (onCountrySelect) {
       onCountrySelect(country); // Call the callback function with selected country data
     }

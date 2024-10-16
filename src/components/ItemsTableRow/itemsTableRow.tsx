@@ -266,15 +266,13 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 e.preventDefault(); // Prevent entering the minus sign or 'e'
               }
             }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end" sx={{ pl: "0px" }}>
-                  <Typography pr={1.2}>
-                    {selectedCurrency === "USD" ? "$" : selectedCurrency}
-                  </Typography>
-                </InputAdornment>
-              ),
-            }}
+            // InputProps={{
+            //   endAdornment: (
+            //     <InputAdornment position="end" sx={{ pl: "0px" }}>
+            //       <Typography pr={1.2}>{selectedCurrency}</Typography>
+            //     </InputAdornment>
+            //   ),
+            // }}
             inputProps={{
               inputMode: "numeric", // For numeric input on mobile
               pattern: "[0-9]*", // Restrict to digits
@@ -421,7 +419,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 : data?.subTotal - data?.taxAmount
               )?.toFixed(2)}`} // Optional: Show full value on hover
             >
-              {selectedCurrency === "USD" ? "$" : selectedCurrency}{" "}
+              {selectedCurrency}{" "}
               {(selectedTax
                 ? data?.subTotal
                 : data?.subTotal - data?.taxAmount

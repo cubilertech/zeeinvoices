@@ -93,7 +93,7 @@ const PdfView: FC<PdfViewProps> = ({
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
   const tax = invSetting?.tax;
-  const currency = invSetting?.currency === "USD" ? "$" : invSetting?.currency;
+  const currency = invSetting?.currency;
   const currencyText =
     invSetting?.currency === "USD" ? "USD" : invSetting?.currency;
 
@@ -344,7 +344,7 @@ const PdfView: FC<PdfViewProps> = ({
             display: "flex",
             flexDirection: "row",
             padding: "5px 10px",
-            gap: 30,
+            gap: 27,
           }}
         >
           {/* Invoice date */}
@@ -484,8 +484,8 @@ const PdfView: FC<PdfViewProps> = ({
                 wrap={false} // Prevents splitting the View across pages
                 key={data.id}
                 style={{
-                  marginLeft: "12px",
-                  marginRight: "12px",
+                  marginLeft: "10px",
+                  marginRight: "0px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -498,28 +498,31 @@ const PdfView: FC<PdfViewProps> = ({
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center",
+                    // alignItems: "center",
                   }}
                 >
                   <View>
                     <Text
                       style={{
-                        width: "190px",
+                        width: "170px",
                         fontSize: "14px",
                         fontWeight: "extrabold",
+                        marginRight: "17px",
+                        textAlign: "left",
                       }}
                     >
                       {data.name}
                     </Text>
-                    <Text
+                    {/* <Text
                       style={{
                         fontSize: "12px",
                         marginTop: "4px",
                         color: "#4B5565",
+                        width: "170px",
                       }}
                     >
                       {data.description}
-                    </Text>
+                    </Text> */}
                   </View>
                   <Text
                     style={{
@@ -571,7 +574,7 @@ const PdfView: FC<PdfViewProps> = ({
 
                   <Text
                     style={{
-                      width: "72px",
+                      width: "79px",
                       fontSize: "14px",
                       fontWeight: "bold",
                       marginLeft: "33px",
@@ -587,6 +590,16 @@ const PdfView: FC<PdfViewProps> = ({
                     ).toFixed(2)}
                   </Text>
                 </View>
+                <Text
+                  style={{
+                    fontSize: "12px",
+                    marginTop: "4px",
+                    color: "#4B5565",
+                    // width: "170px",
+                  }}
+                >
+                  {data.description}
+                </Text>
               </View>
             )}
           </>
@@ -702,7 +715,7 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "12px", color: "#4B5565" }}>
-                Sub Total
+                Subtotal
               </Text>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: "12px", color: "#000000" }}>

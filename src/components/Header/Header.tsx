@@ -593,7 +593,7 @@ const Header = () => {
                   gap={1}
                   sx={{ cursor: "pointer" }}
                   onClick={handleClick}
-                  onMouseEnter={handleClick}
+                  // onMouseEnter={handleClick}
                 >
                   {profileData?.image ? (
                     <Avatar
@@ -616,22 +616,21 @@ const Header = () => {
                   onClose={handleClose}
                   anchorOrigin={{
                     vertical: "bottom",
-                    horizontal: "left",
+                    horizontal: "right",
                   }}
-                  // transformOrigin={{
-                  //   vertical: "top",
-                  //   horizontal: "right", // This moves the popover more to the left
-                  // }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
                   sx={{
                     "& .MuiPopover-paper": {
                       borderRadius: "8px",
-                      marginLeft: "-160px",
                     },
                   }}
                 >
                   <Stack
                     direction={"column"}
-                    onMouseLeave={handleClose}
+                    // onMouseLeave={handleClose}
                     sx={{
                       justifyContent: "left",
                       border: `1px solid #EAECF0`,
@@ -704,8 +703,11 @@ const Header = () => {
                     <Button
                       variant="outlined"
                       onClick={handleProfile}
-                      startIcon={<Icon icon="profileIcon" />}
+                      startIcon={
+                        <Icon icon="profileIcon" width={16} height={16} />
+                      }
                       sx={{
+                        height: "40px",
                         justifyContent: "left",
                         border: "none",
                         color: "#4B5563",
@@ -723,8 +725,11 @@ const Header = () => {
                     <Button
                       variant="outlined"
                       onClick={handleLogoutButton}
-                      startIcon={<Icon icon="logoutIcon" />}
+                      startIcon={
+                        <Icon icon="logoutIcon" width={16} height={16} />
+                      }
                       sx={{
+                        height: "40px",
                         justifyContent: "left",
                         border: "none",
                         color: "#4B5563",

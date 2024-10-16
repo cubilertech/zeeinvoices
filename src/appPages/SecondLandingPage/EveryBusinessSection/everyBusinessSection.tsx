@@ -89,7 +89,7 @@ const EveryBusinessSection = () => {
               fontFamily: "Product Sans, sans-serif",
               color: palette.color.gray[610],
               fontSize: { md: "20px", xs: "12px" },
-              lineHeight: { md: "24px", xs: "18px" },
+              lineHeight: { md: "30px", xs: "18px" },
               fontWeight: { md: 400 },
               textAlign: { xs: "center" },
             }}
