@@ -154,8 +154,8 @@ const EveryBusinessSection = () => {
                   width={isMobile ? 57 : 180}
                   height={isMobile ? 57 : 180}
                   alt="rectangle iaptop bg"
-                  placeholder="blur" 
-                  blurDataURL="/Images/business-011-image.png" 
+                  placeholder="blur"
+                  blurDataURL="/Images/business-011-image.png"
                 />
               </Box>
             ) : (
@@ -165,8 +165,8 @@ const EveryBusinessSection = () => {
                   width={isMobile ? 57 : 180}
                   height={isMobile ? 57 : 180}
                   alt="rectangle iaptop bg"
-                  placeholder="blur" 
-                  blurDataURL="/Images/business-01-image.png" 
+                  placeholder="blur"
+                  blurDataURL="/Images/business-01-image.png"
                 />
               </Box>
             )}
@@ -195,8 +195,8 @@ const EveryBusinessSection = () => {
                   width: { md: "100%", xs: "100%" },
                   fontFamily: "Product Sans, sans-serif",
                   color: palette.color.gray[745],
-                  fontSize: { md: "20px", xs: "16px" },
-                  lineHeight: { md: "30px", xs: "24px" },
+                  fontSize: { md: "16px", xs: "16px" },
+                  lineHeight: { md: "24px", xs: "24px" },
                   fontWeight: { xs: 400 },
                 }}
               >
@@ -343,7 +343,7 @@ const EveryBusinessSection = () => {
                     color: palette.color.gray[745],
                     "&.text-md-regular": {},
                     fontSize: { md: "16px", xs: "12px" },
-                    lineHeight: { md: "19.41px", xs: "18px" },
+                    lineHeight: { md: "24px", xs: "18px" },
                     fontWeight: { md: 400 },
                   }}
                 >
@@ -362,7 +362,7 @@ const EveryBusinessSection = () => {
                     // Add a class for targeting in the hover state
                     "&.text-md-regular": {},
                     fontSize: { md: "16px", xs: "10px" },
-                    lineHeight: { md: "19.41px", xs: "18px" },
+                    lineHeight: { md: "24px", xs: "18px" },
                     fontWeight: { md: 400 },
                   }}
                 >
