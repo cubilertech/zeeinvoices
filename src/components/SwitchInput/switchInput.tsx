@@ -3,10 +3,13 @@ import {
   getDetails,
   getDueDate,
   getTax,
+  getTerms,
   setDetails,
   setDueDate,
   setTax,
+  setTerms,
 } from "@/redux/features/invoiceSetting";
+import { setAddtionalNotes } from "@/redux/features/invoiceSlice";
 import { palette } from "@/theme/palette";
 import {
   Box,
@@ -15,7 +18,7 @@ import {
   Switch,
   Typography,
 } from "@mui/material";
-import { FC, useState, ChangeEvent } from "react";
+import { FC, useState, ChangeEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 interface SwitchInput {
@@ -27,6 +30,7 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
   const dispatch = useDispatch();
   const dueDate = useSelector(getDueDate);
   const tax = useSelector(getTax);
+  const terms = useSelector(getTerms);
   const details = useSelector(getDetails);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -34,6 +38,8 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       dispatch(setDueDate());
     } else if (type === "tax") {
       dispatch(setTax());
+    } else if (type === "terms") {
+      dispatch(setTerms());
     } else {
       dispatch(setDetails());
     }
@@ -43,10 +49,19 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       return dueDate;
     } else if (type === "tax") {
       return tax;
+    } else if (type === "terms") {
+      return terms;
     } else {
       return details;
     }
   };
+
+  useEffect(() => {
+    if (!terms) {
+      dispatch(setAddtionalNotes(""));
+    }
+  }, [terms]);
+
   return (
     <Box
       borderRadius={1}

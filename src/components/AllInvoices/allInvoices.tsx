@@ -213,6 +213,7 @@ export default function AllInvoices() {
         currency: record?.settings.currency,
         dueDate: record?.settings.dueDate,
         tax: record?.settings.tax,
+        terms: record?.settings.terms,
         detail: record?.settings.detail,
       })
     );
@@ -254,6 +255,7 @@ export default function AllInvoices() {
         currency: record?.settings?.currency,
         dueDate: record?.settings?.dueDate,
         tax: record?.settings?.tax,
+        terms: record?.settings?.terms,
         detail: record?.settings?.detail,
       })
     );

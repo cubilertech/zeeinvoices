@@ -13,6 +13,7 @@ export interface InvoiceSettingState {
   currency: string;
   dueDate: boolean;
   tax: boolean;
+  terms: boolean; // new added
   detail: boolean;
 }
 
@@ -41,6 +42,7 @@ const initialState: InvoiceSettingState = {
   currency: "USD",
   dueDate: true,
   tax: true,
+  terms: true,
   detail: true,
 };
 const invoiceSetting = createSlice({
@@ -50,7 +52,7 @@ const invoiceSetting = createSlice({
     setInvoiceColor: (state, action) => {
       state.color = action.payload;
     },
-  
+
     setCurrency: (state, action) => {
       state.currency = action.payload;
     },
@@ -60,6 +62,9 @@ const invoiceSetting = createSlice({
     setTax: (state) => {
       state.tax = !state.tax;
     },
+    setTerms: (state) => {
+      state.terms = !state.terms;
+    },
     setDetails: (state) => {
       state.detail = !state.detail;
     },
@@ -68,6 +73,7 @@ const invoiceSetting = createSlice({
       state.currency = action.payload.currency;
       state.dueDate = action.payload.dueDate;
       state.tax = action.payload.tax;
+      state.terms = action.payload.terms;
       state.detail = action.payload.detail;
     },
     setResetInvoiceSetting: (state) => {
@@ -84,7 +90,7 @@ const invoiceSetting = createSlice({
       }));
     },
     setColorsArray: (state, action: PayloadAction<ColorOption[]>) => {
-      state.colors = action.payload
+      state.colors = action.payload;
     },
     updateColorSelection: (state, action: PayloadAction<number>) => {
       state.colors = state.colors.map((color) =>
@@ -101,6 +107,7 @@ export const getColor = (state: RootState) => state.invoiceSetting.color;
 export const getCurrency = (state: RootState) => state.invoiceSetting.currency;
 export const getDueDate = (state: RootState) => state.invoiceSetting.dueDate;
 export const getTax = (state: RootState) => state.invoiceSetting.tax;
+export const getTerms = (state: RootState) => state.invoiceSetting.terms;
 export const getDetails = (state: RootState) => state.invoiceSetting.detail;
 
 export const {
@@ -108,6 +115,7 @@ export const {
   setCurrency,
   setDueDate,
   setTax,
+  setTerms,
   setDetails,
   setInvoiceSettings,
   setResetInvoiceSetting,

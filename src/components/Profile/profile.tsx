@@ -38,21 +38,27 @@ import { UserProfileDetails } from "../UserProfileDetails";
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
+  name: Yup.string().min(3).max(35).required("Name is required"),
   // companyName: Yup.string().required("Company Name is required"),
   email: Yup.string()
-    .matches(emailRegex, "Invalid email address")
+    // .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
-  city: Yup.string().matches(alphaRegex, "Invalid City"),
-  // .required("City is required"),
-  // state: Yup.string()
-  //   .matches(alphaRegex, "Invalid State")
-  //   .min(3, "City must be at least 3 characters long")
-  //   .required("State is required"),
-  // address: Yup.string()
-  //   .matches(alphaRegex, "Invalid Address")
-  //   .min(5, "Too short")
-  //   .required("Address is required"),
+  city: Yup.string()
+    .matches(alphaRegex, "Invalid City")
+    .min(3, "City must be at least 3 characters long")
+    .max(20, "City must be at most 20 characters long")
+    .required("City is required"),
+  state: Yup.string()
+    .matches(alphaRegex, "Invalid State")
+    .min(3, "State must be at least 3 characters long")
+    .max(20, "State must be at most 20 characters long")
+    .required("State is required"),
+  address: Yup.string()
+    .matches(alphaRegex, "Invalid Address")
+    .min(5, "Too short")
+    .max(225, "State must be at most 225 characters long"),
+
+  // .required("Address is required"),
 });
 
 interface Profile {}
@@ -329,6 +335,9 @@ const Profile: FC<Profile> = ({}) => {
                     fontSize: "30px",
                     lineHeight: "38px",
                     fontWeight: 600,
+                    maxWidth: { sm: "100%", xs: "100%" },
+                    overflow: "hidden",
+                    wordBreak: "break-word",
                   }}
                 >
                   {profileData ? profileData.name : "---"}
@@ -340,6 +349,9 @@ const Profile: FC<Profile> = ({}) => {
                     fontSize: "16px",
                     lineHeight: "24px",
                     fontWeight: 400,
+                    maxWidth: { sm: "100%", xs: "100%" },
+                    overflow: "hidden",
+                    wordBreak: "break-word",
                   }}
                 >
                   {profileData ? profileData.email : "---"}

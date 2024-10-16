@@ -56,6 +56,9 @@ const ProfileDetailsCard: FC<ProfileDetailsCard> = ({
             xs: "20px !important",
           },
           fontWeight: 600,
+          maxWidth: { sm: "100%", xs: "100%" },
+          overflow: "hidden",
+          wordBreak: "break-word",
         }}
       >
         {description ? description : "---"}

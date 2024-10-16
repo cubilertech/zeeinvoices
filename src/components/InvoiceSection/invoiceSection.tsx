@@ -27,6 +27,7 @@ import {
 } from "@/redux/features/invoiceSlice";
 import {
   getDueDate,
+  getTerms,
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
@@ -117,6 +118,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   //   InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
   const senderShow = InvDetails.from?.name !== "" ? true : false;
   const reciptShow = InvDetails.to?.name !== "" ? true : false;
+  const selectedTerms = useSelector(getTerms);
 
   const handleSubmitFrom = (values: any) => {
     dispatch(setSenderDetail(values));
@@ -278,41 +280,45 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           <InvoiceSummary />
         </Box>
         {/* Sixth section, additional notes */}
-        <Box
-          sx={{
-            height: "33px",
-            width: "100%",
-            marginTop: "24px",
-            border: `1px dashed ${palette.base.borderColor}`,
-            borderRadius: 1,
-            backgroundColor: "#F9F9F9",
-          }}
-        >
-          <TextField
+        {selectedTerms ? (
+          <Box
             sx={{
+              height: "33px",
               width: "100%",
-              "& .MuiInputBase-input": {
-                height: "31px !important",
-                border: `0px dashed ${"#F9F9F9"}`,
-                "&::placeholder": {
-                  color: "#767676",
-                },
-              },
-              "& .MuiOutlinedInput-root": {
-                border: "none !important",
-                borderRadius: 0.5,
-                "& fieldset": {
-                  borderColor: palette.base.white,
-                },
-              },
+              marginTop: "24px",
+              border: `1px dashed ${palette.base.borderColor}`,
+              borderRadius: 1,
+              backgroundColor: "#F9F9F9",
             }}
-            onChange={handleChangeNotes}
-            value={additionalNotes}
-            id="outlined-basic"
-            placeholder="Additional Note"
-            variant="outlined"
-          />
-        </Box>
+          >
+            <TextField
+              sx={{
+                width: "100%",
+                "& .MuiInputBase-input": {
+                  height: "31px !important",
+                  border: `0px dashed ${"#F9F9F9"}`,
+                  "&::placeholder": {
+                    color: "#767676",
+                  },
+                },
+                "& .MuiOutlinedInput-root": {
+                  border: "none !important",
+                  borderRadius: 0.5,
+                  "& fieldset": {
+                    borderColor: palette.base.white,
+                  },
+                },
+              }}
+              onChange={handleChangeNotes}
+              value={additionalNotes}
+              id="outlined-basic"
+              placeholder="Additional Note"
+              variant="outlined"
+            />
+          </Box>
+        ) : (
+          ""
+        )}
       </Box>
     </Box>
   );

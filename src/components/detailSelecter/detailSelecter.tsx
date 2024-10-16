@@ -634,8 +634,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="display-xs-semibold">
-                {type === "add" ? "Add New" : "Edit"}{" "}
-                {detailsOf === "Recipient" ? "Receiver" : detailsOf}
+                {showData ? "Update " : "Add New "}
+                {/* {type === "add" ? "Add New" : "Edit"}{" "} */}
+                {detailsOf === "Recipient" ? "Recipient" : detailsOf}
               </Typography>
               <IconButton onClick={handleModelClose}>
                 <CloseIcon
@@ -886,7 +887,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                     borderRadius: "4px",
                   }}
                 >
-                  Add
+                  {showData ? "Update" : "Add"}
                 </Button>
               </Stack>
             </form>

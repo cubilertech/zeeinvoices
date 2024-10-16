@@ -69,6 +69,7 @@ const PreviewPage = () => {
           currency: singleInvoice?.settings?.currency,
           dueDate: singleInvoice?.settings?.dueDate,
           tax: singleInvoice?.settings?.tax,
+          terms: singleInvoice?.settings?.terms,
           detail: singleInvoice?.settings?.detail,
         })
       );

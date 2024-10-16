@@ -205,6 +205,9 @@ const Header = () => {
                       mt: 2,
                       fontSize: "14px",
                       fontWeight: 500,
+                      maxWidth: { sm: "100%", xs: "100%" },
+                      overflow: "hidden",
+                      wordBreak: "break-word",
                     }}
                   >
                     Hi, {profileData?.name}
