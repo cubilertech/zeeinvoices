@@ -593,7 +593,7 @@ const PdfView: FC<PdfViewProps> = ({
                 <Text
                   style={{
                     fontSize: "12px",
-                    marginTop: "4px",
+                    marginTop: "8px",
                     color: "#4B5565",
                     // width: "170px",
                   }}
