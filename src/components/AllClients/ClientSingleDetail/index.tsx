@@ -169,8 +169,11 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
                 <Typography
                   variant="display-xs-semibold"
                   sx={{
+                    maxWidth: { sm: "100%", xs: "220px" },
+                    overflow: "hidden",
                     lineHeight: "32px !important",
                     color: palette.color.gray[900],
+                    wordBreak: "break-word",
                   }}
                 >
                   {singleClient?.name}

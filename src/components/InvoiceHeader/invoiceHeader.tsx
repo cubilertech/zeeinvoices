@@ -12,11 +12,7 @@ import {
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { backendURL } from "@/utils/constants";
-import {
-  useCreateDocument,
-  useEditDocument,
-  useFetchSingleDocument,
-} from "@/utils/ApiHooks/common";
+import { useCreateDocument, useEditDocument } from "@/utils/ApiHooks/common";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceId, setResetInvoice } from "@/redux/features/invoiceSlice";
 import { useParams, useRouter } from "next/navigation";
@@ -31,8 +27,6 @@ import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
 import {
   DoneOutlined,
-  EditOutlined,
-  KeyboardArrowDown,
   SaveAlt,
   SettingsOutlined,
   VisibilityOutlined,
@@ -49,7 +43,6 @@ import {
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
-import ReactToPrint from "react-to-print";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { Icon } from "../Icon";
 
@@ -95,10 +88,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
-  const InvoiceRendomId = useMemo(
-    () => Math.floor(Math.random() * 100) + 1,
-    []
-  );
+  const InvoiceRendomId = Math.floor(Math.random() * 100) + 1;
+  const [errorMessage, setErrorMessage] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(
     InvDetails.id ? InvDetails.id : `00${InvoiceRendomId}`
   );
@@ -131,8 +122,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     };
   }, [InvDetails, InvSetting, InvoiceId]);
   //Update Invoice
+  console.log(isEditInvoiceId, "isEditInvoiceId");
   const handleUpdateInvoice = async () => {
-    if (
+    if (isEditInvoiceId === true) {
+      setErrorMessage(true);
+    } else if (
       InvDetails?.invoiceType === "" ||
       InvDetails.from?.name === "" ||
       InvDetails.to?.name === "" ||
@@ -146,6 +140,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       )
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
+
       if (InvDetails?.invoiceType === "") {
         await dispatch(setInvoiceTypeError(true));
       }
@@ -277,7 +272,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
-    if (
+    if (isEditInvoiceId === true) {
+      setErrorMessage(true);
+    } else if (
       InvDetails?.invoiceType === "" ||
       InvDetails.from?.name === "" ||
       InvDetails.to?.name === "" ||
@@ -356,8 +353,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     } else if (!isInvoiceTypeError && !isSenderError && !isRecipientError) {
       console.log(InvDetails.from?.name, "insave", InvDetails.to?.name);
 
-      dispatch(setResetSelectedList());
-
       const formData = new FormData();
       if (invoiceData.logo) {
         const imageFile = base64ToFile(invoiceData.logo, "uploaded_image.png");
@@ -406,9 +401,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           router.push("/invoices");
           dispatch(setResetInvoice());
           dispatch(setResetInvoiceSetting());
+          dispatch(setResetSelectedList());
         })
         .catch((err) => {
-          toast.error(err.message);
+          if (err) {
+            toast.error(err.message);
+          }
         });
     }
   };
@@ -444,10 +442,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     saveAs(result, "ZeeInvoice");
   };
   useEffect(() => {
-    if (type === "add") {
-      dispatch(setInvoiceId(InvoiceId));
+    if (!isEditInvoiceId) {
+      setErrorMessage(false);
     }
-  }, [InvoiceId, dispatch, type, InvoiceRendomId]);
+  }, [isEditInvoiceId]);
+
+  useEffect(() => {
+    dispatch(setInvoiceId(InvoiceId));
+  }, [InvoiceId, dispatch, InvoiceRendomId]);
 
   return (
     <Stack
@@ -468,131 +470,144 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           width: { sm: "auto", xs: "100%" },
         }}
       >
-        {type === "add" ? (
-          ""
-        ) : (
-          <IconButton
-            sx={{
-              p: "0px !important",
-              marginRight: { sm: "10px", xs: "0px" },
-              height: "32px !important",
-              width: "32px !important",
-            }}
-            onClick={handleBack}
-          >
-            <ArrowBackIosNewIcon />
-          </IconButton>
-        )}
-        <Box
-          sx={{ display: "flex", gap: { sm: 2, xs: 1 }, alignItems: "center" }}
-        >
+        <Stack direction={"row"} sx={{ alignItems: "center" }}>
+          {type === "add" ? (
+            ""
+          ) : (
+            <IconButton
+              sx={{
+                p: "0px !important",
+                marginRight: { sm: "10px", xs: "0px" },
+                height: "32px !important",
+                width: "32px !important",
+              }}
+              onClick={handleBack}
+            >
+              <ArrowBackIosNewIcon sx={{ width: "16px", height: "16px" }} />
+            </IconButton>
+          )}
           <Box
             sx={{
               display: "flex",
-              gap: 0.6,
+              gap: { sm: 2, xs: 1 },
               alignItems: "center",
-              position: "relative",
-              mt: "7px",
-              color: palette.color.gray[610],
             }}
           >
-            <Typography variant="display-xs-semibold">Sr. No:</Typography>{" "}
-            {isEditInvoiceId ? (
-              <>
-                <TextField
-                  autoFocus
-                  sx={{
-                    backgroundColor: "white",
-                    width: "76px",
-                    fontSize: "24px",
-                    // height: "32px",
-                    "& .MuiOutlinedInput-root": {
-                      "& input": {
-                        padding: 0,
-                        fontSize: "22px",
-                        color: palette.color.gray[610],
-                        fontWeight: 600,
-                      },
-                      "& fieldset": {
-                        border: "none",
-                        borderRadius: 0,
-                        padding: 0,
-                      },
-                      "&:hover fieldset": {
-                        borderBottom: `1px solid ${palette.primary.main}`,
-                      },
-                      "&.Mui-focused fieldset": {
-                        border: "none", // focused effect
-                        borderBottom: `1px solid ${palette.primary.main}`,
-                      },
-                    },
-                  }}
-                  value={InvoiceId}
-                  onChange={(e) => UpdateInvoiceId(e.target.value)}
-                  onKeyDown={(e: { key: string }) => {
-                    if (e.key === "Enter") {
-                      setIsEditInvoiceId(false);
-                    }
-                  }}
-                />
-                {InvoiceId.length > 6 ? (
-                  <Typography
+            <Box
+              sx={{
+                display: "flex",
+                gap: 0.6,
+                alignItems: "center",
+                position: "relative",
+                mt: "3px",
+                color: palette.color.gray[610],
+              }}
+            >
+              <Typography variant="display-xs-semibold">Sr. No:</Typography>{" "}
+              {isEditInvoiceId ? (
+                <>
+                  <TextField
+                    autoFocus
                     sx={{
-                      position: "absolute",
-                      color: "red",
-                      fontSize: "10px",
-                      bottom: -13,
-                      width: "220px",
+                      backgroundColor: "white",
+                      width: "76px",
+                      fontSize: "24px",
+                      // height: "32px",
+                      "& .MuiOutlinedInput-root": {
+                        "& input": {
+                          padding: 0,
+                          fontSize: "22px",
+                          color: palette.color.gray[610],
+                          fontWeight: 600,
+                        },
+                        "& fieldset": {
+                          border: "none",
+                          borderRadius: 0,
+                          padding: 0,
+                        },
+                        "&:hover fieldset": {
+                          borderBottom: `1px solid ${palette.primary.main}`,
+                        },
+                        "&.Mui-focused fieldset": {
+                          border: "none", // focused effect
+                          borderBottom: `1px solid ${palette.primary.main}`,
+                        },
+                      },
                     }}
-                  >
-                    {" "}
-                    Invoice Id can not be greater then 6 letters
-                  </Typography>
-                ) : InvoiceId.length <= 0 ? (
-                  <Typography
-                    sx={{
-                      position: "absolute",
-                      color: "red",
-                      fontSize: "10px",
-                      bottom: -13,
-                      width: "220px",
+                    value={InvoiceId}
+                    onChange={(e) => UpdateInvoiceId(e.target.value)}
+                    onKeyDown={(e: { key: string }) => {
+                      if (e.key === "Enter") {
+                        setIsEditInvoiceId(false);
+                      }
                     }}
-                  >
-                    {" "}
-                    Invoice Id is Required
-                  </Typography>
-                ) : (
-                  ""
-                )}
-              </>
-            ) : (
-              <Typography
-                variant="display-xs-semibold"
-                sx={{ height: "40px", lineHeight: "40px" }}
+                  />
+                  {InvoiceId.length > 6 ? (
+                    <Typography
+                      sx={{
+                        position: "absolute",
+                        color: "red",
+                        fontSize: "10px",
+                        bottom: -13,
+                        width: "220px",
+                      }}
+                    >
+                      {" "}
+                      Invoice Id can not be greater then 6 letters
+                    </Typography>
+                  ) : InvoiceId.length <= 0 ? (
+                    <Typography
+                      sx={{
+                        position: "absolute",
+                        color: "red",
+                        fontSize: "10px",
+                        bottom: -13,
+                        width: "220px",
+                      }}
+                    >
+                      {" "}
+                      Invoice Id is Required
+                    </Typography>
+                  ) : (
+                    ""
+                  )}
+                </>
+              ) : (
+                <Typography
+                  variant="display-xs-semibold"
+                  sx={{ height: "40px", lineHeight: "40px" }}
+                >
+                  {InvoiceId}
+                </Typography>
+              )}
+            </Box>
+            <Tooltip
+              security="warning"
+              title={"Please Submit"}
+              placement="top"
+              arrow
+              open={errorMessage}
+            >
+              <IconButton
+                disabled={InvoiceId.length > 6 || InvoiceId.length <= 0}
+                onClick={() => setIsEditInvoiceId(!isEditInvoiceId)}
+                sx={{
+                  borderRadius: "100%",
+                  width: "28px !important",
+                  height: "28px !important",
+                  p: 0.5,
+                  mt: "0px",
+                }}
               >
-                {InvoiceId}
-              </Typography>
-            )}
+                {isEditInvoiceId ? (
+                  <DoneOutlined sx={{ width: "23px", height: "23px" }} />
+                ) : (
+                  <Icon icon="editInvoiceNumberIcon" width={23} height={23} />
+                )}
+              </IconButton>
+            </Tooltip>
           </Box>
-
-          <IconButton
-            disabled={InvoiceId.length > 6 || InvoiceId.length <= 0}
-            onClick={() => setIsEditInvoiceId(!isEditInvoiceId)}
-            sx={{
-              borderRadius: "100%",
-              width: "28px !important",
-              height: "28px !important",
-              p: 0.5,
-              mt: "7px",
-            }}
-          >
-            {isEditInvoiceId ? (
-              <DoneOutlined sx={{ width: "18px", height: "18px" }} />
-            ) : (
-              <Icon icon="editInvoiceNumberIcon" width={18} height={18} />
-            )}
-          </IconButton>
-        </Box>
+        </Stack>
         <Box
           sx={{
             width: "100px",
@@ -632,12 +647,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             ) : (
               // </Box>
               <Tooltip title="Download PDF" placement="bottom">
-                <Button
+                <ButtonBase
                   sx={{ p: "0px !important" }}
                   onClick={() => setDownloadModel(true)}
                 >
                   <SaveAlt sx={{ width: 19, height: 19 }} />
-                </Button>
+                </ButtonBase>
               </Tooltip>
             )
           ) : (

@@ -48,6 +48,7 @@ const SelectInputWithSearch: React.FC<SelectInputWithSearchProps> = ({
   const [filteredCurrencies, setFilteredCountries] = React.useState(currencies); // State for filtered countries
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFilteredCountries(currencies.filter((currency) => currency));
     setAnchorEl(event.currentTarget);
   };
 
@@ -73,6 +74,7 @@ const SelectInputWithSearch: React.FC<SelectInputWithSearchProps> = ({
       onChange(`${currency}`); // Call onChange if it's defined
     }
     setAnchorEl(null);
+    setSearchQuery("");
   };
 
   return (

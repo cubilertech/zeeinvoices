@@ -147,7 +147,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             helperText={itemValidation?.quantity?.message ?? ""}
             variant="outlined"
             value={data.quantity > 0 ? data.quantity : ""}
-            inputProps={{ min: 0 }}
+            inputProps={{
+              min: 0,
+              inputMode: "numeric", // For numeric input on mobile
+              pattern: "[0-9]*", // Restrict to digits
+            }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const value = parseInt(e.target.value, 10);
               if (value >= 0 || e.target.value === "") {
@@ -262,14 +266,16 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 e.preventDefault(); // Prevent entering the minus sign or 'e'
               }
             }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end" sx={{ pl: "0px" }}>
-                  <Typography pr={1.2}>
-                    {selectedCurrency === "USD" ? "$" : selectedCurrency}
-                  </Typography>
-                </InputAdornment>
-              ),
+            // InputProps={{
+            //   endAdornment: (
+            //     <InputAdornment position="end" sx={{ pl: "0px" }}>
+            //       <Typography pr={1.2}>{selectedCurrency}</Typography>
+            //     </InputAdornment>
+            //   ),
+            // }}
+            inputProps={{
+              inputMode: "numeric", // For numeric input on mobile
+              pattern: "[0-9]*", // Restrict to digits
             }}
           />
         </Grid>
@@ -404,7 +410,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 // },
                 cursor: "pointer",
                 textAlign: "end",
-                mr: showRemoveButton ? "" :  "-23px",
+                mr: showRemoveButton ? "" : "-23px",
               }}
               title={`${
                 selectedCurrency === "USD" ? "$" : selectedCurrency
@@ -413,7 +419,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 : data?.subTotal - data?.taxAmount
               )?.toFixed(2)}`} // Optional: Show full value on hover
             >
-              {selectedCurrency === "USD" ? "$" : selectedCurrency}{" "}
+              {selectedCurrency}{" "}
               {(selectedTax
                 ? data?.subTotal
                 : data?.subTotal - data?.taxAmount
