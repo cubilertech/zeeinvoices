@@ -168,6 +168,7 @@ const HelpSection = () => {
             {/* left section */}
             <Box>
               <Image
+              priority
                 src="/Images/help-image-1.svg"
                 width={500}
                 height={359}
