@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next'
- const url = 'https://staging.zeeinvoices.com'
+const siteUrl = process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "https://staging.zeeinvoices.com"; // Fallback in case env is missing
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `${url}`,
+      url: `${siteUrl}`,
       lastModified: new Date(),
     //   alternates: {
     //     languages: {
@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     //   },
     },
     {
-      url: `${url}/about`,
+      url: `${siteUrl}/about`,
       lastModified: new Date(),
     //   alternates: {
     //     languages: {
