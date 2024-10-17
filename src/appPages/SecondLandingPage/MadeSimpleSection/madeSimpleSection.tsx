@@ -157,10 +157,10 @@ const MadeSimpleSection = () => {
             {/* left section */}
             <Box>
               <Image
-                src="/Images/simple-mobile-image-1.svg"
+                src="/Images/simple-mobile-image-1.webp"
                 width={437}
                 height={462}
-                alt="mobile-friendly invoice generator with easy to use interface"
+                alt="mobile-friendly invoice generator with easy to use interface"     
                 placeholder="blur" 
                 blurDataURL="/Images/simple-mobile-image-01.png" 
               />

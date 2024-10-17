@@ -64,6 +64,7 @@ const HeroSection = () => {
                     fontFamily: "Product Sans, sans-serif",
                     textAlign: { sm: "left", xs: "center" },
                   }}
+                  component={"h1"}
                 >
                   AI powered{" "}
                   <Box
@@ -142,7 +143,7 @@ const HeroSection = () => {
             <Box sx={{ zIndex: 1 }}>
               <Image
                priority 
-                src="/Images/hero-image-2.svg"
+                src="/Images/hero-image-2.webp"
                 width={586}
                 height={481}
                 alt="Zeeinvoices: create invoices within minutes"

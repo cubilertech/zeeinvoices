@@ -47,9 +47,9 @@ const OurMissionSection = () => {
                   height: "50%",
                   overflow: "hidden",
                   borderRadius: "8px",
-                  backgroundImage: "url(/Images/about/ourMission-image-2.svg)",
+                  backgroundImage: "url(/Images/about/ourMission-image-2.webp)",
                   backgroundRepeat: "no-repeat",
-                  backgroundSize: "100% 100%",
+                  // backgroundSize: "100% 100%",
                 }}
               ></Box>
               <Box
@@ -58,9 +58,9 @@ const OurMissionSection = () => {
                   height: "50%",
                   overflow: "hidden",
                   borderRadius: "8px",
-                  backgroundImage: "url(/Images/about/ourMission-image-3.svg)",
+                  backgroundImage: "url(/Images/about/ourMission-image-3.webp)",
                   backgroundRepeat: "no-repeat",
-                  backgroundSize: "100% 100%",
+                  // backgroundSize: "100% 100%",
                 }}
               ></Box>
             </Stack>
@@ -70,9 +70,9 @@ const OurMissionSection = () => {
                 height: { sm: "444px", xs: "247px" },
                 overflow: "hidden",
                 borderRadius: "8px",
-                backgroundImage: "url(/Images/about/ourMission-image-1.svg)",
+                backgroundImage: "url(/Images/about/ourMission-image-1.webp)",
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "100% 120%",
+                // backgroundSize: "100% 120%",
               }}
             ></Box>
           </Box>
@@ -92,7 +92,7 @@ const OurMissionSection = () => {
                 lineHeight: { md: "64px", xs: "32px" },
                 fontWeight: { xs: 700 },
               }}
-              component={"h1"}
+              component={"h2"}
             >
               Our{" "}
               <span

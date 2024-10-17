@@ -93,7 +93,7 @@ const GetInTouchSection = () => {
         </Box>
         {!isModile && (
           <Typography
-            variant={isModile ? "h6" : "h4"}
+            variant={isModile ? "h6" : "h3"}
             color={palette.color.gray[900]}
             sx={{
               mt: 5,

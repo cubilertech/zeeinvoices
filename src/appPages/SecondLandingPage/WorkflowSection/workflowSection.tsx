@@ -106,6 +106,7 @@ const WorkflowSection = () => {
                   lineHeight: { md: "64px", xs: "29px" },
                   fontWeight: { md: 700 },
                 }}
+                component={"h3"}
               >
                 Streamline{" "}
                 <Box
@@ -177,7 +178,7 @@ const WorkflowSection = () => {
             {/* right section */}
             <Box>
               <Image
-                src="/Images/workflow-image-1.svg"
+                src="/Images/workflow-image-1.webp"
                 width={610}
                 height={321}
                 alt="streamline your invoicing process with ZeeInvoices free invoice maker"
