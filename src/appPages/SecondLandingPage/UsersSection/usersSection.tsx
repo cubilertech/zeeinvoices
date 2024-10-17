@@ -21,25 +21,25 @@ const expandableTextData = [
   {
     title1: "Omar",
     title2: "Hassan",
-    imgSrc: "/Images/user-1.svg",
+    imgSrc: "/Images/user-1.webp",
     desc: "Contractor",
   },
   {
     title1: "Emily",
     title2: "Walker",
-    imgSrc: "/Images/user-2.svg",
+    imgSrc: "/Images/user-2.webp",
     desc: "Freelancer",
   },
   {
     title1: "Kwame",
     title2: "Okoye",
-    imgSrc: "/Images/user-3.svg",
+    imgSrc: "/Images/user-3.webp",
     desc: "Software Engineer",
   },
   {
     title1: "Wei",
     title2: "Chen",
-    imgSrc: "/Images/user-4.svg",
+    imgSrc: "/Images/user-4.webp",
     desc: "Web Developer",
   },
 ];
