@@ -95,7 +95,7 @@ const Header = () => {
   ];
   const headerLandingData = [
     { title: "Home", url: "/" },
-    { title: "About Us", url: "/about" },
+    { title: "About Us", url: "/about-us" },
     // { title: "Learn", url: "" },
   ];
   const handleButton = (data: any) => {
@@ -302,7 +302,7 @@ const Header = () => {
                   pathname == "/termsAndCondition" ||
                   pathname == "/privacyPolicy" ||
                   pathname == "/contact-us" ||
-                  pathname == "/about" ? (
+                  pathname == "/about-us" ? (
                     <Button
                       onClick={handleCrtInvButton}
                       variant="outlined"
@@ -515,7 +515,7 @@ const Header = () => {
               pathname == "/termsAndCondition" ||
               pathname == "/privacyPolicy" ||
               pathname == "/contact-us" ||
-              pathname == "/about" ? (
+              pathname == "/about-us" ? (
                 <Button
                   onClick={handleCrtInvButton}
                   variant="outlined"
