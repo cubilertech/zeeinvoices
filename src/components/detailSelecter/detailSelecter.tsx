@@ -634,7 +634,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="display-xs-semibold">
-                {showData ? "Update " : "Add New "}
+                {showData ? "Edit " : "Add New "}
                 {/* {type === "add" ? "Add New" : "Edit"}{" "} */}
                 {detailsOf === "Recipient" ? "Recipient" : detailsOf}
               </Typography>

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
     backgroundColor: "#fff",
-    padding: "10px 30px",
+    padding: "40px 30px",
     paddingTop: "30px",
     gap: 5,
     borderTop: "4px",
@@ -126,6 +126,7 @@ const PdfView: FC<PdfViewProps> = ({
           ...styles.page,
           borderColor: bgColor,
         }}
+        // style={styles.page}
       >
         {/* Watermark */}
         {/* {!user && (
@@ -805,7 +806,7 @@ const PdfView: FC<PdfViewProps> = ({
               alignItems: "center",
             }}
           >
-             <View
+            <View
               style={{
                 marginLeft: "50px",
                 width: 90,
@@ -814,7 +815,7 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Image src={"/Images/logos/white-logo.png"} />
-            </View> 
+            </View>
           </View> */}
           <View
             style={{

@@ -118,9 +118,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               "& .MuiInputBase-input": {
                 borderRadius: "4px !important",
                 height: "40px !important",
+                pr: "0px !important",
               },
               "& .MuiOutlinedInput-root": {
                 borderRadius: "4px !important",
+                pr: "7px !important",
               },
               "& .MuiInputBase-input::placeholder": {
                 color: palette.color.gray[800],
@@ -302,7 +304,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                     pr: "0px",
                   },
                   "& .MuiOutlinedInput-root": {
-                    pr: "5px",
+                    pr: "8px !important",
                     borderRadius: "4px !important",
                   },
                   "& .MuiInputBase-input::placeholder": {
@@ -342,7 +344,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Typography pr={1.2}>%</Typography>
+                      <Typography>%</Typography>
                     </InputAdornment>
                   ),
                 }}
