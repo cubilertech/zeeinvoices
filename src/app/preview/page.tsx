@@ -18,6 +18,7 @@ import {
   Stack,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { palette } from "@/theme/palette";
 import { ArrowBackIosNew } from "@mui/icons-material";
@@ -61,6 +62,7 @@ const PDFViewer = dynamic(
 );
 
 const Preview = () => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   let type = "add";
   // const { id } = useParams<{ id: string }>();
   const { data: session } = useSession();
@@ -409,7 +411,7 @@ const Preview = () => {
         </Stack>
       </Box>
 
-      <PDFViewer
+      {/* <PDFViewer
         style={{
           width: "100%",
           height: "90vh",
@@ -426,7 +428,65 @@ const Preview = () => {
           Summary={summaryDetail}
           user={session?.user}
         />
-      </PDFViewer>
+      </PDFViewer> */}
+
+      {!isMobile ? (
+        <PDFViewer
+          style={{
+            width: "100%",
+            height: "90vh",
+            borderRadius: "4px",
+            backgroundColor: "#EAECF0",
+            // paddingTop: "56px",
+            // paddingBottom: "56px"
+          }}
+          showToolbar={false}
+        >
+          <PdfView
+            invDetails={{ ...invoiceDetail }}
+            invSetting={{ ...invoiceSetting }}
+            Summary={summaryDetail}
+            user={session?.user}
+          />
+        </PDFViewer>
+      ) : (
+        <>
+          <Box
+            sx={{
+              height: "50vh",
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "4px",
+              backgroundColor: palette.color.gray[5],
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={() => generatePDFDocument()}
+              sx={{
+                px: "16px !important",
+                py: "10px !important",
+                fontSize: {
+                  md: "16px !important",
+                  xs: "16px !important",
+                },
+                lineHeight: {
+                  md: "24px !important",
+                  xs: "24px !important",
+                },
+                fontWeight: "700 !important",
+                borderRadius: "4px",
+                backgroundColor: palette.primary.main,
+              }}
+            >
+              Download PDF
+            </Button>
+          </Box>
+        </>
+      )}
+
       <SaveModal
         open={loginModel}
         onSave={handleLoginModel}

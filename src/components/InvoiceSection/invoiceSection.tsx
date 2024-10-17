@@ -312,7 +312,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
               onChange={handleChangeNotes}
               value={additionalNotes}
               id="outlined-basic"
-              placeholder="Additional Note"
+              placeholder="Terms & Conditions"
               variant="outlined"
             />
           </Box>

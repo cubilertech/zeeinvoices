@@ -663,3 +663,22 @@ export const currencies = [
   "ZMW",
   "ZWL",
 ];
+
+export const initialColors = [
+  "#2A2A2A",
+  "#444444",
+  "#1A1A21",
+  "#6183E4",
+  "#0286FF",
+  "#366AEF",
+  "#9747FF",
+  "#C69ED4",
+  "#70756A",
+  "#446043",
+  "#56607C",
+  "#AB5FB1",
+  "#5F319A",
+  "#E461C7",
+  "#FFCC02",
+  "#B2E461",
+];

@@ -83,6 +83,20 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     );
   };
 
+  // Side effect to manage body overflow
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    // Cleanup to reset body overflow on component unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;
     const doc = (
@@ -120,7 +134,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           sx={{ display: "flex", alignItems: "start" }}
         >
           <Button
-            onClick={() => handleViewInvoice(record?.id)}
+            onClick={() => {
+              setAnchorEl(null);
+              handleViewInvoice(record?.id);
+            }}
             variant="outlined"
             startIcon={<Icon icon="viewIcon" />}
             sx={{

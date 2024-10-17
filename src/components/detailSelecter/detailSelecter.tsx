@@ -362,7 +362,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
   // console.log(errors, 'errors');
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", height: "auto" }}>
       {title && (
         <Typography
           variant="text-sm-medium"
@@ -399,6 +399,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
             sx={{
               width: { sm: "100%", xs: "100%" },
               height: 184,
+              // minHeight: 184,
+              maxHeight: "100%",
               marginTop: "16px",
               py: "10px",
               px: "14px",
@@ -452,12 +454,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
           borderRadius={1}
           sx={{
             width: "100%",
-            height: 184,
+            minHeight: 184,
             marginTop: "16px",
             padding: 2,
             borderRadius: "4px",
             cursor: type != "edit" && !isListSelected ? "pointer" : "default",
             border: `1px solid ${palette.color.gray[200]}`,
+            boxShadow: palette.boxShadows.shadowxs,
           }}
           onClick={() => {
             if (type != "edit" && !isListSelected) {
@@ -554,7 +557,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
                   color: palette.color.gray[610],
                 }}
               >
-                {InvDetails?.address}, {InvDetails?.city}
+                {InvDetails?.address}
+                {InvDetails?.address != "" ? "," : ""} {InvDetails?.city}
               </Typography>
               <Typography
                 variant="text-xs-regular"

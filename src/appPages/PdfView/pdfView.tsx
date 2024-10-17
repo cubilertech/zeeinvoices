@@ -9,7 +9,8 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import { formattedDate } from "@/common/common";
-import { googleImage } from "@/utils/common";
+import { googleImage, isNearWhite } from "@/utils/common";
+import { palette } from "@/theme/palette";
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
@@ -415,7 +416,10 @@ const PdfView: FC<PdfViewProps> = ({
               width: "190px",
               fontSize: "12px",
               fontWeight: "bold",
-              color: "white",
+              // color: "white",
+              color: isNearWhite(bgColor)
+                ? palette.base.black
+                : palette.base.white,
             }}
           >
             Items
@@ -425,7 +429,10 @@ const PdfView: FC<PdfViewProps> = ({
               width: "42px",
               fontSize: "12px",
               fontWeight: "bold",
-              color: "white",
+              // color: "white",
+              color: isNearWhite(bgColor)
+                ? palette.base.black
+                : palette.base.white,
             }}
           >
             Qty
@@ -435,7 +442,10 @@ const PdfView: FC<PdfViewProps> = ({
               width: "80px",
               fontSize: "12px",
               fontWeight: "bold",
-              color: "white",
+              // color: "white",
+              color: isNearWhite(bgColor)
+                ? palette.base.black
+                : palette.base.white,
               marginLeft: "25",
             }}
           >
@@ -447,7 +457,10 @@ const PdfView: FC<PdfViewProps> = ({
                 width: "55px",
                 fontSize: "12px",
                 fontWeight: "bold",
-                color: "white",
+                // color: "white",
+                color: isNearWhite(bgColor)
+                  ? palette.base.black
+                  : palette.base.white,
                 // marginLeft: "25",
               }}
             >
@@ -469,7 +482,10 @@ const PdfView: FC<PdfViewProps> = ({
               marginLeft: "20px",
               fontSize: "12px",
               fontWeight: "bold",
-              color: "white",
+              // color: "white",
+              color: isNearWhite(bgColor)
+                ? palette.base.black
+                : palette.base.white,
               textAlign: "right",
               width: "90px",
             }}
@@ -610,7 +626,10 @@ const PdfView: FC<PdfViewProps> = ({
           <Text
             style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
           >
-            <Text style={{ fontSize: "10px", color: "#000" }}> Note: </Text>{" "}
+            <Text style={{ fontSize: "10px", color: "#000" }}>
+              {" "}
+              Terms & Conditions:{" "}
+            </Text>{" "}
             {invDetails?.addtionalNotes}
           </Text>
         )}
@@ -694,7 +713,10 @@ const PdfView: FC<PdfViewProps> = ({
                   fontSize: "12px",
                   marginLeft: "65px",
                   fontWeight: 600,
-                  color: "white",
+                  // color: "white",
+                  color: isNearWhite(bgColor)
+                    ? palette.base.black
+                    : palette.base.white,
                 }}
               >
                 Invoice Summary

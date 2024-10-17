@@ -2,7 +2,7 @@
 import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
 import { getInvoiceItem } from "@/redux/features/invoiceSlice";
 import { palette } from "@/theme/palette";
-import { useSelectedColor } from "@/utils/common";
+import { isNearWhite, useSelectedColor } from "@/utils/common";
 import { Box, Stack, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -47,7 +47,10 @@ const InvoiceSummary: FC = () => {
         <Typography
           variant="text-sm-semibold"
           sx={{
-            color: palette.base.white,
+            // color: palette.base.white,
+            color: isNearWhite(selectedColor)
+              ? palette.base.black
+              : palette.base.white,
             fontSize: "14px",
             lineHeight: "18px",
             fontWeight: 600,

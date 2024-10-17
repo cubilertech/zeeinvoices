@@ -128,9 +128,9 @@ export default function AllInvoices() {
     // debouncedRefetch();
   };
 
-  React.useEffect(() => {
-    if (session?.accessToken) refetchInvoiceList();
-  }, [refetchInvoiceList, search, session?.accessToken]);
+  // React.useEffect(() => {
+  //   if (session?.accessToken) refetchInvoiceList();
+  // }, [refetchInvoiceList, search, session?.accessToken]);
 
   const filteredData = React.useMemo(() => {
     if (invoiceList && invoiceList?.invoices?.length) {
@@ -361,97 +361,143 @@ export default function AllInvoices() {
                 />
                 {filteredData.length > 0 ? (
                   <>
-                    <TableContainer
-                      sx={{
-                        mt: "32px",
-                        border: `1px solid ${palette.color.gray[200]}`,
-                        borderTopLeftRadius: "8px",
-                        borderTopRightRadius: "8px",
-                        borderBottomLeftRadius: "8px",
-                        borderBottomRightRadius: "8px",
-                      }}
-                    >
-                      <Table
-                        sx={{ minWidth: 750 }}
-                        aria-labelledby="tableTitle"
+                    {fetchingInvoiceList ? (
+                      <Box
+                        sx={{
+                          // position: "absolute",
+                          display: "flex",
+                          justifyContent: "center",
+                          padding: "20px",
+                          alignItems: "center",
+                          height: "400px",
+                        }}
                       >
-                        <EnhancedTableHead
-                          numSelected={selected.length}
-                          order={order}
-                          orderBy={orderBy}
-                          onRequestSort={handleRequestSort}
-                          rowCount={invoiceList?.invoices?.length}
-                        />
+                        <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+                      </Box>
+                    ) : (
+                      <>
+                        <TableContainer
+                          sx={{
+                            position: "relative",
+                            mt: "32px",
+                            border: `1px solid ${palette.color.gray[200]}`,
+                            borderTopLeftRadius: "8px",
+                            borderTopRightRadius: "8px",
+                            borderBottomLeftRadius: "8px",
+                            borderBottomRightRadius: "8px",
+                            opacity: fetchingInvoiceList ? 0.5 : 1,
+                          }}
+                        >
+                          <Table
+                            sx={{ minWidth: 750 }}
+                            aria-labelledby="tableTitle"
+                          >
+                            <EnhancedTableHead
+                              numSelected={selected.length}
+                              order={order}
+                              orderBy={orderBy}
+                              onRequestSort={handleRequestSort}
+                              rowCount={invoiceList?.invoices?.length}
+                            />
 
-                        <TableBody>
-                          {filteredData?.map((row: any, index: number) => {
-                            const labelId = `enhanced-table-checkbox-${index}`;
-                            return (
-                              <TableRow
-                                hover
-                                role="checkbox"
-                                tabIndex={-1}
-                                key={row?.id}
-                                sx={{
-                                  cursor: "pointer",
-                                  borderColor: palette.color.gray[200],
-                                }}
-                              >
-                                <TableCell
-                                  component="th"
-                                  id={labelId}
-                                  scope="row"
-                                  padding="none"
-                                  className="tableCell"
-                                  align="left"
-                                  sx={{ py: "8px", px: "16px" }}
-                                >
-                                  <Typography
-                                    variant="text-sm-medium"
+                            <TableBody>
+                              {filteredData?.map((row: any, index: number) => {
+                                const labelId = `enhanced-table-checkbox-${index}`;
+                                return (
+                                  <TableRow
+                                    hover
+                                    role="checkbox"
+                                    tabIndex={-1}
+                                    key={row?.id}
                                     sx={{
-                                      color: palette.color.gray[900],
-                                      fontSize: {
-                                        md: "14px !important",
-                                        xs: "14px !important",
-                                      },
-                                      lineHeight: {
-                                        md: "20px !important",
-                                        xs: "20px !important",
-                                      },
-                                      fontWeight: 500,
+                                      cursor: "pointer",
+                                      borderColor: palette.color.gray[200],
                                     }}
                                   >
-                                    {row?.id}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell
-                                  align="left"
-                                  className="tableCell"
-                                  sx={{ py: "8px", px: "16px" }}
-                                >
-                                  <Stack
-                                    direction={"row"}
-                                    gap={1.5}
-                                    sx={{
-                                      alignItems: "center",
-                                      // justifyContent: "center",
-                                    }}
-                                  >
-                                    <Avatar
-                                      sx={{
-                                        bgcolor: palette.primary.main,
-                                        width: "32px",
-                                        height: "32px",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
+                                    <TableCell
+                                      component="th"
+                                      id={labelId}
+                                      scope="row"
+                                      padding="none"
+                                      className="tableCell"
+                                      align="left"
+                                      sx={{ py: "8px", px: "16px" }}
                                     >
-                                      {row?.toDetails?.name
-                                        ?.charAt(0)
-                                        .toUpperCase()}
-                                    </Avatar>
-                                    <Stack direction={"column"}>
+                                      <Typography
+                                        variant="text-sm-medium"
+                                        sx={{
+                                          color: palette.color.gray[900],
+                                          fontSize: {
+                                            md: "14px !important",
+                                            xs: "14px !important",
+                                          },
+                                          lineHeight: {
+                                            md: "20px !important",
+                                            xs: "20px !important",
+                                          },
+                                          fontWeight: 500,
+                                        }}
+                                      >
+                                        {row?.id}
+                                      </Typography>
+                                    </TableCell>
+                                    <TableCell
+                                      align="left"
+                                      className="tableCell"
+                                      sx={{ py: "8px", px: "16px" }}
+                                    >
+                                      <Stack
+                                        direction={"row"}
+                                        gap={1.5}
+                                        sx={{
+                                          alignItems: "center",
+                                          // justifyContent: "center",
+                                        }}
+                                      >
+                                        <Avatar
+                                          sx={{
+                                            bgcolor: palette.primary.main,
+                                            width: "32px",
+                                            height: "32px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                          }}
+                                        >
+                                          {row?.toDetails?.name
+                                            ?.charAt(0)
+                                            .toUpperCase()}
+                                        </Avatar>
+                                        <Stack direction={"column"}>
+                                          <Typography
+                                            variant="text-sm-medium"
+                                            sx={{
+                                              color: palette.color.gray[610],
+                                              fontSize: {
+                                                md: "14px !important",
+                                                xs: "14px !important",
+                                              },
+                                              lineHeight: {
+                                                md: "20px !important",
+                                                xs: "20px !important",
+                                              },
+                                              fontWeight: 500,
+                                            }}
+                                          >
+                                            {row?.to?.name ||
+                                              row?.toDetails?.name}
+                                          </Typography>
+                                          {/* <Typography variant="text-xs-regular">
+                                        {row.to.email}
+                                      </Typography> */}
+                                        </Stack>
+                                      </Stack>
+                                    </TableCell>
+                                    <TableCell
+                                      align="left"
+                                      className="tableCell"
+                                      sx={{ py: "8px", px: "16px" }}
+                                    >
                                       <Typography
                                         variant="text-sm-medium"
                                         sx={{
@@ -464,64 +510,37 @@ export default function AllInvoices() {
                                             md: "20px !important",
                                             xs: "20px !important",
                                           },
-                                          fontWeight: 500,
+                                          fontWeight: 400,
                                         }}
                                       >
-                                        {row?.to?.name || row?.toDetails?.name}
+                                        {row?.to?.email ||
+                                          row?.toDetails?.email}
                                       </Typography>
-                                      {/* <Typography variant="text-xs-regular">
-                                        {row.to.email}
-                                      </Typography> */}
-                                    </Stack>
-                                  </Stack>
-                                </TableCell>
-                                <TableCell
-                                  align="left"
-                                  className="tableCell"
-                                  sx={{ py: "8px", px: "16px" }}
-                                >
-                                  <Typography
-                                    variant="text-sm-medium"
-                                    sx={{
-                                      color: palette.color.gray[610],
-                                      fontSize: {
-                                        md: "14px !important",
-                                        xs: "14px !important",
-                                      },
-                                      lineHeight: {
-                                        md: "20px !important",
-                                        xs: "20px !important",
-                                      },
-                                      fontWeight: 400,
-                                    }}
-                                  >
-                                    {row?.to?.email || row?.toDetails?.email}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell
-                                  align="left"
-                                  className="tableCell"
-                                  sx={{ py: "8px", px: "16px" }}
-                                >
-                                  <Typography
-                                    variant="text-sm-regular"
-                                    sx={{
-                                      color: palette.color.gray[610],
-                                      fontSize: {
-                                        md: "14px !important",
-                                        xs: "14px !important",
-                                      },
-                                      lineHeight: {
-                                        md: "20px !important",
-                                        xs: "20px !important",
-                                      },
-                                      fontWeight: 400,
-                                    }}
-                                  >
-                                    {tableFormatDate(row?.invoiceDate)}
-                                  </Typography>
-                                </TableCell>
-                                {/* <TableCell align="left">
+                                    </TableCell>
+                                    <TableCell
+                                      align="left"
+                                      className="tableCell"
+                                      sx={{ py: "8px", px: "16px" }}
+                                    >
+                                      <Typography
+                                        variant="text-sm-regular"
+                                        sx={{
+                                          color: palette.color.gray[610],
+                                          fontSize: {
+                                            md: "14px !important",
+                                            xs: "14px !important",
+                                          },
+                                          lineHeight: {
+                                            md: "20px !important",
+                                            xs: "20px !important",
+                                          },
+                                          fontWeight: 400,
+                                        }}
+                                      >
+                                        {tableFormatDate(row?.invoiceDate)}
+                                      </Typography>
+                                    </TableCell>
+                                    {/* <TableCell align="left">
                                   <Badge
                                     color="primary"
                                     badgeContent={row.status}
@@ -539,80 +558,89 @@ export default function AllInvoices() {
                                   ></Badge>
                                 </TableCell> */}
 
-                                <TableCell
-                                  align="left"
-                                  className="tableCell"
-                                  sx={{ py: "8px", px: "16px" }}
-                                >
-                                  <Typography
-                                    variant="text-sm-medium"
-                                    sx={{
-                                      color: palette.color.gray[610],
-                                      fontSize: {
-                                        md: "14px !important",
-                                        xs: "14px !important",
-                                      },
-                                      lineHeight: {
-                                        md: "20px !important",
-                                        xs: "20px !important",
-                                      },
-                                      fontWeight: 400,
-                                    }}
-                                  >
-                                    {row?.settings?.currency == "USD"
-                                      ? "$"
-                                      : row?.settings?.currency}{" "}
-                                    {row?.items
-                                      ? calculateAmount(row?.items)?.toFixed(2)
-                                      : 0}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell
-                                  align="left"
-                                  className="tableCell"
-                                  sx={{ py: "8px", pl: "17px", pr: "16px" }}
-                                >
-                                  <CustomPopOver
-                                    handleOpenDeleteModal={
-                                      handleOpenDeleteModal
-                                    }
-                                    record={row}
-                                    handleViewInvoice={handleViewInvoice}
-                                    handleEditInvoice={handleEditInvoice}
-                                    handleShareInvoice={handleShareInvoice}
-                                    handlePrintInvoice={handlePrintInvoice}
-                                    componentRef={componentRef}
-                                    InvSetting={{ ...invoiceSetting }}
-                                    InvDetails={{ ...invoiceDetail }}
-                                    summaryDetail={summaryDetail}
-                                  />
-                                  <Box>
-                                    <Box style={{ display: "none" }}>
-                                      <Box ref={componentRef}>
-                                        <InvoiceDetailsSection
-                                          singleInvoice={{ ...invoiceDetail }}
-                                          invoiceSetting={{ ...invoiceSetting }}
-                                        />
+                                    <TableCell
+                                      align="left"
+                                      className="tableCell"
+                                      sx={{ py: "8px", px: "16px" }}
+                                    >
+                                      <Typography
+                                        variant="text-sm-medium"
+                                        sx={{
+                                          color: palette.color.gray[610],
+                                          fontSize: {
+                                            md: "14px !important",
+                                            xs: "14px !important",
+                                          },
+                                          lineHeight: {
+                                            md: "20px !important",
+                                            xs: "20px !important",
+                                          },
+                                          fontWeight: 400,
+                                        }}
+                                      >
+                                        {row?.settings?.currency == "USD"
+                                          ? "$"
+                                          : row?.settings?.currency}{" "}
+                                        {row?.items
+                                          ? calculateAmount(
+                                              row?.items
+                                            )?.toFixed(2)
+                                          : 0}
+                                      </Typography>
+                                    </TableCell>
+                                    <TableCell
+                                      align="left"
+                                      className="tableCell"
+                                      sx={{ py: "8px", pl: "17px", pr: "16px" }}
+                                    >
+                                      <CustomPopOver
+                                        handleOpenDeleteModal={
+                                          handleOpenDeleteModal
+                                        }
+                                        record={row}
+                                        handleViewInvoice={handleViewInvoice}
+                                        handleEditInvoice={handleEditInvoice}
+                                        handleShareInvoice={handleShareInvoice}
+                                        handlePrintInvoice={handlePrintInvoice}
+                                        componentRef={componentRef}
+                                        InvSetting={{ ...invoiceSetting }}
+                                        InvDetails={{ ...invoiceDetail }}
+                                        summaryDetail={summaryDetail}
+                                      />
+                                      <Box>
+                                        <Box style={{ display: "none" }}>
+                                          <Box ref={componentRef}>
+                                            <InvoiceDetailsSection
+                                              singleInvoice={{
+                                                ...invoiceDetail,
+                                              }}
+                                              invoiceSetting={{
+                                                ...invoiceSetting,
+                                              }}
+                                            />
+                                          </Box>
+                                        </Box>
                                       </Box>
-                                    </Box>
-                                  </Box>
-                                </TableCell>
-                              </TableRow>
-                            );
-                          })}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                    <Pagination
-                      totalRecords={
-                        invoiceList?.totalRecords
-                          ? invoiceList?.totalRecords
-                          : 0
-                      }
-                      itemsPerPage={rowsPerPage}
-                      page={page}
-                      setPage={setPage}
-                    />
+                                    </TableCell>
+                                  </TableRow>
+                                );
+                              })}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+
+                        <Pagination
+                          totalRecords={
+                            invoiceList?.totalRecords
+                              ? invoiceList?.totalRecords
+                              : 0
+                          }
+                          itemsPerPage={rowsPerPage}
+                          page={page}
+                          setPage={setPage}
+                        />
+                      </>
+                    )}
                   </>
                 ) : filteredData.length <= 0 && search !== "" ? (
                   <Typography

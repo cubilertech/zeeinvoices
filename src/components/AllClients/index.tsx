@@ -159,12 +159,26 @@ export default function AllClients() {
     isSuccess: updateClientSuccess,
   } = useEditDocument(false);
 
+  const filteredData = React.useMemo(() => {
+    if (clientList && clientList?.clients?.length) {
+      return clientList?.clients;
+    } else {
+      return [];
+    }
+  }, [clientList]);
+
   React.useEffect(() => {
     if (session?.accessToken) refetchClientList();
     if (deleteSuccess) {
       setIsModalOpen(false);
     }
-  }, [refetchClientList, deleteSuccess, page, session?.accessToken]);
+  }, [
+    refetchClientList,
+    deleteSuccess,
+    page,
+    // filteredData.length,
+    session?.accessToken,
+  ]);
   const handleChangeSearch = (e: any) => {
     setSearch(e.target.value);
     setTimeout(() => {
@@ -180,13 +194,7 @@ export default function AllClients() {
       setIsLoading(false);
     }
   }, [isFetched]);
-  const filteredData = React.useMemo(() => {
-    if (clientList && clientList?.clients?.length) {
-      return clientList?.clients;
-    } else {
-      return [];
-    }
-  }, [clientList]);
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Data
@@ -342,229 +350,256 @@ export default function AllClients() {
                 </Box>
               ) : filteredData.length > 0 ? (
                 <>
-                  <TableContainer
-                    sx={{
-                      mt: "32px",
-                      border: `1px solid ${palette.color.gray[200]}`,
-                      borderTopLeftRadius: "8px",
-                      borderTopRightRadius: "8px",
-                      borderBottomLeftRadius: "8px",
-                      borderBottomRightRadius: "8px",
-                    }}
-                  >
-                    <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-                      <EnhancedTableHead
-                        numSelected={selected.length}
-                        order={order}
-                        orderBy={orderBy}
-                        onRequestSort={handleRequestSort}
-                        rowCount={clientList?.clients?.length}
+                  {fetchingClientList ? (
+                    <Box
+                      sx={{
+                        // position: "absolute",
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "20px",
+                        alignItems: "center",
+                        height: "400px",
+                      }}
+                    >
+                      <CircularProgress size={24} sx={{ color: "#8477DA" }} />
+                    </Box>
+                  ) : (
+                    <>
+                      <TableContainer
+                        sx={{
+                          mt: "32px",
+                          border: `1px solid ${palette.color.gray[200]}`,
+                          borderTopLeftRadius: "8px",
+                          borderTopRightRadius: "8px",
+                          borderBottomLeftRadius: "8px",
+                          borderBottomRightRadius: "8px",
+                        }}
+                      >
+                        <Table
+                          sx={{ minWidth: 750 }}
+                          aria-labelledby="tableTitle"
+                        >
+                          <EnhancedTableHead
+                            numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
+                            onRequestSort={handleRequestSort}
+                            rowCount={clientList?.clients?.length}
+                          />
+
+                          <TableBody>
+                            {filteredData?.map((row: any, index: number) => {
+                              const labelId = `enhanced-table-checkbox-${index}`;
+                              return (
+                                <TableRow
+                                  hover
+                                  role="checkbox"
+                                  tabIndex={-1}
+                                  key={row.id}
+                                  sx={{ cursor: "pointer" }}
+                                >
+                                  <TableCell
+                                    component="th"
+                                    id={labelId}
+                                    scope="row"
+                                    padding="none"
+                                    className="tableCell"
+                                    sx={{ py: "8px", px: "16px" }}
+                                  >
+                                    <Typography
+                                      variant="text-sm-regular"
+                                      sx={{
+                                        color: palette.color.gray[900],
+                                        fontSize: {
+                                          md: "14px !important",
+                                          xs: "14px !important",
+                                        },
+                                        lineHeight: {
+                                          md: "20px !important",
+                                          xs: "20px !important",
+                                        },
+                                        fontWeight: 500,
+                                      }}
+                                    >
+                                      {row?.name}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell
+                                    align="left"
+                                    className="tableCell"
+                                    sx={{ py: "8px", px: "16px" }}
+                                  >
+                                    <Typography
+                                      variant="text-sm-regular"
+                                      sx={{
+                                        color: palette.color.gray[610],
+                                        fontSize: {
+                                          md: "14px !important",
+                                          xs: "14px !important",
+                                        },
+                                        lineHeight: {
+                                          md: "20px !important",
+                                          xs: "20px !important",
+                                        },
+                                        fontWeight: 400,
+                                      }}
+                                    >
+                                      {row?.email}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell
+                                    align="left"
+                                    className="tableCell"
+                                    sx={{ py: "8px", px: "16px" }}
+                                  >
+                                    <Typography
+                                      variant="text-sm-regular"
+                                      sx={{
+                                        color: palette.color.gray[610],
+                                        fontSize: {
+                                          md: "14px !important",
+                                          xs: "14px !important",
+                                        },
+                                        lineHeight: {
+                                          md: "20px !important",
+                                          xs: "20px !important",
+                                        },
+                                        fontWeight: 400,
+                                      }}
+                                    >
+                                      {row?.company_name != ""
+                                        ? row?.company_name
+                                        : "---"}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell
+                                    align="left"
+                                    className="tableCell"
+                                    sx={{ py: "8px", px: "16px" }}
+                                  >
+                                    <Typography
+                                      variant="text-sm-regular"
+                                      sx={{
+                                        color: palette.color.gray[610],
+                                        fontSize: {
+                                          md: "14px !important",
+                                          xs: "14px !important",
+                                        },
+                                        lineHeight: {
+                                          md: "20px !important",
+                                          xs: "20px !important",
+                                        },
+                                        fontWeight: 400,
+                                      }}
+                                    >
+                                      {row?.phone_number != ""
+                                        ? row?.phone_number
+                                        : "---"}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell
+                                    align="left"
+                                    className="tableCell"
+                                    sx={{ py: "8px", px: "16px" }}
+                                  >
+                                    <Typography
+                                      variant="text-sm-regular"
+                                      sx={{
+                                        color: palette.color.gray[610],
+                                        fontSize: {
+                                          md: "14px !important",
+                                          xs: "14px !important",
+                                        },
+                                        lineHeight: {
+                                          md: "20px !important",
+                                          xs: "20px !important",
+                                        },
+                                        fontWeight: 400,
+                                      }}
+                                    >
+                                      {row?.city}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell
+                                    align="left"
+                                    className="tableCell"
+                                    sx={{ py: "8px", px: "16px" }}
+                                  >
+                                    <Typography
+                                      variant="text-sm-regular"
+                                      sx={{
+                                        color: palette.color.gray[610],
+                                        fontSize: {
+                                          md: "14px !important",
+                                          xs: "14px !important",
+                                        },
+                                        lineHeight: {
+                                          md: "20px !important",
+                                          xs: "20px !important",
+                                        },
+                                        fontWeight: 400,
+                                      }}
+                                    >
+                                      {row?.state}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell
+                                    align="left"
+                                    className="tableCell"
+                                    sx={{ py: "8px", px: "16px" }}
+                                  >
+                                    <Typography
+                                      variant="text-sm-regular"
+                                      sx={{
+                                        color: palette.color.gray[610],
+                                        fontSize: {
+                                          md: "14px !important",
+                                          xs: "14px !important",
+                                        },
+                                        lineHeight: {
+                                          md: "20px !important",
+                                          xs: "20px !important",
+                                        },
+                                        fontWeight: 400,
+                                      }}
+                                    >
+                                      {row?.address != ""
+                                        ? row?.address
+                                        : "---"}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell
+                                    align="left"
+                                    className="tableCell"
+                                    sx={{ py: "8px", px: "16px" }}
+                                  >
+                                    <ClientPopOver
+                                      handleOpenDeleteModal={
+                                        handleOpenDeleteModal
+                                      }
+                                      record={row}
+                                      handleViewClient={handleViewClient}
+                                      handleEditClient={handleEditClient}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                      <Pagination
+                        totalRecords={
+                          clientList?.totalRecords
+                            ? clientList?.totalRecords
+                            : 0
+                        }
+                        itemsPerPage={rowsPerPage}
+                        page={page}
+                        setPage={setPage}
                       />
-
-                      <TableBody>
-                        {filteredData?.map((row: any, index: number) => {
-                          const labelId = `enhanced-table-checkbox-${index}`;
-                          return (
-                            <TableRow
-                              hover
-                              role="checkbox"
-                              tabIndex={-1}
-                              key={row.id}
-                              sx={{ cursor: "pointer" }}
-                            >
-                              <TableCell
-                                component="th"
-                                id={labelId}
-                                scope="row"
-                                padding="none"
-                                className="tableCell"
-                                sx={{ py: "8px", px: "16px" }}
-                              >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{
-                                    color: palette.color.gray[900],
-                                    fontSize: {
-                                      md: "14px !important",
-                                      xs: "14px !important",
-                                    },
-                                    lineHeight: {
-                                      md: "20px !important",
-                                      xs: "20px !important",
-                                    },
-                                    fontWeight: 500,
-                                  }}
-                                >
-                                  {row?.name}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ py: "8px", px: "16px" }}
-                              >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{
-                                    color: palette.color.gray[610],
-                                    fontSize: {
-                                      md: "14px !important",
-                                      xs: "14px !important",
-                                    },
-                                    lineHeight: {
-                                      md: "20px !important",
-                                      xs: "20px !important",
-                                    },
-                                    fontWeight: 400,
-                                  }}
-                                >
-                                  {row?.email}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ py: "8px", px: "16px" }}
-                              >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{
-                                    color: palette.color.gray[610],
-                                    fontSize: {
-                                      md: "14px !important",
-                                      xs: "14px !important",
-                                    },
-                                    lineHeight: {
-                                      md: "20px !important",
-                                      xs: "20px !important",
-                                    },
-                                    fontWeight: 400,
-                                  }}
-                                >
-                                  {row?.company_name}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ py: "8px", px: "16px" }}
-                              >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{
-                                    color: palette.color.gray[610],
-                                    fontSize: {
-                                      md: "14px !important",
-                                      xs: "14px !important",
-                                    },
-                                    lineHeight: {
-                                      md: "20px !important",
-                                      xs: "20px !important",
-                                    },
-                                    fontWeight: 400,
-                                  }}
-                                >
-                                  {row?.phone_number != ""
-                                    ? row?.phone_number
-                                    : "---"}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ py: "8px", px: "16px" }}
-                              >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{
-                                    color: palette.color.gray[610],
-                                    fontSize: {
-                                      md: "14px !important",
-                                      xs: "14px !important",
-                                    },
-                                    lineHeight: {
-                                      md: "20px !important",
-                                      xs: "20px !important",
-                                    },
-                                    fontWeight: 400,
-                                  }}
-                                >
-                                  {row?.city}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ py: "8px", px: "16px" }}
-                              >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{
-                                    color: palette.color.gray[610],
-                                    fontSize: {
-                                      md: "14px !important",
-                                      xs: "14px !important",
-                                    },
-                                    lineHeight: {
-                                      md: "20px !important",
-                                      xs: "20px !important",
-                                    },
-                                    fontWeight: 400,
-                                  }}
-                                >
-                                  {row?.state}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ py: "8px", px: "16px" }}
-                              >
-                                <Typography
-                                  variant="text-sm-regular"
-                                  sx={{
-                                    color: palette.color.gray[610],
-                                    fontSize: {
-                                      md: "14px !important",
-                                      xs: "14px !important",
-                                    },
-                                    lineHeight: {
-                                      md: "20px !important",
-                                      xs: "20px !important",
-                                    },
-                                    fontWeight: 400,
-                                  }}
-                                >
-                                  {row?.address}
-                                </Typography>
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="tableCell"
-                                sx={{ py: "8px", px: "16px" }}
-                              >
-                                <ClientPopOver
-                                  handleOpenDeleteModal={handleOpenDeleteModal}
-                                  record={row}
-                                  handleViewClient={handleViewClient}
-                                  handleEditClient={handleEditClient}
-                                />
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-
-                  <Pagination
-                    totalRecords={
-                      clientList?.totalRecords ? clientList?.totalRecords : 0
-                    }
-                    itemsPerPage={rowsPerPage}
-                    page={page}
-                    setPage={setPage}
-                  />
+                    </>
+                  )}
                 </>
               ) : (
                 <Box

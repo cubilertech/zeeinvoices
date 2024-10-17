@@ -15,17 +15,20 @@ import "react-international-phone/style.css";
 import "@/Styles/getIntTouchPhoneNoStyle.css";
 import "./getTouchedFrom.css";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
+const emailRegex =
+  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})*$/;
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
     .min(3, "First name must be at least 3 characters")
-    .max(100, "First name must be 100 characters or less")
+    .max(35, "First name must be 35 characters or less")
     .required("First name is required"),
   lastName: Yup.string()
     .min(3, "Last name must be at least 3 characters")
-    .max(100, "Last name must be 100 characters or less")
+    .max(35, "Last name must be 35 characters or less")
     .required("Last name is required"),
   email: Yup.string()
+    .matches(emailRegex, "Invalid email address")
     .email("Invalid email format")
     .required("Email is required"),
   // phoneNumber: Yup.string().required("Phone number is required"),

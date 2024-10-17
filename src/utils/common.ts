@@ -72,6 +72,22 @@ export const debounce = (func: any, delay: any) => {
     }, delay);
   };
 };
+
+export const hexToRgb = (hex: any) => {
+  const bigint = parseInt(hex.replace("#", ""), 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return { r, g, b };
+};
+
+export const isNearWhite = (color: any) => {
+  // Convert the color to RGB and check if it's near white
+  const rgb = hexToRgb(color); // Assuming selectedColor is a hex value
+  console.log(rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200, "col");
+  return rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200;
+};
+
 // Image blob function
 //  async function fetchBlobData(blobUrl: string) {
 //     try {

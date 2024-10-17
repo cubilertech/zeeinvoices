@@ -12,7 +12,7 @@ import {
 import { FC, useState } from "react";
 import { Icon } from "../Icon";
 import { ItemsTableRow } from "../ItemsTableRow";
-import { useSelectedColor } from "@/utils/common";
+import { isNearWhite, useSelectedColor } from "@/utils/common";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addInvoiceItem,
@@ -47,6 +47,21 @@ const InvoiceItemsTable: FC = () => {
   const handleRemoveItem = (id: number) => {
     dispatch(removeInvoiceItem(id));
   };
+
+  // const hexToRgb = (hex: any) => {
+  //   const bigint = parseInt(hex.replace("#", ""), 16);
+  //   const r = (bigint >> 16) & 255;
+  //   const g = (bigint >> 8) & 255;
+  //   const b = bigint & 255;
+  //   return { r, g, b };
+  // };
+
+  // const isNearWhite = (color: any) => {
+  //   // Convert the color to RGB and check if it's near white
+  //   const rgb = hexToRgb(color); // Assuming selectedColor is a hex value
+  //   console.log(rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200, "col");
+  //   return rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200;
+  // };
 
   return (
     <Stack direction={"column"}>
@@ -87,7 +102,12 @@ const InvoiceItemsTable: FC = () => {
               >
                 <Typography
                   variant="text-xs-semibold"
-                  sx={{ color: palette.base.white }}
+                  sx={{
+                    // color: palette.base.white
+                    color: isNearWhite(selectedColor)
+                      ? palette.base.black
+                      : palette.base.white,
+                  }}
                 >
                   Items
                 </Typography>
@@ -107,7 +127,12 @@ const InvoiceItemsTable: FC = () => {
               >
                 <Typography
                   variant="text-xs-semibold"
-                  sx={{ color: palette.base.white }}
+                  sx={{
+                    // color: palette.base.white
+                    color: isNearWhite(selectedColor)
+                      ? palette.base.black
+                      : palette.base.white,
+                  }}
                 >
                   Qty
                 </Typography>
@@ -127,7 +152,12 @@ const InvoiceItemsTable: FC = () => {
               >
                 <Typography
                   variant="text-xs-semibold"
-                  sx={{ color: palette.base.white }}
+                  sx={{
+                    // color: palette.base.white
+                    color: isNearWhite(selectedColor)
+                      ? palette.base.black
+                      : palette.base.white,
+                  }}
                 >
                   Rate <span>{`(${selectedCurrency})`}</span>
                 </Typography>
@@ -149,7 +179,12 @@ const InvoiceItemsTable: FC = () => {
                   {selectedTax ? (
                     <Typography
                       variant="text-xs-semibold"
-                      sx={{ color: palette.base.white }}
+                      sx={{
+                        // color: palette.base.white
+                        color: isNearWhite(selectedColor)
+                          ? palette.base.black
+                          : palette.base.white,
+                      }}
                     >
                       Tax {`(%)`}
                     </Typography>
@@ -176,7 +211,13 @@ const InvoiceItemsTable: FC = () => {
               >
                 <Typography
                   variant="text-xs-semibold"
-                  sx={{ color: palette.base.white, mr: "0px" }}
+                  sx={{
+                    // color: palette.base.white,
+                    color: isNearWhite(selectedColor)
+                      ? palette.base.black
+                      : palette.base.white,
+                    mr: "0px",
+                  }}
                 >
                   Subtotal
                 </Typography>
@@ -203,7 +244,12 @@ const InvoiceItemsTable: FC = () => {
                 >
                   <Typography
                     variant="text-xs-semibold"
-                    sx={{ color: palette.base.white }}
+                    // sx={{ color: palette.base.white }}
+                    sx={{
+                      color: isNearWhite(selectedColor)
+                        ? palette.base.black
+                        : palette.base.white,
+                    }}
                   >
                     Item {index + 1}
                   </Typography>

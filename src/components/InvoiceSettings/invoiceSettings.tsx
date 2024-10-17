@@ -240,7 +240,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         <Box>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>
-          <SwitchInput type="terms" lable="Terms"></SwitchInput>
+          <SwitchInput type="terms" lable="Terms & Conditions"></SwitchInput>
         </Box>
       </Stack>
     </Box>

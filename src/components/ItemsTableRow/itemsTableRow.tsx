@@ -8,8 +8,9 @@ import {
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
-import { ChangeEvent, FC, useMemo } from "react";
+import { ChangeEvent, FC, useEffect, useMemo, useRef } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceItem } from "@/redux/features/invoiceSlice";
@@ -31,11 +32,17 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   data,
   showRemoveButton,
 }) => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const dispatch = useDispatch();
   const InvoiceItemValidation = useSelector(getInvoiceItemsValidation);
   // const [taxValue, setTaxValue] = useState("");
   const selectedCurrency = useSelector(getCurrency);
   const selectedTax = useSelector(getTax);
+
+  const rateTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
+  const qtyTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
+  const nameTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     // setData((prev) => ({ ...prev, [name]: value }));
@@ -48,7 +55,24 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
     );
   }, [InvoiceItemValidation, id]);
 
-  console.log(InvoiceItemValidation, "InvoiceItemValidation");
+  useEffect(() => {
+    if (itemValidation?.rate?.isError && rateTextFieldRef.current) {
+      rateTextFieldRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    } else if (itemValidation?.quantity?.isError && qtyTextFieldRef.current) {
+      qtyTextFieldRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    } else if (itemValidation?.name?.isError && nameTextFieldRef.current) {
+      nameTextFieldRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [itemValidation]);
 
   return (
     <Stack className="tableItemRow" direction={"column"}>
@@ -74,6 +98,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           xs={12}
         >
           <TextField
+            inputRef={nameTextFieldRef}
             // size="small"
             sx={{
               color: palette.color.gray[700],
@@ -111,6 +136,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           xs={12}
         >
           <TextField
+            inputRef={qtyTextFieldRef}
             // size="small"
             sx={{
               width: "100%",
@@ -219,6 +245,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           xs={12}
         >
           <TextField
+            inputRef={rateTextFieldRef}
             sx={{
               borderRadius: "4px",
               width: "100%",
@@ -268,13 +295,15 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 e.preventDefault(); // Prevent entering the minus sign or 'e'
               }
             }}
-            // InputProps={{
-            //   endAdornment: (
-            //     <InputAdornment position="end" sx={{ pl: "0px" }}>
-            //       <Typography pr={1.2}>{selectedCurrency}</Typography>
-            //     </InputAdornment>
-            //   ),
-            // }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end" sx={{ pl: "0px" }}>
+                  {isMobile && (
+                    <Typography pr={1.2}>{selectedCurrency}</Typography>
+                  )}
+                </InputAdornment>
+              ),
+            }}
             inputProps={{
               inputMode: "numeric", // For numeric input on mobile
               pattern: "[0-9]*", // Restrict to digits
@@ -446,6 +475,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               onClick={() => onRemove(id)}
               aria-label="delete"
               sx={{
+                ml: { xs: "0px", sm: "10px" },
                 alignItems: "center",
                 width: "15px !important",
                 height: "15px !important",

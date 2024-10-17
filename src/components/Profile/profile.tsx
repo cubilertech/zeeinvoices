@@ -55,7 +55,7 @@ const validationSchema = Yup.object({
     .required("State is required"),
   address: Yup.string()
     .matches(alphaRegex, "Invalid Address")
-    .min(5, "Too short")
+    .min(5, "Address must be at least 5 characters long")
     .max(225, "State must be at most 225 characters long"),
 
   // .required("Address is required"),
