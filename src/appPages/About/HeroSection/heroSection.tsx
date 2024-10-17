@@ -75,8 +75,7 @@ const HeroSection = () => {
               height={500}
               //   style={{width: "100%", height: '100%'}}
               src="/Images/about/about-hero-image.webp"
-              alt="ZeeInvoices comprehensive dashboard for overviewing the billing process"
-              
+              alt="ZeeInvoices comprehensive dashboard for overviewing the billing process"              
             />
           </Box>
         </Box>
