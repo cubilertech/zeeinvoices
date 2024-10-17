@@ -14,6 +14,7 @@ import {
 import { FC, useEffect, useState } from "react";
 import { VerticalProgressBar } from "../VerticalProgressBar";
 import { HorizontalProgressBar } from "../HorizontalProgressBar";
+import Image from "next/image";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 4, // Set the height to the desired length for the vertical bar
@@ -39,7 +40,7 @@ interface SelectableCommentProps {
   title1?: string;
   title2?: string;
   desc?: string;
-  imgSrc?: string;
+  imgSrc: string;
   isOpen: boolean;
   commentTextData?: any;
   onToggle: () => void;
@@ -117,8 +118,10 @@ const SelectableComment: FC<SelectableCommentProps> = ({
             }}
             onClick={handleClick}
           >
-            <Avatar
-              sx={{ width: 61, height: 61 }}
+            <Image
+            width={61}
+            height={61}
+              style={{ borderRadius:'50%' }}
               alt="Cindy Baker"
               src={imgSrc}
             />
