@@ -36,6 +36,7 @@ const HeroSection = () => {
                 WebkitTextFillColor: "transparent",
                 fontFamily: "Product Sans,sans-serif",
               }}
+              component={"h1"}
             >
               About{" "}
               <span

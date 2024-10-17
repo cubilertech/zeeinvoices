@@ -117,7 +117,7 @@ const HelpSection = () => {
                   lineHeight: { md: "64px", xs: "32px" },
                   fontWeight: { md: 700 },
                 }}
-                component={"h1"}
+                component={"h2"}
               >
                 How{" "}
                 <Box
