@@ -142,10 +142,10 @@ const HeroSection = () => {
             <Box sx={{ zIndex: 1 }}>
               <Image
                priority 
-                src="/Images/hero-image-2.svg"
+                src="/Images/hero-image-2.webp"
                 width={586}
                 height={481}
-                alt="Zeeinvoices: create invoices within minutes"
+                alt="Zeeinvoices: create invoices within minutes"   
                 placeholder="blur" 
                 blurDataURL="/Images/HeroIMG9.png" 
               />
