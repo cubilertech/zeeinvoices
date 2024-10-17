@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     //   },
     },
     {
-      url: `${siteUrl}/about`,
+      url: `${siteUrl}/about-us`,
       lastModified: new Date(),
     //   alternates: {
     //     languages: {
