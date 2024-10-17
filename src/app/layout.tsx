@@ -12,9 +12,19 @@ import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ZeeInvoices: Custom and Smart Invoices Free and Easy",
+  title: {
+    default: "ZeeInvoices: Custom and Smart Invoices Free and Easy",
+    template: "%s - ZeeInvoices"
+  },
   description:
     "Create professional, personalized invoices effortlessly with ZeeInvoices, Free AI-powered Custom invoice generator. Perfect for businesses of all sizes, fast and easy.",
+  openGraph: {
+      type: "website",
+      siteName: "ZeeInvoices",
+  },
+  twitter:{
+    card:"summary_large_image"
+  }
 };
 
 export default function RootLayout({
