@@ -1,5 +1,5 @@
 import { Button, IconButton, Popover, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 
@@ -8,6 +8,7 @@ interface CustomPopOverProps {
   handleViewClient: (id: number) => void;
   handleOpenDeleteModal: (id: number) => void;
   handleEditClient: (id: number) => void;
+  isPopoverOpen?: (isPopoverOpen: boolean) => void;
 }
 
 const ClientPopOver: React.FC<CustomPopOverProps> = ({
@@ -15,6 +16,7 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   handleViewClient,
   handleOpenDeleteModal,
   handleEditClient,
+  isPopoverOpen,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleClose = () => {
@@ -24,13 +26,35 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  useEffect(() => {
+    if (isPopoverOpen) {
+      isPopoverOpen(Boolean(anchorEl));
+    }
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    // Cleanup to reset body overflow on component unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open, anchorEl, isPopoverOpen]);
+
   return (
     <>
-      <IconButton onClick={handleClick}>
+      <IconButton
+        onClick={(event) => {
+          event.stopPropagation(); // Prevent parent click event
+          handleClick(event); // Your IconButton's click handler
+        }}
+      >
         <Icon icon="threeDotsIcon" width={16} height={16} />
       </IconButton>
       <Popover
-        id={record?.id} 
+        id={record?.id}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -64,7 +88,10 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
             View
           </Button>
           <Button
-            onClick={() => handleEditClient(record)}
+            onClick={() => {
+              handleEditClient(record);
+              handleClose();
+            }}
             variant="outlined"
             startIcon={<Icon icon="editIcon" />}
             sx={{
@@ -97,7 +124,10 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
                 borderRadius: 0,
               },
             }}
-            onClick={() => handleOpenDeleteModal(record._id)}
+            onClick={() => {
+              handleOpenDeleteModal(record._id);
+              handleClose();
+            }}
           >
             Delete
           </Button>

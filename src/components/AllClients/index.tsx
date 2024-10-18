@@ -125,6 +125,7 @@ export default function AllClients() {
   const [clientModel, setClientModel] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [editId, setEditId] = React.useState<any | undefined>(undefined);
+  const [isPopover, setIsPopover] = React.useState(false);
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   const handleClientAddModel = () => {
@@ -170,6 +171,7 @@ export default function AllClients() {
   React.useEffect(() => {
     if (session?.accessToken) refetchClientList();
     if (deleteSuccess) {
+      setPage(1);
       setIsModalOpen(false);
     }
   }, [
@@ -397,6 +399,11 @@ export default function AllClients() {
                                   tabIndex={-1}
                                   key={row.id}
                                   sx={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    if (!isPopover) {
+                                      handleViewClient(row._id);
+                                    }
+                                  }}
                                 >
                                   <TableCell
                                     component="th"
@@ -580,6 +587,7 @@ export default function AllClients() {
                                       record={row}
                                       handleViewClient={handleViewClient}
                                       handleEditClient={handleEditClient}
+                                      isPopoverOpen={setIsPopover}
                                     />
                                   </TableCell>
                                 </TableRow>

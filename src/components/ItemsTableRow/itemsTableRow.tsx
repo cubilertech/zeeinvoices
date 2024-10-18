@@ -115,8 +115,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 opacity: 0.7,
               },
             }}
-            error={itemValidation?.name?.isError}
-            helperText={itemValidation?.name?.message ?? ""}
+            error={data.name === "" ? itemValidation?.name?.isError : false}
+            helperText={data.name === "" ? itemValidation?.name?.message : ""}
             id="outlined-basic"
             name="name"
             placeholder="Item name"
@@ -171,8 +171,16 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             name="quantity"
             type="number"
             placeholder="Qty"
-            error={itemValidation?.quantity?.isError}
-            helperText={itemValidation?.quantity?.message ?? ""}
+            error={
+              data.quantity === "" || data.quantity == 0
+                ? itemValidation?.quantity?.isError
+                : false
+            }
+            helperText={
+              data.quantity === "" || data.quantity == 0
+                ? itemValidation?.quantity?.message
+                : ""
+            }
             variant="outlined"
             value={data.quantity > 0 ? data.quantity : ""}
             inputProps={{
@@ -278,8 +286,16 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             }}
             id="outlined-basic"
             name="rate"
-            error={itemValidation?.rate?.isError}
-            helperText={itemValidation?.rate?.message ?? ""}
+            error={
+              data.rate === "" || data.rate == 0
+                ? itemValidation?.rate?.isError
+                : false
+            }
+            helperText={
+              data.rate === "" || data.rate == 0
+                ? itemValidation?.rate?.message
+                : ""
+            }
             type="number"
             placeholder={selectedTax ? `Rate` : `Rate`}
             variant="outlined"
@@ -450,11 +466,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 : data?.subTotal - data?.taxAmount
               )?.toFixed(2)}`} // Optional: Show full value on hover
             >
-              {selectedCurrency}{" "}
               {(selectedTax
                 ? data?.subTotal
                 : data?.subTotal - data?.taxAmount
-              )?.toFixed(2)}
+              )?.toFixed(2)}{" "}
+              {selectedCurrency}
               {/* {id} */}
             </Typography>
           </Box>

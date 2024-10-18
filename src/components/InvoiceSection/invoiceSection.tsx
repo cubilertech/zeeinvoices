@@ -281,42 +281,47 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         </Box>
         {/* Sixth section, additional notes */}
         {selectedTerms ? (
-          <Box
+          // <Box
+          //   sx={{
+          //     height: "44px",
+          //     width: "100%",
+          //     marginTop: "24px",
+          //     border: `1px solid ${palette.color.gray[200]}`,
+          //     borderRadius: 1,
+          //     backgroundColor: palette.base.white,
+          //   }}
+          // >
+          <TextField
+            multiline
+            rows={3}
             sx={{
-              height: "33px",
-              width: "100%",
               marginTop: "24px",
-              border: `1px dashed ${palette.base.borderColor}`,
-              borderRadius: 1,
-              backgroundColor: "#F9F9F9",
+              width: "100%",
+              "& .MuiInputBase-input": {
+                px: "0px !important",
+                height: "104px !important",
+                border: `0px dashed ${"#F9F9F9"}`,
+                "&::placeholder": {
+                  color: "#767676",
+                },
+              },
+              "& .MuiOutlinedInput-root": {
+                py: "10px !important",
+                border: "none !important",
+                borderRadius: "8px",
+                "& fieldset": {
+                  borderColor: palette.color.gray[200],
+                },
+              },
             }}
-          >
-            <TextField
-              sx={{
-                width: "100%",
-                "& .MuiInputBase-input": {
-                  height: "31px !important",
-                  border: `0px dashed ${"#F9F9F9"}`,
-                  "&::placeholder": {
-                    color: "#767676",
-                  },
-                },
-                "& .MuiOutlinedInput-root": {
-                  border: "none !important",
-                  borderRadius: 0.5,
-                  "& fieldset": {
-                    borderColor: palette.base.white,
-                  },
-                },
-              }}
-              onChange={handleChangeNotes}
-              value={additionalNotes}
-              id="outlined-basic"
-              placeholder="Terms & Conditions"
-              variant="outlined"
-            />
-          </Box>
+            onChange={handleChangeNotes}
+            value={additionalNotes}
+            id="outlined-basic"
+            placeholder="Terms & Conditions"
+            variant="outlined"
+          />
         ) : (
+          // </Box>
           ""
         )}
       </Box>

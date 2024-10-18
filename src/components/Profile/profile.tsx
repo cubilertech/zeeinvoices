@@ -145,7 +145,6 @@ const Profile: FC<Profile> = ({}) => {
     },
 
     onSubmit: (values) => {
-      console.log(isEdit, "iseditSub");
       const isChange =
         values.name !== profileData?.name ||
         values.address !== profileData?.address ||
@@ -153,7 +152,6 @@ const Profile: FC<Profile> = ({}) => {
         values.city !== profileData?.city ||
         values.state !== profileData?.state ||
         values.phoneNumber !== profileData?.phoneNumber;
-      console.log(isChange, "isChange");
       if (isEdit) {
         if (isChange) {
           const data = {

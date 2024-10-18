@@ -29,19 +29,22 @@ const InvoiceSummary: FC = () => {
       sx={{
         borderRadius: "4px",
         width: { sm: "240px", xs: "100%" },
-        border: `1px solid ${palette.base.borderColor}`,
+        border: `1px solid ${palette.color.gray[200]}`,
       }}
     >
       {/* summary head */}
       <Box
         sx={{
-          width: { sm: "239px", xs: "100%" },
+          width: { sm: "100%", xs: "100%" },
           height: "42px",
           borderRadius: "4px 4px 0px 0px",
           backgroundColor: selectedColor,
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
+          borderBottom: isNearWhite(selectedColor)
+            ? `1px solid ${palette.color.gray[200]}`
+            : "none",
         }}
       >
         <Typography
@@ -67,7 +70,7 @@ const InvoiceSummary: FC = () => {
         justifyContent={"space-between"}
         sx={{
           height: "54px",
-          borderBottom: `1px solid ${palette.base.borderColor}`,
+          borderBottom: `1px solid ${palette.color.gray[200]}`,
           alignItems: "center",
           px: "16px",
         }}
@@ -92,11 +95,10 @@ const InvoiceSummary: FC = () => {
             fontWeight: 600,
           }}
         >
-          {" "}
-          {selectedCurrency === "USD" ? "USD" : selectedCurrency}{" "}
           <span style={{ fontSize: 14, fontWeight: 600 }}>
             {(total - taxAmount).toFixed(2)}
-          </span>
+          </span>{" "}
+          {selectedCurrency === "USD" ? "USD" : selectedCurrency}
         </Typography>
       </Stack>
       {/* <hr style={{ margin: "10px" }}></hr> */}
@@ -108,7 +110,7 @@ const InvoiceSummary: FC = () => {
             justifyContent={"space-between"}
             sx={{
               height: "54px",
-              borderBottom: `1px solid ${palette.base.borderColor}`,
+              borderBottom: `1px solid ${palette.color.gray[200]}`,
               alignItems: "center",
               px: "16px",
             }}
@@ -134,9 +136,9 @@ const InvoiceSummary: FC = () => {
               }}
             >
               {taxAmount > 0
-                ? (selectedCurrency === "USD" ? "USD" : selectedCurrency) +
+                ? taxAmount.toFixed(2) +
                   " " +
-                  taxAmount.toFixed(2)
+                  (selectedCurrency === "USD" ? "USD" : selectedCurrency)
                 : "--"}
             </Typography>
           </Stack>
@@ -171,11 +173,11 @@ const InvoiceSummary: FC = () => {
             fontWeight: 600,
           }}
         >
-          {selectedCurrency === "USD" ? "USD" : selectedCurrency}{" "}
           <span style={{ fontSize: 14, fontWeight: 600 }}>
             {/* {total.toFixed(2)} */}
             {(selectedTax ? total : total - taxAmount).toFixed(2)}
-          </span>
+          </span>{" "}
+          {selectedCurrency === "USD" ? "USD" : selectedCurrency}
         </Typography>
       </Stack>
     </Stack>

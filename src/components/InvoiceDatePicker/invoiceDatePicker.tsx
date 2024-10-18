@@ -94,7 +94,10 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               "& .MuiOutlinedInput-input": {
                 padding: "0px !important",
                 // paddingLeft: "7px !important",
-                fontSize: 12,
+                fontSize: 16,
+                lineHeight: "24px",
+                fontWeight: 400,
+                color: palette.color.gray[510],
               },
 
               padding: "0px !important",

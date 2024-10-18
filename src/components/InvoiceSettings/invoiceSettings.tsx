@@ -36,6 +36,7 @@ interface InvoiceSettings {
   handleClose?: () => void;
 }
 const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
+  console.log(InvSetting, "settings");
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
 

@@ -15,6 +15,7 @@ import {
   Button,
   ButtonBase,
   CircularProgress,
+  colors,
   Container,
   IconButton,
   Link,
@@ -86,6 +87,7 @@ export default function AllInvoices() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [shareModel, setShareModel] = React.useState(false);
   const [shareUrl, setShareUrl] = React.useState(0);
+  const [isPopover, setIsPopover] = React.useState(false);
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   const {
@@ -144,19 +146,20 @@ export default function AllInvoices() {
     if (session?.accessToken) refetchInvoiceList();
 
     if (deleteSuccess) {
+      setPage(1);
       setIsModalOpen(false);
 
       // If the current page is greater than 1 and there are no more invoices on the current page
-      if (page > 1 && filteredData.length === 0) {
-        setPage(page - 1); // Navigate to the previous page
-      }
+      // if (page > 1 && filteredData.length === 0) {
+      //   setPage(page - 1); // Navigate to the previous page
+      // }
     }
   }, [
     refetchInvoiceList,
     deleteSuccess,
     page,
     session?.accessToken,
-    filteredData.length,
+    // filteredData.length,
   ]);
 
   const handleRequestSort = (
@@ -209,6 +212,7 @@ export default function AllInvoices() {
     );
     dispatch(
       setInvoiceSettings({
+        colors: record?.settings.colors,
         color: record?.settings.color,
         currency: record?.settings.currency,
         dueDate: record?.settings.dueDate,
@@ -413,6 +417,11 @@ export default function AllInvoices() {
                                       cursor: "pointer",
                                       borderColor: palette.color.gray[200],
                                     }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewInvoice(row?.id);
+                                      }
+                                    }}
                                   >
                                     <TableCell
                                       component="th"
@@ -606,6 +615,7 @@ export default function AllInvoices() {
                                         InvSetting={{ ...invoiceSetting }}
                                         InvDetails={{ ...invoiceDetail }}
                                         summaryDetail={summaryDetail}
+                                        isPopoverOpen={setIsPopover}
                                       />
                                       <Box>
                                         <Box style={{ display: "none" }}>
