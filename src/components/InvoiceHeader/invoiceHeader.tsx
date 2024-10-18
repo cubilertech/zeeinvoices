@@ -727,7 +727,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             "Update"
           )}
         </Button>
-        <Box>
+        {/* <Box>
           <Button
             disabled={!validateButton}
             variant="contained"
@@ -761,7 +761,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               </Box>
             </Box>
           </Box>
-        </Box>
+        </Box> */}
         {validateButton ? (
           session ? (
             <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
