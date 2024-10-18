@@ -409,6 +409,9 @@ const PdfView: FC<PdfViewProps> = ({
             flexDirection: "row",
             padding: "5px 10px",
             alignItems: "center",
+            border: isNearWhite(bgColor)
+              ? `1px solid ${palette.color.gray[200]}`
+              : "none",
           }}
         >
           <Text
@@ -706,6 +709,9 @@ const PdfView: FC<PdfViewProps> = ({
                 alignItems: "center",
                 alignContent: "center",
                 gap: 30,
+                borderBottom: isNearWhite(bgColor)
+                  ? `1px solid ${palette.color.gray[200]}`
+                  : "none",
               }}
             >
               <Text

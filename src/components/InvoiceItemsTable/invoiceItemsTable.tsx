@@ -85,6 +85,9 @@ const InvoiceItemsTable: FC = () => {
                 height: "42px",
                 mt: "24px",
                 alignItems: "center",
+                border: isNearWhite(selectedColor)
+                  ? `1px solid ${palette.color.gray[200]}`
+                  : "none",
               }}
               spacing={2}
             >
@@ -140,7 +143,7 @@ const InvoiceItemsTable: FC = () => {
               <Grid
                 sx={{
                   padding: "8px",
-                  paddingTop: "6px !important",
+                  paddingTop: "8px !important",
                   paddingLeft: "8px !important",
                   display: "flex",
                   // justifyContent: "center",
@@ -167,7 +170,7 @@ const InvoiceItemsTable: FC = () => {
                 <Grid
                   sx={{
                     padding: "8px",
-                    paddingTop: "6px !important",
+                    paddingTop: "8px !important",
                     paddingLeft: "8px !important",
                     display: "flex",
                     // justifyContent: "center",
@@ -199,7 +202,7 @@ const InvoiceItemsTable: FC = () => {
               <Grid
                 sx={{
                   padding: "8px",
-                  paddingTop: "5px !important",
+                  paddingTop: "8px !important",
                   paddingLeft: "8px !important",
                   display: "flex",
                   justifyContent: "end",
@@ -219,7 +222,7 @@ const InvoiceItemsTable: FC = () => {
                     mr: "0px",
                   }}
                 >
-                  Subtotal
+                  Subtotal {`(${selectedCurrency})`}
                 </Typography>
               </Grid>
             </Grid>
@@ -240,6 +243,9 @@ const InvoiceItemsTable: FC = () => {
                     display: "flex",
                     alignItems: "center",
                     mt: "24px",
+                    border: isNearWhite(selectedColor)
+                      ? `1px solid ${palette.color.gray[200]}`
+                      : "none",
                   }}
                 >
                   <Typography

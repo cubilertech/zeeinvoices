@@ -35,13 +35,16 @@ const InvoiceSummary: FC = () => {
       {/* summary head */}
       <Box
         sx={{
-          width: { sm: "239px", xs: "100%" },
+          width: { sm: "100%", xs: "100%" },
           height: "42px",
           borderRadius: "4px 4px 0px 0px",
           backgroundColor: selectedColor,
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
+          borderBottom: isNearWhite(selectedColor)
+            ? `1px solid ${palette.color.gray[200]}`
+            : "none",
         }}
       >
         <Typography

@@ -144,19 +144,20 @@ export default function AllInvoices() {
     if (session?.accessToken) refetchInvoiceList();
 
     if (deleteSuccess) {
+      setPage(1);
       setIsModalOpen(false);
 
       // If the current page is greater than 1 and there are no more invoices on the current page
-      if (page > 1 && filteredData.length === 0) {
-        setPage(page - 1); // Navigate to the previous page
-      }
+      // if (page > 1 && filteredData.length === 0) {
+      //   setPage(page - 1); // Navigate to the previous page
+      // }
     }
   }, [
     refetchInvoiceList,
     deleteSuccess,
     page,
     session?.accessToken,
-    filteredData.length,
+    // filteredData.length,
   ]);
 
   const handleRequestSort = (

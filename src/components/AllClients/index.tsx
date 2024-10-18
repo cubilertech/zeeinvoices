@@ -170,6 +170,7 @@ export default function AllClients() {
   React.useEffect(() => {
     if (session?.accessToken) refetchClientList();
     if (deleteSuccess) {
+      setPage(1);
       setIsModalOpen(false);
     }
   }, [
