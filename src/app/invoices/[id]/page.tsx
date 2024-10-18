@@ -185,6 +185,7 @@ const InvoiceDetail = () => {
     );
     dispatch(
       setInvoiceSettings({
+        colors: singleInvoice?.settings?.colors,
         color: singleInvoice?.settings?.color,
         currency: singleInvoice?.settings?.currency,
         dueDate: singleInvoice?.settings?.dueDate,
