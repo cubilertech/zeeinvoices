@@ -1,6 +1,6 @@
 "use client";
 import { Box, ButtonBase, IconButton, Stack, Typography } from "@mui/material";
-import { FC, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,6 +53,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   };
 
   const extractColors = (imageSrc: string) => {
+    // console.log(imageSrc, "imgSrc");
     const img = new window.Image();
     img.src = imageSrc;
     img.crossOrigin = "Anonymous";

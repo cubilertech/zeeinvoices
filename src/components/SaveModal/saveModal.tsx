@@ -99,8 +99,9 @@ const SaveModal: FC<SaveModal> = ({ onSave, onClose, open }) => {
                   "&:hover": {},
                 }}
                 onClick={onSave}
+                startIcon={<Icon icon="googleIcon" width={18} height={18} />}
               >
-                Login
+                Login with google
               </Button>
             </Stack>
           </Stack>

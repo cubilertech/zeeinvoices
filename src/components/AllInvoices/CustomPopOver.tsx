@@ -73,6 +73,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     );
     dispatch(
       setInvoiceSettings({
+        colors: record?.settings.colors,
         color: record?.settings?.color,
         currency: record?.settings?.currency,
         dueDate: record?.settings?.dueDate,

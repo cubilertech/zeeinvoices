@@ -15,6 +15,7 @@ import {
   Button,
   ButtonBase,
   CircularProgress,
+  colors,
   Container,
   IconButton,
   Link,
@@ -210,6 +211,7 @@ export default function AllInvoices() {
     );
     dispatch(
       setInvoiceSettings({
+        colors: record?.settings.colors,
         color: record?.settings.color,
         currency: record?.settings.currency,
         dueDate: record?.settings.dueDate,

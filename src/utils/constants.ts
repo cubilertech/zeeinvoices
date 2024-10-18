@@ -115,6 +115,7 @@ export const icons = {
 
   perpleWorldLinedIcon: "/Images/about/icons/perple-world-lined-icon.svg",
   whiteWorldLinedIcon: "/Images/about/icons/white-world-lined-icon.svg",
+  googleIcon: "/Images/icons/google-icon.png",
 };
 
 export const backendURL =

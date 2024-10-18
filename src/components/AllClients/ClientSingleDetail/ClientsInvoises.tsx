@@ -205,6 +205,7 @@ export default function ClientInvoices() {
     );
     dispatch(
       setInvoiceSettings({
+        colors: record?.settings.colors,
         color: record?.settings.color,
         currency: record?.settings.currency,
         dueDate: record?.settings.dueDate,

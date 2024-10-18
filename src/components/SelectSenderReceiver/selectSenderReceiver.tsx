@@ -47,7 +47,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   const toSelected = useSelector(getIsRecipientSelected);
 
   const handleSelectedItem = (item: any) => {
-    console.log(item, "item");
     if (type === "Sender") {
       dispatch(setSenderSelected(true));
       dispatch(

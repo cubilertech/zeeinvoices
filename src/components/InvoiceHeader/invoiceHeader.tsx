@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { backendURL } from "@/utils/constants";
 import { useCreateDocument, useEditDocument } from "@/utils/ApiHooks/common";
@@ -61,7 +61,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   handleColorPickerClick,
 }) => {
   const { id } = useParams<{ id: string }>();
-
+  const [invIdNoSession, setInvIdNoSession] = useState("001");
   const dispatch = useDispatch();
   const router = useRouter();
   const componentRef = useRef();
@@ -91,7 +91,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const InvoiceRendomId = Math.floor(Math.random() * 100) + 1;
   const [errorMessage, setErrorMessage] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(
-    InvDetails.id ? InvDetails.id : `00${InvoiceRendomId}`
+    InvDetails.id
+      ? InvDetails.id
+      : session?.accessToken
+      ? `00${InvoiceRendomId}`
+      : "001"
   );
 
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
@@ -261,9 +265,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         apiRoute: `${backendURL}/invoices/${id}`,
       })
         .then((res) => {
-          router.push("/invoices");
-          dispatch(setResetInvoice());
-          dispatch(setResetInvoiceSetting());
+          // router.push("/invoices");
+          // dispatch(setResetInvoice());
+          // dispatch(setResetInvoiceSetting());
         })
         .catch((err) => {
           throw new Error(`${err.response?.data?.message}`);
@@ -419,10 +423,20 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const handleBack = () => {
     // router.back();
     router.push("/invoices");
-    // setTimeout(() => {
-    //   dispatch(setResetInvoiceSetting());
-    //   dispatch(setResetInvoice());
-    // }, 500);
+    setTimeout(() => {
+      dispatch(setResetInvoiceSetting());
+      dispatch(setResetInvoice());
+    }, 500);
+  };
+
+  const handleInvIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (session?.accessToken) {
+      UpdateInvoiceId(e.target.value);
+      console.log(invIdNoSession, "inv-Se", InvoiceId);
+    } else {
+      setInvIdNoSession(e.target.value);
+      UpdateInvoiceId(e.target.value);
+    }
   };
 
   const generatePDFDocument = async () => {
@@ -534,8 +548,15 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                         },
                       },
                     }}
-                    value={InvoiceId}
-                    onChange={(e) => UpdateInvoiceId(e.target.value)}
+                    value={session?.accessToken ? InvoiceId : invIdNoSession}
+                    // onChange={(e) =>
+                    //   session?.accessToken
+                    //     ? UpdateInvoiceId(e.target.value)
+                    //     : (setInvIdNoSession(e.target.value))
+                    // }
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleInvIdChange(e);
+                    }}
                     onKeyDown={(e: { key: string }) => {
                       if (e.key === "Enter") {
                         setIsEditInvoiceId(false);
@@ -577,7 +598,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                   variant="display-xs-semibold"
                   sx={{ height: "40px", lineHeight: "40px" }}
                 >
-                  {InvoiceId}
+                  {session?.accessToken ? InvoiceId : invIdNoSession}
                 </Typography>
               )}
             </Box>

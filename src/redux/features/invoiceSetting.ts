@@ -69,6 +69,7 @@ const invoiceSetting = createSlice({
       state.detail = !state.detail;
     },
     setInvoiceSettings: (state, action) => {
+      state.colors = action.payload.colors;
       state.color = action.payload.color;
       state.currency = action.payload.currency;
       state.dueDate = action.payload.dueDate;
