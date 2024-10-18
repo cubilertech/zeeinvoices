@@ -747,10 +747,13 @@ const PdfView: FC<PdfViewProps> = ({
                 Subtotal
               </Text>
               <View style={{ flexDirection: "row" }}>
+                <Text style={{ fontSize: "12px" }}>
+                  {" "}
+                  {summarySubTotal + " "}
+                </Text>
                 <Text style={{ fontSize: "12px", color: "#000000" }}>
                   {currencyText}
                 </Text>
-                <Text style={{ fontSize: "12px" }}> {summarySubTotal}</Text>
               </View>
             </View>
             {tax && (
@@ -771,7 +774,7 @@ const PdfView: FC<PdfViewProps> = ({
                 <Text style={{ fontSize: "12px", color: "#4B5565" }}>Tax</Text>
                 <Text style={{ fontSize: "12px", color: "#000000" }}>
                   {Summary?.taxAmount > 0
-                    ? currencyText + " " + Summary?.taxAmount.toFixed(2)
+                    ? Summary?.taxAmount.toFixed(2) + " " + currencyText
                     : "--"}
                 </Text>
               </View>
@@ -791,15 +794,15 @@ const PdfView: FC<PdfViewProps> = ({
             >
               <Text style={{ fontSize: "12px", color: "#4B5565" }}>Total</Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ fontSize: "12px", color: "#000000" }}>
-                  {currencyText}
-                </Text>
                 <Text style={{ fontSize: "12px" }}>
                   {" "}
                   {(tax
                     ? Summary?.total
                     : Summary?.total - Summary?.taxAmount
                   ).toFixed(2)}
+                </Text>
+                <Text style={{ fontSize: "12px", color: "#000000" }}>
+                  {" " + currencyText}
                 </Text>
               </View>
             </View>

@@ -466,11 +466,11 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 : data?.subTotal - data?.taxAmount
               )?.toFixed(2)}`} // Optional: Show full value on hover
             >
-              {selectedCurrency}{" "}
               {(selectedTax
                 ? data?.subTotal
                 : data?.subTotal - data?.taxAmount
-              )?.toFixed(2)}
+              )?.toFixed(2)}{" "}
+              {selectedCurrency}
               {/* {id} */}
             </Typography>
           </Box>
