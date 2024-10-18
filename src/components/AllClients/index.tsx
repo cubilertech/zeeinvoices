@@ -398,6 +398,9 @@ export default function AllClients() {
                                   tabIndex={-1}
                                   key={row.id}
                                   sx={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    handleViewClient(row._id);
+                                  }}
                                 >
                                   <TableCell
                                     component="th"
