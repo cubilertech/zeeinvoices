@@ -27,6 +27,7 @@ interface CustomPopOverProps {
   InvSetting?: any;
   InvDetails?: any;
   summaryDetail?: any;
+  isPopoverOpen?: (isPopoverOpen: boolean) => void;
 }
 
 const CustomPopOver: React.FC<CustomPopOverProps> = ({
@@ -40,6 +41,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   InvSetting,
   InvDetails,
   summaryDetail,
+  isPopoverOpen,
 }) => {
   const { data: session } = useSession();
   const dispatch = useDispatch();
@@ -86,6 +88,9 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
 
   // Side effect to manage body overflow
   useEffect(() => {
+    if (isPopoverOpen) {
+      isPopoverOpen(Boolean(anchorEl));
+    }
     if (open) {
       document.body.style.overflow = "hidden";
     } else {
@@ -96,7 +101,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [open, anchorEl, isPopoverOpen]);
 
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;
@@ -116,7 +121,12 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   };
   return (
     <>
-      <IconButton onClick={handleClick}>
+      <IconButton
+        onClick={(event) => {
+          event.stopPropagation(); // Prevent parent click event
+          handleClick(event); // Your IconButton's click handler
+        }}
+      >
         <Icon icon="threeDotsIcon" width={16} height={16} />
       </IconButton>
       <Popover

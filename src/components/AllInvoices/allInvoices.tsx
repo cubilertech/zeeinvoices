@@ -87,6 +87,7 @@ export default function AllInvoices() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [shareModel, setShareModel] = React.useState(false);
   const [shareUrl, setShareUrl] = React.useState(0);
+  const [isPopover, setIsPopover] = React.useState(false);
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   const {
@@ -416,6 +417,11 @@ export default function AllInvoices() {
                                       cursor: "pointer",
                                       borderColor: palette.color.gray[200],
                                     }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewInvoice(row?.id);
+                                      }
+                                    }}
                                   >
                                     <TableCell
                                       component="th"
@@ -609,6 +615,7 @@ export default function AllInvoices() {
                                         InvSetting={{ ...invoiceSetting }}
                                         InvDetails={{ ...invoiceDetail }}
                                         summaryDetail={summaryDetail}
+                                        isPopoverOpen={setIsPopover}
                                       />
                                       <Box>
                                         <Box style={{ display: "none" }}>

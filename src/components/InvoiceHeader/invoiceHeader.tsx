@@ -421,12 +421,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Edit Back Button
   const handleBack = () => {
-    // router.back();
-    router.push("/invoices");
-    setTimeout(() => {
-      dispatch(setResetInvoiceSetting());
-      dispatch(setResetInvoice());
-    }, 500);
+    router.back();
+    // router.push("/invoices");
+    // setTimeout(() => {
+    //   dispatch(setResetInvoiceSetting());
+    //   dispatch(setResetInvoice());
+    // }, 500);
   };
 
   const handleInvIdChange = (e: ChangeEvent<HTMLInputElement>) => {
