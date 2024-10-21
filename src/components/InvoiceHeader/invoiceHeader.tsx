@@ -453,8 +453,37 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     const blobPdf = await pdf(doc);
     blobPdf.updateContainer(doc);
     const result = await blobPdf.toBlob();
+
+    console.log(result, "result", blobPdf);
     saveAs(result, "ZeeInvoice");
   };
+
+  const PDFPreview = async () => {
+    const itemDetail = InvDetails?.invoiceItem;
+    const doc = (
+      <PdfView
+        invSetting={{ ...InvSetting }}
+        invDetails={{ ...InvDetails }}
+        Summary={summaryDetail}
+        user={session?.user}
+        itemDetail={itemDetail}
+      />
+    );
+
+    // Generate the PDF as a blob
+    const blobPdf = await pdf(doc);
+    blobPdf.updateContainer(doc);
+    const result = await blobPdf.toBlob();
+
+    // Create a blob URL from the generated PDF blob
+    const blobUrl = URL.createObjectURL(result);
+
+    // Open the blob URL in a new tab
+    window.open(blobUrl, "_blank");
+
+    console.log(result, "result", blobPdf);
+  };
+
   useEffect(() => {
     if (!isEditInvoiceId) {
       setErrorMessage(false);
@@ -727,7 +756,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             "Update"
           )}
         </Button>
-        {/* <Box>
+        <Box>
           <Button
             disabled={!validateButton}
             variant="contained"
@@ -743,15 +772,24 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 backgroundColor: "rgba(79, 53, 223, 0.2)",
               },
             }}
-            onClick={() =>
-              type === "add"
-                ? router.push("/preview")
-                : router.push(`/invoices/${invoiceData.id}?type=edit`)
-            }
+            // onClick={() =>
+            //   type === "add"
+            //     ? router.push("/preview")
+            //     : router.push(`/preview/${invoiceData.id}`)
+            // }
+
+            onClick={() => {
+              if (type === "add") {
+                // window.open("/preview", "_blank");
+                PDFPreview();
+              } else {
+                window.open(`/preview/${invoiceData.id}`, "_blank"); // Open `/preview/{invoiceData.id}` in a new tab
+              }
+            }}
           >
             Preview
           </Button>
-          <Box>
+          {/* <Box>
             <Box style={{ display: "none" }}>
               <Box ref={componentRef}>
                 <InvoiceDetailsSection
@@ -760,8 +798,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 />
               </Box>
             </Box>
-          </Box>
-        </Box> */}
+          </Box> */}
+        </Box>
         {validateButton ? (
           session ? (
             <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>

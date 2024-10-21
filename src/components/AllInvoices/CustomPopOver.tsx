@@ -11,10 +11,6 @@ import PdfView from "@/appPages/PdfView/pdfView";
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import { useSession } from "next-auth/react";
-import { useFetchSingleDocument } from "@/utils/ApiHooks/common";
-import { backendURL } from "@/utils/constants";
-import { useParams } from "next/navigation";
-import { PhoneNumber } from "libphonenumber-js";
 
 interface CustomPopOverProps {
   record: any; // Assuming id is of type number
@@ -144,7 +140,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           direction={"column"}
           sx={{ display: "flex", alignItems: "start" }}
         >
-          {/* <Button
+          <Button
             onClick={() => {
               setAnchorEl(null);
               handleViewInvoice(record?.id);
@@ -165,9 +161,12 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             }}
           >
             View
-          </Button> */}
+          </Button>
           <Button
-            onClick={() => handleEditInvoice(record)}
+            onClick={() => {
+              setAnchorEl(null);
+              handleEditInvoice(record);
+            }}
             variant="outlined"
             startIcon={<Icon icon="editIcon" />}
             sx={{
@@ -245,7 +244,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
                 borderRadius: 0,
               },
             }}
-            onClick={() => generatePDFDocument()}
+            onClick={() => {
+              setAnchorEl(null);
+              generatePDFDocument();
+            }}
           >
             Download
           </Button>
@@ -289,7 +291,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
                 borderRadius: 0,
               },
             }}
-            onClick={() => handleOpenDeleteModal(record?.id)}
+            onClick={() => {
+              setAnchorEl(null);
+              handleOpenDeleteModal(record?.id);
+            }}
           >
             Delete
           </Button>

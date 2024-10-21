@@ -15,7 +15,6 @@ import {
   Button,
   ButtonBase,
   CircularProgress,
-  colors,
   Container,
   IconButton,
   Link,
@@ -184,7 +183,9 @@ export default function AllInvoices() {
   };
   const handleViewInvoice = (id: number) => {
     route.push(`/invoices/${id}`);
+    // window.open(`/preview/${id}`, "_blank");
   };
+
   //Edit Invoice
   const handleEditInvoice = (record: any) => {
     dispatch(
