@@ -8,6 +8,7 @@ import QueryProvider from "@/components/QueryProvider";
 import SessionProviders from "@/components/SessionProviders";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 const siteUrl = process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "https://staging.zeeinvoices.com"; // Fallback in case env is missing
@@ -64,6 +65,22 @@ export default function RootLayout({
           </MuiThemeProvider>
         </SessionProviders>
       </body>
+      <Script id="json-ld" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "ZeeInvoices",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "144/2, Block B, Bankers Society",
+            "addressLocality": "Lahore",
+            "addressRegion": "Lahore",
+            "postalCode": "12345"
+          },
+          "telephone": "+92-3008542811",
+          "openingHours": "Mo-Fr 10:00-19:00"
+        })}
+      </Script>
     </html>
   );
 }
