@@ -15,7 +15,6 @@ import {
   Button,
   ButtonBase,
   CircularProgress,
-  colors,
   Container,
   IconButton,
   Link,
@@ -184,7 +183,9 @@ export default function AllInvoices() {
   };
   const handleViewInvoice = (id: number) => {
     route.push(`/invoices/${id}`);
+    // window.open(`/preview/${id}`, "_blank");
   };
+
   //Edit Invoice
   const handleEditInvoice = (record: any) => {
     dispatch(
@@ -294,11 +295,9 @@ export default function AllInvoices() {
             minHeight: { xl: "53vh", lg: "73vh" },
           }}
         >
-          {!isInvoiceLoading &&
-          invoiceList?.invoices?.length === 0 &&
-          search === "" ? (
+          {!isInvoiceLoading && invoiceList?.total === 0 && search === "" ? (
             <Box sx={{ pt: { sm: 0, xs: 5 } }}>
-              {!fetchingInvoiceList && <CreateFirstInvoice />}
+              <CreateFirstInvoice />
             </Box>
           ) : (
             <Box

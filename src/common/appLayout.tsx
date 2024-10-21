@@ -14,11 +14,14 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       {/* <Box sx={{ background: palette.color.lightWhite, height: "100vh" }}> */}
-      <Header />
+      {pathname.startsWith("/preview") ? <></> : <Header />}
+
       <Box sx={{ backgroundColor: "white", minHeight: "200px" }}>
         {children}
       </Box>
-      {pathname == "/" || pathname == "/contact-us" ? (
+      {pathname == "/" ||
+      pathname == "/contact-us" ||
+      pathname.startsWith("/preview") ? (
         <></>
       ) : isModile ? (
         <FooterSection />

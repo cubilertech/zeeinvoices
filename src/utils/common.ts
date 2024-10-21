@@ -74,7 +74,7 @@ export const debounce = (func: any, delay: any) => {
 };
 
 export const hexToRgb = (hex: any) => {
-  const bigint = parseInt(hex.replace("#", ""), 16);
+  const bigint = parseInt(hex?.replace("#", ""), 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
   const b = bigint & 255;

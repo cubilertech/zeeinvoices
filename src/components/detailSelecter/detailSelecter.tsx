@@ -362,7 +362,15 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
   // console.log(errors, 'errors');
   return (
-    <Box sx={{ width: "100%", height: "auto" }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "auto",
+        flexGrow: 1,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       {title && (
         <Typography
           variant="text-sm-medium"
@@ -397,6 +405,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           <Box
             borderRadius={1}
             sx={{
+              flexGrow: 1,
               width: { sm: "100%", xs: "100%" },
               height: 184,
               // minHeight: 184,
@@ -453,6 +462,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
         <Box
           borderRadius={1}
           sx={{
+            flexGrow: 1,
             width: "100%",
             minHeight: 184,
             marginTop: "16px",
