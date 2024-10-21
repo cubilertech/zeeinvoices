@@ -10,11 +10,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
-const siteUrl = process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "https://staging.zeeinvoices.com"; // Fallback in case env is missing
+const siteUrl =
+  process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL ||
+  "https://staging.zeeinvoices.com"; // Fallback in case env is missing
 export const metadata: Metadata = {
   title: {
     default: "ZeeInvoices: Custom and Smart Invoices Free and Easy",
-    template: "%s - ZeeInvoices"
+    template: "%s - ZeeInvoices",
   },
   description:
     "Create professional, personalized invoices effortlessly with ZeeInvoices, Free AI-powered Custom invoice generator. Perfect for businesses of all sizes, fast and easy.",
@@ -28,12 +30,12 @@ export const metadata: Metadata = {
         alt: "ZeeInvoices AI-powered Invoice Generator",
       },
     ],
-      type: "website",
-      siteName: "ZeeInvoices",
+    type: "website",
+    siteName: "ZeeInvoices",
   },
-  twitter:{
-    card:"summary_large_image"
-  }
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({

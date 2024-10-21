@@ -1,3 +1,4 @@
+"use client";
 import { ChooseZeeInvoiceSection } from "@/appPages/About/ChooseZeeInvoiceSection";
 import { GetInTouchSection } from "@/appPages/About/GetInTouchSection";
 import { HeroSection } from "@/appPages/About/HeroSection";
@@ -7,8 +8,20 @@ import { WeOfferSection } from "@/appPages/About/WeOfferSection";
 import { palette } from "@/theme/palette";
 import { Box } from "@mui/material";
 import Head from "next/head";
+import { useEffect } from "react";
 
 const AboutPage = () => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "/js/script.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    // Cleanup function to remove the script when the component unmounts
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
   return (
     <>
       <Head>

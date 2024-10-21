@@ -7,7 +7,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
 import { ExpandableTextWithSubheadings } from "@/components/ExpandableTextWithSubheadings";
 import "@/Styles/sectionStyle.css";
@@ -270,6 +270,19 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
       return nextIndex >= expandableTextData.length ? 0 : nextIndex;
     });
   };
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "/js/script.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    // Cleanup function to remove the script when the component unmounts
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <>
       <Stack
