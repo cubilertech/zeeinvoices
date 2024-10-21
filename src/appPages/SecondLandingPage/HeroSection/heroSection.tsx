@@ -149,6 +149,7 @@ const HeroSection = () => {
                 alt="Zeeinvoices: create invoices within minutes"
                 placeholder="blur" 
                 blurDataURL="/Images/HeroIMG9.png" 
+                sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </Box>
           </Stack>
