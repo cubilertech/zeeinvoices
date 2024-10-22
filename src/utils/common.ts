@@ -85,7 +85,9 @@ export const isNearWhite = (color: any) => {
   // Convert the color to RGB and check if it's near white
   const rgb = hexToRgb(color); // Assuming selectedColor is a hex value
   console.log(rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200, "col");
-  return rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200;
+  return color === "#fffff"
+    ? true
+    : rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200;
 };
 
 // Image blob function

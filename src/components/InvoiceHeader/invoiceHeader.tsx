@@ -12,9 +12,17 @@ import {
 import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { backendURL } from "@/utils/constants";
-import { useCreateDocument, useEditDocument } from "@/utils/ApiHooks/common";
+import {
+  useCreateDocument,
+  useEditDocument,
+  useFetchAllDocument,
+} from "@/utils/ApiHooks/common";
 import { useDispatch, useSelector } from "react-redux";
-import { setInvoiceId, setResetInvoice } from "@/redux/features/invoiceSlice";
+import {
+  setInvoiceId,
+  setResetInvoice,
+  setResetInvoiceId,
+} from "@/redux/features/invoiceSlice";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import SaveModal from "../SaveModal/saveModal";
@@ -71,7 +79,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
-
+  const apiPathInvoiceId = `${backendURL}/invoices/last-record`;
+  const { data: generatedInvoiceId, refetch: refetchInvoiceId } =
+    useFetchAllDocument(apiPathInvoiceId);
   const { data: session } = useSession();
   const validateButton =
     InvDetails.from?.name !== "" &&
@@ -90,13 +100,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const [downloadModel, setDownloadModel] = useState(false);
   const InvoiceRendomId = Math.floor(Math.random() * 100) + 1;
   const [errorMessage, setErrorMessage] = useState(false);
-  const [InvoiceId, UpdateInvoiceId] = useState(
-    InvDetails.id
-      ? InvDetails.id
-      : session?.accessToken
-      ? `00${InvoiceRendomId}`
-      : "001"
-  );
+  const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
 
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
 
@@ -406,6 +410,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           dispatch(setResetInvoice());
           dispatch(setResetInvoiceSetting());
           dispatch(setResetSelectedList());
+          dispatch(setResetInvoiceId());
         })
         .catch((err) => {
           if (err) {
@@ -485,14 +490,28 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
 
   useEffect(() => {
+    if (session?.accessToken && type == "add") {
+      refetchInvoiceId();
+    }
+  }, [session?.accessToken]);
+
+  useEffect(() => {
+    if (session?.accessToken && generatedInvoiceId?.length) {
+      console.log(generatedInvoiceId, "generatedInvoiceId");
+      UpdateInvoiceId(generatedInvoiceId);
+      dispatch(setInvoiceId(generatedInvoiceId));
+    }
+  }, [generatedInvoiceId, session?.accessToken]);
+
+  useEffect(() => {
     if (!isEditInvoiceId) {
       setErrorMessage(false);
     }
   }, [isEditInvoiceId]);
 
-  useEffect(() => {
-    dispatch(setInvoiceId(InvoiceId));
-  }, [InvoiceId, dispatch, InvoiceRendomId]);
+  // useEffect(() => {
+  //   dispatch(setInvoiceId(InvoiceId));
+  // }, [InvoiceId, dispatch, InvoiceRendomId]);
 
   return (
     <Stack
@@ -584,7 +603,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                     //     : (setInvIdNoSession(e.target.value))
                     // }
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleInvIdChange(e);
+                      const value = e.target.value;
+                      // Regular expression to allow only numbers and alphabets
+                      const alphanumericRegex = /^[a-zA-Z0-9]*$/;
+
+                      // Validate input and update state only if valid
+                      if (alphanumericRegex.test(value)) {
+                        handleInvIdChange(e); // or UpdateInvoiceId based on session state
+                      }
                     }}
                     onKeyDown={(e: { key: string }) => {
                       if (e.key === "Enter") {

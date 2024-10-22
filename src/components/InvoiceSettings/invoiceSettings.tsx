@@ -40,7 +40,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
 
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("#fffff");
   const [pickColor, setPickColor] = useState("");
   const selectedCurrency = useSelector(getCurrency);
   // Color Change

@@ -39,7 +39,7 @@ interface ActionPayload {
   value: any;
 }
 const initialValue: InvoiceState = {
-  id: 0,
+  id: "001",
   logo: "",
   invoiceType: "",
   from: {
@@ -158,6 +158,9 @@ export const invoiceSlice = createSlice({
     setResetInvoice: (state) => {
       return initialValue;
     },
+    setResetInvoiceId: (state) => {
+      state.id = initialValue.id;
+    },
   },
 });
 
@@ -188,5 +191,6 @@ export const {
   setResetFromDetails,
   setResetToDetails,
   setResetInvoice,
+  setResetInvoiceId,
 } = invoiceSlice.actions;
 export default invoiceSlice.reducer;
