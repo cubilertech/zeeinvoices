@@ -500,40 +500,41 @@ const PdfView: FC<PdfViewProps> = ({
         {invDetails?.invoiceItem?.map((data: any, index: number) => (
           <>
             {data.name == "" ? null : (
-              <View
-                wrap={false} // Prevents splitting the View across pages
-                key={data.id}
-                style={{
-                  marginLeft: "10px",
-                  marginRight: "0px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  borderBottom: "1px solid #E0E0E0",
-                  padding: "8px 10px",
-                  // gap: 3,
-                }}
-              >
+              <>
                 <View
+                  wrap={false} // Prevents splitting the View across pages
+                  key={data.id}
                   style={{
+                    marginLeft: "10px",
+                    marginRight: "0px",
                     display: "flex",
-                    flexDirection: "row",
-                    // alignItems: "center",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+
+                    padding: "8px 10px",
+                    // gap: 3,
                   }}
                 >
-                  <View>
-                    <Text
-                      style={{
-                        width: "170px",
-                        fontSize: "14px",
-                        fontWeight: "extrabold",
-                        marginRight: "17px",
-                        textAlign: "left",
-                      }}
-                    >
-                      {data.name}
-                    </Text>
-                    {/* <Text
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      // alignItems: "center",
+                    }}
+                  >
+                    <View>
+                      <Text
+                        style={{
+                          width: "170px",
+                          fontSize: "14px",
+                          fontWeight: "extrabold",
+                          marginRight: "17px",
+                          textAlign: "left",
+                        }}
+                      >
+                        {data.name}
+                      </Text>
+                      {/* <Text
                       style={{
                         fontSize: "12px",
                         marginTop: "4px",
@@ -543,84 +544,94 @@ const PdfView: FC<PdfViewProps> = ({
                     >
                       {data.description}
                     </Text> */}
-                  </View>
-                  <Text
-                    style={{
-                      width: "55px",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      textAlign: "left",
-                      color: "#4B5565",
-                    }}
-                  >
-                    {data?.quantity}
-                  </Text>
-                  <Text
-                    style={{
-                      width: "50px",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      marginLeft: "12px",
-                      textAlign: "left",
-                      color: "#4B5565",
-                    }}
-                  >
-                    {data?.rate}
-                  </Text>
-                  {tax && Summary?.taxAmount > 0 ? (
+                    </View>
+                    <Text
+                      style={{
+                        width: "55px",
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        textAlign: "left",
+                        color: "#4B5565",
+                      }}
+                    >
+                      {data?.quantity}
+                    </Text>
                     <Text
                       style={{
                         width: "50px",
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginLeft: "30px",
+                        marginLeft: "12px",
                         textAlign: "left",
                         color: "#4B5565",
                       }}
                     >
-                      {data?.tax} %
+                      {data?.rate}
                     </Text>
-                  ) : (
+                    {tax && Summary?.taxAmount > 0 ? (
+                      <Text
+                        style={{
+                          width: "50px",
+                          fontSize: "14px",
+                          fontWeight: "bold",
+                          marginLeft: "30px",
+                          textAlign: "left",
+                          color: "#4B5565",
+                        }}
+                      >
+                        {data?.tax} %
+                      </Text>
+                    ) : (
+                      <Text
+                        style={{
+                          width: "50px",
+                          fontSize: "10px",
+                          fontWeight: "bold",
+                          marginLeft: "30px",
+                          textAlign: "left",
+                        }}
+                      ></Text>
+                    )}
+
                     <Text
                       style={{
-                        width: "50px",
-                        fontSize: "10px",
+                        width: "79px",
+                        fontSize: "14px",
                         fontWeight: "bold",
-                        marginLeft: "30px",
-                        textAlign: "left",
+                        marginLeft: "33px",
+                        textAlign: "right",
+                        color: "#4B5565",
+                        marginRight: "6px",
                       }}
-                    ></Text>
-                  )}
-
+                    >
+                      {/* {currency}{" "} */}
+                      {(tax
+                        ? data?.subTotal
+                        : data?.subTotal - data?.taxAmount
+                      ).toFixed(2)}
+                    </Text>
+                  </View>
                   <Text
                     style={{
-                      width: "79px",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      marginLeft: "33px",
-                      textAlign: "right",
+                      fontSize: "12px",
+                      marginTop: "8px",
                       color: "#4B5565",
-                      marginRight: "6px",
+                      // width: "170px",
                     }}
                   >
-                    {/* {currency}{" "} */}
-                    {(tax
-                      ? data?.subTotal
-                      : data?.subTotal - data?.taxAmount
-                    ).toFixed(2)}
+                    {data.description}
                   </Text>
                 </View>
-                <Text
+                <View
                   style={{
-                    fontSize: "12px",
-                    marginTop: "8px",
-                    color: "#4B5565",
-                    // width: "170px",
+                    borderBottom: "1px solid #E0E0E0",
+                    height: "1px",
+                    width: "96.8%",
+                    marginLeft: "auto",
+                    marginRight: "auto",
                   }}
-                >
-                  {data.description}
-                </Text>
-              </View>
+                />
+              </>
             )}
           </>
         ))}
