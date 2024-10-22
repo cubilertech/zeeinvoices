@@ -369,6 +369,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
         flexGrow: 1,
         display: "flex",
         flexDirection: "column",
+        position: "relative"
       }}
     >
       {title && (
@@ -451,7 +452,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           {(isSenderError || isRecipientError) && (
             <Typography
               variant="text-xxs-medium"
-              sx={{ color: "red", position: "absolute" }}
+              sx={{ color: "red", position: "absolute", bottom: -14 }}
             >
               {detailsOf} details are required
             </Typography>

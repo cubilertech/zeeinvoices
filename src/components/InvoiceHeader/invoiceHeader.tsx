@@ -512,7 +512,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   // useEffect(() => {
   //   dispatch(setInvoiceId(InvoiceId));
   // }, [InvoiceId, dispatch, InvoiceRendomId]);
-
+  const isLowerCase = [...InvoiceId].some(
+    (char) => char !== char.toUpperCase()
+  );
   return (
     <Stack
       // direction={"row"}
@@ -629,7 +631,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                       }}
                     >
                       {" "}
-                      Invoice Id can not be greater then 6 letters
+                      Sr. No can not be greater then 6 letters
                     </Typography>
                   ) : InvoiceId.length <= 0 ? (
                     <Typography
@@ -642,7 +644,21 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                       }}
                     >
                       {" "}
-                      Invoice Id is Required
+                      Sr. No is Required
+                    </Typography>
+                  ) : // Check if any character in the string is lowercase
+                  isLowerCase ? (
+                    <Typography
+                      sx={{
+                        position: "absolute",
+                        color: "red",
+                        fontSize: "10px",
+                        bottom: -13,
+                        width: "220px",
+                      }}
+                    >
+                      {" "}
+                      Sr. No can not contains lowercase letters
                     </Typography>
                   ) : (
                     ""
@@ -666,7 +682,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             >
               <IconButton
                 disabled={InvoiceId.length > 6 || InvoiceId.length <= 0}
-                onClick={() => setIsEditInvoiceId(!isEditInvoiceId)}
+                onClick={() => {
+                  if (!isLowerCase) setIsEditInvoiceId(!isEditInvoiceId);
+                }}
                 sx={{
                   borderRadius: "100%",
                   width: "28px !important",
