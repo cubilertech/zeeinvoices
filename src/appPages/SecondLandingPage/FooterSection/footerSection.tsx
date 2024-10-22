@@ -29,6 +29,9 @@ const FooterSection = () => {
   const handlePrivacyButton = (data: any) => {
     route.push("/privacyPolicy");
   };
+  const handleAboutPage = () => {
+    route.push("/about-us");
+  };
 
   useEffect(() => {
     const facebookimg = new Image();
@@ -133,7 +136,8 @@ const FooterSection = () => {
                 <Link
                   underline="hover"
                   variant="text-sm-bold"
-                  href="/about-us"
+                  // href="/about-us"
+                  onClick={handleAboutPage}
                   sx={{ color: palette.color.gray[731], cursor: "pointer" }}
                 >
                   <Typography
