@@ -53,20 +53,34 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   };
 
   const extractColors = (imageSrc: string) => {
-    // console.log(imageSrc, "imgSrc");
     const img = new window.Image();
     img.src = imageSrc;
     img.crossOrigin = "Anonymous";
 
     img.onload = () => {
       const colorThief = new ColorThief();
-      const dominantColors = colorThief.getPalette(img, 16);
+      let dominantColors = colorThief.getPalette(img, 32) || [];
 
-      const hexColors = dominantColors.map(
-        (rgb) => `#${rgb.map((x) => x.toString(16).padStart(2, "0")).join("")}`
+      // Convert RGB to hex and remove duplicates
+      let hexColors = Array.from(
+        new Set(
+          dominantColors.map(
+            (rgb) =>
+              `#${rgb.map((x) => x.toString(16).padStart(2, "0")).join("")}`
+          )
+        )
       );
 
-      dispatch(setColors(hexColors)); // Store colors in Redux
+      // Add random colors if fewer than 16
+      while (hexColors.length < 16) {
+        const randomColor = `#${Math.floor(Math.random() * 16777215)
+          .toString(16)
+          .padStart(6, "0")}`;
+        hexColors.push(randomColor);
+      }
+
+      // Trim down to 16 colors and dispatch to Redux
+      dispatch(setColors(hexColors.slice(0, 16)));
     };
   };
 

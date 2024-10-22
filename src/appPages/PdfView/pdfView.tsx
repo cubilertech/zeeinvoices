@@ -601,7 +601,7 @@ const PdfView: FC<PdfViewProps> = ({
                         marginLeft: "33px",
                         textAlign: "right",
                         color: "#4B5565",
-                        marginRight: "6px",
+                        marginRight: "7px",
                       }}
                     >
                       {/* {currency}{" "} */}
