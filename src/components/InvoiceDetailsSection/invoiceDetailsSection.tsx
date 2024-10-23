@@ -18,11 +18,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
   invoiceSetting,
 }) => {
   const imageSelected = googleImage(singleInvoice?.logo);
-  console.log(
-    imageSelected,
-    "image path in preview page",
-    decodeURIComponent(imageSelected)
-  );
   const itemsLength =
     singleInvoice?.invoiceItem &&
     singleInvoice?.invoiceItem[0]?.name !== "" &&

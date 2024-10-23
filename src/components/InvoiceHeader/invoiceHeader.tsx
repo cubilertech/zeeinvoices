@@ -128,7 +128,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     };
   }, [InvDetails, InvSetting, InvoiceId]);
   //Update Invoice
-  console.log(isEditInvoiceId, "isEditInvoiceId");
   const handleUpdateInvoice = async () => {
     if (isEditInvoiceId === true) {
       setErrorMessage(true);
@@ -350,7 +349,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     } else if (!session) {
       setLoginModel(true);
     } else if (!isInvoiceTypeError && !isSenderError && !isRecipientError) {
-      console.log(InvDetails.from?.name, "insave", InvDetails.to?.name);
 
       const formData = new FormData();
       if (invoiceData.logo) {
@@ -423,7 +421,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const handleInvIdChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (session?.accessToken) {
       UpdateInvoiceId(e.target.value);
-      console.log(invIdNoSession, "inv-Se", InvoiceId);
     } else {
       setInvIdNoSession(e.target.value);
       UpdateInvoiceId(e.target.value);
@@ -446,7 +443,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     blobPdf.updateContainer(doc);
     const result = await blobPdf.toBlob();
 
-    console.log(result, "result", blobPdf);
     saveAs(result, "ZeeInvoice");
   };
 
@@ -473,7 +469,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     // Open the blob URL in a new tab
     window.open(blobUrl, "_blank");
 
-    console.log(result, "result", blobPdf);
   };
 
   useEffect(() => {
@@ -484,7 +479,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   useEffect(() => {
     if (session?.accessToken && generatedInvoiceId?.length) {
-      console.log(generatedInvoiceId, "generatedInvoiceId");
       UpdateInvoiceId(generatedInvoiceId);
       dispatch(setInvoiceId(generatedInvoiceId));
     }

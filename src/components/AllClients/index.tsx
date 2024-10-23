@@ -173,12 +173,7 @@ export default function AllClients() {
       setPage(1);
       setIsModalOpen(false);
     }
-  }, [
-    refetchClientList,
-    deleteSuccess,
-    page,
-    session?.accessToken,
-  ]);
+  }, [refetchClientList, deleteSuccess, page, session?.accessToken]);
   const handleChangeSearch = (e: any) => {
     setSearch(e.target.value);
     setTimeout(() => {
@@ -257,7 +252,6 @@ export default function AllClients() {
     setIsModalOpen(true);
   };
   const clientDelete = () => {
-    console.log(itemToDelete, "id");
     deleteClient({ apiRoute: `${backendURL}/clients/${itemToDelete}` });
   };
 

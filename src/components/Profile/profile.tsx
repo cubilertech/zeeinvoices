@@ -204,7 +204,6 @@ const Profile: FC<Profile> = ({}) => {
     return "";
   };
   const handlePhoneInputChange = (value: string) => {
-    console.log(value, "val");
     const isCountryCodeOnly = countryCodes.some(
       (code) => value === code || value === `${code} `
     );
@@ -228,11 +227,9 @@ const Profile: FC<Profile> = ({}) => {
   };
 
   const handleEditClick = () => {
-    console.log(isEdit, "isedithdledit");
     setIsEdit(true);
   };
 
-  console.log(isEdit, "isedit");
   return (
     <>
       <Box sx={{ width: "100%", backgroundColor: palette.base.white }}>

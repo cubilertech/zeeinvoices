@@ -198,7 +198,6 @@ const InvoiceDetail = () => {
   } = useDeleteDocument();
 
   // Back Handle
-  console.log(singleInvoice, "singleInvoice");
   const handleBack = () => {
     if (typeParam === "edit") {
       router.push(`/invoices/${singleInvoice?._id}/edit`);

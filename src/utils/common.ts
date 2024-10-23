@@ -1,7 +1,5 @@
 "use client";
-import {
-  getColor,
-} from "@/redux/features/invoiceSetting";
+import { getColor } from "@/redux/features/invoiceSetting";
 import { useSelector } from "react-redux";
 import { backendURL } from "./constants";
 import { signIn, signOut } from "next-auth/react";
@@ -81,7 +79,6 @@ export const hexToRgb = (hex: any) => {
 export const isNearWhite = (color: any) => {
   // Convert the color to RGB and check if it's near white
   const rgb = hexToRgb(color);
-  console.log(rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200, "col");
   return color === "#fffff"
     ? true
     : rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200;
