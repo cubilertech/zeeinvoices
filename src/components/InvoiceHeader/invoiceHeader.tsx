@@ -5,6 +5,7 @@ import {
   ButtonBase,
   CircularProgress,
   IconButton,
+  Skeleton,
   Stack,
   Tooltip,
   Typography,
@@ -80,8 +81,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
   const apiPathInvoiceId = `${backendURL}/invoices/last-record`;
-  const { data: generatedInvoiceId, refetch: refetchInvoiceId } =
-    useFetchAllDocument(apiPathInvoiceId);
+  const {
+    data: generatedInvoiceId,
+    refetch: refetchInvoiceId,
+    isFetching: isFetchingInvoiceId,
+  } = useFetchAllDocument(apiPathInvoiceId);
   const { data: session } = useSession();
   const validateButton =
     InvDetails.from?.name !== "" &&
@@ -442,6 +446,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       setInvIdNoSession(e.target.value);
       UpdateInvoiceId(e.target.value);
     }
+    dispatch(setInvoiceId(e.target.value));
   };
 
   const generatePDFDocument = async () => {
@@ -568,7 +573,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               }}
             >
               <Typography variant="display-xs-semibold">Sr. No:</Typography>{" "}
-              {isEditInvoiceId ? (
+              {isFetchingInvoiceId ? (
+                <Skeleton sx={{ width: "36px", height: "32px", m: 0 }} />
+              ) : isEditInvoiceId ? (
                 <>
                   <TextField
                     autoFocus
