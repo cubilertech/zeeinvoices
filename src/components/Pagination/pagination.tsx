@@ -71,13 +71,11 @@ const Pagination: FC<PaginationProps> = ({
     <Box
       sx={{
         width: "100%",
-        // border: `1px solid ${palette.border.invoicesBorderColor}`,
         display: "flex",
         justifyContent: "center",
         px: isMobile ? "5px" : "24px",
         pt: isMobile ? "16px" : "44px",
         pb: isMobile ? "5px" : "16px",
-        // borderTop: "1px solid #EAECF0",
         borderBottomLeftRadius: "8px",
         borderBottomRightRadius: "8px",
       }}
@@ -87,7 +85,6 @@ const Pagination: FC<PaginationProps> = ({
           display: "flex",
           flexDirection: "row",
           borderRadius: "4px",
-          // border: `1px solid ${palette.border.borderPrimary}`,
         }}
       >
         <Button

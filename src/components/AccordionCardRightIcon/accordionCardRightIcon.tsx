@@ -98,16 +98,7 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
             height={7.5}
           />
         </IconButton>
-      </Stack>
-      {/* <hr
-        style={{
-          width: "100%",
-          margin: "0px 0px 0px 0px",
-          height: "1px",
-          // backgroundColor: "rgba(156, 163, 175, 1)",
-          // color: "rgba(156, 163, 175, 1)",
-        }}
-      ></hr> */}
+      </Stack>    
     </Stack>
   );
 };

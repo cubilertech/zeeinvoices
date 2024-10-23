@@ -43,7 +43,6 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         pl: "0px !important",
         pr: "0px !important",
         flexDirection: { sm: "row", xs: "column" },
-        // justifyContent: {sm: ""}
         alignItems: { sm: "center", xs: "flex-start" },
         justifyContent: "space-between",
         gap: { sm: 0, xs: 2 },
@@ -69,7 +68,6 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
       ) : (
         <Typography
           sx={{
-            // flex: "1 1 100%",
             color: palette.color.gray[900],
             fontSize: { md: "24px !important", xs: "24px !important" },
             lineHeight: {
@@ -113,7 +111,6 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
             <TextField
               variant="standard"
               placeholder="Search"
-              // type="number"
               value={search}
               onChange={(e) => handleChangeSearch(e)}
               sx={{
@@ -147,19 +144,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
             marginLeft: { sm: "12px", xs: "0px" },
             width: { sm: "auto", xs: "100%" },
           }}
-        >
-          {/* <Button
-          variant="outlined"
-          startIcon={<Icon icon="filterIcon" width={15} />}
-          sx={{
-            height: `36px`,
-            width: "120px",
-            borderColor: palette.border.invoicesBorderColor,
-            color: palette.base.black,
-          }}
-        >
-          Filter
-        </Button> */}
+        >         
           {props.type === 2 ? (
             ""
           ) : (
@@ -177,8 +162,6 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
                   fontSize: "16px !important",
                   lineHeight: "24px !important",
                   fontWeight: "600 !important",
-                  // background:
-                  //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   backgroundColor: palette.primary.main,
                 }}
               >

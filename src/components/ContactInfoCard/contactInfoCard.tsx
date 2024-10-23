@@ -19,7 +19,6 @@ const ContactInfoCard: FC<ContactInfoCard> = ({ title, desc, icon }) => {
       gap={2}
       sx={{
         p: "24px",
-        // boxShadow: palette.boxShadows[300],
         borderRadius: "8px",
         backgroundColor: palette.base.contactInfoBgColor,
         border: `1px solid ${palette.border.contactInfoBorderColor}`,
@@ -31,8 +30,6 @@ const ContactInfoCard: FC<ContactInfoCard> = ({ title, desc, icon }) => {
             mt: "1px",
             width: "24px",
             height: "24px",
-            //   backgroundColor: "#D9DBF9",
-            //   borderRadius: 45,
             alignItems: "center",
             justifyContent: "center",
             display: "flex",

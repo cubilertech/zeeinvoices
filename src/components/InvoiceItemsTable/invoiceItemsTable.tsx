@@ -5,7 +5,6 @@ import {
   ButtonBase,
   Grid,
   Stack,
-  TextField,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -48,21 +47,6 @@ const InvoiceItemsTable: FC = () => {
     dispatch(removeInvoiceItem(id));
   };
 
-  // const hexToRgb = (hex: any) => {
-  //   const bigint = parseInt(hex.replace("#", ""), 16);
-  //   const r = (bigint >> 16) & 255;
-  //   const g = (bigint >> 8) & 255;
-  //   const b = bigint & 255;
-  //   return { r, g, b };
-  // };
-
-  // const isNearWhite = (color: any) => {
-  //   // Convert the color to RGB and check if it's near white
-  //   const rgb = hexToRgb(color); // Assuming selectedColor is a hex value
-  //   console.log(rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200, "col");
-  //   return rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200;
-  // };
-
   return (
     <Stack direction={"column"}>
       {/* Table header */}
@@ -70,7 +54,6 @@ const InvoiceItemsTable: FC = () => {
         sx={{
           width: "100%",
           overflow: { sm: "visible", xs: "auto" },
-          // pb: { sm: 0, xs: 2 },
         }}
       >
         <Box sx={{ width: { sm: "100%", xs: "100%" } }}>
@@ -97,7 +80,6 @@ const InvoiceItemsTable: FC = () => {
                   paddingTop: "8px !important",
                   paddingLeft: "12px !important",
                   display: "flex",
-                  // justifyContent: "center",
                   alignItems: "center",
                 }}
                 item
@@ -106,7 +88,6 @@ const InvoiceItemsTable: FC = () => {
                 <Typography
                   variant="text-xs-semibold"
                   sx={{
-                    // color: palette.base.white
                     color: isNearWhite(selectedColor)
                       ? palette.base.black
                       : palette.base.white,
@@ -121,17 +102,14 @@ const InvoiceItemsTable: FC = () => {
                   paddingTop: "8px !important",
                   paddingLeft: "8px !important",
                   display: "flex",
-                  // justifyContent: "center",
                   alignItems: "center",
                 }}
                 item
                 xs={selectedTax ? 1.5 : 2.3}
-                // xs={1.8}
               >
                 <Typography
                   variant="text-xs-semibold"
                   sx={{
-                    // color: palette.base.white
                     color: isNearWhite(selectedColor)
                       ? palette.base.black
                       : palette.base.white,
@@ -146,17 +124,14 @@ const InvoiceItemsTable: FC = () => {
                   paddingTop: "8px !important",
                   paddingLeft: "8px !important",
                   display: "flex",
-                  // justifyContent: "center",
                   alignItems: "center",
                 }}
                 item
                 xs={selectedTax ? 1.5 : 2.5}
-                // xs={1.6}
               >
                 <Typography
                   variant="text-xs-semibold"
                   sx={{
-                    // color: palette.base.white
                     color: isNearWhite(selectedColor)
                       ? palette.base.black
                       : palette.base.white,
@@ -173,7 +148,6 @@ const InvoiceItemsTable: FC = () => {
                     paddingTop: "8px !important",
                     paddingLeft: "8px !important",
                     display: "flex",
-                    // justifyContent: "center",
                     alignItems: "center",
                   }}
                   item
@@ -183,7 +157,6 @@ const InvoiceItemsTable: FC = () => {
                     <Typography
                       variant="text-xs-semibold"
                       sx={{
-                        // color: palette.base.white
                         color: isNearWhite(selectedColor)
                           ? palette.base.black
                           : palette.base.white,
@@ -210,12 +183,10 @@ const InvoiceItemsTable: FC = () => {
                 }}
                 item
                 xs={selectedTax ? 2.55 : 2.24}
-                // xs={2.2}
               >
                 <Typography
                   variant="text-xs-semibold"
                   sx={{
-                    // color: palette.base.white,
                     color: isNearWhite(selectedColor)
                       ? palette.base.black
                       : palette.base.white,
@@ -228,9 +199,6 @@ const InvoiceItemsTable: FC = () => {
             </Grid>
           )}
 
-          {/* Input fields */}
-          {/* <ItemsTableRow/> */}
-          {/* Render ItemsTableRow components */}
           {getAllInvoiceItems?.map((item, index) => (
             <>
               {isModile && (
@@ -250,7 +218,6 @@ const InvoiceItemsTable: FC = () => {
                 >
                   <Typography
                     variant="text-xs-semibold"
-                    // sx={{ color: palette.base.white }}
                     sx={{
                       color: isNearWhite(selectedColor)
                         ? palette.base.black
@@ -284,7 +251,6 @@ const InvoiceItemsTable: FC = () => {
           width: "98%",
           marginTop: "15px",
           border: "1px dashed",
-          // border: `1px dashed ${palette.color.gray[10]}`,
           borderRadius: 1,
           cursor: "pointer",
           backgroundColor: "#F8FAFC",

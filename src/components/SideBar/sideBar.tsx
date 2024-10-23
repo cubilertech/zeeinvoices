@@ -40,7 +40,6 @@ const SideBar = () => {
       >
         <Icon icon="logo" height={24} width={175} />
       </Box>
-      {/* <Divider /> */}
       <List>
         <Box
           sx={{
@@ -85,25 +84,7 @@ const SideBar = () => {
               </ListItemIcon>
               <ListItemText primary={"My Details"} />
             </ListItemButton>
-          </ListItem>
-          {/* {["Invoices", "Clients", "My Details"].map((text, index) => (
-            <ListItem
-              sx={{ color: palette.color.gray[730] }}
-              key={text}
-              disablePadding
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? (
-                    <Icon icon="invoiceIcon" width={20} height={20} />
-                  ) : (
-                    <Icon icon="clientsIcon" width={20} height={20} />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))} */}
+          </ListItem>         
         </Box>
       </List>
       <Divider />

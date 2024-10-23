@@ -35,7 +35,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   const isMobile = useMediaQuery("(max-width: 600px)");
   const dispatch = useDispatch();
   const InvoiceItemValidation = useSelector(getInvoiceItemsValidation);
-  // const [taxValue, setTaxValue] = useState("");
   const selectedCurrency = useSelector(getCurrency);
   const selectedTax = useSelector(getTax);
 
@@ -45,7 +44,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    // setData((prev) => ({ ...prev, [name]: value }));
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
   };
 
@@ -86,11 +84,9 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
           px: 1,
           gap: "8px",
         }}
-        // spacing={2}
       >
         <Grid
           sx={{
-            // padding: "4px",
             paddingTop: "4px !important",
           }}
           item
@@ -99,7 +95,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         >
           <TextField
             inputRef={nameTextFieldRef}
-            // size="small"
             sx={{
               color: palette.color.gray[700],
               width: "100%",
@@ -127,9 +122,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         </Grid>
         <Grid
           sx={{
-            // padding: "4px",
             paddingTop: "4px !important",
-            // paddingLeft: "8px !important",
           }}
           item
           sm={selectedTax ? 1.4 : 2.2}
@@ -137,7 +130,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         >
           <TextField
             inputRef={qtyTextFieldRef}
-            // size="small"
             sx={{
               width: "100%",
               color: palette.color.gray[700],
@@ -244,9 +236,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         </Grid>
         <Grid
           sx={{
-            // padding: "4px",
             paddingTop: "4px !important",
-            // paddingLeft: "8px !important",
           }}
           item
           sm={selectedTax ? 1.4 : 2.0}
@@ -330,9 +320,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         {selectedTax ? (
           <Grid
             sx={{
-              // padding: "4px",
               paddingTop: "4px !important",
-              // paddingLeft: "8px !important",
             }}
             item
             xs={12}
@@ -409,9 +397,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
 
         <Grid
           sx={{
-            // padding: "4px",
             paddingTop: "4px !important",
-            // paddingLeft: "8px !important",
             justifyContent: { sm: "end", xs: "space-between" },
           }}
           item
@@ -435,26 +421,19 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               SubTotal
             </Typography>
             <Typography
-              // variant="text-md-semibold"
               sx={{
                 fontSize: "14px !important",
                 fontWeight: "600 !important",
                 pt: "2px",
-                // ml: "20%",
                 width: selectedTax
                   ? { sm: "100%", xs: "100px" }
                   : { sm: "100%", xs: "100px" }, // Set width to ensure there's space to scroll
                 color: palette.base.black,
                 display: "block",
-                // justifyContent: "flex-end",
                 margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 7px",
                 whiteSpace: "nowrap", // Prevent line break
                 overflow: "hidden", // Hide vertical overflow
-                textOverflow: "ellipsis", // Add ellipsis if text overflows
-                // scrollbarWidth: "none", // Hide scrollbar in Firefox
-                // "&::-webkit-scrollbar": {
-                //   display: "none", // Hide scrollbar in WebKit browsers (Chrome, Safari)
-                // },
+                textOverflow: "ellipsis", // Add ellipsis if text overflows           
                 cursor: "pointer",
                 textAlign: "end",
                 mr: showRemoveButton ? "" : "-23px",
@@ -471,7 +450,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 : data?.subTotal - data?.taxAmount
               )?.toFixed(2)}{" "}
               {selectedCurrency}
-              {/* {id} */}
             </Typography>
           </Box>
         </Grid>
@@ -515,14 +493,12 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         {/* for description */}
         <Grid
           sx={{
-            // padding: "4px",
             paddingTop: "8px !important",
           }}
           item
           xs={12}
         >
           <TextField
-            // size="small"
             sx={{
               color: palette.color.gray[700],
               width: "100%",
@@ -530,7 +506,6 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               "& .MuiInputBase-input": {
                 borderRadius: "4px !important",
                 height: "20px !important",
-                // p: 2,
                 py: "10px",
               },
               "& .MuiOutlinedInput-root": {

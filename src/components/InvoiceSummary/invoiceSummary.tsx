@@ -50,7 +50,6 @@ const InvoiceSummary: FC = () => {
         <Typography
           variant="text-sm-semibold"
           sx={{
-            // color: palette.base.white,
             color: isNearWhite(selectedColor)
               ? palette.base.black
               : palette.base.white,
@@ -101,7 +100,6 @@ const InvoiceSummary: FC = () => {
           {selectedCurrency === "USD" ? "USD" : selectedCurrency}
         </Typography>
       </Stack>
-      {/* <hr style={{ margin: "10px" }}></hr> */}
 
       {selectedTax ? (
         <>
@@ -142,7 +140,6 @@ const InvoiceSummary: FC = () => {
                 : "--"}
             </Typography>
           </Stack>
-          {/* <hr style={{ margin: "10px" }}></hr> */}
         </>
       ) : (
         ""
@@ -174,7 +171,6 @@ const InvoiceSummary: FC = () => {
           }}
         >
           <span style={{ fontSize: 14, fontWeight: 600 }}>
-            {/* {total.toFixed(2)} */}
             {(selectedTax ? total : total - taxAmount).toFixed(2)}
           </span>{" "}
           {selectedCurrency === "USD" ? "USD" : selectedCurrency}

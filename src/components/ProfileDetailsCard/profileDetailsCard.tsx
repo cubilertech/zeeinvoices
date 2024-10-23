@@ -22,7 +22,6 @@ const ProfileDetailsCard: FC<ProfileDetailsCard> = ({
         py: { sm: "16px", xs: "16px" },
         backgroundColor: palette.color.gray[50],
         border: `1px solid ${palette.color.gray[105]}`,
-        // boxShadow: palette.boxShadows.shadowxs,
         borderRadius: "4px",
       }}
     >

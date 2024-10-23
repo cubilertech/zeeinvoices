@@ -1,17 +1,14 @@
 "use client";
 import { palette } from "@/theme/palette";
 import {
-  Autocomplete,
   Box,
   Button,
   IconButton,
   Popover,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
-import React, { FC, useEffect, useState } from "react";
-import { SelectInput } from "../SelectInput";
+import React, { FC, useState } from "react";
 import { SwitchInput } from "../SwitchInput";
 import { ColorPicker } from "../ColorPicker";
 import { ColorPickerMenuButton } from "../ColorPickerMenuButton";
@@ -27,9 +24,7 @@ import {
 } from "@/redux/features/invoiceSetting";
 import { RootState } from "@/redux/store";
 import { Close } from "@mui/icons-material";
-import { Icon } from "../Icon";
 import { SelectInputWithSearch } from "../SelectInputWithSearch";
-import { currencies } from "@/utils/data";
 
 interface InvoiceSettings {
   InvSetting?: any;
@@ -62,9 +57,6 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
           : { ...color, isSelected: false }
       );
 
-      // Dispatch the updated colors to Redux
-      // dispatch(setColors(updatedColors));
-
       // Dispatch the selected color to Redux
       dispatch(setInvoiceColor(selectedColor.color));
     }
@@ -73,11 +65,6 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const handleColoredChanged = () => {
     setPickColor(color);
-    // if (color !== "") {
-    //   setColors((prevColors) =>
-    //     prevColors.map((color) => ({ ...color, isSelected: false }))
-    //   );
-    // }
     if (!reduxColors.some((c) => c.color === color)) {
       // Create a copy of reduxColors
       const updatedColors: ColorOption[] = [...reduxColors];

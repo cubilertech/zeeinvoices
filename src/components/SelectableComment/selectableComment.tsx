@@ -1,39 +1,15 @@
 import { palette } from "@/theme/palette";
 import {
-  Avatar,
-  Box,
-  IconButton,
-  LinearProgress,
-  linearProgressClasses,
   Rating,
   Stack,
-  styled,
   Typography,
   useMediaQuery,
 } from "@mui/material";
 import { FC, useEffect, useState } from "react";
-import { VerticalProgressBar } from "../VerticalProgressBar";
 import { HorizontalProgressBar } from "../HorizontalProgressBar";
 import Image from "next/image";
 
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 4, // Set the height to the desired length for the vertical bar
-  width: 100, // Adjust the width accordingly
-  borderRadius: 100,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[200],
-    ...theme.applyStyles("dark", {
-      backgroundColor: theme.palette.grey[800],
-    }),
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: "#linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-    ...theme.applyStyles("dark", {
-      backgroundColor: "#D9D9D9",
-    }),
-  },
-}));
+
 
 interface SelectableCommentProps {
   openIndex: number;

@@ -15,7 +15,6 @@ import {
 import { palette } from "@/theme/palette";
 import { Icon } from "@/components/Icon";
 import InvoiceDetailsSection from "@/components/InvoiceDetailsSection/invoiceDetailsSection";
-import InvoiceDetailsActions from "@/components/InvoiceDetailsActions/invoiceDetailsActions";
 import {
   useDeleteDocument,
   useFetchSingleDocument,
@@ -29,7 +28,6 @@ import {
 } from "@/redux/features/invoiceSetting";
 import { calculateAmount, calculateTax } from "@/common/common";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ReactToPrint from "react-to-print";
 import ShareModal from "@/components/ShareModal/shareModal";
 import "@/Styles/sectionStyle.css";
 import { pdf } from "@react-pdf/renderer";
@@ -92,8 +90,6 @@ const InvoiceDetail = () => {
   const {
     data: singleInvoice,
     refetch: refetchSingleInvoice,
-    isFetching: refetchingSingleInvoice,
-    isFetched,
   } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
   const invoiceDetailsPDF = {
@@ -199,14 +195,11 @@ const InvoiceDetail = () => {
 
   const {
     mutateAsync: deleteInvoice,
-    isLoading: deleteInvoiceLoading,
-    isSuccess: deleteSuccess,
   } = useDeleteDocument();
 
   // Back Handle
   console.log(singleInvoice, "singleInvoice");
   const handleBack = () => {
-    // router.back();
     if (typeParam === "edit") {
       router.push(`/invoices/${singleInvoice?._id}/edit`);
     } else {
@@ -345,7 +338,6 @@ const InvoiceDetail = () => {
                   onClick={() => handleOpenDeleteModal()}
                   variant="outlined"
                   sx={{
-                    // width: "100%",
                     borderRadius: "4px",
                     color: "#EF4444",
                     borderColor: "#EF4444",
@@ -373,7 +365,6 @@ const InvoiceDetail = () => {
                 onClick={handleEditInvoice}
                 variant="outlined"
                 sx={{
-                  // width: "100%",
                   borderRadius: "4px",
                   color: palette.primary.main,
                   borderColor: "#CDD5DF",
@@ -397,7 +388,6 @@ const InvoiceDetail = () => {
               <Button
                 variant="contained"
                 sx={{
-                  // width: "100%",
                   px: "16px !important",
                   py: "10px !important",
                   fontSize: {
@@ -410,8 +400,6 @@ const InvoiceDetail = () => {
                   },
                   fontWeight: "700 !important",
                   borderRadius: "4px",
-                  // background:
-                  //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   backgroundColor: palette.primary.main,
                 }}
                 onClick={() => generatePDFDocument()}
@@ -420,10 +408,6 @@ const InvoiceDetail = () => {
               </Button>
             </>
           )}
-
-          {/* <IconButton sx={{ padding: 1 }} onClick={() => setShareModal(true)}>
-            <Icon icon="sendSqaureIcon" width={20} height={20} />
-          </IconButton> */}
           <Box>
             <Box style={{ display: "none" }}>
               <Box ref={componentRef}>
@@ -432,25 +416,11 @@ const InvoiceDetail = () => {
                   invoiceSetting={{ ...invoiceSettings }}
                 />
               </Box>
-            </Box>
-            {/* <ReactToPrint
-              trigger={() => (
-                <IconButton sx={{ padding: 1 }} onClick={() => window.print()}>
-                  <Icon icon="printIconIcon" width={20} height={20} />
-                </IconButton>
-              )}
-              content={() =>
-                componentRef.current ? componentRef.current : null
-              }
-            /> */}
+            </Box>         
           </Box>
         </Stack>
       </Stack>
       <Stack direction={"row"} gap={3} sx={{ mb: 5 }}>
-        {/* <InvoiceDetailsSection
-          singleInvoice={{ ...invoiceDetail }}
-          invoiceSetting={{ ...invoiceSettings }}
-        /> */}
 
         {!isMobile ? (
           invoiceDetailsPDF.id &&
@@ -463,8 +433,6 @@ const InvoiceDetail = () => {
                 height: "90vh",
                 borderRadius: "4px",
                 backgroundColor: "#EAECF0",
-                // paddingTop: "56px",
-                // paddingBottom: "56px"
               }}
               showToolbar={false}
             >
@@ -525,12 +493,6 @@ const InvoiceDetail = () => {
             </Box>
           </>
         )}
-
-        {/* <InvoiceDetailsActions
-          InvSetting={{ ...invoiceSettings }}
-          InvDetails={{ ...invoiceDetail }}
-          summaryDetail={summaryDetail}
-        /> */}
       </Stack>
 
       <ShareModal

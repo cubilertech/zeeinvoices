@@ -14,7 +14,7 @@ interface ExpandableTextWithSubheadingsProps {
   desc?: string;
   isOpen: boolean;
   isOneTitle?: boolean;
-  sections?: Section[]; // Add sections prop
+  sections?: Section[]; 
   onToggle: () => void;
   onComplete: () => void;
 }
@@ -25,7 +25,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
   desc,
   isOpen,
   isOneTitle,
-  sections, // Accept sections prop
+  sections, 
   onToggle,
   onComplete,
 }) => {
@@ -136,7 +136,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
 
         <div
           style={{
-            maxHeight: isOpen ? "1000px" : "0px", // Increase maxHeight for full content
+            maxHeight: isOpen ? "1000px" : "0px", 
             overflow: "hidden",
             transition: "max-height 0.3s ease",
           }}

@@ -71,10 +71,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   const handleScroll = (event: any) => {
     const bottom =
       event.target.scrollHeight ===
-      event.target.scrollTop + event.target.clientHeight;
-    if (bottom) {
-      //   loadMoreData();
-    }
+      event.target.scrollTop + event.target.clientHeight;  
   };
 
   return (
@@ -124,7 +121,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                   variant="text-md-medium"
                   style={{ color: palette.color.gray[510] }}
                 >{`${placeholder}`}</Typography>
-              ); // Placeholder text
+              ); 
             }
             return (
               <Box
@@ -172,14 +169,14 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                   px: "20px",
                   py: "10px",
                   "&.Mui-selected": {
-                    bgcolor: "#F9FAFB", // Change background color of selected item
-                    color: "darkblue", // Change text color of selected item
+                    bgcolor: "#F9FAFB", 
+                    color: "darkblue", 
                     "&:hover": {
-                      bgcolor: "#F9FAFB", // Keep background color on hover for selected item
+                      bgcolor: "#F9FAFB", 
                     },
                   },
                   "&:hover": {
-                    bgcolor: "#F9FAFB", // Change background color on hover
+                    bgcolor: "#F9FAFB", 
                   },
                 }}
                 value={item.name}

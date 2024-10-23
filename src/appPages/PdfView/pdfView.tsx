@@ -561,7 +561,6 @@ const PdfView: FC<PdfViewProps> = ({
                         marginRight: "7px",
                       }}
                     >
-                      {/* {currency}{" "} */}
                       {(tax
                         ? data?.subTotal
                         : data?.subTotal - data?.taxAmount

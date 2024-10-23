@@ -3,10 +3,8 @@ import { Icon } from "@/components/Icon";
 import { palette } from "@/theme/palette";
 import {
   Box,
-  Button,
   Container,
   Stack,
-  styled,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -18,13 +16,10 @@ import "@/Styles/sectionStyle.css";
 const EveryBusinessSection = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
   const route = useRouter();
-  // const [isHover, setIsHover] = useState(false);
   const [is1Hover, set1IsHover] = useState(false);
   const [is2Hover, set2IsHover] = useState(false);
   const [isUpperHover, setIsUpperHover] = useState(false);
-  const handleCrtInvButton = (data: any) => {
-    route.push("/create-new-invoice");
-  };
+ 
   return (
     <Container
       className="mainContainer"
@@ -122,20 +117,20 @@ const EveryBusinessSection = () => {
               alignItems: "center",
               justifyContent: "center",
               backgroundColor: palette.base.white,
-              transition: "all 0.5s ease", // Add transition for smooth animation
+              transition: "all 0.5s ease", 
               "&:hover": {
                 color: palette.base.white,
                 backgroundColor: palette.text.contactEmailColor,
-                transform: "scale(1.03)", // Scale the component up by 10% on hover
+                transform: "scale(1.03)", 
                 "& .buttom-right-card": {
                   backgroundColor: `${palette.base.white} !important`,
                 },
               },
               "&:hover .display-md1-regular": {
-                color: palette.base.white, // Change the color of the specific Typography on hover
+                color: palette.base.white, 
               },
               "&:hover .text-md-regular": {
-                color: palette.base.white, // Change the color of the other Typography on hover
+                color: palette.base.white,
               },
             }}
             onMouseEnter={() => {
@@ -221,17 +216,17 @@ const EveryBusinessSection = () => {
                 border: `1.06px solid #0000001A`,
                 alignItems: "center",
                 backgroundColor: palette.base.white,
-                transition: "all 0.5s ease", // Add transition for smooth animation
+                transition: "all 0.5s ease", 
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.text.contactEmailColor,
-                  transform: "scale(1.03)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", 
                 },
                 "&:hover .text-md-regular": {
-                  color: palette.base.white, // Change the color of the specific Typography on hover
+                  color: palette.base.white, 
                 },
                 "&:hover .display-sm0-medium": {
-                  color: palette.base.white, // Change the color of the other Typography on hover
+                  color: palette.base.white, 
                 },
               }}
               onMouseEnter={() => {
@@ -294,23 +289,16 @@ const EveryBusinessSection = () => {
                 backgroundColor: isUpperHover
                   ? palette.base.white
                   : palette.text.contactEmailColor,
-                transition: "all 0.5s ease", // Add transition for smooth animation
+                transition: "all 0.5s ease", 
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.text.contactEmailColor,
-                  transform: "scale(1.03)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", 
                 },
-                // "&:hover .text-md-regular-right": {
-                //   color: isUpperHover
-                //     ? palette.color.gray[745]
-                //     : palette.color.gray[745], // Change the color of the specific Typography on hover
-                // },
                 "&:hover .display-sm0-medium": {
-                  color: palette.base.black, // Change the color of the other Typography on hover
+                  color: palette.base.black,
                 },
               }}
-              // onMouseEnter={() => setIsHover(true)}
-              // onMouseLeave={() => setIsHover(false)}
             >
               {isUpperHover ? (
                 <Icon icon="ecommercePurpoleIcon" width={57} height={57} />
@@ -322,8 +310,6 @@ const EveryBusinessSection = () => {
                 variant="display-sm0-medium"
                 sx={{
                   fontFamily: "Product Sans, sans-serif",
-                  // color: palette.base.white,
-                  // Add a class for targeting in the hover state
                   "&.display-sm0-medium": {},
                   fontSize: { md: "26px", xs: "16px" },
                   lineHeight: { md: "32px", xs: "24px" },
@@ -358,8 +344,6 @@ const EveryBusinessSection = () => {
                     width: { md: "100%", xs: "263px" },
                     fontFamily: "Product Sans, sans-serif",
                     textAlign: "center",
-                    // color: palette.base.white,
-                    // Add a class for targeting in the hover state
                     "&.text-md-regular": {},
                     fontSize: { md: "16px", xs: "12px" },
                     lineHeight: { md: "24px", xs: "18px" },

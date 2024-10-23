@@ -114,8 +114,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
     const value = event.target.value;
     dispatch(setAddtionalNotes(value));
   };
-  // const showPreview =
-  //   InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
   const senderShow = InvDetails.from?.name !== "" ? true : false;
   const reciptShow = InvDetails.to?.name !== "" ? true : false;
   const selectedTerms = useSelector(getTerms);
@@ -190,42 +188,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
               </Typography>
             )}
           </Box>
-          {/* <Box sx={{ width: 92, height: 40 }}>
-          <Stack direction={"row"} spacing={2}>
-            
-            <IconButton
-              disabled={showPreview}
-              sx={{ padding: 1, opacity: showPreview ? 0.4 : 1 }}
-              onClick={() => router.push("/preview")}
-            >
-              <Icon icon="sendSqaureIcon" width={20} height={20} />
-            </IconButton>
-            <Box>
-              <Box style={{ display: "none" }}>
-                <Box ref={componentRef}>
-                  <InvoiceDetailsSection
-                    singleInvoice={{ ...InvDetails }}
-                    invoiceSetting={{ ...InvSetting }}
-                  />
-                </Box>
-              </Box>
-              <ReactToPrint
-                trigger={() => (
-                  <IconButton
-                    sx={{ padding: 1, opacity: showPreview ? 0.4 : 1 }}
-                    disabled={showPreview}
-                    onClick={() => window.print()}
-                  >
-                    <Icon icon="printIconIcon" width={20} height={20} />
-                  </IconButton>
-                )}
-                content={() =>
-                  componentRef.current ? componentRef.current : null
-                }
-              />
-            </Box>
-          </Stack>
-        </Box> */}
+       
         </Stack>
 
         {/* Second section Detail selecters */}
@@ -281,16 +244,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         </Box>
         {/* Sixth section, additional notes */}
         {selectedTerms ? (
-          // <Box
-          //   sx={{
-          //     height: "44px",
-          //     width: "100%",
-          //     marginTop: "24px",
-          //     border: `1px solid ${palette.color.gray[200]}`,
-          //     borderRadius: 1,
-          //     backgroundColor: palette.base.white,
-          //   }}
-          // >
           <TextField
             multiline
             rows={3}
@@ -321,7 +274,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
             variant="outlined"
           />
         ) : (
-          // </Box>
           ""
         )}
       </Box>

@@ -82,7 +82,7 @@ const SelectInput: FC<SelectInput> = ({
                   variant="text-md-medium"
                   style={{ color: palette.color.gray[510] }}
                 >{`${placeholder}`}</Typography>
-              ); // Placeholder text styling
+              ); 
             }
             return (
               <Box
@@ -125,14 +125,14 @@ const SelectInput: FC<SelectInput> = ({
                   py: "10px",
                   backgroundColor: palette.base.white,
                   "&.Mui-selected": {
-                    bgcolor: "#F9FAFB", // Change background color of selected item
-                    color: "darkblue", // Change text color of selected item
+                    bgcolor: "#F9FAFB",
+                    color: "darkblue", 
                     "&:hover": {
-                      bgcolor: "#F9FAFB", // Keep background color on hover for selected item
+                      bgcolor: "#F9FAFB", 
                     },
                   },
                   "&:hover": {
-                    bgcolor: "#F9FAFB", // Change background color on hover
+                    bgcolor: "#F9FAFB", 
                   },
                 }}
                 value={item}

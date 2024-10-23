@@ -11,8 +11,6 @@ import Paper from "@mui/material/Paper";
 import { palette } from "@/theme/palette";
 import {
   Avatar,
-  Badge,
-  Button,
   ButtonBase,
   CircularProgress,
   Container,
@@ -43,7 +41,6 @@ import {
 } from "@/redux/features/invoiceSetting";
 import ShareModal from "../ShareModal/shareModal";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
-import { debounce } from "@/utils/common";
 import { useSession } from "next-auth/react";
 import EnhancedTableToolbar from "./enhancedTableToolbar";
 import EnhancedTableHead from "./enhancedTableHead";
@@ -126,12 +123,8 @@ export default function AllInvoices() {
         setPage(1);
       }
     }, 800);
-    // debouncedRefetch();
   };
 
-  // React.useEffect(() => {
-  //   if (session?.accessToken) refetchInvoiceList();
-  // }, [refetchInvoiceList, search, session?.accessToken]);
 
   const filteredData = React.useMemo(() => {
     if (invoiceList && invoiceList?.invoices?.length) {
@@ -147,18 +140,12 @@ export default function AllInvoices() {
     if (deleteSuccess) {
       setPage(1);
       setIsModalOpen(false);
-
-      // If the current page is greater than 1 and there are no more invoices on the current page
-      // if (page > 1 && filteredData.length === 0) {
-      //   setPage(page - 1); // Navigate to the previous page
-      // }
     }
   }, [
     refetchInvoiceList,
     deleteSuccess,
     page,
     session?.accessToken,
-    // filteredData.length,
   ]);
 
   const handleRequestSort = (
@@ -183,7 +170,6 @@ export default function AllInvoices() {
   };
   const handleViewInvoice = (id: number) => {
     route.push(`/invoices/${id}`);
-    // window.open(`/preview/${id}`, "_blank");
   };
 
   //Edit Invoice
@@ -193,13 +179,11 @@ export default function AllInvoices() {
         id: record?.id,
         logo: record?.image,
         invoiceType: record?.type,
-        // from: record?.from,
         from: {
           ...record?.fromDetails,
           phoneNumber: record?.fromDetails?.phone_number,
           companyName: record?.fromDetails?.company_name,
         },
-        // to: record?.to,
         to: {
           ...record?.toDetails,
           phoneNumber: record?.toDetails?.phone_number,
@@ -236,13 +220,11 @@ export default function AllInvoices() {
         id: record?.id,
         logo: record?.image,
         invoiceType: record?.type,
-        // from: record?.from,
         from: {
           ...record?.fromDetails,
           phoneNumber: record?.fromDetails?.phone_number,
           companyName: record?.fromDetails?.company_name,
         },
-        // to: record?.to,
         to: {
           ...record?.toDetails,
           phoneNumber: record?.toDetails?.phone_number,
@@ -315,7 +297,6 @@ export default function AllInvoices() {
                 elevation={0}
                 sx={{
                   width: "100%",
-                  // pb: 1,
                   border: "none",
                 }}
               >
@@ -367,7 +348,6 @@ export default function AllInvoices() {
                     {fetchingInvoiceList ? (
                       <Box
                         sx={{
-                          // position: "absolute",
                           display: "flex",
                           justifyContent: "center",
                           padding: "20px",
@@ -459,7 +439,6 @@ export default function AllInvoices() {
                                         gap={1.5}
                                         sx={{
                                           alignItems: "center",
-                                          // justifyContent: "center",
                                         }}
                                       >
                                         <Avatar
@@ -495,9 +474,6 @@ export default function AllInvoices() {
                                             {row?.to?.name ||
                                               row?.toDetails?.name}
                                           </Typography>
-                                          {/* <Typography variant="text-xs-regular">
-                                        {row.to.email}
-                                      </Typography> */}
                                         </Stack>
                                       </Stack>
                                     </TableCell>
@@ -548,24 +524,6 @@ export default function AllInvoices() {
                                         {tableFormatDate(row?.invoiceDate)}
                                       </Typography>
                                     </TableCell>
-                                    {/* <TableCell align="left">
-                                  <Badge
-                                    color="primary"
-                                    badgeContent={row.status}
-                                    sx={{
-                                      paddingLeft: "37px",
-                                      "& .MuiBadge-colorPrimary": {
-                                        background:
-                                          palette.color.badgeColors[
-                                            "pending-bg"
-                                          ],
-                                        color:
-                                          palette.color.badgeColors.pending,
-                                      },
-                                    }}
-                                  ></Badge>
-                                </TableCell> */}
-
                                     <TableCell
                                       align="left"
                                       className="tableCell"

@@ -68,7 +68,6 @@ const GetInTouchSection = () => {
             Get In{" "}
             <span
               style={{
-                // color: palette.text.contactEmailColor,
                 background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -111,7 +110,6 @@ const GetInTouchSection = () => {
         <Box
           sx={{
             height: { sm: "auto", xs: "auto" },
-            // py: 3,
             display: "flex",
             justifyContent: "space-between",
             gap: { sm: 0, xs: 2 },

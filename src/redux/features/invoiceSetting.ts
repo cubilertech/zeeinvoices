@@ -80,9 +80,6 @@ const invoiceSetting = createSlice({
     setResetInvoiceSetting: (state) => {
       return initialState;
     },
-    // setColors: (state, action: PayloadAction<ColorOption[]>) => {
-    //   state.colors = action.payload;
-    // },
     setColors: (state, action: PayloadAction<string[]>) => {
       state.colors = action.payload.map((color, index) => ({
         id: index + 1,

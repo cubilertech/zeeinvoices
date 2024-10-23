@@ -2,7 +2,6 @@
 import PdfView from "@/appPages/PdfView/pdfView";
 import { palette } from "@/theme/palette";
 import { Box, Button, Tooltip } from "@mui/material";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import React, { FC, useState } from "react";
 import DeleteModal from "../DeleteModal/deleteModal";
 import { useDeleteDocument } from "@/utils/ApiHooks/common";
@@ -28,8 +27,6 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     mutateAsync: deleteInvoice,
-    isLoading: deleteInvoiceLoading,
-    isSuccess: deleteSuccess,
   } = useDeleteDocument();
   const handleDelete = () => {
     setIsModalOpen(false);
@@ -78,36 +75,6 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
         border: `1px solid #E7EAEE`,
       }}
     >
-      {/* <PDFDownloadLink
-        document={
-          <PdfView
-            invSetting={{ ...InvSetting }}
-            invDetails={{ ...InvDetails }}
-            Summary={summaryDetail}
-            user={session?.user}
-          />
-        }
-        fileName="ZeeInvoices"
-      >
-        {({ loading }) =>
-          loading ? (
-            <Button variant="contained" sx={{ width: "100%" }}>
-              Download PDF
-            </Button>
-          ) : (
-            <Tooltip title="Download PDF">
-              <Button
-                variant="contained"
-                sx={{ width: "100%" }}
-                onClick={() => generatePDFDocument()}
-              >
-                Download PDF
-              </Button>
-            </Tooltip>
-          )
-        }
-      </PDFDownloadLink> */}
-
       <Button
         variant="contained"
         sx={{
@@ -118,7 +85,6 @@ const InvoiceDetailsActions: FC<InvoiceDetailProps> = ({
           fontFamily: "Product Sans, sans-serif !important",
           fontSize: "14px !important",
           fontWeight: "500 !important",
-          // background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
           backgroundColor: palette.primary.main,
         }}
         onClick={() => generatePDFDocument()}

@@ -144,7 +144,6 @@ const DownloadModal: FC<DownloadModal> = ({
                     fontSize: "16px !important",
                     fontWeight: "600 !important",
                     "&:hover": {
-                      // backgroundColor: "#BB3409",
                     },
                   }}
                   onClick={onLogin}

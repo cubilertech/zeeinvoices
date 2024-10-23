@@ -1,6 +1,4 @@
-import { Theme } from "@mui/material/styles";
 import { palette } from "../palette";
-import { Margin, Padding } from "@mui/icons-material";
 
 export const MuiButton = () => {
   return {
@@ -28,7 +26,6 @@ export const MuiButton = () => {
         },
         contained: {
           background: palette.primary.main,
-          // background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
           color: palette.base.white,
           "&:hover": {
             color: palette.base.white,

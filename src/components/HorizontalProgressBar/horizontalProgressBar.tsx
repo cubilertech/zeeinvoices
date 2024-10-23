@@ -5,7 +5,7 @@ interface HorizontalProgressBarProps {
   value: number;
 }
 const HorizontalProgressBar: FC<HorizontalProgressBarProps> = ({ value }) => {
-  const progressValue = Math.min(Math.max(value, 0), 100); // Ensure value is between 1 and 100
+  const progressValue = Math.min(Math.max(value, 0), 100); 
 
   return (
     <Stack

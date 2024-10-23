@@ -21,14 +21,7 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
   const dispatch = useDispatch();
   const invoiceDate = useSelector(getInvoiceDate);
   const dueDate = useSelector(getDueDate);
-  // const handleDateChange = (newDate: Dayjs | null) => {
-  //   if (newDate) {
-  //     const date = newDate?.toISOString();
-  //     title === "Invoice Date"
-  //       ? dispatch(setInvoiceDate(date))
-  //       : dispatch(setDueDate(date));
-  //   }
-  // };
+  
   const handleDateChange = (newDate: Dayjs | null) => {
     if (newDate) {
       const date = newDate?.toISOString();
@@ -87,13 +80,11 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
               width: "100%",
               "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
                 {
-                  // border: `1px solid ${palette.color.graey[500]}`,
                   borderRadius: "4px",
                   width: "100% !important",
                 },
               "& .MuiOutlinedInput-input": {
                 padding: "0px !important",
-                // paddingLeft: "7px !important",
                 fontSize: 16,
                 lineHeight: "24px",
                 fontWeight: 400,
@@ -105,7 +96,6 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
                 height: "44px",
                 borderRadius: "4px",
                 width: "100% !important",
-                // paddingRight: 0,
                 px: "14px",
                 py: "10px",
               },

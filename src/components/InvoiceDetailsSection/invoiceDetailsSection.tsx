@@ -140,7 +140,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
       <Stack
         direction={"row"}
         gap={{ sm: 38, xs: 10 }}
-        // justifyContent={"space-between"}
         sx={{ marginTop: 2 }}
       >
         <Stack
@@ -200,9 +199,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
           </Typography>
         </Stack>
       </Stack>
-      {/* Fourth section, items table */}
-      {/* <InvoiceItemsTable /> */}
-      {/* Table header */}
       <Grid
         container
         sx={{
@@ -387,7 +383,6 @@ const InvoiceDetailsSection: FC<InvoiceDetailsProps> = ({
                     fontWeight: 500,
                   }}
                 >
-                  {/* {invoiceSetting.currency}  */}
                   {invoiceSetting?.currency === "USD"
                     ? "$"
                     : invoiceSetting?.currency}{" "}

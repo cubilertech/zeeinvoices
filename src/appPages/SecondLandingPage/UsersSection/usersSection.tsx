@@ -2,18 +2,13 @@
 import { SelectableComment } from "@/components/SelectableComment";
 import { palette } from "@/theme/palette";
 import {
-  Avatar,
   Box,
-  Button,
   Container,
   Rating,
   Stack,
-  styled,
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import "@/Styles/sectionStyle.css";
 
@@ -80,50 +75,42 @@ const commentTextData = [
 
 const UsersSection = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
-  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
-  const [openIndex, setOpenIndex] = useState<number>(0); // for expanding the text description.
+  const sectionRef = useRef<HTMLDivElement | null>(null); 
+  const [openIndex, setOpenIndex] = useState<number>(0); 
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // const handleToggle = (index: number) => {
-  //   setOpenIndex(openIndex === index ? index : index);
-  // };
-
   const handleToggle = (index: number) => {
-    // Start the fade-out transition
     setIsTransitioning(true);
 
     setTimeout(() => {
-      // Once the transition is complete, update the openIndex and fade back in
       setOpenIndex(index);
       setIsTransitioning(false);
-    }, 250); // This should match the CSS transition duration
+    }, 250); 
   };
-
-  const route = useRouter();
 
   const handleComplete = () => {
     const nextIndex = (openIndex + 1) % expandableTextData.length;
-    handleToggle(nextIndex); // Use handleToggle to ensure fade effect
+    handleToggle(nextIndex);
   };
 
   useEffect(() => {
     setIsTransitioning(true);
     const timeout = setTimeout(() => {
       setIsTransitioning(false);
-    }, 200); // 200ms matches the CSS transition duration
+    }, 200); 
 
     return () => clearTimeout(timeout);
   }, [openIndex]);
 
   useEffect(() => {
-    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const sectionElement = sectionRef.current; 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+          setOpenIndex(0);
         }
       },
-      { threshold: 0.5 } // Adjust the threshold as needed
+      { threshold: 0.5 } 
     );
 
     if (sectionElement) {
@@ -241,7 +228,7 @@ const UsersSection = () => {
                   commentTextData={commentTextData}
                   isOpen={openIndex === index}
                   onToggle={() => handleToggle(index)}
-                  onComplete={handleComplete} // Pass the completion handler
+                  onComplete={handleComplete} 
                 />
               ))}
             </Stack>

@@ -74,9 +74,9 @@ const JoinUsSection = () => {
               fontWeight: "700 !important",
               background: "white",
               color: "#4F35DF",
-              transition: "all 0.5s ease", // Add transition for smooth animation
+              transition: "all 0.5s ease",
               "&:hover": {
-                transform: "scale(1.1)", // Scale the component up by 10% on hover
+                transform: "scale(1.1)",
                 backgroundColor: palette.color.gray[10],
                 color: "#4F35DF",
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",

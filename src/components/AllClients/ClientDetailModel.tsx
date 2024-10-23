@@ -12,7 +12,6 @@ import React, { FC } from "react";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
-import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "@/Styles/phoneNoStyle.css";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
@@ -20,19 +19,16 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
 import { countryCodes } from "@/utils/data";
-// import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
   companyName: Yup.string().min(3).max(35),
-  // .required("Company Name is required"),
   email: Yup.string()
     .max(60)
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
-  // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
     .min(3)
     .max(20)
@@ -42,11 +38,8 @@ const validationSchema = Yup.object({
     .min(2)
     .max(20)
     .matches(alphaRegex, "Invalid State")
-    // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
   address: Yup.string().min(3).max(255).matches(alphaRegex, "Invalid Address"),
-  // .min(5, "Too short")
-  // .required("Address is required"),
 });
 
 interface ClientDetail {
@@ -101,12 +94,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
     validationSchema: validationSchema,
     enableReinitialize: true,
     validate: (values) => {
-      const errors: FormErrors = {}; // Use FormErrors type here
-
-      // Validate other fields
-      // ...
-
-      // Validate phone number
+      const errors: FormErrors = {}; 
       const phoneError = validatePhoneNumber(
         values.phoneNumber,
         values.countryCode
@@ -190,7 +178,6 @@ const ClientDetailModel: FC<ClientDetail> = ({
       borderRadius={1}
       sx={{
         width: 316,
-        // height: 242,
       }}
     >
       {/* Modal */}
@@ -251,7 +238,6 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 }}
               >
                 <Stack
-                  // direction={"row"}
                   justifyContent={"space-between"}
                   sx={{
                     marginTop: "10px",
@@ -306,35 +292,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                       onBlur={handleBlur}
                       error={touched.email && Boolean(errors.email)}
                     ></TextField>
-                  </FormControl>
-                  {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <Typography
-                    variant="text-sm-medium"
-                    sx={{ marginBottom: "5px" }}
-                  >
-                    Phone
-                  </Typography>
-                  <PhoneInput
-                    name="phoneNumber"
-                    className="custom-phone-input"
-                    value={values.phoneNumber || ""}
-                    onChange={(value) => handlePhoneInputChange(value)}
-                    onBlur={() =>
-                      handleBlur({ target: { name: "phoneNumber" } })
-                    }
-                  />
-                  {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                    <Typography
-                      color="error"
-                      variant="text-xs-regular"
-                      sx={{ marginTop: "5px", marginLeft: "15px" }}
-                    >
-                      {isString(errors.phoneNumber)
-                        ? errors.phoneNumber
-                        : "Invalid phone number"}
-                    </Typography>
-                  )}
-                </FormControl> */}
+                  </FormControl>               
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                     <Typography
                       variant="text-sm-medium"
@@ -344,7 +302,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                     </Typography>
 
                     <PhoneInputWithCode
-                      value={values.phoneNumber} // Bind Formik's phoneNumber value
+                      value={values.phoneNumber} 
                       onChange={(value) => handlePhoneInputChange(value)}
                       onCountrySelect={(selectedCountry) => {}}
                       height="48px"
@@ -415,9 +373,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                 </Box>
               </Box>
               <Stack
-                // direction={"row"}
                 justifyContent={"space-between"}
-                // spacing={2}
                 gap={2}
                 sx={{
                   marginTop: "20px",

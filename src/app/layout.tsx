@@ -25,9 +25,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/opengraph-image.png`, // Use the dynamic URL from .env
-        // width: 800,
-        // height: 600,
+        url: `${siteUrl}/opengraph-image.png`, // Use the dynamic URL from .env       
         alt: "ZeeInvoices AI-powered Invoice Generator",
       },
     ],

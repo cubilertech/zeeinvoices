@@ -34,11 +34,10 @@ export const MuiTextField = () => {
             color: palette.base.black,
             "&:hover": {},
             "&::placeholder": {
-              color: palette.base.black, // Update this to your desired color
-              opacity: 0.5, // Ensures the color displays as expected
+              color: palette.base.black, 
+              opacity: 0.5,
             },
-            "&:-webkit-autofill": {
-              // change input field color on auto fill
+            "&:-webkit-autofill": {              
               WebkitBoxShadow: `0 0 0 100px ${palette.base.white} inset`,
               WebkitTextFillColor: palette.base.black,
             },

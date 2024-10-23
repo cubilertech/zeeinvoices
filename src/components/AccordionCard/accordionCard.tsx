@@ -21,7 +21,6 @@ const AccordionCard: FC<AccordionCardProps> = ({
       direction={"row"}
       gap={2}
       sx={{
-        // my: "1%",
         background: isOpen ? "#F9FAFB" : "transparent",
         borderRadius: "16px",
         p: isOpen ? "2%" : "2%",

@@ -31,7 +31,6 @@ const validationSchema = Yup.object({
     .matches(emailRegex, "Invalid email address")
     .email("Invalid email format")
     .required("Email is required"),
-  // phoneNumber: Yup.string().required("Phone number is required"),
   message: Yup.string().required("Message is required"),
   agreement: Yup.bool().oneOf([true], "You must accept the privacy policy"),
 });
@@ -163,38 +162,6 @@ const GetTouchForm: React.FC = () => {
                 Phone
               </Typography>
 
-              {/* <Field name="phoneNumber">
-                {({ field }: FieldProps) => (
-                  <PhoneInput
-                    {...field}
-                    style={{ width: "100% !important" }}
-                    className="custom-phone-input"
-                    defaultCountry="us"
-                    onChange={(value: string) =>
-                      handleChange({
-                        target: {
-                          name: "phoneNumber",
-                          value,
-                        },
-                      })
-                    }
-                    onBlur={() =>
-                      handleBlur({ target: { name: "phoneNumber" } })
-                    }
-                  />
-                )}
-              </Field>
-              {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                <Typography
-                  color="error"
-                  variant="caption"
-                  sx={{ marginTop: "5px", marginLeft: "15px" }}
-                >
-                  {typeof errors.phoneNumber === "string"
-                    ? errors.phoneNumber
-                    : "Invalid phone number"}
-                </Typography>
-              )} */}
 
               <Field name="phoneNumber">
                 {({ field }: FieldProps) => (
@@ -218,11 +185,9 @@ const GetTouchForm: React.FC = () => {
                   variant="text-xs-regular"
                   sx={{ marginTop: "5px", marginLeft: "15px" }}
                 >
-                  {/* {errors.phoneNumber || "Invalid phone number"} */}
                   {typeof errors.phoneNumber === "string"
                     ? errors.phoneNumber
                     : "Invalid phone number"}{" "}
-                  {/* Ensure it's a string or fallback */}
                 </Typography>
               )}
             </FormControl>

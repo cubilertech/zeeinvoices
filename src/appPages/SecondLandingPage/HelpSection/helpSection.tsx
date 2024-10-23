@@ -26,8 +26,8 @@ const expandableTextData = [
 ];
 
 const HelpSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
-  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
+  const [openIndex, setOpenIndex] = useState<number | null>(0); 
+  const sectionRef = useRef<HTMLDivElement | null>(null); 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
   };
@@ -40,17 +40,17 @@ const HelpSection = () => {
     });
   };
 
-  // const resetProgress = () => {};
+  // const resetProgress= () => {};
 
   useEffect(() => {
-    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const sectionElement = sectionRef.current; 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+          setOpenIndex(0); 
         }
       },
-      { threshold: 0.5 } // Adjust the threshold as needed
+      { threshold: 0.5 } 
     );
 
     if (sectionElement) {
@@ -59,7 +59,7 @@ const HelpSection = () => {
 
     return () => {
       if (sectionElement) {
-        observer.unobserve(sectionElement); // Clean up the observer
+        observer.unobserve(sectionElement); 
       }
     };
   }, []);
@@ -197,7 +197,7 @@ const HelpSection = () => {
                   desc={item.desc}
                   isOpen={openIndex === index}
                   onToggle={() => handleToggle(index)}
-                  onComplete={handleComplete} // Pass the completion handler
+                  onComplete={handleComplete} 
                 />
               ))}
             </Stack>

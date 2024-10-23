@@ -36,7 +36,6 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
   const {
     data: singleClient,
     refetch: singleFetch,
-    isFetching: fetchingClient,
   } = useFetchSingleDocument(`${backendURL}/clients/${id}`);
 
   useEffect(() => {
@@ -46,13 +45,9 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
   // Update Client
   const {
     mutateAsync: updateClient,
-    isLoading: updateClientLoading,
-    isSuccess: updateClientSuccess,
   } = useEditDocument(false);
   const {
     mutateAsync: deleteClient,
-    isLoading: deleteClientLoading,
-    isSuccess: deleteSuccess,
   } = useDeleteDocument();
   const handleSubmitForm = (values: any) => {
     const data = {
@@ -97,7 +92,6 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     <Box
       sx={{
         width: "100%",
-        // px: "20px",
         pt: 8,
         justifyContent: "center",
         alignItems: "center",
@@ -137,7 +131,6 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
           py: 2,
           display: "flex",
           justifyContent: "space-between",
-          // boxShadow: `0px 0px 2px 0px #0000001A`,
           borderRadius: "12px",
           border: "1px solid #EAECF0",
           boxShadow: `0px 1px 2px 0px #1018280D`,

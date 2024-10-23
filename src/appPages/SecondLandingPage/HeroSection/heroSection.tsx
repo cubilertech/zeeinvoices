@@ -118,7 +118,6 @@ const HeroSection = () => {
               size="large"
               sx={{
                 width: { sm: "164px", xs: "100%" },
-                // height: "40px",
                 py: "10px !important",
                 px: "20px !important",
                 borderRadius: "4px !important",
@@ -126,11 +125,10 @@ const HeroSection = () => {
                 fontSize: { sm: "18px !important", xs: "16px !important" },
                 lineHeight: { sm: "30px !important", xs: "24px !important" },
                 fontWeight: "700 !important",
-                // background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 backgroundColor: palette.primary.main,
-                transition: "all 0.2s ease", // Add transition for smooth animation
+                transition: "all 0.2s ease", 
                 "&:hover": {
-                  transform: "scale(1.03)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", 
                 },
               }}
               onClick={handleCrtInvButton}

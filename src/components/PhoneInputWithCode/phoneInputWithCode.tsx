@@ -81,14 +81,14 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
   }) => {
     setSelectedCountryCode(country.code.toLowerCase());
     if (onChange) {
-      onChange(`+${country.phone}`); // Call onChange if it's defined
+      onChange(`+${country.phone}`); 
     }
-    setPhoneInput(`+${country.phone}`); // Pre-fill the input with the selected country code
+    setPhoneInput(`+${country.phone}`);
     setAnchorEl(null);
     setSearchQuery("");
 
     if (onCountrySelect) {
-      onCountrySelect(country); // Call the callback function with selected country data
+      onCountrySelect(country); 
     }
   };
 
@@ -106,33 +106,19 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
 
     // Allow only numbers and "+" in the input
     if (/^\+?\d*$/.test(input)) {
-      // Ensure the country code remains intact
       if (!input.startsWith(countryCode)) {
-        // If the user tries to delete or modify the country code, restore it
         const correctedInput =
           countryCode + input.slice(countryCode.length - 1);
-        // console.log(correctedInput, "correct");
-        setPhoneInput(correctedInput); // Update the state with valid input
+        setPhoneInput(correctedInput); 
         if (onChange) {
-          onChange(correctedInput); // Call onChange with the corrected value
+          onChange(correctedInput); 
         }
       } else {
-        // console.log(input, "-correct");
-        // Update the input if the country code is intact
-        setPhoneInput(input); // Update the state with valid input
+        setPhoneInput(input); 
         if (onChange) {
-          onChange(input); // Call onChange with the valid input
+          onChange(input); 
         }
       }
-
-      // Optional: Update the selected country flag based on the input (if needed)
-      // const foundCountry = countries.find((country) => input.startsWith(`+${country.phone}`));
-      // if (foundCountry) {
-      //   setSelectedCountryCode(foundCountry.code.toLowerCase());
-      //   if (onCountrySelect) {
-      //     onCountrySelect(foundCountry); // Call the callback function with the detected country
-      //   }
-      // }
     }
   };
 
@@ -201,7 +187,6 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
           }}
           inputProps={{
             inputMode: "numeric", // Hint to the browser for numeric input
-            // pattern: "[0-9]*", // Pattern to restrict input to numbers
             maxLength: 16,
           }}
         />
@@ -217,7 +202,6 @@ const PhoneInputWithCode: React.FC<PhoneInputWithCodeProps> = ({
         }}
         sx={{
           "& .css-9qdm89-MuiPaper-root-MuiPopover-paper": {
-            // width: "270px",
             borderRadius: { borderRadius },
           },
           "& .MuiInputBase-input": {

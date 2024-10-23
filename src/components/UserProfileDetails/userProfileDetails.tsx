@@ -62,7 +62,6 @@ const UserProfileDetails: FC<UserProfileDetails> = ({
         }}
         justifyContent={"space-evenly"}
       >
-        {/* name, email , phone */}
         <Stack
           direction={{
             xs: "column",
@@ -85,7 +84,6 @@ const UserProfileDetails: FC<UserProfileDetails> = ({
           />
         </Stack>
 
-        {/* city, state , address */}
         <Stack
           direction={{
             xs: "column",

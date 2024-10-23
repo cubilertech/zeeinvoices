@@ -1,5 +1,5 @@
 "use client";
-import React, { lazy, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import { Herosection } from "./HeroSection";
 import { HelpSection } from "./HelpSection";
@@ -18,7 +18,6 @@ const SecondLandingPage = () => {
     script.async = true;
     document.body.appendChild(script);
 
-    // Cleanup function to remove the script when the component unmounts
     return () => {
       document.body.removeChild(script);
     };

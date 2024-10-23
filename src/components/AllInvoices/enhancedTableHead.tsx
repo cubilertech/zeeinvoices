@@ -58,13 +58,6 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Created",
   },
-  // {
-  //   id: "status",
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: "Status",
-  // },
-
   {
     id: "total",
     numeric: true,
@@ -132,7 +125,6 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
                   <Icon icon="sortIcon" width={16} height={16} />
                 </span>
               )}
-              // IconComponent={orderBy === headCell.id && order === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon}
             >
               <Typography
                 variant="text-xs1-semibold"

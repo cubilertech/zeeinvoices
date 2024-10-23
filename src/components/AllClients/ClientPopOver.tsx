@@ -4,7 +4,7 @@ import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 
 interface CustomPopOverProps {
-  record: any; // Assuming id is of type number
+  record: any;
   handleViewClient: (id: number) => void;
   handleOpenDeleteModal: (id: number) => void;
   handleEditClient: (id: number) => void;
@@ -47,8 +47,8 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
     <>
       <IconButton
         onClick={(event) => {
-          event.stopPropagation(); // Prevent parent click event
-          handleClick(event); // Your IconButton's click handler
+          event.stopPropagation(); 
+          handleClick(event); 
         }}
       >
         <Icon icon="threeDotsIcon" width={16} height={16} />

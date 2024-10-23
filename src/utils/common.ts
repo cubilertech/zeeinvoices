@@ -1,13 +1,10 @@
 "use client";
 import {
   getColor,
-  setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { backendURL } from "./constants";
 import { signIn, signOut } from "next-auth/react";
-import { toast } from "react-toastify";
-import { setResetInvoice } from "@/redux/features/invoiceSlice";
 
 // Custom hook to get the selected color
 export const useSelectedColor = () => {
@@ -83,25 +80,9 @@ export const hexToRgb = (hex: any) => {
 
 export const isNearWhite = (color: any) => {
   // Convert the color to RGB and check if it's near white
-  const rgb = hexToRgb(color); // Assuming selectedColor is a hex value
+  const rgb = hexToRgb(color);
   console.log(rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200, "col");
   return color === "#fffff"
     ? true
     : rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200;
 };
-
-// Image blob function
-//  async function fetchBlobData(blobUrl: string) {
-//     try {
-//       console.log("Fetching blob data from:", blobUrl);
-//       const response = await fetch(blobUrl);
-//       if (!response.ok) {
-//         throw new Error(`Failed to fetch blob. Status: ${response.status}`);
-//       }
-//       const blob = await response.blob();
-//       return blob;
-//     } catch (error) {
-//       console.error("Failed to fetch blob data:", error);
-//       throw error;
-//     }
-//   }

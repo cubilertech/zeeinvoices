@@ -26,8 +26,8 @@ const expandableTextData = [
 ];
 
 const MadeSimpleSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // For expanding the text description.
-  const sectionRef = useRef<HTMLDivElement | null>(null); // To reference the section element
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const sectionRef = useRef<HTMLDivElement | null>(null); 
   const route = useRouter();
 
   const handleToggle = (index: number) => {
@@ -43,14 +43,14 @@ const MadeSimpleSection = () => {
 
   // Detect when the section is in view
   useEffect(() => {
-    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const sectionElement = sectionRef.current; 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+          setOpenIndex(0);
         }
       },
-      { threshold: 0.5 } // Trigger when at least 50% of the section is visible
+      { threshold: 0.5 }
     );
 
     if (sectionElement) {
@@ -66,7 +66,7 @@ const MadeSimpleSection = () => {
 
   return (
     <Stack
-      ref={sectionRef} // Attach the section ref here
+      ref={sectionRef} 
       direction={"column"}
       gap={3}
       sx={{
@@ -146,9 +146,7 @@ const MadeSimpleSection = () => {
           <Stack
             direction={{ md: "row", xs: "column-reverse" }}
             gap={{ md: 7.5, xs: 5 }}
-            // justifyContent={"space-between"}
             sx={{
-              // width: "100%",
               display: "flex",
               alignItems: { sm: "center" },
               mt: { md: "3%", xs: "1%" },
@@ -183,7 +181,7 @@ const MadeSimpleSection = () => {
                   desc={item.desc}
                   isOpen={openIndex === index}
                   onToggle={() => handleToggle(index)}
-                  onComplete={handleComplete} // Pass the completion handler
+                  onComplete={handleComplete} 
                 />
               ))}
             </Stack>

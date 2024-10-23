@@ -20,7 +20,6 @@ const ContactUsCard: FC<ContactUsCard> = ({ title, desc, icon }) => {
         width: "485px",
         p: "24px",
         borderRadius: "5px",
-        // backgroundColor: palette.base.contactInfoBgColor,
         border: `1px solid ${palette.border.contactUsBorderColor}`,
       }}
     >
@@ -30,8 +29,6 @@ const ContactUsCard: FC<ContactUsCard> = ({ title, desc, icon }) => {
             mt: "1px",
             width: "24px",
             height: "24px",
-            //   backgroundColor: "#D9DBF9",
-            //   borderRadius: 45,
             alignItems: "center",
             justifyContent: "center",
             display: "flex",

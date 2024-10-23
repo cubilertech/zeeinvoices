@@ -125,13 +125,6 @@ export const invoiceSlice = createSlice({
         state.invoiceItem[index].taxAmount = tax;
         state.invoiceItem[index].subTotal = subtitle + tax;
       }
-      // if(type === 'tax'){
-      //   const total = (state.invoiceItem[index].quantity) * (state.invoiceItem[index].rate);
-      //   const taxValue =state.invoiceItem[index].tax;
-      //   const tax = (total)*(taxValue/100);
-      //   state.invoiceItem[index].taxAmount = tax;
-      //   state.invoiceItem[index].subTotal= total+tax;
-      // }
     },
     setAddtionalNotes: (state, action: PayloadAction<string>) => {
       state.addtionalNotes = action.payload;

@@ -252,7 +252,7 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
         setHoveredBox(index);
       }
     },
-    [hoveredBox] // Add hoveredBox as a dependency
+    [hoveredBox] 
   );
   const handleBoxMouseLeave = useCallback(() => {
     // Only clear state if it's not already null
@@ -260,7 +260,7 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
       setHoveredBox(null);
     }
   }, [hoveredBox]);
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
+  const [openIndex, setOpenIndex] = useState<number | null>(0); 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
   };
@@ -277,7 +277,6 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
     script.async = true;
     document.body.appendChild(script);
 
-    // Cleanup function to remove the script when the component unmounts
     return () => {
       document.body.removeChild(script);
     };
@@ -336,8 +335,6 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                 >
                   Privacy{" "}
                   <span
-                    // variant="display-lg-bold"
-                    // component={"span"}
                     style={{
                       background:
                         "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
@@ -366,7 +363,6 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
 
               <Stack direction={"column"} gap={2}>
                 <Typography
-                  // variant="display-xs-bold"
                   sx={{
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.color.gray[900],
@@ -423,7 +419,6 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      // color: palette.primary.main,
                       background:
                         "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                       WebkitBackgroundClip: "text",
@@ -444,7 +439,6 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
               gap={3}
               sx={{
                 width: "100%",
-                // height: { sm: "724px", xs: "590px" },
                 display: "flex",
                 justifyContent: "center",
                 mt: "1%",
@@ -456,11 +450,11 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                   title1={item.title1}
                   title2={item.title2}
                   desc={item.desc}
-                  sections={item.sections} // Pass sections here
+                  sections={item.sections} 
                   isOpen={openIndex === index}
                   isOneTitle={true}
                   onToggle={() => handleToggle(index)}
-                  onComplete={handleComplete} // Pass the completion handler
+                  onComplete={handleComplete} 
                 />
               ))}
             </Stack>
@@ -480,7 +474,6 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
             {/* first card */}
             <Stack
               direction={"column"}
-              // gap={4}
               sx={{
                 width: { xs: "100%" },
                 p: "24px",
@@ -496,27 +489,27 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                   hoveredBox === 1 || hoveredBox === 2
                     ? palette.base.white
                     : palette.primary.main,
-                transition: "all 0.5s ease", // Add transition for smooth animation
+                transition: "all 0.5s ease",
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.primary.main,
-                  transform: "scale(1.03)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", 
                 },
                 "& .text-md-regular": {
                   color:
                     hoveredBox === 1 || hoveredBox === 2
                       ? palette.text.contactEmailColor
-                      : palette.base.white, // Change the color of the specific Typography on hover
+                      : palette.base.white, 
                 },
                 "&:hover .text-md-regular": {
-                  color: palette.base.white, // Change the color of the specific Typography on hover
+                  color: palette.base.white, 
                 },
                 "&:hover .display-sm0-medium": {
-                  color: palette.base.white, // Change the color of the other Typography on hover
+                  color: palette.base.white,
                 },
               }}
-              onMouseEnter={() => handleBoxMouseEnter(0)} // Set hover state to true on mouse enter
-              onMouseLeave={handleBoxMouseLeave} // Set hover state to false on mouse leave
+              onMouseEnter={() => handleBoxMouseEnter(0)} 
+              onMouseLeave={handleBoxMouseLeave} 
             >
               {hoveredBox === 1 || hoveredBox === 2 ? (
                 <Icon
@@ -574,7 +567,7 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                       },
                       fontWeight: 400,
                       "&:hover": {
-                        textDecoration: "underline", // Ensure there's no underline
+                        textDecoration: "underline", 
                       },
                     }}
                   >
@@ -595,31 +588,31 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                 border: `1.06px solid #0000001A`,
                 backgroundColor: palette.base.white,
                 transition: "all 0.5s ease",
-                gap: { md: 3, xs: 2 }, // Add transition for smooth animation
+                gap: { md: 3, xs: 2 }, 
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.primary.main,
-                  transform: "scale(1.03)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", 
                 },
                 "&:hover .text-md-regular": {
-                  color: palette.base.white, // Change the color of the specific Typography on hover
+                  color: palette.base.white, 
                 },
                 "&:hover .display-sm0-medium": {
-                  color: palette.base.white, // Change the color of the other Typography on hover
+                  color: palette.base.white, 
                 },
               }}
-              onMouseEnter={() => handleBoxMouseEnter(1)} // Set hover state to true on mouse enter
+              onMouseEnter={() => handleBoxMouseEnter(1)} 
               onMouseLeave={handleBoxMouseLeave}
             >
               {hoveredBox === 1 ? (
                 <Icon
-                  icon="contactWhitePhoneIcon" // contactWhitePhoneIcon
+                  icon="contactWhitePhoneIcon"
                   width={isModile ? 32 : 42}
                   height={isModile ? 32 : 42}
                 />
               ) : (
                 <Icon
-                  icon="contactPhoneIcon" //contactPhoneIcon
+                  icon="contactPhoneIcon"
                   width={isModile ? 32 : 42}
                   height={isModile ? 32 : 42}
                 />
@@ -652,7 +645,6 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                   variant="display-md1-medium"
                   className="text-md-regular"
                   sx={{
-                    // width: { md: "500px", xs: "auto" },
                     fontFamily: "Product Sans, sans-serif",
                     color: palette.text.contactEmailColor,
                     fontSize: {
@@ -682,20 +674,20 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                 alignItems: "center",
                 backgroundColor: palette.base.white,
                 transition: "all 0.5s ease",
-                gap: { md: 3, xs: 2 }, // Add transition for smooth animation
+                gap: { md: 3, xs: 2 }, 
                 "&:hover": {
                   color: palette.base.white,
                   backgroundColor: palette.primary.main,
-                  transform: "scale(1.03)", // Scale the component up by 10% on hover
+                  transform: "scale(1.03)", 
                 },
                 "&:hover .text-md-regular": {
-                  color: palette.base.white, // Change the color of the specific Typography on hover
+                  color: palette.base.white,
                 },
                 "&:hover .display-sm0-medium": {
-                  color: palette.base.white, // Change the color of the other Typography on hover
+                  color: palette.base.white,
                 },
               }}
-              onMouseEnter={() => handleBoxMouseEnter(2)} // Set hover state to true on mouse enter
+              onMouseEnter={() => handleBoxMouseEnter(2)} 
               onMouseLeave={handleBoxMouseLeave}
             >
               {hoveredBox === 2 ? (
@@ -738,11 +730,9 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                   variant="text-md-regular"
                   className="text-md-regular"
                   sx={{
-                    // width: "400px",
                     fontFamily: "Product Sans, sans-serif",
                     textAlign: "center",
                     color: palette.text.contactEmailColor,
-                    // color: palette.color.gray[745],
                     fontSize: {
                       md: "16px !important",
                       xs: "16px !important",

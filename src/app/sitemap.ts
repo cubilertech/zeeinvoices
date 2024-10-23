@@ -5,22 +5,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${siteUrl}`,
       lastModified: new Date(),
-    //   alternates: {
-    //     languages: {
-    //       es: 'https://acme.com/es',
-    //       de: 'https://acme.com/de',
-    //     },
-    //   },
     },
     {
       url: `${siteUrl}/about-us`,
       lastModified: new Date(),
-    //   alternates: {
-    //     languages: {
-    //       es: 'https://acme.com/es/about',
-    //       de: 'https://acme.com/de/about',
-    //     },
-    //   },
     },
   ]
 }

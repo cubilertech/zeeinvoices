@@ -39,9 +39,7 @@ const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
-  // companyName: Yup.string().required("Company Name is required"),
   email: Yup.string()
-    // .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
   city: Yup.string()
     .matches(alphaRegex, "Invalid City")
@@ -127,12 +125,8 @@ const Profile: FC<Profile> = ({}) => {
     enableReinitialize: true,
 
     validate: (values) => {
-      const errors: FormErrors = {}; // Use FormErrors type here
-
-      // Validate other fields
-      // ...
-
-      // Validate phone number
+      const errors: FormErrors = {};
+      
       const phoneError = validatePhoneNumber(
         values.phoneNumber,
         values.countryCode
@@ -162,7 +156,6 @@ const Profile: FC<Profile> = ({}) => {
             state: values.state,
             address: values.address,
             ...(uploadImage ? { image: uploadImage } : {}),
-            // image: image,
           };
 
           profileUpdate({
@@ -194,15 +187,11 @@ const Profile: FC<Profile> = ({}) => {
     phoneNumber: string,
     countryCode: string
   ): string => {
-    // Ensure countryCode is a valid CountryCode
-    // const validCountryCode: CountryCode = countryCode as CountryCode;
     const validCountryCode = countryCode as CountryCode;
     if (!phoneNumber) {
-      // return "Phone number is required";
       return "";
     }
     const phoneNumberInstance = parsePhoneNumberFromString(
-      // This function parses the phone number according to the given country code.
       phoneNumber,
       validCountryCode
     );
@@ -229,7 +218,6 @@ const Profile: FC<Profile> = ({}) => {
         },
       });
     } else {
-      // Otherwise, update with the full value
       handleChange({
         target: {
           name: "phoneNumber",
@@ -247,7 +235,6 @@ const Profile: FC<Profile> = ({}) => {
   console.log(isEdit, "isedit");
   return (
     <>
-      {/* <form onSubmit={handleSubmit}> */}
       <Box sx={{ width: "100%", backgroundColor: palette.base.white }}>
         <Container
           className="mainContainer"
@@ -271,18 +258,7 @@ const Profile: FC<Profile> = ({}) => {
               px: { md: "0%", lg: "0%", xs: "0%" },
               pb: { sm: "24px", xs: "16px" },
             }}
-          >
-            {/* top bar */}
-            {/* <Box
-              sx={{
-                height: "156px",
-                background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
-                borderTopLeftRadius: "12px",
-                borderTopRightRadius: "12px",
-                position: "relative",
-                width: "100%",
-              }}
-            ></Box> */}
+          >           
             <Box
               sx={{
                 height: "156px",
@@ -316,7 +292,6 @@ const Profile: FC<Profile> = ({}) => {
                 minHeight: "78px",
               }}
             >
-              {/* name and email  */}
               <Stack
                 direction={"column"}
                 sx={{
@@ -357,13 +332,11 @@ const Profile: FC<Profile> = ({}) => {
               </Stack>
 
               {isEdit ? (
-                // <Box sx={{ width: "100%" }}>
                 <form onSubmit={handleSubmit}>
                   <Button
                     disabled={profileLoading || !isEdit}
                     type="submit"
                     variant="contained"
-                    // onClick={handleSubmit}
                     sx={{
                       px: "14px !important",
                       py: "10px !important",
@@ -374,8 +347,6 @@ const Profile: FC<Profile> = ({}) => {
                       fontFamily: "Product Sans, sans-serif !important",
                       fontSize: "14px !important",
                       fontWeight: "400 !important",
-                      // background:
-                      //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                       backgroundColor: palette.primary.main,
                     }}
                   >
@@ -392,9 +363,7 @@ const Profile: FC<Profile> = ({}) => {
                   </Button>
                 </form>
               ) : (
-                // </Box>
                 <Button
-                  // disabled={profileLoading}
                   type="button"
                   variant="contained"
                   onClick={handleEditClick}
@@ -407,8 +376,6 @@ const Profile: FC<Profile> = ({}) => {
                     fontFamily: "Product Sans, sans-serif !important",
                     fontSize: "14px !important",
                     fontWeight: "400 !important",
-                    // background:
-                    //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                     backgroundColor: palette.primary.main,
                   }}
                 >
@@ -426,7 +393,6 @@ const Profile: FC<Profile> = ({}) => {
           {/* profile detail section */}
           {isEdit ? (
             <Box>
-              {/* <form onSubmit={handleSubmit}> */}
               <Stack
                 direction={"column"}
                 sx={{
@@ -577,8 +543,6 @@ const Profile: FC<Profile> = ({}) => {
                       )}
                     </FormControl>
                   </Stack>
-
-                  {/* city, state , address */}
                   <Stack
                     direction={{
                       xs: "column",
@@ -672,14 +636,12 @@ const Profile: FC<Profile> = ({}) => {
                   </Stack>
                 </Stack>
               </Stack>
-              {/* </form> */}
             </Box>
           ) : (
             <UserProfileDetails profileData={profileData} />
           )}
         </Container>
       </Box>
-      {/* </form> */}
     </>
   );
 };

@@ -3,7 +3,6 @@ import { ExpandableText } from "@/components/ExpandableText";
 import { palette } from "@/theme/palette";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import "@/Styles/sectionStyle.css";
 
@@ -26,8 +25,8 @@ const expandableTextData = [
 ];
 
 const WorkflowSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // for expanding the text description.
-  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref to observe the section
+  const [openIndex, setOpenIndex] = useState<number | null>(0); 
+  const sectionRef = useRef<HTMLDivElement | null>(null); 
 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? index : index);
@@ -41,14 +40,14 @@ const WorkflowSection = () => {
   };
 
   useEffect(() => {
-    const sectionElement = sectionRef.current; // Capture the current value of sectionRef
+    const sectionElement = sectionRef.current; 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setOpenIndex(0); // Set openIndex to 0 when the section is in view
+          setOpenIndex(0); 
         }
       },
-      { threshold: 0.5 } // Adjust the threshold as needed
+      { threshold: 0.5 } 
     );
 
     if (sectionElement) {
@@ -170,7 +169,7 @@ const WorkflowSection = () => {
                   desc={item.desc}
                   isOpen={openIndex === index}
                   onToggle={() => handleToggle(index)}
-                  onComplete={handleComplete} // Pass the completion handler
+                  onComplete={handleComplete} 
                 />
               ))}
             </Stack>

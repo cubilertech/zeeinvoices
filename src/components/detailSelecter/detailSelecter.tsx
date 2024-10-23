@@ -55,13 +55,11 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
   companyName: Yup.string().min(3).max(35),
-  // .required("Company Name is required"),
   email: Yup.string()
     .min(3)
     .max(50)
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
-  // phoneNumber: Yup.string().required("Phone number is required"),
   city: Yup.string()
     .min(3)
     .max(20)
@@ -71,11 +69,8 @@ const validationSchema = Yup.object({
     .min(2)
     .max(20)
     .matches(alphaRegex, "Invalid State")
-    // .min(3, "City must be at least 3 characters long")
     .required("State is required"),
   address: Yup.string().min(3).max(255).matches(alphaRegex, "Invalid Address"),
-  // .min(5, "Too short")
-  // .required("Address is required"),
 });
 interface DetailSelecter {
   title?: string;
@@ -96,7 +91,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
   isListSelected,
 }) => {
   const dispatch = useDispatch();
-  // dispatch(setResetSelectedList());
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
 
@@ -114,14 +108,12 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const handleItemSelected = (item: any) => {
     if (item === "Sender") {
       setIsSenderList(item);
-      // dispatch(setSenderSelected(true));
       setIsSelectedList((prev) => ({
         ...prev,
         isSender: true,
       }));
     } else {
       setIsRecipientList(item);
-      // dispatch(setRecipientSelected(true));
       setIsSelectedList((prev) => ({
         ...prev,
         isRecipient: true,
@@ -186,17 +178,12 @@ const DetailSelecter: FC<DetailSelecter> = ({
     validationSchema: validationSchema,
     enableReinitialize: true,
     validate: (values) => {
-      const errors: FormErrors = {}; // Use FormErrors type here
-
-      // Validate other fields
-      // ...
-
-      // Validate phone number
+      const errors: FormErrors = {}; 
+      
       const phoneError = validatePhoneNumber(
         values.phoneNumber,
         values.countryCode
       );
-      // console.log(phoneError, values.phoneNumber, "phoneError");
       if (phoneError) {
         errors.phoneNumber = phoneError;
       }
@@ -217,7 +204,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
       handleCloseBd();
       setOpen(false);
       handleSubmitForm(data);
-      // Reset the form fields
       resetForm();
     },
   });
@@ -288,10 +274,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
         },
       });
     } else {
-      // const err = validatePhoneNumber(value, values.countryCode)
-      // console.log(value, "handlePhoneInputChange");
-      // setFieldError('phoneNumber',err );
-      // Otherwise, update with the full value
       handleChange({
         target: {
           name: "phoneNumber",
@@ -360,7 +342,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
     };
   }, [dispatch, showData, detailsOf]);
 
-  // console.log(errors, 'errors');
   return (
     <Box
       sx={{
@@ -409,7 +390,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
               flexGrow: 1,
               width: { sm: "100%", xs: "100%" },
               height: 184,
-              // minHeight: 184,
               maxHeight: "100%",
               marginTop: "16px",
               py: "10px",
@@ -422,16 +402,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
             onClick={handleOpen}
           >
             <Stack direction={"row"} justifyContent={"space-between"}>
-              {/* <Typography
-                variant="text-xs-regular"
-                color={palette.color.gray[770]}
-              >
-                {detailsOf} Details
-              </Typography> */}
-            </Stack>
+             </Stack>
             <Stack
               direction={"column"}
-              // spacing={1.5}
               sx={{
                 height: "100%",
                 justifyContent: "center",
@@ -650,7 +623,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
             <Stack direction={"row"} justifyContent={"space-between"}>
               <Typography variant="display-xs-semibold">
                 {showData ? "Edit " : "Add New "}
-                {/* {type === "add" ? "Add New" : "Edit"}{" "} */}
                 {detailsOf === "Recipient" ? "Recipient" : detailsOf}
               </Typography>
               <IconButton onClick={handleModelClose}>
@@ -743,34 +715,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
                       error={touched.email && Boolean(errors.email)}
                     ></TextField>
                   </FormControl>
-                  {/* <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                  <Typography
-                    variant="text-sm-medium"
-                    sx={{ marginBottom: "5px" }}
-                  >
-                    Phone
-                  </Typography>
-                  <PhoneInput
-                    name="phoneNumber"
-                    className="custom-phone-input"
-                    value={values.phoneNumber || ""}
-                    onChange={(value) => handlePhoneInputChange(value)}
-                    onBlur={() =>
-                      handleBlur({ target: { name: "phoneNumber" } })
-                    }
-                  />
-                  {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                    <Typography
-                      color="error"
-                      variant="text-xs-regular"
-                      sx={{ marginTop: "5px", marginLeft: "15px" }}
-                    >
-                      {isString(errors.phoneNumber)
-                        ? errors.phoneNumber
-                        : "Invalid phone number"}
-                    </Typography>
-                  )}
-                </FormControl> */}
                   <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                     <Typography
                       variant="text-sm-medium"
@@ -781,9 +725,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
                     <PhoneInputWithCode
                       borderRadius="4px"
-                      value={values.phoneNumber} // Bind Formik's phoneNumber value
-                      // defaultCountryPhoneCode={values.countryCode}
-                      onChange={(value) => handlePhoneInputChange(value)} // Use Formik's setFieldValue to update the state
+                      value={values.phoneNumber} 
+                      onChange={(value) => handlePhoneInputChange(value)}
                       onCountrySelect={(selectedCountry) => {
                         setFieldValue("countryCode", selectedCountry.code);
                       }}
@@ -796,11 +739,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
                         variant="text-xs-regular"
                         sx={{ marginTop: "5px", marginLeft: "15px" }}
                       >
-                        {/* {errors.phoneNumber || "Invalid phone number"} */}
                         {typeof errors.phoneNumber === "string"
                           ? errors.phoneNumber
                           : "Invalid phone number"}{" "}
-                        {/* Ensure it's a string or fallback */}
                       </Typography>
                     )}
                   </FormControl>

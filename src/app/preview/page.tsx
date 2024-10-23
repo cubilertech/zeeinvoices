@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import { palette } from "@/theme/palette";
 import { ArrowBackIosNew } from "@mui/icons-material";
-import { useParams, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { base64ToFile, handleLogin } from "@/utils/common";
 import { backendURL } from "@/utils/constants";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
@@ -64,7 +64,6 @@ const PDFViewer = dynamic(
 const Preview = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
   let type = "add";
-  // const { id } = useParams<{ id: string }>();
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const allInvoiceItems = useSelector(getInvoiceItem);
@@ -126,8 +125,6 @@ const Preview = () => {
     const formData = new FormData();
     if (invoiceData.logo) {
       try {
-        // const blob = await fetchBlobData(invoiceData.logo);
-        // const file = new File([blob], "filename.jpg", { type: blob.type });
         const imageFile = base64ToFile(invoiceData.logo, "uploaded_image.png");
         formData.append("image", imageFile);
       } catch (error) {
@@ -147,11 +144,11 @@ const Preview = () => {
       name: invoiceData.from.name,
       company_name: invoiceData.from.companyName,
       email: invoiceData.from.email,
-      phone_number: invoiceData.from.phoneNumber || "", // Assuming null or undefined should be an empty string
+      phone_number: invoiceData.from.phoneNumber || "",
       city: invoiceData.from.city,
       state: invoiceData.from.state,
       address: invoiceData.from.address,
-      countryCode: invoiceData.from.countryCode || "", // Add if countryCode is used
+      countryCode: invoiceData.from.countryCode || "",
     };
 
     // Map the `to` object to the expected API format similarly
@@ -159,19 +156,15 @@ const Preview = () => {
       name: invoiceData.to.name,
       company_name: invoiceData.to.companyName,
       email: invoiceData.to.email,
-      phone_number: invoiceData.to.phoneNumber || "", // Assuming null or undefined should be an empty string
+      phone_number: invoiceData.to.phoneNumber || "", 
       city: invoiceData.to.city,
       state: invoiceData.to.state,
       address: invoiceData.to.address,
-      countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
+      countryCode: invoiceData.to.countryCode || "", 
     };
-
-    // formData.append("from", JSON.stringify(invoiceData.from));
-    // formData.append("to", JSON.stringify(invoiceData.to));
 
     formData.append("newFrom", JSON.stringify(fromMapped));
     formData.append("newTo", JSON.stringify(toMapped));
-
     formData.append("settings", JSON.stringify(invoiceData.settings));
     formData.append("items", JSON.stringify(invoiceData.items));
     updateInvoice({
@@ -209,11 +202,11 @@ const Preview = () => {
         name: invoiceData.from.name,
         company_name: invoiceData.from.companyName,
         email: invoiceData.from.email,
-        phone_number: invoiceData.from.phoneNumber || "", // Assuming null or undefined should be an empty string
+        phone_number: invoiceData.from.phoneNumber || "", 
         city: invoiceData.from.city,
         state: invoiceData.from.state,
         address: invoiceData.from.address,
-        countryCode: invoiceData.from.countryCode || "", // Add if countryCode is used
+        countryCode: invoiceData.from.countryCode || "", 
       };
 
       // Map the `to` object to the expected API format similarly
@@ -221,18 +214,14 @@ const Preview = () => {
         name: invoiceData.to.name,
         company_name: invoiceData.to.companyName,
         email: invoiceData.to.email,
-        phone_number: invoiceData.to.phoneNumber || "", // Assuming null or undefined should be an empty string
+        phone_number: invoiceData.to.phoneNumber || "", 
         city: invoiceData.to.city,
         state: invoiceData.to.state,
         address: invoiceData.to.address,
-        countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
+        countryCode: invoiceData.to.countryCode || "", 
       };
-
-      // Convert objects to JSON strings and append
-
       formData.append("newFrom", JSON.stringify(fromMapped));
       formData.append("newTo", JSON.stringify(toMapped));
-
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
 
@@ -312,7 +301,6 @@ const Preview = () => {
         </Box>
         <Stack
           justifyContent={"space-between"}
-          // spacing={2}
           sx={{
             display: { sm: "flex", xs: "none" },
             flexDirection: { sm: "row", xs: "column-reverse" },
@@ -331,14 +319,9 @@ const Preview = () => {
               fontWeight: "bold !important",
               p: "0px !important",
               border: `1px solid ${palette.border.outlinedBtnBorderColor}`,
-              // mt: 2
             }}
             variant="outlined"
-            // disabled={!validateButton || isEditInvoiceId}
             onClick={
-              // isEditInvoiceId
-              //   ? handleShowAlert()
-              //   :
               type === "add" ? handleCreateInvoice : handleUpdateInvoice
             }
           >
@@ -364,9 +347,6 @@ const Preview = () => {
                     py: "0px !important",
                     width: "100%",
                     fontFamily: "Product Sans, sans-serif !important",
-
-                    // background:
-                    //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                     backgroundColor: palette.primary.main,
                   }}
                   onClick={() => generatePDFDocument()}
@@ -384,7 +364,6 @@ const Preview = () => {
                     borderRadius: "4px",
                     fontWeight: "bold !important",
                     fontSize: "16px",
-
                     py: "0px !important",
                   }}
                 >
@@ -409,27 +388,7 @@ const Preview = () => {
             </Button>
           )}
         </Stack>
-      </Box>
-
-      {/* <PDFViewer
-        style={{
-          width: "100%",
-          height: "90vh",
-          borderRadius: "4px",
-          backgroundColor: "#EAECF0",
-          // paddingTop: "56px",
-          // paddingBottom: "56px"
-        }}
-        showToolbar={false}
-      >
-        <PdfView
-          invDetails={{ ...invoiceDetail }}
-          invSetting={{ ...invoiceSetting }}
-          Summary={summaryDetail}
-          user={session?.user}
-        />
-      </PDFViewer> */}
-
+      </Box>   
       {!isMobile ? (
         <PDFViewer
           style={{
@@ -437,8 +396,6 @@ const Preview = () => {
             height: "90vh",
             borderRadius: "4px",
             backgroundColor: "#EAECF0",
-            // paddingTop: "56px",
-            // paddingBottom: "56px"
           }}
           showToolbar={false}
         >

@@ -97,9 +97,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
         >
           {title1 && (
             <Typography
-              // variant="display-xs-bold"
               sx={{
-                // opacity: isOpen ? 1 : 0.8,
                 fontFamily: "Product Sans, sans-serif",
                 color: isOpen
                   ? palette.color.gray[900]

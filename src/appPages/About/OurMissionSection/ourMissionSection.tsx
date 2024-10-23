@@ -49,7 +49,6 @@ const OurMissionSection = () => {
                   borderRadius: "8px",
                   backgroundImage: "url(/Images/about/ourMission-image-2.webp)",
                   backgroundRepeat: "no-repeat",
-                  // backgroundSize: "100% 100%",
                 }}
               ></Box>
               <Box
@@ -60,7 +59,6 @@ const OurMissionSection = () => {
                   borderRadius: "8px",
                   backgroundImage: "url(/Images/about/ourMission-image-3.webp)",
                   backgroundRepeat: "no-repeat",
-                  // backgroundSize: "100% 100%",
                 }}
               ></Box>
             </Stack>
@@ -72,7 +70,6 @@ const OurMissionSection = () => {
                 borderRadius: "8px",
                 backgroundImage: "url(/Images/about/ourMission-image-1.webp)",
                 backgroundRepeat: "no-repeat",
-                // backgroundSize: "100% 120%",
               }}
             ></Box>
           </Box>
@@ -97,7 +94,6 @@ const OurMissionSection = () => {
               Our{" "}
               <span
                 style={{
-                  // color: palette.text.contactEmailColor,
                   background:
                     "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   WebkitBackgroundClip: "text",

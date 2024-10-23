@@ -38,7 +38,6 @@ const WeOfferSection = () => {
             What We{" "}
             <span
               style={{
-                // color: palette.text.contactEmailColor,
                 background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -72,12 +71,12 @@ const WeOfferSection = () => {
                 whiteIcon={item.whiteIcon as IconTypes}
                 title={item.title}
                 isLastColor={index == weOfferData.length - 1 ? true : false}
-                anyBoxHovered={isAnyBoxHovered} // Pass if any box is hovered
+                anyBoxHovered={isAnyBoxHovered} 
                 onHoverChange={
                   index !== weOfferData.length - 1
                     ? handleHoverChange
                     : () => {}
-                } // Only track hover for non-last boxes
+                }
               />
             </Grid>
           ))}

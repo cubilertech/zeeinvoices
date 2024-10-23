@@ -2,8 +2,6 @@ import { Button, IconButton, Popover, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
-import ReactToPrint from "react-to-print";
-import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
 import { setFullInvoice } from "@/redux/features/invoiceSlice";
 import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
 import { useDispatch } from "react-redux";
@@ -13,7 +11,7 @@ import { pdf } from "@react-pdf/renderer";
 import { useSession } from "next-auth/react";
 
 interface CustomPopOverProps {
-  record: any; // Assuming id is of type number
+  record: any; 
   handleViewInvoice: (id: number) => void;
   handleOpenDeleteModal: (id: number) => void;
   handleEditInvoice: (id: number) => void;
@@ -119,8 +117,8 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     <>
       <IconButton
         onClick={(event) => {
-          event.stopPropagation(); // Prevent parent click event
-          handleClick(event); // Your IconButton's click handler
+          event.stopPropagation(); 
+          handleClick(event); 
         }}
       >
         <Icon icon="threeDotsIcon" width={16} height={16} />
@@ -183,52 +181,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             }}
           >
             Edit
-          </Button>
-          {/* <Button // share option is currently disabled
-            onClick={() => handleShareInvoice(record)}
-            variant="outlined"
-            startIcon={<Icon icon="sendSqaureIcon" />}
-            sx={{
-              width: "100%",
-              border: "none",
-              justifyContent: "start",
-              color: "#121926",
-              "&:hover": {
-                border: "none",
-                color: "#121926",
-                backgroundColor: palette.color.gray[10],
-                borderRadius: 0,
-              },
-            }}
-          >
-            Share
-          </Button> */}
-          {/* <PdfDownloadLink
-            InvSetting={InvSetting}
-            InvDetails={InvDetails}
-            summaryDetail={summaryDetail}
-          >
-            <Button
-              variant="outlined"
-              startIcon={<Icon icon="printIconIcon" />}
-              sx={{
-                width: "100%",
-                border: "none",
-                justifyContent: "start",
-                color: "#121926",
-                "&:hover": {
-                  border: "none",
-                  color: "#121926",
-                  backgroundColor: palette.color.gray[10],
-                  borderRadius: 0,
-                },
-              }}
-              onClick={() => handlePrintInvoice(record)}
-            >
-              Download
-            </Button>
-          </PdfDownloadLink> */}
-
+          </Button>       
           <Button
             variant="outlined"
             startIcon={<Icon icon="downloadIcon" />}
@@ -251,32 +204,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           >
             Download
           </Button>
-
-          {/* <ReactToPrint
-            trigger={() => (
-              <Button
-                variant="outlined"
-                startIcon={<Icon icon="printIconIcon" />}
-                sx={{
-                  width: "100%",
-                  border: "none",
-                  justifyContent: "start",
-                  color: "#121926",
-                  "&:hover": {
-                    border: "none",
-                    color: "#121926",
-                    backgroundColor: palette.color.gray[10],
-                    borderRadius: 0,
-                  },
-                }}
-              >
-                Download
-              </Button>
-            )}
-            content={() => (componentRef.current ? componentRef.current : null)}
-            onBeforeGetContent={() => handlePrintInvoice(record)}
-          /> */}
-          <Button
+            <Button
             variant="outlined"
             startIcon={<Icon icon="deleteRedIcon" />}
             sx={{

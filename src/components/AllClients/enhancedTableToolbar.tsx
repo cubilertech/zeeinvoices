@@ -147,7 +147,6 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
                 fontSize: "16px !important",
                 lineHeight: "24px !important",
                 fontWeight: "600 !important",
-                // background: "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                 backgroundColor: palette.primary.main,
               }}
             >

@@ -121,7 +121,6 @@ const SelectInputWithSearch: React.FC<SelectInputWithSearchProps> = ({
         }}
         sx={{
           "& .css-9qdm89-MuiPaper-root-MuiPopover-paper": {
-            // width: "270px",
             borderRadius: { borderRadius },
           },
           "& .MuiInputBase-input": {
@@ -140,8 +139,8 @@ const SelectInputWithSearch: React.FC<SelectInputWithSearchProps> = ({
           >
             <TextField
               placeholder="Search"
-              value={searchQuery} // Search input value
-              onChange={handleSearch} // Handle search input change
+              value={searchQuery} 
+              onChange={handleSearch} 
               sx={{ width: "100%" }}
             />
           </Box>
@@ -162,12 +161,12 @@ const SelectInputWithSearch: React.FC<SelectInputWithSearchProps> = ({
                     px: "15px",
                     py: "5px",
                     alignItems: "center",
-                    cursor: "pointer", // Add pointer cursor for better UX
+                    cursor: "pointer", 
                     ":hover": { backgroundColor: "#e0e0e0" },
                   }}
                   onClick={() => {
                     handleCountrySelect(currency);
-                  }} // Handle country selection
+                  }} 
                 >
                   <Typography>{currency}</Typography>
                 </Stack>

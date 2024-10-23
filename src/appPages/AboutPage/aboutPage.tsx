@@ -17,7 +17,6 @@ const AboutPage = () => {
     script.async = true;
     document.body.appendChild(script);
 
-    // Cleanup function to remove the script when the component unmounts
     return () => {
       document.body.removeChild(script);
     };
@@ -34,7 +33,6 @@ const AboutPage = () => {
       <Box
         sx={{
           mt: 8,
-          // px: { sm: "0px", xs: "20px" },
           backgroundColor: palette.base.white,
         }}
       >
@@ -46,7 +44,6 @@ const AboutPage = () => {
       <JoinUsSection />
       <Box
         sx={{
-          // px: { sm: "0px", xs: "20px" },
           backgroundColor: palette.base.white,
         }}
       >

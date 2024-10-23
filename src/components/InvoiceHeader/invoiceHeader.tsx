@@ -52,7 +52,6 @@ import {
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
-import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { Icon } from "../Icon";
 
 interface InvoiceHeaderProps {
@@ -73,7 +72,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const [invIdNoSession, setInvIdNoSession] = useState("001");
   const dispatch = useDispatch();
   const router = useRouter();
-  const componentRef = useRef();
   const showPreview =
     InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
 
@@ -102,7 +100,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
-  const InvoiceRendomId = Math.floor(Math.random() * 100) + 1;
   const [errorMessage, setErrorMessage] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
 
@@ -217,8 +214,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       const formData = new FormData();
       if (invoiceData.logo) {
         try {
-          // const blob = await fetchBlobData(invoiceData.logo);
-          // const file = new File([blob], "filename.jpg", { type: blob.type });
           const imageFile = base64ToFile(
             invoiceData.logo,
             "uploaded_image.png"
@@ -260,9 +255,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
       };
 
-      // formData.append("from", JSON.stringify(invoiceData.from));
-      // formData.append("to", JSON.stringify(invoiceData.to));
-
       formData.append("newFrom", JSON.stringify(fromMapped));
       formData.append("newTo", JSON.stringify(toMapped));
 
@@ -273,9 +265,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         apiRoute: `${backendURL}/invoices/${id}`,
       })
         .then((res) => {
-          // router.push("/invoices");
-          // dispatch(setResetInvoice());
-          // dispatch(setResetInvoiceSetting());
+          // response here
         })
         .catch((err) => {
           throw new Error(`${err.response?.data?.message}`);
@@ -431,11 +421,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   // Edit Back Button
   const handleBack = () => {
     router.back();
-    // router.push("/invoices");
-    // setTimeout(() => {
-    //   dispatch(setResetInvoiceSetting());
-    //   dispatch(setResetInvoice());
-    // }, 500);
   };
 
   const handleInvIdChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -514,15 +499,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     }
   }, [isEditInvoiceId]);
 
-  // useEffect(() => {
-  //   dispatch(setInvoiceId(InvoiceId));
-  // }, [InvoiceId, dispatch, InvoiceRendomId]);
   const isLowerCase = [...InvoiceId].some(
     (char) => char !== char.toUpperCase()
   );
   return (
     <Stack
-      // direction={"row"}
       justifyContent={"space-between"}
       sx={{
         marginTop: "5%",
@@ -583,7 +564,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                       backgroundColor: "white",
                       width: "76px",
                       fontSize: "24px",
-                      // height: "32px",
                       "& .MuiOutlinedInput-root": {
                         "& input": {
                           padding: 0,
@@ -605,12 +585,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                         },
                       },
                     }}
-                    value={session?.accessToken ? InvoiceId : invIdNoSession}
-                    // onChange={(e) =>
-                    //   session?.accessToken
-                    //     ? UpdateInvoiceId(e.target.value)
-                    //     : (setInvIdNoSession(e.target.value))
-                    // }
+                    value={session?.accessToken ? InvoiceId : invIdNoSession}                 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       const value = e.target.value;
                       // Regular expression to allow only numbers and alphabets
@@ -738,7 +713,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           </ButtonBase>
           {validateButton ? (
             session ? (
-              // <Box sx={{ width: { sm: "auto", xs: "100%" }, m: 0 }}>
               <ButtonBase
                 sx={{ p: "0px !important" }}
                 onClick={() => generatePDFDocument()}
@@ -746,7 +720,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 <SaveAlt sx={{ width: 19, height: 19 }} />
               </ButtonBase>
             ) : (
-              // </Box>
               <Tooltip title="Download PDF" placement="bottom">
                 <ButtonBase
                   sx={{ p: "0px !important" }}
@@ -769,7 +742,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       </Stack>
       <Stack
         justifyContent={"space-between"}
-        // spacing={2}
         sx={{
           display: { sm: "flex", xs: "none" },
           flexDirection: { sm: "row", xs: "column-reverse" },
@@ -791,11 +763,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             // mt: 2
           }}
           variant="outlined"
-          // disabled={!validateButton || isEditInvoiceId}
           onClick={
-            // isEditInvoiceId
-            //   ? handleShowAlert()
-            //   :
             type === "add" ? handleCreateInvoice : handleUpdateInvoice
           }
         >
@@ -823,15 +791,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 backgroundColor: "rgba(79, 53, 223, 0.2)",
               },
             }}
-            // onClick={() =>
-            //   type === "add"
-            //     ? router.push("/preview")
-            //     : router.push(`/preview/${invoiceData.id}`)
-            // }
-
             onClick={() => {
               if (type === "add") {
-                // window.open("/preview", "_blank");
                 PDFPreview();
               } else {
                 window.open(`/preview/${invoiceData.id}`, "_blank"); // Open `/preview/{invoiceData.id}` in a new tab
@@ -839,17 +800,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             }}
           >
             Preview
-          </Button>
-          {/* <Box>
-            <Box style={{ display: "none" }}>
-              <Box ref={componentRef}>
-                <InvoiceDetailsSection
-                  singleInvoice={{ ...InvDetails }}
-                  invoiceSetting={{ ...InvSetting }}
-                />
-              </Box>
-            </Box>
-          </Box> */}
+          </Button>         
         </Box>
         {validateButton ? (
           session ? (
@@ -863,8 +814,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                   fontSize: "16px",
                   py: "0px !important",
                   width: "100%",
-                  // background:
-                  //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   backgroundColor: palette.primary.main,
                 }}
                 onClick={() => generatePDFDocument()}

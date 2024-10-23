@@ -1,12 +1,11 @@
 "use client";
-import { Box, ButtonBase, IconButton, Stack, Typography } from "@mui/material";
-import { FC, useEffect, useRef } from "react";
+import { Box, ButtonBase, Stack, Typography } from "@mui/material";
+import { FC,  useRef } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceLogo, setInvoiceLogo } from "@/redux/features/invoiceSlice";
 import { setColors } from "@/redux/features/invoiceSetting";
-
 import Image from "next/image";
 import ColorThief from "colorthief";
 import { googleImage } from "@/utils/common";
@@ -22,7 +21,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   const dispatch = useDispatch();
   const invoiceLogo = useSelector(getInvoiceLogo);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
+  const MAX_FILE_SIZE = 1 * 1024 * 1024; 
   const handleClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -31,7 +30,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
 
   const handleCancelLogoClick = () => {
     dispatch(setInvoiceLogo(null));
-    dispatch(setColors(initialColors)); // Clear colors when logo is canceled
+    dispatch(setColors(initialColors)); 
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +38,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
         toast.error("File is too large. Please select a file less than 1 MB.");
-        return; // Handle error
+        return; 
       }
 
       const reader = new FileReader();
@@ -119,12 +118,12 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
 
           <Box
             sx={{
-              width: "120px", // Specified width
-              height: "70px", // Specified height
+              width: "120px", 
+              height: "70px",
               display: "flex",
-              justifyContent: "center", // Center the image horizontally
-              alignItems: "center", // Center the image vertically
-              overflow: "hidden", // Hide any overflow
+              justifyContent: "center",
+              alignItems: "center", 
+              overflow: "hidden", 
             }}
           >
             <Image
@@ -133,9 +132,9 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
               width={120}
               height={70}
               style={{
-                objectFit: "contain", // Fit the image within the box without cropping
-                maxWidth: "100%", // Make sure the image shrinks if it's larger than the box width
-                maxHeight: "100%", // Make sure the image shrinks if it's taller than the box height
+                objectFit: "contain", 
+                maxWidth: "100%",
+                maxHeight: "100%", 
               }}
               unoptimized
             />

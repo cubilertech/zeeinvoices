@@ -41,7 +41,6 @@ const Header = () => {
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
-  // const [selected, setSelected] = useState("Invoices");
   const [anchorElMenu, setAnchorElMenu] = React.useState<null | HTMLElement>(
     null
   );
@@ -96,10 +95,8 @@ const Header = () => {
   const headerLandingData = [
     { title: "Home", url: "/" },
     { title: "About Us", url: "/about-us" },
-    // { title: "Learn", url: "" },
   ];
   const handleButton = (data: any) => {
-    // setSelected(data.title);
     route.push(data.url);
   };
   const handleCrtInvButton = (data: any) => {
@@ -126,13 +123,11 @@ const Header = () => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          // px: "0px !important",
           px: { md: "0%", lg: "0%", xs: "0%" },
         }}
       >
         <Stack
           direction={"row"}
-          // gap={9}
           sx={{
             justifyContent: { sm: "center", xs: "flex-start" },
             alignItems: "center",
@@ -156,7 +151,6 @@ const Header = () => {
               <MenuIcon sx={{ width: 24, height: 24 }} />
             </IconButton>
             <Popover
-              // id="basic-menu"
               anchorEl={anchorElMenu}
               open={openMenu}
               onClose={handleCloseMenu}
@@ -164,7 +158,6 @@ const Header = () => {
                 vertical: "bottom",
                 horizontal: "left",
               }}
-              // style={{ borderRadius: "8px", p: 2 }}
               sx={{
                 "& .MuiPopover-paper": {
                   borderRadius: "8px",
@@ -350,8 +343,6 @@ const Header = () => {
                         xs: "18px !important",
                       },
                       fontWeight: "700 !important",
-                      // background:
-                      //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                       backgroundColor: palette.primary.main,
                     }}
                   >
@@ -422,13 +413,6 @@ const Header = () => {
               )}
             </Popover>
           </Box>
-          {/* <Box onClick={handLogoClick} sx={{ cursor: "pointer" }}>
-            <Icon
-              icon="logo"
-              height={isModile ? 18 : 24}
-              width={isModile ? 132 : 175}
-            />
-          </Box> */}
           <Box sx={{ display: { sm: "block", xs: "none" } }}>
             {!session &&
               headerLandingData.map((data, index) => (
@@ -448,7 +432,6 @@ const Header = () => {
                     backgroundColor:
                       data.url === pathname ? "rgba(79, 53, 223, 0.1)" : "",
                     borderRadius: "8px",
-                    // px: 1,
                     mr: "8px",
                     fontFamily: "Product Sans, sans-serif !important",
                     fontSize: "16px !important",
@@ -484,7 +467,6 @@ const Header = () => {
                     backgroundColor:
                       data.url === pathname ? "rgba(79, 53, 223, 0.1)" : "",
                     borderRadius: "8px",
-                    // px: 1,
                     mr: "8px",
                     fontFamily: "Product Sans, sans-serif !important",
                     fontSize: "16px !important",
@@ -552,7 +534,6 @@ const Header = () => {
                 }
                 disabled={loading}
                 sx={{
-                  // height: "35px !important",
                   py: "10px !important",
                   px: "16px !important",
                   borderRadius: "4px !important",
@@ -563,8 +544,6 @@ const Header = () => {
                     xs: "18px !important",
                   },
                   fontWeight: "700 !important",
-                  // background:
-                  //   "linear-gradient(180deg, #4F35DF 0%, #2702F5 100%)",
                   backgroundColor: palette.primary.main,
                 }}
               >
@@ -582,8 +561,6 @@ const Header = () => {
             <Stack
               direction={"row"}
               gap={2}
-              // onClick={handleClick}
-              // onMouseEnter={handleClick}
             >
               <Typography
                 sx={{ color: "black", alignSelf: "center", fontWeight: 500 }}
@@ -596,7 +573,6 @@ const Header = () => {
                   gap={1}
                   sx={{ cursor: "pointer" }}
                   onClick={handleClick}
-                  // onMouseEnter={handleClick}
                 >
                   {profileData?.image ? (
                     <Avatar
@@ -633,7 +609,6 @@ const Header = () => {
                 >
                   <Stack
                     direction={"column"}
-                    // onMouseLeave={handleClose}
                     sx={{
                       justifyContent: "left",
                       border: `1px solid #EAECF0`,

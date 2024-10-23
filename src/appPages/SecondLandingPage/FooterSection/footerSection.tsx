@@ -37,9 +37,9 @@ const FooterSection = () => {
     const facebookimg = new Image();
     const instagramimg = new Image();
     const facebookPrimaryimg = new Image();
-    facebookimg.src = "/Images/icons/facebook-black-icon.svg"; // Preload hover image
-    facebookPrimaryimg.src = "/Images/icons/facebook-primary-icon.svg"; // Preload hover image
-    instagramimg.src = "/Images/icons/instagram-colored-icon.svg"; // Preload hover image
+    facebookimg.src = "/Images/icons/facebook-black-icon.svg"; 
+    facebookPrimaryimg.src = "/Images/icons/facebook-primary-icon.svg"; 
+    instagramimg.src = "/Images/icons/instagram-colored-icon.svg"; 
     // Ensuring images are loaded
     facebookimg.onload = () => console.log("Facebook black icon loaded");
     facebookPrimaryimg.onload = () =>
@@ -78,7 +78,6 @@ const FooterSection = () => {
               direction={"column"}
               gap={3}
               sx={{
-                // width: { sm: "667px", xs: "100%" },
                 justifyContent: { sm: "start", xs: "center" },
                 alignItems: { sm: "start", xs: "center" },
                 textAlign: { sm: "start", xs: "center" },
@@ -127,16 +126,9 @@ const FooterSection = () => {
                     Home
                   </Typography>
                 </Link>
-                {/* <Divider
-                sx={{ display: { sm: "none", xs: "flex" } }}
-                orientation="vertical"
-                variant="middle"
-                flexItem
-              /> */}
                 <Link
                   underline="hover"
                   variant="text-sm-bold"
-                  // href="/about-us"
                   onClick={handleAboutPage}
                   sx={{ color: palette.color.gray[731], cursor: "pointer" }}
                 >
@@ -152,13 +144,6 @@ const FooterSection = () => {
                     About
                   </Typography>
                 </Link>
-                {/* <Divider
-                sx={{ display: { sm: "none", xs: "flex" } }}
-                orientation="vertical"
-                variant="middle"
-                flexItem
-              /> */}
-
                 <Link
                   underline="hover"
                   variant="text-sm-bold"
@@ -177,12 +162,6 @@ const FooterSection = () => {
                     Privacy
                   </Typography>
                 </Link>
-                {/* <Divider
-                sx={{ display: { sm: "none", xs: "flex" } }}
-                orientation="vertical"
-                variant="middle"
-                flexItem
-              /> */}
                 <Link
                   underline="hover"
                   variant="text-sm-bold"
@@ -234,19 +213,6 @@ const FooterSection = () => {
                   <Box
                     sx={{
                       cursor: "pointer",
-                      // width: { sm: "27px", xs: "27px" },
-                      // height: { sm: "27px", xs: "27px" },
-                      // overflow: "hidden",
-                      // backgroundImage: "url(/Images/icons/facebook2-icon.svg)",
-                      // backgroundRepeat: "no-repeat",
-                      // backgroundSize: "100% 100%",
-                      // "&:hover": {
-                      //   // width: { sm: "22px", xs: "24px" },
-                      //   // height: { sm: "20px", xs: "21px" },
-                      //   backgroundImage:
-                      //     "url(/Images/icons/facebook2-colored-icon.svg)",
-                      //   backgroundSize: "100% 100%",
-                      // },
                     }}
                     onClick={() =>
                       window.open(
@@ -390,7 +356,7 @@ const FooterSection = () => {
                     alignItems: { sm: "start", xs: "center" },
                   }}
                 >
-                  <Stack // stack for phone and email
+                  <Stack
                     direction={{ sm: "column", xs: "column" }}
                     gap={{ sm: 3, xs: 2 }}
                     sx={{ alignItems: { sm: "start", xs: "center" } }}
@@ -400,7 +366,6 @@ const FooterSection = () => {
                       gap={1}
                       sx={{ alignItems: "center" }}
                     >
-                      {/* <PhoneIcon sx={{ color: palette.primary.main }} /> */}
                       <Icon icon="FooterPhoneIcon" width={18} height={18} />
                       <Typography
                         variant="text-md-regular"
@@ -421,7 +386,6 @@ const FooterSection = () => {
                       gap={1}
                       sx={{ alignItems: "center" }}
                     >
-                      {/* <EmailIcon sx={{ color: palette.primary.main }} /> */}
                       <Icon icon="FooterMailIcon" width={18} height={18} />
 
                       <a
@@ -437,9 +401,9 @@ const FooterSection = () => {
                             fontSize: { md: "16px", xs: "14px" },
                             lineHeight: { md: "20px", xs: "20px" },
                             fontWeight: { md: 400 },
-                            textDecoration: "none", // Ensure there's no underline
+                            textDecoration: "none", 
                             "&:hover": {
-                              textDecoration: "underline", // Ensure there's no underline
+                              textDecoration: "underline", 
                             },
                           }}
                         >
@@ -454,7 +418,6 @@ const FooterSection = () => {
                     gap={1}
                     sx={{ alignItems: { sm: "start", xs: "center" } }}
                   >
-                    {/* <LocationOnIcon sx={{ color: palette.primary.main }} /> */}
                     <Icon icon="FooterMarkerIcon" width={18} height={18} />
 
                     <Typography

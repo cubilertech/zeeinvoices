@@ -1,105 +1,4 @@
-// "use client";
-// import { Box, Typography, useMediaQuery } from "@mui/material";
-// import { Icon } from "../Icon";
-// import { FC, useState } from "react";
-// import { IconTypes } from "@/types/icons";
-// import { palette } from "@/theme/palette";
 
-// interface Props {
-//   icon: IconTypes; // Corrected prop name from ixon to icon
-//   whiteIcon: IconTypes; // Corrected prop name from ixon to icon
-//   title: string;
-//   description: string;
-//   isLastColor?: boolean;
-// }
-
-// const OfferCard: FC<Props> = ({
-//   icon,
-//   whiteIcon,
-//   title,
-//   description,
-//   isLastColor,
-// }) => {
-//   const [isHover, setIsHover] = useState(false);
-
-//   const isModile = useMediaQuery("(max-width: 600px)");
-//   return (
-//     <Box
-//       sx={{
-//         width: "100%",
-//         p: "25.42px 40px",
-//         display: "flex",
-//         gap: 3,
-//         flexDirection: "column",
-//         alignItems: "center",
-//         justifyContent: "center",
-//         height: { sm: "337px", xs: "237px" },
-//         border: "1.06px solid #0000001A",
-//         borderRadius: "30px",
-//         color: isLastColor ? palette.base.white : palette.base.black,
-//         backgroundColor: isLastColor
-//           ? palette.text.contactEmailColor
-//           : palette.base.white,
-//         transition: "all 0.7s ease", // Add transition for smooth animation
-//         "&:hover": {
-//           color: palette.base.white,
-//           backgroundColor: palette.text.contactEmailColor,
-//           transform: "scale(1.03)", // Scale the component up by 10% on hover
-//           "& .buttom-right-card": {
-//             backgroundColor: `${palette.base.white} !important`,
-//           },
-//         },
-//         "&:hover .desc": {
-//           color: palette.base.white, // Change the color of the other Typography on hover
-//         },
-//       }}
-//       onMouseEnter={() => {
-//         setIsHover(true);
-//       }}
-//       onMouseLeave={() => {
-//         setIsHover(false);
-//       }}
-//     >
-//       {isHover || isLastColor ? (
-//         <Icon
-//           icon={whiteIcon}
-//           width={isModile ? 42 : 62}
-//           height={isModile ? 42 : 62}
-//         />
-//       ) : (
-//         <Icon
-//           icon={icon}
-//           width={isModile ? 42 : 62}
-//           height={isModile ? 42 : 62}
-//         />
-//       )}{" "}
-//       {/* Pass the icon prop */}
-//       <Box sx={{ textAlign: "center" }}>
-//         <Typography
-//           variant={isModile ? "text-sm-bold" : "text-lg-bold"}
-//           component={"p"}
-//           mb={1}
-//         >
-//           {title}
-//         </Typography>
-//         <Typography
-//           className="desc"
-//           variant={isModile ? "text-xs-regular" : "text-md-regular"}
-//           component={"p"}
-//           color={
-//             isLastColor
-//               ? palette.base.white
-//               : palette.text.expandableTextGreyColor
-//           }
-//         >
-//           {description}
-//         </Typography>
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default OfferCard;
 
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { Icon } from "../Icon";
@@ -113,8 +12,8 @@ interface Props {
   title: string;
   description: string;
   isLastColor?: boolean;
-  anyBoxHovered: boolean; // Prop to track if any box is hovered
-  onHoverChange: (isHovering: boolean) => void; // Callback to notify parent about hover
+  anyBoxHovered: boolean; 
+  onHoverChange: (isHovering: boolean) => void; 
 }
 
 const OfferCard: FC<Props> = ({
@@ -131,34 +30,34 @@ const OfferCard: FC<Props> = ({
 
   const handleMouseEnter = () => {
     setIsHover(true);
-    onHoverChange(true); // Notify parent that a box is being hovered
+    onHoverChange(true);
   };
 
   const handleMouseLeave = () => {
     setIsHover(false);
-    onHoverChange(false); // Notify parent that no box is being hovered
+    onHoverChange(false);
   };
 
   const lastBoxBackgroundColor = isHover
-    ? palette.text.contactEmailColor // Keep the last box purple when hovered
+    ? palette.text.contactEmailColor 
     : anyBoxHovered
-    ? palette.base.white // Turn last box white when any other box is hovered
-    : palette.text.contactEmailColor; // Keep the last box purple initially
+    ? palette.base.white 
+    : palette.text.contactEmailColor; 
 
   const lastBoxTextColor =
     isHover || !anyBoxHovered
-      ? palette.base.white // Keep the text white when the last box is hovered or no other box is hovered
-      : palette.color.gray[900]; // Turn text black when any other box is hovered
+      ? palette.base.white 
+      : palette.color.gray[900]; 
 
   const lastBoxTextDescColor =
     isHover || !anyBoxHovered
-      ? palette.base.white // Keep the text white when the last box is hovered or no other box is hovered
-      : palette.color.gray[610]; // Turn text black when any other box is hovered
+      ? palette.base.white 
+      : palette.color.gray[610]; 
 
   const lastBoxIcon =
     isHover || !anyBoxHovered
-      ? whiteIcon // Keep white icon when last box is hovered or no other box is hovered
-      : icon; // Change icon to purple when any other box is hovered
+      ? whiteIcon 
+      : icon;
 
   return (
     <Box
@@ -178,13 +77,13 @@ const OfferCard: FC<Props> = ({
           ? lastBoxBackgroundColor
           : palette.base.white,
         transition: "all 0.5s ease",
-        transform: isLastColor && isHover ? "scale(1.1)" : "none", // Expand the last box on hover
+        transform: isLastColor && isHover ? "scale(1.1)" : "none", 
         "&:hover": {
           color: isLastColor ? palette.base.white : palette.base.white,
           backgroundColor: isLastColor
-            ? palette.primary.main // Keep last box purple on hover
-            : palette.primary.main, // Change other boxes to purple on hover
-          transform: isLastColor ? "scale(1.03)" : "scale(1.03)", // Disable scaling for other boxes
+            ? palette.primary.main 
+            : palette.primary.main, 
+          transform: isLastColor ? "scale(1.03)" : "scale(1.03)", 
           "& .buttom-right-card": {
             backgroundColor: isLastColor
               ? `${palette.text.contactEmailColor} !important`
@@ -199,7 +98,7 @@ const OfferCard: FC<Props> = ({
       onMouseLeave={handleMouseLeave}
     >
       <Icon
-        icon={isHover ? whiteIcon : isLastColor ? lastBoxIcon : icon} // Icon should turn white on hover for all boxes
+        icon={isHover ? whiteIcon : isLastColor ? lastBoxIcon : icon} 
         width={isMobile ? 42 : 52}
         height={isMobile ? 42 : 52}
       />

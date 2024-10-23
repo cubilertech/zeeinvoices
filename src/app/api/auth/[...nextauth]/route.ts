@@ -37,10 +37,6 @@ const authOptions: NextAuthOptions = ({
           if (!response.ok) {
             throw new Error('Failed to call backend API');
           }
-
-          // const data = await response.json();
-          // You can add the response data to the token if needed
-          // token.backendApiResponse = data;
         } catch (error) {
           console.error('Error calling backend API:', error);
           // Handle the error as needed
@@ -50,14 +46,12 @@ const authOptions: NextAuthOptions = ({
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken as string;
-      // You can also add the backend API response to the session if needed
-      // session.backendApiResponse = token.backendApiResponse;
       return session;
     },
   },
   pages: {
-    error: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, // Redirect to home or any custom error page
-    signIn: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, // Custom sign-in page (if you have one)
+    error: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, 
+    signIn: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, 
   },
 });
 

@@ -10,7 +10,6 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { palette } from "@/theme/palette";
 import {
-  Button,
   ButtonBase,
   CircularProgress,
   Container,
@@ -178,7 +177,6 @@ export default function AllClients() {
     refetchClientList,
     deleteSuccess,
     page,
-    // filteredData.length,
     session?.accessToken,
   ]);
   const handleChangeSearch = (e: any) => {
@@ -291,7 +289,6 @@ export default function AllClients() {
               elevation={0}
               sx={{
                 width: "100%",
-                // pb: 1,
                 border: "none",
               }}
             >
@@ -355,7 +352,6 @@ export default function AllClients() {
                   {fetchingClientList ? (
                     <Box
                       sx={{
-                        // position: "absolute",
                         display: "flex",
                         justifyContent: "center",
                         padding: "20px",
