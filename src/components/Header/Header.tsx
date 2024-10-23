@@ -95,7 +95,7 @@ const Header = () => {
   ];
   const headerLandingData = [
     { title: "Home", url: "/" },
-    { title: "About Us", url: "/about" },
+    { title: "About Us", url: "/about-us" },
     // { title: "Learn", url: "" },
   ];
   const handleButton = (data: any) => {
@@ -295,10 +295,10 @@ const Header = () => {
               {!session?.accessToken ? (
                 <Stack gap={1.5} mt={1}>
                   {pathname == "/" ||
-                  pathname == "/termsAndCondition" ||
-                  pathname == "/privacyPolicy" ||
+                  pathname == "/terms-and-condition" ||
+                  pathname == "/privacy-policy" ||
                   pathname == "/contact-us" ||
-                  pathname == "/about" ? (
+                  pathname == "/about-us" ? (
                     <Button
                       onClick={handleCrtInvButton}
                       variant="outlined"
@@ -329,7 +329,7 @@ const Header = () => {
                   <Button
                     onClick={handleLoginButton}
                     variant={
-                      pathname == "/" || pathname == "/termsAndCondition"
+                      pathname == "/" || pathname == "/terms-and-condition"
                         ? "contained"
                         : "contained"
                     }
@@ -508,10 +508,10 @@ const Header = () => {
           {!session?.accessToken ? (
             <Stack direction={"row"} gap={2}>
               {pathname == "/" ||
-              pathname == "/termsAndCondition" ||
-              pathname == "/privacyPolicy" ||
+              pathname == "/terms-and-condition" ||
+              pathname == "/privacy-policy" ||
               pathname == "/contact-us" ||
-              pathname == "/about" ? (
+              pathname == "/about-us" ? (
                 <Button
                   onClick={handleCrtInvButton}
                   variant="outlined"
@@ -542,7 +542,7 @@ const Header = () => {
               <Button
                 onClick={handleLoginButton}
                 variant={
-                  pathname == "/" || pathname == "/termsAndCondition"
+                  pathname == "/" || pathname == "/terms-and-condition"
                     ? "contained"
                     : "contained"
                 }

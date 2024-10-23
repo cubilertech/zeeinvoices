@@ -106,6 +106,7 @@ const WorkflowSection = () => {
                   lineHeight: { md: "64px", xs: "29px" },
                   fontWeight: { md: 700 },
                 }}
+                component={'h3'}
               >
                 Streamline{" "}
                 <Box

@@ -1,5 +1,5 @@
 "use client";
-import React, { lazy, useRef } from "react";
+import React, { lazy, useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import { Herosection } from "./HeroSection";
 import { HelpSection } from "./HelpSection";
@@ -12,6 +12,16 @@ import { FooterSection } from "./FooterSection";
 import Head from "next/head";
 
 const SecondLandingPage = () => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "/js/script.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
   return (
     <>
       <Head>

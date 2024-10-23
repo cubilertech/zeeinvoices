@@ -64,6 +64,7 @@ const HeroSection = () => {
                     fontFamily: "Product Sans, sans-serif",
                     textAlign: { sm: "left", xs: "center" },
                   }}
+                  component={'h1'}
                 >
                   AI powered{" "}
                   <Box

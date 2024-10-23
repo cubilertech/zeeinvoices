@@ -92,7 +92,7 @@ const OurMissionSection = () => {
                 lineHeight: { md: "64px", xs: "32px" },
                 fontWeight: { xs: 700 },
               }}
-              component={"h1"}
+              component={"h2"}
             >
               Our{" "}
               <span

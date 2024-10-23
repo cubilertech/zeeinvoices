@@ -7,7 +7,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
 import { ExpandableTextWithSubheadings } from "@/components/ExpandableTextWithSubheadings";
 import "@/Styles/sectionStyle.css";
@@ -270,6 +270,17 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
       return nextIndex >= expandableTextData.length ? 0 : nextIndex;
     });
   };
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "/js/script.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <>
       <Stack
@@ -320,6 +331,7 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                     },
                     fontWeight: 700,
                   }}
+                  component={'h1'}
                 >
                   Privacy{" "}
                   <span
@@ -364,6 +376,7 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                     },
                     fontWeight: 700,
                   }}
+                  component={'h2'}
                 >
                   Effective Date:{" "}
                   <Box
@@ -398,6 +411,7 @@ const PrivacyPolicy: FC<PrivacyPolicy> = ({}) => {
                     lineHeight: { md: "30px", xs: "20px" },
                     fontWeight: { xs: 400 },
                   }}
+                  component={'h3'}
                 >
                   ZeeInvoices (&quot;we,&quot; &quot;our,&quot; or
                   &quot;us&quot;) respects your privacy and is committed to

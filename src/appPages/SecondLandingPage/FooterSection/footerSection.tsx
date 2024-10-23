@@ -23,11 +23,11 @@ const FooterSection = () => {
     route.push("/");
   };
   const handleTermsButton = (data: any) => {
-    route.push("/termsAndCondition");
+    route.push("/terms-and-condition");
   };
 
   const handlePrivacyButton = (data: any) => {
-    route.push("/privacyPolicy");
+    route.push("/privacy-policy");
   };
 
   useEffect(() => {
@@ -133,7 +133,7 @@ const FooterSection = () => {
                 <Link
                   underline="hover"
                   variant="text-sm-bold"
-                  href="/about"
+                  href="/about-us"
                   sx={{ color: palette.color.gray[731], cursor: "pointer" }}
                 >
                   <Typography

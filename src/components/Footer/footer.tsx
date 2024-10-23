@@ -11,7 +11,7 @@ const Footer: FC = () => {
     route.push(`/contact-us`);
   };
   const handleTermsAndConditionButton = (data: any) => {
-    route.push(`/termsAndCondition`);
+    route.push(`/terms-and-condition`);
   };
   return (
     <Box sx={{ width: "100%" }}>
