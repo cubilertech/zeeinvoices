@@ -1,4 +1,10 @@
-import { Button, IconButton, Popover, Stack } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Popover,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
@@ -19,6 +25,7 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   isPopoverOpen,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const isMobile = useMediaQuery("(max-width: 700px)");
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -28,27 +35,29 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   };
 
   useEffect(() => {
-    if (isPopoverOpen) {
-      isPopoverOpen(Boolean(anchorEl));
-    }
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (isMobile) {
+      if (isPopoverOpen) {
+        isPopoverOpen(Boolean(anchorEl));
+      }
+      if (open) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
 
-    // Cleanup to reset body overflow on component unmount
-    return () => {
-      document.body.style.overflow = "";
-    };
+      // Cleanup to reset body overflow on component unmount
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
   }, [open, anchorEl, isPopoverOpen]);
 
   return (
     <>
       <IconButton
         onClick={(event) => {
-          event.stopPropagation(); 
-          handleClick(event); 
+          event.stopPropagation();
+          handleClick(event);
         }}
       >
         <Icon icon="threeDotsIcon" width={16} height={16} />
