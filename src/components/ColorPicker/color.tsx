@@ -20,6 +20,7 @@ const Color: FC<Color> = ({ color, isSelected, onClick }) => {
         backgroundColor: color,
         borderRadius: "3px",
         position: "relative",
+        boxShadow: "rgba(99, 99, 99, 0.3) 0px 2px 8px 0px",
       }}
     >
       {isSelected === color && (
