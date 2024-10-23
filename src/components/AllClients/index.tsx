@@ -388,7 +388,7 @@ export default function AllClients() {
                                   role="checkbox"
                                   tabIndex={-1}
                                   key={row.id}
-                                  sx={{ cursor: "pointer" }}
+                                  sx={{ cursor: "pointer", zIndex: 0 }}
                                   onClick={() => {
                                     if (!isPopover) {
                                       handleViewClient(row._id);

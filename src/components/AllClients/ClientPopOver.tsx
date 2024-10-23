@@ -36,18 +36,15 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
 
   useEffect(() => {
     if (isMobile) {
-      if (isPopoverOpen) {
-        isPopoverOpen(Boolean(anchorEl));
-      }
       if (open) {
-        document.body.style.overflow = "hidden";
+        document.body.classList.add("no-scroll");
       } else {
-        document.body.style.overflow = "";
+        document.body.classList.remove("no-scroll");
       }
 
-      // Cleanup to reset body overflow on component unmount
+      // Cleanup on component unmount
       return () => {
-        document.body.style.overflow = "";
+        document.body.classList.remove("no-scroll");
       };
     }
   }, [open, anchorEl, isPopoverOpen]);
@@ -55,6 +52,9 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   return (
     <>
       <IconButton
+        sx={{
+          zIndex: 2,
+        }}
         onClick={(event) => {
           event.stopPropagation();
           handleClick(event);
