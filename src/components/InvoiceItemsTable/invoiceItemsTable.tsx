@@ -199,7 +199,7 @@ const InvoiceItemsTable: FC = () => {
             </Grid>
           )}
 
-          {getAllInvoiceItems?.map((item, index) => (
+          {getAllInvoiceItems?.map((item: any, index: number) => (
             <>
               {isModile && (
                 <Box

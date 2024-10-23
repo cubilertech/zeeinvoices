@@ -480,7 +480,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     if (session?.accessToken && type == "add") {
       refetchInvoiceId();
     }
-  }, [session?.accessToken]);
+  }, [session?.accessToken,refetchInvoiceId,type]);
 
   useEffect(() => {
     if (session?.accessToken && generatedInvoiceId?.length) {
@@ -488,7 +488,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       UpdateInvoiceId(generatedInvoiceId);
       dispatch(setInvoiceId(generatedInvoiceId));
     }
-  }, [generatedInvoiceId, session?.accessToken]);
+  }, [generatedInvoiceId, session?.accessToken,dispatch]);
 
   useEffect(() => {
     if (!isEditInvoiceId) {
