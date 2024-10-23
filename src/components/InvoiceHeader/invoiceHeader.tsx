@@ -714,9 +714,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           }}
         >
           <ButtonBase
-            disabled={validateButton}
+            disabled={!validateButton}
             sx={{
-              opacity: validateButton ? 0.5 : 1,
+              opacity: !validateButton ? 0.5 : 1,
             }}
             onClick={() =>
               type === "add"
@@ -728,7 +728,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           </ButtonBase>
 
           <ButtonBase
-            //  disabled={!validateButton}
+            // disabled={!validateButton}
+            // sx={{
+            //   opacity: !validateButton ? 0.5 : 1,
+            // }}
             onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
           >
             <Icon icon="pdfPriviewIcon" width={19} height={19} />
@@ -754,7 +757,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               </Tooltip>
             )
           ) : (
-            <ButtonBase disabled={true}>
+            <ButtonBase disabled={true} sx={{ opacity: 0.5 }}>
               <SaveAlt sx={{ width: 19, height: 19 }} />
             </ButtonBase>
           )}
@@ -828,8 +831,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
             onClick={() => {
               // if (type === "add") {
-                // window.open("/preview", "_blank");
-                PDFPreview();
+              // window.open("/preview", "_blank");
+              PDFPreview();
               // } else {
               //   window.open(`/preview/${invoiceData.id}`, "_blank"); // Open `/preview/{invoiceData.id}` in a new tab
               // }

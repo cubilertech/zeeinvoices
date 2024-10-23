@@ -432,7 +432,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 color: palette.color.gray[610],
               }}
             >
-              SubTotal
+              Subtotal
             </Typography>
             <Typography
               // variant="text-md-semibold"
