@@ -25,7 +25,6 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   isPopoverOpen,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const isMobile = useMediaQuery("(max-width: 700px)");
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -33,19 +32,6 @@ const ClientPopOver: React.FC<CustomPopOverProps> = ({
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
-  useEffect(() => {
-    if (open) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-
-    // Cleanup on component unmount
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, [open, anchorEl, isPopoverOpen]);
 
   return (
     <>

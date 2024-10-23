@@ -389,11 +389,6 @@ export default function AllClients() {
                                   tabIndex={-1}
                                   key={row.id}
                                   sx={{ cursor: "pointer", zIndex: 0 }}
-                                  onClick={() => {
-                                    if (!isPopover) {
-                                      handleViewClient(row._id);
-                                    }
-                                  }}
                                 >
                                   <TableCell
                                     component="th"
@@ -402,6 +397,11 @@ export default function AllClients() {
                                     padding="none"
                                     className="tableCell"
                                     sx={{ py: "8px", px: "16px" }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewClient(row._id);
+                                      }
+                                    }}
                                   >
                                     <Typography
                                       variant="text-sm-regular"
@@ -425,6 +425,11 @@ export default function AllClients() {
                                     align="left"
                                     className="tableCell"
                                     sx={{ py: "8px", px: "16px" }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewClient(row._id);
+                                      }
+                                    }}
                                   >
                                     <Typography
                                       variant="text-sm-regular"
@@ -448,6 +453,11 @@ export default function AllClients() {
                                     align="left"
                                     className="tableCell"
                                     sx={{ py: "8px", px: "16px" }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewClient(row._id);
+                                      }
+                                    }}
                                   >
                                     <Typography
                                       variant="text-sm-regular"
@@ -473,6 +483,11 @@ export default function AllClients() {
                                     align="left"
                                     className="tableCell"
                                     sx={{ py: "8px", px: "16px" }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewClient(row._id);
+                                      }
+                                    }}
                                   >
                                     <Typography
                                       variant="text-sm-regular"
@@ -498,6 +513,11 @@ export default function AllClients() {
                                     align="left"
                                     className="tableCell"
                                     sx={{ py: "8px", px: "16px" }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewClient(row._id);
+                                      }
+                                    }}
                                   >
                                     <Typography
                                       variant="text-sm-regular"
@@ -521,6 +541,11 @@ export default function AllClients() {
                                     align="left"
                                     className="tableCell"
                                     sx={{ py: "8px", px: "16px" }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewClient(row._id);
+                                      }
+                                    }}
                                   >
                                     <Typography
                                       variant="text-sm-regular"
@@ -544,6 +569,11 @@ export default function AllClients() {
                                     align="left"
                                     className="tableCell"
                                     sx={{ py: "8px", px: "16px" }}
+                                    onClick={() => {
+                                      if (!isPopover) {
+                                        handleViewClient(row._id);
+                                      }
+                                    }}
                                   >
                                     <Typography
                                       variant="text-sm-regular"
