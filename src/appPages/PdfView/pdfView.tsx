@@ -377,7 +377,7 @@ const PdfView: FC<PdfViewProps> = ({
         <View
           style={{
             height: "30px",
-            marginTop: "42px",
+            marginTop: "0px",
             marginLeft: "10px",
             marginRight: "10px",
             backgroundColor: bgColor === "#fffff" ? "white" : bgColor,
@@ -439,7 +439,7 @@ const PdfView: FC<PdfViewProps> = ({
                   : palette.base.white,
               }}
             >
-              Tax
+              Tax (%)
             </Text>
           ) : (
             <Text
