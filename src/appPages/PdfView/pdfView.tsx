@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
     height: 25,
   },
   image: {
-    width: "100px", // Scale the image to fit the width of the container
-    height: "50px", // Scale the image to fit the height of the container
-    objectFit: "contain", // Ensure the image scales proportionally without stretching
+    width: "100px", 
+    height: "50px", 
+    objectFit: "contain", 
   },
   watermark: {
     position: "absolute",
@@ -80,7 +80,6 @@ interface PdfViewProps {
   itemDetail?: any;
 }
 
-// Create Document Component
 const PdfView: FC<PdfViewProps> = ({
   invSetting,
   invDetails,
@@ -122,38 +121,16 @@ const PdfView: FC<PdfViewProps> = ({
     <Document style={{ overflow: "hidden", paddingBottom: "100px" }}>
       <Page
         size="A4"
-        // scale={0.6}
         style={{
           ...styles.page,
           borderColor: bgColor,
         }}
-        // style={styles.page}
       >
-        {/* Watermark */}
-        {/* {!user && (
-          <View
-            style={{
-              width: 277,
-              height: 38,
-              position: "absolute",
-              top: "50%",
-              left: "40%",
-              transform: "translate(-50%, -50%)",
-              fontSize: 48,
-              color: "#d3d3d3",
-              opacity: 1.3,
-              zIndex: 1,
-            }}
-          >
-            <Image src="/Images/icons/watermark-icon.png" />
-          </View>
-        )} */}
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
             {invDetails?.logo && (
               <Image
-                // style={styles.logo}
                 style={invDetails?.logo ? styles.image : styles.logo}
                 src={googleImage(invDetails.logo)}
               />
@@ -403,7 +380,7 @@ const PdfView: FC<PdfViewProps> = ({
             marginTop: "42px",
             marginLeft: "10px",
             marginRight: "10px",
-            backgroundColor: bgColor,
+            backgroundColor: bgColor === "#fffff" ? "white" : bgColor,
             borderRadius: "2px",
             display: "flex",
             flexDirection: "row",
@@ -419,7 +396,6 @@ const PdfView: FC<PdfViewProps> = ({
               width: "190px",
               fontSize: "12px",
               fontWeight: "bold",
-              // color: "white",
               color: isNearWhite(bgColor)
                 ? palette.base.black
                 : palette.base.white,
@@ -432,7 +408,6 @@ const PdfView: FC<PdfViewProps> = ({
               width: "42px",
               fontSize: "12px",
               fontWeight: "bold",
-              // color: "white",
               color: isNearWhite(bgColor)
                 ? palette.base.black
                 : palette.base.white,
@@ -445,7 +420,6 @@ const PdfView: FC<PdfViewProps> = ({
               width: "80px",
               fontSize: "12px",
               fontWeight: "bold",
-              // color: "white",
               color: isNearWhite(bgColor)
                 ? palette.base.black
                 : palette.base.white,
@@ -460,11 +434,9 @@ const PdfView: FC<PdfViewProps> = ({
                 width: "55px",
                 fontSize: "12px",
                 fontWeight: "bold",
-                // color: "white",
                 color: isNearWhite(bgColor)
                   ? palette.base.black
                   : palette.base.white,
-                // marginLeft: "25",
               }}
             >
               Tax
@@ -476,7 +448,6 @@ const PdfView: FC<PdfViewProps> = ({
                 fontSize: "12px",
                 fontWeight: "bold",
                 color: "white",
-                // marginLeft: "25",
               }}
             ></Text>
           )}
@@ -485,7 +456,6 @@ const PdfView: FC<PdfViewProps> = ({
               marginLeft: "20px",
               fontSize: "12px",
               fontWeight: "bold",
-              // color: "white",
               color: isNearWhite(bgColor)
                 ? palette.base.black
                 : palette.base.white,
@@ -502,7 +472,7 @@ const PdfView: FC<PdfViewProps> = ({
             {data.name == "" ? null : (
               <>
                 <View
-                  wrap={false} // Prevents splitting the View across pages
+                  wrap={false}
                   key={data.id}
                   style={{
                     marginLeft: "10px",
@@ -510,16 +480,13 @@ const PdfView: FC<PdfViewProps> = ({
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
-
                     padding: "8px 10px",
-                    // gap: 3,
                   }}
                 >
                   <View
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      // alignItems: "center",
                     }}
                   >
                     <View>
@@ -534,16 +501,6 @@ const PdfView: FC<PdfViewProps> = ({
                       >
                         {data.name}
                       </Text>
-                      {/* <Text
-                      style={{
-                        fontSize: "12px",
-                        marginTop: "4px",
-                        color: "#4B5565",
-                        width: "170px",
-                      }}
-                    >
-                      {data.description}
-                    </Text> */}
                     </View>
                     <Text
                       style={{
@@ -616,7 +573,6 @@ const PdfView: FC<PdfViewProps> = ({
                       fontSize: "12px",
                       marginTop: "8px",
                       color: "#4B5565",
-                      // width: "170px",
                     }}
                   >
                     {data.description}
@@ -640,7 +596,15 @@ const PdfView: FC<PdfViewProps> = ({
           <Text
             style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
           >
-            <Text style={{ fontSize: "10px", color: "#000" }}>
+            <Text
+              style={{
+                fontSize: "10px",
+                color: "#000",
+                margin: "0px",
+                padding: "0px",
+                marginLeft: "-10px",
+              }}
+            >
               {" "}
               Terms & Conditions:{" "}
             </Text>{" "}
@@ -649,7 +613,7 @@ const PdfView: FC<PdfViewProps> = ({
         )}
         {/* section 5 : summary, terms */}
         <View
-          wrap={false} // Prevents splitting the View across pages
+          wrap={false}
           style={{
             marginTop: "32px",
             padding: "1px 10px",
@@ -677,24 +641,7 @@ const PdfView: FC<PdfViewProps> = ({
                 justifyContent: "space-between",
                 gap: 6,
               }}
-            >
-              {/* <Text style={{ fontSize: "12px" }}>Terms & Conditions</Text>
-              <Text
-                style={{
-                  fontSize: "10px",
-                  color: "#444444",
-                  lineHeight: 1.4,
-                  textAlign: "justify",
-                }}
-              >
-                Our services are free and available globally, as long as you
-                follow the law and respect others rights. We may terminate your
-                access for violations. Any content you create is yours, but you
-                give us permission to use it to improve our services. Texas law
-                governs these Terms, and any changes will be posted on our
-                website.
-              </Text> */}
-            </View>
+            ></View>
           </View>
           {/* summary */}
           <View
@@ -711,7 +658,7 @@ const PdfView: FC<PdfViewProps> = ({
             <View
               style={{
                 height: "32px",
-                backgroundColor: bgColor,
+                backgroundColor: bgColor === "#fffff" ? "white" : bgColor,
                 borderRadius: "2px",
                 borderBottomLeftRadius: "0px",
                 borderBottomRightRadius: "0px",
@@ -730,7 +677,6 @@ const PdfView: FC<PdfViewProps> = ({
                   fontSize: "12px",
                   marginLeft: "65px",
                   fontWeight: 600,
-                  // color: "white",
                   color: isNearWhite(bgColor)
                     ? palette.base.black
                     : palette.base.white,
@@ -748,8 +694,8 @@ const PdfView: FC<PdfViewProps> = ({
                 justifyContent: "space-between",
                 borderBottom: "1px solid #E3E8EF",
                 alignItems: "center",
-                margin: "0px !important",
-                padding: "0px !important",
+                margin: "0px",
+                padding: "0px",
                 paddingLeft: "16px",
                 paddingRight: "16px",
               }}
@@ -776,8 +722,8 @@ const PdfView: FC<PdfViewProps> = ({
                   height: "44px",
                   borderBottom: "1px solid #E3E8EF",
                   alignItems: "center",
-                  margin: "0px !important",
-                  padding: "0px !important",
+                  margin: "0px",
+                  padding: "0px",
                   paddingLeft: "16px",
                   paddingRight: "16px",
                 }}
@@ -797,8 +743,8 @@ const PdfView: FC<PdfViewProps> = ({
                 justifyContent: "space-between",
                 height: "44px",
                 alignItems: "center",
-                margin: "0px !important",
-                padding: "0px !important",
+                margin: "0px",
+                padding: "0px ",
                 paddingLeft: "16px",
                 paddingRight: "16px",
               }}
@@ -823,87 +769,37 @@ const PdfView: FC<PdfViewProps> = ({
 
         <View
           style={{
-            // marginLeft: "40px",
-            // marginRight: "40px",
             marginTop: "1px",
             left: 0,
             right: 0,
-            // padding: "10px",
-            // borderTop: "1px solid #E0E0E0",
             position: "absolute",
-            bottom: "0px !important",
+            bottom: "0px",
             paddingBottom: "30px",
           }}
           fixed
         >
-          {/* <View
-            style={{
-              height: "30px",
-              marginLeft: "0px",
-              marginRight: "0px",
-              backgroundColor: bgColor,
-              display: "flex",
-              flexDirection: "row",
-              padding: "5px 10px",
-              alignItems: "center",
-            }}
-          >
-            <View
-              style={{
-                marginLeft: "50px",
-                width: 90,
-                height: 13,
-                position: "absolute",
-              }}
-            >
-              <Image src={"/Images/logos/white-logo.png"} />
-            </View>
-          </View> */}
           <View
             style={{
               marginLeft: "0px",
               marginRight: "0px",
-              // backgroundColor: "#E4E4E7",
               display: "flex",
               flexDirection: "row",
 
               alignItems: "center",
             }}
           >
-            {/* <Text
-              style={{
-                fontSize: "9px",
-                color: "#5E5E62",
-                margin: "0px 0px 0px 50px",
-                fontWeight: "bold",
-              }}
-            >
-              Contact: +1 480 920 1123
-            </Text> */}
-
             <Text
               style={{
                 width: "100%",
                 fontSize: "12px",
                 color: "#4B5565",
                 textAlign: "center",
-                // margin: "0px 0px 0px 240px",
                 fontWeight: "bold",
               }}
             >
               Powered by ZeeInvoices
             </Text>
           </View>
-          {/* <Text
-            style={{
-              fontSize: "9px",
-              color: "#5E5E62",
-              margin: "0px auto",
-              fontWeight: "bold",
-            }}
-          >
-            © Copyrights 2024, All rights Reserved by ZeeInvoices
-          </Text> */}
         </View>
       </Page>
     </Document>
