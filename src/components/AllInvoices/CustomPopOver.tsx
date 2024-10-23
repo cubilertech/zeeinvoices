@@ -80,22 +80,6 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     );
   };
 
-  // Side effect to manage body overflow
-  useEffect(() => {
-    if (isPopoverOpen) {
-      isPopoverOpen(Boolean(anchorEl));
-    }
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    // Cleanup to reset body overflow on component unmount
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open, anchorEl, isPopoverOpen]);
 
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;

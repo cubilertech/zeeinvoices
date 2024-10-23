@@ -396,11 +396,7 @@ export default function AllInvoices() {
                                       cursor: "pointer",
                                       borderColor: palette.color.gray[200],
                                     }}
-                                    onClick={() => {
-                                      if (!isPopover) {
-                                        handleViewInvoice(row?.id);
-                                      }
-                                    }}
+                                
                                   >
                                     <TableCell
                                       component="th"
@@ -410,6 +406,11 @@ export default function AllInvoices() {
                                       className="tableCell"
                                       align="left"
                                       sx={{ py: "8px", px: "16px" }}
+                                      onClick={() => {
+                                        if (!isPopover) {
+                                          handleViewInvoice(row?.id);
+                                        }
+                                      }}
                                     >
                                       <Typography
                                         variant="text-sm-medium"
@@ -433,6 +434,11 @@ export default function AllInvoices() {
                                       align="left"
                                       className="tableCell"
                                       sx={{ py: "8px", px: "16px" }}
+                                      onClick={() => {
+                                        if (!isPopover) {
+                                          handleViewInvoice(row?.id);
+                                        }
+                                      }}
                                     >
                                       <Stack
                                         direction={"row"}
@@ -481,6 +487,11 @@ export default function AllInvoices() {
                                       align="left"
                                       className="tableCell"
                                       sx={{ py: "8px", px: "16px" }}
+                                      onClick={() => {
+                                        if (!isPopover) {
+                                          handleViewInvoice(row?.id);
+                                        }
+                                      }}
                                     >
                                       <Typography
                                         variant="text-sm-medium"
@@ -505,6 +516,11 @@ export default function AllInvoices() {
                                       align="left"
                                       className="tableCell"
                                       sx={{ py: "8px", px: "16px" }}
+                                      onClick={() => {
+                                        if (!isPopover) {
+                                          handleViewInvoice(row?.id);
+                                        }
+                                      }}
                                     >
                                       <Typography
                                         variant="text-sm-regular"
@@ -528,6 +544,11 @@ export default function AllInvoices() {
                                       align="left"
                                       className="tableCell"
                                       sx={{ py: "8px", px: "16px" }}
+                                      onClick={() => {
+                                        if (!isPopover) {
+                                          handleViewInvoice(row?.id);
+                                        }
+                                      }}
                                     >
                                       <Typography
                                         variant="text-sm-medium"
