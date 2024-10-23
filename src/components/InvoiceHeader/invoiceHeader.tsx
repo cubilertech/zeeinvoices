@@ -110,7 +110,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   const {
     mutateAsync: updateInvoice,
-    isLoading: updatLoading,
+    isLoading: updateLoading,
     isSuccess: updateSuccess,
   } = useEditDocument();
   const invoiceData = useMemo(() => {
@@ -349,7 +349,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     } else if (!session) {
       setLoginModel(true);
     } else if (!isInvoiceTypeError && !isSenderError && !isRecipientError) {
-
       const formData = new FormData();
       if (invoiceData.logo) {
         const imageFile = base64ToFile(invoiceData.logo, "uploaded_image.png");
@@ -468,21 +467,20 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
     // Open the blob URL in a new tab
     window.open(blobUrl, "_blank");
-
   };
 
   useEffect(() => {
     if (session?.accessToken && type == "add") {
       refetchInvoiceId();
     }
-  }, [session?.accessToken,refetchInvoiceId,type]);
+  }, [session?.accessToken, refetchInvoiceId, type]);
 
   useEffect(() => {
     if (session?.accessToken && generatedInvoiceId?.length) {
       UpdateInvoiceId(generatedInvoiceId);
       dispatch(setInvoiceId(generatedInvoiceId));
     }
-  }, [generatedInvoiceId, session?.accessToken,dispatch]);
+  }, [generatedInvoiceId, session?.accessToken, dispatch]);
 
   useEffect(() => {
     if (!isEditInvoiceId) {
@@ -576,7 +574,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                         },
                       },
                     }}
-                    value={session?.accessToken ? InvoiceId : invIdNoSession}                 
+                    value={session?.accessToken ? InvoiceId : invIdNoSession}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       const value = e.target.value;
                       // Regular expression to allow only numbers and alphabets
@@ -702,6 +700,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             // sx={{
             //   opacity: !validateButton ? 0.5 : 1,
             // }}
+            disabled={createInvoiceLoading || updateLoading}
             onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
           >
             <Icon icon="pdfPriviewIcon" width={19} height={19} />
@@ -758,11 +757,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             // mt: 2
           }}
           variant="outlined"
-          onClick={
-            type === "add" ? handleCreateInvoice : handleUpdateInvoice
-          }
+          disabled={createInvoiceLoading || updateLoading}
+          onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
         >
-          {createInvoiceLoading || updatLoading ? (
+          {createInvoiceLoading || updateLoading ? (
             <CircularProgress size={24} sx={{ color: "#8477DA" }} />
           ) : type === "add" ? (
             "Save"
@@ -796,7 +794,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             }}
           >
             Preview
-          </Button>         
+          </Button>
         </Box>
         {validateButton ? (
           session ? (
