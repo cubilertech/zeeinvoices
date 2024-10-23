@@ -73,10 +73,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const [invIdNoSession, setInvIdNoSession] = useState("001");
   const dispatch = useDispatch();
   const router = useRouter();
-  const componentRef = useRef();
-  const showPreview =
-    InvDetails.from?.name !== "" && InvDetails.to?.name !== "" ? false : true;
-
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
@@ -718,9 +714,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           }}
         >
           <ButtonBase
-            disabled={showPreview}
+            disabled={validateButton}
             sx={{
-              opacity: showPreview ? 0.5 : 1,
+              opacity: validateButton ? 0.5 : 1,
             }}
             onClick={() =>
               type === "add"
@@ -732,6 +728,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           </ButtonBase>
 
           <ButtonBase
+            //  disabled={!validateButton}
             onClick={type === "add" ? handleCreateInvoice : handleUpdateInvoice}
           >
             <Icon icon="pdfPriviewIcon" width={19} height={19} />
@@ -830,12 +827,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             // }
 
             onClick={() => {
-              if (type === "add") {
+              // if (type === "add") {
                 // window.open("/preview", "_blank");
                 PDFPreview();
-              } else {
-                window.open(`/preview/${invoiceData.id}`, "_blank"); // Open `/preview/{invoiceData.id}` in a new tab
-              }
+              // } else {
+              //   window.open(`/preview/${invoiceData.id}`, "_blank"); // Open `/preview/{invoiceData.id}` in a new tab
+              // }
             }}
           >
             Preview

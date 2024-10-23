@@ -46,6 +46,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Ads Tracking Code */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-11380785487"
+        />
+        <Script id="google-ads">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-11380785487');
+          `}
+        </Script>
+      </head>
       <body className={inter.className}>
         <SessionProviders>
           <MuiThemeProvider>
@@ -71,16 +86,16 @@ export default function RootLayout({
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          "name": "ZeeInvoices",
-          "address": {
+          name: "ZeeInvoices",
+          address: {
             "@type": "PostalAddress",
-            "streetAddress": "144/2, Block B, Bankers Society",
-            "addressLocality": "Lahore",
-            "addressRegion": "Lahore",
-            "postalCode": "12345"
+            streetAddress: "144/2, Block B, Bankers Society",
+            addressLocality: "Lahore",
+            addressRegion: "Lahore",
+            postalCode: "12345",
           },
-          "telephone": "+92-3008542811",
-          "openingHours": "Mo-Fr 10:00-19:00"
+          telephone: "+92-3008542811",
+          openingHours: "Mo-Fr 10:00-19:00",
         })}
       </Script>
     </html>
