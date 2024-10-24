@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
     height: 25,
   },
   image: {
-    width: "100px", 
-    height: "50px", 
-    objectFit: "contain", 
+    width: "100px",
+    height: "50px",
+    objectFit: "contain",
   },
   watermark: {
     position: "absolute",
@@ -591,25 +591,6 @@ const PdfView: FC<PdfViewProps> = ({
           </>
         ))}
 
-        {invDetails?.addtionalNotes && (
-          <Text
-            style={{ fontSize: "10px", color: "#444444", padding: "5px 15px" }}
-          >
-            <Text
-              style={{
-                fontSize: "10px",
-                color: "#000",
-                margin: "0px",
-                padding: "0px",
-                marginLeft: "-10px",
-              }}
-            >
-              {" "}
-              Terms & Conditions:{" "}
-            </Text>{" "}
-            {invDetails?.addtionalNotes}
-          </Text>
-        )}
         {/* section 5 : summary, terms */}
         <View
           wrap={false}
@@ -764,6 +745,33 @@ const PdfView: FC<PdfViewProps> = ({
             </View>
           </View>
         </View>
+
+        {invDetails?.addtionalNotes && (
+          <View style={{ padding: "5px 15px", marginTop: "10px" }}>
+            <Text
+              style={{
+                fontSize: "14px",
+                color: "#000",
+                margin: "0px",
+                padding: "0px",
+              }}
+            >
+              Terms & Conditions:
+            </Text>
+
+            <Text
+              style={{
+                fontSize: "12px",
+                color: "#444444",
+                margin: "0px",
+                padding: "0px",
+                marginTop: "5px",
+              }}
+            >
+              {invDetails?.addtionalNotes}
+            </Text>
+          </View>
+        )}
         {/* secion 6 : footer */}
 
         <View
