@@ -34,6 +34,7 @@ function capitalizeFirstLetter(title?: string) {
 interface DeleteModal {
   onDelete?: () => void;
   onClose: () => void;
+  deleteLoading?: boolean;
   open: boolean;
   invoiceDelete: any;
   title?: string;
@@ -41,6 +42,7 @@ interface DeleteModal {
 const DeleteModal: FC<DeleteModal> = ({
   onDelete,
   onClose,
+  deleteLoading,
   open,
   invoiceDelete,
   title,
@@ -118,6 +120,7 @@ const DeleteModal: FC<DeleteModal> = ({
                     },
                   }}
                   onClick={invoiceDelete}
+                  disabled={deleteLoading}
                 >
                   Delete
                 </Button>

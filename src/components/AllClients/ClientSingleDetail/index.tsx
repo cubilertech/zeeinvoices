@@ -33,22 +33,18 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
   const [clientModel, setClientModel] = React.useState(false);
   const { data: session } = useSession();
   //Edit Client
-  const {
-    data: singleClient,
-    refetch: singleFetch,
-  } = useFetchSingleDocument(`${backendURL}/clients/${id}`);
+  const { data: singleClient, refetch: singleFetch } = useFetchSingleDocument(
+    `${backendURL}/clients/${id}`
+  );
 
   useEffect(() => {
     if (session?.accessToken) singleFetch();
   }, [singleFetch, session?.accessToken]);
 
   // Update Client
-  const {
-    mutateAsync: updateClient,
-  } = useEditDocument(false);
-  const {
-    mutateAsync: deleteClient,
-  } = useDeleteDocument();
+  const { mutateAsync: updateClient } = useEditDocument(false);
+  const { mutateAsync: deleteClient, isLoading: deleteClientLoading } =
+    useDeleteDocument();
   const handleSubmitForm = (values: any) => {
     const data = {
       name: values.name,
@@ -261,6 +257,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
       <DeleteModal
         open={isModalOpen}
         onClose={handleDeleteModalClose}
+        deleteLoading={deleteClientLoading}
         invoiceDelete={clientDelete}
         title="recipient"
       />

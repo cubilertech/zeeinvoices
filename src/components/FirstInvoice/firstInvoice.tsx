@@ -23,10 +23,11 @@ const FirstInvoice: FC = () => {
       <Container
         className="mainContainer"
         sx={{
-          height: { sm: "712px", xs: "auto" },
-          width: "100%",
+          height: { sm: "auto", xs: "auto" },
+          width: { sm: "560px", xs: "auto" },
           my: "40px",
-          py: { sm: "3%", xs: "0%" },
+          px: "40px !important",
+          py: { sm: "4.5%", xs: "0%" },
           justifyContent: "center",
           alignItems: "center",
           display: "flex",

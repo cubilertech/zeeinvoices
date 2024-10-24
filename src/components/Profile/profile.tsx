@@ -43,13 +43,13 @@ const validationSchema = Yup.object({
   city: Yup.string()
     .matches(alphaRegex, "Invalid City")
     .min(3, "City must be at least 3 characters long")
-    .max(20, "City must be at most 20 characters long")
-    .required("City is required"),
+    .max(20, "City must be at most 20 characters long"),
+  // .required("City is required"),
   state: Yup.string()
     .matches(alphaRegex, "Invalid State")
     .min(2, "State must be at least 2 characters long")
-    .max(20, "State must be at most 20 characters long")
-    .required("State is required"),
+    .max(20, "State must be at most 20 characters long"),
+  // .required("State is required"),
   address: Yup.string()
     .matches(alphaRegex, "Invalid Address")
     .min(5, "Address must be at least 5 characters long")

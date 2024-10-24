@@ -464,6 +464,7 @@ export default function ClientInvoices() {
           open={isModalOpen}
           onDelete={handleDelete}
           onClose={handleDeleteModalClose}
+          deleteLoading={deleteInvoiceLoading}
           invoiceDelete={invoiceDelete}
           title="invoice"
         />

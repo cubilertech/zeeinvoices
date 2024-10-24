@@ -124,7 +124,7 @@ export const useDeleteDocument = () => {
       }
     } catch (error: any) {
       toast.error(error.response.data.message);
-      throw new Error(`${error.response?.data?.message}`);
+      // throw new Error(`${error.response?.data?.message}`);
     }
   };
 

@@ -648,6 +648,7 @@ export default function AllClients() {
             <DeleteModal
               open={isModalOpen}
               onClose={handleDeleteModalClose}
+              deleteLoading={deleteClientLoading}
               invoiceDelete={clientDelete}
               title="recipient"
             />

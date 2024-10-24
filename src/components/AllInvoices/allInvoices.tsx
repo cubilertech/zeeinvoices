@@ -726,6 +726,7 @@ export default function AllInvoices() {
               <Box sx={{ height: 40 }}></Box>
               <DeleteModal
                 open={isModalOpen}
+                deleteLoading={deleteInvoiceLoading}
                 onDelete={handleDelete}
                 onClose={handleDeleteModalClose}
                 invoiceDelete={invoiceDelete}
