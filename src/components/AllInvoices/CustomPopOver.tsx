@@ -122,7 +122,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           direction={"column"}
           sx={{ display: "flex", alignItems: "start" }}
         >
-          <Button
+          {/* <Button
             onClick={() => {
               setAnchorEl(null);
               handleViewInvoice(record?.id);
@@ -143,7 +143,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             }}
           >
             View
-          </Button>
+          </Button> */}
           <Button
             onClick={() => {
               setAnchorEl(null);

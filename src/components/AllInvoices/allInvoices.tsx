@@ -52,6 +52,8 @@ import {
 } from "@/redux/features/invoiceSlice";
 import "@/Styles/sectionStyle.css";
 import { Icon } from "../Icon";
+import { pdf } from "@react-pdf/renderer";
+import PdfView from "@/appPages/PdfView/pdfView";
 
 interface Data {
   id: number;
@@ -125,7 +127,6 @@ export default function AllInvoices() {
     }, 800);
   };
 
-
   const filteredData = React.useMemo(() => {
     if (invoiceList && invoiceList?.invoices?.length) {
       return invoiceList?.invoices;
@@ -141,12 +142,7 @@ export default function AllInvoices() {
       setPage(1);
       setIsModalOpen(false);
     }
-  }, [
-    refetchInvoiceList,
-    deleteSuccess,
-    page,
-    session?.accessToken,
-  ]);
+  }, [refetchInvoiceList, deleteSuccess, page, session?.accessToken]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -170,6 +166,71 @@ export default function AllInvoices() {
   };
   const handleViewInvoice = (id: number) => {
     route.push(`/invoices/${id}`);
+  };
+
+  const PDFPreview = async (record: any) => {
+    const details = {
+      id: record?.id,
+      logo: record?.image,
+      invoiceType: record?.type,
+      from: {
+        ...record?.fromDetails,
+        phoneNumber: record?.fromDetails?.phone_number,
+        companyName: record?.fromDetails?.company_name,
+      },
+      to: {
+        ...record?.toDetails,
+        phoneNumber: record?.toDetails?.phone_number,
+        companyName: record?.toDetails?.company_name,
+      },
+      invoiceDate: record?.invoiceDate,
+      dueDate: record?.dueDate,
+      addtionalNotes: record?.notes,
+      invoiceItem: record?.items,
+    };
+
+    const settings = {
+      colors: record?.settings.colors,
+      color: record?.settings?.color,
+      currency: record?.settings?.currency,
+      dueDate: record?.settings?.dueDate,
+      tax: record?.settings?.tax,
+      terms: record?.settings?.terms,
+      detail: record?.settings?.detail,
+    };
+
+    const itemDetail = details?.invoiceItem;
+    const totalAmount = calculateAmount(record?.items);
+    const totalTax = calculateTax(record?.items);
+
+    const summary = {
+      total: totalAmount,
+      taxAmount: totalTax,
+    };
+
+    if (summary && settings && details && itemDetail) {
+      console.log(settings, details, itemDetail, summary, "summary");
+      const doc = (
+        <PdfView
+          invSetting={{ ...settings }}
+          invDetails={{ ...details }}
+          Summary={summary}
+          user={session?.user}
+          itemDetail={itemDetail}
+        />
+      );
+
+      // Generate the PDF as a blob
+      const blobPdf = await pdf(doc);
+      blobPdf.updateContainer(doc);
+      const result = await blobPdf.toBlob();
+
+      // Create a blob URL from the generated PDF blob
+      const blobUrl = URL.createObjectURL(result);
+
+      // Open the blob URL in a new tab
+      window.open(blobUrl, "_blank");
+    }
   };
 
   //Edit Invoice
@@ -396,7 +457,6 @@ export default function AllInvoices() {
                                       cursor: "pointer",
                                       borderColor: palette.color.gray[200],
                                     }}
-                                
                                   >
                                     <TableCell
                                       component="th"
@@ -408,7 +468,9 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          // handleRowClick(row);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -436,7 +498,8 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -489,7 +552,8 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -518,7 +582,8 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -546,7 +611,8 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
