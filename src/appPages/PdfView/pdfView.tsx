@@ -377,7 +377,7 @@ const PdfView: FC<PdfViewProps> = ({
         <View
           style={{
             height: "30px",
-            marginTop: "0px",
+            marginTop: "10px",
             marginLeft: "10px",
             marginRight: "10px",
             backgroundColor: bgColor === "#fffff" ? "white" : bgColor,
