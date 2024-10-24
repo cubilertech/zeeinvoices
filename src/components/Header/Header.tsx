@@ -31,6 +31,7 @@ import { getCountValue } from "@/redux/features/counterSlice";
 import { usePathname } from "next/navigation";
 import { BorderRight, Menu as MenuIcon } from "@mui/icons-material";
 import "@/Styles/sectionStyle.css";
+import { ProfilePopover } from "../ProfilePopover";
 
 const Header = () => {
   const pathname = usePathname();
@@ -560,7 +561,10 @@ const Header = () => {
           ) : (
             <Stack
               direction={"row"}
+              sx={{ cursor: "pointer", position: "relative" }}
               gap={2}
+              onMouseEnter={handleClick}
+              onMouseLeave={handleClose}
             >
               <Typography
                 sx={{ color: "black", alignSelf: "center", fontWeight: 500 }}
@@ -568,12 +572,7 @@ const Header = () => {
                 Hi, {profileData?.name}
               </Typography>
               <Box>
-                <Stack
-                  direction={"row"}
-                  gap={1}
-                  sx={{ cursor: "pointer" }}
-                  onClick={handleClick}
-                >
+                <Stack direction={"row"} gap={1} onClick={handleClick}>
                   {profileData?.image ? (
                     <Avatar
                       sx={{ width: "40px", height: "40px" }}
@@ -587,142 +586,13 @@ const Header = () => {
                     />
                   )}
                   <Icon icon="arrowDownIcon" width={15} height={15} />
+                  <ProfilePopover
+                    isOpen={open}
+                    profileData={profileData}
+                    handleOpenProfile={handleProfile}
+                    handleLogout={handleLogoutButton}
+                  />
                 </Stack>
-                <Popover
-                  id={id}
-                  open={open}
-                  anchorEl={anchorEl}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  sx={{
-                    "& .MuiPopover-paper": {
-                      borderRadius: "8px",
-                    },
-                  }}
-                >
-                  <Stack
-                    direction={"column"}
-                    sx={{
-                      justifyContent: "left",
-                      border: `1px solid #EAECF0`,
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <Stack
-                      direction={"row"}
-                      gap={1.5}
-                      sx={{ py: "12px", px: "16px" }}
-                    >
-                      {profileData?.image ? (
-                        <Avatar
-                          sx={{ width: "40px", height: "40px" }}
-                          alt="Avatar"
-                          src={imageConvertion(profileData?.image)}
-                        />
-                      ) : (
-                        <Avatar
-                          sx={{ width: "40px", height: "40px" }}
-                          alt="Bvatar"
-                        />
-                      )}
-                      <Stack direction={"column"}>
-                        {" "}
-                        <Typography
-                          sx={{
-                            maxWidth: "225px",
-                            maxHeight: "20px",
-                            overflow: "hidden",
-                            color: palette.color.gray[900],
-                            fontSize: {
-                              md: "14px !important",
-                              xs: "14px !important",
-                            },
-                            lineHeight: {
-                              md: "20px !important",
-                              xs: "20px !important",
-                            },
-                            fontWeight: {
-                              sm: "600 !important",
-                              xs: "600 !important",
-                            },
-                          }}
-                        >
-                          {profileData?.name}
-                        </Typography>
-                        <Typography
-                          sx={{
-                            color: palette.color.gray[610],
-                            fontSize: {
-                              md: "12px !important",
-                              xs: "12px !important",
-                            },
-                            lineHeight: {
-                              md: "18px !important",
-                              xs: "18px !important",
-                            },
-                            fontWeight: {
-                              sm: "400 !important",
-                              xs: "400 !important",
-                            },
-                          }}
-                        >
-                          {profileData?.email}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                    <hr />
-                    <Button
-                      variant="outlined"
-                      onClick={handleProfile}
-                      startIcon={
-                        <Icon icon="profileIcon" width={16} height={16} />
-                      }
-                      sx={{
-                        height: "40px",
-                        justifyContent: "left",
-                        border: "none",
-                        color: "#4B5563",
-                        "&:hover": {
-                          border: "none",
-                          color: "#4B5563",
-                          backgroundColor: palette.color.gray[10],
-                          borderRadius: 0,
-                        },
-                      }}
-                    >
-                      Profile
-                    </Button>
-                    <hr />
-                    <Button
-                      variant="outlined"
-                      onClick={handleLogoutButton}
-                      startIcon={
-                        <Icon icon="logoutIcon" width={16} height={16} />
-                      }
-                      sx={{
-                        height: "40px",
-                        justifyContent: "left",
-                        border: "none",
-                        color: "#4B5563",
-                        "&:hover": {
-                          border: "none",
-                          color: "#4B5563",
-                          backgroundColor: palette.color.gray[10],
-                          borderRadius: 0,
-                        },
-                      }}
-                    >
-                      Logout
-                    </Button>
-                  </Stack>
-                </Popover>
               </Box>
             </Stack>
           )}

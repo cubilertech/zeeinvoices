@@ -62,13 +62,10 @@ const gray = {
   3: "#EDECEF",
 };
 
-
 const color = {
   lightWhite: "#fafafa",
   eggWhite: "#E6E6E6",
 };
-
-
 
 const base = {
   white: "#FFFFFF",
@@ -93,7 +90,6 @@ const borderColor = {
   outlinedBtnBorderColor: "#D6D8DC",
   borderPrimary: "#D0D5DD",
 };
-
 
 const textColor = {
   primary: "#697483",
@@ -128,6 +124,7 @@ export const palette = {
   },
   boxShadows: {
     shadowxs: "0px 1px 2px 0px #1018280D",
+    shadowlg: "0px 12px 16px -2px #10182808",
     100: "rgba(0, 0, 0, 0.25) 0px 0px 4px 0px",
     200: "0px 1px 3px 0px rgba(16, 24, 40, 0.1)",
     300: "rgba(205, 205, 205, 0.16) 0px 54.48px 64.09px 0px",
