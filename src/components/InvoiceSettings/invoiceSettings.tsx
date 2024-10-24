@@ -142,7 +142,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
             color: palette.color.gray[610],
           }}
         >
-          Color
+          Colors
         </Typography>
         <Box
           sx={{

@@ -15,8 +15,8 @@ const Color: FC<Color> = ({ color, isSelected, onClick }) => {
       borderRadius={1}
       sx={{
         cursor: "pointer",
-        height: "32px",
-        width: "32px",
+        height: { sm: "32px", xs: "32px" },
+        width: { sm: "32px", xs: "32px" },
         backgroundColor: color,
         borderRadius: "3px",
         position: "relative",

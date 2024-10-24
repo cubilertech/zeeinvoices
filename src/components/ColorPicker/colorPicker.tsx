@@ -14,15 +14,20 @@ const ColorPicker: FC<ColorPicker> = ({
   InvSetting,
 }) => {
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={{ sm: 1.5, xs: 0.5 }}>
       {colors?.map((color) => (
-        <Grid item xs={1.5} key={color.id} sx={{ position: "relative" }}>
+        <Grid
+          item
+          sm={1.5}
+          xs={1.5}
+          key={color.id}
+          sx={{ position: "relative" }}
+        >
           <Color
             color={color.color}
             isSelected={InvSetting.color}
             onClick={() => onSelectColor(color.id)}
           />
-
         </Grid>
       ))}
     </Grid>
