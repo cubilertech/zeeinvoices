@@ -785,12 +785,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               },
             }}
             onClick={() => {
-              // if (type === "add") {
-              // window.open("/preview", "_blank");
               PDFPreview();
-              // } else {
-              //   window.open(`/preview/${invoiceData.id}`, "_blank"); // Open `/preview/{invoiceData.id}` in a new tab
-              // }
             }}
           >
             Preview

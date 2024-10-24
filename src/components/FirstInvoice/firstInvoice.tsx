@@ -7,6 +7,7 @@ import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 import { setResetInvoice } from "@/redux/features/invoiceSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import "@/Styles/sectionStyle.css";
 
 const FirstInvoice: FC = () => {
   const dispatch = useDispatch();
@@ -17,36 +18,30 @@ const FirstInvoice: FC = () => {
     route.push("/create-new-invoice");
   };
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        minHeight: {
-          xl: "90vh",
-          lg: "73vh",
-          md: "63vh",
-          sm: "53vh",
-          xs: "43vh",
-        },
-      }}
-    >
+    <Box>
+      <Box sx={{ height: "65px" }} />
       <Container
+        className="mainContainer"
         sx={{
-          width: "460px",
-          marginTop: "70px",
-          marginBottom: "9px",
-          py: { sm: "3%", xs: "7%" },
+          height: { sm: "712px", xs: "auto" },
+          width: "100%",
+          my: "40px",
+          py: { sm: "3%", xs: "0%" },
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
           borderRadius: "12px",
-          boxShadow: palette.boxShadows[100],
+          border: { sm: `1px solid ${palette.color.gray[200]}`, xs: `none` },
+          boxShadow: {
+            sm: palette.boxShadows.shadowxs,
+            xs: "none",
+          },
           backgroundColor: palette.base.white,
         }}
       >
         <Stack
           direction={"column"}
-          gap={3}
+          gap={4}
           sx={{
             backgroundColor: palette.base.white,
             justifyContent: "center",
@@ -55,11 +50,11 @@ const FirstInvoice: FC = () => {
         >
           <Box
             sx={{
-              width: { sm: "200px", xs: "122px" },
-              height: { sm: "200px", xs: "122px" },
+              width: { sm: "190px", xs: "140px" },
+              height: { sm: "190px", xs: "140px" },
             }}
           >
-            <Icon icon="firstInvoiceIcon" width={200} height={200} />
+            <Icon icon="firstInvoiceIcon" width={190} height={190} />
           </Box>
 
           <Stack
@@ -74,8 +69,9 @@ const FirstInvoice: FC = () => {
             <Typography
               variant="display-xs-semibold"
               sx={{
-                fontSize: { sm: "24px !important", xs: "18px !important" },
-                lineHeight: { sm: "40px", xs: "24px" },
+                textAlign: "center",
+                fontSize: { sm: "36px !important", xs: "20px !important" },
+                lineHeight: { sm: "43px", xs: "24px" },
                 fontWeight: { sm: 600 },
               }}
             >
@@ -86,9 +82,9 @@ const FirstInvoice: FC = () => {
               sx={{
                 color: palette.color.gray[770],
                 textAlign: "center",
-                fontSize: { sm: "14px !important", xs: "12px !important" },
-                lineHeight: { sm: "24px", xs: "15px" },
-                fontWeight: { sm: 400 },
+                fontSize: { sm: "20px !important", xs: "14px !important" },
+                lineHeight: { sm: "30px", xs: "18px" },
+                fontWeight: { sm: 500 },
               }}
             >
               No invoice to show, Please add an invoice to view.
@@ -96,11 +92,17 @@ const FirstInvoice: FC = () => {
           </Stack>
           <Button
             variant="contained"
+            startIcon={<Icon icon="plusIcon" width={13} />}
             sx={{
-              width: "210px",
+              // width: "210px",
               height: "40px",
-              py: { sm: "8px !important", xs: "5px !important" },
-              px: { sm: "24px !important", xs: "15px !important" },
+              borderRadius: "4px",
+              fontSize: "16px !important",
+              lineHeight: "24px !important",
+              fontWeight: "600 !important",
+              mt: { sm: "16px", xs: "0px" },
+              py: { sm: "12px !important", xs: "12px !important" },
+              px: { sm: "18px !important", xs: "18px !important" },
             }}
             onClick={handleCreate}
           >
