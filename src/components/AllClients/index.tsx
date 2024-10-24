@@ -168,7 +168,7 @@ export default function AllClients() {
   }, [clientList]);
 
   React.useEffect(() => {
-    if (session?.accessToken) refetchClientList();
+    refetchClientList();
     if (deleteSuccess) {
       setPage(1);
       setIsModalOpen(false);
@@ -215,7 +215,6 @@ export default function AllClients() {
     if (clientType === "add") {
       createClient({ apiRoute: `${backendURL}/clients/save`, data: data })
         .then((res) => {
-          console.log("Added");
           refetchClientList();
         })
         .catch((err) => {

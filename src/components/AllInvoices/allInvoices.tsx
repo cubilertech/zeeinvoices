@@ -125,7 +125,6 @@ export default function AllInvoices() {
     }, 800);
   };
 
-
   const filteredData = React.useMemo(() => {
     if (invoiceList && invoiceList?.invoices?.length) {
       return invoiceList?.invoices;
@@ -135,18 +134,13 @@ export default function AllInvoices() {
   }, [invoiceList]);
 
   React.useEffect(() => {
-    if (session?.accessToken) refetchInvoiceList();
+    refetchInvoiceList();
 
     if (deleteSuccess) {
       setPage(1);
       setIsModalOpen(false);
     }
-  }, [
-    refetchInvoiceList,
-    deleteSuccess,
-    page,
-    session?.accessToken,
-  ]);
+  }, [refetchInvoiceList, deleteSuccess, page, session?.accessToken]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -396,7 +390,6 @@ export default function AllInvoices() {
                                       cursor: "pointer",
                                       borderColor: palette.color.gray[200],
                                     }}
-                                
                                   >
                                     <TableCell
                                       component="th"
