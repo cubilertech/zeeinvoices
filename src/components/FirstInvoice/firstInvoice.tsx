@@ -70,6 +70,7 @@ const FirstInvoice: FC = () => {
             <Typography
               variant="display-xs-semibold"
               sx={{
+                color: palette.color.gray[900],
                 textAlign: "center",
                 fontSize: { sm: "36px !important", xs: "20px !important" },
                 lineHeight: { sm: "43px", xs: "24px" },
@@ -81,7 +82,7 @@ const FirstInvoice: FC = () => {
             <Typography
               variant="text-sm-regular"
               sx={{
-                color: palette.color.gray[770],
+                color: palette.color.gray[610],
                 textAlign: "center",
                 fontSize: { sm: "20px !important", xs: "14px !important" },
                 lineHeight: { sm: "30px", xs: "18px" },
