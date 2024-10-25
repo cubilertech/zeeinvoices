@@ -188,7 +188,6 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
               </Typography>
             )}
           </Box>
-       
         </Stack>
 
         {/* Second section Detail selecters */}
@@ -257,6 +256,10 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
                 "&::placeholder": {
                   color: "#767676",
                 },
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: palette.color.gray[610],
+                opacity: 1,
               },
               "& .MuiOutlinedInput-root": {
                 py: "10px !important",

@@ -25,6 +25,7 @@ import {
 import { RootState } from "@/redux/store";
 import { Close } from "@mui/icons-material";
 import { SelectInputWithSearch } from "../SelectInputWithSearch";
+import { Feedback } from "../Feedback";
 
 interface InvoiceSettings {
   InvSetting?: any;
@@ -96,7 +97,20 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   };
 
   return (
-    <Box
+    // <Box
+    //   borderRadius={"4px"}
+    //   sx={{
+    //     width: { sm: "411px", xs: "100%" },
+    //     height: { sm: "auto", xs: "100%" },
+    //     marginBottom: { sm: 0, xs: 0 },
+    //     backgroundColor: palette.base.white,
+    //     padding: "24px",
+    //     boxShadow: palette.boxShadows[100],
+    //   }}
+    // >
+    <Stack
+      direction={"column"}
+      justifyContent={"space-between"}
       borderRadius={"4px"}
       sx={{
         width: { sm: "411px", xs: "100%" },
@@ -230,7 +244,10 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
           <SwitchInput type="terms" lable="Terms & Conditions"></SwitchInput>
         </Box>
       </Stack>
-    </Box>
+
+      <Feedback title="Feedback" placeholder="Provide a valueable feedback" />
+    </Stack>
+    // </Box>
   );
 };
 
