@@ -80,6 +80,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     data: generatedInvoiceId,
     refetch: refetchInvoiceId,
     isFetching: isFetchingInvoiceId,
+    isFetched: isIdFetched,
   } = useFetchAllDocument(apiPathInvoiceId);
   const { data: session } = useSession();
   const validateButton =
@@ -640,7 +641,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                   variant="display-xs-semibold"
                   sx={{ height: "40px", lineHeight: "40px" }}
                 >
-                  {session?.accessToken ? InvoiceId : invIdNoSession}
+                  {session?.accessToken || !isIdFetched
+                    ? InvoiceId
+                    : invIdNoSession}
                 </Typography>
               )}
             </Box>
