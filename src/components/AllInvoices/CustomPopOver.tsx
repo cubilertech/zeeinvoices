@@ -11,7 +11,7 @@ import { pdf } from "@react-pdf/renderer";
 import { useSession } from "next-auth/react";
 
 interface CustomPopOverProps {
-  record: any; 
+  record: any;
   handleViewInvoice: (id: number) => void;
   handleOpenDeleteModal: (id: number) => void;
   handleEditInvoice: (id: number) => void;
@@ -43,6 +43,9 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const pdfFileName = InvDetails.to?.companyName
+    ? InvDetails.to?.companyName + "-" + InvDetails.id
+    : InvDetails.to?.name + "-" + InvDetails.id;
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -80,7 +83,6 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     );
   };
 
-
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;
     const doc = (
@@ -95,14 +97,14 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     const blobPdf = await pdf(doc);
     blobPdf.updateContainer(doc);
     const result = await blobPdf.toBlob();
-    saveAs(result, "ZeeInvoice");
+    saveAs(result, pdfFileName);
   };
   return (
     <>
       <IconButton
         onClick={(event) => {
-          event.stopPropagation(); 
-          handleClick(event); 
+          event.stopPropagation();
+          handleClick(event);
         }}
       >
         <Icon icon="threeDotsIcon" width={16} height={16} />
@@ -165,7 +167,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             }}
           >
             Edit
-          </Button>       
+          </Button>
           <Button
             variant="outlined"
             startIcon={<Icon icon="downloadIcon" />}
@@ -188,7 +190,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           >
             Download
           </Button>
-            <Button
+          <Button
             variant="outlined"
             startIcon={<Icon icon="deleteRedIcon" />}
             sx={{
