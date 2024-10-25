@@ -65,6 +65,7 @@ const Profile: FC<Profile> = ({}) => {
   const isModile = useMediaQuery("(max-width: 500px)");
   const counter = useSelector(getCountValue);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [isProfile, setIsProfile] = useState(true);
   const dispatch = useDispatch();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [isEdit, setIsEdit] = React.useState(false);
@@ -74,6 +75,7 @@ const Profile: FC<Profile> = ({}) => {
     data: profileData,
     refetch: fetchProfile,
     isFetching: fetchingProfile,
+    isFetched: isProfileFetched,
   } = useFetchSingleDocument(`${backendURL}/users/my-profile`);
   const {
     mutateAsync: profileUpdate,
@@ -83,6 +85,11 @@ const Profile: FC<Profile> = ({}) => {
   useEffect(() => {
     if (session?.accessToken) fetchProfile();
   }, [fetchProfile, session?.accessToken, counter]);
+  useEffect(() => {
+    if (isProfileFetched) {
+      setIsProfile(false);
+    }
+  }, [isProfileFetched]);
   // Image
   const [uploadImage, setUploadImage] = useState<any>(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -398,7 +405,7 @@ const Profile: FC<Profile> = ({}) => {
             <CircularProgress
               sx={{
                 position: "absolute",
-                display: fetchingProfile ? "flex" : "none",
+                display: fetchingProfile || isProfile ? "flex" : "none",
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -420,7 +427,7 @@ const Profile: FC<Profile> = ({}) => {
                   border: `1px solid ${palette.color.gray[5]}`,
                   boxShadow: palette.boxShadows.shadowxs,
                   borderRadius: "12px",
-                  opacity: fetchingProfile ? 0.2 : 1,
+                  opacity: fetchingProfile || isProfile ? 0.2 : 1,
                 }}
               >
                 <Stack
@@ -656,7 +663,7 @@ const Profile: FC<Profile> = ({}) => {
           ) : (
             <Box
               sx={{
-                opacity: fetchingProfile ? 0.2 : 1,
+                opacity: fetchingProfile || isProfile ? 0.2 : 1,
               }}
             >
               <UserProfileDetails profileData={profileData} />
