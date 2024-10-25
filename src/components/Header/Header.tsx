@@ -293,8 +293,8 @@ const Header = () => {
               {!session?.accessToken ? (
                 <Stack gap={1.5} mt={1}>
                   {pathname == "/" ||
-                  pathname == "/termsAndCondition" ||
-                  pathname == "/privacyPolicy" ||
+                  pathname == "/terms-and-condition" ||
+                  pathname == "/privacy-policy" ||
                   pathname == "/contact-us" ||
                   pathname == "/about-us" ? (
                     <Button
@@ -327,7 +327,7 @@ const Header = () => {
                   <Button
                     onClick={handleLoginButton}
                     variant={
-                      pathname == "/" || pathname == "/termsAndCondition"
+                      pathname == "/" || pathname == "/terms-and-condition"
                         ? "contained"
                         : "contained"
                     }
@@ -495,8 +495,8 @@ const Header = () => {
           {!session?.accessToken ? (
             <Stack direction={"row"} gap={2}>
               {pathname == "/" ||
-              pathname == "/termsAndCondition" ||
-              pathname == "/privacyPolicy" ||
+              pathname == "/terms-and-condition" ||
+              pathname == "/privacy-policy" ||
               pathname == "/contact-us" ||
               pathname == "/about-us" ? (
                 <Button
@@ -529,7 +529,7 @@ const Header = () => {
               <Button
                 onClick={handleLoginButton}
                 variant={
-                  pathname == "/" || pathname == "/termsAndCondition"
+                  pathname == "/" || pathname == "/terms-and-condition"
                     ? "contained"
                     : "contained"
                 }

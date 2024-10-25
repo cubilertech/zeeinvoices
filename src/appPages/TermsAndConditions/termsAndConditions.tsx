@@ -183,7 +183,6 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
       return nextIndex >= expandableTextData.length ? 0 : nextIndex;
     });
   };
-
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "/js/script.js";
@@ -244,6 +243,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                     },
                     fontWeight: 700,
                   }}
+                  component={'h1'}
                 >
                   Terms &{" "}
                   <span
@@ -285,6 +285,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                     },
                     fontWeight: 700,
                   }}
+                  component={'h2'}
                 >
                   Effective Date:{" "}
                   <Box
@@ -319,6 +320,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                     lineHeight: { md: "30px", xs: "20px" },
                     fontWeight: { md: 400 },
                   }}
+                  component={'h3'}
                 >
                   Welcome to ZeeInvoices! These Terms & Conditions
                   (&quot;Terms&quot;) govern your use of our website{" "}

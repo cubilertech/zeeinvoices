@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-const siteUrl = process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "https://staging.zeeinvoices.com"; // Fallback in case env is missing
+const siteUrl = "https://zeeinvoices.com";
  
 export default function robots(): MetadataRoute.Robots {
   return {

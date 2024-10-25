@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-const siteUrl = process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL || "https://staging.zeeinvoices.com"; // Fallback in case env is missing
+const siteUrl =  "https://zeeinvoices.com";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -8,6 +8,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteUrl}/about-us`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${siteUrl}/privacy-policy`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${siteUrl}/terms-and-condition`,
       lastModified: new Date(),
     },
   ]

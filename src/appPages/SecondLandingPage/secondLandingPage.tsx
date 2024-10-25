@@ -22,7 +22,6 @@ const SecondLandingPage = () => {
       document.body.removeChild(script);
     };
   }, []);
-
   return (
     <>
       <Head>
