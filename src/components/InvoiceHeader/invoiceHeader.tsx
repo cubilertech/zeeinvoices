@@ -76,6 +76,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
   const apiPathInvoiceId = `${backendURL}/invoices/last-record`;
+  const pdfFileName = InvDetails.to?.companyName
+    ? InvDetails.to?.companyName + "-" + InvDetails.id
+    : InvDetails.to?.name + "-" + InvDetails.id;
   const {
     data: generatedInvoiceId,
     refetch: refetchInvoiceId,
@@ -443,7 +446,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     blobPdf.updateContainer(doc);
     const result = await blobPdf.toBlob();
 
-    saveAs(result, "ZeeInvoice");
+    saveAs(result, pdfFileName);
   };
 
   const PDFPreview = async () => {
