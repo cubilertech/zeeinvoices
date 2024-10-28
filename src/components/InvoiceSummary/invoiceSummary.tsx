@@ -28,7 +28,7 @@ const InvoiceSummary: FC = () => {
       direction={"column"}
       sx={{
         borderRadius: "4px",
-        width: { sm: "240px", xs: "100%" },
+        minWidth: { sm: "240px", xs: "100%" },
         border: `1px solid ${palette.color.gray[200]}`,
       }}
     >
@@ -67,6 +67,7 @@ const InvoiceSummary: FC = () => {
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
+        gap={2}
         sx={{
           height: "54px",
           borderBottom: `1px solid ${palette.color.gray[200]}`,
@@ -106,6 +107,7 @@ const InvoiceSummary: FC = () => {
           <Stack
             direction={"row"}
             justifyContent={"space-between"}
+            gap={2}
             sx={{
               height: "54px",
               borderBottom: `1px solid ${palette.color.gray[200]}`,
@@ -148,6 +150,7 @@ const InvoiceSummary: FC = () => {
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
+        gap={2}
         sx={{ height: "54px", alignItems: "center", px: "16px" }}
       >
         <Typography
