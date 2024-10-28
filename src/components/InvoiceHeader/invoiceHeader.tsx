@@ -283,6 +283,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       InvDetails.invoiceItem.some(
         (item: any) =>
           !item.name ||
+          item.name.length > 40 ||
           item.rate == 0 ||
           item.rate === "" ||
           item.quantity == 0 ||
@@ -314,6 +315,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
           if (!item.name) {
             validationObj.name = { isError: true, message: "Name is required" };
+          } else if (item.name.length > 40) {
+            validationObj.name = {
+              isError: true,
+              message: "Item name must be 1 to 40 characters",
+            };
           } else {
             validationObj.name = { isError: false, message: "" };
           }

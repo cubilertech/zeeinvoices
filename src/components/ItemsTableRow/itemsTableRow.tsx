@@ -110,8 +110,18 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 opacity: 0.7,
               },
             }}
-            error={data.name === "" ? itemValidation?.name?.isError : false}
-            helperText={data.name === "" ? itemValidation?.name?.message : ""}
+            error={
+              data.name === ""
+                ? itemValidation?.name?.isError
+                : data.name.length > 40
+                ? itemValidation?.name?.isError
+                : false
+            }
+            helperText={
+              data.name === "" || data.name.length > 40
+                ? itemValidation?.name?.message
+                : ""
+            }
             id="outlined-basic"
             name="name"
             placeholder="Item name"
@@ -433,7 +443,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 7px",
                 whiteSpace: "nowrap", // Prevent line break
                 overflow: "hidden", // Hide vertical overflow
-                textOverflow: "ellipsis", // Add ellipsis if text overflows           
+                textOverflow: "ellipsis", // Add ellipsis if text overflows
                 cursor: "pointer",
                 textAlign: "end",
                 mr: showRemoveButton ? "" : "-23px",
