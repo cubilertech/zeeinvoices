@@ -698,11 +698,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             sx={{
               opacity: !validateButton ? 0.5 : 1,
             }}
-            onClick={() =>
-              type === "add"
-                ? router.push("/preview")
-                : router.push(`/invoices/${invoiceData.id}?type=edit`)
-            }
+            onClick={() => (type === "add" ? PDFPreview() : PDFPreview())}
           >
             <VisibilityOutlined sx={{ width: 19, height: 19 }} />
           </ButtonBase>
