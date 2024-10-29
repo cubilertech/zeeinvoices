@@ -103,6 +103,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const [downloadModel, setDownloadModel] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
+  const [isValidInvoice, setIsValidInvoice] = useState(true);
 
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
 
@@ -142,6 +143,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       InvDetails.invoiceItem.some(
         (item: any) =>
           !item.name ||
+          item.name.length > 40 ||
           item.rate == 0 ||
           item.rate === "" ||
           item.quantity == 0 ||
@@ -174,6 +176,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
           if (!item.name) {
             validationObj.name = { isError: true, message: "Name is required" };
+          } else if (item.name.length > 40) {
+            validationObj.name = {
+              isError: true,
+              message: "Item name must be 1 to 40 characters",
+            };
           } else {
             validationObj.name = { isError: false, message: "" };
           }
@@ -438,45 +445,49 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
 
   const generatePDFDocument = async () => {
-    const itemDetail = InvDetails?.invoiceItem;
-    const doc = (
-      <PdfView
-        invSetting={{ ...InvSetting }}
-        invDetails={{ ...InvDetails }}
-        Summary={summaryDetail}
-        user={session?.user}
-        itemDetail={itemDetail}
-      />
-    );
-    const blobPdf = await pdf(doc);
-    blobPdf.updateContainer(doc);
-    const result = await blobPdf.toBlob();
+    if (await validateInvoice()) {
+      const itemDetail = InvDetails?.invoiceItem;
+      const doc = (
+        <PdfView
+          invSetting={{ ...InvSetting }}
+          invDetails={{ ...InvDetails }}
+          Summary={summaryDetail}
+          user={session?.user}
+          itemDetail={itemDetail}
+        />
+      );
+      const blobPdf = await pdf(doc);
+      blobPdf.updateContainer(doc);
+      const result = await blobPdf.toBlob();
 
-    saveAs(result, pdfFileName);
+      saveAs(result, pdfFileName);
+    }
   };
 
   const PDFPreview = async () => {
-    const itemDetail = InvDetails?.invoiceItem;
-    const doc = (
-      <PdfView
-        invSetting={{ ...InvSetting }}
-        invDetails={{ ...InvDetails }}
-        Summary={summaryDetail}
-        user={session?.user}
-        itemDetail={itemDetail}
-      />
-    );
+    if (await validateInvoice()) {
+      const itemDetail = InvDetails?.invoiceItem;
+      const doc = (
+        <PdfView
+          invSetting={{ ...InvSetting }}
+          invDetails={{ ...InvDetails }}
+          Summary={summaryDetail}
+          user={session?.user}
+          itemDetail={itemDetail}
+        />
+      );
 
-    // Generate the PDF as a blob
-    const blobPdf = await pdf(doc);
-    blobPdf.updateContainer(doc);
-    const result = await blobPdf.toBlob();
+      // Generate the PDF as a blob
+      const blobPdf = await pdf(doc);
+      blobPdf.updateContainer(doc);
+      const result = await blobPdf.toBlob();
 
-    // Create a blob URL from the generated PDF blob
-    const blobUrl = URL.createObjectURL(result);
+      // Create a blob URL from the generated PDF blob
+      const blobUrl = URL.createObjectURL(result);
 
-    // Open the blob URL in a new tab
-    window.open(blobUrl, "_blank");
+      // Open the blob URL in a new tab
+      window.open(blobUrl, "_blank");
+    }
   };
 
   useEffect(() => {
@@ -501,6 +512,96 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const isLowerCase = [...InvoiceId].some(
     (char) => char !== char.toUpperCase()
   );
+
+  const validateInvoice = async () => {
+    if (
+      InvDetails?.invoiceType === "" ||
+      InvDetails.from?.name === "" ||
+      InvDetails.to?.name === "" ||
+      InvDetails.invoiceItem.some(
+        (item: any) =>
+          !item.name ||
+          item.name.length > 40 ||
+          item.rate == 0 ||
+          item.rate === "" ||
+          item.quantity == 0 ||
+          item.quantity === ""
+      )
+    ) {
+      setIsValidInvoice(false);
+      // Dispatch relevant error actions for invoiceType, sender, and recipient
+      if (InvDetails?.invoiceType === "") {
+        await dispatch(setInvoiceTypeError(true));
+      }
+      if (InvDetails.from?.name === "") {
+        await dispatch(setSenderDetailsError(true));
+      }
+      if (InvDetails.to?.name === "") {
+        await dispatch(setRecipientDetailsError(true));
+      }
+
+      // Invoice item validation
+      if (InvDetails.invoiceItem) {
+        let itemsValidation: any[] | null = [];
+
+        InvDetails.invoiceItem.forEach((item: any) => {
+          let validationObj: any = {
+            id: item.id.toString(),
+            name: {},
+            quantity: {},
+            rate: {},
+          };
+
+          if (!item.name) {
+            validationObj.name = { isError: true, message: "Name is required" };
+          } else if (item.name.length > 40) {
+            validationObj.name = {
+              isError: true,
+              message: "Item name must be 1 to 40 characters",
+            };
+          } else {
+            validationObj.name = { isError: false, message: "" };
+          }
+
+          if (item.quantity == 0 || item.quantity === "") {
+            validationObj.quantity = {
+              isError: true,
+              message: "Required",
+            };
+          } else {
+            validationObj.quantity = { isError: false, message: "" };
+          }
+
+          if (item.rate == 0 || item.rate === "") {
+            validationObj.rate = { isError: true, message: "Required" };
+          } else {
+            validationObj.rate = { isError: false, message: "" };
+          }
+
+          // Only push validationObj if any error exists
+          if (
+            validationObj.name.isError ||
+            validationObj.quantity.isError ||
+            validationObj.rate.isError
+          ) {
+            itemsValidation?.push(validationObj);
+          }
+        });
+
+        // If no errors, set validation to null
+        if (itemsValidation.length === 0) {
+          itemsValidation = null;
+        }
+
+        await dispatch(setInvoiceRowItemValidation(itemsValidation));
+      }
+      return false;
+    } else {
+      setIsValidInvoice(true);
+      return true;
+    }
+  };
+
   return (
     <Stack
       justifyContent={"space-between"}
@@ -821,7 +922,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           ) : (
             <Tooltip title="Download PDF" placement="bottom">
               <Button
-                onClick={() => setDownloadModel(true)}
+                onClick={async () => {
+                  if (await validateInvoice()) {
+                    setDownloadModel(true);
+                  }
+                }}
                 variant="contained"
                 sx={{
                   height: "44px",

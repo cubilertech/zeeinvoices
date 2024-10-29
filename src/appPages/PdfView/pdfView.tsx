@@ -195,7 +195,7 @@ const PdfView: FC<PdfViewProps> = ({
                 textTransform: "uppercase",
               }}
             >
-              Sender
+              Sender Details
             </Text>
             <View
               style={{
@@ -205,7 +205,9 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "14px", fontWeight: "extrabold" }}>
-                {invDetails?.from?.companyName}
+                {invDetails?.from?.companyName
+                  ? invDetails?.from?.companyName
+                  : invDetails?.from?.name}
               </Text>
             </View>
             <View>
@@ -217,9 +219,11 @@ const PdfView: FC<PdfViewProps> = ({
                   gap: 4,
                 }}
               >
-                <Text style={{ fontSize: "12px", color: "#444444" }}>
-                  {invDetails?.from?.name}
-                </Text>
+                {invDetails?.from?.companyName && (
+                  <Text style={{ fontSize: "12px", color: "#444444" }}>
+                    {invDetails?.from?.name}
+                  </Text>
+                )}
                 <Text style={{ fontSize: "12px", color: "#444444" }}>
                   {invDetails?.from?.email}
                 </Text>
@@ -265,7 +269,7 @@ const PdfView: FC<PdfViewProps> = ({
                 textTransform: "uppercase",
               }}
             >
-              Recipient
+              Recipient Details
             </Text>
             <View
               style={{
@@ -275,7 +279,10 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <Text style={{ fontSize: "14px", fontWeight: "extrabold" }}>
-                {invDetails?.to?.companyName}
+                {/* {invDetails?.to?.companyName} */}
+                {invDetails?.to?.companyName
+                  ? invDetails?.to?.companyName
+                  : invDetails?.to?.name}
               </Text>
             </View>
             <View>
@@ -287,9 +294,11 @@ const PdfView: FC<PdfViewProps> = ({
                   gap: 4,
                 }}
               >
-                <Text style={{ fontSize: "12px", color: "#444444" }}>
-                  {invDetails?.to?.name}
-                </Text>
+                {invDetails?.to?.companyName && (
+                  <Text style={{ fontSize: "12px", color: "#444444" }}>
+                    {invDetails?.to?.name}
+                  </Text>
+                )}
                 <Text style={{ fontSize: "12px", color: "#444444" }}>
                   {invDetails?.to?.email}
                 </Text>
@@ -377,7 +386,7 @@ const PdfView: FC<PdfViewProps> = ({
         <View
           style={{
             height: "30px",
-            marginTop: "10px",
+            marginTop: "5px",
             marginLeft: "10px",
             marginRight: "10px",
             backgroundColor: bgColor === "#fffff" ? "white" : bgColor,
