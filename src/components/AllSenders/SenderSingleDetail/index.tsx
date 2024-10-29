@@ -259,7 +259,7 @@ const SenderSingleDetail: FC<SenderSingleProps> = ({ id }) => {
         onClose={handleDeleteModalClose}
         deleteLoading={deleteSenderLoading}
         invoiceDelete={senderDelete}
-        title="recipient"
+        title="sender"
       />
     </Box>
   );

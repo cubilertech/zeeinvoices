@@ -640,7 +640,7 @@ export default function AllSenders() {
                     textAlign: "center",
                   }}
                 >
-                  <Typography>No Recipient Found</Typography>
+                  <Typography>No Sender Found</Typography>
                 </Box>
               )}
             </Paper>
