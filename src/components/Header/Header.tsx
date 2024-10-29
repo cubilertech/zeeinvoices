@@ -91,6 +91,7 @@ const Header = () => {
   };
   const headerData = [
     { title: "Invoices", url: "/invoices" },
+    { title: "Senders", url: "/senders" },
     { title: "Recipients", url: "/clients" },
   ];
   const headerLandingData = [
