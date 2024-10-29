@@ -123,7 +123,7 @@ const PdfView: FC<PdfViewProps> = ({
         size="A4"
         style={{
           ...styles.page,
-          borderColor: bgColor,
+          borderColor: bgColor === "#fffff" ? "white" : bgColor,
         }}
       >
         {/** Section 1 : logo, invoice type */}
