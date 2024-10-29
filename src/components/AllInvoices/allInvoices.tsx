@@ -57,6 +57,7 @@ import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
 interface Data {
   id: number;
@@ -480,12 +481,26 @@ export default function AllInvoices() {
                   handleChangeSearch={handleChangeSearch}
                 />
 
-                {/* <Button
-                  variant="outlined"
-                  onClick={() => handleDownloadInvoices(filteredData)}
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "right",
+                    mt: "8px",
+                  }}
                 >
-                  Download All Invoices
-                </Button> */}
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleDownloadInvoices(filteredData)}
+                    sx={{ borderRadius: "4px", width: "157px", height: "44px" }}
+                  >
+                    <FileDownloadOutlinedIcon
+                      sx={{ color: palette.primary.main }}
+                    />
+                    All Invoices
+                  </Button>
+                </Box>
+
                 {filteredData.length > 0 ? (
                   <>
                     {fetchingInvoiceList ? (
