@@ -38,6 +38,10 @@ const PdfDownloadLink: FC<PdfDownloadLinkProps> = ({
   };
   const itemDetail = invoiceDetail?.invoiceItem;
   const { data: session } = useSession();
+
+  const pdfFileName = InvDetails.to?.companyName
+    ? InvDetails.to?.companyName + "-" + InvDetails.id
+    : InvDetails.to?.name + "-" + InvDetails.id;
   return (
     <>
       <PDFDownloadLink
@@ -50,7 +54,7 @@ const PdfDownloadLink: FC<PdfDownloadLinkProps> = ({
             itemDetail={itemDetail}
           />
         }
-        fileName="ZeeInvoices"
+        fileName={pdfFileName}
       >
         {({ loading }) => (loading ? <button>Loading ...</button> : children)}
       </PDFDownloadLink>
