@@ -246,7 +246,7 @@ const SenderSingleDetail: FC<SenderSingleProps> = ({ id }) => {
           </Stack>
         </Stack>
       </Paper>
-      {/* <SendersInvoices /> */}
+      <SendersInvoices />
       <SenderDetailModel
         handleSubmitForm={handleSubmitForm}
         type="edit"

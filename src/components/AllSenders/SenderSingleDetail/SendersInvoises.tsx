@@ -67,6 +67,9 @@ export default function SendersInvoices() {
   const [shareModel, setShareModel] = React.useState(false);
   const [shareUrl, setShareUrl] = React.useState(0);
   const [showText, setShowText] = React.useState(false);
+  // Delete modal
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);
   const {
     mutate: deleteInvoice,
     isLoading: deleteInvoiceLoading,
@@ -150,10 +153,6 @@ export default function SendersInvoices() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-
-  // Delete modal
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);
 
   const handleDelete = () => {
     setIsModalOpen(false);
