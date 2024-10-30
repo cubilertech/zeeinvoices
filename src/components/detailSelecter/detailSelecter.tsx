@@ -98,7 +98,11 @@ const DetailSelecter: FC<DetailSelecter> = ({
   const apiRouteSender = `${backendURL}/senders/getAll`;
   const apiRouteClient = `${backendURL}/clients/getAll`;
 
+  const [openBd, setOpenBd] = React.useState(false);
+
   const [open, setOpen] = React.useState(false);
+  const [openSR, setOpenSR] = React.useState(false);
+
   const [isSelectedList, setIsSelectedList] = React.useState({
     isSender: false,
     isRecipient: false,
@@ -123,6 +127,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
   };
   const handleOpen = () => {
     setOpen(true), setOpenBd(true);
+  };
+
+  const handleOpenSR = () => {
+    setOpenSR(true);
   };
 
   const initialValues = {
@@ -210,7 +218,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
   });
 
   // backdrop for modal
-  const [openBd, setOpenBd] = React.useState(false);
+
   const handleCloseBd = () => {
     setOpenBd(false);
   };
@@ -220,6 +228,10 @@ const DetailSelecter: FC<DetailSelecter> = ({
     resetForm();
     handleCloseBd();
     setOpen(false);
+  };
+
+  const handleSRModelClose = () => {
+    setOpenSR(false);
   };
 
   function isString(value: any): value is string {
@@ -381,6 +393,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
             detailsOf === `Sender` ? filteredSenderData : filteredClientData
           }
           onItemSelected={handleItemSelected}
+          detailsOf={detailsOf}
+          openSRModal={openSR}
+          onSRModalClose={handleSRModelClose}
         />
       )}
       {!showData ? (
@@ -400,7 +415,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               border: `1px solid ${palette.color.gray[200]}`,
               boxShadow: palette.boxShadows.shadowxs,
             }}
-            onClick={handleOpen}
+            onClick={session?.accessToken ? handleOpenSR : handleOpen}
           >
             <Stack direction={"row"} justifyContent={"space-between"}></Stack>
             <Stack
@@ -467,7 +482,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 color: palette.color.gray[510],
               }}
             >
-              {title === "From" ? "Sender Details" : "Recipient Details"}
+              {/* {title === "From" ? "Sender Details" : "Recipient Details"} */}
             </Typography>
             {type != "edit" && !isListSelected && (
               <IconButton
