@@ -27,7 +27,7 @@ import {
   useFetchAllDocument,
 } from "@/utils/ApiHooks/common";
 import { useRouter } from "next/navigation";
-import DeleteModal from "../DeleteModal/deleteModal";
+import DeleteModal from "../Modals/DeleteModal/deleteModal";
 import ClientPopOver from "./ClientPopOver";
 import { useDispatch } from "react-redux";
 

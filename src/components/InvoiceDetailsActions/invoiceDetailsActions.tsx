@@ -3,7 +3,7 @@ import PdfView from "@/appPages/PdfView/pdfView";
 import { palette } from "@/theme/palette";
 import { Box, Button, Tooltip } from "@mui/material";
 import React, { FC, useState } from "react";
-import DeleteModal from "../DeleteModal/deleteModal";
+import DeleteModal from "../Modals/DeleteModal/deleteModal";
 import { useDeleteDocument } from "@/utils/ApiHooks/common";
 import { backendURL } from "@/utils/constants";
 import { useRouter } from "next/navigation";

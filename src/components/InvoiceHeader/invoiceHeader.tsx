@@ -26,9 +26,7 @@ import {
 } from "@/redux/features/invoiceSlice";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import SaveModal from "../SaveModal/saveModal";
 import { base64ToFile, handleLogin } from "@/utils/common";
-import DownloadModal from "../DownloadModal/downloadModal";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 import { palette } from "@/theme/palette";
 import { saveAs } from "file-saver";
@@ -53,6 +51,8 @@ import {
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
 import { Icon } from "../Icon";
+import SaveModal from "../Modals/SaveModal/saveModal";
+import DownloadModal from "../Modals/DownloadModal/downloadModal";
 
 interface InvoiceHeaderProps {
   InvSetting: any;

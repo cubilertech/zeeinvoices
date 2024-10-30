@@ -32,7 +32,6 @@ import {
   tableFormatDate,
 } from "@/common/common";
 import { useRouter } from "next/navigation";
-import DeleteModal from "../DeleteModal/deleteModal";
 import CustomPopOver from "./CustomPopOver";
 import { useDispatch, useSelector } from "react-redux";
 import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
@@ -40,7 +39,6 @@ import {
   setInvoiceSettings,
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
-import ShareModal from "../ShareModal/shareModal";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { useSession } from "next-auth/react";
 import EnhancedTableToolbar from "./enhancedTableToolbar";
@@ -58,6 +56,8 @@ import PdfView from "@/appPages/PdfView/pdfView";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import DeleteModal from "../Modals/DeleteModal/deleteModal";
+import ShareModal from "../Modals/ShareModal/shareModal";
 
 interface Data {
   id: number;

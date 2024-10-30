@@ -1,4 +1,5 @@
 "use client";
+import { Icon } from "@/components/Icon";
 import {
   Backdrop,
   Box,
@@ -9,7 +10,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React, { FC } from "react";
-import { Icon } from "../Icon";
 
 let isMobile = null;
 

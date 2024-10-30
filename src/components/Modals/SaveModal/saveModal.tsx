@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { FC } from "react";
 import { Close, SaveAlt } from "@mui/icons-material";
-import { Icon } from "../Icon";
+import { Icon } from "@/components/Icon";
 
 const style = {
   position: "absolute" as "absolute",

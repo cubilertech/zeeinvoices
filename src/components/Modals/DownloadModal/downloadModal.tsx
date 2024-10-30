@@ -9,8 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { FC } from "react";
-import PdfDownloadLink from "../PdfDownloadLink/PdfDownloadLink";
 import { Close, SaveAlt } from "@mui/icons-material";
+import PdfDownloadLink from "@/components/PdfDownloadLink/PdfDownloadLink";
 
 const style = {
   position: "absolute" as "absolute",

@@ -33,8 +33,8 @@ import EnhancedTableHead from "@/components/AllInvoices/enhancedTableHead";
 import CustomPopOver from "@/components/AllInvoices/CustomPopOver";
 import InvoiceDetailsSection from "@/components/InvoiceDetailsSection/invoiceDetailsSection";
 import { Pagination } from "@/components/Pagination";
-import DeleteModal from "@/components/DeleteModal/deleteModal";
-import ShareModal from "@/components/ShareModal/shareModal";
+import DeleteModal from "@/components/Modals/DeleteModal/deleteModal";
+import ShareModal from "@/components/Modals/ShareModal/shareModal";
 import EnhancedTableToolbar from "@/components/AllInvoices/enhancedTableToolbar";
 import "@/Styles/sectionStyle.css";
 

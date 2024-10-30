@@ -1,4 +1,4 @@
-import DeleteModal from "@/components/DeleteModal/deleteModal";
+import DeleteModal from "@/components/Modals/DeleteModal/deleteModal";
 import { palette } from "@/theme/palette";
 import {
   useDeleteDocument,
