@@ -178,8 +178,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
     validationSchema: validationSchema,
     enableReinitialize: true,
     validate: (values) => {
-      const errors: FormErrors = {}; 
-      
+      const errors: FormErrors = {};
+
       const phoneError = validatePhoneNumber(
         values.phoneNumber,
         values.countryCode
@@ -350,7 +350,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
         flexGrow: 1,
         display: "flex",
         flexDirection: "column",
-        position: "relative"
+        position: "relative",
       }}
     >
       {title && (
@@ -401,8 +401,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             }}
             onClick={handleOpen}
           >
-            <Stack direction={"row"} justifyContent={"space-between"}>
-             </Stack>
+            <Stack direction={"row"} justifyContent={"space-between"}></Stack>
             <Stack
               direction={"column"}
               sx={{
@@ -457,7 +456,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             justifyContent={"space-between"}
             sx={{ alignItems: "center" }}
           >
-            <Typography
+            {/* <Typography
               variant="text-sm-medium"
               sx={{
                 mt: "8px",
@@ -468,6 +467,17 @@ const DetailSelecter: FC<DetailSelecter> = ({
               }}
             >
               {title === "From" ? "Sender Details" : "Recipient Details"}
+            </Typography> */}
+            <Typography
+              variant="text-xs-bold"
+              sx={{
+                fontSize: "14px",
+                lineHeight: "17px",
+                fontWeight: 600,
+                color: palette.color.gray[900],
+              }}
+            >
+              {InvDetails?.companyName}
             </Typography>
             {type != "edit" && !isListSelected && (
               <IconButton
@@ -507,18 +517,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               </IconButton>
             )}
           </Stack>
-          <Stack sx={{ marginTop: 1 }}>
-            <Typography
-              variant="text-xs-bold"
-              sx={{
-                fontSize: "14px",
-                lineHeight: "17px",
-                fontWeight: 600,
-                color: palette.color.gray[900],
-              }}
-            >
-              {InvDetails?.companyName}
-            </Typography>
+          <Stack sx={{ marginTop: 0 }}>
             <Stack direction={"column"}>
               <Typography
                 variant="text-xs-regular"
@@ -725,7 +724,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
                     <PhoneInputWithCode
                       borderRadius="4px"
-                      value={values.phoneNumber} 
+                      value={values.phoneNumber}
                       onChange={(value) => handlePhoneInputChange(value)}
                       onCountrySelect={(selectedCountry) => {
                         setFieldValue("countryCode", selectedCountry.code);

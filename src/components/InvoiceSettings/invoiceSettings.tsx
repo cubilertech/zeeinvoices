@@ -133,7 +133,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
             variant="text-xl-semibold"
             color={palette.color.gray[900]}
           >
-            Invoice Settings
+            Customise Your Invoice
           </Typography>
           <IconButton
             sx={{

@@ -192,7 +192,6 @@ const PdfView: FC<PdfViewProps> = ({
                 fontSize: "14px",
                 marginBottom: "2px",
                 color: "#767676",
-                textTransform: "uppercase",
               }}
             >
               Sender Details
@@ -266,7 +265,6 @@ const PdfView: FC<PdfViewProps> = ({
                 fontSize: "14px",
                 marginBottom: "2px",
                 color: "#767676",
-                textTransform: "uppercase",
               }}
             >
               Recipient Details
