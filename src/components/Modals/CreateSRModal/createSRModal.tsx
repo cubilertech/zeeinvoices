@@ -198,7 +198,7 @@ const CreateSRModal: FC<CreateSRModal> = ({
   };
 
   const validateEmail = (email: string) => {
-    if (title === "From") {
+    if (detailsOf === "Sender") {
       if (email === recipientDetail.email && email !== "")
         return "Sender email must be different from recipient email";
     } else {

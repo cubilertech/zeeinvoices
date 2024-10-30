@@ -8,41 +8,31 @@ import {
   InputAdornment,
   MenuItem,
   Modal,
-  Select,
   Stack,
   TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getRecipientDetail,
-  getSenderDetail,
   setRecipientDetail,
   setSenderDetail,
 } from "@/redux/features/invoiceSlice";
 import {
-  getIsRecipientSelected,
-  getIsSenderSelected,
   setRecipientSelected,
   setSenderSelected,
 } from "@/redux/features/listSelected";
 import CloseIcon from "@mui/icons-material/Close";
+import { CreateSRModal } from "../Modals/CreateSRModal";
 
 interface SelectSenderReceiver {
-  name?: string;
-  width?: string | number;
-  height?: string | number;
-  placeholder?: string;
-  borderRadius?: string | number;
   type?: string;
   filteredData?: any;
-  menuData?: string[];
   onItemSelected?: (type: any) => void;
-
   onSRModalClose: () => void;
   openSRModal: boolean;
   title?: string;
@@ -52,16 +42,9 @@ interface SelectSenderReceiver {
   detailsOf: string;
 }
 const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
-  name,
   type,
-  menuData,
-  placeholder = "Select",
-  width = 385,
-  height = 44,
   filteredData,
-  borderRadius = 2,
   onItemSelected,
-
   onSRModalClose,
   openSRModal,
   title,
@@ -71,13 +54,14 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   detailsOf,
 }) => {
   const dispatch = useDispatch();
-  const SelectedSenderDetail = useSelector(getSenderDetail);
   const SelectedRecipientDetail = useSelector(getRecipientDetail);
-  const fromSelected = useSelector(getIsSenderSelected);
-  const toSelected = useSelector(getIsRecipientSelected);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [filteredItems, setFilteredItems] = useState(filteredData); // State for filtered countries
+  console.log(filteredData, "fd", filteredItems);
+  const [openCreateSRModal, setOpenCreateSRModal] = useState(false);
 
   const handleSelectedItem = (item: any) => {
-    if (type === "Sender") {
+    if (detailsOf === "Sender") {
       dispatch(setSenderSelected(true));
       dispatch(
         setSenderDetail({
@@ -96,8 +80,35 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
         })
       );
     }
+    setSearchQuery("");
     onSRModalClose();
+    setFilteredItems(filteredData);
   };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+    setFilteredItems(
+      filteredData.filter(
+        (item: any) =>
+          item.name.toLowerCase().includes(query) || // Search by country name
+          item.email.toLowerCase().includes(query) // Search by phone email
+      )
+    );
+  };
+
+  const handleOpenCreateModel = () => {
+    onSRModalClose();
+    setOpenCreateSRModal(true);
+  };
+
+  const handleCreateModelClose = () => {
+    setOpenCreateSRModal(false);
+  };
+
+  useEffect(() => {
+    setFilteredItems(filteredData);
+  }, [filteredData]);
 
   return (
     <Box borderRadius={1}>
@@ -153,7 +164,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                     Kindly select the {detailsOf} for the invoice.
                   </Typography>
                 </Stack>
-                <IconButton onClick={onSRModalClose} sx={{}}>
+                <IconButton onClick={onSRModalClose}>
                   <CloseIcon
                     sx={{
                       width: "20px",
@@ -188,8 +199,8 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                   <TextField
                     variant="standard"
                     placeholder="Search"
-                    // value={search}
-                    // onChange={(e) => handleChangeSearch(e)}
+                    value={searchQuery} // Search input value
+                    onChange={handleSearch}
                     sx={{
                       width: "100%",
                       border: "none",
@@ -214,102 +225,125 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                     }}
                   />
                 </Stack>
-                <Tooltip title={`Create new ${detailsOf}`}>
-                  <Button
-                    variant="contained"
-                    // onClick={handleCreate}
-                    sx={{
-                      height: `44px`,
-                      px: "18px !important",
-                      py: "10px !important",
-                      borderRadius: "4px",
-                      width: { sm: "187px", xs: "100%" },
-                      fontSize: "16px !important",
-                      lineHeight: "24px !important",
-                      fontWeight: "600 !important",
-                      backgroundColor: palette.primary.main,
-                    }}
-                  >
-                    Create {detailsOf}
-                  </Button>
-                </Tooltip>
+                {type !== "edit" && (
+                  <Tooltip title={`Create new ${detailsOf}`}>
+                    <Button
+                      variant="contained"
+                      onClick={handleOpenCreateModel}
+                      sx={{
+                        height: `44px`,
+                        px: "18px !important",
+                        py: "10px !important",
+                        borderRadius: "4px",
+                        width: { sm: "187px", xs: "100%" },
+                        fontSize: "16px !important",
+                        lineHeight: "24px !important",
+                        fontWeight: "600 !important",
+                        backgroundColor: palette.primary.main,
+                      }}
+                    >
+                      Create {detailsOf}
+                    </Button>
+                  </Tooltip>
+                )}
               </Stack>
               {/* section 3: Existing SR list */}
-              <Stack sx={{ mt: "16px" }} gap={0.5}>
-                {filteredData && filteredData.length > 0 ? (
-                  filteredData?.map((item: any, index: any) => (
-                    <MenuItem
-                      key={index}
-                      onClick={() => {
-                        handleSelectedItem(item);
-                        if (onItemSelected) {
-                          onItemSelected(type);
-                        }
-                      }}
-                      sx={{
-                        color: palette.base.black,
-                        backgroundColor: palette.base.white,
-                        borderRadius: "6px",
-                        px: "8px",
-                        py: "12px",
-                        border:
-                          SelectedRecipientDetail?.email === item.email
-                            ? `1px solid ${palette.primary.main}`
-                            : "",
-                        "&.Mui-selected": {
-                          bgcolor: "#F9FAFB",
-                          color: "darkblue",
+              <Box sx={{ mt: "16px", height: "335px", overflow: "auto", scrollbarWidth:"thin" }}>
+                <Stack gap={0.5}>
+                  {filteredItems.length > 0 ? (
+                    filteredItems?.map((item: any, index: any) => (
+                      <MenuItem
+                        key={index}
+                        onClick={() => {
+                          handleSelectedItem(item);
+                          if (onItemSelected) {
+                            onItemSelected(detailsOf);
+                          }
+                        }}
+                        sx={{
+                          color: palette.base.black,
+                          backgroundColor: palette.base.white,
+                          borderRadius: "6px",
+                          px: "8px",
+                          py: "12px",
+                          border:
+                            SelectedRecipientDetail?.email === item.email
+                              ? `1px solid ${palette.primary.main}`
+                              : "",
+                          "&.Mui-selected": {
+                            bgcolor: "#F9FAFB",
+                            color: "darkblue",
+                            "&:hover": {
+                              bgcolor: "#F9FAFB",
+                            },
+                          },
                           "&:hover": {
                             bgcolor: "#F9FAFB",
                           },
-                        },
-                        "&:hover": {
-                          bgcolor: "#F9FAFB",
-                        },
-                      }}
-                      value={item.name}
-                    >
-                      <Stack
-                        direction={"row"}
-                        sx={{
-                          alignItems: "center",
-                          width: "100%",
                         }}
+                        value={item.name}
                       >
-                        <Avatar />
-                        <Stack direction={"column"} sx={{ ml: "8px" }}>
-                          <Typography
-                            variant="text-md-medium"
+                        <Stack
+                          direction={"row"}
+                          sx={{
+                            alignItems: "center",
+                            width: "100%",
+                          }}
+                        >
+                          <Avatar
                             sx={{
-                              color: palette.color.gray[820],
-                              lineHeight: "20px",
+                              bgcolor: palette.primary.main,
+                              width: "40px",
+                              height: "40px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
                             }}
                           >
-                            {item.name}
-                          </Typography>
-                          <Typography
-                            variant="text-md-regular"
-                            sx={{
-                              color: palette.color.gray[725],
-                              lineHeight: "20px",
-                            }}
-                          >
-                            {item.email}
-                          </Typography>
+                            {item.name?.charAt(0).toUpperCase()}
+                          </Avatar>
+                          <Stack direction={"column"} sx={{ ml: "8px" }}>
+                            <Typography
+                              variant="text-md-medium"
+                              sx={{
+                                color: palette.color.gray[820],
+                                lineHeight: "20px",
+                              }}
+                            >
+                              {item.name}
+                            </Typography>
+                            <Typography
+                              variant="text-md-regular"
+                              sx={{
+                                color: palette.color.gray[725],
+                                lineHeight: "20px",
+                              }}
+                            >
+                              {item.email}
+                            </Typography>
+                          </Stack>
                         </Stack>
-                      </Stack>
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem disabled sx={{ color: palette.base.black }}>
+                      No Existing {`${detailsOf}`} Found
                     </MenuItem>
-                  ))
-                ) : (
-                  <MenuItem disabled sx={{ color: palette.base.black }}>
-                    No {`${type}`} Found
-                  </MenuItem>
-                )}
-              </Stack>
+                  )}
+                </Stack>
+              </Box>
             </Stack>
           </Box>
         </Modal>
       </Backdrop>
+      <CreateSRModal
+        detailsOf={detailsOf}
+        InvDetails={InvDetails}
+        handleSubmitForm={handleSubmitForm}
+        showData={showData}
+        onClose={handleCreateModelClose}
+        openModal={openCreateSRModal}
+      />
     </Box>
   );
 };

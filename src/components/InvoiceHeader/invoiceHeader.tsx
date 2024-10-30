@@ -262,8 +262,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
       };
 
-      formData.append("newFrom", JSON.stringify(fromMapped));
-      formData.append("newTo", JSON.stringify(toMapped));
+      formData.append("from", invoiceData.from._id);
+      formData.append("to", invoiceData.to._id);
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
@@ -498,10 +498,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   useEffect(() => {
     if (session?.accessToken && generatedInvoiceId?.length) {
-      UpdateInvoiceId(generatedInvoiceId);
-      dispatch(setInvoiceId(generatedInvoiceId));
+      if (type !== "edit") {
+        console.log(generatedInvoiceId, "gid");
+        UpdateInvoiceId(generatedInvoiceId);
+
+        dispatch(setInvoiceId(generatedInvoiceId));
+      }
     }
-  }, [generatedInvoiceId, session?.accessToken, dispatch]);
+  }, [generatedInvoiceId, session?.accessToken, dispatch, type]);
 
   useEffect(() => {
     if (!isEditInvoiceId) {

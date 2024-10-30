@@ -152,11 +152,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
     state?: string;
     address?: string;
   }
-  const senderDetail = useSelector(getSenderDetail);
-  const recipientDetail = useSelector(getRecipientDetail);
-
-  const fromSelected = useSelector(getIsSenderSelected);
-  const toSelected = useSelector(getIsRecipientSelected);
 
   const { data: session } = useSession();
   const {
@@ -172,60 +167,14 @@ const DetailSelecter: FC<DetailSelecter> = ({
     isFetched: ClientFetched,
   } = useFetchAllDocument(apiRouteClient);
 
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    touched,
-    errors,
-    resetForm,
-    setFieldValue,
-    setFieldError,
-  } = useFormik({
-    initialValues: initialValues,
-    validationSchema: validationSchema,
-    enableReinitialize: true,
-    validate: (values) => {
-      const errors: FormErrors = {};
-
-      const phoneError = validatePhoneNumber(
-        values.phoneNumber,
-        values.countryCode
-      );
-      if (phoneError) {
-        errors.phoneNumber = phoneError;
-      }
-
-      const emailError = validateEmail(values.email);
-      if (emailError) {
-        errors.email = emailError;
-      }
-
-      return errors;
-    },
-
-    onSubmit: (values) => {
-      const data = {
-        ...values,
-        email: values.email.toLowerCase(),
-      };
-      handleCloseBd();
-      setOpen(false);
-      handleSubmitForm(data);
-      resetForm();
-    },
-  });
-
   // backdrop for modal
-
   const handleCloseBd = () => {
     setOpenBd(false);
   };
 
   //close model
   const handleModelClose = () => {
-    resetForm();
+    // resetForm();
     handleCloseBd();
     setOpen(false);
   };
@@ -237,76 +186,6 @@ const DetailSelecter: FC<DetailSelecter> = ({
   function isString(value: any): value is string {
     return typeof value === "string";
   }
-
-  const validatePhoneNumber = (
-    phoneNumber: string,
-    countryCode: string
-  ): string => {
-    // Ensure countryCode is a valid CountryCode
-    const validCountryCode = countryCode as CountryCode;
-
-    if (!phoneNumber) {
-      return ""; // No phone number entered
-    }
-
-    // Parse phone number based on the country code
-    const phoneNumberInstance = parsePhoneNumberFromString(
-      phoneNumber,
-      validCountryCode
-    );
-
-    // Check if only the country code is entered
-    const isCountryCodeOnly =
-      phoneNumber && phoneNumberInstance
-        ? phoneNumberInstance.nationalNumber === ""
-        : false;
-
-    if (isCountryCodeOnly) {
-      return ""; // No number entered, keep the field empty
-    }
-
-    if (!phoneNumberInstance || !phoneNumberInstance.isValid()) {
-      return "Enter valid number"; // Invalid number
-    }
-
-    return ""; // Valid phone number
-  };
-
-  const handlePhoneInputChange = (value: string) => {
-    const isCountryCodeOnly = countryCodes.some(
-      (code) => value === code || value === `${code} `
-    );
-
-    if (isCountryCodeOnly) {
-      // Clear the phone number field if only country code is entered
-
-      handleChange({
-        target: {
-          name: "phoneNumber",
-          value: "",
-        },
-      });
-    } else {
-      handleChange({
-        target: {
-          name: "phoneNumber",
-          value: value,
-        },
-      });
-    }
-  };
-
-  const validateEmail = (email: string) => {
-    if (title === "From") {
-      if (email === recipientDetail.email && email !== "")
-        return "Sender email must be different from recipient email";
-    } else {
-      if (email === senderDetail.email && email !== "")
-        return "Recipient email must be different from sender email";
-    }
-
-    return "";
-  };
 
   const filteredClientData = React.useMemo(() => {
     if (clientList && clientList?.clients?.length) {
@@ -380,18 +259,13 @@ const DetailSelecter: FC<DetailSelecter> = ({
           {title == "From" ? "Sender Details" : "Recipient Details"}
         </Typography>
       )}
-      {session?.accessToken && type != "edit" && (
+      {session?.accessToken && (
         <SelectSenderReceiver
-          name={
-            fromSelected ? InvDetails?.name : toSelected ? InvDetails?.name : ""
-          }
-          width={isMobile ? "100%" : "100%"}
-          placeholder={`Add existing ${detailsOf}`}
-          borderRadius={"4px"}
-          type={`${detailsOf}`}
+          type={type}
           filteredData={
             detailsOf === `Sender` ? filteredSenderData : filteredClientData
           }
+          handleSubmitForm={handleSubmitForm}
           onItemSelected={handleItemSelected}
           detailsOf={detailsOf}
           openSRModal={openSR}
@@ -433,7 +307,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 variant="text-sm-medium"
                 color={palette.color.gray[610]}
               >
-                Add New {detailsOf}
+                Add {detailsOf}
               </Typography>
             </Stack>
           </Box>
@@ -457,22 +331,22 @@ const DetailSelecter: FC<DetailSelecter> = ({
             marginTop: "16px",
             padding: 2,
             borderRadius: "4px",
-            cursor: type != "edit" && !isListSelected ? "pointer" : "default",
+            // cursor: type != "edit" && !isListSelected ? "pointer" : "default",
             border: `1px solid ${palette.color.gray[200]}`,
             boxShadow: palette.boxShadows.shadowxs,
           }}
-          onClick={() => {
-            if (type != "edit" && !isListSelected) {
-              handleOpen();
-            }
-          }}
+          // onClick={() => {
+          //   if (type != "edit" && !isListSelected) {
+          //     handleOpen();
+          //   }
+          // }}
         >
           <Stack
             direction={"row"}
             justifyContent={"space-between"}
             sx={{ alignItems: "center" }}
           >
-            <Typography
+            {/* <Typography
               variant="text-sm-medium"
               sx={{
                 mt: "8px",
@@ -482,18 +356,63 @@ const DetailSelecter: FC<DetailSelecter> = ({
                 color: palette.color.gray[510],
               }}
             >
-              {/* {title === "From" ? "Sender Details" : "Recipient Details"} */}
+              {title === "From" ? "Sender Details" : "Recipient Details"}
+            </Typography> */}
+            <Typography
+              variant="text-xs-bold"
+              sx={{
+                fontSize: "14px",
+                lineHeight: "17px",
+                fontWeight: 600,
+                color: palette.color.gray[900],
+              }}
+            >
+              {InvDetails?.companyName}
             </Typography>
-            {type != "edit" && !isListSelected && (
-              <IconButton
-                sx={{
-                  padding: "0px !important",
-                  height: "25px !important",
-                  width: "25px !important",
-                }}
-              >
-                <Icon icon="editIcon" width={20} height={20} />
-              </IconButton>
+            {!isListSelected && (
+              <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
+                {type != "edit" && (
+                  <IconButton
+                    sx={{
+                      padding: "0px !important",
+                      height: "25px !important",
+                      width: "25px !important",
+                    }}
+                    onClick={() => {
+                      if (type != "edit" && !isListSelected) {
+                        handleOpen();
+                      }
+                    }}
+                  >
+                    <Icon icon="editIcon" width={20} height={20} />
+                  </IconButton>
+                )}
+
+                <IconButton
+                  sx={{
+                    padding: "0px !important",
+                    height: "25px !important",
+                    width: "25px !important",
+                  }}
+                  onClick={() => {
+                    if (detailsOf == "Sender") {
+                      dispatch(setResetFromDetails());
+                      dispatch(setSenderSelected(false));
+                    } else {
+                      dispatch(setResetToDetails());
+                      dispatch(setRecipientSelected(false));
+                    }
+                  }}
+                >
+                  <CloseIcon
+                    sx={{
+                      width: "20px",
+                      height: "20px",
+                      color: palette.color.gray[600],
+                    }}
+                  />
+                </IconButton>
+              </Stack>
             )}
             {isListSelected && (
               <IconButton
@@ -522,18 +441,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
               </IconButton>
             )}
           </Stack>
-          <Stack sx={{ marginTop: 1 }}>
-            <Typography
-              variant="text-xs-bold"
-              sx={{
-                fontSize: "14px",
-                lineHeight: "17px",
-                fontWeight: 600,
-                color: palette.color.gray[900],
-              }}
-            >
-              {InvDetails?.companyName}
-            </Typography>
+          <Stack sx={{ marginTop: 0 }}>
             <Stack direction={"column"}>
               <Typography
                 variant="text-xs-regular"
