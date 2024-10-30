@@ -49,6 +49,7 @@ import {
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
+import { CreateSRModal } from "../Modals/CreateSRModal";
 
 const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -178,8 +179,8 @@ const DetailSelecter: FC<DetailSelecter> = ({
     validationSchema: validationSchema,
     enableReinitialize: true,
     validate: (values) => {
-      const errors: FormErrors = {}; 
-      
+      const errors: FormErrors = {};
+
       const phoneError = validatePhoneNumber(
         values.phoneNumber,
         values.countryCode
@@ -350,7 +351,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
         flexGrow: 1,
         display: "flex",
         flexDirection: "column",
-        position: "relative"
+        position: "relative",
       }}
     >
       {title && (
@@ -401,8 +402,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
             }}
             onClick={handleOpen}
           >
-            <Stack direction={"row"} justifyContent={"space-between"}>
-             </Stack>
+            <Stack direction={"row"} justifyContent={"space-between"}></Stack>
             <Stack
               direction={"column"}
               sx={{
@@ -585,271 +585,15 @@ const DetailSelecter: FC<DetailSelecter> = ({
       )}
 
       {/* Modal */}
-      <Backdrop
-        sx={{
-          color: "#fff",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          backdropFilter: "blur(2px)",
-          backgroundColor: "rgba(0, 0, 0, 0)",
-        }}
-        open={openBd}
-      >
-        <Modal
-          open={open}
-          onClose={handleModelClose}
-          disableAutoFocus
-          sx={{
-            overflow: "auto",
-            "& .MuiModal-backdrop": {
-              backgroundColor: "rgba(35, 35, 35, 0.1)",
-            },
-          }}
-        >
-          <Box
-            sx={{
-              overflow: "auto",
-              position: "absolute" as "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: { sm: "566px", xs: "90%" },
-              height: "auto",
-              bgcolor: palette.base.white,
-              boxShadow: 1,
-              p: "24px",
-              borderRadius: "8px",
-            }}
-          >
-            <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography variant="display-xs-semibold">
-                {showData ? "Edit " : "Add New "}
-                {detailsOf === "Recipient" ? "Recipient" : detailsOf}
-              </Typography>
-              <IconButton onClick={handleModelClose}>
-                <CloseIcon
-                  sx={{
-                    width: "20px",
-                    height: "20px",
-                    color: palette.color.gray[300],
-                  }}
-                />
-              </IconButton>
-            </Stack>
 
-            <form onSubmit={handleSubmit}>
-              <Box
-                sx={{
-                  overflow: { sm: "initial", xs: "auto" },
-                  height: { sm: "auto", xs: "400px" },
-                }}
-              >
-                <Stack
-                  direction={"row"}
-                  justifyContent={"space-between"}
-                  sx={{
-                    marginTop: "32px",
-                    flexDirection: { sm: "row", xs: "column" },
-                    gap: "16px",
-                  }}
-                >
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
-                      label="Name"
-                      size="large"
-                      name="name"
-                      borderRadius="4px"
-                      value={values.name}
-                      onChange={handleChange}
-                      sx={{
-                        width: { sm: "100%", xs: "100%" },
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.name && errors.name}
-                      onBlur={handleBlur}
-                      error={touched.name && Boolean(errors.name)}
-                    />
-                  </FormControl>
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      label="Company Name"
-                      size="large"
-                      name="companyName"
-                      borderRadius="4px"
-                      onChange={handleChange}
-                      value={values.companyName}
-                      sx={{
-                        width: { sm: "100%", xs: "100%" },
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.companyName && errors.companyName}
-                      onBlur={handleBlur}
-                      error={touched.companyName && Boolean(errors.companyName)}
-                    ></TextField>
-                  </FormControl>
-                </Stack>
-                <Stack
-                  direction={"row"}
-                  justifyContent={"space-between"}
-                  sx={{
-                    marginTop: "10px",
-                    flexDirection: { sm: "row", xs: "column" },
-                    gap: "16px",
-                  }}
-                >
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
-                      label="Email"
-                      size="large"
-                      name="email"
-                      borderRadius="4px"
-                      onChange={handleChange}
-                      value={values.email}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.email && errors.email}
-                      onBlur={handleBlur}
-                      error={touched.email && Boolean(errors.email)}
-                    ></TextField>
-                  </FormControl>
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <Typography
-                      variant="text-sm-medium"
-                      sx={{ marginBottom: "5px" }}
-                    >
-                      Phone
-                    </Typography>
-
-                    <PhoneInputWithCode
-                      borderRadius="4px"
-                      value={values.phoneNumber} 
-                      onChange={(value) => handlePhoneInputChange(value)}
-                      onCountrySelect={(selectedCountry) => {
-                        setFieldValue("countryCode", selectedCountry.code);
-                      }}
-                      height="48px"
-                    />
-
-                    {touched.phoneNumber && Boolean(errors.phoneNumber) && (
-                      <Typography
-                        color="error"
-                        variant="text-xs-regular"
-                        sx={{ marginTop: "5px", marginLeft: "15px" }}
-                      >
-                        {typeof errors.phoneNumber === "string"
-                          ? errors.phoneNumber
-                          : "Invalid phone number"}{" "}
-                      </Typography>
-                    )}
-                  </FormControl>
-                </Stack>
-                <Stack
-                  direction={"row"}
-                  justifyContent={"space-between"}
-                  sx={{
-                    marginTop: "10px",
-                    flexDirection: { sm: "row", xs: "column" },
-                    gap: "16px",
-                  }}
-                >
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
-                      label="City"
-                      size="large"
-                      borderRadius="4px"
-                      name="city"
-                      onChange={handleChange}
-                      value={values.city}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.city && errors.city}
-                      onBlur={handleBlur}
-                      error={touched.city && Boolean(errors.city)}
-                    ></TextField>
-                  </FormControl>
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
-                      label="Country/State"
-                      size="large"
-                      name="state"
-                      borderRadius="4px"
-                      onChange={handleChange}
-                      value={values.state}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.state && errors.state}
-                      onBlur={handleBlur}
-                      error={touched.state && Boolean(errors.state)}
-                    ></TextField>
-                  </FormControl>
-                </Stack>
-                <Box sx={{ marginTop: "10px" }}>
-                  <FormControl fullWidth>
-                    <TextField
-                      label="Address"
-                      size="large"
-                      name="address"
-                      borderRadius="4px"
-                      onChange={handleChange}
-                      sx={{
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      value={values.address}
-                      helperText={touched.address && errors.address}
-                      onBlur={handleBlur}
-                      error={touched.address && Boolean(errors.address)}
-                    ></TextField>
-                  </FormControl>
-                </Box>
-              </Box>
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                gap={"12px"}
-                sx={{
-                  marginTop: "32px",
-                  flexDirection: { sm: "row", xs: "column" },
-                }}
-              >
-                <Button
-                  onClick={handleModelClose}
-                  variant="outlined"
-                  sx={{
-                    width: { sm: "50%", xs: "100%" },
-                    height: "40px",
-                    borderColor: palette.base.borderColor,
-                    color: "#445164",
-                    borderRadius: "4px",
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{
-                    width: { sm: "50%", xs: "100%" },
-                    height: "40px",
-                    px: "24px !important",
-                    borderRadius: "4px",
-                  }}
-                >
-                  {showData ? "Update" : "Add"}
-                </Button>
-              </Stack>
-            </form>
-          </Box>
-        </Modal>
-      </Backdrop>
+      <CreateSRModal
+        detailsOf={detailsOf}
+        InvDetails={InvDetails}
+        handleSubmitForm={handleSubmitForm}
+        showData={showData}
+        onClose={handleModelClose}
+        openModal={open}
+      />
     </Box>
   );
 };
