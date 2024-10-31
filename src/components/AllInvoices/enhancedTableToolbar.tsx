@@ -31,6 +31,7 @@ interface EnhancedTableToolbarProps {
   type?: number;
   filteredData?: any;
   selected?: any;
+  handleDownloadClick?: () => void;
 }
 
 const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
@@ -121,6 +122,9 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
     zip.generateAsync({ type: "blob" }).then((zipBlob) => {
       saveAs(zipBlob, "All_Invoices.zip");
     });
+    if (props.handleDownloadClick) {
+      props.handleDownloadClick();
+    }
   };
 
   return (

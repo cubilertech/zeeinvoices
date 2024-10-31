@@ -408,6 +408,10 @@ export default function AllInvoices() {
     });
   };
 
+  const handleDownloadClick = () => {
+    setSelected([]);
+  };
+
   const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly number[] = [];
@@ -514,6 +518,7 @@ export default function AllInvoices() {
                   handleChangeSearch={handleChangeSearch}
                   filteredData={filteredData}
                   selected={selected}
+                  handleDownloadClick={handleDownloadClick}
                 />
 
                 {/* <Box
@@ -586,9 +591,6 @@ export default function AllInvoices() {
                                 return (
                                   <TableRow
                                     hover
-                                    onClick={(event) =>
-                                      handleClick(event, row.id)
-                                    }
                                     role="checkbox"
                                     aria-checked={isItemSelected}
                                     tabIndex={-1}
@@ -599,7 +601,12 @@ export default function AllInvoices() {
                                       borderColor: palette.color.gray[200],
                                     }}
                                   >
-                                    <TableCell padding="checkbox">
+                                    <TableCell
+                                      padding="checkbox"
+                                      onClick={(event) =>
+                                        handleClick(event, row.id)
+                                      }
+                                    >
                                       <Checkbox
                                         color="primary"
                                         checked={isItemSelected}

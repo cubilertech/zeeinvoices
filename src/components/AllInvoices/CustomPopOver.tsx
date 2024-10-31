@@ -152,7 +152,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
               handleEditInvoice(record);
             }}
             variant="outlined"
-            startIcon={<Icon icon="editIcon" />}
+            startIcon={<Icon icon="editIcon2" />}
             sx={{
               width: "100%",
               border: "none",

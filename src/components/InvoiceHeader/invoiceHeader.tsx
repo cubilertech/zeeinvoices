@@ -776,10 +776,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 }}
                 sx={{
                   borderRadius: "100%",
-                  width: "28px !important",
-                  height: "28px !important",
+                  width: "30px !important",
+                  height: "30px !important",
                   p: 0.5,
-                  mt: "0px",
+                  mt: "2px",
                 }}
               >
                 {isEditInvoiceId ? (
