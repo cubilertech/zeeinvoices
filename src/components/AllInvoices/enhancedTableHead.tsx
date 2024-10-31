@@ -83,6 +83,7 @@ interface EnhancedTableProps {
   order: Order;
   orderBy: string;
   rowCount: number;
+  type?: number;
 }
 
 const EnhancedTableHead: FC<EnhancedTableProps> = (
@@ -104,27 +105,32 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (
       }}
     >
       <TableRow sx={{ height: "40px !important", borderTopRightRadius: 8 }}>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={props.onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-            sx={{
-              "& .MuiSvgIcon-root": {
-                fill: "#D1D5DB",
-                backgroundColor: "white",
-                borderRadius: "4px",
-              },
-              "&.Mui-checked .MuiSvgIcon-root": {
-                fill: palette.primary.main,
-              },
-            }}
-          />
-        </TableCell>
+        {props.type === 2 ? (
+          ""
+        ) : (
+          <TableCell padding="checkbox">
+            <Checkbox
+              color="primary"
+              indeterminate={numSelected > 0 && numSelected < rowCount}
+              checked={rowCount > 0 && numSelected === rowCount}
+              onChange={props.onSelectAllClick}
+              inputProps={{
+                "aria-label": "select all desserts",
+              }}
+              sx={{
+                "& .MuiSvgIcon-root": {
+                  fill: "#D1D5DB",
+                  backgroundColor: "white",
+                  borderRadius: "4px",
+                },
+                "&.Mui-checked .MuiSvgIcon-root": {
+                  fill: palette.primary.main,
+                },
+              }}
+            />
+          </TableCell>
+        )}
+
         {headCells.map((headCell) => (
           <TableCell
             sx={{ height: `40px !important`, py: "0px" }}

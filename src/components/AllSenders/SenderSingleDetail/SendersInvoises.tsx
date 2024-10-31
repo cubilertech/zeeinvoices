@@ -300,6 +300,7 @@ export default function SendersInvoices() {
                     orderBy={orderBy}
                     onRequestSort={handleRequestSort}
                     rowCount={invoiceList?.invoices?.length}
+                    type={2}
                   />
                   <TableBody>
                     {filteredData?.map((row: any, index: number) => {
