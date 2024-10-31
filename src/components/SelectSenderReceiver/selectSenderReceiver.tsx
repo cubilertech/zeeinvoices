@@ -57,7 +57,6 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   const SelectedRecipientDetail = useSelector(getRecipientDetail);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [filteredItems, setFilteredItems] = useState(filteredData); // State for filtered countries
-  console.log(filteredData, "fd", filteredItems);
   const [openCreateSRModal, setOpenCreateSRModal] = useState(false);
 
   const handleSelectedItem = (item: any) => {

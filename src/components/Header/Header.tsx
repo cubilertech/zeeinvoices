@@ -8,8 +8,6 @@ import {
   Container,
   Divider,
   IconButton,
-  Menu,
-  MenuItem,
   Popover,
   Stack,
   Typography,
@@ -17,8 +15,8 @@ import {
 } from "@mui/material";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
-import CustomButton from "./CustomButton";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { handleLogout, handleLogin, imageConvertion } from "@/utils/common";
@@ -40,6 +38,7 @@ const Header = () => {
   const counter = useSelector(getCountValue);
   const isModile = useMediaQuery("(max-width: 500px)");
   const { data: session } = useSession();
+
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [anchorElMenu, setAnchorElMenu] = React.useState<null | HTMLElement>(
@@ -107,6 +106,7 @@ const Header = () => {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
   return (
     <AppBar
       position="fixed"

@@ -144,6 +144,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         (item: any) =>
           !item.name ||
           item.name.length > 40 ||
+          item.name.length < 3 ||
           item.rate == 0 ||
           item.rate === "" ||
           item.quantity == 0 ||
@@ -176,10 +177,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
           if (!item.name) {
             validationObj.name = { isError: true, message: "Name is required" };
-          } else if (item.name.length > 40) {
+          } else if (item.name.length < 3 || item.name.length > 40) {
             validationObj.name = {
               isError: true,
-              message: "Item name must be 1 to 40 characters",
+              message: "Item name must be 3 to 40 characters",
             };
           } else {
             validationObj.name = { isError: false, message: "" };
@@ -291,6 +292,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         (item: any) =>
           !item.name ||
           item.name.length > 40 ||
+          item.name.length < 3 ||
           item.rate == 0 ||
           item.rate === "" ||
           item.quantity == 0 ||
@@ -322,10 +324,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
           if (!item.name) {
             validationObj.name = { isError: true, message: "Name is required" };
-          } else if (item.name.length > 40) {
+          } else if (item.name.length < 3 || item.name.length > 40) {
             validationObj.name = {
               isError: true,
-              message: "Item name must be 1 to 40 characters",
+              message: "Item name must be 3 to 40 characters",
             };
           } else {
             validationObj.name = { isError: false, message: "" };
@@ -499,9 +501,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   useEffect(() => {
     if (session?.accessToken && generatedInvoiceId?.length) {
       if (type !== "edit") {
-        console.log(generatedInvoiceId, "gid");
         UpdateInvoiceId(generatedInvoiceId);
-
         dispatch(setInvoiceId(generatedInvoiceId));
       }
     }
@@ -526,6 +526,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         (item: any) =>
           !item.name ||
           item.name.length > 40 ||
+          item.name.length < 3 ||
           item.rate == 0 ||
           item.rate === "" ||
           item.quantity == 0 ||
@@ -558,10 +559,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
           if (!item.name) {
             validationObj.name = { isError: true, message: "Name is required" };
-          } else if (item.name.length > 40) {
+          } else if (item.name.length < 3 || item.name.length > 40) {
             validationObj.name = {
               isError: true,
-              message: "Item name must be 1 to 40 characters",
+              message: "Item name must be 3 to 40 characters",
             };
           } else {
             validationObj.name = { isError: false, message: "" };

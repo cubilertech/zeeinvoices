@@ -113,12 +113,12 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             error={
               data.name === ""
                 ? itemValidation?.name?.isError
-                : data.name.length > 40
+                : data.name.length > 40 || data.name.length < 3
                 ? itemValidation?.name?.isError
                 : false
             }
             helperText={
-              data.name === "" || data.name.length > 40
+              data.name === "" || data.name.length > 40 || data.name.length < 3
                 ? itemValidation?.name?.message
                 : ""
             }
