@@ -358,17 +358,32 @@ const DetailSelecter: FC<DetailSelecter> = ({
             >
               {title === "From" ? "Sender Details" : "Recipient Details"}
             </Typography> */}
-            <Typography
-              variant="text-xs-bold"
-              sx={{
-                fontSize: "14px",
-                lineHeight: "17px",
-                fontWeight: 600,
-                color: palette.color.gray[900],
-              }}
-            >
-              {InvDetails?.companyName}
-            </Typography>
+            {InvDetails?.companyName ? (
+              <Typography
+                variant="text-xs-bold"
+                sx={{
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  fontWeight: 600,
+                  color: palette.color.gray[900],
+                }}
+              >
+                {InvDetails?.companyName}
+              </Typography>
+            ) : (
+              <Typography
+                variant="text-xs-regular"
+                sx={{
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  fontWeight: 600,
+                  color: palette.color.gray[900],
+                }}
+              >
+                {InvDetails?.name}
+              </Typography>
+            )}
+
             {!isListSelected && (
               <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
                 {type != "edit" && (
@@ -443,21 +458,25 @@ const DetailSelecter: FC<DetailSelecter> = ({
           </Stack>
           <Stack sx={{ marginTop: 0 }}>
             <Stack direction={"column"}>
+              {InvDetails?.companyName && (
+                <Typography
+                  variant="text-xs-regular"
+                  sx={{
+                    mt: "8px",
+                    fontSize: "14px",
+                    lineHeight: "17px",
+                    fontWeight: 500,
+                    color: palette.color.gray[610],
+                  }}
+                >
+                  {InvDetails?.name}
+                </Typography>
+              )}
+
               <Typography
                 variant="text-xs-regular"
                 sx={{
-                  mt: "8px",
-                  fontSize: "14px",
-                  lineHeight: "17px",
-                  fontWeight: 500,
-                  color: palette.color.gray[610],
-                }}
-              >
-                {InvDetails?.name}
-              </Typography>
-              <Typography
-                variant="text-xs-regular"
-                sx={{
+                  mt: InvDetails?.companyName ? "0px" : "8px",
                   fontSize: "14px",
                   lineHeight: "17px",
                   fontWeight: 400,

@@ -70,6 +70,17 @@ const styles = StyleSheet.create({
     opacity: 1.3,
     zIndex: 1,
   },
+  noteText: {
+    fontSize: 12,
+    color: "#444444",
+    margin: 0,
+    padding: 0,
+    marginTop: 5,
+    maxWidth: "510px", // Ensures text wraps within the view's width
+    textOverflow: "ellipsis",
+
+    // overflow: "hidden",
+  },
 });
 
 interface PdfViewProps {
@@ -116,6 +127,13 @@ const PdfView: FC<PdfViewProps> = ({
   if (!isClient) {
     return null;
   }
+
+  const addSoftHyphens = (text: any, length = 110) =>
+    (
+      invDetails?.additionalNotes ||
+      text ||
+      "MMMMMMMM MMMMMMMMMMMMM MMMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMMZ ZZZZZZZZZZ ZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZWWWWW WWWWWWWWWWWWWWW WWWWWWWWWWW WWWWWWWWWWWWWWW"
+    ).replace(new RegExp(`(.{${length}})`, "g"), "$1\n");
 
   return (
     <Document style={{ overflow: "hidden", paddingBottom: "100px" }}>
@@ -765,18 +783,17 @@ const PdfView: FC<PdfViewProps> = ({
             >
               Terms & Conditions:
             </Text>
-
-            <Text
-              style={{
-                fontSize: "12px",
-                color: "#444444",
-                margin: "0px",
-                padding: "0px",
-                marginTop: "5px",
-              }}
-            >
+            <Text wrap={true} break style={styles.noteText}>
               {invDetails?.addtionalNotes}
             </Text>
+            {/* <View style={{ width: "510px", backgroundColor: "yellow" }}>
+              <Text wrap={true} break style={styles.noteText}>
+                {invDetails?.addtionalNotes}
+              </Text>
+            </View> */}
+            {/* <Text style={styles.noteText}>
+              {addSoftHyphens(invDetails?.additionalNotes)}
+            </Text> */}
           </View>
         )}
         {/* secion 6 : footer */}

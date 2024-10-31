@@ -248,7 +248,14 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                 )}
               </Stack>
               {/* section 3: Existing SR list */}
-              <Box sx={{ mt: "16px", height: "335px", overflow: "auto", scrollbarWidth:"thin" }}>
+              <Box
+                sx={{
+                  mt: "16px",
+                  height: "335px",
+                  overflow: "auto",
+                  scrollbarWidth: "thin",
+                }}
+              >
                 <Stack gap={0.5}>
                   {filteredItems.length > 0 ? (
                     filteredItems?.map((item: any, index: any) => (
@@ -327,7 +334,8 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                     ))
                   ) : (
                     <MenuItem disabled sx={{ color: palette.base.black }}>
-                      No Existing {`${detailsOf}`} Found
+                      No {`${detailsOf}`} found. Please add a {`${detailsOf}`}{" "}
+                      to proceed.
                     </MenuItem>
                   )}
                 </Stack>

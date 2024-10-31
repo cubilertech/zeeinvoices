@@ -479,9 +479,10 @@ export default function AllInvoices() {
                   numSelected={selected.length}
                   search={search}
                   handleChangeSearch={handleChangeSearch}
+                  filteredData={filteredData}
                 />
 
-                <Box
+                {/* <Box
                   sx={{
                     width: "100%",
                     display: "flex",
@@ -497,9 +498,9 @@ export default function AllInvoices() {
                     <FileDownloadOutlinedIcon
                       sx={{ color: palette.primary.main }}
                     />
-                    All Invoices
+                    Download
                   </Button>
-                </Box>
+                </Box> */}
 
                 {filteredData.length > 0 ? (
                   <>
