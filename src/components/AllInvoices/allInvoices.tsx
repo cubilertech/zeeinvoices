@@ -13,6 +13,7 @@ import {
   Avatar,
   Button,
   ButtonBase,
+  Checkbox,
   CircularProgress,
   Container,
   IconButton,
@@ -140,7 +141,10 @@ export default function AllInvoices() {
   }, [invoiceList]);
 
   React.useEffect(() => {
-    if (session?.accessToken) refetchInvoiceList();
+    if (session?.accessToken) {
+      setSelected([]);
+      refetchInvoiceList();
+    }
 
     if (deleteSuccess) {
       setPage(1);
@@ -404,6 +408,35 @@ export default function AllInvoices() {
     });
   };
 
+  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected: readonly number[] = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
+    }
+    setSelected(newSelected);
+  };
+  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      const newSelected = filteredData.map((n: any) => n.id);
+      setSelected(newSelected);
+      return;
+    }
+    setSelected([]);
+  };
+
+  // console.log(selected, "sel");
+
   return (
     <>
       <Box sx={{ width: "100%", backgroundColor: palette.base.white }}>
@@ -480,6 +513,7 @@ export default function AllInvoices() {
                   search={search}
                   handleChangeSearch={handleChangeSearch}
                   filteredData={filteredData}
+                  selected={selected}
                 />
 
                 {/* <Box
@@ -538,24 +572,52 @@ export default function AllInvoices() {
                               numSelected={selected.length}
                               order={order}
                               orderBy={orderBy}
+                              onSelectAllClick={handleSelectAllClick}
                               onRequestSort={handleRequestSort}
                               rowCount={invoiceList?.invoices?.length}
                             />
 
                             <TableBody>
                               {filteredData?.map((row: any, index: number) => {
+                                const isItemSelected = selected.includes(
+                                  row.id
+                                );
                                 const labelId = `enhanced-table-checkbox-${index}`;
                                 return (
                                   <TableRow
                                     hover
+                                    onClick={(event) =>
+                                      handleClick(event, row.id)
+                                    }
                                     role="checkbox"
+                                    aria-checked={isItemSelected}
                                     tabIndex={-1}
                                     key={row?.id}
+                                    selected={isItemSelected}
                                     sx={{
                                       cursor: "pointer",
                                       borderColor: palette.color.gray[200],
                                     }}
                                   >
+                                    <TableCell padding="checkbox">
+                                      <Checkbox
+                                        color="primary"
+                                        checked={isItemSelected}
+                                        inputProps={{
+                                          "aria-labelledby": labelId,
+                                        }}
+                                        sx={{
+                                          "& .MuiSvgIcon-root": {
+                                            fill: "#D1D5DB",
+                                            backgroundColor: "white",
+                                            borderRadius: "4px",
+                                          },
+                                          "&.Mui-checked .MuiSvgIcon-root": {
+                                            fill: palette.primary.main,
+                                          },
+                                        }}
+                                      />
+                                    </TableCell>
                                     <TableCell
                                       component="th"
                                       id={labelId}

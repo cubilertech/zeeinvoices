@@ -30,6 +30,7 @@ interface EnhancedTableToolbarProps {
   handleChangeSearch: any;
   type?: number;
   filteredData?: any;
+  selected?: any;
 }
 
 const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
@@ -46,10 +47,16 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
   };
 
   const handleDownloadInvoices = async (invoices: any) => {
+    // const selectedIds = ["AB0003", "AB0001", "AB0002"];
     const zip = new JSZip();
     const zipFolder = zip.folder("Invoices");
 
-    for (const invoice of invoices) {
+    // Filter invoices to only include those with IDs present in 'selectedIds'
+    const filteredInvoices = invoices.filter((invoice: any) =>
+      props.selected.includes(invoice?.id)
+    );
+
+    for (const invoice of filteredInvoices) {
       const invDetails = {
         id: invoice?.id,
         logo: invoice?.image,
@@ -103,8 +110,6 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         />
       );
 
-      // const blobPdf = await pdf(pdfDocument)?.toBlob();
-
       const blobPdf = await pdf(pdfDocument);
       blobPdf.updateContainer(pdfDocument);
       const result = await blobPdf.toBlob();
@@ -130,18 +135,27 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         justifyContent: "space-between",
         gap: { sm: 0, xs: 2 },
         py: { sm: 0, xs: 0 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
+        // ...(numSelected > 0 && {
+        //   bgcolor: (theme) =>
+        //     alpha(
+        //       theme.palette.primary.main,
+        //       theme.palette.action.activatedOpacity
+        //     ),
+        // }),
       }}
     >
       {numSelected > 0 ? (
         <Typography
-          sx={{ flex: "1 1 100%", color: "#1B2533" }}
+          // sx={{ flex: "1 1 100%", color: "#1B2533" }}
+          sx={{
+            color: palette.color.gray[900],
+            fontSize: { md: "24px !important", xs: "24px !important" },
+            lineHeight: {
+              md: "29px !important",
+              xs: "29px !important",
+            },
+            fontWeight: 600,
+          }}
           color="inherit"
           variant="subtitle1"
           component="div"
@@ -235,6 +249,7 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
             <>
               <Button
                 variant="outlined"
+                disabled={props.numSelected <= 0 || !props.filteredData}
                 onClick={() => handleDownloadInvoices(props.filteredData)}
                 sx={{
                   height: `44px`,
@@ -249,7 +264,10 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
                 }}
               >
                 <FileDownloadOutlinedIcon
-                  sx={{ color: palette.primary.main }}
+                  sx={{
+                    color:
+                      props.numSelected <= 0 ? "#BDBDBD" : palette.primary.main,
+                  }}
                 />
                 Download
               </Button>
