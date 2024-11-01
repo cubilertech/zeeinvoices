@@ -88,7 +88,7 @@ export default function RootLayout({
                   pauseOnFocusLoss
                   draggable
                   pauseOnHover
-                  theme="dark"
+                  theme="light"
                 />
                 <CustomHooks />
                 <AppLayout>{children}</AppLayout>

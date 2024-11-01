@@ -245,7 +245,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         </Box>
       </Stack>
 
-      <Feedback title="Feedback" placeholder="Provide a valueable feedback" />
+      {/* <Feedback title="Feedback" placeholder="Provide a valueable feedback" /> */}
     </Stack>
     // </Box>
   );

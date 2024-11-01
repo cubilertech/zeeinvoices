@@ -106,8 +106,12 @@ const SenderDetailModel: FC<SenderDetail> = ({
       return errors;
     },
     onSubmit: (values) => {
+      const data = {
+        ...values,
+        email: values.email.toLowerCase(),
+      };
       handleModelClose();
-      handleSubmitForm(values);
+      handleSubmitForm(data);
       resetForm();
     },
   });
@@ -285,6 +289,7 @@ const SenderDetailModel: FC<SenderDetail> = ({
                       label="Email"
                       size="large"
                       name="email"
+                      disabled={type === "edit"}
                       onChange={handleChange}
                       value={values.email}
                       sx={{ width: { sm: "240px", xs: "100%" } }}

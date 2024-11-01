@@ -57,6 +57,7 @@ interface CreateSRModal {
   handleSubmitForm?: any;
   showData?: any;
   detailsOf: string;
+  filteredData?: any;
 }
 const CreateSRModal: FC<CreateSRModal> = ({
   onClose,
@@ -66,11 +67,12 @@ const CreateSRModal: FC<CreateSRModal> = ({
   handleSubmitForm,
   showData,
   detailsOf,
+  filteredData,
 }) => {
   const isMobile = useMediaQuery("(max-width: 500px)");
   const dispatch = useDispatch();
-
   const [open, setOpen] = React.useState(false);
+  const [filteredSR, setFilteredSR] = useState(filteredData);
   const senderDetail = useSelector(getSenderDetail);
   const recipientDetail = useSelector(getRecipientDetail);
 
@@ -198,6 +200,14 @@ const CreateSRModal: FC<CreateSRModal> = ({
   };
 
   const validateEmail = (email: string) => {
+    if (filteredSR) {
+      const emailExists = filteredSR.some((item: any) => item.email === email);
+      console.log(emailExists, "emailExists");
+      if (emailExists) {
+        return `${detailsOf} email already exists`;
+      }
+    }
+
     if (detailsOf === "Sender") {
       if (email === recipientDetail.email && email !== "")
         return "Sender email must be different from recipient email";

@@ -535,6 +535,9 @@ const DetailSelecter: FC<DetailSelecter> = ({
         showData={showData}
         onClose={handleModelClose}
         openModal={open}
+        filteredData={
+          detailsOf === `Sender` ? filteredSenderData : filteredClientData
+        }
       />
     </Box>
   );
