@@ -263,8 +263,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
       };
 
-      formData.append("from", invoiceData.from._id);
-      formData.append("to", invoiceData.to._id);
+      // formData.append("from", invoiceData.from._id);
+      // formData.append("to", invoiceData.to._id);
+      formData.append("from", JSON.stringify(fromMapped));
+      formData.append("to", JSON.stringify(toMapped));
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
@@ -405,8 +407,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
       // Convert objects to JSON strings and append
 
-      formData.append("newFrom", JSON.stringify(fromMapped));
-      formData.append("newTo", JSON.stringify(toMapped));
+      formData.append("from", JSON.stringify(fromMapped));
+      formData.append("to", JSON.stringify(toMapped));
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
