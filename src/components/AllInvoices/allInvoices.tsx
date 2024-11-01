@@ -616,7 +616,7 @@ export default function AllInvoices() {
                                         sx={{
                                           "& .MuiSvgIcon-root": {
                                             fill: "#D1D5DB",
-                                            backgroundColor: "white",
+                                            backgroundColor: "transparent",
                                             borderRadius: "4px",
                                           },
                                           "&.Mui-checked .MuiSvgIcon-root": {
