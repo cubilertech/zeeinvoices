@@ -1,6 +1,6 @@
 "use client";
 import { Box, ButtonBase, Stack, Typography } from "@mui/material";
-import { FC,  useRef } from "react";
+import { FC, useRef } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   const dispatch = useDispatch();
   const invoiceLogo = useSelector(getInvoiceLogo);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const MAX_FILE_SIZE = 1 * 1024 * 1024; 
+  const MAX_FILE_SIZE = 1 * 1024 * 1024;
   const handleClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -30,15 +30,28 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
 
   const handleCancelLogoClick = () => {
     dispatch(setInvoiceLogo(null));
-    dispatch(setColors(initialColors)); 
+    dispatch(setColors(initialColors));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    if (
+      file &&
+      ![
+        "image/jpeg",
+        "image/png",
+        "image/gif",
+        "image/bmp",
+        "image/webp",
+      ].includes(file.type)
+    ) {
+      toast.error("Please select a valid image file.");
+      return;
+    }
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
         toast.error("File is too large. Please select a file less than 1 MB.");
-        return; 
+        return;
       }
 
       const reader = new FileReader();
@@ -118,12 +131,12 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
 
           <Box
             sx={{
-              width: "120px", 
+              width: "120px",
               height: "70px",
               display: "flex",
               justifyContent: "center",
-              alignItems: "center", 
-              overflow: "hidden", 
+              alignItems: "center",
+              overflow: "hidden",
             }}
           >
             <Image
@@ -132,9 +145,9 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
               width={120}
               height={70}
               style={{
-                objectFit: "contain", 
+                objectFit: "contain",
                 maxWidth: "100%",
-                maxHeight: "100%", 
+                maxHeight: "100%",
               }}
               unoptimized
             />
@@ -160,6 +173,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             style={{ display: "none" }}
             onChange={handleFileChange}
             accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
+            capture="environment" // limit camera use on some devices
           />
           <Stack direction={"row"} gap={1.5}>
             <Icon icon="uploadLogo" height={40} width={40} />

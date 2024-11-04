@@ -274,7 +274,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       updateInvoice({
         data: formData,
         apiRoute: `${backendURL}/invoices/${id}`,
-        title: "Invoice Updated"
+        title: "Invoice Updated",
       })
         .then((res) => {
           // response here
@@ -415,7 +415,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
 
-      createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save`, title: "Invoice Created" })
+      createInvoice({
+        data: formData,
+        apiRoute: `${backendURL}/invoices/save`,
+        title: "Invoice Created",
+      })
         .then((res) => {
           router.push("/invoices");
           dispatch(setResetInvoice());
@@ -662,7 +666,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 color: palette.color.gray[610],
               }}
             >
-              <Typography variant="display-xs-semibold">Sr. No:</Typography>{" "}
+              <Typography
+                variant="display-xs-semibold"
+                sx={{
+                  fontSize: { sm: "24px !important", xs: "20px !important" },
+                  lineHeight: { sm: "30px !important", xs: "24px !important" },
+                  fontWeight: { sm: 600, xs: 500 },
+                }}
+              >
+                Sr. No:
+              </Typography>{" "}
               {isFetchingInvoiceId ? (
                 <Skeleton sx={{ width: "36px", height: "32px", m: 0 }} />
               ) : isEditInvoiceId ? (
@@ -676,9 +689,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                       "& .MuiOutlinedInput-root": {
                         "& input": {
                           padding: 0,
-                          fontSize: "22px",
+                          fontSize: { sm: "24px", xs: "20px" },
                           color: palette.color.gray[610],
-                          fontWeight: 600,
+                          fontWeight: 400,
                         },
                         "& fieldset": {
                           border: "none",
@@ -758,7 +771,14 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               ) : (
                 <Typography
                   variant="display-xs-semibold"
-                  sx={{ height: "40px", lineHeight: "40px" }}
+                  sx={{
+                    fontSize: { sm: "24px !important", xs: "20px !important" },
+                    lineHeight: {
+                      sm: "30px !important",
+                      xs: "24px !important",
+                    },
+                    fontWeight: { sm: 400, xs: 400 },
+                  }}
                 >
                   {session?.accessToken || !isIdFetched
                     ? InvoiceId
@@ -783,7 +803,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                   width: "30px !important",
                   height: "30px !important",
                   p: 0.5,
-                  mt: "2px",
+                  mt: "0px",
                 }}
               >
                 {isEditInvoiceId ? (
