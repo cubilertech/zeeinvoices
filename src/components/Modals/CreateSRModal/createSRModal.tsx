@@ -200,13 +200,13 @@ const CreateSRModal: FC<CreateSRModal> = ({
   };
 
   const validateEmail = (email: string) => {
-    if (filteredSR) {
-      const emailExists = filteredSR.some((item: any) => item.email === email);
-      console.log(emailExists, "emailExists");
-      if (emailExists) {
-        return `${detailsOf} email already exists`;
-      }
-    }
+    // if (filteredSR) {
+    //   const emailExists = filteredSR.some((item: any) => item.email === email);
+    //   console.log(emailExists, "emailExists");
+    //   if (emailExists) {
+    //     return `${detailsOf} email already exists`;
+    //   }
+    // }
 
     if (detailsOf === "Sender") {
       if (email === recipientDetail.email && email !== "")

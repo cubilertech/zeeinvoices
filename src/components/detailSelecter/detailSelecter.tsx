@@ -386,7 +386,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
 
             {!isListSelected && (
               <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
-                {type != "edit" && (
+                {/* {type != "edit" && ( */}
                   <IconButton
                     sx={{
                       padding: "0px !important",
@@ -394,14 +394,14 @@ const DetailSelecter: FC<DetailSelecter> = ({
                       width: "25px !important",
                     }}
                     onClick={() => {
-                      if (type != "edit" && !isListSelected) {
+                      // if (type != "edit" && !isListSelected) {
                         handleOpen();
-                      }
+                      // }
                     }}
                   >
                     <Icon icon="editIcon" width={20} height={20} />
                   </IconButton>
-                )}
+                {/* )} */}
 
                 <IconButton
                   sx={{

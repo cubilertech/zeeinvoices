@@ -224,7 +224,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                     }}
                   />
                 </Stack>
-                {type !== "edit" && (
+                {true && ( //initially type !== "edit"
                   <Tooltip title={`Create new ${detailsOf}`}>
                     <Button
                       variant="contained"
