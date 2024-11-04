@@ -60,6 +60,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
       updateClient({
         data: data,
         apiRoute: `${backendURL}/clients/${id}`,
+        title: "Recipient Updated"
       }).then((res) => {
         console.log("Updated");
         singleFetch();
@@ -73,7 +74,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     setIsModalOpen(false);
   };
   const clientDelete = async () => {
-    await deleteClient({ apiRoute: `${backendURL}/clients/${id}` }).then(
+    await deleteClient({ apiRoute: `${backendURL}/clients/${id}`, title: "Recipient Deleted" }).then(
       (res) => {
         router.push("/clients");
       }

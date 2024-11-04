@@ -167,6 +167,7 @@ const Profile: FC<Profile> = ({}) => {
           profileUpdate({
             apiRoute: `${backendURL}/users/my-profile`,
             data: data,
+            title: "Profile Updated"
           })
             .then((res) => {
               setUploadImage(null);

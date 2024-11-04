@@ -89,6 +89,9 @@ export default function RootLayout({
                   draggable
                   pauseOnHover
                   theme="light"
+                  toastClassName="custom-toast"
+                  bodyClassName="custom-toast-body"
+                  // progressClassName="custom-progress-bar"
                 />
                 <CustomHooks />
                 <AppLayout>{children}</AppLayout>
