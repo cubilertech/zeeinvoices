@@ -326,7 +326,10 @@ export default function AllInvoices() {
   };
   //Delete Invoice Item
   const invoiceDelete = () => {
-    deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
+    deleteInvoice({
+      apiRoute: `${backendURL}/invoices/${itemToDelete}`,
+      title: "Invoice Deleted",
+    });
   };
 
   const handleHomeBtn = () => {

@@ -20,3 +20,37 @@ body {
 .no-scroll {
   overflow: hidden;
 }
+
+/* for custom toast */
+.custom-toast {
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  /* padding: 16px; */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+  display: flex;
+  align-items: center;
+}
+
+.custom-toast-body {
+  margin-left: 12px;
+}
+
+.custom-toast-title {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  color: #101828;
+}
+
+.custom-toast-description {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #475467;
+  /* margin-top: 4px; */
+}
+
+.custom-progress-bar {
+  background-color: #4caf50; /* Green progress bar */
+}

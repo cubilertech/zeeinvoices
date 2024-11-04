@@ -53,6 +53,7 @@ import {
 import { Icon } from "../Icon";
 import SaveModal from "../Modals/SaveModal/saveModal";
 import DownloadModal from "../Modals/DownloadModal/downloadModal";
+import { title } from "process";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -271,6 +272,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       updateInvoice({
         data: formData,
         apiRoute: `${backendURL}/invoices/${id}`,
+        title: "Invoice Updated"
       })
         .then((res) => {
           // response here
@@ -411,7 +413,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
 
-      createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
+      createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save`, title: "Invoice Created" })
         .then((res) => {
           router.push("/invoices");
           dispatch(setResetInvoice());

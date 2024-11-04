@@ -213,7 +213,7 @@ export default function AllClients() {
       address: values.address,
     };
     if (clientType === "add") {
-      createClient({ apiRoute: `${backendURL}/clients/save`, data: data })
+      createClient({ apiRoute: `${backendURL}/clients/save`, data: data, title: "Recipient Added" })
         .then((res) => {
           console.log("Added");
           refetchClientList();
@@ -226,6 +226,7 @@ export default function AllClients() {
         updateClient({
           data: data,
           apiRoute: `${backendURL}/clients/${editId?._id}`,
+          title: "Recipient Updated"
         }).then((res) => {
           console.log("Updated");
           refetchClientList();
@@ -252,7 +253,7 @@ export default function AllClients() {
     setIsModalOpen(true);
   };
   const clientDelete = () => {
-    deleteClient({ apiRoute: `${backendURL}/clients/${itemToDelete}` });
+    deleteClient({ apiRoute: `${backendURL}/clients/${itemToDelete}`, title: "Recipient Deleted" });
   };
 
   const handleHomeBtn = () => {

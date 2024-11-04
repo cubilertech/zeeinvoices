@@ -213,7 +213,7 @@ export default function AllSenders() {
       address: values.address,
     };
     if (senderType === "add") {
-        createSender({ apiRoute: `${backendURL}/senders/save`, data: data })
+        createSender({ apiRoute: `${backendURL}/senders/save`, data: data, title: "Sender Added" })
         .then((res) => {
           console.log("Added");
           refetchSenderList();
@@ -226,6 +226,7 @@ export default function AllSenders() {
         updateSender({
           data: data,
           apiRoute: `${backendURL}/senders/${editId?._id}`,
+          title: "Sender Updated"
         }).then((res) => {
           console.log("Updated");
           refetchSenderList();
@@ -252,7 +253,7 @@ export default function AllSenders() {
     setIsModalOpen(true);
   };
   const senderDelete = () => {
-    deleteSender({ apiRoute: `${backendURL}/senders/${itemToDelete}` });
+    deleteSender({ apiRoute: `${backendURL}/senders/${itemToDelete}`, title: "Sender Deleted" });
   };
 
   const handleHomeBtn = () => {

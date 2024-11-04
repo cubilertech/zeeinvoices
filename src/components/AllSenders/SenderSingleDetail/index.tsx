@@ -60,6 +60,7 @@ const SenderSingleDetail: FC<SenderSingleProps> = ({ id }) => {
       updateSender({
         data: data,
         apiRoute: `${backendURL}/senders/${id}`,
+        title: "Sender Updated"
       }).then((res) => {
         console.log("Updated");
         singleFetch();
@@ -73,7 +74,7 @@ const SenderSingleDetail: FC<SenderSingleProps> = ({ id }) => {
     setIsModalOpen(false);
   };
   const senderDelete = async () => {
-    await deleteSender({ apiRoute: `${backendURL}/senders/${id}` }).then(
+    await deleteSender({ apiRoute: `${backendURL}/senders/${id}`, title: "Sender Deleted" }).then(
       (res) => {
         router.push("/senders");
       }
