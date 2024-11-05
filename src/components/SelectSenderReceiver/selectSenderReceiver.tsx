@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getRecipientDetail,
   setRecipientDetail,
+  setResetFromDetails,
+  setResetToDetails,
   setSenderDetail,
 } from "@/redux/features/invoiceSlice";
 import {
@@ -96,24 +98,30 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
     );
   };
 
-  const handleOpenCreateModel = (event: React.MouseEvent, data?: any) => {
+  const handleOpenCreateModel = (
+    event: React.MouseEvent,
+    data?: any,
+    openType?: string
+  ) => {
     event.stopPropagation();
-    if (detailsOf == "Sender") {
-      dispatch(
-        setSenderDetail({
-          ...data,
-          phoneNumber: data.phone_number,
-          companyName: data.company_name,
-        })
-      );
-    } else {
-      dispatch(
-        setRecipientDetail({
-          ...data,
-          phoneNumber: data.phone_number,
-          companyName: data.company_name,
-        })
-      );
+    if (openType == "edit") {
+      if (detailsOf == "Sender") {
+        dispatch(
+          setSenderDetail({
+            ...data,
+            phoneNumber: data?.phone_number,
+            companyName: data?.company_name,
+          })
+        );
+      } else {
+        dispatch(
+          setRecipientDetail({
+            ...data,
+            phoneNumber: data?.phone_number,
+            companyName: data?.company_name,
+          })
+        );
+      }
     }
 
     onSRModalClose();
@@ -121,6 +129,13 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   };
 
   const handleCreateModelClose = () => {
+    if (detailsOf == "Sender") {
+      dispatch(setResetFromDetails());
+      dispatch(setSenderSelected(false));
+    } else {
+      dispatch(setResetToDetails());
+      dispatch(setRecipientSelected(false));
+    }
     setOpenCreateSRModal(false);
   };
 
@@ -352,7 +367,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                           </Stack>
                           <IconButton
                             onClick={(e) => {
-                              handleOpenCreateModel(e, item);
+                              handleOpenCreateModel(e, item, "edit");
                             }}
                           >
                             <Icon icon="editIcon2" />
