@@ -94,7 +94,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
     validationSchema: validationSchema,
     enableReinitialize: true,
     validate: (values) => {
-      const errors: FormErrors = {}; 
+      const errors: FormErrors = {};
       const phoneError = validatePhoneNumber(
         values.phoneNumber,
         values.countryCode
@@ -106,8 +106,12 @@ const ClientDetailModel: FC<ClientDetail> = ({
       return errors;
     },
     onSubmit: (values) => {
+      const data = {
+        ...values,
+        email: values.email.toLowerCase(),
+      };
       handleModelClose();
-      handleSubmitForm(values);
+      handleSubmitForm(data);
       resetForm();
     },
   });
@@ -285,6 +289,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                       label="Email"
                       size="large"
                       name="email"
+                      disabled={type === "edit"}
                       onChange={handleChange}
                       value={values.email}
                       sx={{ width: { sm: "240px", xs: "100%" } }}
@@ -292,7 +297,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                       onBlur={handleBlur}
                       error={touched.email && Boolean(errors.email)}
                     ></TextField>
-                  </FormControl>               
+                  </FormControl>
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                     <Typography
                       variant="text-sm-medium"
@@ -302,7 +307,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
                     </Typography>
 
                     <PhoneInputWithCode
-                      value={values.phoneNumber} 
+                      value={values.phoneNumber}
                       onChange={(value) => handlePhoneInputChange(value)}
                       onCountrySelect={(selectedCountry) => {}}
                       height="48px"

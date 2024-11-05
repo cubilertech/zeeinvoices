@@ -14,9 +14,9 @@ import {
 } from "@mui/material";
 import React, { FC } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { Icon } from "../Icon";
 import { frontendUrl } from "@/utils/constants";
 import { toast } from "react-toastify";
+import { Icon } from "@/components/Icon";
 
 const style = {
   position: "absolute" as "absolute",

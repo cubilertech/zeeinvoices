@@ -89,7 +89,8 @@ const FirstInvoice: FC = () => {
                 fontWeight: { sm: 500 },
               }}
             >
-              No invoice to show, Please add an invoice to view.
+              Welcome! There are no invoices yet—Let’s create your first one in
+              ZeeInvoices!
             </Typography>
           </Stack>
           <Button

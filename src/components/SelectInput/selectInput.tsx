@@ -70,7 +70,7 @@ const SelectInput: FC<SelectInput> = ({
             PaperProps: {
               sx: {
                 maxHeight: "30%",
-                py: "20px",
+                py: "0px",
                 bgcolor: palette.base.white, // Change dropdown background color
               },
             },
@@ -82,7 +82,7 @@ const SelectInput: FC<SelectInput> = ({
                   variant="text-md-medium"
                   style={{ color: palette.color.gray[510] }}
                 >{`${placeholder}`}</Typography>
-              ); 
+              );
             }
             return (
               <Box
@@ -126,13 +126,13 @@ const SelectInput: FC<SelectInput> = ({
                   backgroundColor: palette.base.white,
                   "&.Mui-selected": {
                     bgcolor: "#F9FAFB",
-                    color: "darkblue", 
+                    color: "darkblue",
                     "&:hover": {
-                      bgcolor: "#F9FAFB", 
+                      bgcolor: "#F9FAFB",
                     },
                   },
                   "&:hover": {
-                    bgcolor: "#F9FAFB", 
+                    bgcolor: "#F9FAFB",
                   },
                 }}
                 value={item}
