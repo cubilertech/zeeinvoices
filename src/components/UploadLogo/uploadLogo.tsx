@@ -173,7 +173,6 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             style={{ display: "none" }}
             onChange={handleFileChange}
             accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
-            capture="environment" // limit camera use on some devices
           />
           <Stack direction={"row"} gap={1.5}>
             <Icon icon="uploadLogo" height={40} width={40} />
