@@ -172,7 +172,9 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
             ref={fileInputRef}
             style={{ display: "none" }}
             onChange={handleFileChange}
-            accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
+            // accept=".jpg,.jpeg,.png,.gif,.bmp,.webp"
+            accept="image/*"
+            capture={false}
           />
           <Stack direction={"row"} gap={1.5}>
             <Icon icon="uploadLogo" height={40} width={40} />
