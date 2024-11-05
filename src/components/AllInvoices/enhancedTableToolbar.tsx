@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Icon } from "../Icon";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -23,6 +23,7 @@ import { calculateAmount, calculateTax } from "@/common/common";
 import PdfView from "@/appPages/PdfView/pdfView";
 import { useSession } from "next-auth/react";
 import { pdf } from "@react-pdf/renderer";
+import { PdfToast } from "../PdfToast";
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
@@ -40,6 +41,8 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
   const { data: session } = useSession();
   const { numSelected, search, handleChangeSearch } = props;
   const dispatch = useDispatch();
+  const [isPdfToastOpen, setIsPdfToastOpen] = useState(false);
+  const [pdfToastProgress, setPdfToastProgress] = useState(1);
   const route = useRouter();
   const handleCreate = () => {
     dispatch(setResetInvoiceSetting());
@@ -48,7 +51,9 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
   };
 
   const handleDownloadInvoices = async (invoices: any) => {
-    // const selectedIds = ["AB0003", "AB0001", "AB0002"];
+    setIsPdfToastOpen(true);
+    setPdfToastProgress(1); // Initialize progress to 1%
+
     const zip = new JSZip();
     const zipFolder = zip.folder("Invoices");
 
@@ -57,7 +62,15 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
       props.selected.includes(invoice?.id)
     );
 
-    for (const invoice of filteredInvoices) {
+    const totalInvoices = filteredInvoices.length;
+
+    for (let i = 0; i < totalInvoices; i++) {
+      const invoice = filteredInvoices[i];
+
+      // Calculate and set progress
+      const progress = Math.round(((i + 1) / totalInvoices) * 100);
+      setPdfToastProgress(progress);
+
       const invDetails = {
         id: invoice?.id,
         logo: invoice?.image,
@@ -119,12 +132,22 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
     }
 
     // Generate and download the ZIP file
-    zip.generateAsync({ type: "blob" }).then((zipBlob) => {
+    await zip.generateAsync({ type: "blob" }).then((zipBlob) => {
       saveAs(zipBlob, "All_Invoices.zip");
     });
+
+    // Call download click handler if it exists
     if (props.handleDownloadClick) {
       props.handleDownloadClick();
     }
+
+    setTimeout(() => {
+      setIsPdfToastOpen(false);
+    }, 4000);
+  };
+
+  const handlePdfToastClose = () => {
+    setIsPdfToastOpen(false);
   };
 
   return (
@@ -300,6 +323,13 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
           )}
         </Stack>
       </Stack>
+      <PdfToast
+        isOpen={isPdfToastOpen}
+        progress={pdfToastProgress}
+        lable={"Invoices"}
+        type="multi"
+        handleClose={handlePdfToastClose}
+      />
     </Toolbar>
   );
 };

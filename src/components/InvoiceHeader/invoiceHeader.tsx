@@ -54,6 +54,7 @@ import { Icon } from "../Icon";
 import SaveModal from "../Modals/SaveModal/saveModal";
 import DownloadModal from "../Modals/DownloadModal/downloadModal";
 import { title } from "process";
+import { PdfToast } from "../PdfToast";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -73,6 +74,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const [invIdNoSession, setInvIdNoSession] = useState("001");
   const dispatch = useDispatch();
   const router = useRouter();
+  const [isPdfToastOpen, setIsPdfToastOpen] = useState(false);
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
@@ -471,6 +473,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       const result = await blobPdf.toBlob();
 
       saveAs(result, pdfFileName);
+
+      setIsPdfToastOpen(true);
+      setTimeout(() => {
+        setIsPdfToastOpen(false);
+      }, 3000);
     }
   };
 
@@ -613,6 +620,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       setIsValidInvoice(true);
       return true;
     }
+  };
+
+  const handlePdfToastClose = () => {
+    setIsPdfToastOpen(false);
   };
 
   return (
@@ -999,6 +1010,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvSetting={InvSetting}
         InvDetails={InvDetails}
         summaryDetail={summaryDetail}
+      />
+      <PdfToast
+        isOpen={isPdfToastOpen}
+        progress={100}
+        lable={pdfFileName}
+        type="single"
+        handleClose={handlePdfToastClose}
       />
     </Stack>
   );
