@@ -96,7 +96,26 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
     );
   };
 
-  const handleOpenCreateModel = () => {
+  const handleOpenCreateModel = (event: React.MouseEvent, data?: any) => {
+    event.stopPropagation();
+    if (detailsOf == "Sender") {
+      dispatch(
+        setSenderDetail({
+          ...data,
+          phoneNumber: data.phone_number,
+          companyName: data.company_name,
+        })
+      );
+    } else {
+      dispatch(
+        setRecipientDetail({
+          ...data,
+          phoneNumber: data.phone_number,
+          companyName: data.company_name,
+        })
+      );
+    }
+
     onSRModalClose();
     setOpenCreateSRModal(true);
   };
@@ -291,43 +310,53 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                       >
                         <Stack
                           direction={"row"}
+                          justifyContent={"space-between"}
                           sx={{
                             alignItems: "center",
                             width: "100%",
                           }}
                         >
-                          <Avatar
-                            sx={{
-                              bgcolor: palette.primary.main,
-                              width: "40px",
-                              height: "40px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
+                          <Stack direction={"row"}>
+                            <Avatar
+                              sx={{
+                                bgcolor: palette.primary.main,
+                                width: "40px",
+                                height: "40px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {item.name?.charAt(0).toUpperCase()}
+                            </Avatar>
+                            <Stack direction={"column"} sx={{ ml: "8px" }}>
+                              <Typography
+                                variant="text-md-medium"
+                                sx={{
+                                  color: palette.color.gray[820],
+                                  lineHeight: "20px",
+                                }}
+                              >
+                                {item.name}
+                              </Typography>
+                              <Typography
+                                variant="text-md-regular"
+                                sx={{
+                                  color: palette.color.gray[725],
+                                  lineHeight: "20px",
+                                }}
+                              >
+                                {item.email}
+                              </Typography>
+                            </Stack>
+                          </Stack>
+                          <IconButton
+                            onClick={(e) => {
+                              handleOpenCreateModel(e, item);
                             }}
                           >
-                            {item.name?.charAt(0).toUpperCase()}
-                          </Avatar>
-                          <Stack direction={"column"} sx={{ ml: "8px" }}>
-                            <Typography
-                              variant="text-md-medium"
-                              sx={{
-                                color: palette.color.gray[820],
-                                lineHeight: "20px",
-                              }}
-                            >
-                              {item.name}
-                            </Typography>
-                            <Typography
-                              variant="text-md-regular"
-                              sx={{
-                                color: palette.color.gray[725],
-                                lineHeight: "20px",
-                              }}
-                            >
-                              {item.email}
-                            </Typography>
-                          </Stack>
+                            <Icon icon="editIcon2" />
+                          </IconButton>
                         </Stack>
                       </MenuItem>
                     ))

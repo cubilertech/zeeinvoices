@@ -270,6 +270,7 @@ const DetailSelecter: FC<DetailSelecter> = ({
           detailsOf={detailsOf}
           openSRModal={openSR}
           onSRModalClose={handleSRModelClose}
+          InvDetails={InvDetails}
         />
       )}
       {!showData ? (
@@ -387,20 +388,20 @@ const DetailSelecter: FC<DetailSelecter> = ({
             {!isListSelected && (
               <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
                 {/* {type != "edit" && ( */}
-                  <IconButton
-                    sx={{
-                      padding: "0px !important",
-                      height: "25px !important",
-                      width: "25px !important",
-                    }}
-                    onClick={() => {
-                      // if (type != "edit" && !isListSelected) {
-                        handleOpen();
-                      // }
-                    }}
-                  >
-                    <Icon icon="editIcon" width={20} height={20} />
-                  </IconButton>
+                <IconButton
+                  sx={{
+                    padding: "0px !important",
+                    height: "25px !important",
+                    width: "25px !important",
+                  }}
+                  onClick={() => {
+                    // if (type != "edit" && !isListSelected) {
+                    handleOpen();
+                    // }
+                  }}
+                >
+                  <Icon icon="editIcon" width={20} height={20} />
+                </IconButton>
                 {/* )} */}
 
                 <IconButton
