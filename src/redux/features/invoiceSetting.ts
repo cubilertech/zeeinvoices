@@ -13,6 +13,7 @@ export interface InvoiceSettingState {
   currency: string;
   dueDate: boolean;
   tax: boolean;
+  discount: boolean;
   terms: boolean; // new added
   detail: boolean;
 }
@@ -42,6 +43,7 @@ const initialState: InvoiceSettingState = {
   currency: "USD",
   dueDate: true,
   tax: true,
+  discount: true,
   terms: true,
   detail: true,
 };
@@ -62,6 +64,9 @@ const invoiceSetting = createSlice({
     setTax: (state) => {
       state.tax = !state.tax;
     },
+    setDiscount: (state) => {
+      state.discount = !state.discount;
+    },
     setTerms: (state) => {
       state.terms = !state.terms;
     },
@@ -73,6 +78,7 @@ const invoiceSetting = createSlice({
       state.color = action.payload.color;
       state.currency = action.payload.currency;
       state.dueDate = action.payload.dueDate;
+      state.discount = action.payload.discount;
       state.tax = action.payload.tax;
       state.terms = action.payload.terms;
       state.detail = action.payload.detail;
@@ -105,6 +111,7 @@ export const getColor = (state: RootState) => state.invoiceSetting.color;
 export const getCurrency = (state: RootState) => state.invoiceSetting.currency;
 export const getDueDate = (state: RootState) => state.invoiceSetting.dueDate;
 export const getTax = (state: RootState) => state.invoiceSetting.tax;
+export const getDiscount = (state: RootState) => state.invoiceSetting.discount;
 export const getTerms = (state: RootState) => state.invoiceSetting.terms;
 export const getDetails = (state: RootState) => state.invoiceSetting.detail;
 
@@ -113,6 +120,7 @@ export const {
   setCurrency,
   setDueDate,
   setTax,
+  setDiscount,
   setTerms,
   setDetails,
   setInvoiceSettings,

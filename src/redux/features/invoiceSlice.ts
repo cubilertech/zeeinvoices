@@ -18,8 +18,12 @@ export interface InvoiceItem {
   quantity: number;
   rate: number;
   tax: number;
+  discount: number;
+  subTotalWithoutDiscount: number;
   subTotal: number;
+  taxAmountWithoutDiscount: number;
   taxAmount: number;
+  discountAmount: number;
 }
 export interface InvoiceState {
   id: number | string;
@@ -32,7 +36,13 @@ export interface InvoiceState {
   invoiceItem: InvoiceItem[];
   addtionalNotes: string;
 }
-type UpdatableKeys = "name" | "quantity" | "rate" | "tax" | "subTotal";
+type UpdatableKeys =
+  | "name"
+  | "quantity"
+  | "rate"
+  | "tax"
+  | "discount"
+  | "subTotal";
 interface ActionPayload {
   id: number;
   type: UpdatableKeys;
@@ -70,8 +80,12 @@ const initialValue: InvoiceState = {
       quantity: 0,
       rate: 0,
       tax: 0,
+      discount: 0,
+      subTotalWithoutDiscount: 0,
       subTotal: 0,
+      taxAmountWithoutDiscount: 0,
       taxAmount: 0,
+      discountAmount: 0,
     },
   ],
   addtionalNotes: "",
@@ -116,14 +130,35 @@ export const invoiceSlice = createSlice({
       const { id, type, value } = action.payload as ActionPayload;
       const index = state.invoiceItem.findIndex((item) => item.id === id);
       state.invoiceItem[index][type] = value as never;
-      if (type === "quantity" || type === "rate" || type === "tax") {
-        const subtitle =
+      if (
+        type === "quantity" ||
+        type === "rate" ||
+        type === "tax" ||
+        type === "discount"
+      ) {
+        // Step 1: Calculate subtotal (without tax or discount)
+        const subtotalWithoutDiscount =
           state.invoiceItem[index].quantity * state.invoiceItem[index].rate;
-        state.invoiceItem[index].subTotal = subtitle;
+        state.invoiceItem[index].subTotalWithoutDiscount =
+          subtotalWithoutDiscount;
+        const subtotal =
+          state.invoiceItem[index].quantity * state.invoiceItem[index].rate;
+        // Step 2: Calculate discount and adjust subtotal
+        const discountValue = state.invoiceItem[index].discount;
+        const discountAmount = subtotal * (discountValue / 100);
+        state.invoiceItem[index].discountAmount = discountAmount;
+        const discountedSubtotal = subtotal - discountAmount;
+        // Step 3: Calculate tax on the subtotal and discounted subtotal
         const taxValue = state.invoiceItem[index].tax;
-        const tax = subtitle * (taxValue / 100);
-        state.invoiceItem[index].taxAmount = tax;
-        state.invoiceItem[index].subTotal = subtitle + tax;
+        const taxAmountWithoutDiscount =
+          subtotalWithoutDiscount * (taxValue / 100);
+        state.invoiceItem[index].taxAmountWithoutDiscount =
+          taxAmountWithoutDiscount;
+
+        const taxAmount = discountedSubtotal * (taxValue / 100);
+        state.invoiceItem[index].taxAmount = taxAmount;
+        // Step 4: Set the final subtotal, including the discounted subtotal and tax
+        state.invoiceItem[index].subTotal = discountedSubtotal + taxAmount;
       }
     },
     setAddtionalNotes: (state, action: PayloadAction<string>) => {

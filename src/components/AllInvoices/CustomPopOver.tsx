@@ -78,6 +78,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         color: record?.settings?.color,
         currency: record?.settings?.currency,
         dueDate: record?.settings?.dueDate,
+        discount: record?.settings?.discount,
         tax: record?.settings?.tax,
         terms: record?.settings?.terms,
         detail: record?.settings?.detail,

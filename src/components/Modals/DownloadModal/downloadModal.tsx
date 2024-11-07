@@ -40,6 +40,7 @@ const DownloadModal: FC<DownloadModal> = ({
   InvDetails,
   summaryDetail,
 }) => {
+  console.log(summaryDetail, "sumde");
   return (
     <>
       <Backdrop
@@ -143,8 +144,7 @@ const DownloadModal: FC<DownloadModal> = ({
                     height: "44px",
                     fontSize: "16px !important",
                     fontWeight: "600 !important",
-                    "&:hover": {
-                    },
+                    "&:hover": {},
                   }}
                   onClick={onLogin}
                 >

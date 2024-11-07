@@ -10,11 +10,15 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { ChangeEvent, FC, useEffect, useMemo, useRef } from "react";
+import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceItem } from "@/redux/features/invoiceSlice";
-import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
+import {
+  getCurrency,
+  getDiscount,
+  getTax,
+} from "@/redux/features/invoiceSetting";
 import "../../Styles/tableItemRow.css";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { getInvoiceItemsValidation } from "@/redux/features/validationSlice";
@@ -37,13 +41,19 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   const InvoiceItemValidation = useSelector(getInvoiceItemsValidation);
   const selectedCurrency = useSelector(getCurrency);
   const selectedTax = useSelector(getTax);
-
+  const selectedDiscount = useSelector(getDiscount);
+  const [currentDiscount, setCurrentDiscount] = useState(
+    data.discount && data.discount !== 0 ? data.discount : 0
+  );
   const rateTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
   const qtyTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
   const nameTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    if (name === "discount") {
+      setCurrentDiscount(value);
+    }
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
   };
 
@@ -72,6 +82,20 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
     }
   }, [itemValidation]);
 
+  useEffect(() => {
+    if (selectedDiscount) {
+      dispatch(
+        setInvoiceItem({
+          id: id,
+          type: "discount",
+          value: currentDiscount == 0 ? data.discount : currentDiscount,
+        })
+      );
+    } else {
+      dispatch(setInvoiceItem({ id: id, type: "discount", value: 0 }));
+    }
+  }, [selectedDiscount, currentDiscount, data.discount, dispatch, id]);
+
   return (
     <Stack className="tableItemRow" direction={"column"}>
       {/* Input fields */}
@@ -90,7 +114,15 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             paddingTop: "4px !important",
           }}
           item
-          sm={4.5}
+          sm={
+            selectedTax
+              ? selectedDiscount
+                ? 3.16
+                : 4.1
+              : selectedDiscount
+              ? 4.1
+              : 4.1
+          }
           xs={12}
         >
           <TextField
@@ -135,7 +167,16 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             paddingTop: "4px !important",
           }}
           item
-          sm={selectedTax ? 1.4 : 2.2}
+          // sm={selectedTax ? 1.4 : 2.2}
+          sm={
+            selectedTax
+              ? selectedDiscount
+                ? 1.4
+                : 1.4
+              : selectedDiscount
+              ? 1.4
+              : 2.2
+          }
           xs={12}
         >
           <TextField
@@ -249,7 +290,16 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             paddingTop: "4px !important",
           }}
           item
-          sm={selectedTax ? 1.4 : 2.0}
+          // sm={selectedTax ? 1.4 : 2.0}
+          sm={
+            selectedTax
+              ? selectedDiscount
+                ? 1.4
+                : 1.4
+              : selectedDiscount
+              ? 1.4
+              : 2.2
+          }
           xs={12}
         >
           <TextField
@@ -326,6 +376,85 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             }}
           />
         </Grid>
+
+        {/* discount field */}
+        {selectedDiscount ? (
+          <Grid
+            sx={{
+              paddingTop: "4px !important",
+            }}
+            item
+            xs={12}
+            sm={1.4}
+          >
+            {selectedDiscount ? (
+              <TextField
+                sx={{
+                  width: "100%",
+                  color: palette.color.gray[700],
+                  "& .MuiInputBase-input": {
+                    borderRadius: "4px !important",
+                    height: "40px !important",
+                    pr: "0px",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    pr: "8px !important",
+                    borderRadius: "4px !important",
+                  },
+                  "& .MuiInputBase-input::placeholder": {
+                    color: palette.color.gray[800],
+                    opacity: 0.7,
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                    "&::-webkit-outer-spin-button": {
+                      WebkitAppearance: "none",
+                      margin: 0,
+                    },
+                    "&::-webkit-inner-spin-button": {
+                      WebkitAppearance: "none",
+                      margin: 0,
+                    },
+                    textAlign: "left",
+                  },
+                }}
+                name="discount"
+                type="number"
+                placeholder="Discount"
+                variant="outlined"
+                value={data.discount > 0 ? data.discount : ""}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const value = e.target.value;
+                  // Ensure that only up to 4 digits can be entered
+                  if (/^\d{0,4}$/.test(value)) {
+                    handleChange(e);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "-" || e.key === "e") {
+                    e.preventDefault(); // Prevent entering the minus sign or 'e'
+                  }
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Typography>%</Typography>
+                    </InputAdornment>
+                  ),
+                }}
+                inputProps={{
+                  maxLength: 4, // Max length of 4 digits
+                  inputMode: "numeric", // For numeric input on mobile
+                  pattern: "[0-9]*", // Restrict to digits
+                }}
+              />
+            ) : (
+              ""
+            )}
+          </Grid>
+        ) : (
+          <></>
+        )}
 
         {selectedTax ? (
           <Grid
@@ -411,7 +540,16 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             justifyContent: { sm: "end", xs: "space-between" },
           }}
           item
-          sm={selectedTax ? 2.3 : 2.4}
+          // sm={selectedTax ? 2.3 : 2.4}
+          sm={
+            selectedTax
+              ? selectedDiscount
+                ? 2.1
+                : 2.7
+              : selectedDiscount
+              ? 2.7
+              : 2.6
+          }
           xs={11}
         >
           <Box
@@ -436,8 +574,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 fontWeight: "600 !important",
                 pt: "2px",
                 width: selectedTax
-                  ? { sm: "100%", xs: "100px" }
-                  : { sm: "100%", xs: "100px" }, // Set width to ensure there's space to scroll
+                  ? { sm: "100%", xs: "150px" }
+                  : { sm: "100%", xs: "150px" }, // Set width to ensure there's space to scroll
                 color: palette.base.black,
                 display: "block",
                 margin: selectedTax ? "7px 7px 7px 7px" : "7px 7px 7px 7px",
@@ -451,14 +589,26 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               title={`${
                 selectedCurrency === "USD" ? "$" : selectedCurrency
               } ${(selectedTax
-                ? data?.subTotal
-                : data?.subTotal - data?.taxAmount
-              )?.toFixed(2)}`} // Optional: Show full value on hover
+                ? selectedDiscount
+                  ? data?.subTotal // Both tax and discount applied
+                  : data?.subTotalWithoutDiscount +
+                    data?.taxAmountWithoutDiscount // Only tax applied, no discount
+                : selectedDiscount
+                ? data?.subTotal - data?.taxAmount // Only discount applied, no tax
+                : data?.subTotalWithoutDiscount
+              ) // Neither tax nor discount applied
+                ?.toFixed(2)}`}
             >
               {(selectedTax
-                ? data?.subTotal
-                : data?.subTotal - data?.taxAmount
-              )?.toFixed(2)}{" "}
+                ? selectedDiscount
+                  ? data?.subTotal // Both tax and discount applied
+                  : data?.subTotalWithoutDiscount +
+                    data?.taxAmountWithoutDiscount // Only tax applied, no discount
+                : selectedDiscount
+                ? data?.subTotal - data?.taxAmount // Only discount applied, no tax
+                : data?.subTotalWithoutDiscount
+              ) // Neither tax nor discount applied
+                ?.toFixed(2)}{" "}
               {selectedCurrency}
             </Typography>
           </Box>
@@ -466,8 +616,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
         {showRemoveButton && (
           <Grid
             sx={{
-              paddingTop: "4px !important",
-              paddingBottom: "6px !important",
+              display: "flex",
+              alignItems: "center",
               alignSelf: "center",
             }}
             item
@@ -479,7 +629,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               onClick={() => onRemove(id)}
               aria-label="delete"
               sx={{
-                ml: { xs: "0px", sm: "10px" },
+                ml: { xs: "0px", sm: "5px" },
                 alignItems: "center",
                 width: "15px !important",
                 height: "15px !important",
