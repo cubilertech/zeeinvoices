@@ -26,6 +26,7 @@ import { RootState } from "@/redux/store";
 import { Close } from "@mui/icons-material";
 import { SelectInputWithSearch } from "../SelectInputWithSearch";
 import { Feedback } from "../Feedback";
+import { DigitalSignature } from "../DigitalSignature";
 
 interface InvoiceSettings {
   InvSetting?: any;
@@ -245,8 +246,17 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
           <SwitchInput type="terms" lable="Terms & Conditions"></SwitchInput>
         </Box>
       </Stack>
-
       <Feedback title="Feedback" placeholder="Provide a valueable feedback" />
+
+      <Stack gap={1.5}>
+        <Typography
+          variant="text-sm-semibold"
+          sx={{ paddingTop: 2, color: palette.color.gray[610] }}
+        >
+          Signature
+        </Typography>
+        <DigitalSignature />
+      </Stack>
     </Stack>
     // </Box>
   );
