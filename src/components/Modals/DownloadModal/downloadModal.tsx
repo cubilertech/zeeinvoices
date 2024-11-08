@@ -40,7 +40,6 @@ const DownloadModal: FC<DownloadModal> = ({
   InvDetails,
   summaryDetail,
 }) => {
-  console.log(summaryDetail, "sumde");
   return (
     <>
       <Backdrop

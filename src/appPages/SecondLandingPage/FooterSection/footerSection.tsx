@@ -33,6 +33,10 @@ const FooterSection = () => {
     route.push("/about-us");
   };
 
+  const handleBlogsPage = () => {
+    route.push("/blogs");
+  };
+
   useEffect(() => {
     const facebookimg = new Image();
     const instagramimg = new Image();
@@ -142,6 +146,24 @@ const FooterSection = () => {
                     }}
                   >
                     About
+                  </Typography>
+                </Link>
+                <Link
+                  underline="hover"
+                  variant="text-sm-bold"
+                  onClick={handleBlogsPage}
+                  sx={{ color: palette.color.gray[731], cursor: "pointer" }}
+                >
+                  <Typography
+                    variant="text-sm-bold"
+                    sx={{
+                      fontFamily: "Product Sans, sans-serif",
+                      fontSize: { md: "14px", xs: "14px" },
+                      lineHeight: { md: "21px", xs: "21px" },
+                      fontWeight: { md: 700 },
+                    }}
+                  >
+                    Blogs
                   </Typography>
                 </Link>
                 <Link
