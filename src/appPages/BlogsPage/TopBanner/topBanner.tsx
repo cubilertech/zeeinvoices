@@ -47,11 +47,9 @@ const TopBanner = () => {
               fontWeight: { xs: 400 },
             }}
           >
-            Experience the ease of <b>free invoicing</b> with ZeeInvoices.
-            Whether you’re a small business owner, a freelancer, or part of a
-            large enterprise, our tool is built to meet your invoicing needs.{" "}
-            <b>Sign up today</b> to start creating custom, professional
-            invoices.
+            Welcome to ZeeInvoices! We make invoicing simple, quick, and
+            completely free. Discover insightful and engaging blog articles
+            across various topics, crafted by experts and curated for you.
           </Typography>
         </Container>
       </Box>

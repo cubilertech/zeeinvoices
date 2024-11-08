@@ -420,7 +420,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 }}
                 name="discount"
                 type="number"
-                placeholder="Discount"
+                placeholder="Disc."
                 variant="outlined"
                 value={data.discount > 0 ? data.discount : ""}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
