@@ -1,5 +1,5 @@
 "use client";
-import { calculateAmount, calculateTax } from "@/common/common";
+import { calculateAmount, calculateDiscount, calculateTax } from "@/common/common";
 import PdfView from "@/appPages/PdfView/pdfView";
 import {
   getInvoiceItem,
@@ -79,6 +79,7 @@ const Preview = () => {
 
   const [total, setTotal] = useState(0);
   const router = useRouter();
+  const [discountAmount, setDiscountAmount] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
@@ -112,13 +113,16 @@ const Preview = () => {
 
   useEffect(() => {
     const totalAmount = calculateAmount(allInvoiceItems);
+    const totalDiscount = calculateDiscount(allInvoiceItems);
     const totalTax = calculateTax(allInvoiceItems);
     setTotal(totalAmount);
+    setDiscountAmount(totalDiscount);
     setTaxAmount(totalTax);
   }, [allInvoiceItems]);
   const summaryDetail = {
     total: total,
     taxAmount: taxAmount,
+    discountAmount: discountAmount,
   };
   //Update Invoice
   const handleUpdateInvoice = async () => {

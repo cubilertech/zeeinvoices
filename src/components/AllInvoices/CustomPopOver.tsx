@@ -9,6 +9,7 @@ import PdfView from "@/appPages/PdfView/pdfView";
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import { useSession } from "next-auth/react";
+import { PdfToast } from "../PdfToast";
 
 interface CustomPopOverProps {
   record: any;
@@ -40,6 +41,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [isPdfToastOpen, setIsPdfToastOpen] = useState(false);
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -76,6 +78,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         color: record?.settings?.color,
         currency: record?.settings?.currency,
         dueDate: record?.settings?.dueDate,
+        discount: record?.settings?.discount,
         tax: record?.settings?.tax,
         terms: record?.settings?.terms,
         detail: record?.settings?.detail,
@@ -98,6 +101,15 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     blobPdf.updateContainer(doc);
     const result = await blobPdf.toBlob();
     saveAs(result, pdfFileName);
+
+    setIsPdfToastOpen(true);
+    setTimeout(() => {
+      setIsPdfToastOpen(false);
+    }, 3000);
+  };
+
+  const handlePdfToastClose = () => {
+    setIsPdfToastOpen(false);
   };
   return (
     <>
@@ -214,6 +226,13 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           </Button>
         </Stack>
       </Popover>
+      <PdfToast
+        isOpen={isPdfToastOpen}
+        progress={100}
+        lable={pdfFileName}
+        type="single"
+        handleClose={handlePdfToastClose}
+      />
     </>
   );
 };

@@ -29,6 +29,7 @@ import {
 } from "@/utils/ApiHooks/common";
 import {
   calculateAmount,
+  calculateDiscount,
   calculateTax,
   tableFormatDate,
 } from "@/common/common";
@@ -93,6 +94,10 @@ export default function AllInvoices() {
   const [isPopover, setIsPopover] = React.useState(false);
   const isMobile = useMediaQuery("(max-width: 600px)");
 
+  const [total, setTotal] = React.useState(0);
+  const [discountAmount, setDiscountAmount] = React.useState(0);
+  const [taxAmount, setTaxAmount] = React.useState(0);
+
   const {
     mutate: deleteInvoice,
     isLoading: deleteInvoiceLoading,
@@ -107,17 +112,19 @@ export default function AllInvoices() {
   } = useFetchAllDocument(apiRoute, page, rowsPerPage, search);
 
   // Get Total Amount And Tax . for down load pdf
-  const [total, setTotal] = React.useState(0);
-  const [taxAmount, setTaxAmount] = React.useState(0);
+
   React.useEffect(() => {
     const totalAmount = calculateAmount(allInvoiceItems);
+    const totalDiscount = calculateDiscount(allInvoiceItems);
     const totalTax = calculateTax(allInvoiceItems);
     setTotal(totalAmount);
+    setDiscountAmount(totalDiscount);
     setTaxAmount(totalTax);
   }, [allInvoiceItems]);
   const summaryDetail = {
     total: total,
     taxAmount: taxAmount,
+    discountAmount: discountAmount,
   };
 
   const handleChangeSearch = (e: any) => {
@@ -202,6 +209,7 @@ export default function AllInvoices() {
       color: record?.settings?.color,
       currency: record?.settings?.currency,
       dueDate: record?.settings?.dueDate,
+      discount: record?.settings?.discount,
       tax: record?.settings?.tax,
       terms: record?.settings?.terms,
       detail: record?.settings?.detail,
@@ -209,11 +217,13 @@ export default function AllInvoices() {
 
     const itemDetail = details?.invoiceItem;
     const totalAmount = calculateAmount(record?.items);
+    const totalDiscount = calculateDiscount(record?.items);
     const totalTax = calculateTax(record?.items);
 
     const summary = {
       total: totalAmount,
       taxAmount: totalTax,
+      discountAmount: totalDiscount,
     };
 
     if (summary && settings && details && itemDetail) {
@@ -269,6 +279,7 @@ export default function AllInvoices() {
         color: record?.settings.color,
         currency: record?.settings.currency,
         dueDate: record?.settings.dueDate,
+        discount: record?.settings.discount,
         tax: record?.settings.tax,
         terms: record?.settings.terms,
         detail: record?.settings.detail,
@@ -309,6 +320,7 @@ export default function AllInvoices() {
         color: record?.settings?.color,
         currency: record?.settings?.currency,
         dueDate: record?.settings?.dueDate,
+        discount: record?.settings?.discount,
         tax: record?.settings?.tax,
         terms: record?.settings?.terms,
         detail: record?.settings?.detail,

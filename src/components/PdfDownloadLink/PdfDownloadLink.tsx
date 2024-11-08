@@ -49,7 +49,7 @@ const PdfDownloadLink: FC<PdfDownloadLinkProps> = ({
           <PdfView
             invSetting={{ ...invoiceSetting }}
             invDetails={{ ...invoiceDetail }}
-            Summary={invSummaryDetail}
+            Summary={summaryDetail}
             user={session?.user}
             itemDetail={itemDetail}
           />

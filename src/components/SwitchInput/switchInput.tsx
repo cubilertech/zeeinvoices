@@ -1,10 +1,12 @@
 "use client";
 import {
   getDetails,
+  getDiscount,
   getDueDate,
   getTax,
   getTerms,
   setDetails,
+  setDiscount,
   setDueDate,
   setTax,
   setTerms,
@@ -30,6 +32,7 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
   const dispatch = useDispatch();
   const dueDate = useSelector(getDueDate);
   const tax = useSelector(getTax);
+  const discount = useSelector(getDiscount);
   const terms = useSelector(getTerms);
   const details = useSelector(getDetails);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +41,8 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       dispatch(setDueDate());
     } else if (type === "tax") {
       dispatch(setTax());
+    } else if (type === "discount") {
+      dispatch(setDiscount());
     } else if (type === "terms") {
       dispatch(setTerms());
     } else {
@@ -49,6 +54,8 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       return dueDate;
     } else if (type === "tax") {
       return tax;
+    } else if (type === "discount") {
+      return discount;
     } else if (type === "terms") {
       return terms;
     } else {

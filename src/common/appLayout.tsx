@@ -12,7 +12,13 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
     <>
       {pathname.startsWith("/preview") ? <></> : <Header />}
 
-      <Box sx={{ backgroundColor: "white", minHeight: "200px" }}>
+      <Box
+        sx={{
+          backgroundColor: "white",
+          minHeight: "200px",
+          position: "relative",
+        }}
+      >
         {children}
       </Box>
       {pathname == "/" ||

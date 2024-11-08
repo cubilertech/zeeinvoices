@@ -104,11 +104,16 @@ const PdfView: FC<PdfViewProps> = ({
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
   const tax = invSetting?.tax;
+  const discount = invSetting?.discount;
   const currency = invSetting?.currency;
   const currencyText =
     invSetting?.currency === "USD" ? "USD" : invSetting?.currency;
 
-  const summarySubTotal = (Summary?.total - Summary?.taxAmount).toFixed(2);
+  const summarySubTotal = (
+    Summary?.total +
+    Summary?.discountAmount -
+    Summary?.taxAmount
+  ).toFixed(2);
 
   const invoiceDueDate = formattedDate(invDetails?.dueDate);
   const invoiceDate = formattedDate(invDetails?.invoiceDate);
@@ -134,11 +139,11 @@ const PdfView: FC<PdfViewProps> = ({
       text ||
       "MMMMMMMM MMMMMMMMMMMMM MMMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMMZ ZZZZZZZZZZ ZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZWWWWW WWWWWWWWWWWWWWW WWWWWWWWWWW WWWWWWWWWWWWWWW"
     ).replace(new RegExp(`(.{${length}})`, "g"), "$1\n");
-
   return (
     <Document style={{ overflow: "hidden", paddingBottom: "100px" }}>
       <Page
-        size="A4"
+        // size="A4"
+        size={{ width: 700, height: 842 }}
         style={{
           ...styles.page,
           borderColor: bgColor === "#fffff" ? "white" : bgColor,
@@ -341,14 +346,14 @@ const PdfView: FC<PdfViewProps> = ({
             </View>
           </View>
         </View>
-        {/* section 3 : date */}
 
+        {/* section 3 : date */}
         <View
           style={{
             display: "flex",
             flexDirection: "row",
             padding: "5px 10px",
-            gap: 27,
+            gap: 79,
           }}
         >
           {/* Invoice date */}
@@ -418,7 +423,14 @@ const PdfView: FC<PdfViewProps> = ({
         >
           <Text
             style={{
-              width: "190px",
+              width: discount
+                ? tax
+                  ? "180px"
+                  : "230px"
+                : tax
+                ? "260px"
+                : "260px",
+              marginRight: "10px",
               fontSize: "12px",
               fontWeight: "bold",
               color: isNearWhite(bgColor)
@@ -430,7 +442,15 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "42px",
+              // width: "50px",
+              width: discount
+                ? tax
+                  ? "50px"
+                  : "50px"
+                : tax
+                ? "50px"
+                : "100px",
+              marginRight: "10px",
               fontSize: "12px",
               fontWeight: "bold",
               color: isNearWhite(bgColor)
@@ -442,21 +462,42 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "80px",
+              width: "70px",
+              marginRight: "10px",
               fontSize: "12px",
               fontWeight: "bold",
               color: isNearWhite(bgColor)
                 ? palette.base.black
                 : palette.base.white,
-              marginLeft: "25",
+              // marginLeft: "25",
             }}
           >
             Rate {`(${currency})`}
           </Text>
+
+          {discount || Summary?.discountAmount > 0 ? (
+            <Text
+              style={{
+                width: "70px",
+                marginRight: "10px",
+                fontSize: "12px",
+                fontWeight: "bold",
+                color: isNearWhite(bgColor)
+                  ? palette.base.black
+                  : palette.base.white,
+              }}
+            >
+              Discount (%)
+            </Text>
+          ) : (
+            ""
+          )}
+
           {tax && Summary?.taxAmount > 0 ? (
             <Text
               style={{
-                width: "55px",
+                width: "40px",
+                marginRight: "10px",
                 fontSize: "12px",
                 fontWeight: "bold",
                 color: isNearWhite(bgColor)
@@ -467,25 +508,17 @@ const PdfView: FC<PdfViewProps> = ({
               Tax (%)
             </Text>
           ) : (
-            <Text
-              style={{
-                width: "55px",
-                fontSize: "12px",
-                fontWeight: "bold",
-                color: "white",
-              }}
-            ></Text>
+            ""
           )}
           <Text
             style={{
-              marginLeft: "20px",
+              width: "140px",
               fontSize: "12px",
               fontWeight: "bold",
               color: isNearWhite(bgColor)
                 ? palette.base.black
                 : palette.base.white,
               textAlign: "right",
-              width: "90px",
             }}
           >
             Subtotal {`(${currency})`}
@@ -517,10 +550,16 @@ const PdfView: FC<PdfViewProps> = ({
                     <View>
                       <Text
                         style={{
-                          width: "170px",
+                          width: discount
+                            ? tax
+                              ? "180px"
+                              : "230px"
+                            : tax
+                            ? "260px"
+                            : "260px",
                           fontSize: "14px",
                           fontWeight: "extrabold",
-                          marginRight: "17px",
+                          marginRight: "10px",
                           textAlign: "left",
                         }}
                       >
@@ -529,7 +568,14 @@ const PdfView: FC<PdfViewProps> = ({
                     </View>
                     <Text
                       style={{
-                        width: "55px",
+                        width: discount
+                          ? tax
+                            ? "50px"
+                            : "50px"
+                          : tax
+                          ? "50px"
+                          : "100px",
+                        marginRight: "10px",
                         fontSize: "14px",
                         fontWeight: "bold",
                         textAlign: "left",
@@ -540,23 +586,41 @@ const PdfView: FC<PdfViewProps> = ({
                     </Text>
                     <Text
                       style={{
-                        width: "50px",
+                        width: "70px",
+                        marginRight: "10px",
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginLeft: "12px",
                         textAlign: "left",
                         color: "#4B5565",
                       }}
                     >
                       {data?.rate}
                     </Text>
+
+                    {discount || Summary?.discountAmount > 0 ? (
+                      <Text
+                        style={{
+                          width: "70px",
+                          marginRight: "10px",
+                          fontSize: "14px",
+                          fontWeight: "bold",
+                          textAlign: "left",
+                          color: "#4B5565",
+                        }}
+                      >
+                        {data?.discount} %
+                      </Text>
+                    ) : (
+                      ""
+                    )}
+
                     {tax && Summary?.taxAmount > 0 ? (
                       <Text
                         style={{
-                          width: "50px",
+                          width: "40px",
+                          marginRight: "10px",
                           fontSize: "14px",
                           fontWeight: "bold",
-                          marginLeft: "30px",
                           textAlign: "left",
                           color: "#4B5565",
                         }}
@@ -564,26 +628,16 @@ const PdfView: FC<PdfViewProps> = ({
                         {data?.tax} %
                       </Text>
                     ) : (
-                      <Text
-                        style={{
-                          width: "50px",
-                          fontSize: "10px",
-                          fontWeight: "bold",
-                          marginLeft: "30px",
-                          textAlign: "left",
-                        }}
-                      ></Text>
+                      ""
                     )}
 
                     <Text
                       style={{
-                        width: "79px",
+                        width: "140px",
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginLeft: "33px",
                         textAlign: "right",
                         color: "#4B5565",
-                        marginRight: "7px",
                       }}
                     >
                       {(tax
@@ -679,8 +733,9 @@ const PdfView: FC<PdfViewProps> = ({
             >
               <Text
                 style={{
+                  width: "100%",
                   fontSize: "12px",
-                  marginLeft: "65px",
+                  textAlign: "center",
                   fontWeight: 600,
                   color: isNearWhite(bgColor)
                     ? palette.base.black
@@ -718,6 +773,33 @@ const PdfView: FC<PdfViewProps> = ({
                 </Text>
               </View>
             </View>
+
+            {discount && (
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  height: "44px",
+                  borderBottom: "1px solid #E3E8EF",
+                  alignItems: "center",
+                  margin: "0px",
+                  padding: "0px",
+                  paddingLeft: "16px",
+                  paddingRight: "16px",
+                }}
+              >
+                <Text style={{ fontSize: "12px", color: "#4B5565" }}>
+                  Discount
+                </Text>
+                <Text style={{ fontSize: "12px", color: "#000000" }}>
+                  {Summary?.discountAmount > 0
+                    ? Summary?.discountAmount.toFixed(2) + " " + currencyText
+                    : "--"}
+                </Text>
+              </View>
+            )}
+
             {tax && (
               <View
                 style={{

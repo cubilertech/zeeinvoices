@@ -14,6 +14,12 @@ export const calculateTax = (cartData: any) => {
   cartData?.map((data: any) => (totalTax += data.taxAmount));
   return totalTax;
 };
+//Calculate Discount
+export const calculateDiscount = (cartData: any) => {
+  let totalDiscount = 0;
+  cartData?.map((data: any) => (totalDiscount += data.discountAmount));
+  return totalDiscount;
+};
 // Formated Date
 export const formattedDate = (date: string) => {
   const parsedDate = dayjs(date);
