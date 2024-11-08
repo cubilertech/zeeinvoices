@@ -96,6 +96,7 @@ const FooterSection = () => {
                   fontSize: { md: "16px", xs: "16px" },
                   lineHeight: { md: "24px", xs: "20px" },
                   fontWeight: { md: 400 },
+                  textAlign: "justify",
                 }}
               >
                 ZeeInvoices is a powerful, easy-to-use invoicing solution
