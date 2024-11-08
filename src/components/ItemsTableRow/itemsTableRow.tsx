@@ -425,8 +425,8 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 value={data.discount > 0 ? data.discount : ""}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const value = e.target.value;
-                  // Ensure that only up to 4 digits can be entered
-                  if (/^\d{0,4}$/.test(value)) {
+                  // Ensure that only up to 3 digits can be entered
+                  if (/^\d{0,3}$/.test(value) && (value === "" || Number(value) <= 100)) {
                     handleChange(e);
                   }
                 }}
@@ -443,7 +443,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                   ),
                 }}
                 inputProps={{
-                  maxLength: 4, // Max length of 4 digits
+                  maxLength: 3, // Max length of 4 digits
                   inputMode: "numeric", // For numeric input on mobile
                   pattern: "[0-9]*", // Restrict to digits
                 }}
