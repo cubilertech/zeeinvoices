@@ -36,7 +36,8 @@ import "@/Styles/sectionStyle.css";
 import { UserProfileDetails } from "../UserProfileDetails";
 
 const alphaRegex = /[a-zA-Z]/;
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
+// const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
   email: Yup.string().required("Email is required"),

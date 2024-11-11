@@ -27,7 +27,8 @@ import { countryCodes } from "@/utils/data";
 import parsePhoneNumberFromString, { CountryCode } from "libphonenumber-js";
 
 const alphaRegex = /[a-zA-Z]/;
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
+// const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
   companyName: Yup.string().min(3).max(35),
