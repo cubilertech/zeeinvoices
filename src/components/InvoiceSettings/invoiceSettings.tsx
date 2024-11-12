@@ -6,9 +6,10 @@ import {
   IconButton,
   Popover,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import { SwitchInput } from "../SwitchInput";
 import { ColorPicker } from "../ColorPicker";
 import { ColorPickerMenuButton } from "../ColorPickerMenuButton";
@@ -18,9 +19,11 @@ import {
   ColorOption,
   getColors,
   getCurrency,
+  getWatermark,
   setColorsArray,
   setCurrency,
   setInvoiceColor,
+  setWatermarkText,
 } from "@/redux/features/invoiceSetting";
 import { RootState } from "@/redux/store";
 import { Close } from "@mui/icons-material";
@@ -35,7 +38,7 @@ interface InvoiceSettings {
 const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
-
+  const watermark = useSelector(getWatermark);
   const [color, setColor] = useState("#fffff");
   const [pickColor, setPickColor] = useState("");
   const selectedCurrency = useSelector(getCurrency);
@@ -95,6 +98,10 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
 
   const handleSelectedItem = (item: string) => {
     dispatch(setCurrency(item));
+  };
+  
+  const handleWatermarkChange = (val: string) => {
+    dispatch(setWatermarkText(val));
   };
 
   return (
@@ -244,6 +251,33 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
           <SwitchInput type="discount" lable="Discount"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>
           <SwitchInput type="terms" lable="Terms & Conditions"></SwitchInput>
+          <SwitchInput type="watermark" lable="Watermark"></SwitchInput>
+          {watermark && (
+            <TextField
+              variant="standard"
+              placeholder="Enter watermark text"
+              sx={{
+                width: "100%",
+                py: "10px",
+                px: "16px",
+                border: `1px solid ${palette.color.gray[5]}`,
+                borderRadius: "8px",
+                "& .MuiInputBase-input": {
+                  border: "none",
+                  height: "20px",
+                  pl: "0px",
+                  pr: "0px",
+                },
+                "& .MuiInputBase-input::placeholder": {
+                  color: palette.color.gray[610],
+                },
+              }}
+              InputProps={{
+                disableUnderline: true,
+              }}
+              onChange={(e) => handleWatermarkChange(e.target.value)}
+            />
+          )}
         </Box>
       </Stack>
       {/* <Feedback title="Feedback" placeholder="Provide a valueable feedback" /> */}

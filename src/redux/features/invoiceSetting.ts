@@ -11,10 +11,12 @@ export interface InvoiceSettingState {
   colors: ColorOption[];
   color: string;
   currency: string;
+  watermarkText: string;
   dueDate: boolean;
   tax: boolean;
   discount: boolean;
-  terms: boolean; // new added
+  terms: boolean;
+  watermark: boolean;
   detail: boolean;
 }
 
@@ -41,10 +43,12 @@ const initialState: InvoiceSettingState = {
   colors: initialColors,
   color: "#4F35DF",
   currency: "USD",
+  watermarkText: "",
   dueDate: true,
   tax: true,
   discount: true,
   terms: true,
+  watermark: false,
   detail: true,
 };
 const invoiceSetting = createSlice({
@@ -54,9 +58,11 @@ const invoiceSetting = createSlice({
     setInvoiceColor: (state, action) => {
       state.color = action.payload;
     },
-
     setCurrency: (state, action) => {
       state.currency = action.payload;
+    },
+    setWatermarkText: (state, action) => {
+      state.watermarkText = action.payload;
     },
     setDueDate: (state) => {
       state.dueDate = !state.dueDate;
@@ -70,6 +76,9 @@ const invoiceSetting = createSlice({
     setTerms: (state) => {
       state.terms = !state.terms;
     },
+    setWatermark: (state) => {
+      state.watermark = !state.watermark;
+    },
     setDetails: (state) => {
       state.detail = !state.detail;
     },
@@ -77,10 +86,12 @@ const invoiceSetting = createSlice({
       state.colors = action.payload.colors;
       state.color = action.payload.color;
       state.currency = action.payload.currency;
+      state.watermarkText = action.payload.watermarkText;
       state.dueDate = action.payload.dueDate;
       state.discount = action.payload.discount;
       state.tax = action.payload.tax;
       state.terms = action.payload.terms;
+      state.watermark = action.payload.watermark;
       state.detail = action.payload.detail;
     },
     setResetInvoiceSetting: (state) => {
@@ -109,19 +120,23 @@ const invoiceSetting = createSlice({
 export const getColors = (state: RootState) => state.invoiceSetting.colors;
 export const getColor = (state: RootState) => state.invoiceSetting.color;
 export const getCurrency = (state: RootState) => state.invoiceSetting.currency;
+export const getWatermarkText = (state: RootState) => state.invoiceSetting.watermarkText;
 export const getDueDate = (state: RootState) => state.invoiceSetting.dueDate;
 export const getTax = (state: RootState) => state.invoiceSetting.tax;
 export const getDiscount = (state: RootState) => state.invoiceSetting.discount;
 export const getTerms = (state: RootState) => state.invoiceSetting.terms;
+export const getWatermark = (state: RootState) => state.invoiceSetting.watermark;
 export const getDetails = (state: RootState) => state.invoiceSetting.detail;
 
 export const {
   setInvoiceColor,
   setCurrency,
+  setWatermarkText,
   setDueDate,
   setTax,
   setDiscount,
   setTerms,
+  setWatermark,
   setDetails,
   setInvoiceSettings,
   setResetInvoiceSetting,

@@ -5,11 +5,13 @@ import {
   getDueDate,
   getTax,
   getTerms,
+  getWatermark,
   setDetails,
   setDiscount,
   setDueDate,
   setTax,
   setTerms,
+  setWatermark,
 } from "@/redux/features/invoiceSetting";
 import { setAddtionalNotes } from "@/redux/features/invoiceSlice";
 import { palette } from "@/theme/palette";
@@ -34,6 +36,7 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
   const tax = useSelector(getTax);
   const discount = useSelector(getDiscount);
   const terms = useSelector(getTerms);
+  const watermark = useSelector(getWatermark);
   const details = useSelector(getDetails);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -45,6 +48,8 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       dispatch(setDiscount());
     } else if (type === "terms") {
       dispatch(setTerms());
+    } else if (type === "watermark") {
+      dispatch(setWatermark());
     } else {
       dispatch(setDetails());
     }
@@ -58,6 +63,8 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       return discount;
     } else if (type === "terms") {
       return terms;
+    } else if (type === "watermark") {
+      return watermark;
     } else {
       return details;
     }

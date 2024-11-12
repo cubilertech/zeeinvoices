@@ -114,6 +114,7 @@ const PreviewPage = () => {
         setInvoiceSettings({
           color: singleInvoice?.settings?.color,
           currency: singleInvoice?.settings?.currency,
+          watermarkText: singleInvoice?.settings?.watermarkText,
           dueDate: singleInvoice?.settings?.dueDate,
           discount: singleInvoice?.settings?.discount,
           tax: singleInvoice?.settings?.tax,
