@@ -28,6 +28,7 @@ const validationSchema = Yup.object({
     .max(35, "Last name must be 35 characters or less")
     .required("Last name is required"),
   email: Yup.string()
+    .transform((value) => value.trim())
     .matches(emailRegex, "Invalid email address")
     .email("Invalid email format")
     .required("Email is required"),
@@ -161,7 +162,6 @@ const GetTouchForm: React.FC = () => {
               >
                 Phone
               </Typography>
-
 
               <Field name="phoneNumber">
                 {({ field }: FieldProps) => (
