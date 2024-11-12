@@ -168,7 +168,7 @@ const Profile: FC<Profile> = ({}) => {
           profileUpdate({
             apiRoute: `${backendURL}/users/my-profile`,
             data: data,
-            title: "Profile Updated"
+            title: "Profile Updated",
           })
             .then((res) => {
               setUploadImage(null);
@@ -579,29 +579,6 @@ const Profile: FC<Profile> = ({}) => {
                     justifyContent={"space-between"}
                     sx={{ mt: "16px" }}
                   >
-                    <FormControl sx={{ width: { sm: "100%", xs: "100%" } }}>
-                      <TextField
-                        label="City"
-                        size="large"
-                        name="city"
-                        labelColor={"#344054"}
-                        sx={{
-                          width: { sm: "100%", xs: "100%" },
-                          "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                          "& .MuiInputBase-input": {
-                            fontSize: "16px",
-                            lineHeight: "24px",
-                            fontWeight: 400,
-                            color: "#101828",
-                          },
-                        }}
-                        onChange={handleChange}
-                        value={values.city}
-                        helperText={touched.city && errors.city}
-                        onBlur={handleBlur}
-                        error={touched.city && Boolean(errors.city)}
-                      />
-                    </FormControl>
                     <FormControl
                       sx={{
                         width: { sm: "100%", xs: "100%" },
@@ -628,6 +605,29 @@ const Profile: FC<Profile> = ({}) => {
                         helperText={touched.state && errors.state}
                         onBlur={handleBlur}
                         error={touched.state && Boolean(errors.state)}
+                      />
+                    </FormControl>
+                    <FormControl sx={{ width: { sm: "100%", xs: "100%" } }}>
+                      <TextField
+                        label="City"
+                        size="large"
+                        name="city"
+                        labelColor={"#344054"}
+                        sx={{
+                          width: { sm: "100%", xs: "100%" },
+                          "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                          "& .MuiInputBase-input": {
+                            fontSize: "16px",
+                            lineHeight: "24px",
+                            fontWeight: 400,
+                            color: "#101828",
+                          },
+                        }}
+                        onChange={handleChange}
+                        value={values.city}
+                        helperText={touched.city && errors.city}
+                        onBlur={handleBlur}
+                        error={touched.city && Boolean(errors.city)}
                       />
                     </FormControl>
                     <FormControl

@@ -396,24 +396,6 @@ const CreateSRModal: FC<CreateSRModal> = ({
                   <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                     <TextField
                       isRequired={true}
-                      label="City"
-                      size="large"
-                      borderRadius="4px"
-                      name="city"
-                      onChange={handleChange}
-                      value={values.city}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.city && errors.city}
-                      onBlur={handleBlur}
-                      error={touched.city && Boolean(errors.city)}
-                    ></TextField>
-                  </FormControl>
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
                       label="Country/State"
                       size="large"
                       name="state"
@@ -427,6 +409,24 @@ const CreateSRModal: FC<CreateSRModal> = ({
                       helperText={touched.state && errors.state}
                       onBlur={handleBlur}
                       error={touched.state && Boolean(errors.state)}
+                    ></TextField>
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="City"
+                      size="large"
+                      borderRadius="4px"
+                      name="city"
+                      onChange={handleChange}
+                      value={values.city}
+                      sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
                     ></TextField>
                   </FormControl>
                 </Stack>

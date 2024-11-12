@@ -338,20 +338,6 @@ const ClientDetailModel: FC<ClientDetail> = ({
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                     <TextField
                       isRequired={true}
-                      label="City"
-                      size="large"
-                      name="city"
-                      onChange={handleChange}
-                      value={values.city}
-                      sx={{ width: { sm: "240px", xs: "100%" } }}
-                      helperText={touched.city && errors.city}
-                      onBlur={handleBlur}
-                      error={touched.city && Boolean(errors.city)}
-                    ></TextField>
-                  </FormControl>
-                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
                       label="Country/State"
                       size="large"
                       name="state"
@@ -361,6 +347,20 @@ const ClientDetailModel: FC<ClientDetail> = ({
                       helperText={touched.state && errors.state}
                       onBlur={handleBlur}
                       error={touched.state && Boolean(errors.state)}
+                    ></TextField>
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="City"
+                      size="large"
+                      name="city"
+                      onChange={handleChange}
+                      value={values.city}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
                     ></TextField>
                   </FormControl>
                 </Stack>
