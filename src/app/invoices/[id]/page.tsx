@@ -153,6 +153,7 @@ const InvoiceDetail = () => {
           discount: singleInvoice?.settings?.discount,
           tax: singleInvoice?.settings?.tax,
           terms: singleInvoice?.settings?.terms,
+          watermark: singleInvoice?.settings?.watermark,
           detail: singleInvoice?.settings?.detail,
         })
       );
@@ -191,6 +192,7 @@ const InvoiceDetail = () => {
         discount: singleInvoice?.settings?.discount,
         tax: singleInvoice?.settings?.tax,
         terms: singleInvoice?.settings?.terms,
+        watermark: singleInvoice?.settings?.watermark,
         detail: singleInvoice?.settings?.detail,
       })
     );

@@ -20,6 +20,7 @@ import {
   getColors,
   getCurrency,
   getWatermark,
+  getWatermarkText,
   setColorsArray,
   setCurrency,
   setInvoiceColor,
@@ -30,6 +31,7 @@ import { Close } from "@mui/icons-material";
 import { SelectInputWithSearch } from "../SelectInputWithSearch";
 import { Feedback } from "../Feedback";
 import { DigitalSignature } from "../DigitalSignature";
+import { getInvoiceWatermarkError } from "@/redux/features/validationSlice";
 
 interface InvoiceSettings {
   InvSetting?: any;
@@ -39,9 +41,11 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
   const watermark = useSelector(getWatermark);
+  const watermarkText = useSelector(getWatermarkText);
   const [color, setColor] = useState("#fffff");
   const [pickColor, setPickColor] = useState("");
   const selectedCurrency = useSelector(getCurrency);
+  const IsInvoiceWatermarkError = useSelector(getInvoiceWatermarkError);
   // Color Change
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
@@ -99,7 +103,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const handleSelectedItem = (item: string) => {
     dispatch(setCurrency(item));
   };
-  
+
   const handleWatermarkChange = (val: string) => {
     dispatch(setWatermarkText(val));
   };
@@ -254,6 +258,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
           <SwitchInput type="watermark" lable="Watermark"></SwitchInput>
           {watermark && (
             <TextField
+              value={watermarkText}
               variant="standard"
               placeholder="Enter watermark text"
               sx={{
@@ -276,6 +281,18 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
                 disableUnderline: true,
               }}
               onChange={(e) => handleWatermarkChange(e.target.value)}
+              error={
+                (IsInvoiceWatermarkError && watermarkText.length < 3) ||
+                watermarkText.length > 20
+                  ? true
+                  : false
+              }
+              helperText={
+                (IsInvoiceWatermarkError && watermarkText.length < 3) ||
+                watermarkText.length > 20
+                  ? "character length should be 3 - 20"
+                  : ""
+              }
             />
           )}
         </Box>

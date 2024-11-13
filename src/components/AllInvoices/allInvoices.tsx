@@ -278,10 +278,12 @@ export default function AllInvoices() {
         colors: record?.settings.colors,
         color: record?.settings.color,
         currency: record?.settings.currency,
+        watermarkText: record?.settings.watermarkText,
         dueDate: record?.settings.dueDate,
         discount: record?.settings.discount,
         tax: record?.settings.tax,
         terms: record?.settings.terms,
+        watermark: record?.settings.watermark,
         detail: record?.settings.detail,
       })
     );
@@ -319,10 +321,12 @@ export default function AllInvoices() {
       setInvoiceSettings({
         color: record?.settings?.color,
         currency: record?.settings?.currency,
+        watermarkText: record?.settings.watermarkText,
         dueDate: record?.settings?.dueDate,
         discount: record?.settings?.discount,
         tax: record?.settings?.tax,
         terms: record?.settings?.terms,
+        watermark: record?.settings.watermark,
         detail: record?.settings?.detail,
       })
     );
@@ -348,79 +352,6 @@ export default function AllInvoices() {
     dispatch(setResetInvoiceSetting());
     dispatch(setResetInvoice());
     route.push("/create-new-invoice");
-  };
-
-  const handleDownloadInvoices = async (invoices: any) => {
-    const zip = new JSZip();
-    const zipFolder = zip.folder("Invoices");
-
-    for (const invoice of invoices) {
-      const invDetails = {
-        id: invoice?.id,
-        logo: invoice?.image,
-        invoiceType: invoice?.type,
-        from: {
-          ...invoice?.fromDetails,
-          phoneNumber: invoice?.fromDetails?.phone_number,
-          companyName: invoice?.fromDetails?.company_name,
-        },
-        to: {
-          ...invoice?.toDetails,
-          phoneNumber: invoice.toDetails?.phone_number,
-          companyName: invoice.toDetails?.company_name,
-        },
-        invoiceDate: invoice?.invoiceDate,
-        dueDate: invoice?.dueDate,
-        addtionalNotes: invoice?.notes,
-        invoiceItem: invoice?.items,
-      };
-
-      const invSettings = {
-        colors: invoice?.settings.colors,
-        color: invoice?.settings?.color,
-        currency: invoice?.settings?.currency,
-        dueDate: invoice?.settings?.dueDate,
-        tax: invoice?.settings?.tax,
-        terms: invoice?.settings?.terms,
-        detail: invoice?.settings?.detail,
-      };
-
-      const pdfFileName = invoice.toDetails?.companyName
-        ? `${invoice.toDetails.companyName}-${invoice.id}.pdf`
-        : `${invoice.toDetails.name}-${invoice.id}.pdf`;
-
-      const totalAmount = calculateAmount(invoice.items);
-      const totalTax = calculateTax(invoice.items);
-
-      const invSummaryDetail = {
-        total: totalAmount,
-        taxAmount: totalTax,
-      };
-
-      // Wrap the static markup in a PDF-friendly Document component
-      const pdfDocument = (
-        <PdfView
-          invSetting={invSettings}
-          invDetails={invDetails}
-          Summary={invSummaryDetail}
-          user={session?.user}
-          itemDetail={invoice.items}
-        />
-      );
-
-      // const blobPdf = await pdf(pdfDocument)?.toBlob();
-
-      const blobPdf = await pdf(pdfDocument);
-      blobPdf.updateContainer(pdfDocument);
-      const result = await blobPdf.toBlob();
-
-      zipFolder?.file(pdfFileName, result);
-    }
-
-    // Generate and download the ZIP file
-    zip.generateAsync({ type: "blob" }).then((zipBlob) => {
-      saveAs(zipBlob, "All_Invoices.zip");
-    });
   };
 
   const handleDownloadClick = () => {

@@ -47,6 +47,7 @@ import {
   getSenderDetailsError,
   setInvoiceRowItemValidation,
   setInvoiceTypeError,
+  setInvoiceWatermark,
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
@@ -152,7 +153,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.rate === "" ||
           item.quantity == 0 ||
           item.quantity === ""
-      )
+      ) ||
+      (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
+      InvSetting.watermarkText.length > 20
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
 
@@ -164,6 +167,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvSetting?.watermarkText === "" ||
+        InvSetting?.watermarkText.length < 3 ||
+        InvSetting?.watermarkText.length > 20
+      ) {
+        await dispatch(setInvoiceWatermark(true));
       }
 
       // Invoice item validation
@@ -303,7 +313,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.rate === "" ||
           item.quantity == 0 ||
           item.quantity === ""
-      )
+      ) ||
+      (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
+      InvSetting.watermarkText.length > 20
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
       if (InvDetails?.invoiceType === "") {
@@ -314,6 +326,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvSetting?.watermarkText === "" ||
+        InvSetting?.watermarkText.length < 3 ||
+        InvSetting?.watermarkText.length > 20
+      ) {
+        await dispatch(setInvoiceWatermark(true));
       }
 
       // Invoice item validation
@@ -546,7 +565,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.rate === "" ||
           item.quantity == 0 ||
           item.quantity === ""
-      )
+      ) ||
+      (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
+      InvSetting.watermarkText.length > 20
     ) {
       setIsValidInvoice(false);
       // Dispatch relevant error actions for invoiceType, sender, and recipient
@@ -558,6 +579,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvSetting?.watermarkText === "" ||
+        InvSetting?.watermarkText.length < 3 ||
+        InvSetting?.watermarkText.length > 20
+      ) {
+        await dispatch(setInvoiceWatermark(true));
       }
 
       // Invoice item validation

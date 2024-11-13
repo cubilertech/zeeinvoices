@@ -100,7 +100,7 @@ const PdfView: FC<PdfViewProps> = ({
 }) => {
   const [isClient, setIsClient] = useState(false);
   const [itemsLength, setItemsLength] = useState(false);
-
+  const watermarkText = invSetting?.watermarkText;
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
   const tax = invSetting?.tax;
@@ -149,6 +149,38 @@ const PdfView: FC<PdfViewProps> = ({
           borderColor: bgColor === "#fffff" ? "white" : bgColor,
         }}
       >
+        {/* Watermark */}
+        {watermarkText && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+              position: "absolute",
+              top: "55%",
+              left: "11%",
+              transform: "translate(-50%, -50%)",
+              opacity: 0.2,
+              zIndex: 100,
+            }}
+          >
+            <Text
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+                fontSize: "64px",
+                fontWeight: 900,
+                color: bgColor,
+                transform: "rotate(45deg)",
+              }}
+            >
+              {watermarkText}
+            </Text>
+          </View>
+        )}
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>

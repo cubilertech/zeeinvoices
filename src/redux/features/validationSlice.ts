@@ -37,6 +37,10 @@ interface ValidationState {
   invoiceRowItem: {
     items: itemsType[] | null;
   };
+  watermark: {
+    isError: boolean;
+    message: string;
+  };
 }
 
 const initialValue: ValidationState = {
@@ -55,6 +59,10 @@ const initialValue: ValidationState = {
   invoiceRowItem: {
     items: null,
   },
+  watermark: {
+    isError: false,
+    message: "character length should be 3 - 20",
+  },
 };
 
 export const validationSlice = createSlice({
@@ -69,6 +77,9 @@ export const validationSlice = createSlice({
     },
     setRecipientDetailsError: (state, action: PayloadAction<boolean>) => {
       state.recipientDetails.isError = action.payload;
+    },
+    setInvoiceWatermark: (state, action: PayloadAction<boolean>) => {
+      state.watermark.isError = action.payload;
     },
     setInvoiceRowItemValidation: (
       state,
@@ -93,6 +104,8 @@ export const getInvoiceItemsValidation = (state: RootState) =>
   state.validation.invoiceRowItem?.items;
 export const getInvoiceTypeError = (state: RootState) =>
   state.validation.invoiceType.isError;
+export const getInvoiceWatermarkError = (state: RootState) =>
+  state.validation.watermark.isError;
 export const getSenderDetailsError = (state: RootState) =>
   state.validation.senderDetails.isError;
 export const getRecipientDetailsError = (state: RootState) =>
@@ -109,6 +122,7 @@ export const {
   setInvoiceTypeError,
   setSenderDetailsError,
   setRecipientDetailsError,
+  setInvoiceWatermark,
   setInvoiceTypeValidation,
   setResetValidation,
   setInvoiceRowItemValidation,
