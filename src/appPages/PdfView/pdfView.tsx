@@ -133,12 +133,12 @@ const PdfView: FC<PdfViewProps> = ({
     return null;
   }
 
-  const addSoftHyphens = (text: any, length = 110) =>
-    (
-      invDetails?.additionalNotes ||
-      text ||
-      "MMMMMMMM MMMMMMMMMMMMM MMMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMMZ ZZZZZZZZZZ ZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZWWWWW WWWWWWWWWWWWWWW WWWWWWWWWWW WWWWWWWWWWWWWWW"
-    ).replace(new RegExp(`(.{${length}})`, "g"), "$1\n");
+  // const addSoftHyphens = (text: any, length = 110) =>
+  //   (invDetails?.additionalNotes || text || "").replace(
+  //     new RegExp(`(.{${length}})`, "g"),
+  //     "$1\n"
+  //   );
+
   return (
     <Document style={{ overflow: "hidden", paddingBottom: "100px" }}>
       <Page
@@ -854,7 +854,7 @@ const PdfView: FC<PdfViewProps> = ({
         </View>
 
         {invDetails?.addtionalNotes && (
-          <View style={{ padding: "5px 15px", marginTop: "10px" }}>
+          <View wrap={false} style={{ padding: "5px 15px", marginTop: "10px" }}>
             <Text
               style={{
                 fontSize: "14px",
@@ -868,14 +868,6 @@ const PdfView: FC<PdfViewProps> = ({
             <Text wrap={true} break style={styles.noteText}>
               {invDetails?.addtionalNotes}
             </Text>
-            {/* <View style={{ width: "510px", backgroundColor: "yellow" }}>
-              <Text wrap={true} break style={styles.noteText}>
-                {invDetails?.addtionalNotes}
-              </Text>
-            </View> */}
-            {/* <Text style={styles.noteText}>
-              {addSoftHyphens(invDetails?.additionalNotes)}
-            </Text> */}
           </View>
         )}
         {/* secion 6 : footer */}

@@ -662,10 +662,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
             sx={{
               color: palette.color.gray[700],
               width: "100%",
-              height: "40px !important",
+              // height: "40px !important",
               "& .MuiInputBase-input": {
                 borderRadius: "4px !important",
-                height: "20px !important",
+                // height: "20px !important",
                 py: "10px",
               },
               "& .MuiOutlinedInput-root": {
@@ -678,7 +678,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
               },
             }}
             multiline
-            maxRows={3}
+            maxRows={2}
             id="outlined-basic"
             name="description"
             placeholder="Enter Description"

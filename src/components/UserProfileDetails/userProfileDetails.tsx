@@ -95,8 +95,11 @@ const UserProfileDetails: FC<UserProfileDetails> = ({
           justifyContent={"space-between"}
           sx={{ mt: "16px" }}
         >
+          <ProfileDetailsCard
+            label="Country/State"
+            description={profileData.state}
+          />
           <ProfileDetailsCard label="City" description={profileData.city} />
-          <ProfileDetailsCard label="Country/State" description={profileData.state} />
           <ProfileDetailsCard
             label="Address"
             description={profileData.address}
