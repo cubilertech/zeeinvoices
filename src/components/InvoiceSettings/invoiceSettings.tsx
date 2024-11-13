@@ -45,7 +45,9 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const [color, setColor] = useState("#fffff");
   const [pickColor, setPickColor] = useState("");
   const selectedCurrency = useSelector(getCurrency);
-  const IsInvoiceWatermarkError = useSelector(getInvoiceWatermarkError);
+  const isInvoiceWatermarkError = useSelector(
+    getInvoiceWatermarkError ?? false
+  );
   // Color Change
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
@@ -282,13 +284,13 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
               }}
               onChange={(e) => handleWatermarkChange(e.target.value)}
               error={
-                (IsInvoiceWatermarkError && watermarkText.length < 3) ||
+                (isInvoiceWatermarkError && watermarkText.length < 3) ||
                 watermarkText.length > 20
                   ? true
                   : false
               }
               helperText={
-                (IsInvoiceWatermarkError && watermarkText.length < 3) ||
+                (isInvoiceWatermarkError && watermarkText.length < 3) ||
                 watermarkText.length > 20
                   ? "character length should be 3 - 20"
                   : ""

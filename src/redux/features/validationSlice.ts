@@ -105,7 +105,7 @@ export const getInvoiceItemsValidation = (state: RootState) =>
 export const getInvoiceTypeError = (state: RootState) =>
   state.validation.invoiceType.isError;
 export const getInvoiceWatermarkError = (state: RootState) =>
-  state.validation.watermark.isError;
+  state.validation.watermark?.isError;
 export const getSenderDetailsError = (state: RootState) =>
   state.validation.senderDetails.isError;
 export const getRecipientDetailsError = (state: RootState) =>
