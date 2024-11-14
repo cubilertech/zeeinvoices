@@ -3,12 +3,14 @@ import {
   getDetails,
   getDiscount,
   getDueDate,
+  getSignature,
   getTax,
   getTerms,
   getWatermark,
   setDetails,
   setDiscount,
   setDueDate,
+  setSignature,
   setTax,
   setTerms,
   setWatermark,
@@ -35,6 +37,7 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
   const dueDate = useSelector(getDueDate);
   const tax = useSelector(getTax);
   const discount = useSelector(getDiscount);
+  const signature = useSelector(getSignature);
   const terms = useSelector(getTerms);
   const watermark = useSelector(getWatermark);
   const details = useSelector(getDetails);
@@ -46,6 +49,8 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       dispatch(setTax());
     } else if (type === "discount") {
       dispatch(setDiscount());
+    } else if (type === "signature") {
+      dispatch(setSignature());
     } else if (type === "terms") {
       dispatch(setTerms());
     } else if (type === "watermark") {
@@ -61,6 +66,8 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       return tax;
     } else if (type === "discount") {
       return discount;
+    } else if (type === "signature") {
+      return signature;
     } else if (type === "terms") {
       return terms;
     } else if (type === "watermark") {

@@ -87,10 +87,8 @@ const InvoiceDetail = () => {
     total: total,
     taxAmount: taxAmount,
   };
-  const {
-    data: singleInvoice,
-    refetch: refetchSingleInvoice,
-  } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
+  const { data: singleInvoice, refetch: refetchSingleInvoice } =
+    useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
   const invoiceDetailsPDF = {
     id: singleInvoice?.id,
@@ -159,6 +157,7 @@ const InvoiceDetail = () => {
           watermarkText: singleInvoice?.settings?.watermarkText,
           dueDate: singleInvoice?.settings?.dueDate,
           discount: singleInvoice?.settings?.discount,
+          signature: singleInvoice?.settings?.signature,
           tax: singleInvoice?.settings?.tax,
           terms: singleInvoice?.settings?.terms,
           watermark: singleInvoice?.settings?.watermark,
@@ -201,6 +200,7 @@ const InvoiceDetail = () => {
         currency: singleInvoice?.settings?.currency,
         watermarkText: singleInvoice?.settings?.watermarkText,
         dueDate: singleInvoice?.settings?.dueDate,
+        signature: singleInvoice?.settings?.signature,
         discount: singleInvoice?.settings?.discount,
         tax: singleInvoice?.settings?.tax,
         terms: singleInvoice?.settings?.terms,
@@ -211,9 +211,7 @@ const InvoiceDetail = () => {
     router.push(`/invoices/${singleInvoice?._id}/edit`);
   };
 
-  const {
-    mutateAsync: deleteInvoice,
-  } = useDeleteDocument();
+  const { mutateAsync: deleteInvoice } = useDeleteDocument();
 
   // Back Handle
   const handleBack = () => {
@@ -433,12 +431,11 @@ const InvoiceDetail = () => {
                   invoiceSetting={{ ...invoiceSettings }}
                 />
               </Box>
-            </Box>         
+            </Box>
           </Box>
         </Stack>
       </Stack>
       <Stack direction={"row"} gap={3} sx={{ mb: 5 }}>
-
         {!isMobile ? (
           invoiceDetailsPDF.id &&
           invoiceSettingsPDF.color &&

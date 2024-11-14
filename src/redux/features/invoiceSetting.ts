@@ -15,6 +15,7 @@ export interface InvoiceSettingState {
   dueDate: boolean;
   tax: boolean;
   discount: boolean;
+  signature: boolean;
   terms: boolean;
   watermark: boolean;
   detail: boolean;
@@ -47,6 +48,7 @@ const initialState: InvoiceSettingState = {
   dueDate: true,
   tax: true,
   discount: true,
+  signature: true,
   terms: true,
   watermark: false,
   detail: true,
@@ -73,6 +75,9 @@ const invoiceSetting = createSlice({
     setDiscount: (state) => {
       state.discount = !state.discount;
     },
+    setSignature: (state) => {
+      state.signature = !state.signature;
+    },
     setTerms: (state) => {
       state.terms = !state.terms;
     },
@@ -89,6 +94,7 @@ const invoiceSetting = createSlice({
       state.watermarkText = action.payload.watermarkText;
       state.dueDate = action.payload.dueDate;
       state.discount = action.payload.discount;
+      state.signature = action.payload.signature;
       state.tax = action.payload.tax;
       state.terms = action.payload.terms;
       state.watermark = action.payload.watermark;
@@ -120,12 +126,17 @@ const invoiceSetting = createSlice({
 export const getColors = (state: RootState) => state.invoiceSetting.colors;
 export const getColor = (state: RootState) => state.invoiceSetting.color;
 export const getCurrency = (state: RootState) => state.invoiceSetting.currency;
-export const getWatermarkText = (state: RootState) => state.invoiceSetting.watermarkText;
+export const getWatermarkText = (state: RootState) =>
+  state.invoiceSetting.watermarkText;
 export const getDueDate = (state: RootState) => state.invoiceSetting.dueDate;
 export const getTax = (state: RootState) => state.invoiceSetting.tax;
 export const getDiscount = (state: RootState) => state.invoiceSetting.discount;
+export const getSignature = (state: RootState) =>
+  state.invoiceSetting.signature;
+
 export const getTerms = (state: RootState) => state.invoiceSetting.terms;
-export const getWatermark = (state: RootState) => state.invoiceSetting.watermark;
+export const getWatermark = (state: RootState) =>
+  state.invoiceSetting.watermark;
 export const getDetails = (state: RootState) => state.invoiceSetting.detail;
 
 export const {
@@ -135,6 +146,7 @@ export const {
   setDueDate,
   setTax,
   setDiscount,
+  setSignature,
   setTerms,
   setWatermark,
   setDetails,

@@ -51,7 +51,6 @@ import { DisplaySignature } from "../DisplaySignature";
 
 const useHandleRefresh = (type: string) => {
   const dispatch = useDispatch();
-  const invoiceSignature = useSelector(getInvoiceSignature);
   const handleRefresh = () => {
     localStorage.setItem("intentionalRefresh", "true");
   };

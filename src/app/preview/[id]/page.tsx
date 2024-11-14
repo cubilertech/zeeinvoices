@@ -125,6 +125,7 @@ const PreviewPage = () => {
           watermarkText: singleInvoice?.settings?.watermarkText,
           dueDate: singleInvoice?.settings?.dueDate,
           discount: singleInvoice?.settings?.discount,
+          signature: singleInvoice?.settings?.signature,
           tax: singleInvoice?.settings?.tax,
           terms: singleInvoice?.settings?.terms,
           watermark: singleInvoice?.settings?.watermark,

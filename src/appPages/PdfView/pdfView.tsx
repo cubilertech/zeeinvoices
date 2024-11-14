@@ -174,7 +174,7 @@ const PdfView: FC<PdfViewProps> = ({
                 fontSize: "64px",
                 fontWeight: 900,
                 color: bgColor,
-                transform: "rotate(45deg)",
+                transform: "rotate(-45deg)",
               }}
             >
               {watermarkText}
@@ -734,13 +734,13 @@ const PdfView: FC<PdfViewProps> = ({
                 flexDirection: "column",
                 // justifyContent: "center",
                 alignItems: "center",
-                gap: 6,
+                gap: 5,
               }}
             >
               <View style={styles.title_logo}>
                 {invDetails?.logo && (
                   <Image
-                    style={invDetails?.logo ? styles.image : styles.logo}
+                    style={{ width: "190px", height: "90px" }}
                     src={googleImage(invDetails?.signature?.image)}
                   />
                 )}

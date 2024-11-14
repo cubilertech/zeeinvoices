@@ -16,11 +16,13 @@ import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded";
 import { Close } from "@mui/icons-material";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  getInvoiceSignature,
   setInvoiceSignature,
   setInvoiceSignatureDesignation,
 } from "@/redux/features/invoiceSlice";
+import { googleImage } from "@/utils/common";
 
 interface DigitalSignatureProps {
   logoDesc?: string;
@@ -28,6 +30,7 @@ interface DigitalSignatureProps {
 
 const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
   const dispatch = useDispatch();
+  const invoiceSignature = useSelector(getInvoiceSignature);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const signaturePadRef = useRef<SignatureCanvas>(null);
   const [signatureURL, setSignatureURL] = useState<string | null>(null);
@@ -105,7 +108,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
   return (
     <>
       <Box>
-        {signatureURL && (
+        {invoiceSignature && (
           <Box
             sx={{
               width: "100%",
@@ -136,7 +139,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
               <Close sx={{ color: "#4B5565", width: "10px", height: "10px" }} />
             </ButtonBase>
             <Image
-              src={signatureURL}
+              src={googleImage(invoiceSignature as string)}
               alt="Signature"
               width={330}
               height={200}

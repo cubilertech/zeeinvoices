@@ -19,6 +19,7 @@ import {
   ColorOption,
   getColors,
   getCurrency,
+  getSignature,
   getWatermark,
   getWatermarkText,
   setColorsArray,
@@ -41,6 +42,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
   const watermark = useSelector(getWatermark);
+  const isSignature = useSelector(getSignature);
   const watermarkText = useSelector(getWatermarkText);
   const [color, setColor] = useState("#fffff");
   const [pickColor, setPickColor] = useState("");
@@ -255,6 +257,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         <Box>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
           <SwitchInput type="discount" lable="Discount"></SwitchInput>
+          <SwitchInput type="signature" lable="Signature"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>
           <SwitchInput type="terms" lable="Terms & Conditions"></SwitchInput>
           <SwitchInput type="watermark" lable="Watermark"></SwitchInput>
@@ -301,15 +304,17 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
       </Stack>
       {/* <Feedback title="Feedback" placeholder="Provide a valueable feedback" /> */}
 
-      <Stack gap={1.5}>
-        <Typography
-          variant="text-sm-semibold"
-          sx={{ paddingTop: 2, color: palette.color.gray[610] }}
-        >
-          Signature
-        </Typography>
-        <DigitalSignature />
-      </Stack>
+      {isSignature && (
+        <Stack gap={1.5}>
+          <Typography
+            variant="text-sm-semibold"
+            sx={{ paddingTop: 2, color: palette.color.gray[610] }}
+          >
+            Signature
+          </Typography>
+          <DigitalSignature />
+        </Stack>
+      )}
     </Stack>
     // </Box>
   );

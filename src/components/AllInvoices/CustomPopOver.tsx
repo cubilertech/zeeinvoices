@@ -84,6 +84,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         watermarkText: record?.settings.watermarkText,
         dueDate: record?.settings?.dueDate,
         discount: record?.settings?.discount,
+        signature: record?.settings?.signature,
         tax: record?.settings?.tax,
         terms: record?.settings?.terms,
         watermark: record?.settings.watermark,
