@@ -276,7 +276,7 @@ const InvoiceItemsTable: FC = () => {
             variant="text-md-semibold"
             sx={{ color: palette.primary.main }}
           >
-            Add New Invoice Item
+            Add New Item
           </Typography>
         </Stack>
       </ButtonBase>

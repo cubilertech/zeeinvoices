@@ -58,7 +58,7 @@ const InvoiceSummary: FC = () => {
             fontWeight: 600,
           }}
         >
-          Invoice Summary
+          Summary
         </Typography>
       </Box>
 
