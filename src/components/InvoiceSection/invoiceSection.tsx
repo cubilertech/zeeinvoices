@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSelectedColor } from "@/utils/common";
 import {
   getAddtionalNotes,
+  getInvoiceSignature,
   setAddtionalNotes,
   setRecipientDetail,
   setResetInvoice,
@@ -44,12 +45,13 @@ import {
   getSenderDetailsError,
   setResetValidation,
 } from "@/redux/features/validationSlice";
+import { DisplaySignature } from "../DisplaySignature";
 
 // for handle refresh button
 
 const useHandleRefresh = (type: string) => {
   const dispatch = useDispatch();
-
+  const invoiceSignature = useSelector(getInvoiceSignature);
   const handleRefresh = () => {
     localStorage.setItem("intentionalRefresh", "true");
   };
@@ -237,8 +239,15 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
 
         {/* Fifth section, Invoice summery */}
         <Box
-          sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            justifyContent: "space-between",
+          }}
         >
+          <DisplaySignature />
+
           <InvoiceSummary />
         </Box>
         {/* Sixth section, additional notes */}

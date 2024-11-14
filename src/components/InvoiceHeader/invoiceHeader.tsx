@@ -132,6 +132,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       invoiceDate: InvDetails.invoiceDate,
       dueDate: InvDetails.dueDate,
       items: InvDetails.invoiceItem,
+      signatureImage: InvDetails.signature?.image,
+      signatureDesignation: InvDetails.signature?.designation,
       settings: InvSetting,
       notes: InvDetails.addtionalNotes,
     };
@@ -283,6 +285,17 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
+
+      // if (invoiceData.signatureImage) {
+      //   const imageFile = base64ToFile(
+      //     invoiceData.signatureImage,
+      //     "uploaded_image.png"
+      //   );
+      //   formData.append("signatureImage", imageFile);
+      // }
+
+      // formData.append("designation", invoiceData.signatureDesignation);
+
       updateInvoice({
         data: formData,
         apiRoute: `${backendURL}/invoices/${id}`,
@@ -435,6 +448,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
+
+      if (invoiceData.signatureImage) {
+        const imageFile = base64ToFile(
+          invoiceData.signatureImage,
+          "uploaded_image.png"
+        );
+        formData.append("signatureImage", imageFile);
+      }
+
+      formData.append("designation", invoiceData.signatureDesignation);
 
       createInvoice({
         data: formData,

@@ -16,12 +16,18 @@ import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded";
 import { Close } from "@mui/icons-material";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import {
+  setInvoiceSignature,
+  setInvoiceSignatureDesignation,
+} from "@/redux/features/invoiceSlice";
 
 interface DigitalSignatureProps {
   logoDesc?: string;
 }
 
 const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
+  const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const signaturePadRef = useRef<SignatureCanvas>(null);
   const [signatureURL, setSignatureURL] = useState<string | null>(null);
@@ -39,6 +45,9 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
   const handleSave = () => {
     if (signaturePadRef.current && !signaturePadRef.current.isEmpty()) {
       setSignatureURL(signaturePadRef.current.toDataURL("image/png"));
+      dispatch(
+        setInvoiceSignature(signaturePadRef.current.toDataURL("image/png"))
+      );
       setIsPadOpen(false);
       setError(null);
     } else {
@@ -71,6 +80,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
       reader.onloadend = () => {
         const base64Image = reader.result as string;
         setSignatureURL(base64Image);
+        dispatch(setInvoiceSignature(base64Image));
       };
       reader.readAsDataURL(file);
     }
@@ -80,6 +90,16 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
+  };
+
+  const handleDesignationChange = (val: string) => {
+    dispatch(setInvoiceSignatureDesignation(val));
+  };
+
+  const handleSignatureCancel = () => {
+    setSignatureURL(null);
+    dispatch(setInvoiceSignature(""));
+    dispatch(setInvoiceSignatureDesignation(""));
   };
 
   return (
@@ -101,7 +121,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
             }}
           >
             <ButtonBase
-              onClick={() => setSignatureURL(null)}
+              onClick={handleSignatureCancel}
               sx={{
                 border: "1px solid #E3E8EF",
                 borderRadius: "100%",
@@ -242,29 +262,35 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
               </Typography>
             </Stack>
           </ButtonBase>
-          <TextField
-            variant="standard"
-            placeholder="Enter your designation"
-            sx={{
-              width: "100%",
-              py: "10px",
-              px: "16px",
-              border: `1px solid ${palette.color.gray[5]}`,
-              borderRadius: "8px",
-              "& .MuiInputBase-input": {
-                border: "none",
-                height: "20px",
-                pl: "0px",
-                pr: "0px",
-              },
-              "& .MuiInputBase-input::placeholder": {
-                color: palette.color.gray[610],
-              },
-            }}
-            InputProps={{
-              disableUnderline: true,
-            }}
-          />
+          {signatureURL && (
+            <TextField
+              variant="standard"
+              placeholder="Enter your designation"
+              onChange={(e) => handleDesignationChange(e.target.value)}
+              sx={{
+                width: "100%",
+                py: "10px",
+                px: "16px",
+                border: `1px solid ${palette.color.gray[5]}`,
+                borderRadius: "8px",
+                "& .MuiInputBase-input": {
+                  border: "none",
+                  height: "20px",
+                  pl: "0px",
+                  pr: "0px",
+                },
+                "& .MuiInputBase-input::placeholder": {
+                  color: palette.color.gray[610],
+                },
+              }}
+              InputProps={{
+                disableUnderline: true,
+              }}
+              inputProps={{
+                maxLength: 18, // Restricts input to 18 characters
+              }}
+            />
+          )}
         </Stack>
         <input
           type="file"

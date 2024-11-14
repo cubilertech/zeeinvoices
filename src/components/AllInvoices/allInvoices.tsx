@@ -202,6 +202,10 @@ export default function AllInvoices() {
       dueDate: record?.dueDate,
       addtionalNotes: record?.notes,
       invoiceItem: record?.items,
+      signature: {
+        image: record?.signature?.image,
+        designation: record?.signature?.designation,
+      },
     };
 
     const settings = {
@@ -271,6 +275,10 @@ export default function AllInvoices() {
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(
@@ -315,6 +323,10 @@ export default function AllInvoices() {
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(

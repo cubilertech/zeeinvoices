@@ -11,6 +11,12 @@ export interface ContactDetail {
   state: string;
   address: string;
 }
+
+export interface SignatureDetail {
+  image: string | ArrayBuffer | null;
+  designation: string;
+}
+
 export interface InvoiceItem {
   id: number;
   name: string;
@@ -34,6 +40,7 @@ export interface InvoiceState {
   invoiceDate: string | null;
   dueDate: string | null;
   invoiceItem: InvoiceItem[];
+  signature: SignatureDetail;
   addtionalNotes: string;
 }
 type UpdatableKeys =
@@ -88,6 +95,7 @@ const initialValue: InvoiceState = {
       discountAmount: 0,
     },
   ],
+  signature: { image: "", designation: "" },
   addtionalNotes: "",
 };
 
@@ -120,6 +128,12 @@ export const invoiceSlice = createSlice({
     addInvoiceItem: (state, action: PayloadAction<InvoiceItem>) => {
       const item = action.payload;
       state.invoiceItem = [...state.invoiceItem, item];
+    },
+    setInvoiceSignature: (state, action: PayloadAction<string | null>) => {
+      state.signature.image = action.payload;
+    },
+    setInvoiceSignatureDesignation: (state, action: PayloadAction<string>) => {
+      state.signature.designation = action.payload;
     },
     removeInvoiceItem: (state, action: PayloadAction<number>) => {
       const id = action.payload;
@@ -174,6 +188,7 @@ export const invoiceSlice = createSlice({
       state.dueDate = action.payload.dueDate;
       state.addtionalNotes = action.payload.addtionalNotes;
       state.invoiceItem = action.payload.invoiceItem;
+      state.signature = action.payload.signature;
     },
     setResetFromDetails: (state) => {
       state.from = initialValue.from;
@@ -200,6 +215,11 @@ export const getRecipientDetail = (state: RootState) => state.invoice.to;
 export const getInvoiceDate = (state: RootState) => state.invoice.invoiceDate;
 export const getDueDate = (state: RootState) => state.invoice.dueDate;
 export const getInvoiceItem = (state: RootState) => state.invoice.invoiceItem;
+export const getInvoiceSignature = (state: RootState) =>
+  state.invoice.signature?.image;
+export const getInvoiceSignatureDesignation = (state: RootState) =>
+  state.invoice.signature?.designation;
+
 export const getAddtionalNotes = (state: RootState) =>
   state.invoice.addtionalNotes;
 
@@ -213,6 +233,8 @@ export const {
   setDueDate,
   addInvoiceItem,
   removeInvoiceItem,
+  setInvoiceSignature,
+  setInvoiceSignatureDesignation,
   setInvoiceItem,
   setAddtionalNotes,
   setFullInvoice,

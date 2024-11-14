@@ -706,22 +706,25 @@ const PdfView: FC<PdfViewProps> = ({
         <View
           wrap={false}
           style={{
+            width: "100%",
             marginTop: "32px",
             padding: "1px 10px",
             display: "flex",
             flexDirection: "row",
-            gap: 10,
+            justifyContent: "space-between",
+            gap: 120,
           }}
         >
-          {/* terms */}
+          {/* signature */}
           <View
             style={{
-              width: "270px",
+              width: "200px",
               flexGrow: 1,
               borderRadius: "4px",
               padding: "5px 10px",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-end",
               gap: 10,
             }}
           >
@@ -729,10 +732,29 @@ const PdfView: FC<PdfViewProps> = ({
               style={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between",
+                // justifyContent: "center",
+                alignItems: "center",
                 gap: 6,
               }}
-            ></View>
+            >
+              <View style={styles.title_logo}>
+                {invDetails?.logo && (
+                  <Image
+                    style={invDetails?.logo ? styles.image : styles.logo}
+                    src={googleImage(invDetails?.signature?.image)}
+                  />
+                )}
+              </View>
+              <Text
+                style={{
+                  fontSize: "12px",
+                  marginTop: "8px",
+                  color: "#4B5565",
+                }}
+              >
+                {invDetails?.signature?.designation}
+              </Text>
+            </View>
           </View>
           {/* summary */}
           <View

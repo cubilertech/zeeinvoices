@@ -1,0 +1,74 @@
+"use client";
+
+import {
+  getInvoiceSignature,
+  getInvoiceSignatureDesignation,
+} from "@/redux/features/invoiceSlice";
+import { palette } from "@/theme/palette";
+import { googleImage } from "@/utils/common";
+import { Box, Stack, Typography } from "@mui/material";
+import Image from "next/image";
+import { FC } from "react";
+import { useSelector } from "react-redux";
+
+interface DisplaySignatureProps {}
+
+const DisplaySignature: FC<DisplaySignatureProps> = ({}) => {
+  const invoiceSignature = useSelector(getInvoiceSignature);
+  const invoiceSignatureDesignation = useSelector(
+    getInvoiceSignatureDesignation
+  );
+
+  return (
+    <>
+      <Stack
+        sx={{
+          px: "20px",
+          py: "20px",
+          width: { sm: "auto", xs: "100%" },
+          justifyContent: "end",
+          alignItems: "center",
+        }}
+      >
+        {invoiceSignature && (
+          <Box
+            sx={{
+              width: "190px",
+              height: "90px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={googleImage(invoiceSignature as string)}
+              alt="Selected Logo"
+              width={190}
+              height={90}
+              style={{
+                objectFit: "contain",
+                maxWidth: "100%",
+                maxHeight: "100%",
+              }}
+              unoptimized
+            />
+          </Box>
+        )}
+
+        <Typography
+          variant="text-md-regular"
+          sx={{
+            maxWidth: "150px",
+            overflow: "hidden",
+             color: palette.color.gray[610],
+          }}
+        >
+          {invoiceSignatureDesignation}
+        </Typography>
+      </Stack>
+    </>
+  );
+};
+
+export default DisplaySignature;

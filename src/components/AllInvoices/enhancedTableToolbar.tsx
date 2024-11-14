@@ -93,6 +93,10 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         dueDate: invoice?.dueDate,
         addtionalNotes: invoice?.notes,
         invoiceItem: invoice?.items,
+        signature: {
+          image: invoice?.signature?.image,
+          designation: invoice?.signature?.designation,
+        },
       };
 
       const invSettings = {

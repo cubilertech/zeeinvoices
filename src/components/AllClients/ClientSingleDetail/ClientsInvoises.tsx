@@ -191,6 +191,10 @@ export default function ClientInvoices() {
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(
@@ -235,6 +239,10 @@ export default function ClientInvoices() {
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(

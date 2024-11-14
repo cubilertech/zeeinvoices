@@ -70,6 +70,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(

@@ -76,6 +76,10 @@ const PreviewPage = () => {
     dueDate: singleInvoice?.dueDate,
     addtionalNotes: singleInvoice?.notes,
     invoiceItem: singleInvoice?.items,
+    signature: {
+      image: singleInvoice?.signature?.image,
+      designation: singleInvoice?.signature?.designation,
+    },
   };
 
   const invoiceSettingsPDF = {
@@ -108,6 +112,10 @@ const PreviewPage = () => {
           dueDate: singleInvoice?.dueDate,
           addtionalNotes: singleInvoice?.notes,
           invoiceItem: singleInvoice?.items,
+          signature: {
+            image: singleInvoice?.signature?.image,
+            designation: singleInvoice?.signature?.designation,
+          },
         })
       );
       dispatch(
