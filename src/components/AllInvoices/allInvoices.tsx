@@ -216,6 +216,7 @@ export default function AllInvoices() {
       discount: record?.settings?.discount,
       tax: record?.settings?.tax,
       terms: record?.settings?.terms,
+      watermarkText: record?.settings?.watermarkText,
       detail: record?.settings?.detail,
     };
 
