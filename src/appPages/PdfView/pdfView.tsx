@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
     marginTop: 5,
-    maxWidth: "510px", // Ensures text wraps within the view's width
+    maxWidth: "100%", // Ensures text wraps within the view's width
     textOverflow: "ellipsis",
-
+    textAlign: "justify",
     // overflow: "hidden",
   },
 });
