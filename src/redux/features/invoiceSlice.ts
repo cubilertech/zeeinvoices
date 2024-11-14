@@ -130,10 +130,10 @@ export const invoiceSlice = createSlice({
       state.invoiceItem = [...state.invoiceItem, item];
     },
     setInvoiceSignature: (state, action: PayloadAction<string | null>) => {
-      state.signature.image = action.payload;
+      state.signature = { ...state.signature, image: action.payload };
     },
     setInvoiceSignatureDesignation: (state, action: PayloadAction<string>) => {
-      state.signature.designation = action.payload;
+      state.signature = { ...state.signature, designation: action.payload };
     },
     removeInvoiceItem: (state, action: PayloadAction<number>) => {
       const id = action.payload;
