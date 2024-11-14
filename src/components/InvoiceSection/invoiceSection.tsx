@@ -177,7 +177,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
               height={44}
               placeholder="Select type"
               borderRadius={"4px"}
-              type="Invoice type"
+              type="Type"
               menuData={["Bill", "Sales Invoice", "Quotation", "Other"]}
             />
             {isInvoiceTypeError && (
@@ -228,7 +228,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
             gap: { sm: "24px", xs: 2 },
           }}
         >
-          <InvoiceDatePicker title="Invoice Date" />
+          <InvoiceDatePicker title="Date" />
 
           {isDueDate ? <InvoiceDatePicker title="Due Date" /> : ""}
         </Stack>

@@ -210,7 +210,7 @@ const PdfView: FC<PdfViewProps> = ({
                   color: "#4B5565",
                 }}
               >
-                Invoice Type:
+                Type:
               </Text>
               <Text style={styles.top_view_2_value}>
                 {" "}
@@ -398,7 +398,7 @@ const PdfView: FC<PdfViewProps> = ({
             }}
           >
             <Text style={{ fontSize: "14px", color: "#4B5565" }}>
-              Invoice Date:{"  "}
+              Date:{"  "}
             </Text>
             <Text
               style={{
@@ -796,7 +796,7 @@ const PdfView: FC<PdfViewProps> = ({
                     : palette.base.white,
                 }}
               >
-                Invoice Summary
+                Summary
               </Text>
             </View>
             {/* summary desc */}
