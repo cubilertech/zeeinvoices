@@ -28,7 +28,7 @@ import {
   setWatermarkText,
 } from "@/redux/features/invoiceSetting";
 import { RootState } from "@/redux/store";
-import { Close, DoneOutlined, Edit } from "@mui/icons-material";
+import { Close, DoneOutlined } from "@mui/icons-material";
 import { SelectInputWithSearch } from "../SelectInputWithSearch";
 import { Feedback } from "../Feedback";
 import { DigitalSignature } from "../DigitalSignature";

@@ -102,7 +102,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         item.quantity == 0 ||
         item.quantity === ""
     );
-  const {mutateAsync : sendReceipentEmail,isSuccess} = useCreateDocument(false,false)
+  const {mutateAsync : sendReceipentEmail,} = useCreateDocument(false,false)
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -591,7 +591,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }, 3000);
     }
   };
-console.log(InvDetails,'asasasaa')
   const PDFPreview = async () => {
     if (await validateInvoice()) {
       const itemDetail = InvDetails?.invoiceItem;
