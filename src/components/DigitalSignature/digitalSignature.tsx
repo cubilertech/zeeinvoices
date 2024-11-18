@@ -99,6 +99,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
+    setDesignationInput(false)
   };
 
   const handleDesignationChange = (val: string) => {
