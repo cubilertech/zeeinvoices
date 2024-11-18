@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { SwitchInput } from "../SwitchInput";
 import { ColorPicker } from "../ColorPicker";
 import { ColorPickerMenuButton } from "../ColorPickerMenuButton";
@@ -118,7 +118,10 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose,type }) 
     }
     dispatch(setWatermarkText(val));
   };
-
+  useEffect(()=>{
+    setWaterMarkInput(!watermark);
+  },[watermark])
+  
   return (
     // <Box
     //   borderRadius={"4px"}
