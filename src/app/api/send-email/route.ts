@@ -7,8 +7,18 @@ function isError(error: unknown): error is Error {
 
 export async function POST(request: Request) {
   try {
-    const { firstName, lastName, email, phoneNumber, message } =
-      await request.json();
+    const {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      message,
+      toEmail,
+      subject,
+      text,
+      fileAttachment = [],
+      html = ""
+    } = await request.json();
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -21,18 +31,23 @@ export async function POST(request: Request) {
       },
     });
 
-    const mailOptions = {
+    let mailOptions = {
       from: email,
-      to: [
-        "aadilyusuf99@gmail.com",
-        "ateeqasif1168@gmail.com",
-        "alizaman8383@gmail.com",
-        "support@zeeinvoices.com",
-        "u.raufshahzad@gmail.com",
-      ],
-      subject: `Contact Us Form Submission from ${firstName} ${lastName}`,
-      text: `You have a new message from the Contact Us form:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone Number: ${phoneNumber}\nMessage: ${message}`,
-    };
+      to: toEmail,
+      subject: subject,
+      text: text,
+    } as import('nodemailer').SendMailOptions;
+
+    if (fileAttachment.length > 0) {
+      mailOptions.attachments = fileAttachment.map((file: { filename: any; content: any; encoding: any; }) => ({
+        filename: file.filename,
+        content: file.content,
+        encoding: file.encoding,
+      }));
+    }
+    if(html?.length > 0){
+      mailOptions.html =  html;
+    }
 
     await transporter.sendMail(mailOptions);
 

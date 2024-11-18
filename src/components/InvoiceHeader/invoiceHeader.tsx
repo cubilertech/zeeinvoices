@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { backendURL } from "@/utils/constants";
+import { backendURL, senderEmailTemplate } from "@/utils/constants";
 import {
   useCreateDocument,
   useEditDocument,
@@ -115,6 +115,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     mutateAsync: createInvoice,
     isLoading: createInvoiceLoading,
     isSuccess: createInvoiceSuccess,
+  } = useCreateDocument();
+
+  const {
+    mutateAsync: sendPromotionalEmail,
+    isLoading: sendPromotionalEmailLoading,
+    isSuccess: sendPromotionalEmailSuccess,
   } = useCreateDocument();
 
   const {
@@ -286,15 +292,25 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
 
-      // if (invoiceData.signatureImage) {
-      //   const imageFile = base64ToFile(
-      //     invoiceData.signatureImage,
-      //     "uploaded_image.png"
-      //   );
-      //   formData.append("signatureImage", imageFile);
-      // }
+      if (invoiceData.signatureImage) {
+        try {
+          const imageFile = base64ToFile(
+            invoiceData.signatureImage,
+            "uploaded_image.png"
+          );
+          formData.append("signatureImage", imageFile);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      } else {
+        formData.append("signatureImage", "no-image");
+      }
 
-      // formData.append("designation", invoiceData.signatureDesignation);
+      const signature = {
+        image: invoiceData.signatureImage,
+        designation: invoiceData.signatureDesignation,
+      };
+      formData.append("signature", JSON.stringify(signature));
 
       updateInvoice({
         data: formData,
@@ -510,9 +526,54 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           itemDetail={itemDetail}
         />
       );
+
       const blobPdf = await pdf(doc);
       blobPdf.updateContainer(doc);
       const result = await blobPdf.toBlob();
+
+      // Convert PDF Blob to Base64
+      const reader = new FileReader();
+      reader.readAsDataURL(result);
+      reader.onloadend = () => {
+        if (reader.result && typeof reader.result === "string") {
+          const pdfBase64 = reader.result.split(",")[1]; // Get Base64 part
+
+          // Extract MIME type from the Blob
+          const mimeType = result.type; // `result` is the PDF Blob
+          const extension = mimeType.split("/")[1] || "pdf"; // Fallback to 'pdf' if not found
+
+          fetch("/api/send-email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              subject: "Your Invoice Has Been Created",
+              toEmail: InvDetails?.from?.email, // Replace with the sender's email
+              html: senderEmailTemplate,
+              fileAttachment: [
+                {
+                  filename: `${pdfFileName}.${extension}`, // Use dynamically extracted extension
+                  content: pdfBase64,
+                  encoding: "base64",
+                },
+              ],
+            }),
+          })
+            .then((response) => {
+              if (response.status === 200) {
+                toast.success("Email sent successfully!");
+              } else {
+                alert("Failed to send email.");
+              }
+            })
+            .catch(() => {
+              alert("An error occurred while sending the email.");
+            });
+        } else {
+          console.error("Error: FileReader result is null or not a string");
+        }
+      };
 
       saveAs(result, pdfFileName);
 

@@ -37,6 +37,14 @@ const validationSchema = Yup.object({
 });
 
 const GetTouchForm: React.FC = () => {
+  const toEmail = [
+    "aadilyusuf99@gmail.com",
+    "ateeqasif1168@gmail.com",
+    "alizaman8383@gmail.com",
+    "support@zeeinvoices.com",
+    "u.raufshahzad@gmail.com",
+  ];
+
   return (
     <Formik
       initialValues={{
@@ -49,12 +57,22 @@ const GetTouchForm: React.FC = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
+        const { firstName, lastName, email, phoneNumber, message } = values;
         fetch("/api/send-email", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(values),
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            message,
+            toEmail,
+            subject: `Contact Us Form Submission from ${firstName} ${lastName}`,
+            text: `You have a new message from the Contact Us form:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone Number: ${phoneNumber}\nMessage: ${message}`,
+          }),
         })
           .then((response) => {
             if (response.status === 200) {

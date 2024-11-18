@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getInvoiceSignature,
+  getInvoiceSignatureDesignation,
   setInvoiceSignature,
   setInvoiceSignatureDesignation,
 } from "@/redux/features/invoiceSlice";
@@ -31,6 +32,7 @@ interface DigitalSignatureProps {
 const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
   const dispatch = useDispatch();
   const invoiceSignature = useSelector(getInvoiceSignature);
+  const signatureDesignation = useSelector(getInvoiceSignatureDesignation);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const signaturePadRef = useRef<SignatureCanvas>(null);
   const [signatureURL, setSignatureURL] = useState<string | null>(null);
@@ -265,8 +267,9 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
               </Typography>
             </Stack>
           </ButtonBase>
-          {signatureURL && (
+          {invoiceSignature && (
             <TextField
+              value={signatureDesignation}
               variant="standard"
               placeholder="Enter your designation"
               onChange={(e) => handleDesignationChange(e.target.value)}
