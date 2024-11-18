@@ -1,4 +1,4 @@
-import { PrivacyPolicy } from "@/appPages/PrivacyPolicy";
+import { PrivacyPolicy } from "@/appPages/privacyPolicy";
 import { Box } from "@mui/material";
 import { Metadata } from "next";
 
