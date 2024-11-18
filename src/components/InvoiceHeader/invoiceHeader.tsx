@@ -102,13 +102,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         item.quantity == 0 ||
         item.quantity === ""
     );
-
+  const {mutateAsync : sendReceipentEmail,isSuccess} = useCreateDocument(false,false)
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
   const [isValidInvoice, setIsValidInvoice] = useState(true);
-
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
 
   const {
@@ -530,11 +529,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       const blobPdf = await pdf(doc);
       blobPdf.updateContainer(doc);
       const result = await blobPdf.toBlob();
+      const apiUrl = `${backendURL}/clients/send-promotional-email`
 
       // Convert PDF Blob to Base64
       const reader = new FileReader();
       reader.readAsDataURL(result);
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         if (reader.result && typeof reader.result === "string") {
           const pdfBase64 = reader.result.split(",")[1]; // Get Base64 part
 
@@ -562,14 +562,22 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           })
             .then((response) => {
               if (response.status === 200) {
-                toast.success("Email sent successfully!");
+                console.log('Email sent successfully!')
+                // toast.success("Email sent successfully!");
               } else {
-                alert("Failed to send email.");
+                console.log('Failed to send email!')
+                // alert("Failed to send email.");
               }
             })
             .catch(() => {
               alert("An error occurred while sending the email.");
             });
+          // Send Email to Recipent
+           const data = {
+            name:InvDetails?.to?.name,
+            email:InvDetails?.to?.email
+           }
+           await sendReceipentEmail({data,apiRoute:apiUrl})
         } else {
           console.error("Error: FileReader result is null or not a string");
         }
@@ -583,7 +591,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }, 3000);
     }
   };
-
+console.log(InvDetails,'asasasaa')
   const PDFPreview = async () => {
     if (await validateInvoice()) {
       const itemDetail = InvDetails?.invoiceItem;

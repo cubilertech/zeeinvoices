@@ -113,7 +113,7 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
             />
           </Popover>
         ) : (
-          <InvoiceSettings InvSetting={{ ...invoiceSetting }} />
+          <InvoiceSettings InvSetting={{ ...invoiceSetting }} type={type} />
         )}
       </Stack>
     </Container>

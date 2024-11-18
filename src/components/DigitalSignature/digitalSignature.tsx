@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   ButtonBase,
+  IconButton,
   Stack,
   TextField,
   Typography,
@@ -14,7 +15,7 @@ import SignatureCanvas from "react-signature-canvas";
 import Image from "next/image";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded";
-import { Close } from "@mui/icons-material";
+import { Close, DoneOutlined } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -36,6 +37,8 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const signaturePadRef = useRef<SignatureCanvas>(null);
   const [signatureURL, setSignatureURL] = useState<string | null>(null);
+  const [designationInput, setDesignationInput] = useState(true);
+  const [designationInputError, setDesignationInputError] = useState("");
   const [isPadOpen, setIsPadOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const MAX_FILE_SIZE = 1 * 1024 * 1024;
@@ -55,6 +58,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
       );
       setIsPadOpen(false);
       setError(null);
+      setDesignationInput(false);
     } else {
       setError("Please draw your signature before saving.");
     }
@@ -98,6 +102,9 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
   };
 
   const handleDesignationChange = (val: string) => {
+    if(val.length > 0 ){
+      setDesignationInputError("");
+    }
     dispatch(setInvoiceSignatureDesignation(val));
   };
 
@@ -268,34 +275,85 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
             </Stack>
           </ButtonBase>
           {invoiceSignature && (
-            <TextField
-              value={signatureDesignation}
-              variant="standard"
-              placeholder="Enter your designation"
-              onChange={(e) => handleDesignationChange(e.target.value)}
-              sx={{
-                width: "100%",
-                py: "10px",
-                px: "16px",
-                border: `1px solid ${palette.color.gray[5]}`,
-                borderRadius: "8px",
-                "& .MuiInputBase-input": {
-                  border: "none",
-                  height: "20px",
-                  pl: "0px",
-                  pr: "0px",
-                },
-                "& .MuiInputBase-input::placeholder": {
-                  color: palette.color.gray[610],
-                },
-              }}
-              InputProps={{
-                disableUnderline: true,
-              }}
-              inputProps={{
-                maxLength: 18, // Restricts input to 18 characters
-              }}
-            />
+            <Box>
+              <TextField
+                disabled={designationInput}
+                value={signatureDesignation}
+                variant="standard"
+                placeholder="Enter your designation"
+                onChange={(e) => handleDesignationChange(e.target.value)}
+                sx={{
+                  width: "100%",
+                  py: "10px",
+                  px: "16px",
+                  border: `1px solid ${palette.color.gray[5]}`,
+                  borderRadius: "8px",
+                  "& .MuiInputBase-input": {
+                    border: "none",
+                    height: "20px",
+                    pl: "0px",
+                    pr: "0px",
+                  },
+                  "& .MuiInputBase-input::placeholder": {
+                    color: palette.color.gray[610],
+                  },
+                }}
+                InputProps={{
+                  disableUnderline: true,
+                  endAdornment: (
+                    <IconButton
+                      sx={{
+                        p: "0px !important",
+                        height: "23px !important",
+                        width: "23px !important",
+                        mr: "0px !important",
+                      }}
+                      onClick={() => {
+                        if (signatureDesignation.length > 0) {
+                          setDesignationInput(!designationInput);
+                          setDesignationInputError("");
+                        } else {
+                          setDesignationInputError(
+                            "Please enter your designation."
+                          );
+                        }
+                      }}
+                      edge="end"
+                    >
+                      {designationInput ? (
+                        <Icon
+                          icon="editInvoiceNumberIcon"
+                          width={21}
+                          height={21}
+                        />
+                      ) : (
+                        <DoneOutlined sx={{ width: "21px", height: "21px" }} />
+                      )}
+                    </IconButton>
+                  ),
+                }}
+                inputProps={{
+                  maxLength: 18, // Restricts input to 18 characters
+                }}
+                onKeyDown={(e: { key: string }) => {
+                  if (e.key === "Enter") {
+                    if (signatureDesignation.length > 0) {
+                      setDesignationInput(!designationInput);
+                      setDesignationInputError("");
+                    } else {
+                      setDesignationInputError(
+                        "Please enter your designation."
+                      );
+                    }
+                  }
+                }}
+              />
+              {designationInputError && (
+                <p style={{ color: "red", fontSize: "10px" }}>
+                  {designationInputError}
+                </p>
+              )}
+            </Box>
           )}
         </Stack>
         <input
