@@ -957,6 +957,7 @@ const PdfView: FC<PdfViewProps> = ({
               opacity: isNearWhite(bgColor) ? 0.5 : 0.1,
               // zIndex: 100,
             }}
+            fixed
           >
             <Text
               style={{
