@@ -163,7 +163,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         {watermark && (
           <Box
             sx={{
-              width: { xs: "80%", sm: "55%" },
+              width: { xs: "80%", sm: "55%", xl: "40%" },
               height: { xs: "100%", sm: "80%" },
               position: "absolute",
               display: "flex",
