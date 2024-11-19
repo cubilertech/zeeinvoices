@@ -36,7 +36,7 @@ const DisplaySignature: FC<DisplaySignatureProps> = ({}) => {
       <Stack
         sx={{
           px: "20px",
-          // py: "20px",
+          mt: { sm: "0px", xs: "20px" },
           width: { sm: "auto", xs: "100%" },
           justifyContent: "end",
           alignItems: "center",

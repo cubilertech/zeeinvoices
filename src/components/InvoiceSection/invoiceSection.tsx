@@ -278,12 +278,11 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           sx={{
             width: "100%",
             display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
+            flexDirection: { xs: "column-reverse", sm: "row" },
             justifyContent: "space-between",
           }}
         >
           <DisplaySignature />
-
           <InvoiceSummary />
         </Box>
         {/* Sixth section, additional notes */}

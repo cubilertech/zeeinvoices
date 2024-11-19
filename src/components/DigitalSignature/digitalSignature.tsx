@@ -7,6 +7,7 @@ import {
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { FC, useRef, useState } from "react";
 import { Icon } from "../Icon";
@@ -31,6 +32,7 @@ interface DigitalSignatureProps {
 }
 
 const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const dispatch = useDispatch();
   const invoiceSignature = useSelector(getInvoiceSignature);
   const signatureDesignation = useSelector(getInvoiceSignatureDesignation);
@@ -99,11 +101,11 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
-    setDesignationInput(false)
+    setDesignationInput(false);
   };
 
   const handleDesignationChange = (val: string) => {
-    if(val.length > 0 ){
+    if (val.length > 0) {
       setDesignationInputError("");
     }
     dispatch(setInvoiceSignatureDesignation(val));
@@ -177,7 +179,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
               ref={signaturePadRef}
               penColor="darkblue"
               canvasProps={{
-                width: 340,
+                width: isMobile ? 275 : 340,
                 height: 200,
                 className: "signature-canvas",
                 style: { border: "1px solid #E3E8EF" },
