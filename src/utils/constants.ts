@@ -136,11 +136,11 @@ export const senderEmailTemplate = `
 
 <p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A68">Attached, you’ll find your PDF invoice ready to download and share. We’re here to make invoicing as seamless and efficient as possible, so you can focus on what really matters – growing your business!</p>
 
-<p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A68">Kindly find attachment below</p>
-
 <p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:700; color: #4F5A68">Need to make any edits or create another invoice?</p>
 
 <p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A68">Simply <span><a href="https://zeeinvoices.com/" target="_blank" style="color: #4F35DF">sign in</a></span> to your ZeeInvoices account and continue with ease.</p>
+
+<p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:700; color: #4F5A68">Kindly find your attachment below</p>
 
 <p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A68">Thank you for choosing ZeeInvoices to streamline your invoicing process. We’re excited to help you manage your billing with confidence and simplicity!</p>
 
@@ -151,21 +151,21 @@ export const senderEmailTemplate = `
 
 <p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A6899">You’re receiving this email because you signed up for ZeeInvoices. If you no longer wish to receive these emails, you can unsubscribe <span><a href="#" style="color: #4B5565">here</a></span>.</p>
 
-<div style="display: flex; flex-direction: row; justify-content: space-between"> <!-- footer section -->
-
-<p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A6899">© 2024 ZeeInvoices. All rights reserved.</p>
-<p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A68"><span><a href="https://zeeinvoices.com/about-us" target="_blank" style="color: #4F35DF">support</a></span> | <span><a href="https://zeeinvoices.com/terms-and-condition" target="_blank" style="color: #4F35DF">terms & conditions</a></span></p>
-</div>
+<div style="width: 100%; justify-content: space-between"> <!-- footer section -->
+<p style="display: inline-block; font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A6899">© 2024 ZeeInvoices. All rights reserved.</p>
+<p style="font-family: Arial;font-size: 16px; line-height: 24px; font-weight:400; color: #4F5A68; float: right;"><span><a href="https://zeeinvoices.com/about-us" target="_blank" style="color: #4F35DF">support</a></span> | <span><a href="https://zeeinvoices.com/terms-and-condition" target="_blank" style="color: #4F35DF">terms & conditions</a></span></p>
 </div>
 
-<div style="margin-top:40px; display: flex; flex-direction: row; justify-content: space-between"> <!-- footer section -->
-<img style="height:24px" src="https://zeeinvoices.com/Images/logos/zee-logo.png" alt="zeeinvoices">
-<div style="width:150px; justify-content: space-between; display: flex; flex-direction: row; align-items: center"> <!-- social links -->
-<a  href="https://www.facebook.com/zeeinvoices/" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><img style="height:20px; width:20px" src="" alt="f"></a>
-<a  href="https://www.instagram.com/zeeinvoices/" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><img style="height:20px; width:20px" src="" alt="i"></a>
-<a  href="https://www.youtube.com/@ZeeInvoices" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><img style="height:20px; width:20px" src="" alt="y"></a>
-<a  href="https://twitter.com/zeeinvoices" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><img style="height:20px; width:20px" src="" alt="x"></a>
-<a  href="https://www.linkedin.com/company/zeeinvoices/" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><img style="height:20px; width:20px" src="" alt="l"></a> 
+</div>
+
+<div style="width: 100%; margin-top:40px; justify-content: space-between"> <!-- footer section -->
+<img style="display: inline-block; height:24px" src="https://zeeinvoices.com/Images/logos/zee-logo.png" alt="zeeinvoices">
+<div style="align-items: center; float: right;"> <!-- social links -->
+<a  href="https://www.facebook.com/zeeinvoices/" target="_blank" rel="noopener noreferrer" style="text-decoration:none; margin-left: 12px"><img style="height:20px; width:20px" src="https://zeeinvoices.com/Images/icons/facebook-et-icon.png" alt="f"></a>
+<a  href="https://www.instagram.com/zeeinvoices/" target="_blank" rel="noopener noreferrer" style="text-decoration:none; margin-left: 12px"><img style="height:20px; width:20px" src="https://zeeinvoices.com/Images/icons/instagram-et-icon.png" alt="i"></a>
+<a  href="https://www.youtube.com/@ZeeInvoices" target="_blank" rel="noopener noreferrer" style="text-decoration:none; margin-left: 12px"><img style="height:20px; width:20px" src="https://zeeinvoices.com/Images/icons/youtube-et-icon.png" alt="y"></a>
+<a  href="https://twitter.com/zeeinvoices" target="_blank" rel="noopener noreferrer" style="text-decoration:none; margin-left: 12px"><img style="height:20px; width:20px" src="https://zeeinvoices.com/Images/icons/twitter-et-icon.png" alt="x"></a>
+<a  href="https://www.linkedin.com/company/zeeinvoices/" target="_blank" rel="noopener noreferrer" style="text-decoration:none; margin-left: 12px"><img style="height:20px; width:20px" src="https://zeeinvoices.com/Images/icons/linkedin-et-icon.png" alt="l"></a> 
 </div>
 </div>
  
