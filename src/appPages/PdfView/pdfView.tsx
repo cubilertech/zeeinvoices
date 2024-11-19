@@ -7,10 +7,23 @@ import {
   Document,
   StyleSheet,
   Image,
+  Font,
 } from "@react-pdf/renderer";
 import { formattedDate } from "@/common/common";
 import { googleImage, isNearWhite } from "@/utils/common";
 import { palette } from "@/theme/palette";
+
+Font.register({
+  family: "Roboto",
+  fonts: [
+    { src: "https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxM.ttf" }, // Regular
+    {
+      src: "https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmWUlvAw.ttf",
+      fontWeight: "bold",
+    }, // Bold
+  ],
+});
+
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
@@ -149,38 +162,6 @@ const PdfView: FC<PdfViewProps> = ({
           borderColor: bgColor === "#fffff" ? "white" : bgColor,
         }}
       >
-        {/* Watermark */}
-        {watermarkText && (
-          <View
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              textAlign: "center",
-              position: "absolute",
-              top: "55%",
-              left: "11%",
-              transform: "translate(-50%, -50%)",
-              opacity: 0.2,
-              zIndex: 100,
-            }}
-          >
-            <Text
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                textAlign: "center",
-                fontSize: "64px",
-                fontWeight: 900,
-                color: bgColor,
-                transform: "rotate(-45deg)",
-              }}
-            >
-              {watermarkText}
-            </Text>
-          </View>
-        )}
         {/** Section 1 : logo, invoice type */}
         <View style={styles.section_top}>
           <View style={styles.title_logo}>
@@ -960,6 +941,40 @@ const PdfView: FC<PdfViewProps> = ({
             </Text>
           </View>
         </View>
+
+        {/* Watermark */}
+        {watermarkText && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+              position: "absolute",
+              top: "45%",
+              left: "11%",
+              transform: "translate(-50%, -50%)",
+              opacity: isNearWhite(bgColor) ? 0.5 : 0.1,
+              // zIndex: 100,
+            }}
+          >
+            <Text
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+                fontSize: "100px",
+                fontFamily: "Roboto",
+                fontWeight: "bold",
+                color: isNearWhite(bgColor) ? palette.color.gray[200] : bgColor,
+                transform: "rotate(-45deg)",
+              }}
+            >
+              {watermarkText}
+            </Text>
+          </View>
+        )}
       </Page>
     </Document>
   );

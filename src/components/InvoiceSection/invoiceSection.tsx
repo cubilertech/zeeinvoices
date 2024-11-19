@@ -17,7 +17,7 @@ import { InvoiceDatePicker } from "../InvoiceDatePicker";
 import { InvoiceItemsTable } from "../InvoiceItemsTable";
 import { InvoiceSummary } from "../InvoiceSummary";
 import { useDispatch, useSelector } from "react-redux";
-import { useSelectedColor } from "@/utils/common";
+import { isNearWhite, useSelectedColor } from "@/utils/common";
 import {
   getAddtionalNotes,
   getInvoiceSignature,
@@ -29,6 +29,8 @@ import {
 import {
   getDueDate,
   getTerms,
+  getWatermark,
+  getWatermarkText,
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
@@ -106,6 +108,8 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const selectedColor = useSelectedColor();
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
+  const watermarkText = useSelector(getWatermarkText);
+  const watermark = useSelector(getWatermark);
 
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
@@ -156,6 +160,39 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           px: { sm: 3, xs: 2 },
         }}
       >
+        {watermark && (
+          <Box
+            sx={{
+              width: { xs: "80%", sm: "55%" },
+              height: { xs: "100%", sm: "80%" },
+              position: "absolute",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 50,
+              pointerEvents: "none",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: { xs: "70px", sm: "163px" },
+                fontWeight: 900,
+                opacity: isNearWhite(selectedColor) ? 0.3 : 0.06,
+                rotate: { xs: "-55deg", sm: "-45deg" },
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: isNearWhite(selectedColor)
+                  ? palette.color.gray[200]
+                  : selectedColor,
+                pointerEvents: "none",
+              }}
+            >
+              {watermarkText}
+            </Typography>
+          </Box>
+        )}
+
         {/* First section, add logo, invoice type, print */}
         <Stack
           direction={"row"}
