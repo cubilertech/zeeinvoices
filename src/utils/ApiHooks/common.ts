@@ -103,7 +103,7 @@ export const useCreateDocument = (multipart = true,showToast=true,auth=true) => 
         setResetInvoiceSetting();
         signOut({ callbackUrl: "/" });
       }
-      throw new Error(`${error.response?.data?.message}`);
+      // throw new Error(`${error.response?.data?.message}`);
     }
   };
   return useMutation(handleCreate);

@@ -83,14 +83,21 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   }, [itemValidation]);
 
   useEffect(() => {
+    if (data.discount == 0 && currentDiscount != 0) {
+      setCurrentDiscount(data.discount);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.discount]);
+
+  useEffect(() => {
     if (selectedDiscount) {
-      dispatch(
-        setInvoiceItem({
-          id: id,
-          type: "discount",
-          value: currentDiscount == 0 ? data.discount : currentDiscount,
-        })
-      );
+      // dispatch(
+      //   setInvoiceItem({
+      //     id: id,
+      //     type: "discount",
+      //     value: currentDiscount == 0 ? data.discount : currentDiscount,
+      //   })
+      // );
     } else {
       dispatch(setInvoiceItem({ id: id, type: "discount", value: 0 }));
     }
@@ -426,7 +433,10 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const value = e.target.value;
                   // Ensure that only up to 3 digits can be entered
-                  if (/^\d{0,3}$/.test(value) && (value === "" || Number(value) <= 100)) {
+                  if (
+                    /^\d{0,3}$/.test(value) &&
+                    (value === "" || Number(value) <= 100)
+                  ) {
                     handleChange(e);
                   }
                 }}

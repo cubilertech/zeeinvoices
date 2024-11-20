@@ -719,7 +719,7 @@ const PdfView: FC<PdfViewProps> = ({
               }}
             >
               <View style={styles.title_logo}>
-                {invDetails?.logo && (
+                {invDetails?.signature?.image && (
                   <Image
                     style={{ width: "190px", height: "90px" }}
                     src={googleImage(invDetails?.signature?.image)}
