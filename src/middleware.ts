@@ -21,8 +21,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  // const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  const token = req.cookies.get("next-auth.session-token")?.value;
+  const tokenLocal = req.cookies.get("next-auth.session-token")?.value;
+  const tokenLive = req.cookies.get("__Secure-next-auth.session-token")?.value;
+
+  const token = tokenLive || tokenLocal;
+
   // List of restricted routes
   const restrictedRoutes = ["/invoices", "/senders", "/clients"];
 
