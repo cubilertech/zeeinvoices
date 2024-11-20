@@ -149,7 +149,7 @@ const FooterSection = () => {
                     About
                   </Typography>
                 </Link>
-                <Link
+                {/* <Link
                   underline="hover"
                   variant="text-sm-bold"
                   onClick={handleBlogsPage}
@@ -166,7 +166,7 @@ const FooterSection = () => {
                   >
                     Blogs
                   </Typography>
-                </Link>
+                </Link> */}
                 <Link
                   underline="hover"
                   variant="text-sm-bold"
