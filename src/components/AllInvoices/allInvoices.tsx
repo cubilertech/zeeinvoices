@@ -252,6 +252,13 @@ export default function AllInvoices() {
 
       // Open the blob URL in a new tab
       window.open(blobUrl, "_blank");
+
+      // const newWindow = window.open();
+      // if (newWindow) {
+      //   newWindow.document.write(
+      //     `<iframe src="${blobUrl}" style="width:100%; height:100%;" frameborder="0"></iframe>`
+      //   );
+      // }
     }
   };
 

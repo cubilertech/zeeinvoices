@@ -312,10 +312,11 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
                         mr: "0px !important",
                       }}
                       onClick={() => {
-                        if (signatureDesignation.length > 0) {
+                        if (signatureDesignation?.length > 0) {
                           setDesignationInput(!designationInput);
                           setDesignationInputError("");
                         } else {
+                          setDesignationInput(!designationInput);
                           setDesignationInputError(
                             "Please enter your designation."
                           );
