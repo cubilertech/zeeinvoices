@@ -9,7 +9,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Icon } from "../Icon";
 import { palette } from "@/theme/palette";
 import SignatureCanvas from "react-signature-canvas";
@@ -47,6 +47,8 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
   const isInvoiceDesignationError = useSelector(getInvoiceDesignationError);
   const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
+  const designationTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
+
   const handleOpenPad = () => setIsPadOpen(true);
 
   const handleClear = () => {
@@ -60,6 +62,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
       dispatch(
         setInvoiceSignature(signaturePadRef.current.toDataURL("image/png"))
       );
+      dispatch(setInvoiceSignatureDesignation(""));
       setIsPadOpen(false);
       setError(null);
       setDesignationInput(false);
@@ -94,6 +97,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
         const base64Image = reader.result as string;
         setSignatureURL(base64Image);
         dispatch(setInvoiceSignature(base64Image));
+        dispatch(setInvoiceSignatureDesignation(""));
       };
       reader.readAsDataURL(file);
     }
@@ -118,6 +122,15 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
     dispatch(setInvoiceSignature(""));
     dispatch(setInvoiceSignatureDesignation(""));
   };
+
+  useEffect(() => {
+    if (isInvoiceDesignationError && designationTextFieldRef.current) {
+      designationTextFieldRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [isInvoiceDesignationError]);
 
   return (
     <>
@@ -282,6 +295,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
           {invoiceSignature && (
             <Box>
               <TextField
+                inputRef={designationTextFieldRef}
                 disabled={designationInput}
                 value={signatureDesignation}
                 variant="standard"
@@ -355,15 +369,15 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
                 }}
                 error={
                   (isInvoiceDesignationError &&
-                    signatureDesignation.length < 2) ||
-                  signatureDesignation.length > 20
+                    signatureDesignation?.length < 2) ||
+                  signatureDesignation?.length > 20
                     ? true
                     : false
                 }
                 helperText={
                   (isInvoiceDesignationError &&
-                    signatureDesignation.length < 2) ||
-                  signatureDesignation.length > 20
+                    signatureDesignation?.length < 2) ||
+                  signatureDesignation?.length > 20
                     ? "character length should be 2 - 20"
                     : ""
                 }
