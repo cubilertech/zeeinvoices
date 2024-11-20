@@ -26,6 +26,7 @@ import {
   setInvoiceSignatureDesignation,
 } from "@/redux/features/invoiceSlice";
 import { googleImage } from "@/utils/common";
+import { getInvoiceDesignationError } from "@/redux/features/validationSlice";
 
 interface DigitalSignatureProps {
   logoDesc?: string;
@@ -43,6 +44,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
   const [designationInputError, setDesignationInputError] = useState("");
   const [isPadOpen, setIsPadOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const isInvoiceDesignationError = useSelector(getInvoiceDesignationError);
   const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
   const handleOpenPad = () => setIsPadOpen(true);
@@ -337,7 +339,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
                   ),
                 }}
                 inputProps={{
-                  maxLength: 18, // Restricts input to 18 characters
+                  maxLength: 20, // Restricts input to 18 characters
                 }}
                 onKeyDown={(e: { key: string }) => {
                   if (e.key === "Enter") {
@@ -351,12 +353,26 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
                     }
                   }
                 }}
+                error={
+                  (isInvoiceDesignationError &&
+                    signatureDesignation.length < 2) ||
+                  signatureDesignation.length > 20
+                    ? true
+                    : false
+                }
+                helperText={
+                  (isInvoiceDesignationError &&
+                    signatureDesignation.length < 2) ||
+                  signatureDesignation.length > 20
+                    ? "character length should be 2 - 20"
+                    : ""
+                }
               />
-              {designationInputError && (
+              {/* {designationInputError && (
                 <p style={{ color: "red", fontSize: "10px" }}>
                   {designationInputError}
                 </p>
-              )}
+              )} */}
             </Box>
           )}
         </Stack>

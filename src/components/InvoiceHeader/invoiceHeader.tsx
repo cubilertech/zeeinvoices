@@ -20,6 +20,7 @@ import {
 } from "@/utils/ApiHooks/common";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getInvoiceSignature,
   setInvoiceId,
   setResetInvoice,
   setResetInvoiceId,
@@ -45,6 +46,7 @@ import {
   getInvoiceTypeError,
   getRecipientDetailsError,
   getSenderDetailsError,
+  setInvoiceDesignationError,
   setInvoiceRowItemValidation,
   setInvoiceTypeError,
   setInvoiceWatermark,
@@ -76,6 +78,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const [isPdfToastOpen, setIsPdfToastOpen] = useState(false);
+  const invoiceSignature = useSelector(getInvoiceSignature);
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
@@ -102,7 +105,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         item.quantity == 0 ||
         item.quantity === ""
     );
-  const {mutateAsync : sendReceipentEmail,} = useCreateDocument(false,false)
+  const { mutateAsync: sendReceipentEmail } = useCreateDocument(false, false);
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -162,7 +165,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.quantity === ""
       ) ||
       (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
-      InvSetting.watermarkText.length > 20
+      InvSetting.watermarkText.length > 20 ||
+      (InvDetails.signature.designation.length < 2 && invoiceSignature) ||
+      InvDetails.signature.designation.length > 20
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
 
@@ -174,6 +179,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvDetails.signature.designation === "" ||
+        InvDetails.signature.designation.length < 2 ||
+        InvDetails.signature.designation.length > 20
+      ) {
+        await dispatch(setInvoiceDesignationError(true));
       }
       if (
         InvSetting?.watermarkText === "" ||
@@ -343,7 +355,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.quantity === ""
       ) ||
       (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
-      InvSetting.watermarkText.length > 20
+      InvSetting.watermarkText.length > 20 ||
+      (InvDetails.signature.designation.length < 2 && invoiceSignature) ||
+      InvDetails.signature.designation.length > 20
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
       if (InvDetails?.invoiceType === "") {
@@ -354,6 +368,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvDetails.signature.designation === "" ||
+        InvDetails.signature.designation.length < 2 ||
+        InvDetails.signature.designation.length > 20
+      ) {
+        await dispatch(setInvoiceDesignationError(true));
       }
       if (
         InvSetting?.watermarkText === "" ||
@@ -529,7 +550,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       const blobPdf = await pdf(doc);
       blobPdf.updateContainer(doc);
       const result = await blobPdf.toBlob();
-      const apiUrl = `${backendURL}/clients/send-promotional-email`
+      const apiUrl = `${backendURL}/clients/send-promotional-email`;
 
       // Convert PDF Blob to Base64
       const reader = new FileReader();
@@ -562,10 +583,10 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           })
             .then((response) => {
               if (response.status === 200) {
-                console.log('Email sent successfully!')
+                console.log("Email sent successfully!");
                 // toast.success("Email sent successfully!");
               } else {
-                console.log('Failed to send email!')
+                console.log("Failed to send email!");
                 // alert("Failed to send email.");
               }
             })
@@ -573,11 +594,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               alert("An error occurred while sending the email.");
             });
           // Send Email to Recipent
-           const data = {
-            name:InvDetails?.to?.name,
-            email:InvDetails?.to?.email
-           }
-           await sendReceipentEmail({data,apiRoute:apiUrl})
+          const data = {
+            name: InvDetails?.to?.name,
+            email: InvDetails?.to?.email,
+          };
+          await sendReceipentEmail({ data, apiRoute: apiUrl });
         } else {
           console.error("Error: FileReader result is null or not a string");
         }
@@ -658,7 +679,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.quantity === ""
       ) ||
       (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
-      InvSetting.watermarkText.length > 20
+      InvSetting.watermarkText.length > 20 ||
+      (InvDetails.signature.designation.length < 2 && invoiceSignature) ||
+      InvDetails.signature.designation.length > 20
     ) {
       setIsValidInvoice(false);
       // Dispatch relevant error actions for invoiceType, sender, and recipient
@@ -670,6 +693,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvDetails.signature.designation === "" ||
+        InvDetails.signature.designation.length < 2 ||
+        InvDetails.signature.designation.length > 20
+      ) {
+        await dispatch(setInvoiceDesignationError(true));
       }
       if (
         InvSetting?.watermarkText === "" ||
