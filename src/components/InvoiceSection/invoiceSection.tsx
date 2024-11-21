@@ -175,7 +175,9 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           >
             <Typography
               sx={{
-                fontSize: { xs: "70px", sm: "163px" },
+                maxWidth: "1000px",
+                fontSize: { xs: "70px", sm: "125px" },
+                lineHeight: { xs: "70px", sm: "130px" },
                 fontWeight: 900,
                 opacity: isNearWhite(selectedColor) ? 0.3 : 0.06,
                 rotate: { xs: "-55deg", sm: "-45deg" },
@@ -186,6 +188,8 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
                   ? palette.color.gray[200]
                   : selectedColor,
                 pointerEvents: "none",
+                whiteSpace: "normal", // Enables text wrapping
+                wordBreak: "break-word", // Breaks long words
               }}
             >
               {watermarkText}

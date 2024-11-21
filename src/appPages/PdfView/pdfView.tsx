@@ -889,7 +889,13 @@ const PdfView: FC<PdfViewProps> = ({
         </View>
 
         {invDetails?.addtionalNotes && (
-          <View wrap={false} style={{ padding: "5px 15px", marginTop: "10px" }}>
+          <View
+            style={{
+              padding: "5px 15px",
+              marginTop: "10px",
+            }}
+            // wrap={false}
+          >
             <Text
               style={{
                 fontSize: "14px",
@@ -900,9 +906,7 @@ const PdfView: FC<PdfViewProps> = ({
             >
               Terms & Conditions:
             </Text>
-            <Text wrap={true} break style={styles.noteText}>
-              {invDetails?.addtionalNotes}
-            </Text>
+            <Text style={styles.noteText}>{invDetails?.addtionalNotes}</Text>
           </View>
         )}
         {/* secion 6 : footer */}
