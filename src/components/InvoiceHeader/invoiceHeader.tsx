@@ -193,8 +193,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
-        InvSetting?.watermarkText === "" ||
-        InvSetting?.watermarkText.length < 3 ||
+        (InvSetting?.watermark &&
+          InvSetting?.watermarkText === "" &&
+          InvSetting?.watermarkText.length < 3) ||
         InvSetting?.watermarkText.length > 20
       ) {
         if (isMobile) {
@@ -388,8 +389,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
-        InvSetting?.watermarkText === "" ||
-        InvSetting?.watermarkText.length < 3 ||
+        (InvSetting?.watermark &&
+          InvSetting?.watermarkText === "" &&
+          InvSetting?.watermarkText.length < 3) ||
         InvSetting?.watermarkText.length > 20
       ) {
         if (isMobile) {
@@ -719,8 +721,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
-        InvSetting?.watermarkText === "" ||
-        InvSetting?.watermarkText.length < 3 ||
+        (InvSetting?.watermark &&
+          InvSetting?.watermarkText === "" &&
+          InvSetting?.watermarkText.length < 3) ||
         InvSetting?.watermarkText.length > 20
       ) {
         if (isMobile) {
