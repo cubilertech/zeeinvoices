@@ -9,6 +9,7 @@ import {
   Stack,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -73,6 +74,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   type,
   handleColorPickerClick,
 }) => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const { id } = useParams<{ id: string }>();
   const [invIdNoSession, setInvIdNoSession] = useState("001");
   const dispatch = useDispatch();
@@ -185,6 +187,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvDetails.signature.designation.length < 2 ||
         InvDetails.signature.designation.length > 20
       ) {
+        if (isMobile) {
+          toast.error("Designation character length should be 2 - 20");
+        }
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
@@ -192,6 +197,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvSetting?.watermarkText.length < 3 ||
         InvSetting?.watermarkText.length > 20
       ) {
+        if (isMobile) {
+          toast.error("Watermark character length should be 3 - 20");
+        }
         await dispatch(setInvoiceWatermark(true));
       }
 
@@ -374,6 +382,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvDetails.signature.designation.length < 2 ||
         InvDetails.signature.designation.length > 20
       ) {
+        if (isMobile) {
+          toast.error("Designation character length should be 2 - 20");
+        }
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
@@ -381,6 +392,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvSetting?.watermarkText.length < 3 ||
         InvSetting?.watermarkText.length > 20
       ) {
+        if (isMobile) {
+          toast.error("Watermark character length should be 3 - 20");
+        }
         await dispatch(setInvoiceWatermark(true));
       }
 
@@ -699,6 +713,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvDetails.signature.designation.length < 2 ||
         InvDetails.signature.designation.length > 20
       ) {
+        if (isMobile) {
+          toast.error("Designation character length should be 2 - 20");
+        }
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
@@ -706,6 +723,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvSetting?.watermarkText.length < 3 ||
         InvSetting?.watermarkText.length > 20
       ) {
+        if (isMobile) {
+          toast.error("Watermark character length should be 3 - 20");
+        }
         await dispatch(setInvoiceWatermark(true));
       }
 
