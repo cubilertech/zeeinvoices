@@ -22,6 +22,15 @@ const SecondLandingPage = () => {
       document.body.removeChild(script);
     };
   }, []);
+
+  useEffect(() => {
+    const localStorageVar = localStorage.getItem("persist:root");
+
+    if (localStorageVar) {
+      localStorage.removeItem("persist:root");
+    }
+  }, []);
+
   return (
     <>
       <Head>
