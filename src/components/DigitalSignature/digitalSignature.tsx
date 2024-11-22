@@ -353,7 +353,7 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
                   ),
                 }}
                 inputProps={{
-                  maxLength: 20, // Restricts input to 18 characters
+                  maxLength: 30, // Restricts input to 18 characters
                 }}
                 onKeyDown={(e: { key: string }) => {
                   if (e.key === "Enter") {
@@ -370,15 +370,15 @@ const DigitalSignature: FC<DigitalSignatureProps> = ({ logoDesc }) => {
                 error={
                   (isInvoiceDesignationError &&
                     signatureDesignation?.length < 2) ||
-                  signatureDesignation?.length > 20
+                  signatureDesignation?.length > 30
                     ? true
                     : false
                 }
                 helperText={
                   (isInvoiceDesignationError &&
                     signatureDesignation?.length < 2) ||
-                  signatureDesignation?.length > 20
-                    ? "character length should be 2 - 20"
+                  signatureDesignation?.length > 30
+                    ? "character length should be 2 - 30"
                     : ""
                 }
               />
