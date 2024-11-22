@@ -187,9 +187,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvDetails.signature.designation.length < 2 ||
         InvDetails.signature.designation.length > 30
       ) {
-        if (isMobile) {
-          toast.error("Designation character length should be 2 - 30");
-        }
+        // if (isMobile) {
+        //   toast.error("Designation character length should be 2 - 30");
+        // }
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
@@ -201,9 +201,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         //   InvSetting?.watermarkText.length < 3) ||
         //   InvSetting?.watermarkText.length > 20
       ) {
-        if (isMobile) {
-          toast.error("Watermark character length should be 3 - 20");
-        }
+        // if (isMobile) {
+        //   toast.error("Watermark character length should be 3 - 20");
+        // }
         await dispatch(setInvoiceWatermark(true));
       }
 
@@ -386,9 +386,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvDetails.signature.designation.length < 2 ||
         InvDetails.signature.designation.length > 30
       ) {
-        if (isMobile) {
-          toast.error("Designation character length should be 2 - 30");
-        }
+        // if (isMobile) {
+        //   toast.error("Designation character length should be 2 - 30");
+        // }
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
@@ -400,9 +400,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         //   InvSetting?.watermarkText.length < 3) ||
         // InvSetting?.watermarkText.length > 20
       ) {
-        if (isMobile) {
-          toast.error("Watermark character length should be 3 - 20");
-        }
+        // if (isMobile) {
+        //   toast.error("Watermark character length should be 3 - 20");
+        // }
         await dispatch(setInvoiceWatermark(true));
       }
 
@@ -721,9 +721,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvDetails.signature.designation.length < 2 ||
         InvDetails.signature.designation.length > 30
       ) {
-        if (isMobile) {
-          toast.error("Designation character length should be 2 - 30");
-        }
+        // if (isMobile) {
+        //   toast.error("Designation character length should be 2 - 30");
+        // }
         await dispatch(setInvoiceDesignationError(true));
       }
       if (
@@ -735,9 +735,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         //   InvSetting?.watermarkText.length < 3) ||
         // InvSetting?.watermarkText.length > 20
       ) {
-        if (isMobile) {
-          toast.error("Watermark character length should be 3 - 20");
-        }
+        // if (isMobile) {
+        //   toast.error("Watermark character length should be 3 - 20");
+        // }
         await dispatch(setInvoiceWatermark(true));
       }
 
