@@ -8,9 +8,15 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Close, SaveAlt } from "@mui/icons-material";
 import PdfDownloadLink from "@/components/PdfDownloadLink/PdfDownloadLink";
+import PdfView from "@/appPages/PdfView/pdfView";
+import { pdf } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
+import { PdfToast } from "@/components/PdfToast";
+import { backendURL, senderEmailTemplate } from "@/utils/constants";
+import { useCreateDocument } from "@/utils/ApiHooks/common";
 
 const style = {
   position: "absolute" as "absolute",
@@ -40,6 +46,90 @@ const DownloadModal: FC<DownloadModal> = ({
   InvDetails,
   summaryDetail,
 }) => {
+  const pdfFileName = InvDetails.to?.companyName
+  ? InvDetails.to?.companyName + "-" + InvDetails.id
+  : InvDetails.to?.name + "-" + InvDetails.id;
+  const [isPdfToastOpen, setIsPdfToastOpen] = useState(false); 
+  const {mutateAsync : sendReceipentEmail,isSuccess} = useCreateDocument(false,false,false);
+  const generatePDFDocument = async () => {
+    const itemDetail = InvDetails?.invoiceItem;
+    const doc = (
+      <PdfView
+        invSetting={{ ...InvSetting }}
+        invDetails={{ ...InvDetails }}
+        Summary={summaryDetail}
+        // user={session?.user}
+        itemDetail={itemDetail}
+      />
+    );
+    const blobPdf = await pdf(doc);
+    blobPdf.updateContainer(doc);
+    const result = await blobPdf.toBlob();
+
+    const apiUrl = `${backendURL}/clients/send-promotional-email`
+
+    // Convert PDF Blob to Base64
+    const reader = new FileReader();
+    reader.readAsDataURL(result);
+    reader.onloadend = async () => {
+      if (reader.result && typeof reader.result === "string") {
+        const pdfBase64 = reader.result.split(",")[1]; // Get Base64 part
+
+        // Extract MIME type from the Blob
+        const mimeType = result.type; // `result` is the PDF Blob
+        const extension = mimeType.split("/")[1] || "pdf"; // Fallback to 'pdf' if not found
+
+        fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subject: "Your Invoice Has Been Created",
+            toEmail: InvDetails?.from?.email, // Replace with the sender's email
+            html: senderEmailTemplate,
+            fileAttachment: [
+              {
+                filename: `${pdfFileName}.${extension}`, // Use dynamically extracted extension
+                content: pdfBase64,
+                encoding: "base64",
+              },
+            ],
+          }),
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              console.log('Email sent successfully!')
+              // toast.success("Email sent successfully!");
+            } else {
+              console.log('Failed to send email!')
+              // alert("Failed to send email.");
+            }
+          })
+          .catch(() => {
+            alert("An error occurred while sending the email.");
+          });
+        // Send Email to Recipent
+         const data = {
+          name:InvDetails?.to?.name,
+          email:InvDetails?.to?.email
+         }
+        await sendReceipentEmail({data,apiRoute:apiUrl})
+      } else {
+        console.error("Error: FileReader result is null or not a string");
+      }
+    };
+
+    saveAs(result, pdfFileName);
+
+    setIsPdfToastOpen(true);
+    setTimeout(() => {
+      setIsPdfToastOpen(false);
+    }, 3000);
+  };
+  const handlePdfToastClose = () => {
+    setIsPdfToastOpen(false);
+  };
   return (
     <>
       <Backdrop
@@ -112,27 +202,28 @@ const DownloadModal: FC<DownloadModal> = ({
               </Stack>
               <Stack direction={"row"} gap={1.5}>
                 <Box sx={{ width: "50%" }}>
-                  <PdfDownloadLink
+                  {/* <PdfDownloadLink
                     InvSetting={InvSetting}
                     InvDetails={InvDetails}
                     summaryDetail={summaryDetail}
+                  > */}
+                  <Button
+                    variant="outlined"
+                    onClick={() => generatePDFDocument()}
+                    sx={{
+                      width: "100%",
+                      marginTop: "15px",
+                      border: `1px solid #D0D5DD`,
+                      borderRadius: "8px",
+                      color: "#344054",
+                      height: "44px",
+                      fontSize: "16px !important",
+                      fontWeight: "600 !important",
+                    }}
                   >
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        width: "100%",
-                        marginTop: "15px",
-                        border: `1px solid #D0D5DD`,
-                        borderRadius: "8px",
-                        color: "#344054",
-                        height: "44px",
-                        fontSize: "16px !important",
-                        fontWeight: "600 !important",
-                      }}
-                    >
-                      Download
-                    </Button>
-                  </PdfDownloadLink>
+                    Download
+                  </Button>
+                  {/* </PdfDownloadLink> */}
                 </Box>
                 <Button
                   variant="contained"
@@ -143,8 +234,7 @@ const DownloadModal: FC<DownloadModal> = ({
                     height: "44px",
                     fontSize: "16px !important",
                     fontWeight: "600 !important",
-                    "&:hover": {
-                    },
+                    "&:hover": {},
                   }}
                   onClick={onLogin}
                 >
@@ -155,6 +245,13 @@ const DownloadModal: FC<DownloadModal> = ({
           </Box>
         </Modal>
       </Backdrop>
+      <PdfToast
+        isOpen={isPdfToastOpen}
+        progress={100}
+        lable={pdfFileName}
+        type="single"
+        handleClose={handlePdfToastClose}
+      />
     </>
   );
 };

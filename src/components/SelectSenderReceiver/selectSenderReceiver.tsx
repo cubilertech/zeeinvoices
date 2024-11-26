@@ -19,6 +19,7 @@ import { palette } from "@/theme/palette";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getRecipientDetail,
+  getSenderDetail,
   setRecipientDetail,
   setResetFromDetails,
   setResetToDetails,
@@ -30,6 +31,7 @@ import {
 } from "@/redux/features/listSelected";
 import CloseIcon from "@mui/icons-material/Close";
 import { CreateSRModal } from "../Modals/CreateSRModal";
+import { toast } from "react-toastify";
 
 interface SelectSenderReceiver {
   type?: string;
@@ -56,34 +58,39 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
   detailsOf,
 }) => {
   const dispatch = useDispatch();
+  const SelectedSenderDetail = useSelector(getSenderDetail);
   const SelectedRecipientDetail = useSelector(getRecipientDetail);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [filteredItems, setFilteredItems] = useState(filteredData); // State for filtered countries
   const [openCreateSRModal, setOpenCreateSRModal] = useState(false);
+  const [isEmailSame, setIsEmailSame] = useState(false);
 
   const handleSelectedItem = (item: any) => {
-    if (detailsOf === "Sender") {
-      dispatch(setSenderSelected(true));
-      dispatch(
-        setSenderDetail({
-          ...item,
-          phoneNumber: item.phone_number,
-          companyName: item.company_name,
-        })
-      );
-    } else {
-      dispatch(setRecipientSelected(true));
-      dispatch(
-        setRecipientDetail({
-          ...item,
-          phoneNumber: item.phone_number,
-          companyName: item.company_name,
-        })
-      );
+    if (!isSameEmail(item.email)) {
+      if (detailsOf === "Sender") {
+        dispatch(setSenderSelected(true));
+        dispatch(
+          setSenderDetail({
+            ...item,
+            phoneNumber: item.phone_number,
+            companyName: item.company_name,
+          })
+        );
+      } else {
+        dispatch(setRecipientSelected(true));
+        dispatch(
+          setRecipientDetail({
+            ...item,
+            phoneNumber: item.phone_number,
+            companyName: item.company_name,
+          })
+        );
+      }
+      setSearchQuery("");
+      onSRModalClose();
+      setFilteredItems(filteredData);
+      setIsEmailSame(false);
     }
-    setSearchQuery("");
-    onSRModalClose();
-    setFilteredItems(filteredData);
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +103,23 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
           item.email.toLowerCase().includes(query) // Search by phone email
       )
     );
+  };
+
+  const isSameEmail = (email: string) => {
+    if (detailsOf === "Sender") {
+      if (email === SelectedRecipientDetail.email && email !== "") {
+        // toast.error("Sender email must be different from recipient email");
+        setIsEmailSame(true);
+        return true;
+      }
+    } else {
+      if (email === SelectedSenderDetail.email && email !== "") {
+        // toast.error("Recipient email must be different from sender email");
+        setIsEmailSame(true);
+        return true;
+      }
+    }
+    return false;
   };
 
   const handleOpenCreateModel = (
@@ -126,6 +150,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
 
     onSRModalClose();
     setOpenCreateSRModal(true);
+    setIsEmailSame(false);
   };
 
   const handleCreateModelClose = () => {
@@ -156,7 +181,10 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
       >
         <Modal
           open={openSRModal}
-          onClose={onSRModalClose}
+          onClose={() => {
+            onSRModalClose();
+            setIsEmailSame(false);
+          }}
           disableAutoFocus
           sx={{
             overflow: "auto",
@@ -172,7 +200,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: { sm: "618px", xs: "90%" },
+              width: { sm: "auto", xs: "90%" },
               height: "auto",
               bgcolor: palette.base.white,
               boxShadow: 1,
@@ -197,7 +225,12 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                     Kindly select the {detailsOf} for the invoice.
                   </Typography>
                 </Stack>
-                <IconButton onClick={onSRModalClose}>
+                <IconButton
+                  onClick={() => {
+                    onSRModalClose();
+                    setIsEmailSame(false);
+                  }}
+                >
                   <CloseIcon
                     sx={{
                       width: "20px",
@@ -219,7 +252,7 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                     height: "44px",
                     backgroundColor: palette.base.white,
                     borderRadius: "4px",
-                    width: { sm: "451px", xs: "100%" },
+                    width: { sm: "330px", xs: "100%" },
                     px: "14px",
                     py: "10px",
                     flexDirection: { sm: "row", xs: "column" },
@@ -280,6 +313,12 @@ const SelectSenderReceiver: FC<SelectSenderReceiver> = ({
                   </Tooltip>
                 )}
               </Stack>
+
+              {isEmailSame && (
+                <Typography sx={{ mt: "10px", color: "red" }}>
+                  Sender & Recipient emails must not be same.
+                </Typography>
+              )}
               {/* section 3: Existing SR list */}
               <Box
                 sx={{

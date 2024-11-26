@@ -19,7 +19,11 @@ import { palette } from "@/theme/palette";
 import { saveAs } from "file-saver";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import JSZip from "jszip";
-import { calculateAmount, calculateTax } from "@/common/common";
+import {
+  calculateAmount,
+  calculateDiscount,
+  calculateTax,
+} from "@/common/common";
 import PdfView from "@/appPages/PdfView/pdfView";
 import { useSession } from "next-auth/react";
 import { pdf } from "@react-pdf/renderer";
@@ -89,15 +93,22 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         dueDate: invoice?.dueDate,
         addtionalNotes: invoice?.notes,
         invoiceItem: invoice?.items,
+        signature: {
+          image: invoice?.signature?.image,
+          designation: invoice?.signature?.designation,
+        },
       };
 
       const invSettings = {
         colors: invoice?.settings.colors,
         color: invoice?.settings?.color,
         currency: invoice?.settings?.currency,
+        watermarkText: invoice?.settings?.watermarkText,
         dueDate: invoice?.settings?.dueDate,
+        discount: invoice?.settings?.discount,
         tax: invoice?.settings?.tax,
         terms: invoice?.settings?.terms,
+        watermark: invoice?.settings?.watermark,
         detail: invoice?.settings?.detail,
       };
 
@@ -106,11 +117,13 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
         : `${invoice.toDetails.name}-${invoice.id}.pdf`;
 
       const totalAmount = calculateAmount(invoice.items);
+      const totalDiscount = calculateDiscount(invoice.items);
       const totalTax = calculateTax(invoice.items);
 
       const invSummaryDetail = {
         total: totalAmount,
         taxAmount: totalTax,
+        discountAmount: totalDiscount,
       };
 
       // Wrap the static markup in a PDF-friendly Document component

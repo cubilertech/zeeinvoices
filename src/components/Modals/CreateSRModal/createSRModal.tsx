@@ -27,11 +27,13 @@ import { countryCodes } from "@/utils/data";
 import parsePhoneNumberFromString, { CountryCode } from "libphonenumber-js";
 
 const alphaRegex = /[a-zA-Z]/;
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
+// const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
   companyName: Yup.string().min(3).max(35),
   email: Yup.string()
+    .transform((value) => value.trim())
     .min(3)
     .max(50)
     .matches(emailRegex, "Invalid email address")
@@ -394,24 +396,6 @@ const CreateSRModal: FC<CreateSRModal> = ({
                   <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                     <TextField
                       isRequired={true}
-                      label="City"
-                      size="large"
-                      borderRadius="4px"
-                      name="city"
-                      onChange={handleChange}
-                      value={values.city}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.city && errors.city}
-                      onBlur={handleBlur}
-                      error={touched.city && Boolean(errors.city)}
-                    ></TextField>
-                  </FormControl>
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
                       label="Country/State"
                       size="large"
                       name="state"
@@ -425,6 +409,24 @@ const CreateSRModal: FC<CreateSRModal> = ({
                       helperText={touched.state && errors.state}
                       onBlur={handleBlur}
                       error={touched.state && Boolean(errors.state)}
+                    ></TextField>
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="City"
+                      size="large"
+                      borderRadius="4px"
+                      name="city"
+                      onChange={handleChange}
+                      value={values.city}
+                      sx={{
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
+                      }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
                     ></TextField>
                   </FormControl>
                 </Stack>

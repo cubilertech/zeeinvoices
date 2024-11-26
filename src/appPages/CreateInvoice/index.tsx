@@ -1,5 +1,9 @@
 "use client";
-import { calculateAmount, calculateTax } from "@/common/common";
+import {
+  calculateAmount,
+  calculateDiscount,
+  calculateTax,
+} from "@/common/common";
 import { InvoiceHeader } from "@/components/InvoiceHeader";
 import { InvoiceSection } from "@/components/InvoiceSection";
 import { InvoiceSettings } from "@/components/InvoiceSettings";
@@ -31,6 +35,7 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
   // Get Total Amount And Tax
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const [total, setTotal] = useState(0);
+  const [discountAmount, setDiscountAmount] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
 
   const handleClose = () => {
@@ -42,16 +47,20 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
   };
   useEffect(() => {
     const totalAmount = calculateAmount(allInvoiceItems);
+    const totalDiscount = calculateDiscount(allInvoiceItems);
     const totalTax = calculateTax(allInvoiceItems);
     setTotal(totalAmount);
+    setDiscountAmount(totalDiscount);
     setTaxAmount(totalTax);
   }, [allInvoiceItems]);
   const summaryDetail = {
     total: total,
     taxAmount: taxAmount,
+    discountAmount: discountAmount,
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
   return (
     <Container
       className="mainContainer"
@@ -72,7 +81,11 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
         />
       </Box>
 
-      <Stack direction={"row"} gap={3} sx={{ mt: { sm: 0, xs: 2 }, mb: "40px" }}>
+      <Stack
+        direction={"row"}
+        gap={3}
+        sx={{ mt: { sm: 0, xs: 2 }, mb: "40px" }}
+      >
         <InvoiceSection
           InvDetails={invoiceDetail}
           type={type}
@@ -100,7 +113,7 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
             />
           </Popover>
         ) : (
-          <InvoiceSettings InvSetting={{ ...invoiceSetting }} />
+          <InvoiceSettings InvSetting={{ ...invoiceSetting }} type={type} />
         )}
       </Stack>
     </Container>

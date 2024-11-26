@@ -9,11 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { palette } from "@/theme/palette";
-import {
-  Avatar,  
-  CircularProgress,  
-  Stack,
-} from "@mui/material";
+import { Avatar, CircularProgress, Stack } from "@mui/material";
 import { backendURL } from "@/utils/constants";
 import {
   useDeleteDocument,
@@ -21,15 +17,14 @@ import {
 } from "@/utils/ApiHooks/common";
 import {
   calculateAmount,
+  calculateDiscount,
   calculateTax,
   tableFormatDate,
 } from "@/common/common";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { setFullInvoice} from "@/redux/features/invoiceSlice";
-import {
-  setInvoiceSettings,  
-} from "@/redux/features/invoiceSetting";
+import { setFullInvoice } from "@/redux/features/invoiceSlice";
+import { setInvoiceSettings } from "@/redux/features/invoiceSetting";
 import { useSession } from "next-auth/react";
 import {
   getInvoiceItem,
@@ -88,16 +83,20 @@ export default function ClientInvoices() {
 
   // Get Total Amount And Tax . for down load pdf
   const [total, setTotal] = React.useState(0);
+  const [discountAmount, setDiscountAmount] = React.useState(0);
   const [taxAmount, setTaxAmount] = React.useState(0);
   React.useEffect(() => {
     const totalAmount = calculateAmount(allInvoiceItems);
+    const totalDiscount = calculateDiscount(allInvoiceItems);
     const totalTax = calculateTax(allInvoiceItems);
     setTotal(totalAmount);
+    setDiscountAmount(totalDiscount);
     setTaxAmount(totalTax);
   }, [allInvoiceItems]);
   const summaryDetail = {
     total: total,
     taxAmount: taxAmount,
+    discountAmount: discountAmount,
   };
 
   const handleChangeSearch = (e: any) => {
@@ -117,9 +116,9 @@ export default function ClientInvoices() {
 
     const timer = setTimeout(() => {
       setShowText(true);
-    }, 1500); 
+    }, 1500);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, [refetchInvoiceList, search, session?.accessToken]);
 
   const filteredData = React.useMemo(() => {
@@ -192,6 +191,10 @@ export default function ClientInvoices() {
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(
@@ -199,9 +202,13 @@ export default function ClientInvoices() {
         colors: record?.settings.colors,
         color: record?.settings.color,
         currency: record?.settings.currency,
+        watermarkText: record?.settings.watermarkText,
         dueDate: record?.settings.dueDate,
+        discount: record?.settings.discount,
+        signature: record?.settings?.signature,
         tax: record?.settings.tax,
         terms: record?.settings.terms,
+        watermark: record?.settings.watermark,
         detail: record?.settings.detail,
       })
     );
@@ -233,15 +240,23 @@ export default function ClientInvoices() {
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(
       setInvoiceSettings({
         color: record?.settings?.color,
         currency: record?.settings?.currency,
+        watermarkText: record?.settings.watermarkText,
         dueDate: record?.settings?.dueDate,
+        discount: record?.settings?.discount,
+        signature: record?.settings?.signature,
         tax: record?.settings?.tax,
         terms: record?.settings?.terms,
+        watermark: record?.settings.watermark,
         detail: record?.settings?.detail,
       })
     );
@@ -382,7 +397,7 @@ export default function ClientInvoices() {
                             >
                               {tableFormatDate(row?.invoiceDate)}
                             </Typography>
-                          </TableCell>                       
+                          </TableCell>
                           <TableCell align="left" className="tableCell">
                             <Typography
                               variant="text-sm-medium"

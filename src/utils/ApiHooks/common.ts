@@ -77,7 +77,7 @@ export const useFetchSingleDocument = (apiRoute: string) => {
   });
 };
 // Create Recods
-export const useCreateDocument = (multipart = true) => {
+export const useCreateDocument = (multipart = true,showToast=true,auth=true) => {
   const { data: session } = useSession();
   const handleCreate = async (props: any) => {
     const token = session?.accessToken;
@@ -87,12 +87,12 @@ export const useCreateDocument = (multipart = true) => {
           "Content-Type": multipart
             ? "multipart/form-data"
             : "application/json",
-          Authorization: `Bearer ${token}`,
+            ...(auth && { Authorization: `Bearer ${token}` }),
         },
       });
       if (response.data.code === 200) {
           // toast.success(response.data.message);
-          ShowToast(`${props.title}`, response.data.message);
+          showToast ? ShowToast(`${props.title}`, response.data.message) : '';
         return response.data.data;
       } else {
         toast.error("An error occurred while creating record.");
@@ -103,7 +103,7 @@ export const useCreateDocument = (multipart = true) => {
         setResetInvoiceSetting();
         signOut({ callbackUrl: "/" });
       }
-      throw new Error(`${error.response?.data?.message}`);
+      // throw new Error(`${error.response?.data?.message}`);
     }
   };
   return useMutation(handleCreate);

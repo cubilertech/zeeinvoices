@@ -37,6 +37,14 @@ interface ValidationState {
   invoiceRowItem: {
     items: itemsType[] | null;
   };
+  watermark: {
+    isError: boolean;
+    message: string;
+  };
+  designation: {
+    isError: boolean;
+    message: string;
+  };
 }
 
 const initialValue: ValidationState = {
@@ -55,6 +63,14 @@ const initialValue: ValidationState = {
   invoiceRowItem: {
     items: null,
   },
+  watermark: {
+    isError: false,
+    message: "character length should be 3 - 20",
+  },
+  designation: {
+    isError: false,
+    message: "character length should be 3 - 20",
+  },
 };
 
 export const validationSlice = createSlice({
@@ -69,6 +85,12 @@ export const validationSlice = createSlice({
     },
     setRecipientDetailsError: (state, action: PayloadAction<boolean>) => {
       state.recipientDetails.isError = action.payload;
+    },
+    setInvoiceWatermark: (state, action: PayloadAction<boolean>) => {
+      state.watermark.isError = action.payload;
+    },
+    setInvoiceDesignationError: (state, action: PayloadAction<boolean>) => {
+      state.designation.isError = action.payload;
     },
     setInvoiceRowItemValidation: (
       state,
@@ -93,6 +115,10 @@ export const getInvoiceItemsValidation = (state: RootState) =>
   state.validation.invoiceRowItem?.items;
 export const getInvoiceTypeError = (state: RootState) =>
   state.validation.invoiceType.isError;
+export const getInvoiceDesignationError = (state: RootState) =>
+  state.validation.designation?.isError;
+export const getInvoiceWatermarkError = (state: RootState) =>
+  state.validation.watermark?.isError;
 export const getSenderDetailsError = (state: RootState) =>
   state.validation.senderDetails.isError;
 export const getRecipientDetailsError = (state: RootState) =>
@@ -107,8 +133,10 @@ export const getRecipientDetailsErrorMsg = (state: RootState) =>
 
 export const {
   setInvoiceTypeError,
+  setInvoiceDesignationError,
   setSenderDetailsError,
   setRecipientDetailsError,
+  setInvoiceWatermark,
   setInvoiceTypeValidation,
   setResetValidation,
   setInvoiceRowItemValidation,

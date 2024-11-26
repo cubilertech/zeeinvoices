@@ -21,11 +21,13 @@ import { PhoneInputWithCode } from "../PhoneInputWithCode";
 import { countryCodes } from "@/utils/data";
 
 const alphaRegex = /[a-zA-Z]/;
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
+// const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
   companyName: Yup.string().min(3).max(35),
   email: Yup.string()
+    .transform((value) => value.trim())
     .max(60)
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
@@ -336,20 +338,6 @@ const ClientDetailModel: FC<ClientDetail> = ({
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                     <TextField
                       isRequired={true}
-                      label="City"
-                      size="large"
-                      name="city"
-                      onChange={handleChange}
-                      value={values.city}
-                      sx={{ width: { sm: "240px", xs: "100%" } }}
-                      helperText={touched.city && errors.city}
-                      onBlur={handleBlur}
-                      error={touched.city && Boolean(errors.city)}
-                    ></TextField>
-                  </FormControl>
-                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
                       label="Country/State"
                       size="large"
                       name="state"
@@ -359,6 +347,20 @@ const ClientDetailModel: FC<ClientDetail> = ({
                       helperText={touched.state && errors.state}
                       onBlur={handleBlur}
                       error={touched.state && Boolean(errors.state)}
+                    ></TextField>
+                  </FormControl>
+                  <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
+                    <TextField
+                      isRequired={true}
+                      label="City"
+                      size="large"
+                      name="city"
+                      onChange={handleChange}
+                      value={values.city}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
                     ></TextField>
                   </FormControl>
                 </Stack>

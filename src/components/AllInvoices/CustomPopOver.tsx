@@ -10,6 +10,8 @@ import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import { useSession } from "next-auth/react";
 import { PdfToast } from "../PdfToast";
+import { backendURL, senderEmailTemplate } from "@/utils/constants";
+import { useCreateDocument } from "@/utils/ApiHooks/common";
 
 interface CustomPopOverProps {
   record: any;
@@ -40,6 +42,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
 }) => {
   const { data: session } = useSession();
   const dispatch = useDispatch();
+  const {mutateAsync : sendReceipentEmail} = useCreateDocument(false,false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [isPdfToastOpen, setIsPdfToastOpen] = useState(false);
   const handleClose = () => {
@@ -70,6 +73,10 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(
@@ -77,9 +84,13 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
         colors: record?.settings.colors,
         color: record?.settings?.color,
         currency: record?.settings?.currency,
+        watermarkText: record?.settings.watermarkText,
         dueDate: record?.settings?.dueDate,
+        discount: record?.settings?.discount,
+        signature: record?.settings?.signature,
         tax: record?.settings?.tax,
         terms: record?.settings?.terms,
+        watermark: record?.settings.watermark,
         detail: record?.settings?.detail,
       })
     );
@@ -99,6 +110,60 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     const blobPdf = await pdf(doc);
     blobPdf.updateContainer(doc);
     const result = await blobPdf.toBlob();
+    const apiUrl = `${backendURL}/clients/send-promotional-email`
+
+    // Convert PDF Blob to Base64
+    const reader = new FileReader();
+    reader.readAsDataURL(result);
+    reader.onloadend = async () => {
+      if (reader.result && typeof reader.result === "string") {
+        const pdfBase64 = reader.result.split(",")[1]; // Get Base64 part
+
+        // Extract MIME type from the Blob
+        const mimeType = result.type; 
+        const extension = mimeType.split("/")[1] || "pdf"; // Fallback to 'pdf' if not found
+
+        fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subject: "Your Invoice Has Been Created",
+            toEmail: InvDetails?.from?.email, // Replace with the sender's email
+            html: senderEmailTemplate,
+            fileAttachment: [
+              {
+                filename: `${pdfFileName}.${extension}`, // Use dynamically extracted extension
+                content: pdfBase64,
+                encoding: "base64",
+              },
+            ],
+          }),
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              console.log('Email sent successfully!')
+              // toast.success("Email sent successfully!");
+            } else {
+              console.log('Failed to send email!')
+              // alert("Failed to send email.");
+            }
+          })
+          .catch(() => {
+            alert("An error occurred while sending the email.");
+          });
+        // Send Email to Recipent
+         const data = {
+          name:InvDetails?.to?.name,
+          email:InvDetails?.to?.email
+         }
+        await sendReceipentEmail({data,apiRoute:apiUrl})
+      } else {
+        console.error("Error: FileReader result is null or not a string");
+      }
+    };
+
     saveAs(result, pdfFileName);
 
     setIsPdfToastOpen(true);

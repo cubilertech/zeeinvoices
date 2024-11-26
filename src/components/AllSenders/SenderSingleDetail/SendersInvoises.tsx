@@ -17,6 +17,7 @@ import {
 } from "@/utils/ApiHooks/common";
 import {
   calculateAmount,
+  calculateDiscount,
   calculateTax,
   tableFormatDate,
 } from "@/common/common";
@@ -85,16 +86,20 @@ export default function SendersInvoices() {
 
   // Get Total Amount And Tax . for down load pdf
   const [total, setTotal] = React.useState(0);
+  const [discountAmount, setDiscountAmount] = React.useState(0);
   const [taxAmount, setTaxAmount] = React.useState(0);
   React.useEffect(() => {
     const totalAmount = calculateAmount(allInvoiceItems);
+    const totalDiscount = calculateDiscount(allInvoiceItems);
     const totalTax = calculateTax(allInvoiceItems);
     setTotal(totalAmount);
+    setDiscountAmount(totalDiscount);
     setTaxAmount(totalTax);
   }, [allInvoiceItems]);
   const summaryDetail = {
     total: total,
     taxAmount: taxAmount,
+    discountAmount: discountAmount,
   };
 
   const handleChangeSearch = (e: any) => {
@@ -185,6 +190,10 @@ export default function SendersInvoices() {
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(
@@ -192,9 +201,13 @@ export default function SendersInvoices() {
         colors: record?.settings.colors,
         color: record?.settings.color,
         currency: record?.settings.currency,
+        watermarkText: record?.settings.watermarkText,
         dueDate: record?.settings.dueDate,
+        discount: record?.settings.discount,
+        signature: record?.settings?.signature,
         tax: record?.settings.tax,
         terms: record?.settings.terms,
+        watermark: record?.settings.watermark,
         detail: record?.settings.detail,
       })
     );
@@ -226,15 +239,23 @@ export default function SendersInvoices() {
         dueDate: record?.dueDate,
         addtionalNotes: record?.notes,
         invoiceItem: record?.items,
+        signature: {
+          image: record?.signature?.image,
+          designation: record?.signature?.designation,
+        },
       })
     );
     dispatch(
       setInvoiceSettings({
         color: record?.settings?.color,
         currency: record?.settings?.currency,
+        watermarkText: record?.settings.watermarkText,
         dueDate: record?.settings?.dueDate,
+        discount: record?.settings?.discount,
+        signature: record?.settings?.signature,
         tax: record?.settings?.tax,
         terms: record?.settings?.terms,
+        watermark: record?.settings.watermark,
         detail: record?.settings?.detail,
       })
     );

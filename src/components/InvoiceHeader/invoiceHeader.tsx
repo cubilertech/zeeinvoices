@@ -9,10 +9,11 @@ import {
   Stack,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { backendURL } from "@/utils/constants";
+import { backendURL, senderEmailTemplate } from "@/utils/constants";
 import {
   useCreateDocument,
   useEditDocument,
@@ -20,6 +21,7 @@ import {
 } from "@/utils/ApiHooks/common";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getInvoiceSignature,
   setInvoiceId,
   setResetInvoice,
   setResetInvoiceId,
@@ -45,8 +47,10 @@ import {
   getInvoiceTypeError,
   getRecipientDetailsError,
   getSenderDetailsError,
+  setInvoiceDesignationError,
   setInvoiceRowItemValidation,
   setInvoiceTypeError,
+  setInvoiceWatermark,
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
@@ -70,11 +74,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   type,
   handleColorPickerClick,
 }) => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const { id } = useParams<{ id: string }>();
   const [invIdNoSession, setInvIdNoSession] = useState("001");
   const dispatch = useDispatch();
   const router = useRouter();
   const [isPdfToastOpen, setIsPdfToastOpen] = useState(false);
+  const invoiceSignature = useSelector(getInvoiceSignature);
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
@@ -101,19 +107,24 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         item.quantity == 0 ||
         item.quantity === ""
     );
-
+  const { mutateAsync: sendReceipentEmail } = useCreateDocument(false, false);
   const [loginModel, setLoginModel] = useState(false);
   const [downloadModel, setDownloadModel] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
   const [isValidInvoice, setIsValidInvoice] = useState(true);
-
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
 
   const {
     mutateAsync: createInvoice,
     isLoading: createInvoiceLoading,
     isSuccess: createInvoiceSuccess,
+  } = useCreateDocument();
+
+  const {
+    mutateAsync: sendPromotionalEmail,
+    isLoading: sendPromotionalEmailLoading,
+    isSuccess: sendPromotionalEmailSuccess,
   } = useCreateDocument();
 
   const {
@@ -131,6 +142,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       invoiceDate: InvDetails.invoiceDate,
       dueDate: InvDetails.dueDate,
       items: InvDetails.invoiceItem,
+      signatureImage: InvDetails.signature?.image,
+      signatureDesignation: InvDetails.signature?.designation,
       settings: InvSetting,
       notes: InvDetails.addtionalNotes,
     };
@@ -152,7 +165,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.rate === "" ||
           item.quantity == 0 ||
           item.quantity === ""
-      )
+      ) ||
+      (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
+      InvSetting.watermarkText.length > 20 ||
+      (InvDetails.signature.designation?.length < 2 && invoiceSignature) ||
+      InvDetails.signature.designation?.length > 20
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
 
@@ -164,6 +181,30 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvDetails.signature.designation === "" ||
+        InvDetails.signature.designation.length < 2 ||
+        InvDetails.signature.designation.length > 30
+      ) {
+        // if (isMobile) {
+        //   toast.error("Designation character length should be 2 - 30");
+        // }
+        await dispatch(setInvoiceDesignationError(true));
+      }
+      if (
+        InvSetting?.watermarkText === "" ||
+        InvSetting?.watermarkText.length < 3 ||
+        InvSetting?.watermarkText.length > 20
+        // (InvSetting?.watermark &&
+        //   InvSetting?.watermarkText === "" &&
+        //   InvSetting?.watermarkText.length < 3) ||
+        //   InvSetting?.watermarkText.length > 20
+      ) {
+        // if (isMobile) {
+        //   toast.error("Watermark character length should be 3 - 20");
+        // }
+        await dispatch(setInvoiceWatermark(true));
       }
 
       // Invoice item validation
@@ -273,6 +314,27 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
+
+      if (invoiceData.signatureImage) {
+        try {
+          const imageFile = base64ToFile(
+            invoiceData.signatureImage,
+            "uploaded_image.png"
+          );
+          formData.append("signatureImage", imageFile);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      } else {
+        formData.append("signatureImage", "no-image");
+      }
+
+      const signature = {
+        image: invoiceData.signatureImage,
+        designation: invoiceData.signatureDesignation,
+      };
+      formData.append("signature", JSON.stringify(signature));
+
       updateInvoice({
         data: formData,
         apiRoute: `${backendURL}/invoices/${id}`,
@@ -303,7 +365,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.rate === "" ||
           item.quantity == 0 ||
           item.quantity === ""
-      )
+      ) ||
+      (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
+      InvSetting.watermarkText.length > 20 ||
+      (InvDetails.signature.designation.length < 2 && invoiceSignature) ||
+      InvDetails.signature.designation.length > 30
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
       if (InvDetails?.invoiceType === "") {
@@ -314,6 +380,30 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvDetails.signature.designation === "" ||
+        InvDetails.signature.designation.length < 2 ||
+        InvDetails.signature.designation.length > 30
+      ) {
+        // if (isMobile) {
+        //   toast.error("Designation character length should be 2 - 30");
+        // }
+        await dispatch(setInvoiceDesignationError(true));
+      }
+      if (
+        InvSetting?.watermarkText === "" ||
+        InvSetting?.watermarkText.length < 3 ||
+        InvSetting?.watermarkText.length > 20
+        // (InvSetting?.watermark &&
+        //   InvSetting?.watermarkText === "" &&
+        //   InvSetting?.watermarkText.length < 3) ||
+        // InvSetting?.watermarkText.length > 20
+      ) {
+        // if (isMobile) {
+        //   toast.error("Watermark character length should be 3 - 20");
+        // }
+        await dispatch(setInvoiceWatermark(true));
       }
 
       // Invoice item validation
@@ -417,6 +507,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
 
+      if (invoiceData.signatureImage) {
+        const imageFile = base64ToFile(
+          invoiceData.signatureImage,
+          "uploaded_image.png"
+        );
+        formData.append("signatureImage", imageFile);
+      }
+
+      formData.append("designation", invoiceData.signatureDesignation);
+
       createInvoice({
         data: formData,
         apiRoute: `${backendURL}/invoices/save`,
@@ -468,9 +568,63 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           itemDetail={itemDetail}
         />
       );
+
       const blobPdf = await pdf(doc);
       blobPdf.updateContainer(doc);
       const result = await blobPdf.toBlob();
+      const apiUrl = `${backendURL}/clients/send-promotional-email`;
+
+      // Convert PDF Blob to Base64
+      const reader = new FileReader();
+      reader.readAsDataURL(result);
+      reader.onloadend = async () => {
+        if (reader.result && typeof reader.result === "string") {
+          const pdfBase64 = reader.result.split(",")[1]; // Get Base64 part
+
+          // Extract MIME type from the Blob
+          const mimeType = result.type; // `result` is the PDF Blob
+          const extension = mimeType.split("/")[1] || "pdf"; // Fallback to 'pdf' if not found
+
+          fetch("/api/send-email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              subject: "Your Invoice Has Been Created",
+              toEmail: InvDetails?.from?.email, // Replace with the sender's email
+              html: senderEmailTemplate,
+              fileAttachment: [
+                {
+                  filename: `${pdfFileName}.${extension}`, // Use dynamically extracted extension
+                  content: pdfBase64,
+                  encoding: "base64",
+                },
+              ],
+            }),
+          })
+            .then((response) => {
+              if (response.status === 200) {
+                console.log("Email sent successfully!");
+                // toast.success("Email sent successfully!");
+              } else {
+                console.log("Failed to send email!");
+                // alert("Failed to send email.");
+              }
+            })
+            .catch(() => {
+              alert("An error occurred while sending the email.");
+            });
+          // Send Email to Recipent
+          const data = {
+            name: InvDetails?.to?.name,
+            email: InvDetails?.to?.email,
+          };
+          await sendReceipentEmail({ data, apiRoute: apiUrl });
+        } else {
+          console.error("Error: FileReader result is null or not a string");
+        }
+      };
 
       saveAs(result, pdfFileName);
 
@@ -480,7 +634,6 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }, 3000);
     }
   };
-
   const PDFPreview = async () => {
     if (await validateInvoice()) {
       const itemDetail = InvDetails?.invoiceItem;
@@ -546,7 +699,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           item.rate === "" ||
           item.quantity == 0 ||
           item.quantity === ""
-      )
+      ) ||
+      (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
+      InvSetting.watermarkText.length > 20 ||
+      (InvDetails.signature.designation?.length < 2 && invoiceSignature) ||
+      InvDetails.signature.designation?.length > 20
     ) {
       setIsValidInvoice(false);
       // Dispatch relevant error actions for invoiceType, sender, and recipient
@@ -558,6 +715,30 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       }
       if (InvDetails.to?.name === "") {
         await dispatch(setRecipientDetailsError(true));
+      }
+      if (
+        InvDetails.signature.designation === "" ||
+        InvDetails.signature.designation.length < 2 ||
+        InvDetails.signature.designation.length > 30
+      ) {
+        // if (isMobile) {
+        //   toast.error("Designation character length should be 2 - 30");
+        // }
+        await dispatch(setInvoiceDesignationError(true));
+      }
+      if (
+        InvSetting?.watermarkText === "" ||
+        InvSetting?.watermarkText.length < 3 ||
+        InvSetting?.watermarkText.length > 20
+        // (InvSetting?.watermark &&
+        //   InvSetting?.watermarkText === "" &&
+        //   InvSetting?.watermarkText.length < 3) ||
+        // InvSetting?.watermarkText.length > 20
+      ) {
+        // if (isMobile) {
+        //   toast.error("Watermark character length should be 3 - 20");
+        // }
+        await dispatch(setInvoiceWatermark(true));
       }
 
       // Invoice item validation

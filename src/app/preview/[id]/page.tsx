@@ -76,6 +76,10 @@ const PreviewPage = () => {
     dueDate: singleInvoice?.dueDate,
     addtionalNotes: singleInvoice?.notes,
     invoiceItem: singleInvoice?.items,
+    signature: {
+      image: singleInvoice?.signature?.image,
+      designation: singleInvoice?.signature?.designation,
+    },
   };
 
   const invoiceSettingsPDF = {
@@ -108,15 +112,23 @@ const PreviewPage = () => {
           dueDate: singleInvoice?.dueDate,
           addtionalNotes: singleInvoice?.notes,
           invoiceItem: singleInvoice?.items,
+          signature: {
+            image: singleInvoice?.signature?.image,
+            designation: singleInvoice?.signature?.designation,
+          },
         })
       );
       dispatch(
         setInvoiceSettings({
           color: singleInvoice?.settings?.color,
           currency: singleInvoice?.settings?.currency,
+          watermarkText: singleInvoice?.settings?.watermarkText,
           dueDate: singleInvoice?.settings?.dueDate,
+          discount: singleInvoice?.settings?.discount,
+          signature: singleInvoice?.settings?.signature,
           tax: singleInvoice?.settings?.tax,
           terms: singleInvoice?.settings?.terms,
+          watermark: singleInvoice?.settings?.watermark,
           detail: singleInvoice?.settings?.detail,
         })
       );

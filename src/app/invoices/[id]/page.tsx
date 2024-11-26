@@ -87,10 +87,8 @@ const InvoiceDetail = () => {
     total: total,
     taxAmount: taxAmount,
   };
-  const {
-    data: singleInvoice,
-    refetch: refetchSingleInvoice,
-  } = useFetchSingleDocument(`${backendURL}/invoices/${id}`);
+  const { data: singleInvoice, refetch: refetchSingleInvoice } =
+    useFetchSingleDocument(`${backendURL}/invoices/${id}`);
 
   const invoiceDetailsPDF = {
     id: singleInvoice?.id,
@@ -110,6 +108,10 @@ const InvoiceDetail = () => {
     dueDate: singleInvoice?.dueDate,
     addtionalNotes: singleInvoice?.notes,
     invoiceItem: singleInvoice?.items,
+    signature: {
+      image: singleInvoice?.signature?.image,
+      designation: singleInvoice?.signature?.designation,
+    },
   };
 
   const invoiceSettingsPDF = {
@@ -142,15 +144,23 @@ const InvoiceDetail = () => {
           dueDate: singleInvoice?.dueDate,
           addtionalNotes: singleInvoice?.notes,
           invoiceItem: singleInvoice?.items,
+          signature: {
+            image: singleInvoice?.signature?.image,
+            designation: singleInvoice?.signature?.designation,
+          },
         })
       );
       dispatch(
         setInvoiceSettings({
           color: singleInvoice?.settings?.color,
           currency: singleInvoice?.settings?.currency,
+          watermarkText: singleInvoice?.settings?.watermarkText,
           dueDate: singleInvoice?.settings?.dueDate,
+          discount: singleInvoice?.settings?.discount,
+          signature: singleInvoice?.settings?.signature,
           tax: singleInvoice?.settings?.tax,
           terms: singleInvoice?.settings?.terms,
+          watermark: singleInvoice?.settings?.watermark,
           detail: singleInvoice?.settings?.detail,
         })
       );
@@ -177,6 +187,10 @@ const InvoiceDetail = () => {
         dueDate: singleInvoice?.dueDate,
         addtionalNotes: singleInvoice?.notes,
         invoiceItem: singleInvoice?.items,
+        signature: {
+          image: singleInvoice?.signature?.image,
+          designation: singleInvoice?.signature?.designation,
+        },
       })
     );
     dispatch(
@@ -184,18 +198,20 @@ const InvoiceDetail = () => {
         colors: singleInvoice?.settings?.colors,
         color: singleInvoice?.settings?.color,
         currency: singleInvoice?.settings?.currency,
+        watermarkText: singleInvoice?.settings?.watermarkText,
         dueDate: singleInvoice?.settings?.dueDate,
+        signature: singleInvoice?.settings?.signature,
+        discount: singleInvoice?.settings?.discount,
         tax: singleInvoice?.settings?.tax,
         terms: singleInvoice?.settings?.terms,
+        watermark: singleInvoice?.settings?.watermark,
         detail: singleInvoice?.settings?.detail,
       })
     );
     router.push(`/invoices/${singleInvoice?._id}/edit`);
   };
 
-  const {
-    mutateAsync: deleteInvoice,
-  } = useDeleteDocument();
+  const { mutateAsync: deleteInvoice } = useDeleteDocument();
 
   // Back Handle
   const handleBack = () => {
@@ -415,12 +431,11 @@ const InvoiceDetail = () => {
                   invoiceSetting={{ ...invoiceSettings }}
                 />
               </Box>
-            </Box>         
+            </Box>
           </Box>
         </Stack>
       </Stack>
       <Stack direction={"row"} gap={3} sx={{ mb: 5 }}>
-
         {!isMobile ? (
           invoiceDetailsPDF.id &&
           invoiceSettingsPDF.color &&

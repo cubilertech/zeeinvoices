@@ -17,9 +17,10 @@ import { InvoiceDatePicker } from "../InvoiceDatePicker";
 import { InvoiceItemsTable } from "../InvoiceItemsTable";
 import { InvoiceSummary } from "../InvoiceSummary";
 import { useDispatch, useSelector } from "react-redux";
-import { useSelectedColor } from "@/utils/common";
+import { isNearWhite, useSelectedColor } from "@/utils/common";
 import {
   getAddtionalNotes,
+  getInvoiceSignature,
   setAddtionalNotes,
   setRecipientDetail,
   setResetInvoice,
@@ -28,6 +29,8 @@ import {
 import {
   getDueDate,
   getTerms,
+  getWatermark,
+  getWatermarkText,
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
 import { useRouter } from "next/navigation";
@@ -44,12 +47,12 @@ import {
   getSenderDetailsError,
   setResetValidation,
 } from "@/redux/features/validationSlice";
+import { DisplaySignature } from "../DisplaySignature";
 
 // for handle refresh button
 
 const useHandleRefresh = (type: string) => {
   const dispatch = useDispatch();
-
   const handleRefresh = () => {
     localStorage.setItem("intentionalRefresh", "true");
   };
@@ -105,6 +108,8 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   const selectedColor = useSelectedColor();
   const additionalNotes = useSelector(getAddtionalNotes);
   const isDueDate = useSelector(getDueDate);
+  const watermarkText = useSelector(getWatermarkText);
+  const watermark = useSelector(getWatermark);
 
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
@@ -155,6 +160,43 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
           px: { sm: 3, xs: 2 },
         }}
       >
+        {watermark && (
+          <Box
+            sx={{
+              width: { xs: "80%", sm: "55%", xl: "40%" },
+              height: { xs: "100%", sm: "80%" },
+              position: "absolute",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 50,
+              pointerEvents: "none",
+            }}
+          >
+            <Typography
+              sx={{
+                maxWidth: "1000px",
+                fontSize: { xs: "70px", sm: "125px" },
+                lineHeight: { xs: "70px", sm: "130px" },
+                fontWeight: 900,
+                opacity: isNearWhite(selectedColor) ? 0.3 : 0.06,
+                rotate: { xs: "-55deg", sm: "-45deg" },
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: isNearWhite(selectedColor)
+                  ? palette.color.gray[200]
+                  : selectedColor,
+                pointerEvents: "none",
+                whiteSpace: "normal", // Enables text wrapping
+                wordBreak: "break-word", // Breaks long words
+              }}
+            >
+              {watermarkText}
+            </Typography>
+          </Box>
+        )}
+
         {/* First section, add logo, invoice type, print */}
         <Stack
           direction={"row"}
@@ -176,7 +218,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
               height={44}
               placeholder="Select type"
               borderRadius={"4px"}
-              type="Invoice type"
+              type="Type"
               menuData={["Bill", "Sales Invoice", "Quotation", "Other"]}
             />
             {isInvoiceTypeError && (
@@ -227,7 +269,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
             gap: { sm: "24px", xs: 2 },
           }}
         >
-          <InvoiceDatePicker title="Invoice Date" />
+          <InvoiceDatePicker title="Date" />
 
           {isDueDate ? <InvoiceDatePicker title="Due Date" /> : ""}
         </Stack>
@@ -237,8 +279,14 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
 
         {/* Fifth section, Invoice summery */}
         <Box
-          sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: { xs: "column-reverse", sm: "row" },
+            justifyContent: "space-between",
+          }}
         >
+          <DisplaySignature />
           <InvoiceSummary />
         </Box>
         {/* Sixth section, additional notes */}

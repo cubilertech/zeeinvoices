@@ -6,9 +6,10 @@ import {
   IconButton,
   Popover,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { SwitchInput } from "../SwitchInput";
 import { ColorPicker } from "../ColorPicker";
 import { ColorPickerMenuButton } from "../ColorPickerMenuButton";
@@ -18,26 +19,41 @@ import {
   ColorOption,
   getColors,
   getCurrency,
+  getSignature,
+  getWatermark,
+  getWatermarkText,
   setColorsArray,
   setCurrency,
   setInvoiceColor,
+  setWatermarkText,
 } from "@/redux/features/invoiceSetting";
 import { RootState } from "@/redux/store";
-import { Close } from "@mui/icons-material";
+import { Close, DoneOutlined } from "@mui/icons-material";
 import { SelectInputWithSearch } from "../SelectInputWithSearch";
 import { Feedback } from "../Feedback";
+import { DigitalSignature } from "../DigitalSignature";
+import { getInvoiceWatermarkError } from "@/redux/features/validationSlice";
+import { Icon } from "../Icon";
 
 interface InvoiceSettings {
   InvSetting?: any;
   handleClose?: () => void;
+  type?:any;
 }
-const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
+const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose,type }) => {
   const dispatch = useDispatch();
   const reduxColors = useSelector((state: RootState) => getColors(state));
-
+  const watermark = useSelector(getWatermark);
+  const isSignature = useSelector(getSignature);
+  const watermarkText = useSelector(getWatermarkText);
   const [color, setColor] = useState("#fffff");
   const [pickColor, setPickColor] = useState("");
+  const [waterMarkInput, setWaterMarkInput] = useState(type ==='edit' ? true : !watermark);
+  const [waterMarkInputError, setWaterMarkInputError] = useState("");
   const selectedCurrency = useSelector(getCurrency);
+  const isInvoiceWatermarkError = useSelector(
+    getInvoiceWatermarkError ?? false
+  );
   // Color Change
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
@@ -96,6 +112,16 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
     dispatch(setCurrency(item));
   };
 
+  const handleWatermarkChange = (val: string) => {
+    if (val.length > 0) {
+      setWaterMarkInputError("");
+    }
+    dispatch(setWatermarkText(val));
+  };
+  useEffect(()=>{
+    setWaterMarkInput(!watermark);
+  },[watermark])
+  
   return (
     // <Box
     //   borderRadius={"4px"}
@@ -240,12 +266,117 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose }) => {
         </Typography>
         <Box>
           <SwitchInput type="due" lable="Due date"></SwitchInput>
+          <SwitchInput type="discount" lable="Discount"></SwitchInput>
+          <SwitchInput type="signature" lable="Signature"></SwitchInput>
           <SwitchInput type="tax" lable="Tax"></SwitchInput>
           <SwitchInput type="terms" lable="Terms & Conditions"></SwitchInput>
+          <SwitchInput type="watermark" lable="Watermark"></SwitchInput>
+          {watermark && (
+            <Box>
+              <TextField
+                disabled={waterMarkInput}
+                value={watermarkText}
+                variant="standard"
+                placeholder="Enter watermark text"
+                sx={{
+                  width: "100%",
+                  py: "10px",
+                  px: "16px",
+                  border: `1px solid ${palette.color.gray[5]}`,
+                  borderRadius: "8px",
+                  "& .MuiInputBase-input": {
+                    border: "none",
+                    height: "20px",
+                    pl: "0px",
+                    pr: "0px",
+                  },
+                  "& .MuiInputBase-input::placeholder": {
+                    color: palette.color.gray[610],
+                  },
+                }}
+                InputProps={{
+                  disableUnderline: true,
+                  endAdornment: (
+                    <IconButton
+                      sx={{
+                        p: "0px !important",
+                        height: "23px !important",
+                        width: "23px !important",
+                        mr: "0px !important",
+                      }}
+                      onClick={() => {
+                        if (watermarkText.length > 0) {
+                          setWaterMarkInput(!waterMarkInput);
+                          setWaterMarkInputError("");
+                        } else {
+                          setWaterMarkInputError(
+                            "Watermark cannot be empty."
+                          );
+                        }
+                      }}
+                      edge="end" // Optional, aligns the button properly
+                    >
+                      {waterMarkInput ? (
+                        <Icon
+                          icon="editInvoiceNumberIcon"
+                          width={21}
+                          height={21}
+                        />
+                      ) : (
+                        <DoneOutlined sx={{ width: "21px", height: "21px" }} />
+                      )}
+                    </IconButton>
+                  ),
+                }}
+                // inputProps={{
+                //   maxLength: 20,
+                // }}
+                onChange={(e) => handleWatermarkChange(e.target.value)}
+                error={
+                  (isInvoiceWatermarkError && watermarkText.length < 3) ||
+                  watermarkText.length > 20
+                    ? true
+                    : false
+                }
+                helperText={
+                  (isInvoiceWatermarkError && watermarkText.length < 3) ||
+                  watermarkText.length > 20
+                    ? "character length should be 3 - 20"
+                    : ""
+                }
+                onKeyDown={(e: { key: string }) => {
+                  if (e.key === "Enter") {
+                    if (watermarkText.length > 0) {
+                      setWaterMarkInput(!waterMarkInput);
+                      setWaterMarkInputError("");
+                    } else {
+                      setWaterMarkInputError("Watermark cannot be empty.");
+                    }
+                  }
+                }}
+              />
+              {waterMarkInputError && (
+                <p style={{ color: "red", fontSize: "10px" }}>
+                  {waterMarkInputError}
+                </p>
+              )}
+            </Box>
+          )}
         </Box>
       </Stack>
-
       {/* <Feedback title="Feedback" placeholder="Provide a valueable feedback" /> */}
+
+      {isSignature && (
+        <Stack gap={1.5}>
+          <Typography
+            variant="text-sm-semibold"
+            sx={{ paddingTop: 2, color: palette.color.gray[610] }}
+          >
+            Signature
+          </Typography>
+          <DigitalSignature />
+        </Stack>
+      )}
     </Stack>
     // </Box>
   );

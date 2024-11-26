@@ -1,13 +1,19 @@
 "use client";
 import {
   getDetails,
+  getDiscount,
   getDueDate,
+  getSignature,
   getTax,
   getTerms,
+  getWatermark,
   setDetails,
+  setDiscount,
   setDueDate,
+  setSignature,
   setTax,
   setTerms,
+  setWatermark,
 } from "@/redux/features/invoiceSetting";
 import { setAddtionalNotes } from "@/redux/features/invoiceSlice";
 import { palette } from "@/theme/palette";
@@ -30,7 +36,10 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
   const dispatch = useDispatch();
   const dueDate = useSelector(getDueDate);
   const tax = useSelector(getTax);
+  const discount = useSelector(getDiscount);
+  const signature = useSelector(getSignature);
   const terms = useSelector(getTerms);
+  const watermark = useSelector(getWatermark);
   const details = useSelector(getDetails);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -38,8 +47,14 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       dispatch(setDueDate());
     } else if (type === "tax") {
       dispatch(setTax());
+    } else if (type === "discount") {
+      dispatch(setDiscount());
+    } else if (type === "signature") {
+      dispatch(setSignature());
     } else if (type === "terms") {
       dispatch(setTerms());
+    } else if (type === "watermark") {
+      dispatch(setWatermark());
     } else {
       dispatch(setDetails());
     }
@@ -49,8 +64,14 @@ const SwitchInput: FC<SwitchInput> = ({ lable, type }) => {
       return dueDate;
     } else if (type === "tax") {
       return tax;
+    } else if (type === "discount") {
+      return discount;
+    } else if (type === "signature") {
+      return signature;
     } else if (type === "terms") {
       return terms;
+    } else if (type === "watermark") {
+      return watermark;
     } else {
       return details;
     }

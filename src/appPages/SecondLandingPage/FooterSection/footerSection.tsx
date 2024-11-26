@@ -33,13 +33,17 @@ const FooterSection = () => {
     route.push("/about-us");
   };
 
+  const handleBlogsPage = () => {
+    route.push("/blogs");
+  };
+
   useEffect(() => {
     const facebookimg = new Image();
     const instagramimg = new Image();
     const facebookPrimaryimg = new Image();
-    facebookimg.src = "/Images/icons/facebook-black-icon.svg"; 
-    facebookPrimaryimg.src = "/Images/icons/facebook-primary-icon.svg"; 
-    instagramimg.src = "/Images/icons/instagram-colored-icon.svg"; 
+    facebookimg.src = "/Images/icons/facebook-black-icon.svg";
+    facebookPrimaryimg.src = "/Images/icons/facebook-primary-icon.svg";
+    instagramimg.src = "/Images/icons/instagram-colored-icon.svg";
     // Ensuring images are loaded
     facebookimg.onload = () => console.log("Facebook black icon loaded");
     facebookPrimaryimg.onload = () =>
@@ -92,6 +96,7 @@ const FooterSection = () => {
                   fontSize: { md: "16px", xs: "16px" },
                   lineHeight: { md: "24px", xs: "20px" },
                   fontWeight: { md: 400 },
+                  textAlign: "justify",
                 }}
               >
                 ZeeInvoices is a powerful, easy-to-use invoicing solution
@@ -144,6 +149,24 @@ const FooterSection = () => {
                     About
                   </Typography>
                 </Link>
+                {/* <Link
+                  underline="hover"
+                  variant="text-sm-bold"
+                  onClick={handleBlogsPage}
+                  sx={{ color: palette.color.gray[731], cursor: "pointer" }}
+                >
+                  <Typography
+                    variant="text-sm-bold"
+                    sx={{
+                      fontFamily: "Product Sans, sans-serif",
+                      fontSize: { md: "14px", xs: "14px" },
+                      lineHeight: { md: "21px", xs: "21px" },
+                      fontWeight: { md: 700 },
+                    }}
+                  >
+                    Blogs
+                  </Typography>
+                </Link> */}
                 <Link
                   underline="hover"
                   variant="text-sm-bold"
@@ -401,9 +424,9 @@ const FooterSection = () => {
                             fontSize: { md: "16px", xs: "14px" },
                             lineHeight: { md: "20px", xs: "20px" },
                             fontWeight: { md: 400 },
-                            textDecoration: "none", 
+                            textDecoration: "none",
                             "&:hover": {
-                              textDecoration: "underline", 
+                              textDecoration: "underline",
                             },
                           }}
                         >

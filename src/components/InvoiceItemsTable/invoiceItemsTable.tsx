@@ -18,7 +18,11 @@ import {
   getInvoiceItem,
   removeInvoiceItem,
 } from "@/redux/features/invoiceSlice";
-import { getCurrency, getTax } from "@/redux/features/invoiceSetting";
+import {
+  getCurrency,
+  getDiscount,
+  getTax,
+} from "@/redux/features/invoiceSetting";
 
 const InvoiceItemsTable: FC = () => {
   const getAllInvoiceItems = useSelector(getInvoiceItem);
@@ -26,6 +30,7 @@ const InvoiceItemsTable: FC = () => {
   const selectedCurrency = useSelector(getCurrency);
   const dispatch = useDispatch();
   const selectedTax = useSelector(getTax);
+  const selectedDiscount = useSelector(getDiscount);
   const isModile = useMediaQuery("(max-width: 700px)");
   const handleAddItem = () => {
     const rowId = Math.floor(Math.random() * 1000);
@@ -37,8 +42,12 @@ const InvoiceItemsTable: FC = () => {
         quantity: 0,
         rate: 0,
         tax: 0,
+        discount: 0,
+        subTotalWithoutDiscount: 0,
         subTotal: 0,
+        taxAmountWithoutDiscount: 0,
         taxAmount: 0,
+        discountAmount: 0,
       })
     );
   };
@@ -83,7 +92,15 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={4.56}
+                xs={
+                  selectedTax
+                    ? selectedDiscount
+                      ? 3.2
+                      : 4.16
+                    : selectedDiscount
+                    ? 4.16
+                    : 4.16
+                }
               >
                 <Typography
                   variant="text-xs-semibold"
@@ -105,7 +122,15 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={selectedTax ? 1.5 : 2.3}
+                xs={
+                  selectedTax
+                    ? selectedDiscount
+                      ? 1.5
+                      : 1.5
+                    : selectedDiscount
+                    ? 1.5
+                    : 2.3
+                }
               >
                 <Typography
                   variant="text-xs-semibold"
@@ -127,7 +152,15 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={selectedTax ? 1.5 : 2.5}
+                xs={
+                  selectedTax
+                    ? selectedDiscount
+                      ? 1.5
+                      : 1.5
+                    : selectedDiscount
+                    ? 1.5
+                    : 2.3
+                }
               >
                 <Typography
                   variant="text-xs-semibold"
@@ -140,6 +173,45 @@ const InvoiceItemsTable: FC = () => {
                   Rate <span>{`(${selectedCurrency})`}</span>
                 </Typography>
               </Grid>
+
+              {selectedDiscount ? (
+                <Grid
+                  sx={{
+                    padding: "8px",
+                    paddingTop: "8px !important",
+                    paddingLeft: "8px !important",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  item
+                  xs={
+                    selectedTax
+                      ? selectedDiscount
+                        ? 1.5
+                        : 1.5
+                      : selectedDiscount
+                      ? 1.5
+                      : 2.3
+                  }
+                >
+                  {selectedDiscount ? (
+                    <Typography
+                      variant="text-xs-semibold"
+                      sx={{
+                        color: isNearWhite(selectedColor)
+                          ? palette.base.black
+                          : palette.base.white,
+                      }}
+                    >
+                      Discount {`(%)`}
+                    </Typography>
+                  ) : (
+                    ""
+                  )}
+                </Grid>
+              ) : (
+                <></>
+              )}
 
               {selectedTax ? (
                 <Grid
@@ -182,7 +254,15 @@ const InvoiceItemsTable: FC = () => {
                   alignItems: "center",
                 }}
                 item
-                xs={selectedTax ? 2.55 : 2.24}
+                xs={
+                  selectedTax
+                    ? selectedDiscount
+                      ? 2.5
+                      : 3.05
+                    : selectedDiscount
+                    ? 3.05
+                    : 2.95
+                }
               >
                 <Typography
                   variant="text-xs-semibold"
@@ -276,7 +356,7 @@ const InvoiceItemsTable: FC = () => {
             variant="text-md-semibold"
             sx={{ color: palette.primary.main }}
           >
-            Add New Invoice Item
+            Add New Item
           </Typography>
         </Stack>
       </ButtonBase>

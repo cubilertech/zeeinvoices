@@ -7,10 +7,23 @@ import {
   Document,
   StyleSheet,
   Image,
+  Font,
 } from "@react-pdf/renderer";
 import { formattedDate } from "@/common/common";
 import { googleImage, isNearWhite } from "@/utils/common";
 import { palette } from "@/theme/palette";
+
+Font.register({
+  family: "Roboto",
+  fonts: [
+    { src: "https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxM.ttf" }, // Regular
+    {
+      src: "https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmWUlvAw.ttf",
+      fontWeight: "bold",
+    }, // Bold
+  ],
+});
+
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
@@ -76,9 +89,9 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
     marginTop: 5,
-    maxWidth: "510px", // Ensures text wraps within the view's width
+    maxWidth: "100%", // Ensures text wraps within the view's width
     textOverflow: "ellipsis",
-
+    textAlign: "justify",
     // overflow: "hidden",
   },
 });
@@ -100,15 +113,20 @@ const PdfView: FC<PdfViewProps> = ({
 }) => {
   const [isClient, setIsClient] = useState(false);
   const [itemsLength, setItemsLength] = useState(false);
-
+  const watermarkText = invSetting?.watermarkText;
   const bgColor = invSetting?.color;
   const dueDate = invSetting?.dueDate;
   const tax = invSetting?.tax;
+  const discount = invSetting?.discount;
   const currency = invSetting?.currency;
   const currencyText =
     invSetting?.currency === "USD" ? "USD" : invSetting?.currency;
 
-  const summarySubTotal = (Summary?.total - Summary?.taxAmount).toFixed(2);
+  const summarySubTotal = (
+    Summary?.total +
+    Summary?.discountAmount -
+    Summary?.taxAmount
+  ).toFixed(2);
 
   const invoiceDueDate = formattedDate(invDetails?.dueDate);
   const invoiceDate = formattedDate(invDetails?.invoiceDate);
@@ -128,17 +146,17 @@ const PdfView: FC<PdfViewProps> = ({
     return null;
   }
 
-  const addSoftHyphens = (text: any, length = 110) =>
-    (
-      invDetails?.additionalNotes ||
-      text ||
-      "MMMMMMMM MMMMMMMMMMMMM MMMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMM MMMMMMMMMMMMMMZ ZZZZZZZZZZ ZZZZZZZZZZZZZZZZZZZZZ ZZZZZZZZZWWWWW WWWWWWWWWWWWWWW WWWWWWWWWWW WWWWWWWWWWWWWWW"
-    ).replace(new RegExp(`(.{${length}})`, "g"), "$1\n");
+  // const addSoftHyphens = (text: any, length = 110) =>
+  //   (invDetails?.additionalNotes || text || "").replace(
+  //     new RegExp(`(.{${length}})`, "g"),
+  //     "$1\n"
+  //   );
 
   return (
     <Document style={{ overflow: "hidden", paddingBottom: "100px" }}>
       <Page
-        size="A4"
+        // size="A4"
+        size={{ width: 700, height: 842 }}
         style={{
           ...styles.page,
           borderColor: bgColor === "#fffff" ? "white" : bgColor,
@@ -173,7 +191,7 @@ const PdfView: FC<PdfViewProps> = ({
                   color: "#4B5565",
                 }}
               >
-                Invoice Type:
+                Type:
               </Text>
               <Text style={styles.top_view_2_value}>
                 {" "}
@@ -341,14 +359,14 @@ const PdfView: FC<PdfViewProps> = ({
             </View>
           </View>
         </View>
-        {/* section 3 : date */}
 
+        {/* section 3 : date */}
         <View
           style={{
             display: "flex",
             flexDirection: "row",
             padding: "5px 10px",
-            gap: 27,
+            gap: 79,
           }}
         >
           {/* Invoice date */}
@@ -361,7 +379,7 @@ const PdfView: FC<PdfViewProps> = ({
             }}
           >
             <Text style={{ fontSize: "14px", color: "#4B5565" }}>
-              Invoice Date:{"  "}
+              Date:{"  "}
             </Text>
             <Text
               style={{
@@ -418,7 +436,14 @@ const PdfView: FC<PdfViewProps> = ({
         >
           <Text
             style={{
-              width: "190px",
+              width: discount
+                ? tax
+                  ? "180px"
+                  : "230px"
+                : tax
+                ? "260px"
+                : "260px",
+              marginRight: "10px",
               fontSize: "12px",
               fontWeight: "bold",
               color: isNearWhite(bgColor)
@@ -430,7 +455,15 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "42px",
+              // width: "50px",
+              width: discount
+                ? tax
+                  ? "50px"
+                  : "50px"
+                : tax
+                ? "50px"
+                : "100px",
+              marginRight: "10px",
               fontSize: "12px",
               fontWeight: "bold",
               color: isNearWhite(bgColor)
@@ -442,21 +475,42 @@ const PdfView: FC<PdfViewProps> = ({
           </Text>
           <Text
             style={{
-              width: "80px",
+              width: "70px",
+              marginRight: "10px",
               fontSize: "12px",
               fontWeight: "bold",
               color: isNearWhite(bgColor)
                 ? palette.base.black
                 : palette.base.white,
-              marginLeft: "25",
+              // marginLeft: "25",
             }}
           >
             Rate {`(${currency})`}
           </Text>
+
+          {discount || Summary?.discountAmount > 0 ? (
+            <Text
+              style={{
+                width: "70px",
+                marginRight: "10px",
+                fontSize: "12px",
+                fontWeight: "bold",
+                color: isNearWhite(bgColor)
+                  ? palette.base.black
+                  : palette.base.white,
+              }}
+            >
+              Discount (%)
+            </Text>
+          ) : (
+            ""
+          )}
+
           {tax && Summary?.taxAmount > 0 ? (
             <Text
               style={{
-                width: "55px",
+                width: "40px",
+                marginRight: "10px",
                 fontSize: "12px",
                 fontWeight: "bold",
                 color: isNearWhite(bgColor)
@@ -467,25 +521,17 @@ const PdfView: FC<PdfViewProps> = ({
               Tax (%)
             </Text>
           ) : (
-            <Text
-              style={{
-                width: "55px",
-                fontSize: "12px",
-                fontWeight: "bold",
-                color: "white",
-              }}
-            ></Text>
+            ""
           )}
           <Text
             style={{
-              marginLeft: "20px",
+              width: "140px",
               fontSize: "12px",
               fontWeight: "bold",
               color: isNearWhite(bgColor)
                 ? palette.base.black
                 : palette.base.white,
               textAlign: "right",
-              width: "90px",
             }}
           >
             Subtotal {`(${currency})`}
@@ -517,10 +563,16 @@ const PdfView: FC<PdfViewProps> = ({
                     <View>
                       <Text
                         style={{
-                          width: "170px",
+                          width: discount
+                            ? tax
+                              ? "180px"
+                              : "230px"
+                            : tax
+                            ? "260px"
+                            : "260px",
                           fontSize: "14px",
                           fontWeight: "extrabold",
-                          marginRight: "17px",
+                          marginRight: "10px",
                           textAlign: "left",
                         }}
                       >
@@ -529,7 +581,14 @@ const PdfView: FC<PdfViewProps> = ({
                     </View>
                     <Text
                       style={{
-                        width: "55px",
+                        width: discount
+                          ? tax
+                            ? "50px"
+                            : "50px"
+                          : tax
+                          ? "50px"
+                          : "100px",
+                        marginRight: "10px",
                         fontSize: "14px",
                         fontWeight: "bold",
                         textAlign: "left",
@@ -540,23 +599,41 @@ const PdfView: FC<PdfViewProps> = ({
                     </Text>
                     <Text
                       style={{
-                        width: "50px",
+                        width: "70px",
+                        marginRight: "10px",
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginLeft: "12px",
                         textAlign: "left",
                         color: "#4B5565",
                       }}
                     >
                       {data?.rate}
                     </Text>
+
+                    {discount || Summary?.discountAmount > 0 ? (
+                      <Text
+                        style={{
+                          width: "70px",
+                          marginRight: "10px",
+                          fontSize: "14px",
+                          fontWeight: "bold",
+                          textAlign: "left",
+                          color: "#4B5565",
+                        }}
+                      >
+                        {data?.discount} %
+                      </Text>
+                    ) : (
+                      ""
+                    )}
+
                     {tax && Summary?.taxAmount > 0 ? (
                       <Text
                         style={{
-                          width: "50px",
+                          width: "40px",
+                          marginRight: "10px",
                           fontSize: "14px",
                           fontWeight: "bold",
-                          marginLeft: "30px",
                           textAlign: "left",
                           color: "#4B5565",
                         }}
@@ -564,26 +641,16 @@ const PdfView: FC<PdfViewProps> = ({
                         {data?.tax} %
                       </Text>
                     ) : (
-                      <Text
-                        style={{
-                          width: "50px",
-                          fontSize: "10px",
-                          fontWeight: "bold",
-                          marginLeft: "30px",
-                          textAlign: "left",
-                        }}
-                      ></Text>
+                      ""
                     )}
 
                     <Text
                       style={{
-                        width: "79px",
+                        width: "140px",
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginLeft: "33px",
                         textAlign: "right",
                         color: "#4B5565",
-                        marginRight: "7px",
                       }}
                     >
                       {(tax
@@ -620,22 +687,25 @@ const PdfView: FC<PdfViewProps> = ({
         <View
           wrap={false}
           style={{
+            width: "100%",
             marginTop: "32px",
             padding: "1px 10px",
             display: "flex",
             flexDirection: "row",
-            gap: 10,
+            justifyContent: "space-between",
+            gap: 120,
           }}
         >
-          {/* terms */}
+          {/* signature */}
           <View
             style={{
-              width: "270px",
+              width: "200px",
               flexGrow: 1,
               borderRadius: "4px",
               padding: "5px 10px",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-end",
               gap: 10,
             }}
           >
@@ -643,10 +713,29 @@ const PdfView: FC<PdfViewProps> = ({
               style={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between",
-                gap: 6,
+                // justifyContent: "center",
+                alignItems: "center",
+                gap: 5,
               }}
-            ></View>
+            >
+              <View style={styles.title_logo}>
+                {invDetails?.signature?.image && (
+                  <Image
+                    style={{ width: "190px", height: "90px" }}
+                    src={googleImage(invDetails?.signature?.image)}
+                  />
+                )}
+              </View>
+              <Text
+                style={{
+                  fontSize: "12px",
+                  marginTop: "8px",
+                  color: "#4B5565",
+                }}
+              >
+                {invDetails?.signature?.designation}
+              </Text>
+            </View>
           </View>
           {/* summary */}
           <View
@@ -679,15 +768,16 @@ const PdfView: FC<PdfViewProps> = ({
             >
               <Text
                 style={{
+                  width: "100%",
                   fontSize: "12px",
-                  marginLeft: "65px",
+                  textAlign: "center",
                   fontWeight: 600,
                   color: isNearWhite(bgColor)
                     ? palette.base.black
                     : palette.base.white,
                 }}
               >
-                Invoice Summary
+                Summary
               </Text>
             </View>
             {/* summary desc */}
@@ -718,6 +808,33 @@ const PdfView: FC<PdfViewProps> = ({
                 </Text>
               </View>
             </View>
+
+            {discount && (
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  height: "44px",
+                  borderBottom: "1px solid #E3E8EF",
+                  alignItems: "center",
+                  margin: "0px",
+                  padding: "0px",
+                  paddingLeft: "16px",
+                  paddingRight: "16px",
+                }}
+              >
+                <Text style={{ fontSize: "12px", color: "#4B5565" }}>
+                  Discount
+                </Text>
+                <Text style={{ fontSize: "12px", color: "#000000" }}>
+                  {Summary?.discountAmount > 0
+                    ? Summary?.discountAmount.toFixed(2) + " " + currencyText
+                    : "--"}
+                </Text>
+              </View>
+            )}
+
             {tax && (
               <View
                 style={{
@@ -772,7 +889,13 @@ const PdfView: FC<PdfViewProps> = ({
         </View>
 
         {invDetails?.addtionalNotes && (
-          <View style={{ padding: "5px 15px", marginTop: "10px" }}>
+          <View
+            style={{
+              padding: "5px 15px",
+              marginTop: "10px",
+            }}
+            // wrap={false}
+          >
             <Text
               style={{
                 fontSize: "14px",
@@ -783,17 +906,7 @@ const PdfView: FC<PdfViewProps> = ({
             >
               Terms & Conditions:
             </Text>
-            <Text wrap={true} break style={styles.noteText}>
-              {invDetails?.addtionalNotes}
-            </Text>
-            {/* <View style={{ width: "510px", backgroundColor: "yellow" }}>
-              <Text wrap={true} break style={styles.noteText}>
-                {invDetails?.addtionalNotes}
-              </Text>
-            </View> */}
-            {/* <Text style={styles.noteText}>
-              {addSoftHyphens(invDetails?.additionalNotes)}
-            </Text> */}
+            <Text style={styles.noteText}>{invDetails?.addtionalNotes}</Text>
           </View>
         )}
         {/* secion 6 : footer */}
@@ -832,6 +945,41 @@ const PdfView: FC<PdfViewProps> = ({
             </Text>
           </View>
         </View>
+
+        {/* Watermark */}
+        {watermarkText && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+              position: "absolute",
+              top: "45%",
+              left: "11%",
+              transform: "translate(-50%, -50%)",
+              opacity: isNearWhite(bgColor) ? 0.5 : 0.1,
+              // zIndex: 100,
+            }}
+            fixed
+          >
+            <Text
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+                fontSize: "100px",
+                fontFamily: "Roboto",
+                fontWeight: "bold",
+                color: isNearWhite(bgColor) ? palette.color.gray[200] : bgColor,
+                transform: "rotate(-45deg)",
+              }}
+            >
+              {watermarkText}
+            </Text>
+          </View>
+        )}
       </Page>
     </Document>
   );

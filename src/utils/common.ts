@@ -81,5 +81,5 @@ export const isNearWhite = (color: any) => {
   const rgb = hexToRgb(color);
   return color === "#fffff"
     ? true
-    : rgb && rgb.r > 200 && rgb.g > 200 && rgb.b > 200;
+    : rgb && rgb.r > 150 && rgb.g > 150 && rgb.b > 150;
 };

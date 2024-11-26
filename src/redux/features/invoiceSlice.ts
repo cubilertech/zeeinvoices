@@ -11,6 +11,12 @@ export interface ContactDetail {
   state: string;
   address: string;
 }
+
+export interface SignatureDetail {
+  image: string | ArrayBuffer | null;
+  designation: string;
+}
+
 export interface InvoiceItem {
   id: number;
   name: string;
@@ -18,8 +24,12 @@ export interface InvoiceItem {
   quantity: number;
   rate: number;
   tax: number;
+  discount: number;
+  subTotalWithoutDiscount: number;
   subTotal: number;
+  taxAmountWithoutDiscount: number;
   taxAmount: number;
+  discountAmount: number;
 }
 export interface InvoiceState {
   id: number | string;
@@ -30,9 +40,16 @@ export interface InvoiceState {
   invoiceDate: string | null;
   dueDate: string | null;
   invoiceItem: InvoiceItem[];
+  signature: SignatureDetail;
   addtionalNotes: string;
 }
-type UpdatableKeys = "name" | "quantity" | "rate" | "tax" | "subTotal";
+type UpdatableKeys =
+  | "name"
+  | "quantity"
+  | "rate"
+  | "tax"
+  | "discount"
+  | "subTotal";
 interface ActionPayload {
   id: number;
   type: UpdatableKeys;
@@ -70,10 +87,15 @@ const initialValue: InvoiceState = {
       quantity: 0,
       rate: 0,
       tax: 0,
+      discount: 0,
+      subTotalWithoutDiscount: 0,
       subTotal: 0,
+      taxAmountWithoutDiscount: 0,
       taxAmount: 0,
+      discountAmount: 0,
     },
   ],
+  signature: { image: "", designation: "" },
   addtionalNotes: "",
 };
 
@@ -107,6 +129,12 @@ export const invoiceSlice = createSlice({
       const item = action.payload;
       state.invoiceItem = [...state.invoiceItem, item];
     },
+    setInvoiceSignature: (state, action: PayloadAction<string | null>) => {
+      state.signature = { ...state.signature, image: action.payload };
+    },
+    setInvoiceSignatureDesignation: (state, action: PayloadAction<string>) => {
+      state.signature = { ...state.signature, designation: action.payload };
+    },
     removeInvoiceItem: (state, action: PayloadAction<number>) => {
       const id = action.payload;
       const filterData = state.invoiceItem.filter((item) => item.id !== id);
@@ -116,14 +144,35 @@ export const invoiceSlice = createSlice({
       const { id, type, value } = action.payload as ActionPayload;
       const index = state.invoiceItem.findIndex((item) => item.id === id);
       state.invoiceItem[index][type] = value as never;
-      if (type === "quantity" || type === "rate" || type === "tax") {
-        const subtitle =
+      if (
+        type === "quantity" ||
+        type === "rate" ||
+        type === "tax" ||
+        type === "discount"
+      ) {
+        // Step 1: Calculate subtotal (without tax or discount)
+        const subtotalWithoutDiscount =
           state.invoiceItem[index].quantity * state.invoiceItem[index].rate;
-        state.invoiceItem[index].subTotal = subtitle;
+        state.invoiceItem[index].subTotalWithoutDiscount =
+          subtotalWithoutDiscount;
+        const subtotal =
+          state.invoiceItem[index].quantity * state.invoiceItem[index].rate;
+        // Step 2: Calculate discount and adjust subtotal
+        const discountValue = state.invoiceItem[index].discount;
+        const discountAmount = subtotal * (discountValue / 100);
+        state.invoiceItem[index].discountAmount = discountAmount;
+        const discountedSubtotal = subtotal - discountAmount;
+        // Step 3: Calculate tax on the subtotal and discounted subtotal
         const taxValue = state.invoiceItem[index].tax;
-        const tax = subtitle * (taxValue / 100);
-        state.invoiceItem[index].taxAmount = tax;
-        state.invoiceItem[index].subTotal = subtitle + tax;
+        const taxAmountWithoutDiscount =
+          subtotalWithoutDiscount * (taxValue / 100);
+        state.invoiceItem[index].taxAmountWithoutDiscount =
+          taxAmountWithoutDiscount;
+
+        const taxAmount = discountedSubtotal * (taxValue / 100);
+        state.invoiceItem[index].taxAmount = taxAmount;
+        // Step 4: Set the final subtotal, including the discounted subtotal and tax
+        state.invoiceItem[index].subTotal = discountedSubtotal + taxAmount;
       }
     },
     setAddtionalNotes: (state, action: PayloadAction<string>) => {
@@ -139,6 +188,7 @@ export const invoiceSlice = createSlice({
       state.dueDate = action.payload.dueDate;
       state.addtionalNotes = action.payload.addtionalNotes;
       state.invoiceItem = action.payload.invoiceItem;
+      state.signature = action.payload.signature;
     },
     setResetFromDetails: (state) => {
       state.from = initialValue.from;
@@ -165,6 +215,11 @@ export const getRecipientDetail = (state: RootState) => state.invoice.to;
 export const getInvoiceDate = (state: RootState) => state.invoice.invoiceDate;
 export const getDueDate = (state: RootState) => state.invoice.dueDate;
 export const getInvoiceItem = (state: RootState) => state.invoice.invoiceItem;
+export const getInvoiceSignature = (state: RootState) =>
+  state.invoice.signature?.image;
+export const getInvoiceSignatureDesignation = (state: RootState) =>
+  state.invoice.signature?.designation;
+
 export const getAddtionalNotes = (state: RootState) =>
   state.invoice.addtionalNotes;
 
@@ -178,6 +233,8 @@ export const {
   setDueDate,
   addInvoiceItem,
   removeInvoiceItem,
+  setInvoiceSignature,
+  setInvoiceSignatureDesignation,
   setInvoiceItem,
   setAddtionalNotes,
   setFullInvoice,
