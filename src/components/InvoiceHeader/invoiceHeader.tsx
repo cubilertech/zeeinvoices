@@ -26,9 +26,7 @@ import {
 } from "@/redux/features/invoiceSlice";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import SaveModal from "../SaveModal/saveModal";
 import { base64ToFile, handleLogin } from "@/utils/common";
-import DownloadModal from "../DownloadModal/downloadModal";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
 import { palette } from "@/theme/palette";
 import { saveAs } from "file-saver";
@@ -53,6 +51,10 @@ import {
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
 import { Icon } from "../Icon";
+import SaveModal from "../Modals/SaveModal/saveModal";
+import DownloadModal from "../Modals/DownloadModal/downloadModal";
+import { title } from "process";
+import { PdfToast } from "../PdfToast";
 
 interface InvoiceHeaderProps {
   InvSetting: any;
@@ -72,14 +74,19 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const [invIdNoSession, setInvIdNoSession] = useState("001");
   const dispatch = useDispatch();
   const router = useRouter();
+  const [isPdfToastOpen, setIsPdfToastOpen] = useState(false);
   const isInvoiceTypeError = useSelector(getInvoiceTypeError);
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
   const apiPathInvoiceId = `${backendURL}/invoices/last-record`;
+  const pdfFileName = InvDetails.to?.companyName
+    ? InvDetails.to?.companyName + "-" + InvDetails.id
+    : InvDetails.to?.name + "-" + InvDetails.id;
   const {
     data: generatedInvoiceId,
     refetch: refetchInvoiceId,
     isFetching: isFetchingInvoiceId,
+    isFetched: isIdFetched,
   } = useFetchAllDocument(apiPathInvoiceId);
   const { data: session } = useSession();
   const validateButton =
@@ -99,6 +106,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const [downloadModel, setDownloadModel] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [InvoiceId, UpdateInvoiceId] = useState(InvDetails.id);
+  const [isValidInvoice, setIsValidInvoice] = useState(true);
 
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
 
@@ -138,6 +146,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       InvDetails.invoiceItem.some(
         (item: any) =>
           !item.name ||
+          item.name.length > 40 ||
+          item.name.length < 3 ||
           item.rate == 0 ||
           item.rate === "" ||
           item.quantity == 0 ||
@@ -170,6 +180,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
           if (!item.name) {
             validationObj.name = { isError: true, message: "Name is required" };
+          } else if (item.name.length < 3 || item.name.length > 40) {
+            validationObj.name = {
+              isError: true,
+              message: "Item name must be 3 to 40 characters",
+            };
           } else {
             validationObj.name = { isError: false, message: "" };
           }
@@ -251,14 +266,17 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         countryCode: invoiceData.to.countryCode || "", // Add if countryCode is used
       };
 
-      formData.append("newFrom", JSON.stringify(fromMapped));
-      formData.append("newTo", JSON.stringify(toMapped));
+      // formData.append("from", invoiceData.from._id);
+      // formData.append("to", invoiceData.to._id);
+      formData.append("from", JSON.stringify(fromMapped));
+      formData.append("to", JSON.stringify(toMapped));
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
       updateInvoice({
         data: formData,
         apiRoute: `${backendURL}/invoices/${id}`,
+        title: "Invoice Updated",
       })
         .then((res) => {
           // response here
@@ -279,6 +297,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       InvDetails.invoiceItem.some(
         (item: any) =>
           !item.name ||
+          item.name.length > 40 ||
+          item.name.length < 3 ||
           item.rate == 0 ||
           item.rate === "" ||
           item.quantity == 0 ||
@@ -310,6 +330,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
           if (!item.name) {
             validationObj.name = { isError: true, message: "Name is required" };
+          } else if (item.name.length < 3 || item.name.length > 40) {
+            validationObj.name = {
+              isError: true,
+              message: "Item name must be 3 to 40 characters",
+            };
           } else {
             validationObj.name = { isError: false, message: "" };
           }
@@ -386,13 +411,17 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
       // Convert objects to JSON strings and append
 
-      formData.append("newFrom", JSON.stringify(fromMapped));
-      formData.append("newTo", JSON.stringify(toMapped));
+      formData.append("from", JSON.stringify(fromMapped));
+      formData.append("to", JSON.stringify(toMapped));
 
       formData.append("settings", JSON.stringify(invoiceData.settings));
       formData.append("items", JSON.stringify(invoiceData.items));
 
-      createInvoice({ data: formData, apiRoute: `${backendURL}/invoices/save` })
+      createInvoice({
+        data: formData,
+        apiRoute: `${backendURL}/invoices/save`,
+        title: "Invoice Created",
+      })
         .then((res) => {
           router.push("/invoices");
           dispatch(setResetInvoice());
@@ -428,45 +457,54 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
 
   const generatePDFDocument = async () => {
-    const itemDetail = InvDetails?.invoiceItem;
-    const doc = (
-      <PdfView
-        invSetting={{ ...InvSetting }}
-        invDetails={{ ...InvDetails }}
-        Summary={summaryDetail}
-        user={session?.user}
-        itemDetail={itemDetail}
-      />
-    );
-    const blobPdf = await pdf(doc);
-    blobPdf.updateContainer(doc);
-    const result = await blobPdf.toBlob();
+    if (await validateInvoice()) {
+      const itemDetail = InvDetails?.invoiceItem;
+      const doc = (
+        <PdfView
+          invSetting={{ ...InvSetting }}
+          invDetails={{ ...InvDetails }}
+          Summary={summaryDetail}
+          user={session?.user}
+          itemDetail={itemDetail}
+        />
+      );
+      const blobPdf = await pdf(doc);
+      blobPdf.updateContainer(doc);
+      const result = await blobPdf.toBlob();
 
-    saveAs(result, "ZeeInvoice");
+      saveAs(result, pdfFileName);
+
+      setIsPdfToastOpen(true);
+      setTimeout(() => {
+        setIsPdfToastOpen(false);
+      }, 3000);
+    }
   };
 
   const PDFPreview = async () => {
-    const itemDetail = InvDetails?.invoiceItem;
-    const doc = (
-      <PdfView
-        invSetting={{ ...InvSetting }}
-        invDetails={{ ...InvDetails }}
-        Summary={summaryDetail}
-        user={session?.user}
-        itemDetail={itemDetail}
-      />
-    );
+    if (await validateInvoice()) {
+      const itemDetail = InvDetails?.invoiceItem;
+      const doc = (
+        <PdfView
+          invSetting={{ ...InvSetting }}
+          invDetails={{ ...InvDetails }}
+          Summary={summaryDetail}
+          user={session?.user}
+          itemDetail={itemDetail}
+        />
+      );
 
-    // Generate the PDF as a blob
-    const blobPdf = await pdf(doc);
-    blobPdf.updateContainer(doc);
-    const result = await blobPdf.toBlob();
+      // Generate the PDF as a blob
+      const blobPdf = await pdf(doc);
+      blobPdf.updateContainer(doc);
+      const result = await blobPdf.toBlob();
 
-    // Create a blob URL from the generated PDF blob
-    const blobUrl = URL.createObjectURL(result);
+      // Create a blob URL from the generated PDF blob
+      const blobUrl = URL.createObjectURL(result);
 
-    // Open the blob URL in a new tab
-    window.open(blobUrl, "_blank");
+      // Open the blob URL in a new tab
+      window.open(blobUrl, "_blank");
+    }
   };
 
   useEffect(() => {
@@ -477,10 +515,12 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
 
   useEffect(() => {
     if (session?.accessToken && generatedInvoiceId?.length) {
-      UpdateInvoiceId(generatedInvoiceId);
-      dispatch(setInvoiceId(generatedInvoiceId));
+      if (type !== "edit") {
+        UpdateInvoiceId(generatedInvoiceId);
+        dispatch(setInvoiceId(generatedInvoiceId));
+      }
     }
-  }, [generatedInvoiceId, session?.accessToken, dispatch]);
+  }, [generatedInvoiceId, session?.accessToken, dispatch, type]);
 
   useEffect(() => {
     if (!isEditInvoiceId) {
@@ -491,6 +531,101 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const isLowerCase = [...InvoiceId].some(
     (char) => char !== char.toUpperCase()
   );
+
+  const validateInvoice = async () => {
+    if (
+      InvDetails?.invoiceType === "" ||
+      InvDetails.from?.name === "" ||
+      InvDetails.to?.name === "" ||
+      InvDetails.invoiceItem.some(
+        (item: any) =>
+          !item.name ||
+          item.name.length > 40 ||
+          item.name.length < 3 ||
+          item.rate == 0 ||
+          item.rate === "" ||
+          item.quantity == 0 ||
+          item.quantity === ""
+      )
+    ) {
+      setIsValidInvoice(false);
+      // Dispatch relevant error actions for invoiceType, sender, and recipient
+      if (InvDetails?.invoiceType === "") {
+        await dispatch(setInvoiceTypeError(true));
+      }
+      if (InvDetails.from?.name === "") {
+        await dispatch(setSenderDetailsError(true));
+      }
+      if (InvDetails.to?.name === "") {
+        await dispatch(setRecipientDetailsError(true));
+      }
+
+      // Invoice item validation
+      if (InvDetails.invoiceItem) {
+        let itemsValidation: any[] | null = [];
+
+        InvDetails.invoiceItem.forEach((item: any) => {
+          let validationObj: any = {
+            id: item.id.toString(),
+            name: {},
+            quantity: {},
+            rate: {},
+          };
+
+          if (!item.name) {
+            validationObj.name = { isError: true, message: "Name is required" };
+          } else if (item.name.length < 3 || item.name.length > 40) {
+            validationObj.name = {
+              isError: true,
+              message: "Item name must be 3 to 40 characters",
+            };
+          } else {
+            validationObj.name = { isError: false, message: "" };
+          }
+
+          if (item.quantity == 0 || item.quantity === "") {
+            validationObj.quantity = {
+              isError: true,
+              message: "Required",
+            };
+          } else {
+            validationObj.quantity = { isError: false, message: "" };
+          }
+
+          if (item.rate == 0 || item.rate === "") {
+            validationObj.rate = { isError: true, message: "Required" };
+          } else {
+            validationObj.rate = { isError: false, message: "" };
+          }
+
+          // Only push validationObj if any error exists
+          if (
+            validationObj.name.isError ||
+            validationObj.quantity.isError ||
+            validationObj.rate.isError
+          ) {
+            itemsValidation?.push(validationObj);
+          }
+        });
+
+        // If no errors, set validation to null
+        if (itemsValidation.length === 0) {
+          itemsValidation = null;
+        }
+
+        await dispatch(setInvoiceRowItemValidation(itemsValidation));
+      }
+      return false;
+    } else {
+      setIsValidInvoice(true);
+      return true;
+    }
+  };
+
+  const handlePdfToastClose = () => {
+    setIsPdfToastOpen(false);
+  };
+
   return (
     <Stack
       justifyContent={"space-between"}
@@ -542,7 +677,16 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 color: palette.color.gray[610],
               }}
             >
-              <Typography variant="display-xs-semibold">Sr. No:</Typography>{" "}
+              <Typography
+                variant="display-xs-semibold"
+                sx={{
+                  fontSize: { sm: "24px !important", xs: "20px !important" },
+                  lineHeight: { sm: "30px !important", xs: "24px !important" },
+                  fontWeight: { sm: 600, xs: 500 },
+                }}
+              >
+                Sr. No:
+              </Typography>{" "}
               {isFetchingInvoiceId ? (
                 <Skeleton sx={{ width: "36px", height: "32px", m: 0 }} />
               ) : isEditInvoiceId ? (
@@ -556,9 +700,9 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                       "& .MuiOutlinedInput-root": {
                         "& input": {
                           padding: 0,
-                          fontSize: "22px",
+                          fontSize: { sm: "24px", xs: "20px" },
                           color: palette.color.gray[610],
-                          fontWeight: 600,
+                          fontWeight: 400,
                         },
                         "& fieldset": {
                           border: "none",
@@ -638,9 +782,18 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               ) : (
                 <Typography
                   variant="display-xs-semibold"
-                  sx={{ height: "40px", lineHeight: "40px" }}
+                  sx={{
+                    fontSize: { sm: "24px !important", xs: "20px !important" },
+                    lineHeight: {
+                      sm: "30px !important",
+                      xs: "24px !important",
+                    },
+                    fontWeight: { sm: 400, xs: 400 },
+                  }}
                 >
-                  {session?.accessToken ? InvoiceId : invIdNoSession}
+                  {session?.accessToken || !isIdFetched
+                    ? InvoiceId
+                    : invIdNoSession}
                 </Typography>
               )}
             </Box>
@@ -658,8 +811,8 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
                 }}
                 sx={{
                   borderRadius: "100%",
-                  width: "28px !important",
-                  height: "28px !important",
+                  width: "30px !important",
+                  height: "30px !important",
                   p: 0.5,
                   mt: "0px",
                 }}
@@ -686,11 +839,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
             sx={{
               opacity: !validateButton ? 0.5 : 1,
             }}
-            onClick={() =>
-              type === "add"
-                ? router.push("/preview")
-                : router.push(`/invoices/${invoiceData.id}?type=edit`)
-            }
+            onClick={() => (type === "add" ? PDFPreview() : PDFPreview())}
           >
             <VisibilityOutlined sx={{ width: 19, height: 19 }} />
           </ButtonBase>
@@ -785,12 +934,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
               },
             }}
             onClick={() => {
-              // if (type === "add") {
-              // window.open("/preview", "_blank");
               PDFPreview();
-              // } else {
-              //   window.open(`/preview/${invoiceData.id}`, "_blank"); // Open `/preview/{invoiceData.id}` in a new tab
-              // }
             }}
           >
             Preview
@@ -818,7 +962,11 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
           ) : (
             <Tooltip title="Download PDF" placement="bottom">
               <Button
-                onClick={() => setDownloadModel(true)}
+                onClick={async () => {
+                  if (await validateInvoice()) {
+                    setDownloadModel(true);
+                  }
+                }}
                 variant="contained"
                 sx={{
                   height: "44px",
@@ -862,6 +1010,13 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
         InvSetting={InvSetting}
         InvDetails={InvDetails}
         summaryDetail={summaryDetail}
+      />
+      <PdfToast
+        isOpen={isPdfToastOpen}
+        progress={100}
+        lable={pdfFileName}
+        type="single"
+        handleClose={handlePdfToastClose}
       />
     </Stack>
   );

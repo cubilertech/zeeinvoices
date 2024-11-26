@@ -36,8 +36,8 @@ import { saveAs } from "file-saver";
 import { setResetSelectedList } from "@/redux/features/listSelected";
 import { toast } from "react-toastify";
 import { pdf } from "@react-pdf/renderer";
-import DownloadModal from "@/components/DownloadModal/downloadModal";
-import SaveModal from "@/components/SaveModal/saveModal";
+import DownloadModal from "@/components/Modals/DownloadModal/downloadModal";
+import SaveModal from "@/components/Modals/SaveModal/saveModal";
 
 const PDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),

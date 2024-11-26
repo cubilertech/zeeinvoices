@@ -9,11 +9,11 @@ import SessionProviders from "@/components/SessionProviders";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Script from "next/script";
+import CustomHooks from "@/utils/CustomHooks";
 
 const inter = Inter({ subsets: ["latin"] });
-const siteUrl =
-  process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL ||
-  "https://staging.zeeinvoices.com"; // Fallback in case env is missing
+const siteUrl = "https://zeeinvoices.com";
+
 export const metadata: Metadata = {
   title: {
     default: "ZeeInvoices: Custom and Smart Invoices Free and Easy",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/opengraph-image.png`, // Use the dynamic URL from .env       
+        url: `${siteUrl}/opengraph-image.png`,
         alt: "ZeeInvoices AI-powered Invoice Generator",
       },
     ],
@@ -58,6 +58,22 @@ export default function RootLayout({
             gtag('config', 'AW-11380785487');
           `}
         </Script>
+        <Script id="json-ld" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: "ZeeInvoices",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "144/2, Block B, Bankers Society",
+              addressLocality: "Lahore",
+              addressRegion: "Lahore",
+              postalCode: "12345",
+            },
+            telephone: "+92-3008542811",
+            openingHours: "Mo-Fr 10:00-19:00",
+          })}
+        </Script>
       </head>
       <body className={inter.className}>
         <SessionProviders>
@@ -72,30 +88,18 @@ export default function RootLayout({
                   pauseOnFocusLoss
                   draggable
                   pauseOnHover
-                  theme="dark"
+                  theme="light"
+                  toastClassName="custom-toast"
+                  bodyClassName="custom-toast-body"
+                  // progressClassName="custom-progress-bar"
                 />
+                <CustomHooks />
                 <AppLayout>{children}</AppLayout>
               </QueryProvider>
             </ClientProvider>
           </MuiThemeProvider>
         </SessionProviders>
       </body>
-      <Script id="json-ld" type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: "ZeeInvoices",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "144/2, Block B, Bankers Society",
-            addressLocality: "Lahore",
-            addressRegion: "Lahore",
-            postalCode: "12345",
-          },
-          telephone: "+92-3008542811",
-          openingHours: "Mo-Fr 10:00-19:00",
-        })}
-      </Script>
     </html>
   );
 }

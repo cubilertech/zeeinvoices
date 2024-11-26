@@ -1,4 +1,4 @@
-import DeleteModal from "@/components/DeleteModal/deleteModal";
+import DeleteModal from "@/components/Modals/DeleteModal/deleteModal";
 import { palette } from "@/theme/palette";
 import {
   useDeleteDocument,
@@ -33,22 +33,18 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
   const [clientModel, setClientModel] = React.useState(false);
   const { data: session } = useSession();
   //Edit Client
-  const {
-    data: singleClient,
-    refetch: singleFetch,
-  } = useFetchSingleDocument(`${backendURL}/clients/${id}`);
+  const { data: singleClient, refetch: singleFetch } = useFetchSingleDocument(
+    `${backendURL}/clients/${id}`
+  );
 
   useEffect(() => {
     if (session?.accessToken) singleFetch();
   }, [singleFetch, session?.accessToken]);
 
   // Update Client
-  const {
-    mutateAsync: updateClient,
-  } = useEditDocument(false);
-  const {
-    mutateAsync: deleteClient,
-  } = useDeleteDocument();
+  const { mutateAsync: updateClient } = useEditDocument(false);
+  const { mutateAsync: deleteClient, isLoading: deleteClientLoading } =
+    useDeleteDocument();
   const handleSubmitForm = (values: any) => {
     const data = {
       name: values.name,
@@ -64,6 +60,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
       updateClient({
         data: data,
         apiRoute: `${backendURL}/clients/${id}`,
+        title: "Recipient Updated"
       }).then((res) => {
         console.log("Updated");
         singleFetch();
@@ -77,7 +74,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
     setIsModalOpen(false);
   };
   const clientDelete = async () => {
-    await deleteClient({ apiRoute: `${backendURL}/clients/${id}` }).then(
+    await deleteClient({ apiRoute: `${backendURL}/clients/${id}`, title: "Recipient Deleted" }).then(
       (res) => {
         router.push("/clients");
       }
@@ -261,6 +258,7 @@ const ClientSingleDetail: FC<ClientSingleProps> = ({ id }) => {
       <DeleteModal
         open={isModalOpen}
         onClose={handleDeleteModalClose}
+        deleteLoading={deleteClientLoading}
         invoiceDelete={clientDelete}
         title="recipient"
       />

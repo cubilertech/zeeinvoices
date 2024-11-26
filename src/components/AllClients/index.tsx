@@ -27,7 +27,7 @@ import {
   useFetchAllDocument,
 } from "@/utils/ApiHooks/common";
 import { useRouter } from "next/navigation";
-import DeleteModal from "../DeleteModal/deleteModal";
+import DeleteModal from "../Modals/DeleteModal/deleteModal";
 import ClientPopOver from "./ClientPopOver";
 import { useDispatch } from "react-redux";
 
@@ -213,7 +213,7 @@ export default function AllClients() {
       address: values.address,
     };
     if (clientType === "add") {
-      createClient({ apiRoute: `${backendURL}/clients/save`, data: data })
+      createClient({ apiRoute: `${backendURL}/clients/save`, data: data, title: "Recipient Added" })
         .then((res) => {
           refetchClientList();
         })
@@ -225,6 +225,7 @@ export default function AllClients() {
         updateClient({
           data: data,
           apiRoute: `${backendURL}/clients/${editId?._id}`,
+          title: "Recipient Updated"
         }).then((res) => {
           console.log("Updated");
           refetchClientList();
@@ -251,7 +252,7 @@ export default function AllClients() {
     setIsModalOpen(true);
   };
   const clientDelete = () => {
-    deleteClient({ apiRoute: `${backendURL}/clients/${itemToDelete}` });
+    deleteClient({ apiRoute: `${backendURL}/clients/${itemToDelete}`, title: "Recipient Deleted" });
   };
 
   const handleHomeBtn = () => {
@@ -647,6 +648,7 @@ export default function AllClients() {
             <DeleteModal
               open={isModalOpen}
               onClose={handleDeleteModalClose}
+              deleteLoading={deleteClientLoading}
               invoiceDelete={clientDelete}
               title="recipient"
             />

@@ -28,13 +28,13 @@ import {
 } from "@/redux/features/invoiceSetting";
 import { calculateAmount, calculateTax } from "@/common/common";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ShareModal from "@/components/ShareModal/shareModal";
+import ShareModal from "@/components/Modals/ShareModal/shareModal";
 import "@/Styles/sectionStyle.css";
 import { pdf } from "@react-pdf/renderer";
 import PdfView from "@/appPages/PdfView/pdfView";
 import { useSession } from "next-auth/react";
 import { saveAs } from "file-saver";
-import DeleteModal from "@/components/DeleteModal/deleteModal";
+import DeleteModal from "@/components/Modals/DeleteModal/deleteModal";
 import dynamic from "next/dynamic";
 
 const PDFViewer = dynamic(

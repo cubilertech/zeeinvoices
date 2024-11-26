@@ -23,11 +23,11 @@ const FooterSection = () => {
     route.push("/");
   };
   const handleTermsButton = (data: any) => {
-    route.push("/termsAndCondition");
+    route.push("/terms-and-condition");
   };
 
   const handlePrivacyButton = (data: any) => {
-    route.push("/privacyPolicy");
+    route.push("/privacy-policy");
   };
   const handleAboutPage = () => {
     route.push("/about-us");

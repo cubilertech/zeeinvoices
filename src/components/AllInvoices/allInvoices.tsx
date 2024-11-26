@@ -11,7 +11,9 @@ import Paper from "@mui/material/Paper";
 import { palette } from "@/theme/palette";
 import {
   Avatar,
+  Button,
   ButtonBase,
+  Checkbox,
   CircularProgress,
   Container,
   IconButton,
@@ -31,7 +33,6 @@ import {
   tableFormatDate,
 } from "@/common/common";
 import { useRouter } from "next/navigation";
-import DeleteModal from "../DeleteModal/deleteModal";
 import CustomPopOver from "./CustomPopOver";
 import { useDispatch, useSelector } from "react-redux";
 import { setFullInvoice, setResetInvoice } from "@/redux/features/invoiceSlice";
@@ -39,7 +40,6 @@ import {
   setInvoiceSettings,
   setResetInvoiceSetting,
 } from "@/redux/features/invoiceSetting";
-import ShareModal from "../ShareModal/shareModal";
 import InvoiceDetailsSection from "../InvoiceDetailsSection/invoiceDetailsSection";
 import { useSession } from "next-auth/react";
 import EnhancedTableToolbar from "./enhancedTableToolbar";
@@ -52,6 +52,13 @@ import {
 } from "@/redux/features/invoiceSlice";
 import "@/Styles/sectionStyle.css";
 import { Icon } from "../Icon";
+import { pdf } from "@react-pdf/renderer";
+import PdfView from "@/appPages/PdfView/pdfView";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import DeleteModal from "../Modals/DeleteModal/deleteModal";
+import ShareModal from "../Modals/ShareModal/shareModal";
 
 interface Data {
   id: number;
@@ -134,7 +141,10 @@ export default function AllInvoices() {
   }, [invoiceList]);
 
   React.useEffect(() => {
-    refetchInvoiceList();
+    if (session?.accessToken) {
+      setSelected([]);
+      refetchInvoiceList();
+    }
 
     if (deleteSuccess) {
       setPage(1);
@@ -164,6 +174,70 @@ export default function AllInvoices() {
   };
   const handleViewInvoice = (id: number) => {
     route.push(`/invoices/${id}`);
+  };
+
+  const PDFPreview = async (record: any) => {
+    const details = {
+      id: record?.id,
+      logo: record?.image,
+      invoiceType: record?.type,
+      from: {
+        ...record?.fromDetails,
+        phoneNumber: record?.fromDetails?.phone_number,
+        companyName: record?.fromDetails?.company_name,
+      },
+      to: {
+        ...record?.toDetails,
+        phoneNumber: record?.toDetails?.phone_number,
+        companyName: record?.toDetails?.company_name,
+      },
+      invoiceDate: record?.invoiceDate,
+      dueDate: record?.dueDate,
+      addtionalNotes: record?.notes,
+      invoiceItem: record?.items,
+    };
+
+    const settings = {
+      colors: record?.settings.colors,
+      color: record?.settings?.color,
+      currency: record?.settings?.currency,
+      dueDate: record?.settings?.dueDate,
+      tax: record?.settings?.tax,
+      terms: record?.settings?.terms,
+      detail: record?.settings?.detail,
+    };
+
+    const itemDetail = details?.invoiceItem;
+    const totalAmount = calculateAmount(record?.items);
+    const totalTax = calculateTax(record?.items);
+
+    const summary = {
+      total: totalAmount,
+      taxAmount: totalTax,
+    };
+
+    if (summary && settings && details && itemDetail) {
+      const doc = (
+        <PdfView
+          invSetting={{ ...settings }}
+          invDetails={{ ...details }}
+          Summary={summary}
+          user={session?.user}
+          itemDetail={itemDetail}
+        />
+      );
+
+      // Generate the PDF as a blob
+      const blobPdf = await pdf(doc);
+      blobPdf.updateContainer(doc);
+      const result = await blobPdf.toBlob();
+
+      // Create a blob URL from the generated PDF blob
+      const blobUrl = URL.createObjectURL(result);
+
+      // Open the blob URL in a new tab
+      window.open(blobUrl, "_blank");
+    }
   };
 
   //Edit Invoice
@@ -252,7 +326,10 @@ export default function AllInvoices() {
   };
   //Delete Invoice Item
   const invoiceDelete = () => {
-    deleteInvoice({ apiRoute: `${backendURL}/invoices/${itemToDelete}` });
+    deleteInvoice({
+      apiRoute: `${backendURL}/invoices/${itemToDelete}`,
+      title: "Invoice Deleted",
+    });
   };
 
   const handleHomeBtn = () => {
@@ -260,6 +337,112 @@ export default function AllInvoices() {
     dispatch(setResetInvoice());
     route.push("/create-new-invoice");
   };
+
+  const handleDownloadInvoices = async (invoices: any) => {
+    const zip = new JSZip();
+    const zipFolder = zip.folder("Invoices");
+
+    for (const invoice of invoices) {
+      const invDetails = {
+        id: invoice?.id,
+        logo: invoice?.image,
+        invoiceType: invoice?.type,
+        from: {
+          ...invoice?.fromDetails,
+          phoneNumber: invoice?.fromDetails?.phone_number,
+          companyName: invoice?.fromDetails?.company_name,
+        },
+        to: {
+          ...invoice?.toDetails,
+          phoneNumber: invoice.toDetails?.phone_number,
+          companyName: invoice.toDetails?.company_name,
+        },
+        invoiceDate: invoice?.invoiceDate,
+        dueDate: invoice?.dueDate,
+        addtionalNotes: invoice?.notes,
+        invoiceItem: invoice?.items,
+      };
+
+      const invSettings = {
+        colors: invoice?.settings.colors,
+        color: invoice?.settings?.color,
+        currency: invoice?.settings?.currency,
+        dueDate: invoice?.settings?.dueDate,
+        tax: invoice?.settings?.tax,
+        terms: invoice?.settings?.terms,
+        detail: invoice?.settings?.detail,
+      };
+
+      const pdfFileName = invoice.toDetails?.companyName
+        ? `${invoice.toDetails.companyName}-${invoice.id}.pdf`
+        : `${invoice.toDetails.name}-${invoice.id}.pdf`;
+
+      const totalAmount = calculateAmount(invoice.items);
+      const totalTax = calculateTax(invoice.items);
+
+      const invSummaryDetail = {
+        total: totalAmount,
+        taxAmount: totalTax,
+      };
+
+      // Wrap the static markup in a PDF-friendly Document component
+      const pdfDocument = (
+        <PdfView
+          invSetting={invSettings}
+          invDetails={invDetails}
+          Summary={invSummaryDetail}
+          user={session?.user}
+          itemDetail={invoice.items}
+        />
+      );
+
+      // const blobPdf = await pdf(pdfDocument)?.toBlob();
+
+      const blobPdf = await pdf(pdfDocument);
+      blobPdf.updateContainer(pdfDocument);
+      const result = await blobPdf.toBlob();
+
+      zipFolder?.file(pdfFileName, result);
+    }
+
+    // Generate and download the ZIP file
+    zip.generateAsync({ type: "blob" }).then((zipBlob) => {
+      saveAs(zipBlob, "All_Invoices.zip");
+    });
+  };
+
+  const handleDownloadClick = () => {
+    setSelected([]);
+  };
+
+  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected: readonly number[] = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
+    }
+    setSelected(newSelected);
+  };
+  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      const newSelected = filteredData.map((n: any) => n.id);
+      setSelected(newSelected);
+      return;
+    }
+    setSelected([]);
+  };
+
+  // console.log(selected, "sel");
 
   return (
     <>
@@ -336,7 +519,31 @@ export default function AllInvoices() {
                   numSelected={selected.length}
                   search={search}
                   handleChangeSearch={handleChangeSearch}
+                  filteredData={filteredData}
+                  selected={selected}
+                  handleDownloadClick={handleDownloadClick}
                 />
+
+                {/* <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "right",
+                    mt: "8px",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleDownloadInvoices(filteredData)}
+                    sx={{ borderRadius: "4px", width: "157px", height: "44px" }}
+                  >
+                    <FileDownloadOutlinedIcon
+                      sx={{ color: palette.primary.main }}
+                    />
+                    Download
+                  </Button>
+                </Box> */}
+
                 {filteredData.length > 0 ? (
                   <>
                     {fetchingInvoiceList ? (
@@ -373,24 +580,54 @@ export default function AllInvoices() {
                               numSelected={selected.length}
                               order={order}
                               orderBy={orderBy}
+                              onSelectAllClick={handleSelectAllClick}
                               onRequestSort={handleRequestSort}
                               rowCount={invoiceList?.invoices?.length}
                             />
 
                             <TableBody>
                               {filteredData?.map((row: any, index: number) => {
+                                const isItemSelected = selected.includes(
+                                  row.id
+                                );
                                 const labelId = `enhanced-table-checkbox-${index}`;
                                 return (
                                   <TableRow
                                     hover
                                     role="checkbox"
+                                    aria-checked={isItemSelected}
                                     tabIndex={-1}
                                     key={row?.id}
+                                    selected={isItemSelected}
                                     sx={{
                                       cursor: "pointer",
                                       borderColor: palette.color.gray[200],
                                     }}
                                   >
+                                    <TableCell
+                                      padding="checkbox"
+                                      onClick={(event) =>
+                                        handleClick(event, row.id)
+                                      }
+                                    >
+                                      <Checkbox
+                                        color="primary"
+                                        checked={isItemSelected}
+                                        inputProps={{
+                                          "aria-labelledby": labelId,
+                                        }}
+                                        sx={{
+                                          "& .MuiSvgIcon-root": {
+                                            fill: "#D1D5DB",
+                                            backgroundColor: "transparent",
+                                            borderRadius: "4px",
+                                          },
+                                          "&.Mui-checked .MuiSvgIcon-root": {
+                                            fill: palette.primary.main,
+                                          },
+                                        }}
+                                      />
+                                    </TableCell>
                                     <TableCell
                                       component="th"
                                       id={labelId}
@@ -401,7 +638,9 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          // handleRowClick(row);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -429,7 +668,8 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -482,7 +722,8 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -511,7 +752,8 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -539,7 +781,8 @@ export default function AllInvoices() {
                                       sx={{ py: "8px", px: "16px" }}
                                       onClick={() => {
                                         if (!isPopover) {
-                                          handleViewInvoice(row?.id);
+                                          // handleViewInvoice(row?.id);
+                                          PDFPreview(row);
                                         }
                                       }}
                                     >
@@ -653,6 +896,7 @@ export default function AllInvoices() {
               <Box sx={{ height: 40 }}></Box>
               <DeleteModal
                 open={isModalOpen}
+                deleteLoading={deleteInvoiceLoading}
                 onDelete={handleDelete}
                 onClose={handleDeleteModalClose}
                 invoiceDelete={invoiceDelete}

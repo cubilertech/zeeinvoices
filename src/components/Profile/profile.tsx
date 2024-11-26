@@ -39,18 +39,17 @@ const alphaRegex = /[a-zA-Z]/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
-  email: Yup.string()
-    .required("Email is required"),
+  email: Yup.string().required("Email is required"),
   city: Yup.string()
     .matches(alphaRegex, "Invalid City")
     .min(3, "City must be at least 3 characters long")
-    .max(20, "City must be at most 20 characters long")
-    .required("City is required"),
+    .max(20, "City must be at most 20 characters long"),
+  // .required("City is required"),
   state: Yup.string()
     .matches(alphaRegex, "Invalid State")
     .min(2, "State must be at least 2 characters long")
-    .max(20, "State must be at most 20 characters long")
-    .required("State is required"),
+    .max(20, "State must be at most 20 characters long"),
+  // .required("State is required"),
   address: Yup.string()
     .matches(alphaRegex, "Invalid Address")
     .min(5, "Address must be at least 5 characters long")
@@ -66,6 +65,7 @@ const Profile: FC<Profile> = ({}) => {
   const isModile = useMediaQuery("(max-width: 500px)");
   const counter = useSelector(getCountValue);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [isProfile, setIsProfile] = useState(true);
   const dispatch = useDispatch();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [isEdit, setIsEdit] = React.useState(false);
@@ -75,6 +75,7 @@ const Profile: FC<Profile> = ({}) => {
     data: profileData,
     refetch: fetchProfile,
     isFetching: fetchingProfile,
+    isFetched: isProfileFetched,
   } = useFetchSingleDocument(`${backendURL}/users/my-profile`);
   const {
     mutateAsync: profileUpdate,
@@ -84,6 +85,11 @@ const Profile: FC<Profile> = ({}) => {
   useEffect(() => {
     if (session?.accessToken) fetchProfile();
   }, [fetchProfile, session?.accessToken, counter]);
+  useEffect(() => {
+    if (isProfileFetched) {
+      setIsProfile(false);
+    }
+  }, [isProfileFetched]);
   // Image
   const [uploadImage, setUploadImage] = useState<any>(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -126,7 +132,7 @@ const Profile: FC<Profile> = ({}) => {
 
     validate: (values) => {
       const errors: FormErrors = {};
-      
+
       const phoneError = validatePhoneNumber(
         values.phoneNumber,
         values.countryCode
@@ -161,6 +167,7 @@ const Profile: FC<Profile> = ({}) => {
           profileUpdate({
             apiRoute: `${backendURL}/users/my-profile`,
             data: data,
+            title: "Profile Updated"
           })
             .then((res) => {
               setUploadImage(null);
@@ -254,8 +261,9 @@ const Profile: FC<Profile> = ({}) => {
               backgroundColor: palette.base.white,
               px: { md: "0%", lg: "0%", xs: "0%" },
               pb: { sm: "24px", xs: "16px" },
+              opacity: fetchingProfile ? 0.5 : 1,
             }}
-          >           
+          >
             <Box
               sx={{
                 height: "156px",
@@ -364,6 +372,7 @@ const Profile: FC<Profile> = ({}) => {
                   type="button"
                   variant="contained"
                   onClick={handleEditClick}
+                  disabled={fetchingProfile}
                   sx={{
                     px: "14px !important",
                     py: "10px !important",
@@ -387,6 +396,23 @@ const Profile: FC<Profile> = ({}) => {
             </Stack>
           </Box>
 
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress
+              sx={{
+                position: "absolute",
+                display: fetchingProfile || isProfile ? "flex" : "none",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            />
+          </Box>
+
           {/* profile detail section */}
           {isEdit ? (
             <Box>
@@ -402,6 +428,7 @@ const Profile: FC<Profile> = ({}) => {
                   border: `1px solid ${palette.color.gray[5]}`,
                   boxShadow: palette.boxShadows.shadowxs,
                   borderRadius: "12px",
+                  opacity: fetchingProfile || isProfile ? 0.2 : 1,
                 }}
               >
                 <Stack
@@ -635,7 +662,13 @@ const Profile: FC<Profile> = ({}) => {
               </Stack>
             </Box>
           ) : (
-            <UserProfileDetails profileData={profileData} />
+            <Box
+              sx={{
+                opacity: fetchingProfile || isProfile ? 0.2 : 1,
+              }}
+            >
+              <UserProfileDetails profileData={profileData} />
+            </Box>
           )}
         </Container>
       </Box>

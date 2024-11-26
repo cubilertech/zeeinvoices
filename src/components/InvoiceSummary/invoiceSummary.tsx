@@ -28,7 +28,7 @@ const InvoiceSummary: FC = () => {
       direction={"column"}
       sx={{
         borderRadius: "4px",
-        width: { sm: "240px", xs: "100%" },
+        minWidth: { sm: "240px", xs: "100%" },
         border: `1px solid ${palette.color.gray[200]}`,
       }}
     >
@@ -67,6 +67,7 @@ const InvoiceSummary: FC = () => {
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
+        gap={2}
         sx={{
           height: "54px",
           borderBottom: `1px solid ${palette.color.gray[200]}`,
@@ -88,10 +89,12 @@ const InvoiceSummary: FC = () => {
         <Typography
           variant="text-sm-semibold"
           sx={{
+            maxWidth: { sm: "250px", xs: "203px" },
             color: palette.color.gray[900],
             fontSize: "14px",
             lineHeight: "20px",
             fontWeight: 600,
+            textAlign: "right",
           }}
         >
           <span style={{ fontSize: 14, fontWeight: 600 }}>
@@ -106,6 +109,7 @@ const InvoiceSummary: FC = () => {
           <Stack
             direction={"row"}
             justifyContent={"space-between"}
+            gap={2}
             sx={{
               height: "54px",
               borderBottom: `1px solid ${palette.color.gray[200]}`,
@@ -116,6 +120,7 @@ const InvoiceSummary: FC = () => {
             <Typography
               variant="text-sm-regular"
               sx={{
+                width: "55px",
                 color: palette.color.gray[610],
                 fontSize: "14px",
                 lineHeight: "20px",
@@ -127,10 +132,12 @@ const InvoiceSummary: FC = () => {
             <Typography
               variant="text-sm-semibold"
               sx={{
+                maxWidth: { sm: "250px", xs: "203px" },
                 color: palette.color.gray[900],
                 fontSize: "14px",
                 lineHeight: "20px",
                 fontWeight: 600,
+                textAlign: "right",
               }}
             >
               {taxAmount > 0
@@ -148,11 +155,13 @@ const InvoiceSummary: FC = () => {
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
+        gap={2}
         sx={{ height: "54px", alignItems: "center", px: "16px" }}
       >
         <Typography
           variant="text-sm-regular"
           sx={{
+            width: "55px",
             color: palette.color.gray[610],
             fontSize: "14px",
             lineHeight: "20px",
@@ -164,10 +173,12 @@ const InvoiceSummary: FC = () => {
         <Typography
           variant="text-sm-semibold"
           sx={{
+            maxWidth: { sm: "250px", xs: "203px" },
             color: palette.color.gray[900],
             fontSize: "14px",
             lineHeight: "20px",
             fontWeight: 600,
+            textAlign: "right",
           }}
         >
           <span style={{ fontSize: 14, fontWeight: 600 }}>

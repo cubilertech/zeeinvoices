@@ -43,6 +43,7 @@ export const icons = {
   editIcon: "/Images/icons/edit-icon.svg",
 
   editIcon1: "/Images/icons/edit-icon-1.svg",
+  editIcon2: "/Images/icons/edit-icon-2.svg",
   trashIcon: "/Images/icons/trash-icon.svg",
   downloadIcon: "/Images/icons/download-icon.svg",
 

@@ -9,9 +9,10 @@ import PdfView from "@/appPages/PdfView/pdfView";
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
 import { useSession } from "next-auth/react";
+import { PdfToast } from "../PdfToast";
 
 interface CustomPopOverProps {
-  record: any; 
+  record: any;
   handleViewInvoice: (id: number) => void;
   handleOpenDeleteModal: (id: number) => void;
   handleEditInvoice: (id: number) => void;
@@ -40,9 +41,13 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [isPdfToastOpen, setIsPdfToastOpen] = useState(false);
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const pdfFileName = InvDetails.to?.companyName
+    ? InvDetails.to?.companyName + "-" + InvDetails.id
+    : InvDetails.to?.name + "-" + InvDetails.id;
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -80,7 +85,6 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     );
   };
 
-
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;
     const doc = (
@@ -95,14 +99,23 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
     const blobPdf = await pdf(doc);
     blobPdf.updateContainer(doc);
     const result = await blobPdf.toBlob();
-    saveAs(result, "ZeeInvoice");
+    saveAs(result, pdfFileName);
+
+    setIsPdfToastOpen(true);
+    setTimeout(() => {
+      setIsPdfToastOpen(false);
+    }, 3000);
+  };
+
+  const handlePdfToastClose = () => {
+    setIsPdfToastOpen(false);
   };
   return (
     <>
       <IconButton
         onClick={(event) => {
-          event.stopPropagation(); 
-          handleClick(event); 
+          event.stopPropagation();
+          handleClick(event);
         }}
       >
         <Icon icon="threeDotsIcon" width={16} height={16} />
@@ -122,7 +135,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           direction={"column"}
           sx={{ display: "flex", alignItems: "start" }}
         >
-          <Button
+          {/* <Button
             onClick={() => {
               setAnchorEl(null);
               handleViewInvoice(record?.id);
@@ -143,14 +156,14 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             }}
           >
             View
-          </Button>
+          </Button> */}
           <Button
             onClick={() => {
               setAnchorEl(null);
               handleEditInvoice(record);
             }}
             variant="outlined"
-            startIcon={<Icon icon="editIcon" />}
+            startIcon={<Icon icon="editIcon2" />}
             sx={{
               width: "100%",
               border: "none",
@@ -165,7 +178,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             }}
           >
             Edit
-          </Button>       
+          </Button>
           <Button
             variant="outlined"
             startIcon={<Icon icon="downloadIcon" />}
@@ -188,7 +201,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           >
             Download
           </Button>
-            <Button
+          <Button
             variant="outlined"
             startIcon={<Icon icon="deleteRedIcon" />}
             sx={{
@@ -212,6 +225,13 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
           </Button>
         </Stack>
       </Popover>
+      <PdfToast
+        isOpen={isPdfToastOpen}
+        progress={100}
+        lable={pdfFileName}
+        type="single"
+        handleClose={handlePdfToastClose}
+      />
     </>
   );
 };

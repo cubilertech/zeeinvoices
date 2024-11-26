@@ -4,6 +4,8 @@ import { useSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import { setResetInvoice } from "@/redux/features/invoiceSlice";
 import { setResetInvoiceSetting } from "@/redux/features/invoiceSetting";
+import { ShowToast } from "@/components/CustomToast";
+import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 
 // Fetch All Recods
 export const useFetchAllDocument = (
@@ -89,7 +91,8 @@ export const useCreateDocument = (multipart = true) => {
         },
       });
       if (response.data.code === 200) {
-        toast.success(response.data.message);
+          // toast.success(response.data.message);
+          ShowToast(`${props.title}`, response.data.message);
         return response.data.data;
       } else {
         toast.error("An error occurred while creating record.");
@@ -117,14 +120,14 @@ export const useDeleteDocument = () => {
         },
       });
       if (response.data.code === 200) {
-        toast.success(response.data.message);
+        // toast.success(response.data.message);
+        ShowToast(props.title, response.data.message);
         return response.data.data;
       } else {
         toast.error("An error occurred while deleting record.");
       }
     } catch (error: any) {
       toast.error(error.response.data.message);
-      throw new Error(`${error.response?.data?.message}`);
     }
   };
 
@@ -145,7 +148,8 @@ export const useEditDocument = (multipart = true) => {
         },
       });
       if (response.data.code === 200) {
-        toast.success(response.data.message);
+        // toast.success(response.data.message);
+        ShowToast(props.title, response.data.message);
         return response.data.data;
       } else {
         toast.error("An Error Occured while Update Data");

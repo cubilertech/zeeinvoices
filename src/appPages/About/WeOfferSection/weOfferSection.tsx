@@ -27,13 +27,13 @@ const WeOfferSection = () => {
             variant={isModile ? "display-sm2-bold" : "display-lg-bold"}
             color={palette.color.gray[900]}
             mb={{ sm: 3, xs: 1 }}
-            component={"p"}
+            component={"h3"}
             sx={{
               fontFamily: "Product Sans,sans-serif",
               fontSize: { md: "48px", xs: "26px" },
               lineHeight: { md: "64px", xs: "32px" },
               fontWeight: { xs: 700 },
-            }}
+            }}            
           >
             What We{" "}
             <span

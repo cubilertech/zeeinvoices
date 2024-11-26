@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { ChooseZeeInvoiceSection } from "@/appPages/About/ChooseZeeInvoiceSection";
 import { GetInTouchSection } from "@/appPages/About/GetInTouchSection";
 import { HeroSection } from "@/appPages/About/HeroSection";
