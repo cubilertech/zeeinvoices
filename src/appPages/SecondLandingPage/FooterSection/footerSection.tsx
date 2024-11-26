@@ -16,9 +16,11 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useEffect } from "react";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const FooterSection = () => {
   const route = useRouter();
+  const { t } = useTranslation('common');
   const handleHomeButton = (data: any) => {
     route.push("/");
   };
@@ -99,13 +101,14 @@ const FooterSection = () => {
                   textAlign: "justify",
                 }}
               >
-                ZeeInvoices is a powerful, easy-to-use invoicing solution
+                {t('footerDesc')}
+                {/* ZeeInvoices is a powerful, easy-to-use invoicing solution
                 designed to simplify your business finances. From creating
                 invoices to tracking payments, ZeeInvoices helps you manage your
                 billing effortlessly, giving you more time to focus on growing
                 your business. With seamless integration, customizable
                 templates, and automated processes, we ensure your invoicing is
-                fast, reliable, and secure.
+                fast, reliable, and secure. */}
               </Typography>
 
               <Stack
@@ -128,7 +131,7 @@ const FooterSection = () => {
                       fontWeight: { md: 700 },
                     }}
                   >
-                    Home
+                    {t('Home')}
                   </Typography>
                 </Link>
                 <Link
@@ -146,7 +149,7 @@ const FooterSection = () => {
                       fontWeight: { md: 700 },
                     }}
                   >
-                    About
+                    {t('About')}
                   </Typography>
                 </Link>
                 {/* <Link
@@ -182,7 +185,7 @@ const FooterSection = () => {
                       fontWeight: { md: 700 },
                     }}
                   >
-                    Privacy
+                    {t('Privacy')}
                   </Typography>
                 </Link>
                 <Link
@@ -200,7 +203,7 @@ const FooterSection = () => {
                       fontWeight: { md: 700 },
                     }}
                   >
-                    Terms
+                    {t('Terms')}
                   </Typography>
                 </Link>
               </Stack>
@@ -226,7 +229,7 @@ const FooterSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  Follow Us
+                  {t('Follow Us')}
                 </Typography>
                 <Stack
                   direction={"row"}
@@ -370,7 +373,7 @@ const FooterSection = () => {
                     fontWeight: { md: 700, xs: 700 },
                   }}
                 >
-                  Contact Us
+                  {t('Contact Us')}
                 </Typography>
                 <Stack
                   direction={"column"}
@@ -453,7 +456,7 @@ const FooterSection = () => {
                         fontWeight: { md: 400 },
                       }}
                     >
-                      11133 Shady Trail PMB 205 Dallas, TX 75229
+                      {t('companyAddress')}
                     </Typography>
                   </Stack>
                 </Stack>
@@ -494,7 +497,7 @@ const FooterSection = () => {
               fontWeight: { md: 400 },
             }}
           >
-            © 2024 All Rights Reserved ZeeInvoices
+            {t('copyRight')}
           </Typography>
         </Stack>
       </Container>

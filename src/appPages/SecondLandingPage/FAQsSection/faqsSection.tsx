@@ -4,6 +4,7 @@ import { palette } from "@/theme/palette";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const accordionData = [
   {
@@ -72,6 +73,7 @@ const accordionData = [
 ];
 
 const FAQsSection = () => {
+  const { t } = useTranslation('common');
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const handleToggle = (index: number) => {
@@ -102,7 +104,7 @@ const FAQsSection = () => {
               fontWeight: { md: 700 },
             }}
           >
-            Frequently{" "}
+            {t('Frequently')}{" "}
             <Box
               component="span"
               sx={{
@@ -116,7 +118,7 @@ const FAQsSection = () => {
                 display: "inline-block",
               }}
             >
-              Asked Questions
+              {t('Asked Questions')}
             </Box>
           </Typography>
         </Stack>
@@ -132,7 +134,7 @@ const FAQsSection = () => {
             textAlign: { xs: "center" },
           }}
         >
-          Everything you need to know about the product and billing.
+          {t('questionDesc')}
         </Typography>
       </Stack>
       <Container

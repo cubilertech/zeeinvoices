@@ -9,6 +9,7 @@ import {
 import { FC, useEffect, useState } from "react";
 import { VerticalProgressBar } from "../VerticalProgressBar";
 import { palette } from "@/theme/palette";
+import { useTranslation } from "react-i18next";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 4,
@@ -27,6 +28,7 @@ interface ExpandableTextProps {
   title1?: string;
   title2?: string;
   desc?: string;
+  lang?: string;
   isOpen: boolean;
   isOneTitle?: boolean;
   onToggle: () => void;
@@ -37,6 +39,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
   title1,
   title2,
   desc,
+  lang,
   isOpen,
   isOneTitle,
   onToggle,
@@ -44,7 +47,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
 }) => {
   const [progress, setProgress] = useState(1);
   const [isClicked, setIsClicked] = useState(false);
-
+  const { t } = useTranslation('common');
   useEffect(() => {
     if (!isOpen || isClicked) return;
 
@@ -107,7 +110,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 fontWeight: 700,
               }}
             >
-              {title1}{" "}
+              {t(title1 || '')}{" "}
               <Box
                 component="span"
                 sx={{
@@ -123,7 +126,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                   display: "inline-block",
                 }}
               >
-                {title2}
+                {t(title2 || '')}
               </Box>
             </Typography>
           )}
@@ -143,7 +146,7 @@ const ExpandableText: FC<ExpandableTextProps> = ({
                 lineHeight: { md: "34px !important", xs: "26px !important" },
               }}
             >
-              {title2}
+               {t(title2 || '')}
             </Typography>
           )}
         </Stack>
@@ -164,7 +167,8 @@ const ExpandableText: FC<ExpandableTextProps> = ({
               fontWeight: { md: 400 },
             }}
           >
-            {desc}
+             {t(lang || '')}
+            {/* {desc} */}
           </Typography>
         </div>
       </Stack>

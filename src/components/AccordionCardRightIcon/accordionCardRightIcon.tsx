@@ -2,6 +2,7 @@ import { palette } from "@/theme/palette";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import { Icon } from "../Icon";
+import { useTranslation } from "react-i18next";
 
 interface AccordionCardRightIconProps {
   qIndex?: number;
@@ -18,6 +19,7 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
   isOpen,
   onToggle,
 }) => {
+  const { t } = useTranslation('common');
   return (
     <Stack
       direction={"column"}
@@ -59,7 +61,7 @@ const AccordionCardRightIcon: FC<AccordionCardRightIconProps> = ({
             }}
             onClick={onToggle}
           >
-            {title}
+            {t(title || '')}
           </Typography>
 
           {isOpen && (

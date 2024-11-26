@@ -1,5 +1,8 @@
+import { i18nConfig } from './next-i18next.config.mjs';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  ...i18nConfig,
   images: {
     domains: [
       ...process.env.NEXT_PUBLIC_IMAGES_DOMAINS.split(","), // Using environment variable domains

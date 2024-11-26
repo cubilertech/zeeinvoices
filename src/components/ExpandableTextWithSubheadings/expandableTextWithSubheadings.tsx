@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { VerticalProgressBar } from "../VerticalProgressBar";
 import { palette } from "@/theme/palette";
+import { useTranslation } from "react-i18next";
 
 interface Section {
   heading: string;
@@ -31,6 +32,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
 }) => {
   const [progress, setProgress] = useState(1);
   const [isClicked, setIsClicked] = useState(false);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     if (!isOpen || isClicked) return;
@@ -92,7 +94,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                 fontWeight: 700,
               }}
             >
-              {title1}{" "}
+              {t(title1)}
               <Box
                 component="span"
                 sx={{
@@ -108,7 +110,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                   display: "inline-block",
                 }}
               >
-                {title2}
+                {t(title2 || "")}
               </Box>
             </Typography>
           )}
@@ -129,7 +131,7 @@ const ExpandableTextWithSubheadings: FC<ExpandableTextWithSubheadingsProps> = ({
                 fontWeight: 700,
               }}
             >
-              {title2}
+              {t(title2 || "")}
             </Typography>
           )}
         </Stack>

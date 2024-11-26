@@ -3,8 +3,10 @@ import { palette } from "@/theme/palette";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const HeroSection = () => {
+  const { t } = useTranslation('common');
   const isModile = useMediaQuery("(max-width: 600px)");
   return (
     <>
@@ -38,7 +40,7 @@ const HeroSection = () => {
               }}
               component={'h1'}
             >
-              About{" "}
+              {t('About')}{" "}
               <span
                 style={{
                   background: `${palette.color.gray[900]}`,
@@ -46,7 +48,7 @@ const HeroSection = () => {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                Us
+                {t('Us')}
               </span>
             </Typography>
 
@@ -61,12 +63,7 @@ const HeroSection = () => {
                 fontFamily: "Product Sans,sans-serif",
               }}
             >
-              Welcome to ZeeInvoices, at ZeeInvoices, we make invoicing simple,
-              quick, and completely free. Our platform is designed to streamline
-              the billing process for businesses of all sizes, from freelancers
-              to large enterprises. With ZeeInvoices, you can create
-              professional, custom invoices that align with your brand in just
-              minutes.
+              {t('aboutUsDesc')}
             </Typography>
           </Box>
           <Box sx={{ width: "100%", m: "auto" }}>

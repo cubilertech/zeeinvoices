@@ -11,6 +11,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
 import { ExpandableTextWithSubheadings } from "@/components/ExpandableTextWithSubheadings";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const expandableTextData = [
   {
@@ -194,8 +195,11 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
     };
   }, []);
 
+  const { t } = useTranslation('common');
+
   return (
     <>
+   
       <Stack
         direction={"column"}
         sx={{
@@ -245,7 +249,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   }}
                   component={'h1'}
                 >
-                  Terms &{" "}
+                 {t('Terms')} &{" "}
                   <span
                     style={{
                       background:
@@ -255,7 +259,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                       display: "inline-block",
                     }}
                   >
-                    Conditions
+                    {t('Conditions')}
                   </span>
                 </Typography>
 
@@ -269,7 +273,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                     fontWeight: { sm: 400 },
                   }}
                 >
-                  See our terms of Use
+                 {t('See our terms of Use')}
                 </Typography>
               </Stack>
 
@@ -287,7 +291,7 @@ const TermsAndConditions: FC<TermsAndConditions> = ({}) => {
                   }}
                   component={'h2'}
                 >
-                  Effective Date:{" "}
+                  {t('Effective Date')}:{" "}
                   <Box
                     component="span"
                     sx={{

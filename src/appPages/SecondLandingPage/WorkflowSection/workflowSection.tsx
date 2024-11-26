@@ -5,26 +5,31 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const expandableTextData = [
   {
     title1: "Less Time",
     title2: "More Focus",
     desc: "ZeeInvoices reduces the time spent on paperwork so you can focus on what matters—building your business.",
+    lang:'focusDesc'
   },
   {
     title1: "Enhance",
     title2: "Your Efficiency",
     desc: "Cut down on invoicing time and focus on expanding your business.",
+    lang: 'efficiencyDesc'
   },
   {
     title1: "Revitalize",
     title2: "Your Operations",
     desc: "Reduce the time spent on invoicing, allowing more focus on business growth.",
+    lang: 'OperationDesc'
   },
 ];
 
 const WorkflowSection = () => {
+  const { t } = useTranslation('common');
   const [openIndex, setOpenIndex] = useState<number | null>(0); 
   const sectionRef = useRef<HTMLDivElement | null>(null); 
 
@@ -107,7 +112,7 @@ const WorkflowSection = () => {
                 }}
                 component={'h3'}
               >
-                Streamline{" "}
+                {t('Streamline')}{" "}
                 <Box
                   component="span"
                   sx={{
@@ -122,7 +127,7 @@ const WorkflowSection = () => {
                     display: "inline-block",
                   }}
                 >
-                  Your Workflow
+                 {t('Your Workflow')}
                 </Box>
               </Typography>
             </Stack>
@@ -138,8 +143,7 @@ const WorkflowSection = () => {
                 textAlign: { xs: "center" },
               }}
             >
-              Shift your focus from invoicing to what truly matters—growing your
-              business!
+              {t('steamlineDesc')}
             </Typography>
           </Stack>
           <Stack
@@ -166,6 +170,7 @@ const WorkflowSection = () => {
                   key={index}
                   title1={item.title1}
                   title2={item.title2}
+                  lang={item.lang}
                   desc={item.desc}
                   isOpen={openIndex === index}
                   onToggle={() => handleToggle(index)}

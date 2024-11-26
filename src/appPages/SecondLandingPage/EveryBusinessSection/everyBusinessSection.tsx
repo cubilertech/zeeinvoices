@@ -12,8 +12,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const EveryBusinessSection = () => {
+  const { t } = useTranslation('common');
   const isMobile = useMediaQuery("(max-width: 600px)");
   const route = useRouter();
   const [is1Hover, set1IsHover] = useState(false);
@@ -58,7 +60,7 @@ const EveryBusinessSection = () => {
                 fontWeight: { md: 700 },
               }}
             >
-              Built For{" "}
+              {t('Built For')}{" "}
               <Box
                 component="span"
                 sx={{
@@ -73,7 +75,7 @@ const EveryBusinessSection = () => {
                   display: "inline-block",
                 }}
               >
-                Every Business
+                {t('Every Business')}
               </Box>
             </Typography>
           </Stack>
@@ -89,9 +91,7 @@ const EveryBusinessSection = () => {
               textAlign: { xs: "center" },
             }}
           >
-            ZeeInvoices simplifies invoicing for everyone, from freelancers to
-            large businesses. Our free software automates invoice creation and
-            streamlines the entire process.
+            {t('everyBussinessDesc')}
           </Typography>
         </Stack>
         <Stack
@@ -180,7 +180,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Freelancers
+                {t('Freelancers')}
               </Typography>
               <Typography
                 variant="text-md-regular"
@@ -195,9 +195,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { xs: 400 },
                 }}
               >
-                Streamline your freelance work with automated transaction
-                management and payment reminders, so you can focus on growing
-                your business.
+                {t('freelanceDesc')}
               </Typography>
             </Stack>
           </Stack>
@@ -254,7 +252,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Businesses
+                {t('Businesses')}
               </Typography>
               <Typography
                 variant="text-md-regular"
@@ -269,8 +267,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                Optimize your business with streamlined transaction management
-                and automated payment reminders, helping you scale efficiently.
+              {t('businessesDesc')}
               </Typography>
             </Stack>
             {/* bottom right */}
@@ -316,7 +313,7 @@ const EveryBusinessSection = () => {
                   fontWeight: { md: 400 },
                 }}
               >
-                E-commerce
+                {t('E-commerce')}
               </Typography>
               {isUpperHover ? (
                 <Typography
@@ -333,8 +330,7 @@ const EveryBusinessSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  Simplify your e-commerce transactions and automate payment
-                  reminders, giving you more time to grow your online store.
+                 {t('ecommerceDesc')}
                 </Typography>
               ) : (
                 <Typography
@@ -350,8 +346,7 @@ const EveryBusinessSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  Simplify your e-commerce transactions and automate payment
-                  reminders, giving you more time to grow your online store.
+                  {t('ecommerceDesc')}
                 </Typography>
               )}
             </Stack>

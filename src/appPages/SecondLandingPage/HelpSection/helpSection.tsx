@@ -6,26 +6,31 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const expandableTextData = [
   {
     title1: "Effortless",
     title2: "Invoicing",
     desc: "Streamline your invoicing process with our free invoicing software. simplicity and speed. ZeeInvoices makes it easy to create and manage invoices online, saving you time and effort.",
+    lang:'effortDesc',
   },
   {
     title1: "Automated",
     title2: "Invoicing",
     desc: "With our AI-powered invoice generator, you can reduce manual tasks and speed up your invoicing with ease to focus on growing your business.",
+    lang:'automatedDesc',
   },
   {
     title1: "Stay",
     title2: "Organized",
     desc: "Easily track and manage your invoices with our platform. Our Invoice tracking feature keeps everything in one place, helping you stay on top of payments and never miss a beat.",
+    lang:'OrganizedDesc',
   },
 ];
 
 const HelpSection = () => {
+  const { t } = useTranslation('common');
   const [openIndex, setOpenIndex] = useState<number | null>(0); 
   const sectionRef = useRef<HTMLDivElement | null>(null); 
   const handleToggle = (index: number) => {
@@ -119,7 +124,7 @@ const HelpSection = () => {
                 }}
                 component={"h2"}
               >
-                How{" "}
+                {t('How')}{" "}
                 <Box
                   component="span"
                   sx={{
@@ -134,7 +139,7 @@ const HelpSection = () => {
                     display: "inline-block",
                   }}
                 >
-                  ZeeInvoices Helps You?
+                  {t('ZeeInvoices Helps You?')}
                 </Box>
               </Typography>
             </Stack>
@@ -150,8 +155,7 @@ const HelpSection = () => {
                 textAlign: { xs: "center" },
               }}
             >
-              ZeeInvoices is a free and easy to use invoice generator and
-              billing software custom designed to meet your business needs.
+             {t('helpDesc')}
             </Typography>
           </Stack>
           <Stack
@@ -195,6 +199,7 @@ const HelpSection = () => {
                   title1={item.title1}
                   title2={item.title2}
                   desc={item.desc}
+                  lang={item.lang}
                   isOpen={openIndex === index}
                   onToggle={() => handleToggle(index)}
                   onComplete={handleComplete} 

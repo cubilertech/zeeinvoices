@@ -7,11 +7,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const HeroSection = () => {
   const route = useRouter();
   const dispatch = useDispatch();
-
+  const { t } = useTranslation('common');
   const handleCrtInvButton = (data: any) => {
     dispatch(setResetInvoiceSetting());
     dispatch(setResetInvoice());
@@ -66,7 +67,7 @@ const HeroSection = () => {
                   }}
                   component={'h1'}
                 >
-                  AI powered{" "}
+                 {t('AI powered')}{" "}
                   <Box
                     component="span"
                     sx={{
@@ -77,7 +78,7 @@ const HeroSection = () => {
                       color: palette.color.gray[900],
                     }}
                   >
-                    Custom Invoices{" "}
+                    {t('Custom Invoices')}{" "}
                   </Box>
                   <Box
                     component="span"
@@ -93,7 +94,7 @@ const HeroSection = () => {
                       display: "inline-block",
                     }}
                   >
-                    Free for all
+                    {t('Free for all')}
                   </Box>
                 </Typography>
               </Stack>
@@ -109,8 +110,9 @@ const HeroSection = () => {
                   textAlign: { sm: "left", xs: "center" },
                 }}
               >
-                Simplify your invoicing process and focus on what really
-                matters—Let’s grow your business.
+                {t("heroDesc")}
+                {/* Simplify your invoicing process and focus on what really
+                matters—Let’s grow your business. */}
               </Typography>
             </Stack>
             <Button
@@ -133,7 +135,7 @@ const HeroSection = () => {
               }}
               onClick={handleCrtInvButton}
             >
-              Create Invoice
+              {t('Create Invoice')}
             </Button>
           </Stack>
           {/* right hero section */}

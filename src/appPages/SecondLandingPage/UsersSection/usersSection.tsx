@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const expandableTextData = [
   {
@@ -47,6 +48,7 @@ const commentTextData = [
     desc1:
       "I love the intuitive interface and the professional templates. ZeeInvoices has made invoicing so much easier for my business.",
     desc2: "",
+    lang: 'expDesc1',
   },
   {
     title1: "It was a great tool!",
@@ -55,25 +57,29 @@ const commentTextData = [
     desc1:
       "ZeeInvoices is a game-changer. The customization options are perfect for my brand.",
     desc2: "",
+    lang:'expDesc2',
   },
   {
     title1: "Great experience!",
     title2: "",
     rating: 5,
     desc1:
-      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate. ",
+      "I recently used Zeeinvoice and I’m thoroughly impressed. The user interface is incredibly intuitive and easy to navigate.",
     desc2: "",
+    lang:'expDesc3',
   },
   {
     title1: "Good tool!",
     title2: "",
     rating: 5,
-    desc1: "The user interface is incredibly intuitive and easy to navigate. ",
+    desc1: "The user interface is incredibly intuitive and easy to navigate.",
     desc2: "",
+    lang:'expDesc4',
   },
 ];
 
 const UsersSection = () => {
+  const { t } = useTranslation('common');
   const isMobile = useMediaQuery("(max-width: 600px)");
   const sectionRef = useRef<HTMLDivElement | null>(null); 
   const [openIndex, setOpenIndex] = useState<number>(0); 
@@ -166,7 +172,7 @@ const UsersSection = () => {
                   fontWeight: { md: 700 },
                 }}
               >
-                What Our{" "}
+                {t('What Our')}{" "}
                 <Box
                   component="span"
                   sx={{
@@ -181,7 +187,7 @@ const UsersSection = () => {
                     display: "inline-block",
                   }}
                 >
-                  Users Say
+                  {t('Users Say')}
                 </Box>
               </Typography>
             </Stack>
@@ -197,7 +203,7 @@ const UsersSection = () => {
                 textAlign: { xs: "center" },
               }}
             >
-              Thousands of businesses trust Zeeinvoices to get paid faster.
+              {t('usersSayDesc')}
             </Typography>
           </Stack>
           <Stack
@@ -255,7 +261,7 @@ const UsersSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  {commentTextData[openIndex].title1}
+                  {t(commentTextData[openIndex].title1 || '')}
                 </Typography>
                 <Rating
                   name="half-rating-read"
@@ -282,7 +288,8 @@ const UsersSection = () => {
                     fontWeight: { md: 400 },
                   }}
                 >
-                  {commentTextData[openIndex].desc1}
+                  {/* {commentTextData[openIndex].desc1} */}
+                  {t(commentTextData[openIndex].lang || '')}
                 </Typography>
                 {commentTextData[openIndex].desc2 !== "" && (
                   <Typography

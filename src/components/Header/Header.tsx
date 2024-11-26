@@ -30,6 +30,7 @@ import { usePathname } from "next/navigation";
 import { BorderRight, Menu as MenuIcon } from "@mui/icons-material";
 import "@/Styles/sectionStyle.css";
 import { ProfilePopover } from "../ProfilePopover";
+import LanguageSwitcher from "../LanguageSwitch/LanguageSwitch";
 
 const Header = () => {
   const pathname = usePathname();
@@ -488,11 +489,13 @@ const Header = () => {
               ))}
           </Box>
         </Stack>
+        <Box sx={{display:'flex',gap:1}}>
         <Stack
           direction={"row"}
           gap={3}
           sx={{ display: { sm: "block", xs: "none" } }}
         >
+           
           {!session?.accessToken ? (
             <Stack direction={"row"} gap={2}>
               {pathname == "/" ||
@@ -596,8 +599,11 @@ const Header = () => {
                 </Stack>
               </Box>
             </Stack>
-          )}
+          )} 
+                   
         </Stack>
+        <LanguageSwitcher/>
+        </Box>
       </Container>
     </AppBar>
   );

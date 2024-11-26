@@ -6,26 +6,31 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import "@/Styles/sectionStyle.css";
+import { useTranslation } from "react-i18next";
 
 const expandableTextData = [
   {
     title1: "Mobile",
     title2: "Friendly",
     desc: "Create and send professional invoices from anywhere with our mobile-friendly invoice generator. ZeeInvoices offers fast invoicing solutions for businesses on the go.",
+    lang:'friendlyDesc'
   },
   {
     title1: "Save",
     title2: "Time",
     desc: "Streamline invoicing tasks like billing and payment tracking, allowing you to focus on what matters most.",
+    lang:'timeDesc'
   },
   {
-    title1: "Security ",
+    title1: "Security",
     title2: "First",
     desc: "Your data is secured with top-tier protection, ensuring privacy and safety for your business transactions.",
+    lang:'securityDesc'
   },
 ];
 
 const MadeSimpleSection = () => {
+  const { t } = useTranslation('common');
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLDivElement | null>(null); 
   const route = useRouter();
@@ -109,7 +114,7 @@ const MadeSimpleSection = () => {
                 fontWeight: { md: 700 },
               }}
             >
-              Invoicing{" "}
+              {t('Invoicing')}{" "}
               <Box
                 component="span"
                 sx={{
@@ -124,7 +129,7 @@ const MadeSimpleSection = () => {
                   display: "inline-block",
                 }}
               >
-                Made Simple
+                {t('Made Simple')}
               </Box>
             </Typography>
           </Stack>
@@ -140,8 +145,7 @@ const MadeSimpleSection = () => {
               textAlign: { xs: "center" },
             }}
           >
-            Get paid faster with a tool that’s designed for simplicity and
-            speed.
+            {t('sampleDesc')}
           </Typography>
           <Stack
             direction={{ md: "row", xs: "column-reverse" }}
@@ -178,6 +182,7 @@ const MadeSimpleSection = () => {
                   key={index}
                   title1={item.title1}
                   title2={item.title2}
+                  lang={item.lang}
                   desc={item.desc}
                   isOpen={openIndex === index}
                   onToggle={() => handleToggle(index)}
