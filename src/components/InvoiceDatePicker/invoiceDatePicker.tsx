@@ -26,7 +26,7 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
     if (newDate) {
       const date = newDate?.toISOString();
 
-      if (title === "Invoice Date") {
+      if (title === "Date") {
         dispatch(setInvoiceDate(date));
 
         // Adjust the due date if it's earlier than the invoice date
@@ -71,7 +71,7 @@ const InvoiceDatePicker: FC<InvoiceDatePicker> = ({ title }) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileDatePicker
             value={
-              title === "Invoice Date" ? dayjs(invoiceDate) : dayjs(dueDate)
+              title === "Date" ? dayjs(invoiceDate) : dayjs(dueDate)
             }
             onChange={handleDateChange}
             minDate={title === "Due Date" ? dayjs(invoiceDate) : undefined}
