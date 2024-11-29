@@ -46,7 +46,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
     data.discount && data.discount !== 0 ? data.discount : 0
   );
   const rateTextFieldRef = useRef<HTMLInputElement>(null);
-  const qtyTextFieldRef = useRef<HTMLInputElement>(null); 
+  const qtyTextFieldRef = useRef<HTMLInputElement>(null);
   const nameTextFieldRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +55,7 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
       setCurrentDiscount(value);
     }
     if (name === "description") {
-      const wordCount = value.trim().split(/\s+/).length;
-      if (wordCount > 300) {
+      if (value.length > 1000) {
         return;
       }
     }

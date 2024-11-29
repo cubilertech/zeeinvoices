@@ -899,7 +899,7 @@ const PdfView: FC<PdfViewProps> = ({
               gap: 10,
               justifyContent: "flex-start"
             }}
-            wrap={false}
+            // wrap={false}
           >
             <Text
               style={{
