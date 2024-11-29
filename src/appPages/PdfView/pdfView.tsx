@@ -893,8 +893,13 @@ const PdfView: FC<PdfViewProps> = ({
             style={{
               padding: "5px 15px",
               marginTop: "10px",
+              alignItems: "stretch",
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+              justifyContent: "flex-start"
             }}
-            // wrap={false}
+            wrap={false}
           >
             <Text
               style={{
@@ -940,6 +945,7 @@ const PdfView: FC<PdfViewProps> = ({
                 fontWeight: "bold",
                 // marginTop:'20px',
                 // paddingTop:'20px'
+                marginBottom: -20,
               }}
             >
               Powered by ZeeInvoices

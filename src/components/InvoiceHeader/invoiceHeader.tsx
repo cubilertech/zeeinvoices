@@ -169,7 +169,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
       InvSetting.watermarkText.length > 20 ||
       (InvDetails.signature.designation?.length < 2 && invoiceSignature) ||
-      InvDetails.signature.designation?.length > 20
+      InvDetails.signature.designation?.length > 30
     ) {
       // Dispatch relevant error actions for invoiceType, sender, and recipient
 
@@ -350,6 +350,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   };
   // Create Invoice
   const handleCreateInvoice = async () => {
+    
     if (isEditInvoiceId === true) {
       setErrorMessage(true);
     } else if (
@@ -703,7 +704,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
       (InvSetting.watermarkText.length < 3 && InvSetting.watermark) ||
       InvSetting.watermarkText.length > 20 ||
       (InvDetails.signature.designation?.length < 2 && invoiceSignature) ||
-      InvDetails.signature.designation?.length > 20
+      InvDetails.signature.designation?.length > 30
     ) {
       setIsValidInvoice(false);
       // Dispatch relevant error actions for invoiceType, sender, and recipient
