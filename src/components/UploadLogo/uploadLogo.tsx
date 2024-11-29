@@ -42,7 +42,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
         "image/png",
         "image/gif",
         "image/bmp",
-        "image/webp",
+        // "image/webp",
       ].includes(file.type)
     ) {
       toast.error("Please select a valid image file.");

@@ -928,7 +928,6 @@ const PdfView: FC<PdfViewProps> = ({
               marginRight: "0px",
               display: "flex",
               flexDirection: "row",
-
               alignItems: "center",
             }}
           >
@@ -939,6 +938,8 @@ const PdfView: FC<PdfViewProps> = ({
                 color: "#4B5565",
                 textAlign: "center",
                 fontWeight: "bold",
+                // marginTop:'20px',
+                // paddingTop:'20px'
               }}
             >
               Powered by ZeeInvoices
