@@ -137,198 +137,199 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
   }, [dispatch]);
 
   return (
-    <Box
-      sx={{
-        width: "843px",
-        boxShadow: palette.boxShadows[200],
-        borderRadius: { sm: "4px", xs: "12px" },
-        overflow: "hidden",
-        border: "1px solid",
-        borderColor: palette.color.gray[200],
-        mb: { sm: 0, xs: "16px" },
-      }}
-    >
-      <Box
-        sx={{ width: "100%", height: "10px", backgroundColor: selectedColor }}
-      />
-      <Box
-        sx={{
-          backgroundColor: palette.base.white,
-          width: "100%",
-          pt: { sm: "22px", xs: 2 },
-          pb: { sm: 3, xs: 2 },
-          px: { sm: 3, xs: 2 },
-        }}
-      >
-        {watermark && (
-          <Box
+    <>
+      {watermark && (
+        <Box
+          sx={{
+            width: { xs: "80%", sm: "55%", xl: "54%" },
+            height: { xs: "100%", sm: "72%" },
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 50,
+            pointerEvents: "none",
+          }}
+        >
+          <Typography
             sx={{
-              width: { xs: "80%", sm: "55%", xl: "40%" },
-              height: { xs: "100%", sm: "80%" },
-              position: "absolute",
+              maxWidth: "1000px",
+              fontSize: { xs: "70px", sm: "125px" },
+              lineHeight: { xs: "70px", sm: "130px" },
+              fontWeight: 900,
+              opacity: isNearWhite(selectedColor) ? 0.3 : 0.06,
+              rotate: { xs: "-55deg", sm: "-45deg" },
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              zIndex: 50,
+              color: isNearWhite(selectedColor)
+                ? palette.color.gray[200]
+                : selectedColor,
               pointerEvents: "none",
+              whiteSpace: "normal", // Enables text wrapping
+              wordBreak: "break-word", // Breaks long words
             }}
           >
-            <Typography
-              sx={{
-                maxWidth: "1000px",
-                fontSize: { xs: "70px", sm: "125px" },
-                lineHeight: { xs: "70px", sm: "130px" },
-                fontWeight: 900,
-                opacity: isNearWhite(selectedColor) ? 0.3 : 0.06,
-                rotate: { xs: "-55deg", sm: "-45deg" },
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: isNearWhite(selectedColor)
-                  ? palette.color.gray[200]
-                  : selectedColor,
-                pointerEvents: "none",
-                whiteSpace: "normal", // Enables text wrapping
-                wordBreak: "break-word", // Breaks long words
-              }}
-            >
-              {watermarkText}
-            </Typography>
-          </Box>
-        )}
-
-        {/* First section, add logo, invoice type, print */}
-        <Stack
-          direction={"row"}
-          justifyContent={"space-between"}
-          sx={{ flexDirection: { sm: "row", xs: "column" } }}
-        >
-          <Stack direction={"row"} spacing={3}>
-            <UploadLogo logoDesc="Add your bussiness logo" />
-          </Stack>
-          <Box
-            sx={{
-              mt: { sm: 0, xs: "16px" },
-              position: "relative",
-              width: { sm: "48.6%", xs: "100%" },
-            }}
-          >
-            <SelectInput
-              width={isModile ? "100%" : "100%"}
-              height={44}
-              placeholder="Select type"
-              borderRadius={"4px"}
-              type="Type"
-              menuData={["Bill", "Sales Invoice", "Quotation", "Other"]}
-            />
-            {isInvoiceTypeError && (
-              <Typography
-                variant="text-xxs-medium"
-                sx={{ color: "red", position: "absolute" }}
-              >
-                Invoice type is required
-              </Typography>
-            )}
-          </Box>
-        </Stack>
-
-        {/* Second section Detail selecters */}
-        <Stack
-          direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
-          justifyContent={"space-between"}
-          gap={3}
-          sx={{ marginTop: "24px" }}
-        >
-          <DetailSelecter
-            title="From"
-            detailsOf="Sender"
-            showData={senderShow}
-            InvDetails={InvDetails.from}
-            handleSubmitForm={handleSubmitFrom}
-            type={type}
-            isListSelected={senderSelected}
-          />
-
-          <DetailSelecter
-            title="To"
-            detailsOf="Recipient"
-            showData={reciptShow}
-            InvDetails={InvDetails.to}
-            handleSubmitForm={handleSubmitTo}
-            type={type}
-            isListSelected={recipientSelected}
-          />
-        </Stack>
-        {/* Third section, Date pickers */}
-        <Stack
-          direction={"row"}
-          // justifyContent={"space-between"}
-          sx={{
-            marginTop: "24px",
-            flexDirection: { sm: "row", xs: "column" },
-            gap: { sm: "24px", xs: 2 },
-          }}
-        >
-          <InvoiceDatePicker title="Date" />
-
-          {isDueDate ? <InvoiceDatePicker title="Due Date" /> : ""}
-        </Stack>
-        {/* Fourth section, add items table */}
-
-        <InvoiceItemsTable />
-
-        {/* Fifth section, Invoice summery */}
+            {watermarkText}
+          </Typography>
+        </Box>
+      )}
+      <Box
+        sx={{
+          width: "843px",
+          boxShadow: palette.boxShadows[200],
+          borderRadius: { sm: "4px", xs: "12px" },
+          overflow: "hidden",
+          border: "1px solid",
+          borderColor: palette.color.gray[200],
+          mb: { sm: 0, xs: "16px" },
+        }}
+      >
+        <Box
+          sx={{ width: "100%", height: "10px", backgroundColor: selectedColor }}
+        />
         <Box
           sx={{
+            backgroundColor: palette.base.white,
             width: "100%",
-            display: "flex",
-            flexDirection: { xs: "column-reverse", sm: "row" },
-            justifyContent: "space-between",
+            pt: { sm: "22px", xs: 2 },
+            pb: { sm: 3, xs: 2 },
+            px: { sm: 3, xs: 2 },
           }}
         >
-          <DisplaySignature />
-          <InvoiceSummary />
-        </Box>
-        {/* Sixth section, additional notes */}
-        {selectedTerms ? (
-          <TextField
-            multiline
-            rows={3}
+          {/* First section, add logo, invoice type, print */}
+          <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            sx={{ flexDirection: { sm: "row", xs: "column" } }}
+          >
+            <Stack direction={"row"} spacing={3}>
+              <UploadLogo logoDesc="Add your bussiness logo" />
+            </Stack>
+            <Box
+              sx={{
+                mt: { sm: 0, xs: "16px" },
+                position: "relative",
+                width: { sm: "48.6%", xs: "100%" },
+              }}
+            >
+              <SelectInput
+                width={isModile ? "100%" : "100%"}
+                height={44}
+                placeholder="Select type"
+                borderRadius={"4px"}
+                type="Type"
+                menuData={["Bill", "Sales Invoice", "Quotation", "Other"]}
+              />
+              {isInvoiceTypeError && (
+                <Typography
+                  variant="text-xxs-medium"
+                  sx={{ color: "red", position: "absolute" }}
+                >
+                  Invoice type is required
+                </Typography>
+              )}
+            </Box>
+          </Stack>
+
+          {/* Second section Detail selecters */}
+          <Stack
+            direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
+            justifyContent={"space-between"}
+            gap={3}
+            sx={{ marginTop: "24px" }}
+          >
+            <DetailSelecter
+              title="From"
+              detailsOf="Sender"
+              showData={senderShow}
+              InvDetails={InvDetails.from}
+              handleSubmitForm={handleSubmitFrom}
+              type={type}
+              isListSelected={senderSelected}
+            />
+
+            <DetailSelecter
+              title="To"
+              detailsOf="Recipient"
+              showData={reciptShow}
+              InvDetails={InvDetails.to}
+              handleSubmitForm={handleSubmitTo}
+              type={type}
+              isListSelected={recipientSelected}
+            />
+          </Stack>
+          {/* Third section, Date pickers */}
+          <Stack
+            direction={"row"}
+            // justifyContent={"space-between"}
             sx={{
               marginTop: "24px",
-              width: "100%",
-              "& .MuiInputBase-input": {
-                px: "0px !important",
-                height: "104px !important",
-                border: `0px dashed ${"#F9F9F9"}`,
-                "&::placeholder": {
-                  color: "#767676",
-                },
-              },
-              "& .MuiInputBase-input::placeholder": {
-                color: palette.color.gray[610],
-                opacity: 1,
-              },
-              "& .MuiOutlinedInput-root": {
-                py: "10px !important",
-                border: "none !important",
-                borderRadius: "8px",
-                "& fieldset": {
-                  borderColor: palette.color.gray[200],
-                },
-              },
+              flexDirection: { sm: "row", xs: "column" },
+              gap: { sm: "24px", xs: 2 },
             }}
-            onChange={handleChangeNotes}
-            value={additionalNotes}
-            id="outlined-basic"
-            placeholder="Terms & Conditions"
-            variant="outlined"
-          />
-        ) : (
-          ""
-        )}
+          >
+            <InvoiceDatePicker title="Date" />
+
+            {isDueDate ? <InvoiceDatePicker title="Due Date" /> : ""}
+          </Stack>
+          {/* Fourth section, add items table */}
+
+          <InvoiceItemsTable />
+
+          {/* Fifth section, Invoice summery */}
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: { xs: "column-reverse", sm: "row" },
+              justifyContent: "space-between",
+            }}
+          >
+            <DisplaySignature />
+            <InvoiceSummary />
+          </Box>
+          {/* Sixth section, additional notes */}
+          {selectedTerms ? (
+            <TextField
+              multiline
+              rows={3}
+              sx={{
+                marginTop: "24px",
+                width: "100%",
+                "& .MuiInputBase-input": {
+                  px: "0px !important",
+                  height: "104px !important",
+                  border: `0px dashed ${"#F9F9F9"}`,
+                  "&::placeholder": {
+                    color: "#767676",
+                  },
+                },
+                "& .MuiInputBase-input::placeholder": {
+                  color: palette.color.gray[610],
+                  opacity: 1,
+                },
+                "& .MuiOutlinedInput-root": {
+                  py: "10px !important",
+                  border: "none !important",
+                  borderRadius: "8px",
+                  "& fieldset": {
+                    borderColor: palette.color.gray[200],
+                  },
+                },
+              }}
+              onChange={handleChangeNotes}
+              value={additionalNotes}
+              id="outlined-basic"
+              placeholder="Terms & Conditions"
+              variant="outlined"
+            />
+          ) : (
+            ""
+          )}
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
