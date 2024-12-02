@@ -141,7 +141,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
       {watermark && (
         <Box
           sx={{
-            width: { xs: "80%", sm: "55%", xl: "54%" },
+            width: { xs: "90%", sm: "55%", xl: "54%" },
             height: { xs: "100%", sm: "72%" },
             position: "absolute",
             display: "flex",
@@ -153,7 +153,8 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         >
           <Typography
             sx={{
-              ml:'-10px',
+              ml:{xs:0,sm:'-10px'},
+              pl:{xs:'10px',sm:0},
               maxWidth: "1000px",
               fontSize: { xs: "70px", sm: "125px" },
               lineHeight: { xs: "70px", sm: "130px" },
