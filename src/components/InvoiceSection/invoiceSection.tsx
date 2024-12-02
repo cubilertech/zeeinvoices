@@ -153,6 +153,7 @@ const InvoiceSection: FC<InvoiceSectionProps> = ({
         >
           <Typography
             sx={{
+              ml:'-10px',
               maxWidth: "1000px",
               fontSize: { xs: "70px", sm: "125px" },
               lineHeight: { xs: "70px", sm: "130px" },
