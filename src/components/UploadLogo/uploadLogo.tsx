@@ -21,7 +21,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
   const dispatch = useDispatch();
   const invoiceLogo = useSelector(getInvoiceLogo);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const MAX_FILE_SIZE = 1 * 1024 * 1024;
+  const MAX_FILE_SIZE = 3 * 1024 * 1024;
   const handleClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -50,7 +50,7 @@ const UploadLogo: FC<UploadLogoProps> = ({ logoDesc }) => {
     }
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
-        toast.error("File is too large. Please select a file less than 1 MB.");
+        toast.error("File is too large. Please select a file less than 3 MB.");
         return;
       }
 
