@@ -70,7 +70,7 @@ const DisplaySignature: FC<DisplaySignatureProps> = ({}) => {
             <Typography
               variant="text-md-regular"
               sx={{
-                maxWidth: "195px",
+                maxWidth: "316px",
                 overflow: "hidden",
                 color: palette.color.gray[610],
               }}
