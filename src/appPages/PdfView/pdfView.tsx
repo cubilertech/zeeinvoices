@@ -436,7 +436,7 @@ const PdfView: FC<PdfViewProps> = ({
         >
           <Text
             style={{
-              width: discount
+              width: discount && Summary?.discountAmount > 0
                 ? tax
                   ? "180px"
                   : "230px"
@@ -456,7 +456,7 @@ const PdfView: FC<PdfViewProps> = ({
           <Text
             style={{
               // width: "50px",
-              width: discount
+              width: discount && Summary?.discountAmount > 0
                 ? tax
                   ? "50px"
                   : "50px"
@@ -488,7 +488,7 @@ const PdfView: FC<PdfViewProps> = ({
             Rate {`(${currency})`}
           </Text>
 
-          {discount || Summary?.discountAmount > 0 ? (
+          {discount && Summary?.discountAmount > 0 ? (
             <Text
               style={{
                 width: "70px",
@@ -563,7 +563,7 @@ const PdfView: FC<PdfViewProps> = ({
                     <View>
                       <Text
                         style={{
-                          width: discount
+                          width: discount && Summary?.discountAmount > 0
                             ? tax
                               ? "180px"
                               : "230px"
@@ -581,7 +581,7 @@ const PdfView: FC<PdfViewProps> = ({
                     </View>
                     <Text
                       style={{
-                        width: discount
+                        width: discount && Summary?.discountAmount > 0
                           ? tax
                             ? "50px"
                             : "50px"
@@ -610,7 +610,7 @@ const PdfView: FC<PdfViewProps> = ({
                       {data?.rate}
                     </Text>
 
-                    {discount || Summary?.discountAmount > 0 ? (
+                    {discount && Summary?.discountAmount > 0 ? (
                       <Text
                         style={{
                           width: "70px",
