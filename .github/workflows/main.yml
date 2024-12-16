@@ -33,8 +33,9 @@ jobs:
           fi
       
       - name: Docker start 
-        run: docker run -d --name frontend-prod-c -p 3002:3000 frontend-prod
-
+        # run: docker run -d --name frontend-prod-c -p 3002:3000 frontend-prod
+        run: docker run -d --name frontend-prod-c -p 3002:3000  --log-driver=awslogs   --log-opt awslogs-group=zeeinvoices   --log-opt awslogs-stream=frontend-zeeinvoices-prod  --log-opt awslogs-region=eu-north-1    --restart always frontend-prod
+  
       - name: Docker show logs 
         run: sleep 50 && docker logs frontend-prod-c
 
