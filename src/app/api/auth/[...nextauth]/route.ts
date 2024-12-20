@@ -5,8 +5,10 @@ import GoogleProvider from 'next-auth/providers/google';
 const authOptions: NextAuthOptions = ({
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+      // clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      // clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+      clientId: '504461919652-mvp7lhfe05kj4pjkg66v4q4elasdq1if.apps.googleusercontent.com',
+      clientSecret:'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',
       authorization: `https://accounts.google.com/o/oauth2/auth/authorize?response_type=code&prompt=login`,
     }),
   ],
@@ -50,8 +52,10 @@ const authOptions: NextAuthOptions = ({
     },
   },
   pages: {
-    error: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, 
-    signIn: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, 
+    // error: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, 
+    // signIn: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, 
+    error: 'https://staging.zeeinvoices.com',
+    signIn: 'https://staging.zeeinvoices.com'
   },
 });
 
