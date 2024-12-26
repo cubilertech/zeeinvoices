@@ -16,6 +16,7 @@ const authOptions: NextAuthOptions = ({
   },
   callbacks: {
     async jwt({ token, account, user }) {
+      console.log("Jwt Callback:", { account, user });
       if (account && user) {
         token.accessToken = account.access_token;
         // Call your backend API here
@@ -45,13 +46,14 @@ const authOptions: NextAuthOptions = ({
       return token;
     },
     async session({ session, token }) {
+      console.log("Session Callback:", { session, token });
       session.accessToken = token.accessToken as string;
       return session;
     },
   },
   pages: {
-    error: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, 
-    signIn: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL, 
+    error: process.env.NEXTAUTH_URL, 
+    signIn: process.env.NEXTAUTH_URL, 
   },
 });
 
