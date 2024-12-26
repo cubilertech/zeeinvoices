@@ -33,7 +33,11 @@ jobs:
           fi
       
       - name: Docker start 
-        run: docker run -d --name frontend-qa-c -p 3001:3000 frontend-qa
+        # run: docker run -d --name frontend-qa-c -p 3001:3000 frontend-qa
+        run: docker run -d --name frontend-qa-c -p 3001:3000  --log-driver=awslogs   --log-opt awslogs-group=zeeinvoices   --log-opt awslogs-stream=frontend-zeeinvoices-qa-staging  --log-opt awslogs-region=eu-north-1    --restart always frontend-qa
+
+
+
 
       - name: Docker show logs 
         run: sleep 50 && docker logs frontend-qa-c

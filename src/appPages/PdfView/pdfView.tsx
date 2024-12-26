@@ -436,7 +436,7 @@ const PdfView: FC<PdfViewProps> = ({
         >
           <Text
             style={{
-              width: discount
+              width: discount && Summary?.discountAmount > 0
                 ? tax
                   ? "180px"
                   : "230px"
@@ -456,7 +456,7 @@ const PdfView: FC<PdfViewProps> = ({
           <Text
             style={{
               // width: "50px",
-              width: discount
+              width: discount && Summary?.discountAmount > 0
                 ? tax
                   ? "50px"
                   : "50px"
@@ -488,7 +488,7 @@ const PdfView: FC<PdfViewProps> = ({
             Rate {`(${currency})`}
           </Text>
 
-          {discount || Summary?.discountAmount > 0 ? (
+          {discount && Summary?.discountAmount > 0 ? (
             <Text
               style={{
                 width: "70px",
@@ -563,7 +563,7 @@ const PdfView: FC<PdfViewProps> = ({
                     <View>
                       <Text
                         style={{
-                          width: discount
+                          width: discount && Summary?.discountAmount > 0
                             ? tax
                               ? "180px"
                               : "230px"
@@ -581,7 +581,7 @@ const PdfView: FC<PdfViewProps> = ({
                     </View>
                     <Text
                       style={{
-                        width: discount
+                        width: discount && Summary?.discountAmount > 0
                           ? tax
                             ? "50px"
                             : "50px"
@@ -610,7 +610,7 @@ const PdfView: FC<PdfViewProps> = ({
                       {data?.rate}
                     </Text>
 
-                    {discount || Summary?.discountAmount > 0 ? (
+                    {discount && Summary?.discountAmount > 0 ? (
                       <Text
                         style={{
                           width: "70px",
@@ -893,6 +893,11 @@ const PdfView: FC<PdfViewProps> = ({
             style={{
               padding: "5px 15px",
               marginTop: "10px",
+              alignItems: "stretch",
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+              justifyContent: "flex-start"
             }}
             // wrap={false}
           >
@@ -928,7 +933,6 @@ const PdfView: FC<PdfViewProps> = ({
               marginRight: "0px",
               display: "flex",
               flexDirection: "row",
-
               alignItems: "center",
             }}
           >
@@ -939,6 +943,9 @@ const PdfView: FC<PdfViewProps> = ({
                 color: "#4B5565",
                 textAlign: "center",
                 fontWeight: "bold",
+                // marginTop:'20px',
+                // paddingTop:'20px'
+                marginBottom: -20,
               }}
             >
               Powered by ZeeInvoices

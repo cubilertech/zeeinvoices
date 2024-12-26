@@ -63,7 +63,7 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose,type }) 
     setPickColor(""); // Clear any temporary color
 
     // Find the selected color based on the provided id
-    const selectedColor = reduxColors.find((color) => color.id === id);
+    const selectedColor = reduxColors.find((color : any) => color.id === id);
 
     if (selectedColor) {
       // Update the colors in Redux with the new selection
@@ -328,9 +328,9 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose,type }) 
                     </IconButton>
                   ),
                 }}
-                // inputProps={{
-                //   maxLength: 20,
-                // }}
+                inputProps={{
+                  maxLength: 21,
+                }}
                 onChange={(e) => handleWatermarkChange(e.target.value)}
                 error={
                   (isInvoiceWatermarkError && watermarkText.length < 3) ||

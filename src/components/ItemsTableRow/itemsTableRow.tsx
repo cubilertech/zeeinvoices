@@ -45,14 +45,19 @@ const ItemsTableRow: FC<ItemsTableRowProps> = ({
   const [currentDiscount, setCurrentDiscount] = useState(
     data.discount && data.discount !== 0 ? data.discount : 0
   );
-  const rateTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
-  const qtyTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
-  const nameTextFieldRef = useRef<HTMLInputElement>(null); // to scroll
+  const rateTextFieldRef = useRef<HTMLInputElement>(null);
+  const qtyTextFieldRef = useRef<HTMLInputElement>(null);
+  const nameTextFieldRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "discount") {
       setCurrentDiscount(value);
+    }
+    if (name === "description") {
+      if (value.length > 1000) {
+        return;
+      }
     }
     dispatch(setInvoiceItem({ id: id, type: name, value: value }));
   };
