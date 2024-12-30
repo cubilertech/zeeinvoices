@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s - ZeeInvoices",
   },
   description:
-    "Create professional, personalized invoices effortlessly with ZeeInvoices, Free AI-powered Custom invoice generator. Perfect for businesses of all sizes, fast and easy.",
+      "Create professional, personalized invoices effortlessly with ZeeInvoices, Free AI-powered Custom invoice generator. Perfect for businesses of all sizes, fast and easy.",
   openGraph: {
     url: siteUrl,
     images: [
@@ -38,24 +38,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+      <html lang="en">
       <head>
         {/* Google Ads Tracking Code */}
         <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-11380785487"
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-05BL6M7BW1"
         />
         <Script id="google-ads">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-11380785487');
+            gtag('config', 'G-05BL6M7BW1');
           `}
         </Script>
         <Script id="json-ld" type="application/ld+json">
@@ -76,11 +76,11 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={inter.className}>
-        <SessionProviders>
-          <MuiThemeProvider>
-            <ClientProvider>
-              <QueryProvider>
-                <ToastContainer
+      <SessionProviders>
+        <MuiThemeProvider>
+          <ClientProvider>
+            <QueryProvider>
+              <ToastContainer
                   position="top-right"
                   autoClose={3000}
                   newestOnTop={false}
@@ -92,14 +92,14 @@ export default function RootLayout({
                   toastClassName="custom-toast"
                   bodyClassName="custom-toast-body"
                   // progressClassName="custom-progress-bar"
-                />
-                <CustomHooks />
-                <AppLayout>{children}</AppLayout>
-              </QueryProvider>
-            </ClientProvider>
-          </MuiThemeProvider>
-        </SessionProviders>
+              />
+              <CustomHooks />
+              <AppLayout>{children}</AppLayout>
+            </QueryProvider>
+          </ClientProvider>
+        </MuiThemeProvider>
+      </SessionProviders>
       </body>
-    </html>
+      </html>
   );
 }
