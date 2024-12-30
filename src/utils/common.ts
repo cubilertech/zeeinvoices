@@ -12,8 +12,8 @@ export const useSelectedColor = () => {
 // Image convertion
 export const imageConvertion = (image: any) => {
   if (
-    image?.includes("lh3.googleusercontent.com") ||
-    image?.includes("blob:")
+      image?.includes("lh3.googleusercontent.com") ||
+      image?.includes("blob:")
   ) {
     return image;
   } else {
@@ -31,14 +31,14 @@ export const googleImage = (image: string) => {
 export const handleLogout = () => {
   signOut({
     callbackUrl:
-      "https://zeeinvoices.com/"
+        `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}`
   });
 };
 // Login function
 export const handleLogin = (pathname = "/") => {
   signIn("google", {
     callbackUrl:
-      "https://zeeinvoices.com/create-new-invoice",
+        `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}/create-new-invoice`,
   });
 };
 //Image Base 64 Convertion
@@ -76,6 +76,6 @@ export const isNearWhite = (color: any) => {
   // Convert the color to RGB and check if it's near white
   const rgb = hexToRgb(color);
   return color === "#fffff"
-    ? true
-    : rgb && rgb.r > 150 && rgb.g > 150 && rgb.b > 150;
+      ? true
+      : rgb && rgb.r > 150 && rgb.g > 150 && rgb.b > 150;
 };
