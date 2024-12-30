@@ -31,14 +31,14 @@ export const googleImage = (image: string) => {
 export const handleLogout = () => {
   signOut({
     callbackUrl:
-      "http://localhost:3000/create-new-invoice"
+      "https://zeeinvoices.com/"
   });
 };
 // Login function
 export const handleLogin = (pathname = "/") => {
   signIn("google", {
     callbackUrl:
-      "http://localhost:3000/create-new-invoice",
+      "https://zeeinvoices.com/create-new-invoice",
   });
 };
 //Image Base 64 Convertion
