@@ -62,6 +62,8 @@ const ClientDetailModel: FC<ClientDetail> = ({
     setClientModel(false);
   };
 
+  console.log("Value", editId);
+
   const initialValues = {
     name: editId?.name || "",
     companyName: editId?.company_name || "",
@@ -81,16 +83,7 @@ const ClientDetailModel: FC<ClientDetail> = ({
     state?: string;
     address?: string;
   }
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    touched,
-    errors,
-    resetForm,
-  } = useFormik({
+  const {values, handleBlur, handleChange, handleSubmit, setFieldValue, touched, errors, resetForm,} = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     enableReinitialize: true,

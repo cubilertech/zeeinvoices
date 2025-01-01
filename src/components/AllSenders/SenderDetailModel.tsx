@@ -15,12 +15,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import "react-international-phone/style.css";
 import "@/Styles/phoneNoStyle.css";
 import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 import * as Yup from "yup";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
 import { countryCodes } from "@/utils/data";
 import AutoComplete from "@/components/AutoComplete/autoComplete";
-import countriesData from "countrycitystatejson";
 
 const alphaRegex = /[a-zA-Z]/;
 // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -53,8 +52,6 @@ interface SenderDetail {
   editId?: any;
 }
 
-const countries = countriesData.getCountries();
-
 const SenderDetailModel: FC<SenderDetail> = ({
   handleSubmitForm,
   type,
@@ -62,8 +59,9 @@ const SenderDetailModel: FC<SenderDetail> = ({
   setSenderModel,
   editId,
 }) => {
+  const [countriesState, setCountryState] = useState<any>([]);
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
-  const [cities, setCities] = useState<any>(null);
+  const [cities, setCities] = useState<any>([]);
 
   //close model
   const handleModelClose = () => {
@@ -192,7 +190,39 @@ const SenderDetailModel: FC<SenderDetail> = ({
   const handleAutoCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
     if (value) {
       setSelectedCountry(value);
-      handleChange(value.name);
+      handleChange({
+        target: {
+          name: "state",
+          value: value.name
+        }
+      });
+    } else {
+      handleChange({
+        target: {
+          name: "state",
+          value: ""
+        }
+      });
+      setSelectedCountry(null);
+      setCities([])
+    }
+  }
+
+  const handleCityAutoCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
+    if (value) {
+      handleChange({
+        target: {
+          name: "city",
+          value: value
+        }
+      });
+    } else {
+      handleChange({
+        target: {
+          name: "city",
+          value: ""
+        }
+      });
     }
   }
 
@@ -353,21 +383,43 @@ const SenderDetailModel: FC<SenderDetail> = ({
                   }}
                 >
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                    <TextField
+                    <AutoComplete
                       isRequired={true}
                       label="Country/State"
                       size="large"
                       name="state"
-                      onChange={handleChange}
+                      onChange={handleAutoCompleteChange}
                       value={values.state}
                       sx={{ width: { sm: "240px", xs: "100%" } }}
                       helperText={touched.state && errors.state}
                       onBlur={handleBlur}
                       error={touched.state && Boolean(errors.state)}
-                    ></TextField>
+                      optionsData={countriesState}
+                      setState={setCountryState}
+                      dataAPI={"https://countriesnow.space/api/v0.1/countries/positions"}
+                      method={"GET"}
+                    ></AutoComplete>
                   </FormControl>
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                    <TextField
+                  <AutoComplete
+                      label="City"
+                      size="large"
+                      name="city"
+                      onChange={handleCityAutoCompleteChange}
+                      value={values.city}
+                      sx={{ width: { sm: "240px", xs: "100%" } }}
+                      helperText={touched.city && errors.city}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
+                      optionsData={cities}
+                      setState={setCities}
+                      dataAPI={"https://countriesnow.space/api/v0.1/countries/cities"}
+                      apiBody={{
+                        iso2: selectedCountry?.iso2
+                      }}
+                      method={"POST"}
+                    />
+                    {/* <TextField
                       label="City"
                       size="large"
                       name="city"
@@ -377,7 +429,7 @@ const SenderDetailModel: FC<SenderDetail> = ({
                       helperText={touched.city && errors.city}
                       onBlur={handleBlur}
                       error={touched.city && Boolean(errors.city)}
-                    ></TextField>
+                    ></TextField> */}
                   </FormControl>
                 </Stack>
                 <Box sx={{ marginTop: "10px" }}>

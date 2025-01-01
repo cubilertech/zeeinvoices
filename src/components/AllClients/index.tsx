@@ -202,7 +202,8 @@ export default function AllClients() {
   // Delete modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [itemToDelete, setItemToDelete] = React.useState<null | number>(null);
-  const handleSubmitForm = (values: any) => {
+
+  const handleSubmitForm = async (values: any) => {
     const data = {
       name: values.name,
       company_name: values.companyName,
@@ -212,29 +213,32 @@ export default function AllClients() {
       state: values.state,
       address: values.address,
     };
+
     if (clientType === "add") {
-      createClient({ apiRoute: `${backendURL}/clients/save`, data: data, title: "Recipient Added" })
-        .then((res) => {
-          refetchClientList();
-        })
-        .catch((err) => {
-          toast.error(err.message);
+      try {
+        await createClient({
+          apiRoute: `${backendURL}/clients/save`,
+          data,
+          title: "Recipient Added",
         });
+        refetchClientList(); // Refetch client list on success
+      } catch (err: any) {
+        toast.error(err.message);
+      }
     } else {
       try {
-        updateClient({
-          data: data,
+        await updateClient({
+          data,
           apiRoute: `${backendURL}/clients/${editId?._id}`,
-          title: "Recipient Updated"
-        }).then((res) => {
-          console.log("Updated");
-          refetchClientList();
+          title: "Recipient Updated",
         });
+        refetchClientList(); // Refetch client list on success
       } catch (error) {
-        throw new Error("Not Updated!");
+        toast.error("Failed to update recipient.");
       }
     }
   };
+
   const handleDeleteModalClose = () => {
     setIsModalOpen(false);
   };

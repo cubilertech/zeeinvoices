@@ -78,37 +78,51 @@ export const useFetchSingleDocument = (apiRoute: string) => {
 };
 
 // Create Recods
-export const useCreateDocument = (multipart = true, showToast=true, auth=true) => {
+interface CreateDocumentProps {
+  apiRoute: string;
+  data: any;
+  title: string;
+}
+
+export const useCreateDocument = (
+    multipart: boolean = true,
+    showToast: boolean = true,
+    auth: boolean = true
+) => {
   const { data: session } = useSession();
-  const handleCreate = async (props: any) => {
+
+  const handleCreate = async ({ apiRoute, data, title }: CreateDocumentProps) => {
     const token = session?.accessToken;
+
     try {
-      const response = await axios.post(props.apiRoute, props.data, {
+      const response = await axios.post(apiRoute, data, {
         headers: {
-          "Content-Type": multipart
-            ? "multipart/form-data"
-            : "application/json",
-            ...(auth && { Authorization: `Bearer ${token}` }),
+          "Content-Type": multipart ? "multipart/form-data" : "application/json",
+          ...(auth && { Authorization: `Bearer ${token}` }),
         },
       });
+
       if (response.data.code === 200) {
-          // toast.success(response.data.message);
-          showToast ? ShowToast(`${props.title}`, response.data.message) : '';
+        if (showToast) {
+          ShowToast(title, response.data.message);
+        }
         return response.data.data;
       } else {
-        toast.error("An error occurred while creating record.");
+        throw new Error("An error occurred while creating the record.");
       }
     } catch (error: any) {
-      if (error?.response?.status == 401) {
-        setResetInvoice();
-        setResetInvoiceSetting();
+      if (error?.response?.status === 401) {
         signOut({ callbackUrl: "/" });
       }
-      // throw new Error(`${error.response?.data?.message}`);
+      const message = error?.response?.data?.message || "An unexpected error occurred.";
+      throw new Error(message);
     }
   };
+
+  // Ensure the mutation function is returned properly
   return useMutation(handleCreate);
 };
+
 
 // Delete Recods
 export const useDeleteDocument = () => {
@@ -135,39 +149,58 @@ export const useDeleteDocument = () => {
 
   return useMutation(handleDelete);
 };
+
 // Edit Recods
-export const useEditDocument = (multipart = true) => {
+export const useEditDocument = (multipart: boolean = true) => {
   const { data: session } = useSession();
-  const handleEdit = async (props: any) => {
-    const token = session?.accessToken;
+
+  const handleEdit = async ({ apiRoute, data, title }: EditDocumentProps) => {
+    if (!session?.accessToken) {
+      toast.error("Session expired. Please log in again.");
+      return null;
+    }
+
+    const headers = {
+      "Content-Type": multipart ? "multipart/form-data" : "application/json",
+      Authorization: `Bearer ${session.accessToken}`,
+    };
+
     try {
-      const response = await axios.put(props.apiRoute, props.data, {
-        headers: {
-          "Content-Type": multipart
-            ? "multipart/form-data"
-            : "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.put(apiRoute, data, { headers });
+
       if (response.data.code === 200) {
-        // toast.success(response.data.message);
-        ShowToast(props.title, response.data.message);
+        ShowToast(title, response.data.message); // Assuming `ShowToast` is a valid utility
         return response.data.data;
-      } else {
-        toast.error("An Error Occured while Update Data");
       }
+
+      toast.error("An error occurred while updating data.");
+      return null;
     } catch (error: any) {
-      if (error?.response?.status == 401) {
-        setResetInvoice();
-        setResetInvoiceSetting();
-        signOut({ callbackUrl: "/" });
-      } else if (error?.response?.status === 400) {
-        toast.error(error?.response?.message);
-        return null;
-      } else {
-        toast.error("An Error Occured while Update Data");
-      }
+      handleError(error);
+      return null;
     }
   };
+
+  const handleError = (error: any) => {
+    const status = error?.response?.status;
+    const message = error?.response?.data?.message;
+
+    if (status === 401) {
+      setResetInvoice();
+      setResetInvoiceSetting();
+      signOut({ callbackUrl: "/" });
+    } else if (status === 400) {
+      toast.error(message || "Invalid data provided.");
+    } else {
+      toast.error("An error occurred while updating data.");
+    }
+  };
+
   return useMutation(handleEdit);
 };
+
+interface EditDocumentProps {
+  apiRoute: string;
+  data: any;
+  title: string;
+}
