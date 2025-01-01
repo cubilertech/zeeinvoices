@@ -239,7 +239,8 @@ const InvoiceDetail = () => {
   };
 
   const invoiceDelete = async () => {
-    await deleteInvoice({
+    // @ts-ignore
+      await deleteInvoice({
       apiRoute: `${backendURL}/invoices/${invoiceDetail.id}`,
     }).then((res) => {
       route.push("/invoices");

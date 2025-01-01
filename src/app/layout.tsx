@@ -88,7 +88,7 @@ export default function RootLayout({children}: Readonly<{
                   pauseOnHover
                   theme="light"
                   toastClassName="custom-toast"
-                  bodyClassName="custom-toast-body"
+                  className="custom-toast-body"
                   // progressClassName="custom-progress-bar"
               />
               <CustomHooks />

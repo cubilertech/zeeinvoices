@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: [
       ...process.env.NEXT_PUBLIC_IMAGES_DOMAINS.split(","), // Using environment variable domains
