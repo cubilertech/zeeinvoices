@@ -45,6 +45,7 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
   const handleColorPickerClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
+
   useEffect(() => {
     const totalAmount = calculateAmount(allInvoiceItems);
     const totalDiscount = calculateDiscount(allInvoiceItems);
@@ -53,70 +54,72 @@ const CreateInvoice: FC<CreateInvoiceProps> = ({ type }) => {
     setDiscountAmount(totalDiscount);
     setTaxAmount(totalTax);
   }, [allInvoiceItems]);
+
   const summaryDetail = {
     total: total,
     taxAmount: taxAmount,
     discountAmount: discountAmount,
   };
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <Container
-      className="mainContainer"
-      sx={{
-        overflowY: "auto",
-        height: "100%",
-        mt: { sm: 0, xs: 6 },
-        px: { md: "0.1%", lg: "0.1%", xs: "0%" },
-      }}
-    >
-      <Box sx={{ pt: { sm: 3, xs: 0 }, pb: { sm: 2, xs: 1 }, px: 0 }}>
-        <InvoiceHeader
-          InvSetting={{ ...invoiceSetting }}
-          InvDetails={{ ...invoiceDetail }}
-          summaryDetail={summaryDetail}
-          handleColorPickerClick={handleColorPickerClick}
-          type={type}
-        />
-      </Box>
-
-      <Stack
-        direction={"row"}
-        gap={3}
-        sx={{ mt: { sm: 0, xs: 2 }, mb: "40px" }}
+      <Container
+          className="mainContainer"
+          sx={{
+            overflowY: "auto",
+            height: "100%",
+            mt: { sm: 0, xs: 6 },
+            px: { md: "0.1%", lg: "0.1%", xs: "0%" },
+          }}
       >
-        <InvoiceSection
-          InvDetails={invoiceDetail}
-          type={type}
-          InvSetting={{ ...invoiceSetting }}
-        />
-        {isModile ? (
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            sx={{
-              "& .MuiPaper-root": {
-                borderRadius: "12px",
-              },
-            }}
-          >
-            <InvoiceSettings
+        <Box sx={{ pt: { sm: 3, xs: 0 }, pb: { sm: 2, xs: 1 }, px: 0 }}>
+          <InvoiceHeader
               InvSetting={{ ...invoiceSetting }}
-              handleClose={handleClose}
-            />
-          </Popover>
-        ) : (
-          <InvoiceSettings InvSetting={{ ...invoiceSetting }} type={type} />
-        )}
-      </Stack>
-    </Container>
+              InvDetails={{ ...invoiceDetail }}
+              summaryDetail={summaryDetail}
+              handleColorPickerClick={handleColorPickerClick}
+              type={type}
+          />
+        </Box>
+
+        <Stack
+            direction={"row"}
+            gap={3}
+            sx={{ mt: { sm: 0, xs: 2 }, mb: "40px" }}
+        >
+          <InvoiceSection
+              InvDetails={invoiceDetail}
+              type={type}
+              InvSetting={{ ...invoiceSetting }}
+          />
+          {isModile ? (
+              <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  sx={{
+                    "& .MuiPaper-root": {
+                      borderRadius: "12px",
+                    },
+                  }}
+              >
+                <InvoiceSettings
+                    InvSetting={{ ...invoiceSetting }}
+                    handleClose={handleClose}
+                />
+              </Popover>
+          ) : (
+              <InvoiceSettings InvSetting={{ ...invoiceSetting }} type={type} />
+          )}
+        </Stack>
+      </Container>
   );
 };
 export default CreateInvoice;

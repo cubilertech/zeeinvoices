@@ -39,10 +39,9 @@ const validationSchema = Yup.object({
     .matches(emailRegex, "Invalid email address")
     .required("Email is required"),
   city: Yup.string()
-    .min(3)
+    .min(0)
     .max(20)
-    .matches(alphaRegex, "Invalid City")
-    .required("City is required"),
+    .matches(alphaRegex, "Invalid City"),
   state: Yup.string()
     .min(2)
     .max(20)
@@ -413,7 +412,6 @@ const CreateSRModal: FC<CreateSRModal> = ({
                   </FormControl>
                   <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
                     <TextField
-                      isRequired={true}
                       label="City"
                       size="large"
                       borderRadius="4px"

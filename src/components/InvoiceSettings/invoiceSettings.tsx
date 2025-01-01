@@ -329,12 +329,12 @@ const InvoiceSettings: FC<InvoiceSettings> = ({ InvSetting, handleClose,type }) 
                   ),
                 }}
                 inputProps={{
-                  maxLength: 21,
+                  maxLength: 20
                 }}
                 onChange={(e) => handleWatermarkChange(e.target.value)}
                 error={
                   (isInvoiceWatermarkError && watermarkText.length < 3) ||
-                  watermarkText.length > 20
+                  watermarkText.length >= 20
                     ? true
                     : false
                 }

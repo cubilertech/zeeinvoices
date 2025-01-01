@@ -25,6 +25,7 @@ interface TextField {
   autoFocus?: boolean;
   isRequired?: boolean;
 }
+
 const TextField: FC<TextField> = ({
   label,
   labelColor,

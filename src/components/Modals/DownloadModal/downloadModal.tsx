@@ -50,7 +50,7 @@ const DownloadModal: FC<DownloadModal> = ({
   ? InvDetails.to?.companyName + "-" + InvDetails.id
   : InvDetails.to?.name + "-" + InvDetails.id;
   const [isPdfToastOpen, setIsPdfToastOpen] = useState(false); 
-  const {mutateAsync : sendReceipentEmail,isSuccess} = useCreateDocument(false,false,false);
+  const {mutateAsync : sendReceipentEmail,isSuccess} = useCreateDocument(false, false, false);
   const generatePDFDocument = async () => {
     const itemDetail = InvDetails?.invoiceItem;
     const doc = (

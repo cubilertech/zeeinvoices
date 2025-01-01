@@ -34,8 +34,7 @@ const validationSchema = Yup.object({
   city: Yup.string()
     .min(3)
     .max(20)
-    .matches(alphaRegex, "Invalid City")
-    .required("City is required"),
+    .matches(alphaRegex, "Invalid City"),
   state: Yup.string()
     .min(2)
     .max(20)
@@ -351,7 +350,6 @@ const ClientDetailModel: FC<ClientDetail> = ({
                   </FormControl>
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                     <TextField
-                      isRequired={true}
                       label="City"
                       size="large"
                       name="city"

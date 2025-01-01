@@ -3,11 +3,14 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
 const authOptions: NextAuthOptions = ({
+  debug: true,
   providers: [
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
-      authorization: `https://accounts.google.com/o/oauth2/auth/authorize?response_type=code&prompt=login`,
+      authorization: {
+        params: { access_type: "offline" }, // Optional
+      },
     }),
   ],
   session: {
@@ -15,6 +18,7 @@ const authOptions: NextAuthOptions = ({
     maxAge: 12 * 60 * 60, // 12 hours
   },
   callbacks: {
+
     async jwt({ token, account, user }) {
       console.log("Jwt Callback:", { account, user });
       if (account && user) {
@@ -50,10 +54,6 @@ const authOptions: NextAuthOptions = ({
       session.accessToken = token.accessToken as string;
       return session;
     },
-  },
-  pages: {
-    error: process.env.NEXTAUTH_URL, 
-    signIn: process.env.NEXTAUTH_URL, 
   },
 });
 

@@ -58,21 +58,21 @@ const validationSchema = Yup.object({
   name: Yup.string().min(3).max(35).required("Name is required"),
   companyName: Yup.string().min(3).max(35),
   email: Yup.string()
-    .transform((value) => value.trim())
-    .min(3)
-    .max(50)
-    .matches(emailRegex, "Invalid email address")
-    .required("Email is required"),
+      .transform((value) => value.trim())
+      .min(3)
+      .max(50)
+      .matches(emailRegex, "Invalid email address")
+      .required("Email is required"),
   city: Yup.string()
-    .min(3)
-    .max(20)
-    .matches(alphaRegex, "Invalid City")
-    .required("City is required"),
+      .min(3)
+      .max(20)
+      .matches(alphaRegex, "Invalid City")
+      .required("City is required"),
   state: Yup.string()
-    .min(2)
-    .max(20)
-    .matches(alphaRegex, "Invalid State")
-    .required("State is required"),
+      .min(2)
+      .max(20)
+      .matches(alphaRegex, "Invalid State")
+      .required("State is required"),
   address: Yup.string().min(3).max(255).matches(alphaRegex, "Invalid Address"),
 });
 interface DetailSelecter {
@@ -85,14 +85,14 @@ interface DetailSelecter {
   isListSelected?: boolean;
 }
 const DetailSelecter: FC<DetailSelecter> = ({
-  title,
-  detailsOf,
-  showData,
-  InvDetails,
-  handleSubmitForm,
-  type,
-  isListSelected,
-}) => {
+                                              title,
+                                              detailsOf,
+                                              showData,
+                                              InvDetails,
+                                              handleSubmitForm,
+                                              type,
+                                              isListSelected,
+                                            }) => {
   const dispatch = useDispatch();
   const isSenderError = useSelector(getSenderDetailsError);
   const isRecipientError = useSelector(getRecipientDetailsError);
@@ -237,119 +237,119 @@ const DetailSelecter: FC<DetailSelecter> = ({
   }, [dispatch, showData, detailsOf]);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "auto",
-        flexGrow: 1,
-        display: "flex",
-        flexDirection: "column",
-        position: "relative",
-      }}
-    >
-      {title && (
-        <Typography
-          variant="text-sm-medium"
+      <Box
           sx={{
-            fontSize: { sm: "14px", xs: "14px" },
-            lineHeight: { sm: "20px", xs: "20px" },
-            fontWeight: { xs: 500 },
-            pb: "6px",
-            color: "#4B5565",
-          }}
-        >
-          {title == "From" ? "Sender Details" : "Recipient Details"}
-        </Typography>
-      )}
-      {session?.accessToken && (
-        <SelectSenderReceiver
-          type={type}
-          filteredData={
-            detailsOf === `Sender` ? filteredSenderData : filteredClientData
-          }
-          handleSubmitForm={handleSubmitForm}
-          onItemSelected={handleItemSelected}
-          detailsOf={detailsOf}
-          openSRModal={openSR}
-          onSRModalClose={handleSRModelClose}
-          InvDetails={InvDetails}
-        />
-      )}
-      {!showData ? (
-        <>
-          <Box
-            borderRadius={1}
-            sx={{
-              flexGrow: 1,
-              width: { sm: "100%", xs: "100%" },
-              height: 184,
-              maxHeight: "100%",
-              marginTop: "16px",
-              py: "10px",
-              px: "14px",
-              borderRadius: "4px",
-              cursor: "pointer",
-              border: `1px solid ${palette.color.gray[200]}`,
-              boxShadow: palette.boxShadows.shadowxs,
-            }}
-            onClick={session?.accessToken ? handleOpenSR : handleOpen}
-          >
-            <Stack direction={"row"} justifyContent={"space-between"}></Stack>
-            <Stack
-              direction={"column"}
-              sx={{
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                gap: "8px",
-              }}
-            >
-              <Icon icon="addCircleIcon" height={32} width={32}></Icon>
-              <Typography
-                variant="text-sm-medium"
-                color={palette.color.gray[610]}
-              >
-                Add {detailsOf}
-              </Typography>
-            </Stack>
-          </Box>
-          {(isSenderError || isRecipientError) && (
-            <Typography
-              variant="text-xxs-medium"
-              sx={{ color: "red", position: "absolute", bottom: -14 }}
-            >
-              {detailsOf} details are required
-            </Typography>
-          )}
-        </>
-      ) : (
-        // After data populate
-        <Box
-          borderRadius={1}
-          sx={{
-            flexGrow: 1,
             width: "100%",
-            minHeight: 184,
-            marginTop: "16px",
-            padding: 2,
-            borderRadius: "4px",
-            // cursor: type != "edit" && !isListSelected ? "pointer" : "default",
-            border: `1px solid ${palette.color.gray[200]}`,
-            boxShadow: palette.boxShadows.shadowxs,
+            height: "auto",
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
           }}
-          // onClick={() => {
-          //   if (type != "edit" && !isListSelected) {
-          //     handleOpen();
-          //   }
-          // }}
-        >
-          <Stack
-            direction={"row"}
-            justifyContent={"space-between"}
-            sx={{ alignItems: "center" }}
-          >
-            {/* <Typography
+      >
+        {title && (
+            <Typography
+                variant="text-sm-medium"
+                sx={{
+                  fontSize: { sm: "14px", xs: "14px" },
+                  lineHeight: { sm: "20px", xs: "20px" },
+                  fontWeight: { xs: 500 },
+                  pb: "6px",
+                  color: "#4B5565",
+                }}
+            >
+              {title == "From" ? "Sender Details" : "Recipient Details"}
+            </Typography>
+        )}
+        {session?.accessToken && (
+            <SelectSenderReceiver
+                type={type}
+                filteredData={
+                  detailsOf === `Sender` ? filteredSenderData : filteredClientData
+                }
+                handleSubmitForm={handleSubmitForm}
+                onItemSelected={handleItemSelected}
+                detailsOf={detailsOf}
+                openSRModal={openSR}
+                onSRModalClose={handleSRModelClose}
+                InvDetails={InvDetails}
+            />
+        )}
+        {!showData ? (
+            <>
+              <Box
+                  borderRadius={1}
+                  sx={{
+                    flexGrow: 1,
+                    width: { sm: "100%", xs: "100%" },
+                    height: 184,
+                    maxHeight: "100%",
+                    marginTop: "16px",
+                    py: "10px",
+                    px: "14px",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    border: `1px solid ${palette.color.gray[200]}`,
+                    boxShadow: palette.boxShadows.shadowxs,
+                  }}
+                  onClick={session?.accessToken ? handleOpenSR : handleOpen}
+              >
+                <Stack direction={"row"} justifyContent={"space-between"}></Stack>
+                <Stack
+                    direction={"column"}
+                    sx={{
+                      height: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      display: "flex",
+                      gap: "8px",
+                    }}
+                >
+                  <Icon icon="addCircleIcon" height={32} width={32}></Icon>
+                  <Typography
+                      variant="text-sm-medium"
+                      color={palette.color.gray[610]}
+                  >
+                    Add {detailsOf}
+                  </Typography>
+                </Stack>
+              </Box>
+              {(isSenderError || isRecipientError) && (
+                  <Typography
+                      variant="text-xxs-medium"
+                      sx={{ color: "red", position: "absolute", bottom: -14 }}
+                  >
+                    {detailsOf} details are required
+                  </Typography>
+              )}
+            </>
+        ) : (
+            // After data populate
+            <Box
+                borderRadius={1}
+                sx={{
+                  flexGrow: 1,
+                  width: "100%",
+                  minHeight: 184,
+                  marginTop: "16px",
+                  padding: 2,
+                  borderRadius: "4px",
+                  // cursor: type != "edit" && !isListSelected ? "pointer" : "default",
+                  border: `1px solid ${palette.color.gray[200]}`,
+                  boxShadow: palette.boxShadows.shadowxs,
+                }}
+                // onClick={() => {
+                //   if (type != "edit" && !isListSelected) {
+                //     handleOpen();
+                //   }
+                // }}
+            >
+              <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  sx={{ alignItems: "center" }}
+              >
+                {/* <Typography
               variant="text-sm-medium"
               sx={{
                 mt: "8px",
@@ -361,188 +361,204 @@ const DetailSelecter: FC<DetailSelecter> = ({
             >
               {title === "From" ? "Sender Details" : "Recipient Details"}
             </Typography> */}
-            {InvDetails?.companyName ? (
-              <Typography
-                variant="text-xs-bold"
-                sx={{
-                  fontSize: "14px",
-                  lineHeight: "17px",
-                  fontWeight: 600,
-                  color: palette.color.gray[900],
-                }}
-              >
-                {InvDetails?.companyName}
-              </Typography>
-            ) : (
-              <Typography
-                variant="text-xs-regular"
-                sx={{
-                  fontSize: "14px",
-                  lineHeight: "17px",
-                  fontWeight: 600,
-                  color: palette.color.gray[900],
-                }}
-              >
-                {InvDetails?.name}
-              </Typography>
-            )}
+                {InvDetails?.companyName ? (
+                    <Typography
+                        variant="text-xs-bold"
+                        sx={{
+                          fontSize: "14px",
+                          lineHeight: "17px",
+                          fontWeight: 600,
+                          color: palette.color.gray[900],
+                        }}
+                    >
+                      {InvDetails?.companyName}
+                    </Typography>
+                ) : (
+                    <Typography
+                        variant="text-xs-regular"
+                        sx={{
+                          fontSize: "14px",
+                          lineHeight: "17px",
+                          fontWeight: 600,
+                          color: palette.color.gray[900],
+                        }}
+                    >
+                      {InvDetails?.name}
+                    </Typography>
+                )}
 
-            {!isListSelected && (
-              <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
-                {/* {type != "edit" && ( */}
-                <IconButton
-                  sx={{
-                    padding: "0px !important",
-                    height: "25px !important",
-                    width: "25px !important",
-                  }}
-                  onClick={() => {
-                    // if (type != "edit" && !isListSelected) {
-                    handleOpen();
-                    // }
-                  }}
-                >
-                  <Icon icon="editIcon" width={20} height={20} />
-                </IconButton>
-                {/* )} */}
+                {!isListSelected && (
+                    <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
+                      {/* {type != "edit" && ( */}
+                      <IconButton
+                          sx={{
+                            padding: "0px !important",
+                            height: "25px !important",
+                            width: "25px !important",
+                          }}
+                          onClick={() => {
+                            // if (type != "edit" && !isListSelected) {
+                            handleOpen();
+                            // }
+                          }}
+                      >
+                        <Icon icon="editIcon" width={20} height={20} />
+                      </IconButton>
+                      {/* )} */}
 
-                <IconButton
-                  sx={{
-                    padding: "0px !important",
-                    height: "25px !important",
-                    width: "25px !important",
-                  }}
-                  onClick={() => {
-                    if (detailsOf == "Sender") {
-                      dispatch(setResetFromDetails());
-                      dispatch(setSenderSelected(false));
-                    } else {
-                      dispatch(setResetToDetails());
-                      dispatch(setRecipientSelected(false));
-                    }
-                  }}
-                >
-                  <CloseIcon
-                    sx={{
-                      width: "20px",
-                      height: "20px",
-                      color: palette.color.gray[600],
-                    }}
-                  />
-                </IconButton>
+                      <IconButton
+                          sx={{
+                            padding: "0px !important",
+                            height: "25px !important",
+                            width: "25px !important",
+                          }}
+                          onClick={() => {
+                            if (detailsOf == "Sender") {
+                              dispatch(setResetFromDetails());
+                              dispatch(setSenderSelected(false));
+                            } else {
+                              dispatch(setResetToDetails());
+                              dispatch(setRecipientSelected(false));
+                            }
+                          }}
+                      >
+                        <CloseIcon
+                            sx={{
+                              width: "20px",
+                              height: "20px",
+                              color: palette.color.gray[600],
+                            }}
+                        />
+                      </IconButton>
+                    </Stack>
+                )}
+                {isListSelected && (
+                    <Stack direction={"row"} gap={1} sx={{ alignItems: "center" }}>
+                      <IconButton
+                          sx={{
+                            padding: "0px !important",
+                            height: "25px !important",
+                            width: "25px !important",
+                          }}
+                          onClick={() => {
+                            // if (type != "edit" && !isListSelected) {
+                            handleOpen();
+                            // }
+                          }}
+                      >
+                        <Icon icon="editIcon" width={20} height={20} />
+                      </IconButton>
+                      <IconButton
+                          sx={{
+                            padding: "0px !important",
+                            height: "20px !important",
+                            width: "20px !important",
+                          }}
+                          onClick={() => {
+                            if (detailsOf == "Sender") {
+                              dispatch(setResetFromDetails());
+                              dispatch(setSenderSelected(false));
+                            } else {
+                              dispatch(setResetToDetails());
+                              dispatch(setRecipientSelected(false));
+                            }
+                          }}
+                      >
+                        <CloseIcon
+                            sx={{
+                              width: "20px",
+                              height: "20px",
+                              color: palette.color.gray[300],
+                            }}
+                        />
+                      </IconButton>
+                    </Stack>
+                )}
               </Stack>
-            )}
-            {isListSelected && (
-              <IconButton
-                sx={{
-                  padding: "0px !important",
-                  height: "20px !important",
-                  width: "20px !important",
-                }}
-                onClick={() => {
-                  if (detailsOf == "Sender") {
-                    dispatch(setResetFromDetails());
-                    dispatch(setSenderSelected(false));
-                  } else {
-                    dispatch(setResetToDetails());
-                    dispatch(setRecipientSelected(false));
-                  }
-                }}
-              >
-                <CloseIcon
-                  sx={{
-                    width: "20px",
-                    height: "20px",
-                    color: palette.color.gray[300],
-                  }}
-                />
-              </IconButton>
-            )}
-          </Stack>
-          <Stack sx={{ marginTop: 0 }}>
-            <Stack direction={"column"}>
-              {InvDetails?.companyName && (
-                <Typography
-                  variant="text-xs-regular"
-                  sx={{
-                    mt: "8px",
-                    fontSize: "14px",
-                    lineHeight: "17px",
-                    fontWeight: 500,
-                    color: palette.color.gray[610],
-                  }}
-                >
-                  {InvDetails?.name}
-                </Typography>
-              )}
+              <Stack sx={{ marginTop: 0 }}>
+                <Stack direction={"column"}>
+                  {InvDetails?.companyName && (
+                      <Typography
+                          variant="text-xs-regular"
+                          sx={{
+                            mt: "8px",
+                            fontSize: "14px",
+                            lineHeight: "17px",
+                            fontWeight: 500,
+                            color: palette.color.gray[610],
+                          }}
+                      >
+                        {InvDetails?.name}
+                      </Typography>
+                  )}
 
-              <Typography
-                variant="text-xs-regular"
-                sx={{
-                  mt: InvDetails?.companyName ? "0px" : "8px",
-                  fontSize: "14px",
-                  lineHeight: "17px",
-                  fontWeight: 400,
-                  color: palette.color.gray[610],
-                }}
-              >
-                {InvDetails?.address}
-                {InvDetails?.address != "" ? "," : ""} {InvDetails?.city}
-              </Typography>
-              <Typography
-                variant="text-xs-regular"
-                sx={{
-                  fontSize: "14px",
-                  lineHeight: "17px",
-                  fontWeight: 500,
-                  color: palette.color.gray[610],
-                }}
-              >
-                {InvDetails?.state}
-              </Typography>
-            </Stack>
-            <Stack direction={"column"}>
-              <Typography
-                variant="text-xs-regular"
-                sx={{
-                  fontSize: "14px",
-                  lineHeight: "17px",
-                  fontWeight: 500,
-                  color: palette.color.gray[610],
-                }}
-              >
-                {InvDetails?.email}
-              </Typography>
-              <Typography
-                variant="text-xs-regular"
-                sx={{
-                  fontSize: "14px",
-                  lineHeight: "17px",
-                  fontWeight: 500,
-                  color: palette.color.gray[610],
-                }}
-              >
-                {InvDetails?.phoneNumber}
-              </Typography>
-            </Stack>
-          </Stack>
-        </Box>
-      )}
+                  <Typography
+                      variant="text-xs-regular"
+                      sx={{
+                        mt: InvDetails?.companyName ? "0px" : "8px",
+                        fontSize: "14px",
+                        lineHeight: "17px",
+                        fontWeight: 400,
+                        color: palette.color.gray[610],
+                      }}
+                  >
+                    {InvDetails?.address}
+                    {InvDetails?.address != "" ? "," : ""} {InvDetails?.city}
+                  </Typography>
+                  <Typography
+                      variant="text-xs-regular"
+                      sx={{
+                        fontSize: "14px",
+                        lineHeight: "17px",
+                        fontWeight: 500,
+                        color: palette.color.gray[610],
+                      }}
+                  >
+                    {InvDetails?.state}
+                  </Typography>
+                </Stack>
+                <Stack direction={"column"}>
+                  <Typography
+                      variant="text-xs-regular"
+                      sx={{
+                        fontSize: "14px",
+                        lineHeight: "17px",
+                        fontWeight: 500,
+                        color: palette.color.gray[610],
+                      }}
+                  >
+                    {InvDetails?.email}
+                  </Typography>
+                  <Typography
+                      variant="text-xs-regular"
+                      sx={{
+                        fontSize: "14px",
+                        lineHeight: "17px",
+                        fontWeight: 500,
+                        color: palette.color.gray[610],
+                      }}
+                  >
+                    {InvDetails?.phoneNumber}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </Box>
+        )}
 
-      {/* Modal */}
+        {/* Modal */}
 
-      <CreateSRModal
-        detailsOf={detailsOf}
-        InvDetails={InvDetails}
-        handleSubmitForm={handleSubmitForm}
-        showData={showData}
-        onClose={handleModelClose}
-        openModal={open}
-        filteredData={
-          detailsOf === `Sender` ? filteredSenderData : filteredClientData
-        }
-      />
-    </Box>
+        <CreateSRModal
+            detailsOf={detailsOf}
+            InvDetails={InvDetails}
+            handleSubmitForm={handleSubmitForm}
+            showData={showData}
+            onClose={handleModelClose}
+            openModal={open}
+            filteredData={
+              detailsOf === `Sender` ? filteredSenderData : filteredClientData
+            }
+        />
+      </Box>
   );
 };
 

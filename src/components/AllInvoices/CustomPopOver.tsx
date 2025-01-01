@@ -283,7 +283,7 @@ const CustomPopOver: React.FC<CustomPopOverProps> = ({
             }}
             onClick={() => {
               setAnchorEl(null);
-              handleOpenDeleteModal(record?.id);
+              handleOpenDeleteModal(record?._id);
             }}
           >
             Delete

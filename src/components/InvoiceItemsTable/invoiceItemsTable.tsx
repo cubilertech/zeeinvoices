@@ -1,12 +1,12 @@
 "use client";
 import { palette } from "@/theme/palette";
 import {
-  Box,
-  ButtonBase,
-  Grid,
-  Stack,
-  Typography,
-  useMediaQuery,
+    Box,
+    ButtonBase,
+    Grid,
+    Stack,
+    Typography,
+    useMediaQuery,
 } from "@mui/material";
 import { FC, useState } from "react";
 import { Icon } from "../Icon";
@@ -14,354 +14,354 @@ import { ItemsTableRow } from "../ItemsTableRow";
 import { isNearWhite, useSelectedColor } from "@/utils/common";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addInvoiceItem,
-  getInvoiceItem,
-  removeInvoiceItem,
+    addInvoiceItem,
+    getInvoiceItem,
+    removeInvoiceItem,
 } from "@/redux/features/invoiceSlice";
 import {
-  getCurrency,
-  getDiscount,
-  getTax,
+    getCurrency,
+    getDiscount,
+    getTax,
 } from "@/redux/features/invoiceSetting";
+import React from "react";
 
 const InvoiceItemsTable: FC = () => {
-  const getAllInvoiceItems = useSelector(getInvoiceItem);
-  const selectedColor = useSelectedColor();
-  const selectedCurrency = useSelector(getCurrency);
-  const dispatch = useDispatch();
-  const selectedTax = useSelector(getTax);
-  const selectedDiscount = useSelector(getDiscount);
-  const isModile = useMediaQuery("(max-width: 700px)");
-  const handleAddItem = () => {
-    const rowId = Math.floor(Math.random() * 1000);
-    dispatch(
-      addInvoiceItem({
-        id: rowId,
-        name: "",
-        description: "",
-        quantity: 0,
-        rate: 0,
-        tax: 0,
-        discount: 0,
-        subTotalWithoutDiscount: 0,
-        subTotal: 0,
-        taxAmountWithoutDiscount: 0,
-        taxAmount: 0,
-        discountAmount: 0,
-      })
-    );
-  };
-  // Remove Item
-  const handleRemoveItem = (id: number) => {
-    dispatch(removeInvoiceItem(id));
-  };
+    const getAllInvoiceItems = useSelector(getInvoiceItem);
+    const selectedColor = useSelectedColor();
+    const selectedCurrency = useSelector(getCurrency);
+    const dispatch = useDispatch();
+    const selectedTax = useSelector(getTax);
+    const selectedDiscount = useSelector(getDiscount);
+    const isModile = useMediaQuery("(max-width: 700px)");
+    const handleAddItem = () => {
+        const rowId = Math.floor(Math.random() * 1000);
+        dispatch(
+            addInvoiceItem({
+                id: rowId,
+                name: "",
+                description: "",
+                quantity: 0,
+                rate: 0,
+                tax: 0,
+                discount: 0,
+                subTotalWithoutDiscount: 0,
+                subTotal: 0,
+                taxAmountWithoutDiscount: 0,
+                taxAmount: 0,
+                discountAmount: 0,
+            })
+        );
+    };
+    // Remove Item
+    const handleRemoveItem = (id: number) => {
+        dispatch(removeInvoiceItem(id));
+    };
 
-  return (
-    <Stack direction={"column"}>
-      {/* Table header */}
-      <Box
-        sx={{
-          width: "100%",
-          overflow: { sm: "visible", xs: "auto" },
-        }}
-      >
-        <Box sx={{ width: { sm: "100%", xs: "100%" } }}>
-          {!isModile && (
-            <Grid
-              container
-              sx={{
-                width: "100%",
-                backgroundColor: selectedColor,
-                borderRadius: "4px",
-                ml: "0px",
-                height: "42px",
-                mt: "24px",
-                alignItems: "center",
-                border: isNearWhite(selectedColor)
-                  ? `1px solid ${palette.color.gray[200]}`
-                  : "none",
-              }}
-              spacing={2}
+    return (
+        <Stack direction={"column"}>
+            {/* Table header */}
+            <Box
+                sx={{
+                    width: "100%",
+                    overflow: { sm: "visible", xs: "auto" },
+                }}
             >
-              <Grid
-                sx={{
-                  padding: "8px",
-                  paddingTop: "8px !important",
-                  paddingLeft: "12px !important",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                item
-                xs={
-                  selectedTax
-                    ? selectedDiscount
-                      ? 3.2
-                      : 4.16
-                    : selectedDiscount
-                    ? 4.16
-                    : 4.16
-                }
-              >
-                <Typography
-                  variant="text-xs-semibold"
-                  sx={{
-                    color: isNearWhite(selectedColor)
-                      ? palette.base.black
-                      : palette.base.white,
-                  }}
-                >
-                  Items
-                </Typography>
-              </Grid>
-              <Grid
-                sx={{
-                  padding: "8px",
-                  paddingTop: "8px !important",
-                  paddingLeft: "8px !important",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                item
-                xs={
-                  selectedTax
-                    ? selectedDiscount
-                      ? 1.5
-                      : 1.5
-                    : selectedDiscount
-                    ? 1.5
-                    : 2.3
-                }
-              >
-                <Typography
-                  variant="text-xs-semibold"
-                  sx={{
-                    color: isNearWhite(selectedColor)
-                      ? palette.base.black
-                      : palette.base.white,
-                  }}
-                >
-                  Qty
-                </Typography>
-              </Grid>
-              <Grid
-                sx={{
-                  padding: "8px",
-                  paddingTop: "8px !important",
-                  paddingLeft: "8px !important",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                item
-                xs={
-                  selectedTax
-                    ? selectedDiscount
-                      ? 1.5
-                      : 1.5
-                    : selectedDiscount
-                    ? 1.5
-                    : 2.3
-                }
-              >
-                <Typography
-                  variant="text-xs-semibold"
-                  sx={{
-                    color: isNearWhite(selectedColor)
-                      ? palette.base.black
-                      : palette.base.white,
-                  }}
-                >
-                  Rate <span>{`(${selectedCurrency})`}</span>
-                </Typography>
-              </Grid>
+                <Box sx={{ width: { sm: "100%", xs: "100%" } }}>
+                    {!isModile && (
+                        <Grid
+                            container
+                            sx={{
+                                width: "100%",
+                                backgroundColor: selectedColor,
+                                borderRadius: "4px",
+                                ml: "0px",
+                                height: "42px",
+                                mt: "24px",
+                                alignItems: "center",
+                                border: isNearWhite(selectedColor)
+                                    ? `1px solid ${palette.color.gray[200]}`
+                                    : "none",
+                            }}
+                            spacing={2}
+                        >
+                            <Grid
+                                sx={{
+                                    padding: "8px",
+                                    paddingTop: "8px !important",
+                                    paddingLeft: "12px !important",
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                                item
+                                xs={
+                                    selectedTax
+                                        ? selectedDiscount
+                                            ? 3.2
+                                            : 4.16
+                                        : selectedDiscount
+                                            ? 4.16
+                                            : 4.16
+                                }
+                            >
+                                <Typography
+                                    variant="text-xs-semibold"
+                                    sx={{
+                                        color: isNearWhite(selectedColor)
+                                            ? palette.base.black
+                                            : palette.base.white,
+                                    }}
+                                >
+                                    Items
+                                </Typography>
+                            </Grid>
+                            <Grid
+                                sx={{
+                                    padding: "8px",
+                                    paddingTop: "8px !important",
+                                    paddingLeft: "8px !important",
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                                item
+                                xs={
+                                    selectedTax
+                                        ? selectedDiscount
+                                            ? 1.5
+                                            : 1.5
+                                        : selectedDiscount
+                                            ? 1.5
+                                            : 2.3
+                                }
+                            >
+                                <Typography
+                                    variant="text-xs-semibold"
+                                    sx={{
+                                        color: isNearWhite(selectedColor)
+                                            ? palette.base.black
+                                            : palette.base.white,
+                                    }}
+                                >
+                                    Qty
+                                </Typography>
+                            </Grid>
+                            <Grid
+                                sx={{
+                                    padding: "8px",
+                                    paddingTop: "8px !important",
+                                    paddingLeft: "8px !important",
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                                item
+                                xs={
+                                    selectedTax
+                                        ? selectedDiscount
+                                            ? 1.5
+                                            : 1.5
+                                        : selectedDiscount
+                                            ? 1.5
+                                            : 2.3
+                                }
+                            >
+                                <Typography
+                                    variant="text-xs-semibold"
+                                    sx={{
+                                        color: isNearWhite(selectedColor)
+                                            ? palette.base.black
+                                            : palette.base.white,
+                                    }}
+                                >
+                                    Rate <span>{`(${selectedCurrency})`}</span>
+                                </Typography>
+                            </Grid>
 
-              {selectedDiscount ? (
-                <Grid
-                  sx={{
-                    padding: "8px",
-                    paddingTop: "8px !important",
-                    paddingLeft: "8px !important",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  item
-                  xs={
-                    selectedTax
-                      ? selectedDiscount
-                        ? 1.5
-                        : 1.5
-                      : selectedDiscount
-                      ? 1.5
-                      : 2.3
-                  }
-                >
-                  {selectedDiscount ? (
-                    <Typography
-                      variant="text-xs-semibold"
-                      sx={{
-                        color: isNearWhite(selectedColor)
-                          ? palette.base.black
-                          : palette.base.white,
-                      }}
-                    >
-                      Discount {`(%)`}
-                    </Typography>
-                  ) : (
-                    ""
-                  )}
-                </Grid>
-              ) : (
-                <></>
-              )}
+                            {selectedDiscount ? (
+                                <Grid
+                                    sx={{
+                                        padding: "8px",
+                                        paddingTop: "8px !important",
+                                        paddingLeft: "8px !important",
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                    item
+                                    xs={
+                                        selectedTax
+                                            ? selectedDiscount
+                                                ? 1.5
+                                                : 1.5
+                                            : selectedDiscount
+                                                ? 1.5
+                                                : 2.3
+                                    }
+                                >
+                                    {selectedDiscount ? (
+                                        <Typography
+                                            variant="text-xs-semibold"
+                                            sx={{
+                                                color: isNearWhite(selectedColor)
+                                                    ? palette.base.black
+                                                    : palette.base.white,
+                                            }}
+                                        >
+                                            Discount {`(%)`}
+                                        </Typography>
+                                    ) : (
+                                        ""
+                                    )}
+                                </Grid>
+                            ) : (
+                                <></>
+                            )}
 
-              {selectedTax ? (
-                <Grid
-                  sx={{
-                    padding: "8px",
-                    paddingTop: "8px !important",
-                    paddingLeft: "8px !important",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  item
-                  xs={1.5}
-                >
-                  {selectedTax ? (
-                    <Typography
-                      variant="text-xs-semibold"
-                      sx={{
-                        color: isNearWhite(selectedColor)
-                          ? palette.base.black
-                          : palette.base.white,
-                      }}
-                    >
-                      Tax {`(%)`}
-                    </Typography>
-                  ) : (
-                    ""
-                  )}
-                </Grid>
-              ) : (
-                <></>
-              )}
+                            {selectedTax ? (
+                                <Grid
+                                    sx={{
+                                        padding: "8px",
+                                        paddingTop: "8px !important",
+                                        paddingLeft: "8px !important",
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                    item
+                                    xs={1.5}
+                                >
+                                    {selectedTax ? (
+                                        <Typography
+                                            variant="text-xs-semibold"
+                                            sx={{
+                                                color: isNearWhite(selectedColor)
+                                                    ? palette.base.black
+                                                    : palette.base.white,
+                                            }}
+                                        >
+                                            Tax {`(%)`}
+                                        </Typography>
+                                    ) : (
+                                        ""
+                                    )}
+                                </Grid>
+                            ) : (
+                                <></>
+                            )}
 
-              <Grid
-                sx={{
-                  padding: "8px",
-                  paddingTop: "8px !important",
-                  paddingLeft: "8px !important",
-                  display: "flex",
-                  justifyContent: "end",
-                  alignItems: "center",
-                }}
-                item
-                xs={
-                  selectedTax
-                    ? selectedDiscount
-                      ? 2.5
-                      : 3.05
-                    : selectedDiscount
-                    ? 3.05
-                    : 2.95
-                }
-              >
-                <Typography
-                  variant="text-xs-semibold"
-                  sx={{
-                    color: isNearWhite(selectedColor)
-                      ? palette.base.black
-                      : palette.base.white,
-                    mr: "0px",
-                  }}
-                >
-                  Subtotal {`(${selectedCurrency})`}
-                </Typography>
-              </Grid>
-            </Grid>
-          )}
+                            <Grid
+                                sx={{
+                                    padding: "8px",
+                                    paddingTop: "8px !important",
+                                    paddingLeft: "8px !important",
+                                    display: "flex",
+                                    justifyContent: "end",
+                                    alignItems: "center",
+                                }}
+                                item
+                                xs={
+                                    selectedTax
+                                        ? selectedDiscount
+                                            ? 2.5
+                                            : 3.05
+                                        : selectedDiscount
+                                            ? 3.05
+                                            : 2.95
+                                }
+                            >
+                                <Typography
+                                    variant="text-xs-semibold"
+                                    sx={{
+                                        color: isNearWhite(selectedColor)
+                                            ? palette.base.black
+                                            : palette.base.white,
+                                        mr: "0px",
+                                    }}
+                                >
+                                    Subtotal {`(${selectedCurrency})`}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    )}
 
-          {getAllInvoiceItems?.map((item: any, index: number) => (
-            <>
-              {isModile && (
-                <Box
-                  sx={{
-                    height: "42px",
-                    px: "16px",
-                    borderRadius: "4px",
-                    backgroundColor: selectedColor,
-                    display: "flex",
-                    alignItems: "center",
-                    mt: "24px",
-                    border: isNearWhite(selectedColor)
-                      ? `1px solid ${palette.color.gray[200]}`
-                      : "none",
-                  }}
-                >
-                  <Typography
-                    variant="text-xs-semibold"
-                    sx={{
-                      color: isNearWhite(selectedColor)
-                        ? palette.base.black
-                        : palette.base.white,
-                    }}
-                  >
-                    Item {index + 1}
-                  </Typography>
+                    {getAllInvoiceItems?.map((item: any, index: number) => (
+                        <React.Fragment key={index}>
+                            {isModile && (
+                                <Box
+                                    sx={{
+                                        height: "42px",
+                                        px: "16px",
+                                        borderRadius: "4px",
+                                        backgroundColor: selectedColor,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        mt: "24px",
+                                        border: isNearWhite(selectedColor)
+                                            ? `1px solid ${palette.color.gray[200]}`
+                                            : "none",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="text-xs-semibold"
+                                        sx={{
+                                            color: isNearWhite(selectedColor)
+                                                ? palette.base.black
+                                                : palette.base.white,
+                                        }}
+                                    >
+                                        Item {index + 1}
+                                    </Typography>
+                                </Box>
+                            )}
+
+                            <ItemsTableRow
+                                id={item.id}
+                                data={item}
+                                onRemove={handleRemoveItem}
+                                showRemoveButton={
+                                    getAllInvoiceItems.length === 1 ? false : true
+                                } // Show remove button only if there's more than one item
+                            />
+                        </React.Fragment>
+                    ))}
                 </Box>
-              )}
-
-              <ItemsTableRow
-                key={item.id}
-                id={item.id}
-                data={item}
-                onRemove={handleRemoveItem}
-                showRemoveButton={
-                  getAllInvoiceItems.length === 1 ? false : true
-                } // Show remove button only if there's more than one item
-              />
-            </>
-          ))}
-        </Box>
-      </Box>
-      {/* add items button */}
-      <ButtonBase
-        onClick={handleAddItem}
-        sx={{
-          mx: "auto",
-          height: "40px",
-          width: "98%",
-          marginTop: "15px",
-          border: "1px dashed",
-          borderRadius: 1,
-          cursor: "pointer",
-          backgroundColor: "#F8FAFC",
-          marginBottom: "24px",
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-          borderColor: palette.primary.main,
-        }}
-      >
-        <Stack
-          direction={"row"}
-          sx={{
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <Box sx={{ padding: 1 }}>
-            <Icon icon="addBlueCircleIcon" width={15} height={15} />
-          </Box>
-          <Typography
-            variant="text-md-semibold"
-            sx={{ color: palette.primary.main }}
-          >
-            Add New Item
-          </Typography>
+            </Box>
+            {/* add items button */}
+            <ButtonBase
+                onClick={handleAddItem}
+                sx={{
+                    mx: "auto",
+                    height: "40px",
+                    width: "98%",
+                    marginTop: "15px",
+                    border: "1px dashed",
+                    borderRadius: 1,
+                    cursor: "pointer",
+                    backgroundColor: "#F8FAFC",
+                    marginBottom: "24px",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    borderColor: palette.primary.main,
+                }}
+            >
+                <Stack
+                    direction={"row"}
+                    sx={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        display: "flex",
+                    }}
+                >
+                    <Box sx={{ padding: 1 }}>
+                        <Icon icon="addBlueCircleIcon" width={15} height={15} />
+                    </Box>
+                    <Typography
+                        variant="text-md-semibold"
+                        sx={{ color: palette.primary.main }}
+                    >
+                        Add New Item
+                    </Typography>
+                </Stack>
+            </ButtonBase>
         </Stack>
-      </ButtonBase>
-    </Stack>
-  );
+    );
 };
 
 export default InvoiceItemsTable;

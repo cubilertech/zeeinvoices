@@ -76,8 +76,9 @@ export const useFetchSingleDocument = (apiRoute: string) => {
     placeholderData: [],
   });
 };
+
 // Create Recods
-export const useCreateDocument = (multipart = true,showToast=true,auth=true) => {
+export const useCreateDocument = (multipart = true, showToast=true, auth=true) => {
   const { data: session } = useSession();
   const handleCreate = async (props: any) => {
     const token = session?.accessToken;
@@ -108,6 +109,7 @@ export const useCreateDocument = (multipart = true,showToast=true,auth=true) => 
   };
   return useMutation(handleCreate);
 };
+
 // Delete Recods
 export const useDeleteDocument = () => {
   const { data: session } = useSession();

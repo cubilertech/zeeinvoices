@@ -115,11 +115,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
   const [isValidInvoice, setIsValidInvoice] = useState(true);
   const [isEditInvoiceId, setIsEditInvoiceId] = useState(false);
 
-  const {
-    mutateAsync: createInvoice,
-    isLoading: createInvoiceLoading,
-    isSuccess: createInvoiceSuccess,
-  } = useCreateDocument();
+  const {mutateAsync: createInvoice, isLoading: createInvoiceLoading, isSuccess: createInvoiceSuccess} = useCreateDocument();
 
   const {
     mutateAsync: sendPromotionalEmail,
@@ -132,6 +128,7 @@ const InvoiceHeader: FC<InvoiceHeaderProps> = ({
     isLoading: updateLoading,
     isSuccess: updateSuccess,
   } = useEditDocument();
+
   const invoiceData = useMemo(() => {
     return {
       id: InvoiceId,

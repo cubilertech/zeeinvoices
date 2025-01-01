@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { FC } from "react";
+import React, {FC, useState} from "react";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,6 +19,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
 import { countryCodes } from "@/utils/data";
+import AutoComplete from "@/components/AutoComplete/autoComplete";
+import countriesData from "countrycitystatejson";
 
 const alphaRegex = /[a-zA-Z]/;
 // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -34,8 +36,7 @@ const validationSchema = Yup.object({
   city: Yup.string()
     .min(3)
     .max(20)
-    .matches(alphaRegex, "Invalid City")
-    .required("City is required"),
+    .matches(alphaRegex, "Invalid City"),
   state: Yup.string()
     .min(2)
     .max(20)
@@ -51,6 +52,9 @@ interface SenderDetail {
   setSenderModel?: any;
   editId?: any;
 }
+
+const countries = countriesData.getCountries();
+
 const SenderDetailModel: FC<SenderDetail> = ({
   handleSubmitForm,
   type,
@@ -58,6 +62,9 @@ const SenderDetailModel: FC<SenderDetail> = ({
   setSenderModel,
   editId,
 }) => {
+  const [selectedCountry, setSelectedCountry] = useState<any>(null);
+  const [cities, setCities] = useState<any>(null);
+
   //close model
   const handleModelClose = () => {
     setSenderModel(false);
@@ -103,6 +110,9 @@ const SenderDetailModel: FC<SenderDetail> = ({
       );
       if (phoneError) {
         errors.phoneNumber = phoneError;
+      }
+      if (!values.state) {
+        errors.state = "State is required";
       }
 
       return errors;
@@ -178,6 +188,13 @@ const SenderDetailModel: FC<SenderDetail> = ({
       });
     }
   };
+
+  const handleAutoCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
+    if (value) {
+      setSelectedCountry(value);
+      handleChange(value.name);
+    }
+  }
 
   return (
     <Box
@@ -351,7 +368,6 @@ const SenderDetailModel: FC<SenderDetail> = ({
                   </FormControl>
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
                     <TextField
-                      isRequired={true}
                       label="City"
                       size="large"
                       name="city"

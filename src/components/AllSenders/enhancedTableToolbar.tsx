@@ -21,11 +21,8 @@ interface EnhancedTableToolbarProps {
   handleSenderAddModel?: any;
 }
 
-const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (
-  props: EnhancedTableToolbarProps
-) => {
-  const { numSelected, search, handleChangeSearch, handleSenderAddModel } =
-    props;
+const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (props: EnhancedTableToolbarProps) => {
+  const { numSelected, search, handleChangeSearch, handleSenderAddModel } = props;
   return (
     <Toolbar
       sx={{

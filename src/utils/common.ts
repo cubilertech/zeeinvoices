@@ -34,6 +34,7 @@ export const handleLogout = () => {
         `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}`
   });
 };
+
 // Login function
 export const handleLogin = (pathname = "/") => {
   signIn("google", {
@@ -41,6 +42,7 @@ export const handleLogin = (pathname = "/") => {
         `${process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL}/create-new-invoice`,
   });
 };
+
 //Image Base 64 Convertion
 export const base64ToFile = (base64String: any, filename: any) => {
   const arr = base64String?.split(",");
