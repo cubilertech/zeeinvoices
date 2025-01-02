@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { FC } from "react";
+import React, {FC, useState} from "react";
 import { palette } from "@/theme/palette";
 import { TextField } from "../TextField";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,6 +19,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PhoneInputWithCode } from "../PhoneInputWithCode";
 import { countryCodes } from "@/utils/data";
+import AutoComplete from "../AutoComplete/autoComplete";
 
 const alphaRegex = /[a-zA-Z]/;
 // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -57,12 +58,14 @@ const ClientDetailModel: FC<ClientDetail> = ({
   setClientModel,
   editId,
 }) => {
+
+  const [countriesState, setCountryState] = useState<any>([]);
+  const [selectedCountry, setSelectedCountry] = useState<any>(null);
+  const [cities, setCities] = useState<any>([]);
   //close model
   const handleModelClose = () => {
     setClientModel(false);
   };
-
-  console.log("Value", editId);
 
   const initialValues = {
     name: editId?.name || "",
@@ -95,6 +98,9 @@ const ClientDetailModel: FC<ClientDetail> = ({
       );
       if (phoneError) {
         errors.phoneNumber = phoneError;
+      }
+      if (!values.state) {
+        errors.state = "State is required";
       }
 
       return errors;
@@ -170,6 +176,45 @@ const ClientDetailModel: FC<ClientDetail> = ({
       });
     }
   };
+
+  const handleAutoCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
+    if (value) {
+      setSelectedCountry(value);
+      handleChange({
+        target: {
+          name: "state",
+          value: value.name
+        }
+      });
+    } else {
+      handleChange({
+        target: {
+          name: "state",
+          value: ""
+        }
+      });
+      setSelectedCountry(null);
+      setCities([])
+    }
+  }
+
+  const handleCityAutoCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
+    if (value) {
+      handleChange({
+        target: {
+          name: "city",
+          value: value
+        }
+      });
+    } else {
+      handleChange({
+        target: {
+          name: "city",
+          value: ""
+        }
+      });
+    }
+  }
 
   return (
     <Box
@@ -328,31 +373,42 @@ const ClientDetailModel: FC<ClientDetail> = ({
                   }}
                 >
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
-                      label="Country/State"
-                      size="large"
-                      name="state"
-                      onChange={handleChange}
-                      value={values.state}
-                      sx={{ width: { sm: "240px", xs: "100%" } }}
-                      helperText={touched.state && errors.state}
-                      onBlur={handleBlur}
-                      error={touched.state && Boolean(errors.state)}
-                    ></TextField>
+                    <AutoComplete
+                        isRequired={true}
+                        label="Country/State"
+                        size="large"
+                        name="state"
+                        onChange={handleAutoCompleteChange}
+                        value={values.state}
+                        sx={{ width: { sm: "240px", xs: "100%" } }}
+                        helperText={touched.state && errors.state}
+                        onBlur={handleBlur}
+                        error={touched.state && Boolean(errors.state)}
+                        optionsData={countriesState}
+                        setState={setCountryState}
+                        dataAPI={"https://countriesnow.space/api/v0.1/countries/positions"}
+                        method={"GET"}
+                    ></AutoComplete>
                   </FormControl>
                   <FormControl sx={{ width: { sm: "240px", xs: "100%" } }}>
-                    <TextField
-                      label="City"
-                      size="large"
-                      name="city"
-                      onChange={handleChange}
-                      value={values.city}
-                      sx={{ width: { sm: "240px", xs: "100%" } }}
-                      helperText={touched.city && errors.city}
-                      onBlur={handleBlur}
-                      error={touched.city && Boolean(errors.city)}
-                    ></TextField>
+                    <AutoComplete
+                        label="City"
+                        size="large"
+                        name="city"
+                        onChange={handleCityAutoCompleteChange}
+                        value={values.city}
+                        sx={{ width: { sm: "240px", xs: "100%" } }}
+                        helperText={touched.city && errors.city}
+                        onBlur={handleBlur}
+                        error={touched.city && Boolean(errors.city)}
+                        optionsData={cities}
+                        setState={setCities}
+                        dataAPI={"https://countriesnow.space/api/v0.1/countries/cities"}
+                        apiBody={{
+                          iso2: selectedCountry?.iso2
+                        }}
+                        method={"POST"}
+                    />
                   </FormControl>
                 </Stack>
                 <Box sx={{ marginTop: "10px" }}>

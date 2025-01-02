@@ -1,55 +1,25 @@
-import {
-  Backdrop,
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  Modal,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import { backendURL } from "@/utils/constants";
-import React, { FC, useState, useEffect } from "react";
-import { Icon } from "../Icon";
-import { palette } from "@/theme/palette";
-import { TextField } from "../TextField";
+import {Box, IconButton, Stack, Typography, useMediaQuery,} from "@mui/material";
+import {backendURL} from "@/utils/constants";
+import React, {FC, useEffect, useState} from "react";
+import {Icon} from "../Icon";
+import {palette} from "@/theme/palette";
 import CloseIcon from "@mui/icons-material/Close";
 import "react-international-phone/style.css";
-import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
-import { useFormik } from "formik";
 import * as Yup from "yup";
 import "@/Styles/phoneNoStyle.css";
-import {
-  getSenderDetail,
-  getRecipientDetail,
-  setResetFromDetails,
-  setResetToDetails,
-} from "@/redux/features/invoiceSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { SelectInput } from "../SelectInput";
-import { SelectSenderReceiver } from "../SelectSenderReceiver";
-import {
-  useFetchAllDocument,
-  useFetchSingleDocument,
-} from "@/utils/ApiHooks/common";
-import { useSession } from "next-auth/react";
-import {
-  getIsRecipientSelected,
-  getIsSenderSelected,
-  setRecipientSelected,
-  setResetSelectedList,
-  setSenderSelected,
-} from "@/redux/features/listSelected";
-import { PhoneInputWithCode } from "../PhoneInputWithCode";
-import { countryCodes } from "@/utils/data";
+import {setResetFromDetails, setResetToDetails,} from "@/redux/features/invoiceSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {SelectSenderReceiver} from "../SelectSenderReceiver";
+import {useFetchAllDocument,} from "@/utils/ApiHooks/common";
+import {useSession} from "next-auth/react";
+import {setRecipientSelected, setResetSelectedList, setSenderSelected,} from "@/redux/features/listSelected";
 import {
   getRecipientDetailsError,
   getSenderDetailsError,
   setRecipientDetailsError,
   setSenderDetailsError,
 } from "@/redux/features/validationSlice";
-import { CreateSRModal } from "../Modals/CreateSRModal";
+import {CreateSRModal} from "../Modals/CreateSRModal";
 
 const alphaRegex = /[a-zA-Z]/;
 // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -66,8 +36,7 @@ const validationSchema = Yup.object({
   city: Yup.string()
       .min(3)
       .max(20)
-      .matches(alphaRegex, "Invalid City")
-      .required("City is required"),
+      .matches(alphaRegex, "Invalid City"),
   state: Yup.string()
       .min(2)
       .max(20)

@@ -25,6 +25,7 @@ import {
 import { useFormik } from "formik";
 import { countryCodes } from "@/utils/data";
 import parsePhoneNumberFromString, { CountryCode } from "libphonenumber-js";
+import AutoComplete from "@/components/AutoComplete/autoComplete";
 
 const alphaRegex = /[a-zA-Z]/;
 // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov)$/;
@@ -76,6 +77,10 @@ const CreateSRModal: FC<CreateSRModal> = ({
   const [filteredSR, setFilteredSR] = useState(filteredData);
   const senderDetail = useSelector(getSenderDetail);
   const recipientDetail = useSelector(getRecipientDetail);
+
+  const [countriesState, setCountryState] = useState<any>([]);
+  const [selectedCountry, setSelectedCountry] = useState<any>(null);
+  const [cities, setCities] = useState<any>([]);
 
   const initialValues = {
     name: InvDetails?.name || "",
@@ -219,6 +224,45 @@ const CreateSRModal: FC<CreateSRModal> = ({
 
     return "";
   };
+
+  const handleAutoCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
+    if (value) {
+      setSelectedCountry(value);
+      handleChange({
+        target: {
+          name: "state",
+          value: value.name
+        }
+      });
+    } else {
+      handleChange({
+        target: {
+          name: "state",
+          value: ""
+        }
+      });
+      setSelectedCountry(null);
+      setCities([])
+    }
+  }
+
+  const handleCityAutoCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
+    if (value) {
+      handleChange({
+        target: {
+          name: "city",
+          value: value
+        }
+      });
+    } else {
+      handleChange({
+        target: {
+          name: "city",
+          value: ""
+        }
+      });
+    }
+  }
 
   return (
     <>
@@ -393,40 +437,43 @@ const CreateSRModal: FC<CreateSRModal> = ({
                   }}
                 >
                   <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      isRequired={true}
-                      label="Country/State"
-                      size="large"
-                      name="state"
-                      borderRadius="4px"
-                      onChange={handleChange}
-                      value={values.state}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.state && errors.state}
-                      onBlur={handleBlur}
-                      error={touched.state && Boolean(errors.state)}
-                    ></TextField>
-                  </FormControl>
-                  <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
-                    <TextField
-                      label="City"
-                      size="large"
-                      borderRadius="4px"
-                      name="city"
-                      onChange={handleChange}
-                      value={values.city}
-                      sx={{
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": { borderRadius: "4px" },
-                      }}
-                      helperText={touched.city && errors.city}
-                      onBlur={handleBlur}
-                      error={touched.city && Boolean(errors.city)}
-                    ></TextField>
-                  </FormControl>
+                      <AutoComplete
+                          isRequired={true}
+                          label="Country/State"
+                          size="large"
+                          name="state"
+                          onChange={handleAutoCompleteChange}
+                          value={values.state}
+                          sx={{ width: { sm: "240px", xs: "100%" } }}
+                          helperText={touched.state && errors.state}
+                          onBlur={handleBlur}
+                          error={touched.state && Boolean(errors.state)}
+                          optionsData={countriesState}
+                          setState={setCountryState}
+                          dataAPI={"https://countriesnow.space/api/v0.1/countries/positions"}
+                          method={"GET"}
+                      ></AutoComplete>
+                    </FormControl>
+                    <FormControl sx={{ width: { sm: "50%", xs: "100%" } }}>
+                      <AutoComplete
+                          label="City"
+                          size="large"
+                          name="city"
+                          onChange={handleCityAutoCompleteChange}
+                          value={values.city}
+                          sx={{ width: { sm: "240px", xs: "100%" } }}
+                          helperText={touched.city && errors.city}
+                          onBlur={handleBlur}
+                          error={touched.city && Boolean(errors.city)}
+                          optionsData={cities}
+                          setState={setCities}
+                          dataAPI={"https://countriesnow.space/api/v0.1/countries/cities"}
+                          apiBody={{
+                            iso2: selectedCountry?.iso2
+                          }}
+                          method={"POST"}
+                      />
+                    </FormControl>
                 </Stack>
                 <Box sx={{ marginTop: "10px" }}>
                   <FormControl fullWidth>
