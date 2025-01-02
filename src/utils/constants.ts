@@ -22,6 +22,11 @@ export const icons = {
   facebooklpf: "/Images/logos/facebook-lpf.svg",
   instagarmlpf: "/Images/logos/instagram-lpf.svg",
 
+  instaColoredIcon: "/Images/icons/instagram-colored-icon.svg",
+  linkedinRounded: "/Images/icons/linkedin-rounded.svg",
+  xIcon: "/Images/icons/xIcon.svg",
+  instagramRounded: '/Images/icons/instagramRounded.svg',
+
   uploadLogo: "/Images/icons/upload-logo.svg",
   arrowDownIcon: "/Images/icons/arrow-down.svg",
   sendSqaureIcon: "/Images/icons/send-sqaure.svg",
@@ -117,6 +122,8 @@ export const icons = {
   perpleWorldLinedIcon: "/Images/about/icons/perple-world-lined-icon.svg",
   whiteWorldLinedIcon: "/Images/about/icons/white-world-lined-icon.svg",
   googleIcon: "/Images/icons/google-icon.png",
+
+  invoiceSuccessIcon: "/Images/icons/invoice-success.svg",
 };
 
 export const backendURL =
