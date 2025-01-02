@@ -103,6 +103,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
                 </Typography>
             </Stack>
             <MuiAutoComplete
+                autoComplete={false}
                 value={value}
                 onChange={onChange}
                 open={open}

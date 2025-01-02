@@ -32,14 +32,18 @@ const DisplaySignature: FC<DisplaySignatureProps> = ({}) => {
     }, [isSignature, dispatch]);
 
     return (
-        <>
+        <Stack sx={{
+            justifyContent: "end",
+            alignItems: "center",
+            width: '100%'
+        }}>
             <Stack
                 sx={{
                     px: "20px",
                     mt: { sm: "0px", xs: "20px" },
-                    width: { sm: "auto", xs: "100%" },
-                    justifyContent: "end",
-                    alignItems: "center",
+                    width: { sm: "fit-content", xs: "100%" },
+                    alignSelf: {xs: 'center', sm: 'start'},
+                    alignItems: 'center'
                 }}
             >
                 {invoiceSignature && isSignature && (
@@ -67,22 +71,27 @@ const DisplaySignature: FC<DisplaySignatureProps> = ({}) => {
                                 unoptimized
                             />
                         </Box>
-                        <Typography
-                            variant="text-md-regular"
-                            sx={{
-                                maxWidth: "185px",
-                                overflow: "hidden",
-                                color: palette.color.gray[610],
-                                textWrap: "wrap",
-                                wordBreak: 'break-all'
-                            }}
-                        >
-                            {invoiceSignatureDesignation}
-                        </Typography>
                     </>
                 )}
             </Stack>
-        </>
+            <Stack sx={{
+                px: "20px",
+                mt: { sm: "0px", xs: "20px" },
+                width: { sm: "auto", xs: "100%" },
+                alignSelf: 'start'
+            }}>
+                <Typography
+                    variant="text-md-regular"
+                    sx={{
+                        overflow: "hidden",
+                        color: palette.color.gray[610],
+                        textAlign: 'center'
+                    }}
+                >
+                    {invoiceSignatureDesignation}
+                </Typography>
+            </Stack>
+        </Stack>
     );
 };
 
