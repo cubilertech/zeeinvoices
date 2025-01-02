@@ -50,12 +50,24 @@ export default function RootLayout({
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-05BL6M7BW1"
         />
-        <Script id="google-ads">
+        <Script id="google-analytics">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-05BL6M7BW1');
+          `}
+        </Script>
+        <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=AW-11380785487"
+        />
+        <Script id="google-ads">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-11380785487');
           `}
         </Script>
         <Script id="json-ld" type="application/ld+json">
