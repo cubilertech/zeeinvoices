@@ -23,13 +23,14 @@ export async function POST(request: Request) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
+        user: "zeeinvoiceswebsite@gmail.com",
+        pass: "wsts dkzg hoit tpad",
       },
       tls: {
         rejectUnauthorized: false, // Allow self-signed certificates
       },
     });
+
 
     let mailOptions = {
       from: email,

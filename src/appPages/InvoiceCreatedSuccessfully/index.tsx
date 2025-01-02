@@ -44,6 +44,7 @@ const InvoiceCreatedSuccessfully = () => {
     }
 
     return(
+
         <Container maxWidth={'lg'}>
             <Stack sx={{alignItems: 'center', justifyContent: 'center', marginTop: {xs: '56px', md: '64px'}, rowGap: '1rem', paddingY: '3rem', textAlign: 'center'}}>
                 <Icon icon={"invoiceSuccessIcon"} height={150} width={150} />
